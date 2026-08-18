@@ -1,0 +1,110 @@
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@300..700&family=Syne:wght@700;800&display=swap');
+@import "tailwindcss";
+
+:root {
+  /* Fonts */
+  --font-serif: 'Cormorant Garamond', Georgia, serif;
+  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-heading: 'Syne', sans-serif;
+  --font-heading-weight: 800;
+
+  /* Color Palette - Light Mode (Warm Paper & Ink) */
+  --bg-primary: #fcfbf9;
+  --bg-secondary: #f6f4ee;
+  --bg-card: #fcfbf9;
+  --border-color: #e5e2d9;
+  --border-dark: #1a1a1a;
+  
+  --text-primary: #1a1a1a;
+  --text-secondary: #5a5750;
+  --text-muted: #8a857b;
+  
+  --accent-color: #52FF1A; /* Neon Green */
+  --accent-hover: #42e012;
+  --terminal-green: #52FF1A;
+  
+  --transition-normal: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-fast: 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Dark Mode (Deep Charcoal & Soft Ivory) */
+:root.dark-theme,
+:root.dark,
+.dark {
+  --bg-primary: #0e0e0e;
+  --bg-secondary: #141414;
+  --bg-card: #0e0e0e;
+  --border-color: #262626;
+  --border-dark: #e5e5e5;
+  
+  --text-primary: #e5e5e5;
+  --text-secondary: #a3a3a3;
+  --text-muted: #666666;
+  
+  --accent-color: #52FF1A; /* Neon Green */
+  --accent-hover: #42e012;
+  --terminal-green: #52FF1A;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not(.light-theme) {
+    --bg-primary: #0e0e0e;
+    --bg-secondary: #141414;
+    --bg-card: #0e0e0e;
+    --border-color: #262626;
+    --border-dark: #e5e5e5;
+    
+    --text-primary: #e5e5e5;
+    --text-secondary: #a3a3a3;
+    --text-muted: #666666;
+    
+    --accent-color: #52FF1A; /* Neon Green */
+    --accent-hover: #42e012;
+    --terminal-green: #52FF1A;
+  }
+}
+
+/* Base resets & smooth scrolling */
+html {
+  scroll-behavior: smooth;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.7;
+  letter-spacing: -0.01em;
+  transition: background-color var(--transition-normal), color var(--transition-normal);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Editorial Typography */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: var(--font-heading-weight, 800);
+  line-height: 1.1;
+  color: var(--text-primary);
+}
+
+/* Custom Selection */
+::selection {
+  background: #52FF1A;
+  color: #000000;
+}
+
+/* Hide native OS/browser scrollbar completely across all browsers */
+html,
+body {
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+::-webkit-scrollbar {
+  display: none !important;
+  width: 0px !important;
+  height: 0px !important;
+}

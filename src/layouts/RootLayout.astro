@@ -1,0 +1,51 @@
+---
+import SEO from '../components/SEO.astro';
+import Navbar from '../components/Navbar.astro';
+import CustomScrollbar from '../components/CustomScrollbar.astro';
+import HeroDockScript from '../components/HeroDockScript.astro';
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  canonicalURL?: string | URL;
+  type?: 'website' | 'article';
+  keywords?: string[];
+  schema?: Record<string, any>;
+}
+
+const { title, description, image, canonicalURL, type, keywords, schema } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en" class="h-full bg-white text-neutral-900 antialiased dark:bg-neutral-950 dark:text-neutral-100">
+  <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&display=swap" rel="stylesheet" />
+    <SEO
+      title={title}
+      description={description}
+      image={image}
+      canonicalURL={canonicalURL}
+      type={type}
+      keywords={keywords}
+      schema={schema}
+    />
+  </head>
+  <body class="min-h-full flex flex-col relative">
+    <CustomScrollbar />
+    <Navbar />
+    <HeroDockScript />
+    <main class="flex-1 w-full">
+      <slot />
+    </main>
+    <footer class="w-full border-t border-neutral-200 dark:border-neutral-800 py-6 text-center text-xs text-neutral-500">
+      <div class="max-w-6xl mx-auto px-4">
+        &copy; {new Date().getFullYear()} Yovan. High-Performance SEO Architecture on Astro.
+      </div>
+    </footer>
+  </body>
+</html>
+

@@ -1,0 +1,71 @@
+---
+import RootLayout from '../layouts/RootLayout.astro';
+---
+
+<RootLayout
+  title="Component Library | Editorial & Systems UI Primitives"
+  description="Design system, typography specimens, color tokens, and UI primitives architected for Portfolio v5."
+>
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-12 space-y-16">
+    <!-- Header -->
+    <header class="border-b border-neutral-200 dark:border-neutral-800 pb-8">
+      <div class="flex items-center gap-2 mb-3">
+        <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 text-xs font-mono font-semibold uppercase tracking-wider rounded-full bg-[#52FF1A]/10 text-[#52FF1A] border border-[#52FF1A]/30">
+          Design System v5.0
+        </span>
+      </div>
+      <h1 class="text-3xl sm:text-4xl font-bold tracking-tight text-neutral-950 dark:text-white" style="font-family: var(--font-heading);">
+        Component Library
+      </h1>
+      <p class="text-sm sm:text-base text-neutral-600 dark:text-neutral-400 mt-2 max-w-2xl font-normal">
+        A comprehensive showcase of typography, color tokens, interactive controls, and architectural primitives.
+      </p>
+    </header>
+
+    <!-- 01 / Color Tokens -->
+    <section class="space-y-6">
+      <div class="flex items-center justify-between border-b border-dashed border-neutral-200 dark:border-neutral-800 pb-2">
+        <h2 class="font-mono text-xs uppercase tracking-[0.15em] text-neutral-500 dark:text-neutral-400 font-semibold">
+          01 / Color Tokens
+        </h2>
+      </div>
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+        <!-- Neon Green Accent -->
+        <div class="flex flex-col gap-2 p-3 rounded-lg border border-neutral-200 dark:border-neutral-800 bg-neutral-50/50 dark:bg-neutral-900/30">
+          <div class="w-full aspect-video rounded bg-[#52FF1A] border border-black/10 shadow-[0_0_20px_rgba(82,255,26,0.3)]"></div>
+          <div class="flex flex-col">
+            <span class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100">Accent Neon</span>
+            <span class="font-mono text-[11px] text-neutral-500">#52FF1A</span>
+          </div>
+        </div>
+
+        <!-- Primary Background -->
+        <div class="flex flex-col gap-2 p-3 rounded-lg border border-neutral-200 dark:border-neutral-800 bg-neutral-50/50 dark:bg-neutral-900/30">
+          <div class="w-full aspect-video rounded bg-[#fcfbf9] dark:bg-[#0e0e0e] border border-neutral-300 dark:border-neutral-700"></div>
+          <div class="flex flex-col">
+            <span class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100">Surface Base</span>
+            <span class="font-mono text-[11px] text-neutral-500">#fcfbf9 / #0e0e0e</span>
+          </div>
+        </div>
+
+        <!-- Ink Text -->
+        <div class="flex flex-col gap-2 p-3 rounded-lg border border-neutral-200 dark:border-neutral-800 bg-neutral-50/50 dark:bg-neutral-900/30">
+          <div class="w-full aspect-video rounded bg-[#1a1a1a] dark:bg-[#e5e5e5] border border-neutral-300 dark:border-neutral-700"></div>
+          <div class="flex flex-col">
+            <span class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100">Text Primary</span>
+            <span class="font-mono text-[11px] text-neutral-500">#1a1a1a / #e5e5e5</span>
+          </div>
+        </div>
+
+        <!-- Secondary Surface -->
+        <div class="flex flex-col gap-2 p-3 rounded-lg border border-neutral-200 dark:border-neutral-800 bg-neutral-50/50 dark:bg-neutral-900/30">
+          <div class="w-full aspect-video rounded bg-[#f6f4ee] dark:bg-[#141414] border border-neutral-300 dark:border-neutral-700"></div>
+          <div class="flex flex-col">
+            <span class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100">Surface Card</span>
+            <span class="font-mono text-[11px] text-neutral-500">#f6f4ee / #141414</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</RootLayout>
