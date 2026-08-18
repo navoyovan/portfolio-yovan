@@ -1,0 +1,108 @@
+---
+// CustomScrollbar.astro — Ported from hype-box
+---
+
+<div
+  id="custom-scrollbar-track"
+  class="fixed right-1.5 top-[calc(3.5rem+0.5rem)] bottom-2 w-1.5 z-40 pointer-events-none transition-opacity duration-300 opacity-0 md:opacity-100 group"
+  aria-hidden="true"
+>
+  <div
+    id="custom-scrollbar-thumb"
+    class="w-full bg-neutral-900/25 dark:bg-white/25 hover:bg-neutral-900/50 dark:hover:bg-white/50 active:bg-neutral-900/70 dark:active:bg-white/70 rounded-full cursor-pointer pointer-events-auto transition-colors duration-150"
+    style="transform: translateY(0px);"
+  >
+  </div>
+</div>
+
+<script>
+  function setupScrollbar() {
+    const track = document.getElementById('custom-scrollbar-track');
+    const thumb = document.getElementById('custom-scrollbar-thumb');
+    if (!track || !thumb) return;
+
+    let isDragging = false;
+    let startY = 0;
+    let startScroll = 0;
+
+    const updateThumb = () => {
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      if (docHeight <= 0) {
+        track.style.display = 'none';
+        return;
+      }
+      track.style.display = 'block';
+
+      const trackHeight = track.clientHeight;
+      const thumbHeight = Math.max(
+        36,
+        (window.innerHeight / document.documentElement.scrollHeight) * trackHeight
+      );
+      thumb.style.height = `${thumbHeight}px`;
+
+      const maxThumbTravel = trackHeight - thumbHeight;
+      const scrollY = window.scrollY || 0;
+      const progress = Math.min(1, Math.max(0, scrollY / docHeight));
+      const thumbY = progress * maxThumbTravel;
+
+      thumb.style.transform = `translateY(${thumbY}px)`;
+    };
+
+    window.addEventListener('scroll', updateThumb, { passive: true });
+    window.addEventListener('resize', updateThumb);
+
+    requestAnimationFrame(updateThumb);
+    setTimeout(updateThumb, 500);
+
+    // Dragging interaction
+    thumb.addEventListener('mousedown', (e) => {
+      isDragging = true;
+      startY = e.clientY;
+      startScroll = window.scrollY || 0;
+      document.body.classList.add('select-none');
+      e.preventDefault();
+    });
+
+    window.addEventListener('mousemove', (e) => {
+      if (!isDragging) return;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const trackHeight = track.clientHeight;
+      const thumbHeight = thumb.clientHeight;
+      const maxThumbTravel = trackHeight - thumbHeight;
+      if (maxThumbTravel <= 0) return;
+
+      const deltaY = e.clientY - startY;
+      const scrollDelta = (deltaY / maxThumbTravel) * docHeight;
+      const targetScroll = Math.min(docHeight, Math.max(0, startScroll + scrollDelta));
+
+      window.scrollTo(0, targetScroll);
+    });
+
+    window.addEventListener('mouseup', () => {
+      if (isDragging) {
+        isDragging = false;
+        document.body.classList.remove('select-none');
+      }
+    });
+
+    // Track click to jump
+    track.addEventListener('click', (e) => {
+      if (e.target === thumb) return;
+      const rect = track.getBoundingClientRect();
+      const clickY = e.clientY - rect.top;
+      const trackHeight = track.clientHeight;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const targetProgress = Math.min(1, Math.max(0, clickY / trackHeight));
+      const targetScroll = targetProgress * docHeight;
+
+      window.scrollTo({ top: targetScroll, behavior: 'smooth' });
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupScrollbar);
+  } else {
+    setupScrollbar();
+  }
+  document.addEventListener('astro:page-load', setupScrollbar);
+</script>

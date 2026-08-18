@@ -1,0 +1,53 @@
+---
+import RootLayout from '../layouts/RootLayout.astro';
+import Hero from '../components/Hero.astro';
+---
+
+<RootLayout
+  title="Yovan Gunardio Darmawan"
+  description="Personal portfolio and systems engineering by Yovan Gunardio Darmawan."
+>
+  <Hero firstName="yovan" middleName="gunardio" lastName="darmawan" />
+
+  <!-- Placeholder Feature & Architecture Section -->
+  <div class="max-w-6xl mx-auto px-4 sm:px-6">
+    <section class="border-t border-neutral-200 dark:border-neutral-800 pt-16 pb-24 space-y-10">
+      <div class="space-y-3">
+        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-semibold uppercase tracking-wider rounded-full bg-[#52FF1A]/10 text-[#52FF1A] border border-[#52FF1A]/30">
+          Astro v5 • Zero-JS Baseline
+        </span>
+        <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-neutral-950 dark:text-white" style="font-family: var(--font-heading);">
+          Architected for Maximum SEO & Performance
+        </h2>
+        <p class="text-sm sm:text-base text-neutral-600 dark:text-neutral-400 max-w-2xl">
+          This platform delivers pre-rendered, server-generated static markup to search crawlers with zero runtime JavaScript overhead on static content.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
+        <div class="p-5 rounded-lg border border-neutral-200 dark:border-neutral-800 bg-neutral-50/50 dark:bg-neutral-900/30 space-y-2">
+          <h3 class="text-sm font-semibold text-neutral-900 dark:text-neutral-100">0kb Initial JS</h3>
+          <p class="text-xs text-neutral-500 dark:text-neutral-400">
+            Zero JavaScript shipped to the client by default for optimal TTFB, LCP, and mobile crawlability.
+          </p>
+        </div>
+
+        <div class="p-5 rounded-lg border border-neutral-200 dark:border-neutral-800 bg-neutral-50/50 dark:bg-neutral-900/30 space-y-2">
+          <h3 class="text-sm font-semibold text-neutral-900 dark:text-neutral-100">Rich Structured Data</h3>
+          <p class="text-xs text-neutral-500 dark:text-neutral-400">
+            Built-in Schema.org JSON-LD and complete Open Graph meta tags for all crawlers and social shares.
+          </p>
+        </div>
+
+        <div class="p-5 rounded-lg border border-neutral-200 dark:border-neutral-800 bg-neutral-50/50 dark:bg-neutral-900/30 space-y-2">
+          <h3 class="text-sm font-semibold text-neutral-900 dark:text-neutral-100">Automatic Sitemaps</h3>
+          <p class="text-xs text-neutral-500 dark:text-neutral-400">
+            Auto-generated sitemap index and dynamic robots.txt endpoint discovery.
+          </p>
+        </div>
+      </div>
+    </section>
+  </div>
+</RootLayout>
+
+

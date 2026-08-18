@@ -1,0 +1,66 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  canonicalURL?: string | URL;
+  type?: 'website' | 'article';
+  keywords?: string[];
+  schema?: Record<string, any>;
+}
+
+const {
+  title = 'Astro SEO Portfolio',
+  description = 'High-performance, SEO-optimized web platform built with Astro, Tailwind CSS, and React.',
+  image = '/og-default.png',
+  canonicalURL = new URL(Astro.url.pathname, Astro.site || Astro.url),
+  type = 'website',
+  keywords = ['Astro', 'SEO', 'Web Performance', 'Tailwind CSS', 'Portfolio'],
+  schema,
+} = Astro.props;
+
+const siteTitle = title.includes('Astro') || title.includes('Yovan') ? title : `${title} | Yovan`;
+const formattedImageURL = new URL(image, Astro.site || Astro.url).toString();
+
+const defaultSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'Yovan Portfolio',
+  url: Astro.site?.toString() || Astro.url.origin,
+  description: description,
+};
+
+const finalSchema = schema || defaultSchema;
+---
+
+<!-- Global Metadata -->
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="icon" href="/favicon.ico" />
+<meta name="generator" content={Astro.generator} />
+
+<!-- Primary Meta Tags -->
+<title>{siteTitle}</title>
+<meta name="title" content={siteTitle} />
+<meta name="description" content={description} />
+{keywords && <meta name="keywords" content={keywords.join(', ')} />}
+<link rel="canonical" href={canonicalURL} />
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content={type} />
+<meta property="og:url" content={canonicalURL} />
+<meta property="og:title" content={siteTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={formattedImageURL} />
+<meta property="og:site_name" content="Yovan Portfolio" />
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image" />
+<meta property="twitter:url" content={canonicalURL} />
+<meta property="twitter:title" content={siteTitle} />
+<meta property="twitter:description" content={description} />
+<meta property="twitter:image" content={formattedImageURL} />
+
+<!-- Schema.org JSON-LD -->
+<script type="application/ld+json" is:inline set:html={JSON.stringify(finalSchema)} />
