@@ -22,7 +22,8 @@ const { title, description, image, canonicalURL, type, keywords, schema } = Astr
   <head>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800;900&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Syne:wght@700;800;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css" />
     <SEO
       title={title}
       description={description}
@@ -39,9 +40,22 @@ const { title, description, image, canonicalURL, type, keywords, schema } = Astr
     <main class="flex-1 w-full">
       <slot />
     </main>
-    <footer class="w-full border-t border-neutral-200 dark:border-neutral-800 py-6 text-center text-xs text-neutral-500">
-      <div class="max-w-6xl mx-auto px-4">
-        &copy; {new Date().getFullYear()} Yovan. High-Performance SEO Architecture on Astro.
+    <footer class="w-full border-t border-neutral-200 dark:border-neutral-800 py-8 text-neutral-500 font-sans">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs">
+        <div class="flex items-center gap-2 flex-wrap justify-center sm:justify-start">
+          <span class="font-bold tracking-tight text-neutral-950 dark:text-white" style="font-family: 'Syne', sans-serif;">
+            Yovan Gunardio Darmawan
+          </span>
+          <span class="text-neutral-300 dark:text-neutral-700 select-none">•</span>
+          <span class="text-neutral-500 dark:text-neutral-400">
+            Systems & Full-Stack Engineering
+          </span>
+        </div>
+        <div class="flex items-center gap-2.5 text-[11px] text-neutral-400 dark:text-neutral-500 font-mono">
+          <span>&copy; {new Date().getFullYear()}</span>
+          <span class="text-neutral-300 dark:text-neutral-700 select-none">•</span>
+          <span>BUILT WITH ASTRO</span>
+        </div>
       </div>
     </footer>
   </body>

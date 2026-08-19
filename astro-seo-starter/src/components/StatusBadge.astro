@@ -1,0 +1,49 @@
+---
+interface Props {
+  variant?: 'accent' | 'neutral' | 'warning' | 'danger' | 'info' | 'live' | 'success' | 'syncing' | 'error';
+  size?: 'sm' | 'md';
+  class?: string;
+  [key: string]: any;
+}
+
+const {
+  variant = 'neutral',
+  size = 'md',
+  class: className = '',
+  ...rest
+} = Astro.props;
+
+// Normalize aliases
+const normalizedVariant = (() => {
+  if (['accent', 'live', 'success'].includes(variant)) return 'accent';
+  if (['warning', 'syncing', 'pending'].includes(variant)) return 'warning';
+  if (['danger', 'error'].includes(variant)) return 'danger';
+  if (['info'].includes(variant)) return 'info';
+  return 'neutral';
+})();
+
+const sizeStyles = {
+  sm: 'px-2 py-0.5 text-[10px] tracking-wider',
+  md: 'px-2.5 py-1 text-xs tracking-wider',
+};
+
+const variantStyles = {
+  accent: 'bg-[#52FF1A] text-black font-bold shadow-[0_0_14px_rgba(82,255,26,0.35)] border border-transparent',
+  neutral: 'bg-neutral-950 text-white dark:bg-white dark:text-neutral-950 border border-transparent font-medium',
+  warning: 'bg-amber-400 text-neutral-950 font-bold border border-transparent',
+  danger: 'bg-rose-600 text-white font-bold border border-transparent',
+  info: 'bg-sky-500 text-white font-bold border border-transparent',
+};
+---
+
+<span
+  class:list={[
+    'inline-flex items-center justify-center font-sans font-bold uppercase leading-none rounded select-none whitespace-nowrap transition-all duration-150',
+    sizeStyles[size],
+    variantStyles[normalizedVariant],
+    className
+  ]}
+  {...rest}
+>
+  <slot />
+</span>

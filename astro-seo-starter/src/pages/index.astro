@@ -1,49 +1,360 @@
 ---
 import RootLayout from '../layouts/RootLayout.astro';
 import Hero from '../components/Hero.astro';
+import StatusBadge from '../components/StatusBadge.astro';
+import KioskButton from '../components/KioskButton.astro';
 ---
 
 <RootLayout
-  title="Yovan Gunardio Darmawan"
-  description="Personal portfolio and systems engineering by Yovan Gunardio Darmawan."
+  title="Yovan Gunardio Darmawan — Software Engineer & Builder"
+  description="Hey, I'm Yovan — a developer who likes turning weird ideas into working products. Building web apps, touchscreen kiosks, and physical hardware experiences."
 >
   <Hero firstName="yovan" middleName="gunardio" lastName="darmawan" />
 
-  <!-- Placeholder Feature & Architecture Section -->
-  <div class="max-w-6xl mx-auto px-4 sm:px-6">
-    <section class="border-t border-neutral-200 dark:border-neutral-800 pt-16 pb-24 space-y-10">
-      <div class="space-y-3">
-        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-semibold uppercase tracking-wider rounded-full bg-[#52FF1A]/10 text-[#52FF1A] border border-[#52FF1A]/30">
-          Astro v5 • Zero-JS Baseline
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-24 pb-28">
+    <!-- 01 // OVERVIEW & HERO STATEMENT -->
+    <section id="intro" class="border-t border-neutral-200 dark:border-neutral-800 pt-16 space-y-8">
+      <div class="flex items-center justify-between pb-2 border-b border-neutral-200 dark:border-neutral-800">
+        <span class="font-sans text-xs uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-bold">
+          01 // OVERVIEW
         </span>
-        <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-neutral-950 dark:text-white" style="font-family: var(--font-heading);">
-          Architected for Maximum SEO & Performance
+      </div>
+
+      <div class="space-y-6 max-w-3xl">
+        <h2
+          class="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-neutral-950 dark:text-white leading-[1.15]"
+          style="font-family: 'Syne', sans-serif;"
+        >
+          I build software that makes ideas real.
         </h2>
-        <p class="text-sm sm:text-base text-neutral-600 dark:text-neutral-400 max-w-2xl">
-          This platform delivers pre-rendered, server-generated static markup to search crawlers with zero runtime JavaScript overhead on static content.
+
+        <p class="text-base sm:text-lg text-neutral-700 dark:text-neutral-300 leading-relaxed font-normal">
+          Hey, I'm Yovan — a developer who likes turning weird ideas into working products.
+        </p>
+
+        <div class="space-y-2.5 py-1.5 pl-4 border-l-2 border-[#52FF1A]/50 font-sans text-sm sm:text-base text-neutral-600 dark:text-neutral-400">
+          <p class="flex items-center gap-2.5">
+            <span class="text-[#52FF1A] text-xs font-mono select-none font-bold">›</span>
+            <span>Sometimes that's a web app.</span>
+          </p>
+          <p class="flex items-center gap-2.5">
+            <span class="text-[#52FF1A] text-xs font-mono select-none font-bold">›</span>
+            <span>Sometimes that's a touchscreen kiosk.</span>
+          </p>
+          <p class="flex items-center gap-2.5">
+            <span class="text-[#52FF1A] text-xs font-mono select-none font-bold">›</span>
+            <span>Sometimes that's a tiny device with LEDs doing things it probably shouldn't.</span>
+          </p>
+        </div>
+
+        <p class="text-sm sm:text-base text-neutral-600 dark:text-neutral-400 leading-relaxed font-normal">
+          I enjoy building things across the stack — from the interface people see to the systems making everything run behind the scenes.
+        </p>
+
+        <div class="pt-2">
+          <KioskButton variant="cta" href="#projects">
+            SEE MY WORK
+          </KioskButton>
+        </div>
+      </div>
+    </section>
+
+    <!-- 02 // ABOUT -->
+    <section id="about" class="border-t border-neutral-200 dark:border-neutral-800 pt-16 space-y-8">
+      <div class="flex items-center justify-between pb-2 border-b border-neutral-200 dark:border-neutral-800">
+        <span class="font-sans text-xs uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-bold">
+          02 // ABOUT
+        </span>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <div class="lg:col-span-5 space-y-3">
+          <h2
+            class="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-neutral-950 dark:text-white leading-tight"
+            style="font-family: 'Syne', sans-serif;"
+          >
+            I like figuring out how things work.
+          </h2>
+        </div>
+
+        <div class="lg:col-span-7 space-y-6 text-base sm:text-lg text-neutral-700 dark:text-neutral-300 leading-relaxed font-normal">
+          <p>
+            My journey started with writing code for applications, but curiosity pulled me into everything around it: designing interfaces, building APIs, connecting hardware, and creating experiences that feel alive.
+          </p>
+          <p class="text-neutral-600 dark:text-neutral-400 text-sm sm:text-base">
+            I enjoy working on projects where software isn't just sitting on a screen — where it interacts with people, devices, and the real world.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 03 // CURRENTLY -->
+    <section id="currently" class="border-t border-neutral-200 dark:border-neutral-800 pt-16 space-y-8">
+      <div class="flex items-center justify-between pb-2 border-b border-neutral-200 dark:border-neutral-800">
+        <span class="font-sans text-xs uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-bold">
+          03 // CURRENT FOCUS
+        </span>
+      </div>
+
+      <div class="space-y-2">
+        <h2
+          class="text-2xl sm:text-3xl font-bold tracking-tight text-neutral-950 dark:text-white"
+          style="font-family: 'Syne', sans-serif;"
+        >
+          Currently
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Building Card -->
+        <div class="p-6 sm:p-8 border border-neutral-300/80 dark:border-neutral-800 bg-[#f6f4ee] dark:bg-[#141414] space-y-6 transition-all hover:border-neutral-400 dark:hover:border-neutral-600">
+          <div class="flex items-center justify-between pb-3 border-b border-neutral-200/80 dark:border-neutral-800/80">
+            <h3
+              class="text-lg sm:text-xl font-bold text-neutral-950 dark:text-white tracking-tight flex items-center gap-2"
+              style="font-family: 'Syne', sans-serif;"
+            >
+              <span class="w-2 h-2 bg-[#52FF1A] rounded-full inline-block animate-pulse"></span>
+              Building
+            </h3>
+            <StatusBadge variant="accent" size="sm">ACTIVE DEV</StatusBadge>
+          </div>
+
+          <ul class="space-y-3.5 text-sm sm:text-base text-neutral-700 dark:text-neutral-300 font-sans">
+            <li class="flex items-start gap-3">
+              <span class="text-[#52FF1A] font-bold text-sm shrink-0 select-none">→</span>
+              <span>Web applications with modern frontend and backend technologies</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="text-[#52FF1A] font-bold text-sm shrink-0 select-none">→</span>
+              <span>Interactive experiences with animations and visual elements</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="text-[#52FF1A] font-bold text-sm shrink-0 select-none">→</span>
+              <span>Systems that connect software with physical devices</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Learning Card -->
+        <div class="p-6 sm:p-8 border border-neutral-300/80 dark:border-neutral-800 bg-[#f6f4ee] dark:bg-[#141414] space-y-6 transition-all hover:border-neutral-400 dark:hover:border-neutral-600">
+          <div class="flex items-center justify-between pb-3 border-b border-neutral-200/80 dark:border-neutral-800/80">
+            <h3
+              class="text-lg sm:text-xl font-bold text-neutral-950 dark:text-white tracking-tight flex items-center gap-2"
+              style="font-family: 'Syne', sans-serif;"
+            >
+              <span class="w-2 h-2 bg-sky-400 rounded-full inline-block"></span>
+              Learning
+            </h3>
+            <StatusBadge variant="info" size="sm">EXPLORING</StatusBadge>
+          </div>
+
+          <ul class="space-y-3.5 text-sm sm:text-base text-neutral-700 dark:text-neutral-300 font-sans">
+            <li class="flex items-start gap-3">
+              <span class="text-neutral-400 dark:text-neutral-500 font-bold text-sm shrink-0 select-none">→</span>
+              <span>Better architecture</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="text-neutral-400 dark:text-neutral-500 font-bold text-sm shrink-0 select-none">→</span>
+              <span>Better user experiences</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="text-neutral-400 dark:text-neutral-500 font-bold text-sm shrink-0 select-none">→</span>
+              <span>Better ways to turn ideas into reality</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04 // PROJECTS & HYPEBOX -->
+    <section id="projects" class="border-t border-neutral-200 dark:border-neutral-800 pt-16 space-y-10">
+      <div class="flex items-center justify-between pb-2 border-b border-neutral-200 dark:border-neutral-800">
+        <span class="font-sans text-xs uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-bold">
+          04 // FEATURED WORK
+        </span>
+        <a
+          href="/portfolio-index"
+          class="text-xs font-semibold text-neutral-600 hover:text-neutral-950 dark:text-neutral-400 dark:hover:text-white transition-colors flex items-center gap-1"
+        >
+          View Full Index <span>→</span>
+        </a>
+      </div>
+
+      <!-- Project Intro Copywriting -->
+      <div class="space-y-3 max-w-3xl">
+        <h2
+          class="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-neutral-950 dark:text-white leading-tight"
+          style="font-family: 'Syne', sans-serif;"
+        >
+          Things I've built
+        </h2>
+        <p class="text-base sm:text-lg text-neutral-600 dark:text-neutral-400 leading-relaxed font-normal">
+          A collection of experiments, products, and projects where I tried to solve a problem, learn something new, or just see "what if?"
         </p>
       </div>
 
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
-        <div class="p-5 rounded-lg border border-neutral-200 dark:border-neutral-800 bg-neutral-50/50 dark:bg-neutral-900/30 space-y-2">
-          <h3 class="text-sm font-semibold text-neutral-900 dark:text-neutral-100">0kb Initial JS</h3>
-          <p class="text-xs text-neutral-500 dark:text-neutral-400">
-            Zero JavaScript shipped to the client by default for optimal TTFB, LCP, and mobile crawlability.
+      <!-- Featured Spotlight: Hypebox -->
+      <div class="border border-neutral-300/80 dark:border-neutral-800 bg-[#f6f4ee] dark:bg-[#141414] p-6 sm:p-8 space-y-8">
+        <!-- Hypebox Header -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-neutral-200/80 dark:border-neutral-800/80">
+          <div class="space-y-1">
+            <div class="flex items-center gap-3">
+              <span
+                class="text-2xl sm:text-3xl font-black tracking-tight text-neutral-950 dark:text-white leading-none"
+                style="font-family: 'Syne', sans-serif;"
+              >
+                Hypebox
+              </span>
+              <StatusBadge variant="accent" size="sm">FLAGSHIP PLATFORM</StatusBadge>
+            </div>
+            <p class="text-sm font-medium text-neutral-600 dark:text-neutral-400 pt-1">
+              A photo booth system that grew into a full platform.
+            </p>
+          </div>
+
+          <a
+            href="https://navoyovan.github.io/hypebox/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-neutral-950 dark:text-white bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700 px-4 py-2.5 hover:border-neutral-950 dark:hover:border-white transition-all w-fit"
+          >
+            <span>Visit Hypebox Site</span>
+            <span>↗</span>
+          </a>
+        </div>
+
+        <p class="text-sm sm:text-base text-neutral-700 dark:text-neutral-300 leading-relaxed max-w-3xl font-normal">
+          It connects a web dashboard, payment flow, and physical kiosk into one experience — bringing together software, hardware, and real-world interactions.
+        </p>
+
+        <!-- Ecosystem Grid of Sub-systems -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
+          <!-- Kiosk Subsystem -->
+          <div class="p-5 border border-neutral-200/80 dark:border-neutral-800/80 bg-white/60 dark:bg-neutral-900/40 space-y-3">
+            <div class="flex items-center justify-between">
+              <h4 class="text-base font-bold text-neutral-950 dark:text-white" style="font-family: 'Syne', sans-serif;">
+                Photobooth Kiosk OS
+              </h4>
+              <span class="text-[11px] font-mono text-neutral-500">ELECTRON / REACT</span>
+            </div>
+            <p class="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
+              Standalone touchscreen software with real-time camera feeds, countdown capture loops, and physical thermal printing orchestration.
+            </p>
+            <div class="pt-1 flex items-center justify-between text-xs">
+              <a
+                href="https://navoyovan.github.io/photobooth-kiosk-demo/"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-neutral-900 dark:text-neutral-100 font-semibold hover:text-[#52FF1A] flex items-center gap-1"
+              >
+                Launch Kiosk Demo ↗
+              </a>
+            </div>
+          </div>
+
+          <!-- Vendor Portal Subsystem -->
+          <div class="p-5 border border-neutral-200/80 dark:border-neutral-800/80 bg-white/60 dark:bg-neutral-900/40 space-y-3">
+            <div class="flex items-center justify-between">
+              <h4 class="text-base font-bold text-neutral-950 dark:text-white" style="font-family: 'Syne', sans-serif;">
+                Vendor Management Portal
+              </h4>
+              <span class="text-[11px] font-mono text-neutral-500">REACT / CSS MODULES</span>
+            </div>
+            <p class="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
+              Cloud management interface for event operators: real-time telemetry, session analytics, custom template designers, and financial reports.
+            </p>
+            <div class="pt-1 flex items-center justify-between text-xs">
+              <span class="text-neutral-500 font-mono text-[11px]">Production Fleet Control</span>
+            </div>
+          </div>
+
+          <!-- REST & WebSocket API Subsystem -->
+          <div class="p-5 border border-neutral-200/80 dark:border-neutral-800/80 bg-white/60 dark:bg-neutral-900/40 space-y-3">
+            <div class="flex items-center justify-between">
+              <h4 class="text-base font-bold text-neutral-950 dark:text-white" style="font-family: 'Syne', sans-serif;">
+                REST & WebSocket Backend
+              </h4>
+              <span class="text-[11px] font-mono text-neutral-500">LARAVEL 13 / REVERB</span>
+            </div>
+            <p class="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
+              High-throughput backend processing Midtrans QRIS payments, Google Cloud Storage photo sync, and live kiosk WebSocket telemetry.
+            </p>
+            <div class="pt-1 flex items-center justify-between text-xs">
+              <a
+                href="http://35.254.253.48/"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-neutral-900 dark:text-neutral-100 font-semibold hover:text-[#52FF1A] flex items-center gap-1"
+              >
+                API Status & Docs ↗
+              </a>
+            </div>
+          </div>
+
+          <!-- Landing Page Subsystem -->
+          <div class="p-5 border border-neutral-200/80 dark:border-neutral-800/80 bg-white/60 dark:bg-neutral-900/40 space-y-3">
+            <div class="flex items-center justify-between">
+              <h4 class="text-base font-bold text-neutral-950 dark:text-white" style="font-family: 'Syne', sans-serif;">
+                HYPE-BOX Landing Experience
+              </h4>
+              <span class="text-[11px] font-mono text-neutral-500">ASTRO / TAILWIND v4</span>
+            </div>
+            <p class="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
+              Fast static marketing portal engineered for speed, interactive feature showcases, and booking conversion.
+            </p>
+            <div class="pt-1 flex items-center justify-between text-xs">
+              <a
+                href="https://navoyovan.github.io/hypebox/"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-neutral-900 dark:text-neutral-100 font-semibold hover:text-[#52FF1A] flex items-center gap-1"
+              >
+                Explore Site ↗
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 05 // PHILOSOPHY -->
+    <section id="philosophy" class="border-t border-neutral-200 dark:border-neutral-800 pt-16 space-y-8">
+      <div class="flex items-center justify-between pb-2 border-b border-neutral-200 dark:border-neutral-800">
+        <span class="font-sans text-xs uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-bold">
+          05 // PHILOSOPHY
+        </span>
+      </div>
+
+      <div class="max-w-3xl space-y-8">
+        <h2
+          class="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-neutral-950 dark:text-white leading-tight"
+          style="font-family: 'Syne', sans-serif;"
+        >
+          I believe good software sits somewhere between logic and creativity.
+        </h2>
+
+        <div class="space-y-4 text-base sm:text-lg text-neutral-700 dark:text-neutral-300 font-normal">
+          <p class="flex items-center gap-3">
+            <span class="w-1.5 h-1.5 rounded-full bg-[#52FF1A]"></span>
+            <span>The code needs to work.</span>
+          </p>
+          <p class="flex items-center gap-3">
+            <span class="w-1.5 h-1.5 rounded-full bg-[#52FF1A]"></span>
+            <span>The experience needs to feel right.</span>
+          </p>
+          <p class="text-neutral-600 dark:text-neutral-400 pt-2">
+            And the final product should make someone say:
           </p>
         </div>
 
-        <div class="p-5 rounded-lg border border-neutral-200 dark:border-neutral-800 bg-neutral-50/50 dark:bg-neutral-900/30 space-y-2">
-          <h3 class="text-sm font-semibold text-neutral-900 dark:text-neutral-100">Rich Structured Data</h3>
-          <p class="text-xs text-neutral-500 dark:text-neutral-400">
-            Built-in Schema.org JSON-LD and complete Open Graph meta tags for all crawlers and social shares.
-          </p>
-        </div>
-
-        <div class="p-5 rounded-lg border border-neutral-200 dark:border-neutral-800 bg-neutral-50/50 dark:bg-neutral-900/30 space-y-2">
-          <h3 class="text-sm font-semibold text-neutral-900 dark:text-neutral-100">Automatic Sitemaps</h3>
-          <p class="text-xs text-neutral-500 dark:text-neutral-400">
-            Auto-generated sitemap index and dynamic robots.txt endpoint discovery.
-          </p>
+        <!-- Quote Highlight -->
+        <div class="p-6 sm:p-8 border-l-4 border-[#52FF1A] bg-[#f6f4ee] dark:bg-[#141414] border-y border-r border-neutral-300/60 dark:border-neutral-800">
+          <blockquote
+            class="text-xl sm:text-2xl md:text-3xl font-black italic tracking-tight text-neutral-950 dark:text-white"
+            style="font-family: 'Syne', sans-serif;"
+          >
+            "oh, that's actually pretty cool."
+          </blockquote>
         </div>
       </div>
     </section>

@@ -1,60 +1,175 @@
 ---
 import RootLayout from '../layouts/RootLayout.astro';
 
-const projects = [
+interface IndexItem {
+  title: string;
+  year: string;
+  tech: string[];
+  href?: string;
+}
+
+interface CategoryGroup {
+  number: string;
+  title: string;
+  items: IndexItem[];
+}
+
+const categories: CategoryGroup[] = [
   {
-    title: 'HYPE-BOX Platform',
-    category: 'Full-Stack Architecture',
-    year: '2026',
-    description: 'Enterprise photobooth kiosk OS, real-time WebSocket backend, and multi-tenant vendor management portal.',
-    tags: ['React', 'Laravel', 'Electron', 'SQLite'],
+    number: '01',
+    title: 'HYPE-BOX ECOSYSTEM',
+    items: [
+      {
+        title: 'HYPE-BOX Landing Page',
+        year: '2026',
+        tech: ['Astro', 'Tailwind CSS v4'],
+        href: 'https://navoyovan.github.io/hypebox/',
+      },
+      {
+        title: 'Photobooth Kiosk',
+        year: '2026',
+        tech: ['Electron', 'React 19', 'Anime.js', 'Vite'],
+      },
+      {
+        title: 'Photobooth Vendor Portal',
+        year: '2026',
+        tech: ['React 19', 'Vite', 'CSS Modules', 'Anime.js'],
+      },
+      {
+        title: 'Photobooth Kiosk Demo',
+        year: '2026',
+        tech: ['React 19', 'Anime.js', 'Vite'],
+        href: 'https://navoyovan.github.io/photobooth-kiosk-demo/',
+      },
+      {
+        title: 'Photobooth REST & WebSocket API',
+        year: '2026',
+        tech: ['Laravel 13', 'Reverb', 'Google Cloud Storage', 'Google Cloud Platform'],
+        href: 'http://35.254.253.48/',
+      },
+    ],
   },
   {
-    title: 'High-Performance SEO Engine',
-    category: 'Frontend Engineering',
-    year: '2026',
-    description: 'Zero-JS static site architecture with React islands, dynamic sitemaps, and rich Schema.org metadata.',
-    tags: ['Astro', 'React', 'Tailwind CSS', 'Schema.org'],
+    number: '02',
+    title: 'OTHER SYSTEMS',
+    items: [
+      {
+        title: 'Interactive Mapping System',
+        year: '2025',
+        tech: ['Laravel', 'Leaflet.js', 'Tailwind'],
+        href: 'https://github.com/navoyovan/interactive-map',
+      },
+    ],
   },
 ];
 ---
 
 <RootLayout
-  title="Portfolio Index | Project Archive & Case Studies"
-  description="Comprehensive index of engineering projects, web architectures, and production applications."
+  title="Portfolio Index | Systems & Project Directory"
+  description="A structured directory of production software architectures, standalone kiosk operating systems, real-time WebSocket backends, and full-stack systems."
 >
-  <div class="space-y-6">
-    <div class="border-b border-neutral-200 dark:border-neutral-800 pb-4">
-      <h1 class="text-2xl sm:text-3xl font-bold tracking-tight text-neutral-900 dark:text-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-14">
+    <!-- Header -->
+    <header class="border-b border-neutral-200 dark:border-neutral-800 pb-8">
+      <h1 class="text-3xl sm:text-4xl font-bold tracking-tight text-neutral-950 dark:text-white">
         Portfolio Index
       </h1>
-      <p class="text-sm text-neutral-500 dark:text-neutral-400 mt-1">
-        Selected production projects, system architectures, and technical experiments.
+      <p class="text-sm sm:text-base text-neutral-600 dark:text-neutral-400 mt-2 max-w-2xl font-normal">
+        A structured catalog of production software architectures, standalone kiosk operating systems, and performance-first web platforms.
       </p>
-    </div>
+    </header>
 
-    <div class="space-y-4">
-      {projects.map((project) => (
-        <article class="p-5 rounded-lg border border-neutral-200 dark:border-neutral-800 hover:border-neutral-300 dark:hover:border-neutral-700 transition-colors">
-          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
-            <h2 class="text-base font-semibold text-neutral-950 dark:text-white">{project.title}</h2>
-            <div class="flex items-center gap-2 text-xs text-neutral-500">
-              <span>{project.category}</span>
-              <span>•</span>
-              <span>{project.year}</span>
-            </div>
+    <!-- Tree Index by Category -->
+    <div class="space-y-12">
+      {categories.map((category) => (
+        <section class="space-y-4">
+          <!-- Parent Category Header -->
+          <div class="pb-2 border-b border-neutral-200 dark:border-neutral-800 flex items-center justify-between">
+            <h2 class="text-xs uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-bold font-sans">
+              {category.number} // {category.title}
+            </h2>
+            <span class="text-xs font-medium text-neutral-400 dark:text-neutral-500 font-sans">
+              {category.items.length} {category.items.length === 1 ? 'entry' : 'entries'}
+            </span>
           </div>
-          <p class="text-sm text-neutral-600 dark:text-neutral-400 mt-2">
-            {project.description}
-          </p>
-          <div class="flex flex-wrap gap-1.5 mt-4">
-            {project.tags.map((tag) => (
-              <span class="text-xs px-2 py-0.5 rounded bg-neutral-100 dark:bg-neutral-900 text-neutral-700 dark:text-neutral-300 border border-neutral-200 dark:border-neutral-800">
-                {tag}
-              </span>
-            ))}
+
+          <!-- Terminal Tree Feed Container -->
+          <div class="border border-neutral-300/80 dark:border-neutral-800 bg-[#f6f4ee] dark:bg-[#141414] p-5 sm:p-7 space-y-6 rounded-md">
+            {category.number === '01' && (
+              <div class="flex items-center gap-3 pb-4 border-b border-neutral-200/80 dark:border-neutral-800/80">
+                <div
+                  class="text-xl sm:text-2xl font-black tracking-tight text-neutral-950 dark:text-white leading-none select-none"
+                  style="font-family: 'Syne', sans-serif;"
+                >
+                  HYPE-BOX
+                </div>
+                <span class="text-xs uppercase tracking-wider text-neutral-400 dark:text-neutral-500 font-semibold pl-3 border-l border-neutral-300 dark:border-neutral-700 font-sans">
+                  ECOSYSTEM PLATFORM
+                </span>
+              </div>
+            )}
+
+            {category.items.map((item, idx) => {
+              const isLast = idx === category.items.length - 1;
+              const branchSymbol = isLast ? '└──' : '├──';
+              return (
+                <div class="space-y-1.5 group">
+                  <!-- Top Row: Tree Branch + Year + Title (+ Hover Reveal ↗) -->
+                  <div class="flex items-center gap-2 sm:gap-2.5 flex-wrap sm:flex-nowrap min-w-0">
+                    <span class="text-neutral-400 dark:text-neutral-600 select-none font-sans font-medium text-sm shrink-0">
+                      {branchSymbol}
+                    </span>
+                    <span class="text-xs text-neutral-500 font-semibold font-sans shrink-0">
+                      {item.year}
+                    </span>
+                    <h3
+                      class="text-sm sm:text-base text-neutral-950 dark:text-white group-hover:text-[#52FF1A] transition-colors"
+                      style="font-family: 'Syne', sans-serif; font-weight: 700;"
+                    >
+                      {item.href ? (
+                        <a
+                          href={item.href}
+                          target={item.href.startsWith('http') ? '_blank' : undefined}
+                          rel={item.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                          class="hover:underline focus:outline-none inline-flex items-center gap-1.5"
+                        >
+                          <span>{item.title}</span>
+                          <span class="opacity-0 -translate-x-1.5 translate-y-0.5 group-hover:opacity-100 group-hover:translate-x-0 group-hover:translate-y-0 transition-all duration-200 ease-out text-neutral-400 dark:text-neutral-500 group-hover:!text-[#52FF1A]">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 sm:w-4 sm:h-4" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                              <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                              <path d="M17 7l-10 10" />
+                              <path d="M8 7l9 0l0 9" />
+                            </svg>
+                          </span>
+                        </a>
+                      ) : (
+                        item.title
+                      )}
+                    </h3>
+                  </div>
+
+                  <!-- Sub Row: Nested Stack Line (Muted Secondary Hierarchy) -->
+                  <div class="pl-7 sm:pl-8 text-[11px] text-neutral-400 dark:text-neutral-500 flex items-center gap-1.5 font-sans flex-wrap">
+                    <span class="text-neutral-300 dark:text-neutral-700 select-none">└──</span>
+                    <span class="text-neutral-400 dark:text-neutral-600 font-medium shrink-0 mr-1">stack:</span>
+                    <span class="text-neutral-500 dark:text-neutral-400 flex items-center flex-wrap">
+                      {item.tech.map((techItem, tIdx) => (
+                        <>
+                          <span>{techItem}</span>
+                          {tIdx < item.tech.length - 1 && (
+                            <span class="text-neutral-300 dark:text-neutral-700 mx-1.5 select-none text-[8px]">
+                              •
+                            </span>
+                          )}
+                        </>
+                      ))}
+                    </span>
+                  </div>
+                </div>
+              );
+            })}
           </div>
-        </article>
+        </section>
       ))}
     </div>
   </div>
