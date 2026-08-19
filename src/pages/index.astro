@@ -1,11 +1,11 @@
 ---
-import RootLayout from '../layouts/RootLayout.astro';
-import Hero from '../components/Hero.astro';
-import StatusBadge from '../components/StatusBadge.astro';
-import ActionButton from '../components/ActionButton.astro';
+import RootLayout from "../layouts/RootLayout.astro";
+import Hero from "../components/Hero.astro";
+import StatusBadge from "../components/StatusBadge.astro";
+import ActionButton from "../components/ActionButton.astro";
 
 const rawBase = import.meta.env.BASE_URL;
-const base = rawBase.endsWith('/') ? rawBase.slice(0, -1) : rawBase;
+const base = rawBase.endsWith("/") ? rawBase.slice(0, -1) : rawBase;
 ---
 
 <RootLayout
@@ -14,11 +14,18 @@ const base = rawBase.endsWith('/') ? rawBase.slice(0, -1) : rawBase;
 >
   <Hero firstName="yovan" middleName="gunardio" lastName="darmawan" />
 
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-24 pb-28">
+  <div class="w-[92%] sm:w-[86%] lg:w-[80%] mx-auto space-y-24 pb-28">
     <!-- 01 // OVERVIEW & HERO STATEMENT -->
-    <section id="intro" class="border-t border-neutral-200 dark:border-neutral-800 pt-16 space-y-8">
-      <div class="flex items-center justify-between pb-2 border-b border-neutral-200 dark:border-neutral-800">
-        <span class="font-sans text-xs uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-bold">
+    <section
+      id="intro"
+      class="border-t border-neutral-200 dark:border-neutral-800 pt-16 space-y-8"
+    >
+      <div
+        class="flex items-center justify-between pb-2 border-b border-neutral-200 dark:border-neutral-800"
+      >
+        <span
+          class="font-sans text-xs uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-bold"
+        >
           01 // OVERVIEW
         </span>
       </div>
@@ -30,27 +37,44 @@ const base = rawBase.endsWith('/') ? rawBase.slice(0, -1) : rawBase;
           I build software that makes ideas real.
         </h2>
 
-        <p class="text-base sm:text-lg text-neutral-700 dark:text-neutral-300 leading-relaxed font-normal">
-          Hey, I'm Yovan — a developer who likes turning weird ideas into working products.
+        <p
+          class="text-base sm:text-lg text-neutral-700 dark:text-neutral-300 leading-relaxed font-normal"
+        >
+          Hey, I'm Yovan — a developer who likes turning weird ideas into
+          working products.
         </p>
 
-        <div class="space-y-2.5 py-1.5 pl-4 border-l-2 border-[#52FF1A]/50 font-sans text-sm sm:text-base text-neutral-600 dark:text-neutral-400">
+        <div
+          class="space-y-2.5 py-1.5 pl-4 border-l-2 border-[#52FF1A]/50 font-sans text-sm sm:text-base text-neutral-600 dark:text-neutral-400"
+        >
           <p class="flex items-center gap-2.5">
-            <span class="text-[#52FF1A] text-xs font-mono select-none font-bold">›</span>
+            <span class="text-[#52FF1A] text-xs font-mono select-none font-bold"
+              >›</span
+            >
             <span>Sometimes that's a web app.</span>
           </p>
           <p class="flex items-center gap-2.5">
-            <span class="text-[#52FF1A] text-xs font-mono select-none font-bold">›</span>
+            <span class="text-[#52FF1A] text-xs font-mono select-none font-bold"
+              >›</span
+            >
             <span>Sometimes that's a touchscreen kiosk.</span>
           </p>
           <p class="flex items-center gap-2.5">
-            <span class="text-[#52FF1A] text-xs font-mono select-none font-bold">›</span>
-            <span>Sometimes that's a tiny device with LEDs doing things it probably shouldn't.</span>
+            <span class="text-[#52FF1A] text-xs font-mono select-none font-bold"
+              >›</span
+            >
+            <span
+              >Sometimes that's a tiny device with LEDs doing things it probably
+              shouldn't.</span
+            >
           </p>
         </div>
 
-        <p class="text-sm sm:text-base text-neutral-600 dark:text-neutral-400 leading-relaxed font-normal">
-          I enjoy building things across the stack — from the interface people see to the systems making everything run behind the scenes.
+        <p
+          class="text-sm sm:text-base text-neutral-600 dark:text-neutral-400 leading-relaxed font-normal"
+        >
+          I enjoy building things across the stack — from the interface people
+          see to the systems making everything run behind the scenes.
         </p>
 
         <div class="pt-2">
@@ -62,9 +86,16 @@ const base = rawBase.endsWith('/') ? rawBase.slice(0, -1) : rawBase;
     </section>
 
     <!-- 02 // ABOUT -->
-    <section id="about" class="border-t border-neutral-200 dark:border-neutral-800 pt-16 space-y-8">
-      <div class="flex items-center justify-between pb-2 border-b border-neutral-200 dark:border-neutral-800">
-        <span class="font-sans text-xs uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-bold">
+    <section
+      id="about"
+      class="border-t border-neutral-200 dark:border-neutral-800 pt-16 space-y-8"
+    >
+      <div
+        class="flex items-center justify-between pb-2 border-b border-neutral-200 dark:border-neutral-800"
+      >
+        <span
+          class="font-sans text-xs uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-bold"
+        >
           02 // ABOUT
         </span>
       </div>
@@ -78,21 +109,38 @@ const base = rawBase.endsWith('/') ? rawBase.slice(0, -1) : rawBase;
           </h2>
         </div>
 
-        <div class="lg:col-span-7 space-y-6 text-base sm:text-lg text-neutral-700 dark:text-neutral-300 leading-relaxed font-normal">
+        <div
+          class="lg:col-span-7 space-y-6 text-base sm:text-lg text-neutral-700 dark:text-neutral-300 leading-relaxed font-normal"
+        >
           <p>
-            My journey started with writing code for applications, but curiosity pulled me into everything around it: designing interfaces, building APIs, connecting hardware, and creating experiences that feel alive.
+            My journey started with modding java games back when i was in
+            elementary school and android games in highschool, but curiosity
+            pulled me into everything around it, like designing interfaces,
+            building backend, connecting hardware, and creating intuitive
+            experiences for users.
           </p>
-          <p class="text-neutral-600 dark:text-neutral-400 text-sm sm:text-base">
-            I enjoy working on projects where software isn't just sitting on a screen — where it interacts with people, devices, and the real world.
+          <p
+            class="text-neutral-600 dark:text-neutral-400 text-sm sm:text-base"
+          >
+            I enjoy working on projects where software isn't just sitting on a
+            screen, but where it interacts with people, devices, and the real
+            world.
           </p>
         </div>
       </div>
     </section>
 
     <!-- 03 // CURRENTLY -->
-    <section id="currently" class="border-t border-neutral-200 dark:border-neutral-800 pt-16 space-y-8">
-      <div class="flex items-center justify-between pb-2 border-b border-neutral-200 dark:border-neutral-800">
-        <span class="font-sans text-xs uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-bold">
+    <section
+      id="currently"
+      class="border-t border-neutral-200 dark:border-neutral-800 pt-16 space-y-8"
+    >
+      <div
+        class="flex items-center justify-between pb-2 border-b border-neutral-200 dark:border-neutral-800"
+      >
+        <span
+          class="font-sans text-xs uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-bold"
+        >
           03 // CURRENT FOCUS
         </span>
       </div>
@@ -107,36 +155,61 @@ const base = rawBase.endsWith('/') ? rawBase.slice(0, -1) : rawBase;
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <!-- Building Card -->
-        <div class="p-6 sm:p-8 border border-neutral-300/80 dark:border-neutral-800 bg-[#f6f4ee] dark:bg-[#141414] space-y-6 transition-all hover:border-neutral-400 dark:hover:border-neutral-600">
-          <div class="flex items-center justify-between pb-3 border-b border-neutral-200/80 dark:border-neutral-800/80">
+        <div
+          class="p-6 sm:p-8 border border-neutral-300/80 dark:border-neutral-800 bg-[#f6f4ee] dark:bg-[#141414] space-y-6 transition-all hover:border-neutral-400 dark:hover:border-neutral-600"
+        >
+          <div
+            class="flex items-center justify-between pb-3 border-b border-neutral-200/80 dark:border-neutral-800/80"
+          >
             <h3
               class="text-lg sm:text-xl font-bold text-neutral-950 dark:text-white tracking-tight flex items-center gap-2 font-heading"
             >
-              <span class="w-2 h-2 bg-[#52FF1A] rounded-full inline-block animate-pulse"></span>
+              <span
+                class="w-2 h-2 bg-[#52FF1A] rounded-full inline-block animate-pulse"
+              ></span>
               Building
             </h3>
             <StatusBadge variant="accent" size="sm">ACTIVE DEV</StatusBadge>
           </div>
 
-          <ul class="space-y-3.5 text-sm sm:text-base text-neutral-700 dark:text-neutral-300 font-sans">
+          <ul
+            class="space-y-3.5 text-sm sm:text-base text-neutral-700 dark:text-neutral-300 font-sans"
+          >
             <li class="flex items-start gap-3">
-              <span class="text-[#52FF1A] font-bold text-sm shrink-0 select-none">→</span>
-              <span>Web applications with modern frontend and backend technologies</span>
+              <span
+                class="text-[#52FF1A] font-bold text-sm shrink-0 select-none"
+                >→</span
+              >
+              <span
+                >Web applications with modern frontend and backend technologies</span
+              >
             </li>
             <li class="flex items-start gap-3">
-              <span class="text-[#52FF1A] font-bold text-sm shrink-0 select-none">→</span>
-              <span>Interactive experiences with animations and visual elements</span>
+              <span
+                class="text-[#52FF1A] font-bold text-sm shrink-0 select-none"
+                >→</span
+              >
+              <span
+                >Interactive experiences with animations and visual elements</span
+              >
             </li>
             <li class="flex items-start gap-3">
-              <span class="text-[#52FF1A] font-bold text-sm shrink-0 select-none">→</span>
+              <span
+                class="text-[#52FF1A] font-bold text-sm shrink-0 select-none"
+                >→</span
+              >
               <span>Systems that connect software with physical devices</span>
             </li>
           </ul>
         </div>
 
         <!-- Learning Card -->
-        <div class="p-6 sm:p-8 border border-neutral-300/80 dark:border-neutral-800 bg-[#f6f4ee] dark:bg-[#141414] space-y-6 transition-all hover:border-neutral-400 dark:hover:border-neutral-600">
-          <div class="flex items-center justify-between pb-3 border-b border-neutral-200/80 dark:border-neutral-800/80">
+        <div
+          class="p-6 sm:p-8 border border-neutral-300/80 dark:border-neutral-800 bg-[#f6f4ee] dark:bg-[#141414] space-y-6 transition-all hover:border-neutral-400 dark:hover:border-neutral-600"
+        >
+          <div
+            class="flex items-center justify-between pb-3 border-b border-neutral-200/80 dark:border-neutral-800/80"
+          >
             <h3
               class="text-lg sm:text-xl font-bold text-neutral-950 dark:text-white tracking-tight flex items-center gap-2 font-heading"
             >
@@ -146,17 +219,28 @@ const base = rawBase.endsWith('/') ? rawBase.slice(0, -1) : rawBase;
             <StatusBadge variant="info" size="sm">EXPLORING</StatusBadge>
           </div>
 
-          <ul class="space-y-3.5 text-sm sm:text-base text-neutral-700 dark:text-neutral-300 font-sans">
+          <ul
+            class="space-y-3.5 text-sm sm:text-base text-neutral-700 dark:text-neutral-300 font-sans"
+          >
             <li class="flex items-start gap-3">
-              <span class="text-neutral-400 dark:text-neutral-500 font-bold text-sm shrink-0 select-none">→</span>
+              <span
+                class="text-neutral-400 dark:text-neutral-500 font-bold text-sm shrink-0 select-none"
+                >→</span
+              >
               <span>Better architecture</span>
             </li>
             <li class="flex items-start gap-3">
-              <span class="text-neutral-400 dark:text-neutral-500 font-bold text-sm shrink-0 select-none">→</span>
+              <span
+                class="text-neutral-400 dark:text-neutral-500 font-bold text-sm shrink-0 select-none"
+                >→</span
+              >
               <span>Better user experiences</span>
             </li>
             <li class="flex items-start gap-3">
-              <span class="text-neutral-400 dark:text-neutral-500 font-bold text-sm shrink-0 select-none">→</span>
+              <span
+                class="text-neutral-400 dark:text-neutral-500 font-bold text-sm shrink-0 select-none"
+                >→</span
+              >
               <span>Better ways to turn ideas into reality</span>
             </li>
           </ul>
@@ -165,9 +249,16 @@ const base = rawBase.endsWith('/') ? rawBase.slice(0, -1) : rawBase;
     </section>
 
     <!-- 04 // PROJECTS & HYPEBOX -->
-    <section id="projects" class="border-t border-neutral-200 dark:border-neutral-800 pt-16 space-y-10">
-      <div class="flex items-center justify-between pb-2 border-b border-neutral-200 dark:border-neutral-800">
-        <span class="font-sans text-xs uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-bold">
+    <section
+      id="projects"
+      class="border-t border-neutral-200 dark:border-neutral-800 pt-16 space-y-10"
+    >
+      <div
+        class="flex items-center justify-between pb-2 border-b border-neutral-200 dark:border-neutral-800"
+      >
+        <span
+          class="font-sans text-xs uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-bold"
+        >
           04 // FEATURED WORK
         </span>
         <a
@@ -185,15 +276,22 @@ const base = rawBase.endsWith('/') ? rawBase.slice(0, -1) : rawBase;
         >
           Things I've built
         </h2>
-        <p class="text-base sm:text-lg text-neutral-600 dark:text-neutral-400 leading-relaxed font-normal">
-          A collection of experiments, products, and projects where I tried to solve a problem, learn something new, or just see "what if?"
+        <p
+          class="text-base sm:text-lg text-neutral-600 dark:text-neutral-400 leading-relaxed font-normal"
+        >
+          A collection of experiments, products, and projects where I tried to
+          solve a problem, learn something new, or just see "what if?"
         </p>
       </div>
 
       <!-- Featured Spotlight: Hypebox -->
-      <div class="border border-neutral-300/80 dark:border-neutral-800 bg-[#f6f4ee] dark:bg-[#141414] p-6 sm:p-8 space-y-8">
+      <div
+        class="border border-neutral-300/80 dark:border-neutral-800 bg-[#f6f4ee] dark:bg-[#141414] p-6 sm:p-8 space-y-8"
+      >
         <!-- Hypebox Header -->
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-neutral-200/80 dark:border-neutral-800/80">
+        <div
+          class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-neutral-200/80 dark:border-neutral-800/80"
+        >
           <div class="space-y-1">
             <div class="flex items-center gap-3">
               <span
@@ -201,9 +299,13 @@ const base = rawBase.endsWith('/') ? rawBase.slice(0, -1) : rawBase;
               >
                 Hypebox
               </span>
-              <StatusBadge variant="accent" size="sm">FLAGSHIP PLATFORM</StatusBadge>
+              <StatusBadge variant="accent" size="sm"
+                >FLAGSHIP PLATFORM</StatusBadge
+              >
             </div>
-            <p class="text-sm font-medium text-neutral-600 dark:text-neutral-400 pt-1">
+            <p
+              class="text-sm font-medium text-neutral-600 dark:text-neutral-400 pt-1"
+            >
               A photo booth system that grew into a full platform.
             </p>
           </div>
@@ -219,22 +321,36 @@ const base = rawBase.endsWith('/') ? rawBase.slice(0, -1) : rawBase;
           </a>
         </div>
 
-        <p class="text-sm sm:text-base text-neutral-700 dark:text-neutral-300 leading-relaxed max-w-3xl font-normal">
-          It connects a web dashboard, payment flow, and physical kiosk into one experience — bringing together software, hardware, and real-world interactions.
+        <p
+          class="text-sm sm:text-base text-neutral-700 dark:text-neutral-300 leading-relaxed max-w-3xl font-normal"
+        >
+          It connects a web dashboard, payment flow, and physical kiosk into one
+          experience — bringing together software, hardware, and real-world
+          interactions.
         </p>
 
         <!-- Ecosystem Grid of Sub-systems -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
           <!-- Kiosk Subsystem -->
-          <div class="p-5 border border-neutral-200/80 dark:border-neutral-800/80 bg-white/60 dark:bg-neutral-900/40 space-y-3">
+          <div
+            class="p-5 border border-neutral-200/80 dark:border-neutral-800/80 bg-white/60 dark:bg-neutral-900/40 space-y-3"
+          >
             <div class="flex items-center justify-between">
-              <h4 class="text-base font-bold text-neutral-950 dark:text-white font-heading">
+              <h4
+                class="text-base font-bold text-neutral-950 dark:text-white font-heading"
+              >
                 Photobooth Kiosk OS
               </h4>
-              <span class="text-[11px] font-mono text-neutral-500">ELECTRON / REACT</span>
+              <span class="text-[11px] font-mono text-neutral-500"
+                >ELECTRON / REACT</span
+              >
             </div>
-            <p class="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
-              Standalone touchscreen software with real-time camera feeds, countdown capture loops, and physical thermal printing orchestration.
+            <p
+              class="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed"
+            >
+              Standalone touchscreen software with real-time camera feeds,
+              countdown capture loops, and physical thermal printing
+              orchestration.
             </p>
             <div class="pt-1 flex items-center justify-between text-xs">
               <a
@@ -249,47 +365,79 @@ const base = rawBase.endsWith('/') ? rawBase.slice(0, -1) : rawBase;
           </div>
 
           <!-- Vendor Portal Subsystem -->
-          <div class="p-5 border border-neutral-200/80 dark:border-neutral-800/80 bg-white/60 dark:bg-neutral-900/40 space-y-3">
+          <div
+            class="p-5 border border-neutral-200/80 dark:border-neutral-800/80 bg-white/60 dark:bg-neutral-900/40 space-y-3"
+          >
             <div class="flex items-center justify-between">
-              <h4 class="text-base font-bold text-neutral-950 dark:text-white font-heading">
+              <h4
+                class="text-base font-bold text-neutral-950 dark:text-white font-heading"
+              >
                 Vendor Management Portal
               </h4>
-              <span class="text-[11px] font-mono text-neutral-500">REACT / CSS MODULES</span>
+              <span class="text-[11px] font-mono text-neutral-500"
+                >REACT / CSS MODULES</span
+              >
             </div>
-            <p class="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
-              Cloud management interface for event operators: real-time telemetry, session analytics, custom template designers, and financial reports.
+            <p
+              class="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed"
+            >
+              Cloud management interface for event operators: real-time
+              telemetry, session analytics, custom template designers, and
+              financial reports.
             </p>
             <div class="pt-1 flex items-center justify-between text-xs">
-              <span class="text-neutral-500 font-mono text-[11px]">Production Fleet Control</span>
+              <span class="text-neutral-500 font-mono text-[11px]"
+                >Production Fleet Control</span
+              >
             </div>
           </div>
 
           <!-- REST & WebSocket API Subsystem -->
-          <div class="p-5 border border-neutral-200/80 dark:border-neutral-800/80 bg-white/60 dark:bg-neutral-900/40 space-y-3">
+          <div
+            class="p-5 border border-neutral-200/80 dark:border-neutral-800/80 bg-white/60 dark:bg-neutral-900/40 space-y-3"
+          >
             <div class="flex items-center justify-between">
-              <h4 class="text-base font-bold text-neutral-950 dark:text-white font-heading">
+              <h4
+                class="text-base font-bold text-neutral-950 dark:text-white font-heading"
+              >
                 REST & WebSocket Backend
               </h4>
-              <span class="text-[11px] font-mono text-neutral-500">LARAVEL 13 / REVERB</span>
+              <span class="text-[11px] font-mono text-neutral-500"
+                >LARAVEL 13 / REVERB</span
+              >
             </div>
-            <p class="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
-              High-throughput backend processing Midtrans QRIS payments, Google Cloud Storage photo sync, and live kiosk WebSocket telemetry.
+            <p
+              class="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed"
+            >
+              High-throughput backend processing Midtrans QRIS payments, Google
+              Cloud Storage photo sync, and live kiosk WebSocket telemetry.
             </p>
             <div class="pt-1 flex items-center justify-between text-xs">
-              <span class="text-neutral-500 font-mono text-[11px]">Production Cloud Engine</span>
+              <span class="text-neutral-500 font-mono text-[11px]"
+                >Production Cloud Engine</span
+              >
             </div>
           </div>
 
           <!-- Landing Page Subsystem -->
-          <div class="p-5 border border-neutral-200/80 dark:border-neutral-800/80 bg-white/60 dark:bg-neutral-900/40 space-y-3">
+          <div
+            class="p-5 border border-neutral-200/80 dark:border-neutral-800/80 bg-white/60 dark:bg-neutral-900/40 space-y-3"
+          >
             <div class="flex items-center justify-between">
-              <h4 class="text-base font-bold text-neutral-950 dark:text-white font-heading">
+              <h4
+                class="text-base font-bold text-neutral-950 dark:text-white font-heading"
+              >
                 HYPE-BOX Landing Experience
               </h4>
-              <span class="text-[11px] font-mono text-neutral-500">ASTRO / TAILWIND v4</span>
+              <span class="text-[11px] font-mono text-neutral-500"
+                >ASTRO / TAILWIND v4</span
+              >
             </div>
-            <p class="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
-              Fast static marketing portal engineered for speed, interactive feature showcases, and booking conversion.
+            <p
+              class="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed"
+            >
+              Fast static marketing portal engineered for speed, interactive
+              feature showcases, and booking conversion.
             </p>
             <div class="pt-1 flex items-center justify-between text-xs">
               <a
@@ -307,9 +455,16 @@ const base = rawBase.endsWith('/') ? rawBase.slice(0, -1) : rawBase;
     </section>
 
     <!-- 05 // PHILOSOPHY -->
-    <section id="philosophy" class="border-t border-neutral-200 dark:border-neutral-800 pt-16 space-y-8">
-      <div class="flex items-center justify-between pb-2 border-b border-neutral-200 dark:border-neutral-800">
-        <span class="font-sans text-xs uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-bold">
+    <section
+      id="philosophy"
+      class="border-t border-neutral-200 dark:border-neutral-800 pt-16 space-y-8"
+    >
+      <div
+        class="flex items-center justify-between pb-2 border-b border-neutral-200 dark:border-neutral-800"
+      >
+        <span
+          class="font-sans text-xs uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-bold"
+        >
           05 // PHILOSOPHY
         </span>
       </div>
@@ -321,7 +476,9 @@ const base = rawBase.endsWith('/') ? rawBase.slice(0, -1) : rawBase;
           I believe good software sits somewhere between logic and creativity.
         </h2>
 
-        <div class="space-y-4 text-base sm:text-lg text-neutral-700 dark:text-neutral-300 font-normal">
+        <div
+          class="space-y-4 text-base sm:text-lg text-neutral-700 dark:text-neutral-300 font-normal"
+        >
           <p class="flex items-center gap-3">
             <span class="w-1.5 h-1.5 rounded-full bg-[#52FF1A]"></span>
             <span>The code needs to work.</span>
@@ -336,7 +493,9 @@ const base = rawBase.endsWith('/') ? rawBase.slice(0, -1) : rawBase;
         </div>
 
         <!-- Quote Highlight -->
-        <div class="p-6 sm:p-8 border-l-4 border-[#52FF1A] bg-[#f6f4ee] dark:bg-[#141414] border-y border-r border-neutral-300/60 dark:border-neutral-800">
+        <div
+          class="p-6 sm:p-8 border-l-4 border-[#52FF1A] bg-[#f6f4ee] dark:bg-[#141414] border-y border-r border-neutral-300/60 dark:border-neutral-800"
+        >
           <blockquote
             class="text-xl sm:text-2xl md:text-3xl font-black italic tracking-tight text-neutral-950 dark:text-white font-heading"
           >
@@ -347,5 +506,3 @@ const base = rawBase.endsWith('/') ? rawBase.slice(0, -1) : rawBase;
     </section>
   </div>
 </RootLayout>
-
-
