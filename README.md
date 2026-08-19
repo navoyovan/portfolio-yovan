@@ -2,15 +2,13 @@
 
 Personal portfolio site for Yovan Gunardio Darmawan. Fifth major version. Static, fast, no backend.
 
-Live at [navoyovan.github.io/porfolio-yovan-v5](https://navoyovan.github.io/porfolio-yovan-v5)
+Soon Live at ~~ [navoyovan.github.io/porfolio-yovan-v5](https://navoyovan.github.io/porfolio-yovan-v5) ~~
 
 ---
 
 ## Overview
 
-This is a personal portfolio built to show the kind of work I do — web apps, touchscreen kiosk systems, and hardware-adjacent software. The design is intentional: warm paper tones in light mode, near-black in dark, a neon green accent (`#52FF1A`), and no border-radius anywhere. It is meant to look built, not generated.
-
-The site ships zero JavaScript by default. React is available but only hydrated where it genuinely needs to be interactive. Everything else stays as static HTML.
+This is a personal portfolio built to show the kind of work I do — web apps, touchscreen kiosk systems, and hardware-adjacent software.
 
 ---
 
@@ -22,7 +20,7 @@ The site ships zero JavaScript by default. React is available but only hydrated 
 | [Tailwind CSS v4](https://tailwindcss.com) | v4.3 | Utility-first with `@theme` as the single design token source. No config file needed. |
 | [React](https://react.dev) | v19 | Used selectively for interactive components via Astro's island architecture. |
 | [@astrojs/sitemap](https://docs.astro.build/en/guides/integrations-guide/sitemap/) | v3 | Auto-generates `sitemap-index.xml` at build time. |
-| GitHub Pages | — | Hosted under the `/porfolio-yovan-v5` subpath. |
+| GitHub Pages | — | ~~ Hosted under the `/porfolio-yovan-v5` subpath. ~~ |
 
 ---
 
