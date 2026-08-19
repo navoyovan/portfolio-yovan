@@ -45,7 +45,6 @@ const categories: CategoryGroup[] = [
         title: 'Photobooth REST & WebSocket API',
         year: '2026',
         tech: ['Laravel 13', 'Reverb', 'Google Cloud Storage', 'Google Cloud Platform'],
-        href: 'http://35.254.253.48/',
       },
     ],
   },
@@ -98,8 +97,7 @@ const categories: CategoryGroup[] = [
             {category.number === '01' && (
               <div class="flex items-center gap-3 pb-4 border-b border-neutral-200/80 dark:border-neutral-800/80">
                 <div
-                  class="text-xl sm:text-2xl font-black tracking-tight text-neutral-950 dark:text-white leading-none select-none"
-                  style="font-family: 'Syne', sans-serif;"
+                  class="text-xl sm:text-2xl font-black tracking-tight text-neutral-950 dark:text-white leading-none select-none font-heading"
                 >
                   HYPE-BOX
                 </div>
@@ -123,8 +121,7 @@ const categories: CategoryGroup[] = [
                       {item.year}
                     </span>
                     <h3
-                      class="text-sm sm:text-base text-neutral-950 dark:text-white group-hover:text-[#52FF1A] transition-colors"
-                      style="font-family: 'Syne', sans-serif; font-weight: 700;"
+                      class="text-sm sm:text-base text-neutral-950 dark:text-white group-hover:text-[#52FF1A] transition-colors font-heading font-bold"
                     >
                       {item.href ? (
                         <a
