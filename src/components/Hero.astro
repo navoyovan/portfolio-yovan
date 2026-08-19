@@ -15,12 +15,12 @@ const {
 
 <section
   id="greeting"
-  class="relative min-h-[70vh] flex items-center justify-start z-10 py-16 sm:py-24 w-full overflow-hidden"
+  class="hero-loading relative min-h-[70vh] flex items-center justify-start z-10 py-16 sm:py-24 w-full overflow-hidden"
 >
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex flex-col items-start z-10">
     <div
-      class="hero-title-group select-none flex flex-col leading-none"
-      style="padding-left: var(--anchor, clamp(1.2rem, 3.5vw, 4rem)); --anchor: clamp(1.2rem, 3.5vw, 4rem);"
+      class="hero-title-group select-none flex flex-col leading-none -ml-2 sm:-ml-6 md:-ml-10 lg:-ml-16 xl:-ml-20"
+      style="padding-left: var(--anchor, clamp(1.5rem, 3.5vw, 3rem)); --anchor: clamp(1.5rem, 3.5vw, 3rem);"
     >
       <!-- Row 1: < yovan /> -->
       <h1
@@ -31,13 +31,13 @@ const {
         <span
           id="hero-bracket-l"
           class="hero-h1-bracket-l absolute right-full mr-[0.1em] select-none text-neutral-950 dark:text-white"
-          style="bottom: 0.15em; font-weight: 900;"
+          style="bottom: 0.15em; opacity: 0.6; font-weight: 900;"
         >&lt;</span>
         <span id="hero-title-text">{firstName}</span>
         <span
           id="hero-bracket-r"
           class="hero-h1-bracket-r ml-[0.1em] self-end select-none text-neutral-950 dark:text-white"
-          style="margin-bottom: 0.15em; font-weight: 900;"
+          style="margin-bottom: 0.15em; opacity: 0.6; font-weight: 900;"
         >&nbsp;/&gt;</span>
       </h1>
 
@@ -50,7 +50,7 @@ const {
         <span>{middleName}</span>
         <span
           class="hero-h2-semi text-neutral-950 dark:text-white"
-          style="margin-left: 0.05em; font-weight: 700;"
+          style="opacity: 0.6; margin-left: 0.05em; font-weight: 700;"
         >;</span>
       </h2>
 
@@ -71,3 +71,21 @@ const {
     </div>
   </div>
 </section>
+
+<script>
+  const initHero = () => {
+    const greeting = document.getElementById('greeting');
+    if (greeting && greeting.classList.contains('hero-loading')) {
+      setTimeout(() => {
+        greeting.classList.remove('hero-loading');
+      }, 2000);
+    }
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initHero);
+  } else {
+    initHero();
+  }
+  document.addEventListener('astro:page-load', initHero);
+</script>

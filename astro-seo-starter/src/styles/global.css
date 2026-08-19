@@ -154,6 +154,12 @@ body {
 /* ═════════════════════════════════════════════════════
    HERO EDITORIAL IDENTITY
    ═════════════════════════════════════════════════════ */
+.hero-loading {
+  --hero-syntax-size-r1: clamp(4.5rem, 12vw, 8.5rem);
+  --hero-syntax-size-r2: clamp(4.5rem, 12vw, 8.5rem);
+  --hero-syntax-size-r3: clamp(3rem, 8vw, 5.5rem);
+}
+
 .hero-h1 {
   font-size: var(--hero-size-h1, clamp(4rem, 11.3vw, 8rem));
 }
@@ -168,59 +174,16 @@ body {
 
 /* ═════════════════════════════════════════════════════
    HERO SYNTAX SYMBOLS (<, />, ;, //) ANIMATIONS & INTERACTIONS
-   Initial Load: Starts huge (DPI scale) and smoothly shrinks to resting size.
-   Clockwise Stagger Sequence: < (100ms) -> /> (280ms) -> ; (460ms) -> // (640ms)
+   Clockwise Stagger Sequence: < (0ms) -> /> (200ms) -> ; (400ms) -> // (600ms)
    ═════════════════════════════════════════════════════ */
-@keyframes heroSymbolDpiIntro {
-  0% {
-    transform: scale(3.2);
-    opacity: 0;
-    filter: blur(5px);
-  }
-  15% {
-    opacity: 0.9;
-    filter: blur(0px);
-  }
-  75% {
-    transform: scale(0.96);
-  }
-  100% {
-    transform: scale(1);
-    opacity: 0.6;
-    filter: blur(0px);
-  }
-}
-
-@keyframes heroSymbolDpiIntroSlashes {
-  0% {
-    transform: scale(3.2);
-    opacity: 0;
-    filter: blur(5px);
-  }
-  15% {
-    opacity: 1;
-    filter: blur(0px);
-  }
-  75% {
-    transform: scale(0.96);
-  }
-  100% {
-    transform: scale(1);
-    opacity: 1;
-    filter: blur(0px);
-  }
-}
-
 .hero-h1-bracket-l {
   display: inline-block;
   cursor: pointer;
-  transform-origin: right center;
+  transform-origin: center;
   user-select: none;
-  opacity: 0.6;
   font-size: var(--hero-syntax-size-r1, clamp(2.6rem, 7.3vw, 5rem));
-  animation: heroSymbolDpiIntro 1.25s cubic-bezier(0.16, 1, 0.3, 1) 100ms both;
-  transition: font-size 0.55s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+  transition: font-size 0.55s cubic-bezier(0.16, 1, 0.3, 1) 0ms,
+              transform 0.55s cubic-bezier(0.16, 1, 0.3, 1) 0ms,
               color 0.2s ease,
               opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -228,13 +191,11 @@ body {
 .hero-h1-bracket-r {
   display: inline-block;
   cursor: pointer;
-  transform-origin: left center;
+  transform-origin: center;
   user-select: none;
-  opacity: 0.6;
   font-size: var(--hero-syntax-size-r1, clamp(2.6rem, 7.3vw, 5rem));
-  animation: heroSymbolDpiIntro 1.25s cubic-bezier(0.16, 1, 0.3, 1) 280ms both;
-  transition: font-size 0.55s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+  transition: font-size 0.55s cubic-bezier(0.16, 1, 0.3, 1) 200ms,
+              transform 0.55s cubic-bezier(0.16, 1, 0.3, 1) 200ms,
               color 0.2s ease,
               opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -242,13 +203,11 @@ body {
 .hero-h2-semi {
   display: inline-block;
   cursor: pointer;
-  transform-origin: left center;
+  transform-origin: center;
   user-select: none;
-  opacity: 0.6;
   font-size: var(--hero-syntax-size-r2, clamp(2.6rem, 7.3vw, 5rem));
-  animation: heroSymbolDpiIntro 1.25s cubic-bezier(0.16, 1, 0.3, 1) 460ms both;
-  transition: font-size 0.55s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+  transition: font-size 0.55s cubic-bezier(0.16, 1, 0.3, 1) 400ms,
+              transform 0.55s cubic-bezier(0.16, 1, 0.3, 1) 400ms,
               color 0.2s ease,
               opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -256,13 +215,11 @@ body {
 .hero-h3-slashes {
   display: inline-block;
   cursor: pointer;
-  transform-origin: right center;
+  transform-origin: center;
   user-select: none;
-  opacity: 1;
   font-size: var(--hero-syntax-size-r3, clamp(1.8rem, 5vw, 3.3rem));
-  animation: heroSymbolDpiIntroSlashes 1.25s cubic-bezier(0.16, 1, 0.3, 1) 640ms both;
-  transition: font-size 0.55s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+  transition: font-size 0.55s cubic-bezier(0.16, 1, 0.3, 1) 600ms,
+              transform 0.55s cubic-bezier(0.16, 1, 0.3, 1) 600ms,
               color 0.2s ease,
               opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -270,25 +227,25 @@ body {
 .hero-h1-bracket-l:hover {
   color: #ff5f56 !important;
   filter: brightness(1.2);
-  transform: scale(1.15) !important;
+  transform: scale(1.15);
 }
 
 .hero-h1-bracket-r:hover {
   color: #ffbd2e !important;
   filter: brightness(1.2);
-  transform: scale(1.15) !important;
+  transform: scale(1.15);
 }
 
 .hero-h2-semi:hover {
   color: #d97706 !important;
   filter: brightness(1.2);
-  transform: scale(1.2) rotate(6deg) !important;
+  transform: scale(1.2) rotate(6deg);
 }
 
 .hero-h3-slashes:hover {
   color: #52FF1A !important;
   filter: brightness(1.3);
-  transform: scale(1.15) skewX(-6deg) !important;
+  transform: scale(1.15) skewX(-6deg);
 }
 
 .hero-h1-bracket-l:active,
