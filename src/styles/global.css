@@ -1,5 +1,14 @@
 @import "tailwindcss";
 
+@import "@fontsource/outfit/300.css";
+@import "@fontsource/outfit/400.css";
+@import "@fontsource/outfit/500.css";
+@import "@fontsource/outfit/600.css";
+@import "@fontsource/outfit/700.css";
+
+@import "@fontsource/syne/700.css";
+@import "@fontsource/syne/800.css";
+
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
@@ -50,17 +59,19 @@
   --transition-fast: 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 
   /* Fluid Hero Dimensions */
-  --hero-size-h1: clamp(2.4rem, 8.5vw, 8rem);
-  --hero-size-h2: clamp(2rem, 7vw, 6rem);
-  --hero-size-h3: clamp(1.2rem, 4vw, 3.3rem);
+  --hero-size-h1: clamp(3.8rem, 13vw, 8rem);
+  --hero-size-h2: clamp(3.1rem, 10.5vw, 6rem);
+  --hero-size-h3: clamp(1.8rem, 5.8vw, 3.3rem);
 
   /* Fluid Hero Syntax Dimensions */
-  --hero-syntax-size-r1: clamp(1.8rem, 6.2vw, 5rem);
-  --hero-syntax-size-r2: clamp(1.8rem, 6.2vw, 5rem);
-  --hero-syntax-size-r3: clamp(1.2rem, 4vw, 3.3rem);
+  --hero-syntax-size-r1: clamp(2.8rem, 9.5vw, 5rem);
+  --hero-syntax-size-r2: clamp(2.8rem, 9.5vw, 5rem);
+  --hero-syntax-size-r3: clamp(1.8rem, 5.8vw, 3.3rem);
 }
 
-.dark {
+.dark,
+:root.dark,
+html.dark {
   --bg-primary: #0e0e0e;
   --bg-secondary: #141414;
   --bg-card: #0e0e0e;
@@ -132,40 +143,28 @@ body {
    HERO EDITORIAL IDENTITY
    ═════════════════════════════════════════════════════ */
 .hero-loading {
-  --hero-syntax-size-r1: clamp(2.6rem, 9.5vw, 8.5rem);
-  --hero-syntax-size-r2: clamp(2.6rem, 9.5vw, 8.5rem);
-  --hero-syntax-size-r3: clamp(1.8rem, 6vw, 5.5rem);
+  --hero-syntax-size-r1: clamp(4.5rem, 12vw, 8.5rem);
+  --hero-syntax-size-r2: clamp(4.5rem, 12vw, 8.5rem);
+  --hero-syntax-size-r3: clamp(3rem, 8vw, 5.5rem);
 }
 
 .hero-h1 {
-  font-size: var(--hero-size-h1, clamp(2.4rem, 8.5vw, 8rem));
+  font-size: var(--hero-size-h1, clamp(3.8rem, 13vw, 8rem));
 }
 
 .hero-h2 {
-  font-size: var(--hero-size-h2, clamp(2rem, 7vw, 6rem));
+  font-size: var(--hero-size-h2, clamp(3.1rem, 10.5vw, 6rem));
 }
 
 .hero-h3 {
-  font-size: var(--hero-size-h3, clamp(1.2rem, 4vw, 3.3rem));
+  font-size: var(--hero-size-h3, clamp(1.8rem, 5.8vw, 3.3rem));
 }
 
 /* ═════════════════════════════════════════════════════
    HERO SYNTAX SYMBOLS (<, />, ;, //) ANIMATIONS & INTERACTIONS
-   Clockwise Stagger Sequence: < (0ms) -> /> (200ms) -> ; (400ms) -> // (600ms)
+   Clockwise Stagger Sequence: < (200ms) -> /> (400ms) -> ; (600ms) -> // (800ms)
    ═════════════════════════════════════════════════════ */
 .hero-h1-bracket-l {
-  display: inline-block;
-  cursor: pointer;
-  transform-origin: center;
-  user-select: none;
-  font-size: var(--hero-syntax-size-r1, clamp(2.6rem, 7.3vw, 5rem));
-  transition: font-size 0.55s cubic-bezier(0.16, 1, 0.3, 1) 0ms,
-              transform 0.55s cubic-bezier(0.16, 1, 0.3, 1) 0ms,
-              color 0.2s ease,
-              opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.hero-h1-bracket-r {
   display: inline-block;
   cursor: pointer;
   transform-origin: center;
@@ -177,14 +176,26 @@ body {
               opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+.hero-h1-bracket-r {
+  display: inline-block;
+  cursor: pointer;
+  transform-origin: center;
+  user-select: none;
+  font-size: var(--hero-syntax-size-r1, clamp(2.6rem, 7.3vw, 5rem));
+  transition: font-size 0.55s cubic-bezier(0.16, 1, 0.3, 1) 400ms,
+              transform 0.55s cubic-bezier(0.16, 1, 0.3, 1) 400ms,
+              color 0.2s ease,
+              opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
 .hero-h2-semi {
   display: inline-block;
   cursor: pointer;
   transform-origin: center;
   user-select: none;
   font-size: var(--hero-syntax-size-r2, clamp(2.6rem, 7.3vw, 5rem));
-  transition: font-size 0.55s cubic-bezier(0.16, 1, 0.3, 1) 400ms,
-              transform 0.55s cubic-bezier(0.16, 1, 0.3, 1) 400ms,
+  transition: font-size 0.55s cubic-bezier(0.16, 1, 0.3, 1) 600ms,
+              transform 0.55s cubic-bezier(0.16, 1, 0.3, 1) 600ms,
               color 0.2s ease,
               opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -195,8 +206,8 @@ body {
   transform-origin: center;
   user-select: none;
   font-size: var(--hero-syntax-size-r3, clamp(1.8rem, 5vw, 3.3rem));
-  transition: font-size 0.55s cubic-bezier(0.16, 1, 0.3, 1) 600ms,
-              transform 0.55s cubic-bezier(0.16, 1, 0.3, 1) 600ms,
+  transition: font-size 0.55s cubic-bezier(0.16, 1, 0.3, 1) 800ms,
+              transform 0.55s cubic-bezier(0.16, 1, 0.3, 1) 800ms,
               color 0.2s ease,
               opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -234,81 +245,4 @@ body {
 .hero-h2-semi:active,
 .hero-h3-slashes:active {
   transform: scale(0.65) !important;
-}
-
-/* Subtle continuous ambient breathing animation */
-@keyframes ambientShrinkL {
-
-  0%,
-  100% {
-    transform: scale(1);
-  }
-
-  32% {
-    transform: scale(0.85) translateY(-2px);
-  }
-
-  68% {
-    transform: scale(1.03);
-  }
-}
-
-@keyframes ambientShrinkR {
-
-  0%,
-  100% {
-    transform: scale(1);
-  }
-
-  42% {
-    transform: scale(0.88) translateY(1px);
-  }
-
-  80% {
-    transform: scale(1.02);
-  }
-}
-
-@keyframes ambientShrinkSemi {
-
-  0%,
-  100% {
-    transform: scale(1);
-  }
-
-  25% {
-    transform: scale(0.82) rotate(3deg);
-  }
-
-  65% {
-    transform: scale(1.05);
-  }
-}
-
-@keyframes ambientShrinkSlashes {
-
-  0%,
-  100% {
-    transform: scale(1);
-  }
-
-  48% {
-    transform: scale(0.86) skewX(-8deg);
-  }
-}
-
-.hero-symbol-ambient-l {
-  animation: ambientShrinkL 6.4s ease-in-out infinite 1s;
-}
-
-.hero-symbol-ambient-r {
-  animation: ambientShrinkR 5.2s ease-in-out infinite 1.2s;
-}
-
-.hero-symbol-ambient-semi {
-  animation: ambientShrinkSemi 7.1s ease-in-out infinite 1.4s;
-}
-
-.hero-symbol-ambient-slashes {
-  animation: ambientShrinkSlashes 4.8s ease-in-out infinite 1.6s;
 }

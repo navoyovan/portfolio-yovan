@@ -7,31 +7,54 @@ interface Props {
   type?: 'website' | 'article';
   keywords?: string[];
   schema?: Record<string, any>;
+  noindex?: boolean;
 }
 
 const rawBase = import.meta.env.BASE_URL;
 const base = rawBase.endsWith('/') ? rawBase.slice(0, -1) : rawBase;
 
 const {
-  title = 'Yovan Gunardio Darmawan — Software Engineer & Builder',
+  title = 'Yovan Gunardio Darmawan | Software Engineer & Builder',
   description = 'High-performance web platforms, touchscreen kiosks, and full-stack systems built with Astro, Tailwind CSS, and React.',
   image = '/og-default.png',
   canonicalURL = new URL(Astro.url.pathname, Astro.site || Astro.url),
   type = 'website',
-  keywords = ['Astro', 'SEO', 'Web Performance', 'Tailwind CSS', 'Portfolio', 'Full-Stack', 'Systems Engineering'],
+  keywords = ['Astro', 'SEO', 'Web Performance', 'Tailwind CSS', 'Portfolio', 'Full-Stack', 'Systems Engineering', 'Laravel', 'Electron'],
   schema,
+  noindex = false,
 } = Astro.props;
 
 const siteTitle = title.includes('Yovan') ? title : `${title} | Yovan`;
 const resolvedImagePath = image.startsWith('/') ? `${base}${image}` : image;
 const formattedImageURL = new URL(resolvedImagePath, Astro.site || Astro.url).toString();
+const siteUrl = Astro.site?.toString() || Astro.url.origin;
 
 const defaultSchema = {
   '@context': 'https://schema.org',
-  '@type': 'WebSite',
-  name: 'Yovan Portfolio',
-  url: Astro.site?.toString() || Astro.url.origin,
-  description: description,
+  '@type': 'ProfilePage',
+  mainEntity: {
+    '@type': 'Person',
+    name: 'Yovan Gunardio Darmawan',
+    alternateName: 'Yovan',
+    jobTitle: 'Software Engineer & Systems Builder',
+    url: siteUrl,
+    image: formattedImageURL,
+    sameAs: [
+      'https://github.com/navoyovan',
+      'https://linkedin.com/in/yovan',
+    ],
+    knowsAbout: [
+      'Astro',
+      'React',
+      'Tailwind CSS',
+      'Laravel',
+      'Electron',
+      'WebSockets',
+      'TypeScript',
+      'Systems Engineering',
+      'Google Cloud Platform',
+    ],
+  },
 };
 
 const finalSchema = schema || defaultSchema;
@@ -43,6 +66,13 @@ const finalSchema = schema || defaultSchema;
 <link rel="icon" type="image/svg+xml" href={`${base}/favicon.svg`} />
 <link rel="icon" href={`${base}/favicon.ico`} />
 <meta name="generator" content={Astro.generator} />
+
+<!-- Robots / Indexing -->
+{noindex ? (
+  <meta name="robots" content="noindex, nofollow" />
+) : (
+  <meta name="robots" content="index, follow" />
+)}
 
 <!-- Primary Meta Tags -->
 <title>{siteTitle}</title>
@@ -57,14 +87,16 @@ const finalSchema = schema || defaultSchema;
 <meta property="og:title" content={siteTitle} />
 <meta property="og:description" content={description} />
 <meta property="og:image" content={formattedImageURL} />
-<meta property="og:site_name" content="Yovan Portfolio" />
+<meta property="og:site_name" content="Yovan Gunardio Darmawan" />
 
 <!-- Twitter -->
-<meta property="twitter:card" content="summary_large_image" />
-<meta property="twitter:url" content={canonicalURL} />
-<meta property="twitter:title" content={siteTitle} />
-<meta property="twitter:description" content={description} />
-<meta property="twitter:image" content={formattedImageURL} />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:url" content={canonicalURL} />
+<meta name="twitter:title" content={siteTitle} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={formattedImageURL} />
+<meta name="twitter:creator" content="@navoyovan" />
+<meta name="twitter:site" content="@navoyovan" />
 
 <!-- Schema.org JSON-LD -->
 <script type="application/ld+json" is:inline set:html={JSON.stringify(finalSchema)} />

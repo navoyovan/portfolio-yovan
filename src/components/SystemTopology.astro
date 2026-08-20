@@ -1,0 +1,469 @@
+---
+// src/components/SystemTopology.astro
+// Exploded 3D Isometric Architecture Diagram for HYPE-BOX with Scroll Reveal Animation
+interface Props {
+  class?: string;
+}
+
+const { class: className = "" } = Astro.props;
+---
+
+<div class:list={[
+  "w-full relative flex justify-center items-center select-none py-4 system-topology-wrapper",
+  className
+]}>
+  <!-- SVG Exploded Isometric Diagram (Floating) -->
+  <svg
+    viewBox="-80 0 580 740"
+    class="w-full h-auto max-w-[480px] overflow-visible drop-shadow-[0_16px_36px_rgba(0,0,0,0.3)] dark:drop-shadow-[0_24px_50px_rgba(0,0,0,0.85)] relative z-10"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <defs>
+      <!-- Gradients -->
+      <linearGradient id="glass-top-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#2a453b" stop-opacity="0.85" />
+        <stop offset="50%" stop-color="#142620" stop-opacity="0.9" />
+        <stop offset="100%" stop-color="#0c1714" stop-opacity="0.95" />
+      </linearGradient>
+
+      <linearGradient id="neon-stroke-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#6ee7b7" stop-opacity="0.9" />
+        <stop offset="50%" stop-color="#34d399" stop-opacity="0.7" />
+        <stop offset="100%" stop-color="#059669" stop-opacity="0.4" />
+      </linearGradient>
+
+      <linearGradient id="cube-front-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" stop-color="#142923" stop-opacity="0.98" />
+        <stop offset="100%" stop-color="#091714" stop-opacity="1.0" />
+      </linearGradient>
+
+      <linearGradient id="cube-side-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" stop-color="#0e211b" stop-opacity="0.98" />
+        <stop offset="100%" stop-color="#05100d" stop-opacity="1.0" />
+      </linearGradient>
+
+      <!-- Filters -->
+      <filter id="neon-glow" x="-20%" y="-20%" width="140%" height="140%">
+        <feGaussianBlur stdDeviation="3.5" result="blur" />
+        <feComposite in="SourceGraphic" in2="blur" operator="over" />
+      </filter>
+    </defs>
+
+      <!-- ══════════════════════════════════════════════════════════════
+           LAYER 4: REACT BASE PLATFORM (Z = 0, BOTTOM-MOST)
+      ══════════════════════════════════════════════════════════════ -->
+      <g id="layer-react-base" class="layer-item layer-4 cursor-pointer group" transform="translate(0, -119)">
+        <!-- Thickness Edges (FULL ALPHA) -->
+        <polygon points="130,657 250,699 250,713 130,671" fill="#0d211b" stroke="#1d4d3e" stroke-width="0.9" />
+        <polygon points="250,699 370,657 370,671 250,713" fill="#143128" stroke="#2a6653" stroke-width="0.9" />
+
+        <!-- Rim Glow Edge Line (FULL ALPHA) -->
+        <line x1="130" y1="657" x2="250" y2="699" stroke="#34d399" stroke-opacity="0.7" stroke-width="0.8" />
+
+        <!-- Top Base Plate (FULL ALPHA) -->
+        <polygon
+          points="250,615 370,657 250,699 130,657"
+          fill="url(#glass-top-grad)"
+          stroke="#6ee7b7"
+          stroke-opacity="0.85"
+          stroke-width="1.2"
+          class="transition-colors duration-300 group-hover:stroke-[#52FF1A]"
+        />
+
+        <!-- ── FAINT SURFACE UI: ISOMETRIC ANALYTICS DASHBOARD ── -->
+        <g opacity="0.35" class="transition-opacity duration-300 group-hover:opacity-60">
+          <!-- Top Navigation Bar Divider -->
+          <line x1="145" y1="662" x2="265" y2="620" stroke="#34d399" stroke-width="0.8" />
+
+          <!-- Window Traffic Light Control Dots -->
+          <circle cx="151.6" cy="654.5" r="1.5" fill="#ef4444" />
+          <circle cx="156.4" cy="652.8" r="1.5" fill="#eab308" />
+          <circle cx="161.2" cy="651.1" r="1.5" fill="#22c55e" />
+
+          <!-- URL / Search Bar Skeleton Pill -->
+          <polygon points="165,647.3 218,629.4 225,631.9 172,649.8" fill="#061912" stroke="#52FF1A" stroke-width="0.6" />
+
+          <!-- Profile Avatar Pill -->
+          <polygon points="232,624.5 244,619.6 251,622.1 239,627" fill="#52FF1A" stroke="#52FF1A" stroke-width="0.5" />
+
+          <!-- Left Sidebar Vertical Divider -->
+          <line x1="180" y1="650" x2="286" y2="687" stroke="#34d399" stroke-width="0.8" />
+
+          <!-- Left Sidebar Navigation Skeleton Rows -->
+          <line x1="172" y1="664" x2="194" y2="656.3" stroke="#52FF1A" stroke-width="2" stroke-linecap="round" />
+          <line x1="190" y1="670.3" x2="210" y2="663.3" stroke="#34d399" stroke-width="1.5" stroke-linecap="round" />
+          <line x1="208" y1="676.6" x2="228" y2="669.6" stroke="#34d399" stroke-width="1.5" stroke-linecap="round" />
+          <line x1="226" y1="682.9" x2="244" y2="676.6" stroke="#34d399" stroke-width="1.5" stroke-linecap="round" />
+
+          <!-- Analytics Area Graph Card -->
+          <polygon points="193,648 260,624.5 315,643.8 248,667.2" fill="#081d17" stroke="#34d399" stroke-width="0.8" />
+          
+          <line x1="204" y1="649" x2="238" y2="637" stroke="#52FF1A" stroke-width="1.8" stroke-linecap="round" />
+          <polygon points="246,634 256,630.5 260,631.9 250,635.4" fill="#52FF1A" stroke="#52FF1A" stroke-width="0.5" />
+
+          <line x1="206" y1="659" x2="274" y2="635.2" stroke="#1d4d3e" stroke-width="0.8" />
+          <line x1="210" y1="653.5" x2="278" y2="629.7" stroke="#1d4d3e" stroke-width="0.5" stroke-dasharray="2,2" />
+
+          <polygon
+            points="206,658 218,651 230,653 244,642 258,644 274,631 274,635.2 206,659"
+            fill="#52FF1A"
+            fill-opacity="0.15"
+          />
+
+          <polyline
+            points="206,658 218,651 230,653 244,642 258,644 274,631"
+            fill="none"
+            stroke="#52FF1A"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+
+          <circle cx="274" cy="631" r="1.6" fill="#52FF1A" />
+          <circle cx="244" cy="642" r="1.3" fill="#38bdf8" />
+
+          <!-- Bottom Dual Stat Metric Cards -->
+          <polygon points="242,668.5 273,657.7 310,670.6 279,681.5" fill="#081d17" stroke="#34d399" stroke-width="0.7" />
+          <line x1="251" y1="669.5" x2="268" y2="663.5" stroke="#6ee7b7" stroke-width="1.5" stroke-linecap="round" />
+          <line x1="255" y1="673" x2="278" y2="665" stroke="#34d399" stroke-width="0.9" stroke-linecap="round" />
+
+          <polygon points="281,655 312,644.2 349,657.1 318,667.9" fill="#081d17" stroke="#34d399" stroke-width="0.7" />
+          <line x1="290" y1="656" x2="307" y2="650" stroke="#6ee7b7" stroke-width="1.5" stroke-linecap="round" />
+          <line x1="316" y1="661" x2="316" y2="657" stroke="#52FF1A" stroke-width="1.3" stroke-linecap="round" />
+          <line x1="322" y1="663" x2="322" y2="655" stroke="#52FF1A" stroke-width="1.3" stroke-linecap="round" />
+          <line x1="328" y1="665" x2="328" y2="653" stroke="#38bdf8" stroke-width="1.3" stroke-linecap="round" />
+        </g>
+      </g>
+
+
+      <!-- ══════════════════════════════════════════════════════════════
+           LAYER 3: LARAVEL SERVER BLOCK (Z = 1, SITS ON REACT)
+      ══════════════════════════════════════════════════════════════ -->
+      <g id="layer-laravel-cube" class="layer-item layer-3 cursor-pointer group" transform="translate(0, 0)">
+        <!-- Thickness Edges (FULL ALPHA MONOLITHIC TOWER) -->
+        <polygon points="130,368 250,410 250,580 130,538" fill="#0d211b" stroke="#1d4d3e" stroke-width="0.9" />
+        <polygon points="250,410 370,368 370,538 250,580" fill="#143128" stroke="#2a6653" stroke-width="0.9" />
+
+        <!-- ── FAINT RIGHT FACE MODULE: POWER BUTTON & DRIVE BAYS ── -->
+        <g transform="translate(266, 400)" opacity="0.35" class="transition-opacity duration-300 group-hover:opacity-60">
+          <g transform="skewY(-19.3)">
+            <!-- Top Power Button -->
+            <g id="power-unit" transform="translate(10, 18)">
+              <circle cx="10" cy="10" r="5" fill="#061812" stroke="#52FF1A" stroke-width="1.2" />
+              <circle cx="10" cy="10" r="2" fill="#52FF1A" />
+              <line x1="24" y1="10" x2="68" y2="10" stroke="#34d399" stroke-width="1.2" stroke-linecap="round" stroke-dasharray="3,3" />
+            </g>
+
+            <!-- Hot-Swap Drive Bay 1 -->
+            <g id="drive-bay-1" transform="translate(8, 46)">
+              <rect x="0" y="0" width="76" height="30" rx="2" fill="#071913" stroke="#1d4d3e" stroke-width="0.9" />
+              <rect x="5" y="5" width="6" height="20" rx="1" fill="#0c261e" stroke="#34d399" stroke-width="0.7" />
+              <line x1="18" y1="15" x2="54" y2="15" stroke="#183d31" stroke-width="1.8" stroke-linecap="round" />
+              <circle cx="66" cy="15" r="1.5" fill="#52FF1A" />
+            </g>
+
+            <!-- Hot-Swap Drive Bay 2 -->
+            <g id="drive-bay-2" transform="translate(8, 92)">
+              <rect x="0" y="0" width="76" height="30" rx="2" fill="#071913" stroke="#1d4d3e" stroke-width="0.9" />
+              <rect x="5" y="5" width="6" height="20" rx="1" fill="#0c261e" stroke="#34d399" stroke-width="0.7" />
+              <line x1="18" y1="15" x2="54" y2="15" stroke="#183d31" stroke-width="1.8" stroke-linecap="round" />
+              <circle cx="66" cy="15" r="1.5" fill="#38bdf8" />
+            </g>
+          </g>
+        </g>
+
+        <!-- Rim Glow Edge Line (FULL ALPHA) -->
+        <line x1="130" y1="368" x2="250" y2="410" stroke="#34d399" stroke-opacity="0.7" stroke-width="0.8" />
+
+        <!-- Top Face Plate (Clean Blank Obsidian Glass - FULL ALPHA) -->
+        <polygon
+          points="250,326 370,368 250,410 130,368"
+          fill="#0c1a16"
+          stroke="#6ee7b7"
+          stroke-opacity="0.85"
+          stroke-width="1.2"
+          class="transition-colors duration-300 group-hover:stroke-[#52FF1A]"
+        />
+      </g>
+
+
+      <!-- ══════════════════════════════════════════════════════════════
+           LAYER 2: 3-TIER STACKED PERSISTENCE (Z = 2, SITS ON LARAVEL)
+      ══════════════════════════════════════════════════════════════ -->
+      <g id="layer-storage" class="layer-item layer-2 cursor-pointer group" transform="translate(0, 119)">
+        <!-- ── TIER 3 (BOTTOM PLATTER - FULL ALPHA) ── -->
+        <g id="storage-tier-3">
+          <polygon points="250,193 370,235 250,277 130,235" fill="#091813" stroke="#1d4d3e" stroke-width="0.8" />
+          <polygon points="130,235 250,277 250,291 130,249" fill="#0b1e18" stroke="#1d4d3e" stroke-width="0.8" />
+          <polygon points="250,277 370,235 370,249 250,291" fill="#122a22" stroke="#2a6653" stroke-width="0.8" />
+          <line x1="130" y1="235" x2="250" y2="277" stroke="#34d399" stroke-opacity="0.4" stroke-width="0.8" />
+          <!-- Faint LEDs -->
+          <g opacity="0.35">
+            <circle cx="228" cy="276.3" r="1.4" fill="#52FF1A" />
+            <circle cx="236" cy="279.1" r="1.4" fill="#38bdf8" />
+            <circle cx="244" cy="281.9" r="1.4" fill="#34d399" />
+          </g>
+        </g>
+
+        <!-- ── TIER 2 (MIDDLE PLATTER - FULL ALPHA) ── -->
+        <g id="storage-tier-2">
+          <polygon points="250,177 370,219 250,261 130,219" fill="#0a1a15" stroke="#1d4d3e" stroke-width="0.8" />
+          <polygon points="130,219 250,261 250,275 130,233" fill="#0c201a" stroke="#1d4d3e" stroke-width="0.8" />
+          <polygon points="250,261 370,219 370,233 250,275" fill="#132d25" stroke="#2a6653" stroke-width="0.8" />
+          <line x1="130" y1="219" x2="250" y2="261" stroke="#34d399" stroke-opacity="0.55" stroke-width="0.8" />
+          <!-- Faint LEDs -->
+          <g opacity="0.35">
+            <circle cx="228" cy="260.3" r="1.4" fill="#52FF1A" />
+            <circle cx="236" cy="263.1" r="1.4" fill="#38bdf8" />
+            <circle cx="244" cy="265.9" r="1.4" fill="#34d399" />
+          </g>
+        </g>
+
+        <!-- ── TIER 1 (TOP PLATTER - FULL ALPHA) ── -->
+        <g id="storage-tier-1">
+          <!-- Thickness Edges -->
+          <polygon points="130,203 250,245 250,259 130,217" fill="#0d211b" stroke="#1d4d3e" stroke-width="0.8" />
+          <polygon points="250,245 370,203 370,217 250,259" fill="#143128" stroke="#2a6653" stroke-width="0.8" />
+          <line x1="130" y1="203" x2="250" y2="245" stroke="#34d399" stroke-opacity="0.7" stroke-width="0.8" />
+          <!-- Faint LEDs -->
+          <g opacity="0.4">
+            <circle cx="228" cy="244.3" r="1.4" fill="#52FF1A" />
+            <circle cx="236" cy="247.1" r="1.4" fill="#52FF1A" />
+            <circle cx="244" cy="249.9" r="1.4" fill="#34d399" />
+          </g>
+
+          <!-- Top Face (Clean Blank Glass - FULL ALPHA) -->
+          <polygon
+            points="250,161 370,203 250,245 130,203"
+            fill="#0c1a16"
+            stroke="#6ee7b7"
+            stroke-opacity="0.85"
+            stroke-width="1.2"
+            class="transition-colors duration-300 group-hover:stroke-[#52FF1A]"
+          />
+        </g>
+      </g>
+
+
+      <!-- ══════════════════════════════════════════════════════════════
+           LAYER 1: ELECTRON TOP SLAB (Z = 3, TOP-MOST)
+      ══════════════════════════════════════════════════════════════ -->
+      <g id="layer-electron" class="layer-item layer-1 cursor-pointer group" transform="translate(0, 238)">
+        <!-- Base Slab Bottom Side (Thickness - FULL ALPHA) -->
+        <polygon points="130,72 250,114 250,126 130,84" fill="#0c1e19" stroke="#1d4d3e" stroke-width="0.8" />
+        <polygon points="250,114 370,72 370,84 250,126" fill="#142e26" stroke="#2a6653" stroke-width="0.8" />
+        
+        <!-- Top Glass Face (FULL ALPHA) -->
+        <polygon
+          points="250,30 370,72 250,114 130,72"
+          fill="url(#glass-top-grad)"
+          stroke="#6ee7b7"
+          stroke-opacity="0.85"
+          stroke-width="1.2"
+          class="transition-colors duration-300 group-hover:stroke-[#52FF1A]"
+        />
+
+        <!-- ── FAINT SURFACE UI: KIOSK APP WIREFRAME ── -->
+        <g opacity="0.35" class="transition-opacity duration-300 group-hover:opacity-60">
+          <!-- Top Navigation Bar Divider -->
+          <line x1="145" y1="77" x2="265" y2="35" stroke="#34d399" stroke-width="0.8" />
+
+          <!-- Window Control Dots -->
+          <circle cx="151.6" cy="69.5" r="1.5" fill="#ef4444" />
+          <circle cx="156.4" cy="67.8" r="1.5" fill="#eab308" />
+          <circle cx="161.2" cy="66.1" r="1.5" fill="#22c55e" />
+
+          <!-- Search Bar Skeleton Pill -->
+          <polygon points="165,62.3 218,43.8 225,46.3 172,64.8" fill="#061912" stroke="#52FF1A" stroke-width="0.6" />
+
+          <!-- Profile Avatar Pill -->
+          <polygon points="232,38.8 244,34.6 251,37.1 239,41.3" fill="#52FF1A" stroke="#52FF1A" stroke-width="0.5" />
+
+          <!-- Left Sidebar Divider -->
+          <line x1="180" y1="64.5" x2="286" y2="101.5" stroke="#34d399" stroke-width="0.8" />
+
+          <!-- Navigation Skeleton Rows -->
+          <line x1="172" y1="79" x2="194" y2="71.3" stroke="#52FF1A" stroke-width="2" stroke-linecap="round" />
+          <line x1="190" y1="85.3" x2="210" y2="78.3" stroke="#34d399" stroke-width="1.5" stroke-linecap="round" />
+          <line x1="208" y1="91.6" x2="228" y2="84.6" stroke="#34d399" stroke-width="1.5" stroke-linecap="round" />
+          <line x1="226" y1="97.9" x2="244" y2="91.6" stroke="#34d399" stroke-width="1.5" stroke-linecap="round" />
+
+          <!-- Hero Banner Card -->
+          <polygon points="195,62.7 262,39.2 315,57.7 248,81.2" fill="#081d17" stroke="#34d399" stroke-width="0.8" />
+          
+          <line x1="206" y1="63.5" x2="246" y2="49.5" stroke="#52FF1A" stroke-width="2" stroke-linecap="round" />
+          <line x1="210" y1="67.5" x2="262" y2="49.3" stroke="#34d399" stroke-width="1.4" stroke-linecap="round" />
+          <line x1="214" y1="71.5" x2="252" y2="58.2" stroke="#34d399" stroke-width="1.4" stroke-linecap="round" />
+          
+          <polygon points="220,75 238,68.7 244,70.8 226,77.1" fill="#52FF1A" />
+
+          <!-- Stat Cards -->
+          <polygon points="242,83 273,72.2 310,85.1 279,96" fill="#081d17" stroke="#34d399" stroke-width="0.7" />
+          <line x1="251" y1="84" x2="268" y2="78" stroke="#6ee7b7" stroke-width="1.5" stroke-linecap="round" />
+          <line x1="255" y1="87.5" x2="278" y2="79.5" stroke="#34d399" stroke-width="0.9" stroke-linecap="round" />
+
+          <polygon points="281,69.3 312,58.5 349,71.4 318,82.3" fill="#081d17" stroke="#34d399" stroke-width="0.7" />
+          <line x1="290" y1="70.3" x2="307" y2="64.3" stroke="#6ee7b7" stroke-width="1.5" stroke-linecap="round" />
+          <line x1="294" y1="73.8" x2="317" y2="65.8" stroke="#34d399" stroke-width="0.9" stroke-linecap="round" />
+        </g>
+      </g>
+
+
+      <!-- ══════════════════════════════════════════════════════════════
+           LAYER ANNOTATIONS & LEADER LINES (MORE TO LEFT)
+      ══════════════════════════════════════════════════════════════ -->
+      <!-- Annotation 1: Electron / Client App -->
+      <g class="annotation-item annotation-1">
+        <text x="-70" y="60" text-anchor="start" class="font-heading font-bold text-[16px] uppercase tracking-wider fill-neutral-900 dark:fill-neutral-100">CLIENT LAYER</text>
+        <text x="-70" y="78" text-anchor="start" class="font-sans font-medium text-[13px] fill-neutral-500 dark:fill-neutral-400">Electron Kiosk App</text>
+        <line x1="-70" y1="86" x2="118" y2="86" stroke="#34d399" stroke-opacity="0.4" stroke-width="0.8" stroke-dasharray="2,2" />
+        <line x1="118" y1="86" x2="130" y2="74" stroke="#34d399" stroke-opacity="0.7" stroke-width="0.8" />
+        <circle cx="130" cy="74" r="2.2" fill="#52FF1A" />
+      </g>
+
+      <!-- Annotation 2: Data & Storage -->
+      <g class="annotation-item annotation-2">
+        <text x="-70" y="200" text-anchor="start" class="font-heading font-bold text-[16px] uppercase tracking-wider fill-neutral-900 dark:fill-neutral-100">PERSISTENCE</text>
+        <text x="-70" y="218" text-anchor="start" class="font-sans font-medium text-[13px] fill-neutral-500 dark:fill-neutral-400">MySQL & GCS Buckets</text>
+        <line x1="-70" y1="226" x2="118" y2="226" stroke="#34d399" stroke-opacity="0.4" stroke-width="0.8" stroke-dasharray="2,2" />
+        <line x1="118" y1="226" x2="130" y2="217" stroke="#34d399" stroke-opacity="0.7" stroke-width="0.8" />
+        <circle cx="130" cy="217" r="2.2" fill="#52FF1A" />
+      </g>
+
+      <!-- Annotation 3: Laravel Core Server -->
+      <g class="annotation-item annotation-3">
+        <text x="-70" y="434" text-anchor="start" class="font-heading font-bold text-[16px] uppercase tracking-wider fill-neutral-900 dark:fill-neutral-100">LARAVEL API</text>
+        <text x="-70" y="452" text-anchor="start" class="font-sans font-medium text-[13px] fill-neutral-500 dark:fill-neutral-400">Core Backend Chassis</text>
+        <line x1="-70" y1="460" x2="118" y2="460" stroke="#34d399" stroke-opacity="0.4" stroke-width="0.8" stroke-dasharray="2,2" />
+        <line x1="118" y1="460" x2="130" y2="453" stroke="#34d399" stroke-opacity="0.7" stroke-width="0.8" />
+        <circle cx="130" cy="453" r="2.2" fill="#52FF1A" />
+      </g>
+
+      <!-- Annotation 4: Tenant Dashboard UI -->
+      <g class="annotation-item annotation-4">
+        <text x="-70" y="644" text-anchor="start" class="font-heading font-bold text-[16px] uppercase tracking-wider fill-neutral-900 dark:fill-neutral-100">TENANT PORTAL</text>
+        <text x="-70" y="662" text-anchor="start" class="font-sans font-medium text-[13px] fill-neutral-500 dark:fill-neutral-400">Vite + React Dashboard</text>
+        <line x1="-70" y1="670" x2="118" y2="670" stroke="#34d399" stroke-opacity="0.4" stroke-width="0.8" stroke-dasharray="2,2" />
+        <line x1="118" y1="670" x2="130" y2="660" stroke="#34d399" stroke-opacity="0.7" stroke-width="0.8" />
+        <circle cx="130" cy="660" r="2.2" fill="#52FF1A" />
+      </g>
+
+    </svg>
+</div>
+
+<style>
+  /* ── GPU-accelerated SVG & DOM transforms ── */
+  .system-topology-wrapper .layer-item {
+    transform-box: view-box;
+    will-change: transform;
+    transition: filter 0.3s ease;
+  }
+
+  .system-topology-wrapper .annotation-item {
+    will-change: transform, opacity;
+  }
+
+  /* Interactive hover elevation */
+  .system-topology-wrapper .layer-item:hover {
+    filter: drop-shadow(0 0 12px rgba(82, 255, 26, 0.45));
+    cursor: pointer;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .system-topology-wrapper .layer-item,
+    .system-topology-wrapper .annotation-item {
+      transform: none !important;
+      opacity: 1 !important;
+    }
+  }
+</style>
+
+<script>
+  function setupScrollExplosion() {
+    const wrappers = document.querySelectorAll('.system-topology-wrapper');
+    if (!wrappers.length) return;
+
+    wrappers.forEach((wrapper) => {
+      const svg = wrapper.querySelector('svg');
+      if (!svg) return;
+
+      const layer1 = svg.querySelector('#layer-electron') as SVGGElement | null;
+      const layer2 = svg.querySelector('#layer-storage') as SVGGElement | null;
+      const layer3 = svg.querySelector('#layer-laravel-cube') as SVGGElement | null;
+      const layer4 = svg.querySelector('#layer-react-base') as SVGGElement | null;
+      const annotations = svg.querySelectorAll('.annotation-item') as NodeListOf<SVGGElement>;
+
+      let currentProgress = 0;
+      let targetProgress = 0;
+      let animFrameId: number | null = null;
+
+      function updateLayers(p: number) {
+        // Smooth cubic ease: 3p^2 - 2p^3
+        const eased = p * p * (3 - 2 * p);
+        const collapseFactor = 1 - eased;
+
+        // ULTRA-DENSE COLLAPSED STACK (Direct Flush Contact Stacking)
+        // Layer 1 (Electron): travels 238px down directly flush on top of Layer 2 Tier 1
+        const y1 = collapseFactor * 238;
+        // Layer 2 (Persistence): travels 119px down directly flush on top of Laravel chassis
+        const y2 = collapseFactor * 119;
+        // Layer 3 (Laravel): anchored tower at 0
+        const y3 = 0;
+        // Layer 4 (React): travels 119px up directly flush underneath Laravel chassis
+        const y4 = collapseFactor * -119;
+
+        if (layer1) layer1.setAttribute('transform', `translate(0, ${y1.toFixed(2)})`);
+        if (layer2) layer2.setAttribute('transform', `translate(0, ${y2.toFixed(2)})`);
+        if (layer3) layer3.setAttribute('transform', `translate(0, ${y3.toFixed(2)})`);
+        if (layer4) layer4.setAttribute('transform', `translate(0, ${y4.toFixed(2)})`);
+
+        // Annotations fade and slide in progressively as it reaches full explosion
+        const annotP = Math.max(0, Math.min(1, (p - 0.35) / 0.65));
+        const annotEased = annotP * annotP * (3 - 2 * annotP);
+
+        annotations.forEach((annot, idx) => {
+          const itemP = Math.max(0, Math.min(1, (annotP - idx * 0.08) / 0.76));
+          annot.setAttribute('transform', `translate(${( (1 - itemP) * -20 ).toFixed(2)}, 0)`);
+          annot.style.opacity = itemP.toFixed(3);
+          annot.style.pointerEvents = itemP > 0.8 ? 'auto' : 'none';
+        });
+      }
+
+      function renderLoop() {
+        if (Math.abs(targetProgress - currentProgress) > 0.002) {
+          currentProgress += (targetProgress - currentProgress) * 0.14;
+          updateLayers(currentProgress);
+          animFrameId = requestAnimationFrame(renderLoop);
+        } else if (currentProgress !== targetProgress) {
+          currentProgress = targetProgress;
+          updateLayers(currentProgress);
+          animFrameId = null;
+        } else {
+          animFrameId = null;
+        }
+      }
+
+      // Interactive Click-to-Toggle between Collapsed (0) and Exploded (1)
+      wrapper.addEventListener('click', () => {
+        targetProgress = targetProgress > 0.5 ? 0 : 1;
+        if (!animFrameId) {
+          animFrameId = requestAnimationFrame(renderLoop);
+        }
+      });
+
+      // Initial pass: show the ULTRA-DENSE COLLAPSED state visually
+      currentProgress = 0;
+      targetProgress = 0;
+      updateLayers(0);
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupScrollExplosion);
+  } else {
+    setupScrollExplosion();
+  }
+
+  document.addEventListener('astro:page-load', setupScrollExplosion);
+</script>

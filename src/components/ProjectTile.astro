@@ -6,10 +6,14 @@ interface Props {
   href?: string;
   imageSrc?: string;
   imageAlt?: string;
+  iframeSrc?: string;
+  iframeScale?: number;
+  previewBg?: string;
   status?: string;
   statusVariant?: 'accent' | 'neutral' | 'warning' | 'danger' | 'info';
   tags?: string[];
   actionText?: string;
+  metaText?: string;
   class?: string;
   [key: string]: any;
 }
@@ -23,25 +27,44 @@ const {
   href = '#',
   imageSrc,
   imageAlt = title,
+  iframeSrc,
+  iframeScale = 0.28,
+  previewBg,
   status,
   statusVariant = 'accent',
   tags = [],
   actionText = 'VIEW CASE STUDY',
+  metaText,
   class: className = '',
   ...rest
 } = Astro.props;
+
+const isExternal = typeof href === 'string' && href.startsWith('http');
 ---
 
 <article
   class:list={[
-    'group relative flex flex-col bg-[#f6f4ee] dark:bg-[#141414] border border-neutral-300/80 dark:border-neutral-800 transition-all duration-200 hover:border-neutral-400 dark:hover:border-neutral-600 overflow-hidden',
+    'group relative flex flex-col bg-[#f6f4ee] dark:bg-[#141414] border border-neutral-300/80 dark:border-neutral-800 transition-all duration-200 hover:border-neutral-400 dark:hover:border-neutral-600 overflow-hidden shadow-sm',
     className
   ]}
   {...rest}
 >
-  <!-- Media / Viewfinder Container -->
-  <div class="relative w-full aspect-[16/10] bg-neutral-200/60 dark:bg-neutral-900 overflow-hidden border-b border-neutral-200/80 dark:border-neutral-800/80">
-    {imageSrc ? (
+  <!-- Media / Viewfinder Container (Adapted from Easter Egg Modal) -->
+  <div
+    class:list={[
+      'relative w-full aspect-[16/9.5] overflow-hidden border-b border-neutral-300/80 dark:border-neutral-800/80 select-none flex items-center justify-center',
+      previewBg ? previewBg : 'bg-neutral-200/60 dark:bg-neutral-900'
+    ]}
+  >
+    {iframeSrc ? (
+      <iframe
+        src={iframeSrc}
+        title={title}
+        class="border-0 pointer-events-none select-none shrink-0"
+        style={`width: 1440px; height: 855px; transform: scale(${iframeScale}); transform-origin: center center;`}
+        loading="lazy"
+      />
+    ) : imageSrc ? (
       <img
         src={imageSrc}
         alt={imageAlt}
@@ -49,17 +72,17 @@ const {
         class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
       />
     ) : (
-      <div class="w-full h-full flex flex-col items-center justify-center p-6 relative select-none">
+      <div class="w-full h-full flex flex-col items-center justify-center p-4 relative select-none">
         {/* Viewfinder Corner Registration Marks */}
-        <span class="absolute top-3 left-3 font-sans text-xs text-neutral-400 dark:text-neutral-600 select-none">┌</span>
-        <span class="absolute top-3 right-3 font-sans text-xs text-neutral-400 dark:text-neutral-600 select-none">┐</span>
-        <span class="absolute bottom-3 left-3 font-sans text-xs text-neutral-400 dark:text-neutral-600 select-none">└</span>
-        <span class="absolute bottom-3 right-3 font-sans text-xs text-neutral-400 dark:text-neutral-600 select-none">┘</span>
+        <span class="absolute top-2.5 left-2.5 font-sans text-xs text-neutral-400 dark:text-neutral-600 select-none">┌</span>
+        <span class="absolute top-2.5 right-2.5 font-sans text-xs text-neutral-400 dark:text-neutral-600 select-none">┐</span>
+        <span class="absolute bottom-2.5 left-2.5 font-sans text-xs text-neutral-400 dark:text-neutral-600 select-none">└</span>
+        <span class="absolute bottom-2.5 right-2.5 font-sans text-xs text-neutral-400 dark:text-neutral-600 select-none">┘</span>
 
-        <div class="w-12 h-12 border border-neutral-300 dark:border-neutral-800 flex items-center justify-center mb-2 group-hover:border-[#52FF1A]/50 transition-colors">
-          <span class="font-sans text-sm text-neutral-400 dark:text-neutral-500 group-hover:text-[#52FF1A] transition-colors">+</span>
+        <div class="w-9 h-9 border border-neutral-300 dark:border-neutral-800 flex items-center justify-center mb-1.5 group-hover:border-[#52FF1A]/50 transition-colors">
+          <span class="font-sans text-xs text-neutral-400 dark:text-neutral-500 group-hover:text-[#52FF1A] transition-colors">+</span>
         </div>
-        <span class="font-sans text-xs uppercase tracking-wider text-neutral-400 dark:text-neutral-600 font-semibold">
+        <span class="font-sans text-[10px] uppercase tracking-wider text-neutral-400 dark:text-neutral-600 font-semibold">
           SYSTEM PREVIEW FRAME
         </span>
       </div>
@@ -67,7 +90,7 @@ const {
 
     <!-- Floating Top Status Badge -->
     {status && (
-      <div class="absolute top-3 left-3 z-10">
+      <div class="absolute top-2.5 left-2.5 z-10">
         <StatusBadge variant={statusVariant} size="sm">
           {status}
         </StatusBadge>
@@ -75,18 +98,23 @@ const {
     )}
   </div>
 
-  <!-- Content Section -->
-  <div class="p-6 flex flex-col flex-1 gap-4">
+  <!-- Content Section (Compact Easter Egg Card Format) -->
+  <div class="p-4 sm:p-5 flex flex-col flex-1 gap-3">
     <!-- Category Tag -->
-    <span class="font-sans text-xs uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-semibold">
+    <span class="font-sans text-[11px] uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-semibold">
       {category}
     </span>
 
     <!-- Syne Title -->
     <h3
-      class="text-xl sm:text-2xl font-bold text-neutral-950 dark:text-white tracking-tight leading-tight group-hover:text-[#52FF1A] transition-colors font-heading"
+      class="text-lg sm:text-xl font-bold text-neutral-950 dark:text-white tracking-tight leading-tight group-hover:text-[#52FF1A] transition-colors font-heading"
     >
-      <a href={href} class="focus:outline-none">
+      <a
+        href={href}
+        target={isExternal ? '_blank' : undefined}
+        rel={isExternal ? 'noopener noreferrer' : undefined}
+        class="focus:outline-none"
+      >
         <span class="absolute inset-0" aria-hidden="true"></span>
         {title}
       </a>
@@ -94,28 +122,39 @@ const {
 
     <!-- Outfit Description -->
     {description && (
-      <p class="font-sans text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed font-normal">
+      <p class="font-sans text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed font-normal">
         {description}
       </p>
     )}
 
     <!-- Tags Row -->
     {tags.length > 0 && (
-      <div class="flex flex-wrap gap-2 pt-2">
+      <div class="flex flex-wrap gap-1.5 pt-0.5">
         {tags.map((tag) => (
-          <span class="font-sans text-xs font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2.5 py-0.5 rounded">
+          <span class="font-sans text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2.5 py-0.5 rounded">
             {tag}
           </span>
         ))}
       </div>
     )}
 
-    <!-- Action Link Footer -->
-    <div class="mt-auto pt-4 border-t border-neutral-200/80 dark:border-neutral-800/80 flex items-center justify-between">
-      <span class="font-sans text-xs font-bold uppercase tracking-wider text-neutral-950 dark:text-white group-hover:text-[#52FF1A] transition-colors flex items-center gap-1.5">
-        {actionText}
-        <span class="inline-block transition-transform duration-200 group-hover:translate-x-1">→</span>
-      </span>
+    <!-- Action Link / Metadata Footer -->
+    <div class="mt-auto pt-3 border-t border-neutral-200/80 dark:border-neutral-800/80 flex items-center justify-between gap-2">
+      {metaText ? (
+        <span class="font-mono text-[11px] text-neutral-400 dark:text-neutral-500 truncate">
+          {metaText}
+        </span>
+      ) : (
+        <span></span>
+      )}
+      {actionText && (
+        <span class="font-sans text-[11px] sm:text-xs font-bold uppercase tracking-wider text-neutral-950 dark:text-white group-hover:text-[#52FF1A] transition-colors flex items-center gap-1 shrink-0 ml-auto">
+          {actionText}
+          <span class="inline-block transition-transform duration-200 group-hover:translate-x-0.5">
+            {isExternal ? '↗' : '→'}
+          </span>
+        </span>
+      )}
     </div>
   </div>
 </article>

@@ -1,5 +1,5 @@
 ---
-// ActionButton.astro — Normalized Web & Editorial Button Primitive
+// ActionButton.astro - Normalized Web & Editorial Button Primitive
 interface Props {
   variant?: 'primary' | 'cta' | 'secondary';
   size?: 'sm' | 'md' | 'lg';
@@ -35,7 +35,7 @@ const baseStyles = 'uppercase inline-flex items-center justify-center leading-no
 const variantStyles = {
   cta: "font-heading font-bold bg-[#52FF1A] text-black animate-kiosk-pulse hover:bg-[#42e012] hover:shadow-[0_0_20px_rgba(82,255,26,0.35)] active:bg-[#38c20e] active:scale-[0.98] border-none",
   primary: "font-heading font-bold bg-neutral-950 text-white hover:bg-neutral-800 dark:bg-white dark:text-neutral-950 dark:hover:bg-neutral-200 active:scale-[0.98] border-none",
-  secondary: "font-heading font-bold bg-transparent text-neutral-900 dark:text-neutral-100 border border-dashed border-neutral-400 dark:border-neutral-600 hover:border-solid hover:border-neutral-900 dark:hover:border-white hover:bg-neutral-900/5 dark:hover:bg-white/10 active:scale-[0.98]"
+  secondary: "font-heading font-bold bg-transparent text-neutral-900 dark:text-neutral-100 border border-dashed border-neutral-400 dark:border-neutral-600 hover:border-solid hover:border-neutral-950 dark:hover:border-white hover:bg-neutral-900/5 dark:hover:bg-white/10 active:scale-[0.98]"
 };
 ---
 

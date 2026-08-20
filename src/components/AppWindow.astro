@@ -1,0 +1,144 @@
+---
+interface Props {
+  title?: string;
+  url?: string;
+  demoUrl?: string;
+  items?: Array<{
+    title: string;
+    tag: string;
+    image: string;
+    alt: string;
+    description?: string;
+  }>;
+}
+
+const {
+  title = "HYPEBOX OS // FLEET CONTROL & KIOSK ENGINE",
+  url = "https://navoyovan.github.io/hypebox/",
+  demoUrl = "https://navoyovan.github.io/photobooth-kiosk-demo/",
+  items = [
+    {
+      title: "Vendor Management Fleet",
+      tag: "REACT / CSS MODULES",
+      image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1600&auto=format&fit=crop",
+      alt: "Hypebox Vendor Management Dashboard Preview",
+      description: "Cloud interface for telemetry, session analytics, custom template designers, and financial reports.",
+    },
+    {
+      title: "Photobooth Touchscreen OS",
+      tag: "ELECTRON / CAMERA IPC",
+      image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1600&auto=format&fit=crop",
+      alt: "Photobooth Touchscreen Interface Preview",
+      description: "Standalone kiosk software with real-time camera feeds, countdown capture loops, and thermal printing.",
+    },
+    {
+      title: "REST & Reverb WebSocket Engine",
+      tag: "LARAVEL 13 / GCS",
+      image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1600&auto=format&fit=crop",
+      alt: "API Architecture and Telemetry Server",
+      description: "High-throughput backend processing Midtrans QRIS payments and live kiosk WebSocket telemetry.",
+    },
+  ],
+} = Astro.props;
+---
+
+<div class="app-window relative w-full max-w-sm sm:max-w-md mx-auto lg:mx-0 rounded-2xl sm:rounded-3xl border border-neutral-300/80 dark:border-neutral-800/80 bg-[#fcfbf9] dark:bg-[#0e0e0e] overflow-hidden shadow-2xl shadow-black/10 dark:shadow-black/50 aspect-square group">
+  <!-- Slides Viewport -->
+  <div class="relative w-full h-full overflow-hidden bg-neutral-950">
+    {items.map((item, idx) => (
+      <div
+        class:list={[
+          "app-slide absolute inset-0 w-full h-full transition-opacity duration-700 ease-in-out",
+          idx === 0 ? "opacity-100 z-10" : "opacity-0 z-0 pointer-events-none"
+        ]}
+        data-slide-index={idx}
+      >
+        <img
+          src={item.image}
+          alt={item.alt}
+          loading={idx === 0 ? "eager" : "lazy"}
+          class="w-full h-full object-cover object-center"
+        />
+      </div>
+    ))}
+
+    <!-- Floating Minimal Carousel Indicator -->
+    <div class="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/50 backdrop-blur-md border border-white/10">
+      {items.map((_, idx) => (
+        <button
+          type="button"
+          data-index={idx}
+          class:list={[
+            "app-bullet-btn h-1.5 rounded-full transition-all duration-300 cursor-pointer focus:outline-none",
+            idx === 0
+              ? "w-5 bg-white"
+              : "w-1.5 bg-white/40 hover:bg-white/70"
+          ]}
+          aria-label={`Go to slide ${idx + 1}`}
+        />
+      ))}
+    </div>
+  </div>
+</div>
+
+<script>
+  const setupAppWindows = () => {
+    const windows = document.querySelectorAll('.app-window');
+    windows.forEach((win) => {
+      const bullets = win.querySelectorAll('.app-bullet-btn');
+      const slides = win.querySelectorAll('.app-slide');
+      if (!bullets.length || !slides.length) return;
+
+      let currentIdx = 0;
+      let interval: any = null;
+
+      const setSlide = (index: number) => {
+        currentIdx = index;
+        slides.forEach((slide, sIdx) => {
+          if (sIdx === index) {
+            slide.classList.remove('opacity-0', 'pointer-events-none', 'z-0');
+            slide.classList.add('opacity-100', 'z-10');
+          } else {
+            slide.classList.remove('opacity-100', 'z-10');
+            slide.classList.add('opacity-0', 'pointer-events-none', 'z-0');
+          }
+        });
+
+        bullets.forEach((bullet, bIdx) => {
+          if (bIdx === index) {
+            bullet.classList.add('w-5', 'bg-white');
+            bullet.classList.remove('w-1.5', 'bg-white/40');
+          } else {
+            bullet.classList.remove('w-5', 'bg-white');
+            bullet.classList.add('w-1.5', 'bg-white/40');
+          }
+        });
+      };
+
+      bullets.forEach((bullet) => {
+        bullet.addEventListener('click', (e) => {
+          const idx = parseInt((e.currentTarget as HTMLElement).getAttribute('data-index') || '0', 10);
+          setSlide(idx);
+          resetInterval();
+        });
+      });
+
+      const resetInterval = () => {
+        if (interval) clearInterval(interval);
+        interval = setInterval(() => {
+          const next = (currentIdx + 1) % slides.length;
+          setSlide(next);
+        }, 5000);
+      };
+
+      resetInterval();
+    });
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupAppWindows);
+  } else {
+    setupAppWindows();
+  }
+  document.addEventListener('astro:page-load', setupAppWindows);
+</script>
