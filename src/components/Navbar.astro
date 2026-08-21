@@ -11,9 +11,13 @@ const navItems = [
 ];
 ---
 
-<header class="w-full border-b border-neutral-200/80 bg-[#fcfbf9]/90 backdrop-blur-md dark:border-neutral-800/80 dark:bg-[#0e0e0e]/90 sticky top-0 z-50">
+<header
+  class="w-full border-b border-neutral-200/80 bg-[#fcfbf9]/90 dark:border-neutral-800/80 dark:bg-[#0e0e0e]/90 sticky top-0 z-50 transition-colors duration-200"
+  style="-webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px);"
+>
   <div class="w-full px-4 sm:px-6 md:px-8 lg:px-10 h-16 sm:h-18 flex items-center justify-between">
     <div class="flex items-center">
+      <!-- Logo -->
       <a
         id="navbar-logo"
         href={homeHref}
@@ -100,7 +104,7 @@ const navItems = [
         </svg>
       </button>
 
-      <!-- Mobile Menu Button (hypebox style 2-bar animated transform) -->
+      <!-- Mobile Menu Button (Positioned on the RIGHT) -->
       <button
         type="button"
         id="mobile-menu-toggle"
@@ -121,13 +125,13 @@ const navItems = [
     </div>
   </div>
 
-  <!-- Mobile Drawer Menu (hypebox style backdrop blur & typography) -->
+  <!-- Mobile Drawer Menu (Alpha transparency matching navbar header) -->
   <div
     id="mobile-menu-drawer"
     aria-hidden="true"
-    class="md:hidden fixed top-16 sm:top-18 left-0 w-full bg-[#fcfbf9]/98 dark:bg-[#0e0e0e]/98 backdrop-blur-xl border-b border-neutral-200/80 dark:border-neutral-800/80 shadow-2xl transition-all duration-300 ease-out -translate-y-4 opacity-0 pointer-events-none z-40 overflow-hidden"
+    class="md:hidden absolute top-full left-0 w-full bg-[#fcfbf9]/90 dark:bg-[#0e0e0e]/90 border-b border-neutral-300/80 dark:border-neutral-800/80 shadow-2xl transition-all duration-300 ease-out -translate-y-4 opacity-0 pointer-events-none z-50 overflow-hidden"
   >
-    <div class="px-6 py-8 flex flex-col gap-4">
+    <div class="px-6 py-8 flex flex-col gap-4 text-left items-start">
       {navItems.map((item) => {
         const itemPath = item.href.replace(/\/$/, '');
         const normalizedPathname = pathname.replace(/\/$/, '');
@@ -136,29 +140,27 @@ const navItems = [
           <a
             href={item.href}
             class:list={[
-              'mobile-nav-link font-heading font-bold text-2xl uppercase tracking-tight transition-colors flex items-center justify-between',
+              'mobile-nav-link font-heading font-bold text-2xl uppercase tracking-tight transition-colors text-left w-full',
               isActive
                 ? 'text-neutral-950 dark:text-white font-black'
-                : 'text-neutral-600 dark:text-neutral-400 hover:text-[#52FF1A] dark:hover:text-[#52FF1A]',
+                : 'text-neutral-600 dark:text-neutral-400 hover:text-neutral-950 dark:hover:text-white',
             ]}
             aria-current={isActive ? 'page' : undefined}
           >
-            <span>{item.label}</span>
-            {isActive && (
-              <span class="w-2 h-2 rounded-full bg-[#52FF1A]"></span>
-            )}
+            {item.label}
           </a>
         );
       })}
 
-      <div class="mt-4 pt-6 border-t border-neutral-200/80 dark:border-neutral-800/80 flex items-center gap-6 text-xs text-neutral-500 dark:text-neutral-400 font-mono">
+      <!-- Contact Links (Aligned on the Left) -->
+      <div class="w-full mt-4 pt-6 border-t border-neutral-200/80 dark:border-neutral-800/80 flex items-center justify-start gap-6 text-xs text-neutral-500 dark:text-neutral-400 font-mono">
         <a
           href="https://github.com/navoyovan"
           target="_blank"
           rel="noopener noreferrer"
           class="hover:text-neutral-950 dark:hover:text-white transition-colors"
         >
-          GitHub ↗
+          GitHub
         </a>
         <a
           href="https://linkedin.com/in/yovan-g-d-22379ba7/"
@@ -166,11 +168,19 @@ const navItems = [
           rel="noopener noreferrer"
           class="hover:text-neutral-950 dark:hover:text-white transition-colors"
         >
-          LinkedIn ↗
+          LinkedIn
         </a>
       </div>
     </div>
   </div>
+
+  <!-- Mobile Menu Dark Backdrop Overlay -->
+  <div
+    id="mobile-menu-backdrop"
+    aria-hidden="true"
+    class="md:hidden fixed inset-0 bg-black/75 backdrop-blur-sm transition-opacity duration-300 opacity-0 pointer-events-none z-40"
+    style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;"
+  ></div>
 </header>
 
 <script>
@@ -227,11 +237,17 @@ const navItems = [
   const setupMobileMenu = () => {
     const toggleBtn = document.getElementById('mobile-menu-toggle');
     const drawer = document.getElementById('mobile-menu-drawer');
+    const backdrop = document.getElementById('mobile-menu-backdrop');
     const bar1 = document.getElementById('mobile-bar-1');
     const bar2 = document.getElementById('mobile-bar-2');
     const mobileLinks = document.querySelectorAll('.mobile-nav-link');
 
     if (!toggleBtn || !drawer || !bar1 || !bar2) return;
+
+    // Attach backdrop directly to body to escape any header containing block clipping
+    if (backdrop && backdrop.parentElement !== document.body) {
+      document.body.appendChild(backdrop);
+    }
 
     let isOpen = false;
 
@@ -243,11 +259,19 @@ const navItems = [
       if (open) {
         drawer.classList.remove('-translate-y-4', 'opacity-0', 'pointer-events-none');
         drawer.classList.add('translate-y-0', 'opacity-100', 'pointer-events-auto');
+        if (backdrop) {
+          backdrop.classList.remove('opacity-0', 'pointer-events-none');
+          backdrop.classList.add('opacity-100', 'pointer-events-auto');
+        }
         bar1.style.transform = 'translateY(4px) rotate(45deg)';
         bar2.style.transform = 'translateY(-4px) rotate(-45deg)';
       } else {
         drawer.classList.remove('translate-y-0', 'opacity-100', 'pointer-events-auto');
         drawer.classList.add('-translate-y-4', 'opacity-0', 'pointer-events-none');
+        if (backdrop) {
+          backdrop.classList.remove('opacity-100', 'pointer-events-auto');
+          backdrop.classList.add('opacity-0', 'pointer-events-none');
+        }
         bar1.style.transform = 'none';
         bar2.style.transform = 'none';
       }
@@ -257,6 +281,14 @@ const navItems = [
       e.stopPropagation();
       setMenuState(!isOpen);
     };
+
+    // Close when clicking backdrop
+    if (backdrop) {
+      backdrop.onclick = (e) => {
+        e.stopPropagation();
+        setMenuState(false);
+      };
+    }
 
     // Close when clicking links
     mobileLinks.forEach((link) => {
