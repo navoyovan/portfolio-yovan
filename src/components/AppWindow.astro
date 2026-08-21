@@ -57,6 +57,7 @@ const {
           src={item.image}
           alt={item.alt}
           loading={idx === 0 ? "eager" : "lazy"}
+          decoding="async"
           class="w-full h-full object-cover object-center"
         />
       </div>

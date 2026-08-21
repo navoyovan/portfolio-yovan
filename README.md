@@ -53,3 +53,8 @@ export default defineConfig({
   // ...
 });
 ```
+
+## to-do
+easter egg swipe to exit gesture
+hamburger menu
+mobile view optimization

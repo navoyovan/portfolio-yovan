@@ -136,11 +136,11 @@ const capabilities = [
         class="relative w-full aspect-[16/9.5] bg-[#17D4FE] overflow-hidden border-b border-neutral-300/80 dark:border-neutral-800/80 select-none flex items-center justify-center"
       >
         <iframe
-          src={`${base}/whatisthis/jAM_jAvaSCriPt.html`}
+          data-src={`${base}/whatisthis/jAM_jAvaSCriPt.html`}
           title="Jam Digital"
           class="border-0 pointer-events-none select-none shrink-0"
           style="width: 1440px; height: 855px; transform: scale(0.28); transform-origin: center center;"
-          loading="eager"></iframe>
+          loading="lazy"></iframe>
       </div>
 
       <!-- Content Section (Project Tile Format) -->
@@ -227,8 +227,11 @@ const capabilities = [
         <img
           src={`${base}/whatisthis/Screenshot_20140507-0830.webp`}
           alt="Entity.setRenderType(mob, 3); MCPE ModPE Screenshot 2014"
+          width="370"
+          height="657"
           class="w-full h-auto block select-none"
-          loading="eager"
+          loading="lazy"
+          decoding="async"
         />
       </div>
 
@@ -351,6 +354,10 @@ const capabilities = [
         closeAllPopups();
         const popup = document.getElementById(id);
         if (!popup) return;
+        const iframe = popup.querySelector('iframe[data-src]') as HTMLIFrameElement | null;
+        if (iframe && !iframe.src) {
+          iframe.src = iframe.dataset.src || '';
+        }
         popup.classList.remove("popup-hidden");
         popup.classList.add("popup-visible");
       }
@@ -580,8 +587,12 @@ const capabilities = [
               <img
                 src={`${base}/images/v.png`}
                 alt="Portrait of Yovan Gunardio Darmawan"
+                width="540"
+                height="540"
                 class="relative z-10 w-full max-h-[500px] sm:max-h-[540px] object-contain object-bottom select-none pt-4"
                 loading="eager"
+                decoding="async"
+                fetchpriority="high"
               />
             </div>
           </div>
@@ -913,8 +924,11 @@ const capabilities = [
                   <img
                     src={`${base}/images/kiosk-screenshot.webp`}
                     alt="Photobooth Kiosk UI Screenshot"
+                    width="1280"
+                    height="720"
                     class="w-full h-full object-cover object-top transition-transform duration-500 group-hover/preview:scale-[1.02]"
                     loading="lazy"
+                    decoding="async"
                     onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"
                   />
                   <!-- Fallback Placeholder when image is not yet placed -->
@@ -1216,8 +1230,11 @@ const capabilities = [
                 <img
                   src={`${base}/images/vendor-portal-screenshot.webp`}
                   alt="Vendor Portal UI Screenshot"
+                  width="1280"
+                  height="720"
                   class="w-full h-full object-cover object-top transition-transform duration-500 group-hover/preview:scale-[1.02]"
                   loading="lazy"
+                  decoding="async"
                   onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"
                 />
                 <!-- Fallback Placeholder when image is not yet placed -->

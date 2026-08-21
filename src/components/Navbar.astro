@@ -25,7 +25,8 @@ const navItems = [
     </div>
 
     <div class="flex items-center gap-1.5 sm:gap-3">
-      <nav aria-label="Main Navigation">
+      <!-- Desktop Navigation -->
+      <nav aria-label="Main Navigation" class="hidden md:block">
         <ul class="flex items-center gap-1 sm:gap-2">
           {navItems.map((item) => {
             const itemPath = item.href.replace(/\/$/, '');
@@ -51,8 +52,9 @@ const navItems = [
         </ul>
       </nav>
 
-      <div class="h-4 w-px bg-neutral-200 dark:bg-neutral-800 mx-0.5"></div>
+      <div class="hidden md:block h-4 w-px bg-neutral-200 dark:bg-neutral-800 mx-0.5"></div>
 
+      <!-- Theme Toggle Button -->
       <button
         id="theme-toggle"
         type="button"
@@ -97,6 +99,76 @@ const navItems = [
           <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
         </svg>
       </button>
+
+      <!-- Mobile Menu Button (hypebox style 2-bar animated transform) -->
+      <button
+        type="button"
+        id="mobile-menu-toggle"
+        aria-label="Toggle Mobile Navigation Menu"
+        aria-expanded="false"
+        aria-controls="mobile-menu-drawer"
+        class="md:hidden flex flex-col justify-center items-center w-10 h-10 gap-1.5 cursor-pointer relative z-50 rounded focus:outline-none focus-visible:ring-2 focus-visible:ring-[#52FF1A]"
+      >
+        <span
+          id="mobile-bar-1"
+          class="w-6 h-[2px] bg-neutral-950 dark:bg-white transition-transform duration-300 origin-center"
+        ></span>
+        <span
+          id="mobile-bar-2"
+          class="w-6 h-[2px] bg-neutral-950 dark:bg-white transition-transform duration-300 origin-center"
+        ></span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Drawer Menu (hypebox style backdrop blur & typography) -->
+  <div
+    id="mobile-menu-drawer"
+    aria-hidden="true"
+    class="md:hidden fixed top-16 sm:top-18 left-0 w-full bg-[#fcfbf9]/98 dark:bg-[#0e0e0e]/98 backdrop-blur-xl border-b border-neutral-200/80 dark:border-neutral-800/80 shadow-2xl transition-all duration-300 ease-out -translate-y-4 opacity-0 pointer-events-none z-40 overflow-hidden"
+  >
+    <div class="px-6 py-8 flex flex-col gap-4">
+      {navItems.map((item) => {
+        const itemPath = item.href.replace(/\/$/, '');
+        const normalizedPathname = pathname.replace(/\/$/, '');
+        const isActive = normalizedPathname === itemPath || (item.href !== homeHref && normalizedPathname.startsWith(itemPath));
+        return (
+          <a
+            href={item.href}
+            class:list={[
+              'mobile-nav-link font-heading font-bold text-2xl uppercase tracking-tight transition-colors flex items-center justify-between',
+              isActive
+                ? 'text-neutral-950 dark:text-white font-black'
+                : 'text-neutral-600 dark:text-neutral-400 hover:text-[#52FF1A] dark:hover:text-[#52FF1A]',
+            ]}
+            aria-current={isActive ? 'page' : undefined}
+          >
+            <span>{item.label}</span>
+            {isActive && (
+              <span class="w-2 h-2 rounded-full bg-[#52FF1A]"></span>
+            )}
+          </a>
+        );
+      })}
+
+      <div class="mt-4 pt-6 border-t border-neutral-200/80 dark:border-neutral-800/80 flex items-center gap-6 text-xs text-neutral-500 dark:text-neutral-400 font-mono">
+        <a
+          href="https://github.com/navoyovan"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="hover:text-neutral-950 dark:hover:text-white transition-colors"
+        >
+          GitHub ↗
+        </a>
+        <a
+          href="https://linkedin.com/in/yovan-g-d-22379ba7/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="hover:text-neutral-950 dark:hover:text-white transition-colors"
+        >
+          LinkedIn ↗
+        </a>
+      </div>
     </div>
   </div>
 </header>
@@ -152,9 +224,80 @@ const navItems = [
     };
   };
 
+  const setupMobileMenu = () => {
+    const toggleBtn = document.getElementById('mobile-menu-toggle');
+    const drawer = document.getElementById('mobile-menu-drawer');
+    const bar1 = document.getElementById('mobile-bar-1');
+    const bar2 = document.getElementById('mobile-bar-2');
+    const mobileLinks = document.querySelectorAll('.mobile-nav-link');
+
+    if (!toggleBtn || !drawer || !bar1 || !bar2) return;
+
+    let isOpen = false;
+
+    const setMenuState = (open: boolean) => {
+      isOpen = open;
+      toggleBtn.setAttribute('aria-expanded', open.toString());
+      drawer.setAttribute('aria-hidden', (!open).toString());
+
+      if (open) {
+        drawer.classList.remove('-translate-y-4', 'opacity-0', 'pointer-events-none');
+        drawer.classList.add('translate-y-0', 'opacity-100', 'pointer-events-auto');
+        bar1.style.transform = 'translateY(4px) rotate(45deg)';
+        bar2.style.transform = 'translateY(-4px) rotate(-45deg)';
+      } else {
+        drawer.classList.remove('translate-y-0', 'opacity-100', 'pointer-events-auto');
+        drawer.classList.add('-translate-y-4', 'opacity-0', 'pointer-events-none');
+        bar1.style.transform = 'none';
+        bar2.style.transform = 'none';
+      }
+    };
+
+    toggleBtn.onclick = (e) => {
+      e.stopPropagation();
+      setMenuState(!isOpen);
+    };
+
+    // Close when clicking links
+    mobileLinks.forEach((link) => {
+      link.addEventListener('click', () => {
+        setMenuState(false);
+      });
+    });
+
+    // Close on Escape key
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && isOpen) {
+        setMenuState(false);
+        toggleBtn.focus();
+      }
+    };
+    document.removeEventListener('keydown', onKeyDown);
+    document.addEventListener('keydown', onKeyDown);
+
+    // Close when clicking outside
+    const onDocClick = (e: MouseEvent) => {
+      if (isOpen && !drawer.contains(e.target as Node) && !toggleBtn.contains(e.target as Node)) {
+        setMenuState(false);
+      }
+    };
+    document.removeEventListener('click', onDocClick);
+    document.addEventListener('click', onDocClick);
+
+    // Auto-close on resize to md screen size (768px+)
+    const onResize = () => {
+      if (window.innerWidth >= 768 && isOpen) {
+        setMenuState(false);
+      }
+    };
+    window.removeEventListener('resize', onResize);
+    window.addEventListener('resize', onResize);
+  };
+
   const initNavbar = () => {
     setupLogoScroll();
     setupThemeToggle();
+    setupMobileMenu();
   };
 
   if (document.readyState === 'loading') {

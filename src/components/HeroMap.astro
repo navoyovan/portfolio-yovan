@@ -211,10 +211,18 @@ const {
     });
   };
 
+  const scheduleInit = () => {
+    if ('requestIdleCallback' in window) {
+      (window as any).requestIdleCallback(() => initLeafletMap(), { timeout: 1500 });
+    } else {
+      setTimeout(initLeafletMap, 200);
+    }
+  };
+
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initLeafletMap);
+    document.addEventListener('DOMContentLoaded', scheduleInit);
   } else {
-    initLeafletMap();
+    scheduleInit();
   }
-  document.addEventListener('astro:page-load', initLeafletMap);
+  document.addEventListener('astro:page-load', scheduleInit);
 </script>

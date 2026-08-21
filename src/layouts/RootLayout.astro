@@ -34,7 +34,11 @@ const { title, description, image, canonicalURL, type, keywords, schema, noindex
       })();
     </script>
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css" crossorigin="anonymous" />
+    <link rel="preconnect" href="https://basemaps.cartocdn.com" crossorigin />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.31.0/dist/tabler-icons.min.css" media="print" onload="this.media='all'" />
+    <noscript>
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.31.0/dist/tabler-icons.min.css" />
+    </noscript>
     <meta name="author" content="Yovan Gunardio Darmawan" />
     <meta name="theme-color" content="#fcfbf9" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#0e0e0e" media="(prefers-color-scheme: dark)" />

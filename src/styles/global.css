@@ -79,14 +79,14 @@
   --transition-fast: 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 
   /* Fluid Hero Dimensions */
-  --hero-size-h1: clamp(3.8rem, 13vw, 8rem);
-  --hero-size-h2: clamp(3.1rem, 10.5vw, 6rem);
-  --hero-size-h3: clamp(1.8rem, 5.8vw, 3.3rem);
+  --hero-size-h1: clamp(2.4rem, 11vw, 8rem);
+  --hero-size-h2: clamp(2.0rem, 9vw, 6rem);
+  --hero-size-h3: clamp(1.25rem, 5.2vw, 3.3rem);
 
   /* Fluid Hero Syntax Dimensions */
-  --hero-syntax-size-r1: clamp(2.8rem, 9.5vw, 5rem);
-  --hero-syntax-size-r2: clamp(2.8rem, 9.5vw, 5rem);
-  --hero-syntax-size-r3: clamp(1.8rem, 5.8vw, 3.3rem);
+  --hero-syntax-size-r1: clamp(1.75rem, 7.5vw, 5rem);
+  --hero-syntax-size-r2: clamp(1.75rem, 7.5vw, 5rem);
+  --hero-syntax-size-r3: clamp(1.25rem, 5.2vw, 3.3rem);
 }
 
 .dark,
@@ -163,21 +163,21 @@ body {
    HERO EDITORIAL IDENTITY
    ═════════════════════════════════════════════════════ */
 .hero-loading {
-  --hero-syntax-size-r1: clamp(4.5rem, 12vw, 8.5rem);
-  --hero-syntax-size-r2: clamp(4.5rem, 12vw, 8.5rem);
-  --hero-syntax-size-r3: clamp(3rem, 8vw, 5.5rem);
+  --hero-syntax-size-r1: clamp(2.8rem, 11vw, 8.5rem);
+  --hero-syntax-size-r2: clamp(2.8rem, 11vw, 8.5rem);
+  --hero-syntax-size-r3: clamp(2.0rem, 7vw, 5.5rem);
 }
 
 .hero-h1 {
-  font-size: var(--hero-size-h1, clamp(3.8rem, 13vw, 8rem));
+  font-size: var(--hero-size-h1, clamp(2.4rem, 11vw, 8rem));
 }
 
 .hero-h2 {
-  font-size: var(--hero-size-h2, clamp(3.1rem, 10.5vw, 6rem));
+  font-size: var(--hero-size-h2, clamp(2.0rem, 9vw, 6rem));
 }
 
 .hero-h3 {
-  font-size: var(--hero-size-h3, clamp(1.8rem, 5.8vw, 3.3rem));
+  font-size: var(--hero-size-h3, clamp(1.25rem, 5.2vw, 3.3rem));
 }
 
 /* ═════════════════════════════════════════════════════
@@ -189,7 +189,7 @@ body {
   cursor: pointer;
   transform-origin: center;
   user-select: none;
-  font-size: var(--hero-syntax-size-r1, clamp(2.6rem, 7.3vw, 5rem));
+  font-size: var(--hero-syntax-size-r1, clamp(1.75rem, 7.5vw, 5rem));
   transition: font-size 0.55s cubic-bezier(0.16, 1, 0.3, 1) 200ms,
               transform 0.55s cubic-bezier(0.16, 1, 0.3, 1) 200ms,
               color 0.2s ease,
@@ -201,7 +201,7 @@ body {
   cursor: pointer;
   transform-origin: center;
   user-select: none;
-  font-size: var(--hero-syntax-size-r1, clamp(2.6rem, 7.3vw, 5rem));
+  font-size: var(--hero-syntax-size-r1, clamp(1.75rem, 7.5vw, 5rem));
   transition: font-size 0.55s cubic-bezier(0.16, 1, 0.3, 1) 400ms,
               transform 0.55s cubic-bezier(0.16, 1, 0.3, 1) 400ms,
               color 0.2s ease,
@@ -213,7 +213,7 @@ body {
   cursor: pointer;
   transform-origin: center;
   user-select: none;
-  font-size: var(--hero-syntax-size-r2, clamp(2.6rem, 7.3vw, 5rem));
+  font-size: var(--hero-syntax-size-r2, clamp(1.75rem, 7.5vw, 5rem));
   transition: font-size 0.55s cubic-bezier(0.16, 1, 0.3, 1) 600ms,
               transform 0.55s cubic-bezier(0.16, 1, 0.3, 1) 600ms,
               color 0.2s ease,
@@ -225,7 +225,7 @@ body {
   cursor: pointer;
   transform-origin: center;
   user-select: none;
-  font-size: var(--hero-syntax-size-r3, clamp(1.8rem, 5vw, 3.3rem));
+  font-size: var(--hero-syntax-size-r3, clamp(1.25rem, 5.2vw, 3.3rem));
   transition: font-size 0.55s cubic-bezier(0.16, 1, 0.3, 1) 800ms,
               transform 0.55s cubic-bezier(0.16, 1, 0.3, 1) 800ms,
               color 0.2s ease,
