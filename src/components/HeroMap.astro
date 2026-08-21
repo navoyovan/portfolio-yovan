@@ -9,60 +9,32 @@ interface Props {
 }
 
 const {
-  city = "BOGOR",
-  country = "INDONESIA",
-  timezone = "UTC+7",
-  lat = -6.5971,
-  lng = 106.8060,
-  zoom = 13,
+  lat = -6.6120,
+  lng = 106.7640,
+  zoom = 14,
 } = Astro.props;
 ---
 
 <div
-  class="hero-map-widget relative w-full max-w-xl lg:max-w-md mx-0 rounded-lg sm:rounded-xl border border-neutral-300/80 dark:border-neutral-800/80 bg-[#fcfbf9] dark:bg-[#0e0e0e] overflow-hidden shadow-2xl shadow-black/10 dark:shadow-black/60 aspect-square group select-none"
+  class="hero-map-background absolute inset-0 w-full h-full overflow-hidden pointer-events-none select-none z-0"
   data-lat={lat}
   data-lng={lng}
   data-zoom={zoom}
+  aria-hidden="true"
 >
-  <!-- Map Target Canvas (Undraggable & Non-interactive) -->
-  <div id="hero-leaflet-map" class="w-full h-full bg-[#e8e6df] dark:bg-[#121212] z-10 pointer-events-none"></div>
-
-  <!-- Floating Location Badge at Top -->
+  <!-- Leaflet Map Canvas -->
   <div
-    id="hero-map-badge"
-    class="absolute top-5 left-5 sm:top-6 sm:left-6 z-30 flex items-center gap-2 sm:gap-2.5 px-4 sm:px-4.5 py-2 sm:py-2.5 rounded-full bg-white/80 dark:bg-black/50 backdrop-blur-xl border border-black/10 dark:border-white/15 shadow-lg select-none pointer-events-auto transition-all duration-300"
-  >
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      fill="currentColor"
-      class="w-4 h-4 sm:w-4.5 sm:h-4.5 text-neutral-800 dark:text-white/80 shrink-0"
-      aria-hidden="true"
-    >
-      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-      <path d="M18.364 4.636a9 9 0 0 1 .203 12.519l-.203 .21l-4.243 4.242a3 3 0 0 1 -4.097 .135l-.144 -.135l-4.244 -4.243a9 9 0 0 1 12.728 -12.728zm-6.364 3.364a3 3 0 1 0 0 6a3 3 0 0 0 0 -6" />
-    </svg>
-    <span
-      id="hero-map-location-label"
-      class="font-sans text-xs sm:text-sm font-medium text-neutral-900 dark:text-white/90 transition-all duration-200 inline-block"
-    >
-      Bogor
-    </span>
-  </div>
+    id="hero-leaflet-map"
+    class="w-full h-full bg-[#fcfbf9] dark:bg-[#0e0e0e] opacity-90 dark:opacity-80 transition-opacity duration-500"
+  ></div>
 
-  <!-- Floating Circle Zoom Action Button at Bottom -->
-  <button
-    type="button"
-    id="hero-map-zoom-btn"
-    aria-label="Toggle Jabodetabek View"
-    title="Expand to Jabodetabek"
-    class="absolute bottom-5 right-5 sm:bottom-6 sm:right-6 z-30 w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-white/95 dark:bg-black/90 backdrop-blur-md border border-neutral-300 dark:border-white/15 shadow-xl inline-flex items-center justify-center text-neutral-900 dark:text-white hover:border-neutral-900 dark:hover:border-white hover:text-[#52FF1A] transition-all select-none pointer-events-auto cursor-pointer active:scale-95 group/btn"
-  >
-    <i
-      id="hero-map-zoom-icon"
-      class="ti ti-arrows-maximize text-base sm:text-lg group-hover/btn:scale-110 transition-transform"
-    ></i>
-  </button>
+  <!-- Radial & Linear Gradient Scrims (Minimal left edge protection for typography, maximum map exposure) -->
+  <div
+    class="absolute inset-y-0 left-0 w-full sm:w-[42%] lg:w-[32%] bg-gradient-to-r from-[#fcfbf9]/80 via-[#fcfbf9]/30 to-transparent dark:from-[#0e0e0e]/85 dark:via-[#0e0e0e]/30 dark:to-transparent pointer-events-none z-[1]"
+  ></div>
+  <div
+    class="absolute inset-0 bg-gradient-to-b from-[#fcfbf9]/20 via-transparent to-[#fcfbf9] dark:from-[#0e0e0e]/20 dark:via-transparent dark:to-[#0e0e0e] pointer-events-none z-[1]"
+  ></div>
 </div>
 
 <style is:global>
@@ -82,12 +54,12 @@ const {
     const mapEl = document.getElementById('hero-leaflet-map');
     if (!mapEl) return;
 
-    const widget = mapEl.closest('.hero-map-widget') as HTMLElement;
+    const widget = mapEl.closest('.hero-map-background') as HTMLElement;
     if (!widget) return;
 
     const lat = parseFloat(widget.dataset.lat || '-6.5971');
-    const lng = parseFloat(widget.dataset.lng || '106.8060');
-    const zoom = parseInt(widget.dataset.zoom || '13', 10);
+    const lng = parseFloat(widget.dataset.lng || '106.7640');
+    const zoom = parseInt(widget.dataset.zoom || '14', 10);
 
     const loadScript = (src: string): Promise<void> => {
       return new Promise((resolve, reject) => {
@@ -121,9 +93,29 @@ const {
         (mapEl as any)._leaflet_map.remove();
       }
 
+      const getBogorTarget = () => {
+        const isMobile = window.innerWidth < 768;
+        return {
+          // Mobile: original center (106.8060) at zoom 13. Desktop: offset (106.7640) at zoom 14
+          center: (isMobile ? [-6.6120, 106.8060] : [-6.6120, 106.7640]) as [number, number],
+          zoom: isMobile ? 13 : 14,
+        };
+      };
+
+      const getJabodetabekTarget = () => {
+        const isMobile = window.innerWidth < 768;
+        return {
+          // Mobile: original center (106.8270) at zoom 10. Desktop: offset west (106.5270) at zoom 11 so Jakarta lands at ~75% width
+          center: (isMobile ? [-6.22, 106.8270] : [-6.22, 106.5270]) as [number, number],
+          zoom: isMobile ? 10 : 11,
+        };
+      };
+
+      const initialBogor = getBogorTarget();
+
       const map = L.map(mapEl, {
-        center: [lat, lng],
-        zoom: zoom,
+        center: initialBogor.center,
+        zoom: initialBogor.zoom,
         zoomControl: false,
         attributionControl: false,
         dragging: false,
@@ -157,41 +149,60 @@ const {
 
       updateTileTheme();
 
-      // Zoom Out / In Toggle Logic (Bogor <-> Jabodetabek)
-      const zoomBtn = document.getElementById('hero-map-zoom-btn');
-      const zoomIcon = document.getElementById('hero-map-zoom-icon');
-      const locationLabel = document.getElementById('hero-map-location-label');
+      // Badge Click Toggle (Bogor <-> Jabodetabek)
+      const badgeBtn = document.getElementById('hero-map-badge');
+      const badgeText = document.getElementById('hero-map-badge-text');
+      const badgeIcon = document.getElementById('hero-map-badge-icon');
       let isJabodetabek = false;
 
-      const setLocationText = (text: string) => {
-        if (!locationLabel) return;
-        locationLabel.style.opacity = '0';
-        locationLabel.style.transform = 'translateY(-3px)';
+      const setBadgeText = (text: string) => {
+        if (!badgeText) return;
+        badgeText.style.opacity = '0';
+        badgeText.style.transform = 'translateY(-2px)';
         setTimeout(() => {
-          locationLabel.textContent = text;
-          locationLabel.style.opacity = '1';
-          locationLabel.style.transform = 'translateY(0)';
+          badgeText.innerHTML = text;
+          badgeText.style.opacity = '1';
+          badgeText.style.transform = 'translateY(0)';
         }, 150);
       };
 
-      if (zoomBtn && zoomIcon) {
-        zoomBtn.addEventListener('click', () => {
+      if (badgeBtn) {
+        badgeBtn.addEventListener('click', () => {
           isJabodetabek = !isJabodetabek;
           if (isJabodetabek) {
-            // Fly to Jabodetabek wide center and zoom
-            map.flyTo([-6.30, 106.85], 10, { duration: 1.2 });
-            zoomIcon.className = 'ti ti-arrows-minimize text-base sm:text-lg group-hover/btn:scale-110 transition-transform';
-            zoomBtn.setAttribute('title', 'Focus on Kota Bogor');
-            setLocationText('Jabodetabek');
+            const target = getJabodetabekTarget();
+            map.flyTo(target.center, target.zoom, { duration: 1.4 });
+            setBadgeText('JABODETABEK &bull; UTC+7');
+            badgeBtn.setAttribute('title', 'Click to focus on Bogor');
+            if (badgeIcon) {
+              badgeIcon.className = 'ti ti-arrows-minimize text-xs text-neutral-400 group-hover/badge:text-neutral-900 dark:group-hover/badge:text-white transition-colors';
+            }
           } else {
-            // Fly back to Kota Bogor focus
-            map.flyTo([lat, lng], zoom, { duration: 1.2 });
-            zoomIcon.className = 'ti ti-arrows-maximize text-base sm:text-lg group-hover/btn:scale-110 transition-transform';
-            zoomBtn.setAttribute('title', 'Expand to Jabodetabek');
-            setLocationText('Bogor');
+            const target = getBogorTarget();
+            map.flyTo(target.center, target.zoom, { duration: 1.4 });
+            setBadgeText('BOGOR, ID &bull; UTC+7');
+            badgeBtn.setAttribute('title', 'Click to expand view to Jabodetabek');
+            if (badgeIcon) {
+              badgeIcon.className = 'ti ti-arrows-maximize text-xs text-neutral-400 group-hover/badge:text-neutral-900 dark:group-hover/badge:text-white transition-colors';
+            }
           }
         });
       }
+
+      // Recalculate size on window resize & adapt center
+      let lastIsMobile = window.innerWidth < 768;
+      const handleResize = () => {
+        if (map) {
+          map.invalidateSize();
+          const isMobileNow = window.innerWidth < 768;
+          if (isMobileNow !== lastIsMobile) {
+            lastIsMobile = isMobileNow;
+            const target = isJabodetabek ? getJabodetabekTarget() : getBogorTarget();
+            map.setView(target.center, target.zoom);
+          }
+        }
+      };
+      window.addEventListener('resize', handleResize, { passive: true });
 
       const observer = new MutationObserver(() => {
         updateTileTheme();

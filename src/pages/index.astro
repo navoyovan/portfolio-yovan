@@ -50,6 +50,8 @@ const supportingStack = [
   { name: "Git & GitHub", icon: "ti-brand-github" },
   { name: "GitHub Pages", icon: "ti-brand-git" },
   { name: "OWASP Guidelines", icon: "ti-shield-check" },
+  { name: "SEO & Metadata", icon: "ti-search" },
+  { name: "Accessibility (a11y)", icon: "ti-accessible" },
 ];
 
 const capabilities = [
@@ -57,8 +59,8 @@ const capabilities = [
     number: "01",
     title: "Landing Pages & Websites",
     description:
-      "Fast, responsive websites for products, businesses, campaigns, and personal brands. Optimized for both desktop and mobile UI.",
-    tags: ["Astro", "Tailwind", "SEO", "Responsive UI"],
+      "Fast, accessible, and search-optimized websites for products, businesses, campaigns, and personal brands. Built with structured SEO, semantic markup, and responsive UI.",
+    tags: ["Astro", "Tailwind", "SEO", "Accessibility (a11y)", "Responsive UI"],
   },
   {
     number: "02",
@@ -91,20 +93,35 @@ const capabilities = [
 
 <RootLayout
   title="Yovan Gunardio Darmawan | Software Engineer & Builder"
-  description="Hey, I'm Yovan, a developer who likes turning weird ideas into working products. Building web apps, touchscreen kiosks, and physical hardware experiences."
+  description="Hey, I'm Yovan. Software engineer building web apps, touchscreen kiosks, and connected hardware systems. Available for freelance projects."
+  keywords={[
+    "Yovan Gunardio Darmawan",
+    "Software Engineer",
+    "Freelance Developer",
+    "Web Application Developer",
+    "Full-Stack Developer",
+    "React Developer",
+    "Laravel Developer",
+    "Electron Developer",
+    "Touchscreen Kiosk Software",
+    "Photobooth Software",
+    "HYPE-BOX",
+    "SEO & Web Optimization",
+    "Web Accessibility (a11y)",
+    "Indonesia",
+  ]}
 >
-  <!-- JAM Digital Clock Floating Popup (Component Library 07: Project Tile / Case Study Card) -->
+  <!-- 01: JAM Digital Clock Floating Popup -->
   <div
-    id="egg-popup"
-    class="popup-hidden fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 w-[92vw] max-w-[390px] sm:max-w-[420px] flex flex-col font-sans"
+    id="egg-popup-clock"
+    class="egg-popup-modal popup-hidden fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 w-[92vw] max-w-[390px] sm:max-w-[420px] flex flex-col font-sans"
   >
-    <!-- Floating Dismiss Text Above Popup (Pure Red Text, No Container) -->
+    <!-- Floating Dismiss Text Above Popup -->
     <div class="flex justify-end mb-1">
       <button
-        id="egg-popup-close"
         type="button"
         aria-label="Dismiss popup"
-        class="font-mono text-xs text-red-500 hover:text-red-600 dark:text-red-400 dark:hover:text-red-300 hover:underline cursor-pointer select-none transition-colors p-0 bg-transparent border-0"
+        class="egg-popup-close font-mono text-xs text-red-500 hover:text-red-600 dark:text-red-400 dark:hover:text-red-300 hover:underline cursor-pointer select-none transition-colors p-0 bg-transparent border-0"
       >
         Dismiss x [esc]
       </button>
@@ -132,7 +149,7 @@ const capabilities = [
         <span
           class="font-sans text-[11px] uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-semibold"
         >
-          00 // EASTER EGG
+          00 // EASTER EGG &bull; WEB EXPERIMENT
         </span>
 
         <!-- Title -->
@@ -183,19 +200,114 @@ const capabilities = [
     </div>
   </div>
 
+  <!-- 02: MCPE ModPE 2014 Scripting Floating Popup -->
+  <div
+    id="egg-popup-modpe"
+    class="egg-popup-modal popup-hidden fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 w-[92vw] max-w-[340px] sm:max-w-[370px] flex flex-col font-sans"
+  >
+    <!-- Floating Dismiss Text Above Popup -->
+    <div class="flex justify-end mb-1">
+      <button
+        type="button"
+        aria-label="Dismiss popup"
+        class="egg-popup-close font-mono text-xs text-red-500 hover:text-red-600 dark:text-red-400 dark:hover:text-red-300 hover:underline cursor-pointer select-none transition-colors p-0 bg-transparent border-0"
+      >
+        Dismiss x [esc]
+      </button>
+    </div>
+
+    <!-- Popup Card -->
+    <div
+      class="w-full bg-[#f6f4ee] dark:bg-[#141414] border border-neutral-300/80 dark:border-neutral-800 shadow-2xl shadow-black/40 overflow-hidden flex flex-col"
+    >
+      <!-- Media / Viewfinder Container (Full Bleed Vertical Screenshot) -->
+      <div
+        class="relative w-full bg-black overflow-hidden border-b border-neutral-300/80 dark:border-neutral-800/80 select-none flex items-center justify-center"
+      >
+        <img
+          src={`${base}/whatisthis/Screenshot_20140507-0830.webp`}
+          alt="Entity.setRenderType(mob, 3); MCPE ModPE Screenshot 2014"
+          class="w-full h-auto block select-none"
+          loading="eager"
+        />
+      </div>
+
+      <!-- Content Section (Project Tile Format) -->
+      <div class="p-4 sm:p-5 flex flex-col flex-1 gap-3">
+        <!-- Category Tag -->
+        <span
+          class="font-sans text-[11px] uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-semibold"
+        >
+          04 // EASTER EGG
+        </span>
+
+        <!-- Title -->
+        <h3
+          class="text-base sm:text-lg font-bold text-neutral-950 dark:text-white tracking-tight leading-tight font-mono"
+        >
+          Entity.setRenderType(mob, 3);
+        </h3>
+
+        <!-- Description -->
+        <p
+          class="font-sans text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed font-normal"
+        >
+          Early Android game modding in junior high school. Custom Herobrine mob
+          using JavaScript API to alter entity render types and AI hooks in a
+          game.
+        </p>
+
+        <!-- Tags Row -->
+        <div class="flex flex-wrap gap-1.5 pt-0.5">
+          <span
+            class="font-sans text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2.5 py-0.5 rounded"
+          >
+            MODPE JS
+          </span>
+          <span
+            class="font-sans text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2.5 py-0.5 rounded"
+          >
+            BLOCKLAUNCHER
+          </span>
+          <span
+            class="font-sans text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2.5 py-0.5 rounded"
+          >
+            ANDROID 2014
+          </span>
+        </div>
+
+        <!-- Metadata Footer -->
+        <div
+          class="mt-auto pt-3 border-t border-neutral-200/80 dark:border-neutral-800/80 flex items-center justify-between"
+        >
+          <span
+            class="font-mono text-[11px] text-neutral-400 dark:text-neutral-500 truncate"
+          >
+            Screenshot_20140507-0830.webp
+          </span>
+          <span
+            class="font-mono text-[10px] text-neutral-400 dark:text-neutral-500"
+          >
+            MAY 7, 2014
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <style>
     /* Popup slide/fade animation */
-    #egg-popup {
+    .egg-popup-modal {
       transition:
         opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1),
         transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    #egg-popup.popup-hidden {
+    .egg-popup-modal.popup-hidden {
       opacity: 0;
       transform: translateY(24px) scale(0.96);
       pointer-events: none;
     }
-    #egg-popup.popup-visible {
+    .egg-popup-modal.popup-visible {
       opacity: 1;
       transform: translateY(0) scale(1);
       pointer-events: auto;
@@ -228,26 +340,27 @@ const capabilities = [
 
   <script>
     (function () {
-      function openPopup() {
-        const popup = document.getElementById("egg-popup");
+      function closeAllPopups() {
+        document.querySelectorAll(".egg-popup-modal").forEach((p) => {
+          p.classList.remove("popup-visible");
+          p.classList.add("popup-hidden");
+        });
+      }
+
+      function openPopup(id: string) {
+        closeAllPopups();
+        const popup = document.getElementById(id);
         if (!popup) return;
         popup.classList.remove("popup-hidden");
         popup.classList.add("popup-visible");
       }
 
-      function closePopup() {
-        const popup = document.getElementById("egg-popup");
-        if (!popup) return;
-        popup.classList.remove("popup-visible");
-        popup.classList.add("popup-hidden");
-      }
-
-      function togglePopup() {
-        const popup = document.getElementById("egg-popup");
+      function togglePopup(id: string) {
+        const popup = document.getElementById(id);
         if (popup && popup.classList.contains("popup-visible")) {
-          closePopup();
+          closeAllPopups();
         } else {
-          openPopup();
+          openPopup(id);
         }
       }
 
@@ -283,31 +396,36 @@ const capabilities = [
         const target = e.target as HTMLElement | null;
         if (!target) return;
 
-        const eggBtn = target.closest('[data-easter="jam-clock"]');
+        const eggBtn = target.closest("[data-easter]");
         if (eggBtn) {
           e.preventDefault();
           e.stopPropagation();
-          togglePopup();
+          const easterType = eggBtn.getAttribute("data-easter");
+          if (easterType === "jam-clock") {
+            togglePopup("egg-popup-clock");
+          } else if (easterType === "modpe") {
+            togglePopup("egg-popup-modpe");
+          }
           return;
         }
 
-        const closeBtn = target.closest("#egg-popup-close, #egg-popup-dismiss");
+        const closeBtn = target.closest(".egg-popup-close");
         if (closeBtn) {
           e.preventDefault();
-          closePopup();
+          closeAllPopups();
           return;
         }
       });
 
       document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape") closePopup();
+        if (e.key === "Escape") closeAllPopups();
       });
     })();
   </script>
 
-  <!-- page wrapper — position: relative so easter eggs scatter through scroll height -->
+  <!-- page wrapper: position relative so easter eggs scatter through scroll height -->
   <div class="relative">
-    <!-- ░░ EASTER EGGS — Visual labels in background (z-0) ░░ -->
+    <!-- ░░ EASTER EGGS - Visual labels in background (z-0) ░░ -->
     <div class="absolute inset-0 pointer-events-none overflow-hidden z-0">
       <!-- 01: setTimeout(showTime, 1000); (Hero Top Left) -->
       <span
@@ -372,7 +490,7 @@ const capabilities = [
       >
     </div>
 
-    <!-- ░░ EASTER EGGS — Clickable Hitbox Layer in Front (z-30) ░░ -->
+    <!-- ░░ EASTER EGGS - Clickable Hitbox Layer in Front (z-30) ░░ -->
     <div class="absolute inset-0 pointer-events-none overflow-hidden z-30">
       <!-- Hitbox for DateTime.Now -> Jam Digital -->
       <button
@@ -393,6 +511,7 @@ const capabilities = [
       <!-- 01 // OVERVIEW & HERO STATEMENT -->
       <section
         id="intro"
+        aria-labelledby="heading-intro"
         class="border-t border-neutral-200 dark:border-neutral-800 pt-16 space-y-8"
       >
         <div
@@ -405,12 +524,13 @@ const capabilities = [
           </span>
         </div>
 
-        <!-- Section Headline Header (Header 1 Full Width) -->
-        <h1
+        <!-- Section Headline Header (Header 2 Full Width) -->
+        <h2
+          id="heading-intro"
           class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-neutral-950 dark:text-white leading-[1.12] font-heading w-full"
         >
           I build software that makes ideas real.
-        </h1>
+        </h2>
 
         <div
           class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start pt-2"
@@ -428,7 +548,8 @@ const capabilities = [
               >
                 <div
                   class="w-88 h-88 sm:w-[380px] sm:h-[380px] animate-blob-morph bg-[radial-gradient(rgba(0,0,0,0.18)_1.5px,transparent_1.5px)] dark:bg-[radial-gradient(rgba(255,255,255,0.22)_1.5px,transparent_1.5px)] [background-size:15px_15px] [mask-image:radial-gradient(circle,black_55%,transparent_85%)] opacity-90"
-                ></div>
+                >
+                </div>
               </div>
 
               <!-- Layer 2: Technical Reticle / Concentric Dashed Halo Rings -->
@@ -438,23 +559,27 @@ const capabilities = [
                 <!-- Outer Dashed Ring -->
                 <div
                   class="w-72 h-72 sm:w-80 sm:h-80 rounded-full border border-dashed border-neutral-300 dark:border-neutral-700/80"
-                ></div>
+                >
+                </div>
                 <!-- Inner Solid Hairline Ring -->
                 <div
                   class="absolute w-52 h-52 sm:w-60 sm:h-60 rounded-full border border-neutral-200/80 dark:border-neutral-800"
-                ></div>
+                >
+                </div>
                 <!-- Center Crosshair Accents -->
                 <div
                   class="absolute w-84 h-[1px] bg-gradient-to-r from-transparent via-neutral-200/60 dark:via-neutral-800 to-transparent"
-                ></div>
+                >
+                </div>
                 <div
                   class="absolute h-84 w-[1px] bg-gradient-to-b from-transparent via-neutral-200/60 dark:via-neutral-800 to-transparent"
-                ></div>
+                >
+                </div>
               </div>
 
               <img
                 src={`${base}/images/v.png`}
-                alt="Yovan"
+                alt="Portrait of Yovan Gunardio Darmawan"
                 class="relative z-10 w-full max-h-[500px] sm:max-h-[540px] object-contain object-bottom select-none pt-4"
                 loading="eager"
               />
@@ -563,7 +688,7 @@ const capabilities = [
                   coreStack.map((tech) => (
                     <div class="flex flex-col space-y-2.5 group cursor-default">
                       <div class="text-3xl sm:text-4xl text-neutral-800 dark:text-neutral-200 group-hover:text-[#52FF1A] transition-[transform,color] duration-200 group-hover:-translate-y-1 group-hover:scale-105 inline-flex items-center">
-                        <i class={`ti ${tech.icon}`} />
+                        <i class={`ti ${tech.icon}`} aria-hidden="true" />
                       </div>
                       <div class="space-y-0.5">
                         <span class="font-heading font-bold text-sm sm:text-base text-neutral-950 dark:text-white block tracking-tight">
@@ -593,6 +718,7 @@ const capabilities = [
                       <div class="inline-flex items-center gap-1.5 text-xs text-neutral-600 dark:text-neutral-400 hover:text-neutral-950 dark:hover:text-white transition-colors group">
                         <i
                           class={`ti ${tech.icon} text-sm text-neutral-400 dark:text-neutral-500 group-hover:text-[#52FF1A] transition-colors`}
+                          aria-hidden="true"
                         />
                         <span class="font-sans font-medium">{tech.name}</span>
                       </div>
@@ -608,6 +734,7 @@ const capabilities = [
       <!-- 02 // PROJECTS & HYPEBOX -->
       <section
         id="projects"
+        aria-labelledby="heading-projects"
         class="border-t border-neutral-200 dark:border-neutral-800 pt-16 space-y-10"
       >
         <div
@@ -620,7 +747,7 @@ const capabilities = [
           </span>
           <a
             href={`${base}/portfolio-index`}
-            class="group/action inline-flex items-center gap-1 font-sans text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-neutral-500 dark:text-neutral-400 hover:text-[#52FF1A] transition-colors focus:outline-none"
+            class="group/action inline-flex items-center gap-1 font-sans text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-neutral-500 dark:text-neutral-400 hover:text-[#52FF1A] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#52FF1A] rounded px-1"
           >
             <span
               class="group-hover/action:underline underline-offset-4 decoration-[#52FF1A]"
@@ -638,6 +765,7 @@ const capabilities = [
         <!-- Project Intro Copywriting -->
         <div class="space-y-3 max-w-3xl">
           <h2
+            id="heading-projects"
             class="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-neutral-950 dark:text-white leading-tight font-heading"
           >
             Things I've built
@@ -796,7 +924,8 @@ const capabilities = [
                     <div
                       class="w-8 h-8 rounded-full border border-dashed border-neutral-700 flex items-center justify-center text-neutral-500"
                     >
-                      <i class="ti ti-device-desktop text-lg"></i>
+                      <i class="ti ti-device-desktop text-lg" aria-hidden="true"
+                      ></i>
                     </div>
                     <span class="font-mono text-[11px] text-neutral-400"
                       >Place screenshot at <br /><code class="text-[#52FF1A]"
@@ -1098,7 +1227,9 @@ const capabilities = [
                   <div
                     class="w-7 h-7 rounded-full border border-dashed border-neutral-700 flex items-center justify-center text-neutral-500"
                   >
-                    <i class="ti ti-layout-dashboard text-base"></i>
+                    <i
+                      class="ti ti-layout-dashboard text-base"
+                      aria-hidden="true"></i>
                   </div>
                   <span class="font-mono text-[10px] text-neutral-400"
                     >Place screenshot at <br /><code class="text-[#52FF1A]"
@@ -1158,7 +1289,7 @@ const capabilities = [
                   href="https://navoyovan.github.io/hypebox/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="group/action inline-flex items-center gap-1 font-sans text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-neutral-500 dark:text-neutral-400 hover:text-[#52FF1A] transition-colors focus:outline-none"
+                  class="group/action inline-flex items-center gap-1 font-sans text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-neutral-500 dark:text-neutral-400 hover:text-[#52FF1A] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#52FF1A] rounded px-1"
                 >
                   <span
                     class="group-hover/action:underline underline-offset-4 decoration-[#52FF1A]"
@@ -1204,6 +1335,7 @@ const capabilities = [
       <!-- 03 // WHAT I CAN BUILD -->
       <section
         id="capabilities"
+        aria-labelledby="heading-capabilities"
         class="border-t border-neutral-200 dark:border-neutral-800 pt-16 space-y-8"
       >
         <div
@@ -1218,6 +1350,7 @@ const capabilities = [
 
         <div class="space-y-3">
           <h2
+            id="heading-capabilities"
             class="text-3xl sm:text-4xl font-heading font-bold tracking-tight text-neutral-900 dark:text-neutral-100"
           >
             From simple pages to systems that do stuff.
@@ -1260,6 +1393,7 @@ const capabilities = [
       <!-- 04 // PHILOSOPHY -->
       <section
         id="philosophy"
+        aria-labelledby="heading-philosophy"
         class="border-t border-neutral-200 dark:border-neutral-800 pt-16 space-y-8"
       >
         <div
@@ -1277,6 +1411,7 @@ const capabilities = [
           <div class="w-full lg:w-[65%] space-y-8">
             <div class="space-y-4">
               <h2
+                id="heading-philosophy"
                 class="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-neutral-950 dark:text-white leading-tight font-heading"
               >
                 I build for the thing, not the stack.
@@ -1284,9 +1419,9 @@ const capabilities = [
               <p
                 class="text-base sm:text-lg text-neutral-700 dark:text-neutral-300 leading-relaxed font-normal"
               >
-                I like understanding the whole problem before deciding how to solve
-                it. The interface, the backend, the hardware, the weird edge cases
-                — they're all part of the same product.
+                I like understanding the whole problem before deciding how to
+                solve it. The interface, the backend, the hardware, the weird
+                edge cases; they're all part of the same product.
               </p>
             </div>
 
@@ -1306,9 +1441,9 @@ const capabilities = [
                   <p
                     class="text-sm sm:text-base text-neutral-600 dark:text-neutral-400 leading-relaxed"
                   >
-                    Technology is just the tool. I care more about what the product
-                    needs to accomplish, who is using it, and what could get in
-                    their way.
+                    Technology is just the tool. I care more about what the
+                    product needs to accomplish, who is using it, and what could
+                    get in their way.
                   </p>
                 </div>
               </div>
@@ -1329,8 +1464,8 @@ const capabilities = [
                     class="text-sm sm:text-base text-neutral-600 dark:text-neutral-400 leading-relaxed"
                   >
                     Not every project needs a giant architecture. I use what the
-                    problem calls for, and add complexity when there's a reason for
-                    it.
+                    problem calls for, and add complexity when there's a reason
+                    for it.
                   </p>
                 </div>
               </div>
@@ -1351,7 +1486,7 @@ const capabilities = [
                     class="text-sm sm:text-base text-neutral-600 dark:text-neutral-400 leading-relaxed"
                   >
                     A good interface is only one part of a good product. I like
-                    connecting the things behind it — APIs, databases, realtime
+                    connecting the things behind it: APIs, databases, realtime
                     systems, devices, payments, and everything in between.
                   </p>
                 </div>
@@ -1373,9 +1508,9 @@ const capabilities = [
                     class="text-sm sm:text-base text-neutral-600 dark:text-neutral-400 leading-relaxed"
                   >
                     Loading states, feedback, transitions, edge cases, awkward
-                    workflows — the little things are often what separate something
-                    that technically works from something that actually feels good
-                    to use.
+                    workflows; the little things are often what separate
+                    something that technically works from something that
+                    actually feels good to use.
                   </p>
                 </div>
               </div>
@@ -1393,12 +1528,12 @@ const capabilities = [
                 <blockquote
                   class="text-2xl sm:text-3xl md:text-4xl font-bold italic tracking-tight text-neutral-950 dark:text-white font-heading"
                 >
-                  "..."
+                  "_"
                 </blockquote>
                 <p
                   class="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed"
                 >
-                  Nothing. That's how I know I built it for the actual use case —
+                  Nothing. That's how I know I built it for the actual use case:
                   when the software gets out of the way, does what it's supposed
                   to do, and leaves nothing for the user to complain about.
                 </p>
@@ -1414,6 +1549,7 @@ const capabilities = [
       <!-- 05 // ABOUT -->
       <section
         id="about"
+        aria-labelledby="heading-about"
         class="border-t border-neutral-200 dark:border-neutral-800 pt-16 space-y-8"
       >
         <div
@@ -1426,21 +1562,38 @@ const capabilities = [
           </span>
         </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <div
+          class="relative grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start"
+        >
           <div class="lg:col-span-5 space-y-3">
             <h2
+              id="heading-about"
               class="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-neutral-950 dark:text-white leading-tight font-heading"
             >
               I like figuring out how things work.
             </h2>
           </div>
 
+          <!-- Vertical Easter Egg Divider between the 2 About Columns (Desktop) -->
+          <div
+            class="hidden lg:flex absolute left-[41.6%] inset-y-0 items-center justify-center -translate-x-1/2 select-none pointer-events-none"
+          >
+            <button
+              type="button"
+              data-easter="modpe"
+              class="font-mono text-[10px] text-neutral-600 dark:text-neutral-300 opacity-[0.08] hover:opacity-75 hover:underline underline-offset-4 cursor-pointer select-none transition-[opacity,text-decoration] duration-200 [writing-mode:vertical-rl] rotate-180 pointer-events-auto p-1 bg-transparent border-0 tracking-wider"
+              aria-label="Unlock ModPE Scripting Easter Egg"
+            >
+              Entity.setRenderType(mob, 3);
+            </button>
+          </div>
+
           <div
             class="lg:col-span-7 space-y-6 text-base sm:text-lg text-neutral-700 dark:text-neutral-300 leading-relaxed font-normal"
           >
             <p>
-              My journey started with modding java games back when i was in
-              elementary school and android games in highschool, but curiosity
+              My journey started with modding Java games back when I was in
+              elementary school and Android games in high school, but curiosity
               pulled me into everything around it, like designing interfaces,
               building backend, connecting hardware, and creating intuitive
               experiences for users.
@@ -1452,6 +1605,18 @@ const capabilities = [
               screen, but where it interacts with people, devices, and the real
               world.
             </p>
+
+            <!-- Mobile Easter Egg inline fallback -->
+            <div class="block lg:hidden pt-1">
+              <button
+                type="button"
+                data-easter="modpe"
+                class="font-mono text-[10px] text-neutral-600 dark:text-neutral-300 opacity-[0.08] hover:opacity-75 hover:underline underline-offset-4 cursor-pointer select-none transition-[opacity,text-decoration] duration-200 text-left p-0 bg-transparent border-0 inline-block"
+                aria-label="Unlock ModPE Scripting Easter Egg"
+              >
+                Entity.setRenderType(mob, 3);
+              </button>
+            </div>
           </div>
         </div>
       </section>
@@ -1459,6 +1624,7 @@ const capabilities = [
       <!-- 06 // GET IN TOUCH -->
       <section
         id="contact"
+        aria-labelledby="heading-contact"
         class="border-t border-neutral-200 dark:border-neutral-800 pt-16 space-y-8"
       >
         <div
@@ -1472,21 +1638,7 @@ const capabilities = [
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          <div class="lg:col-span-6 space-y-4">
-            <h2
-              class="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-neutral-950 dark:text-white leading-tight font-heading"
-            >
-              Have an idea or a project in mind? Let's build it.
-            </h2>
-            <p
-              class="text-base sm:text-lg text-neutral-600 dark:text-neutral-400 leading-relaxed font-normal"
-            >
-              Whether you want to build a custom web platform, a touchscreen
-              kiosk, or explore a hardware experiment, I'm always open to
-              discussing new engineering challenges.
-            </p>
-          </div>
-
+          <!-- Left Column: Contact Card -->
           <div
             class="lg:col-span-6 flex flex-col gap-5 p-6 sm:p-8 border border-neutral-300/80 dark:border-neutral-800 bg-[#f6f4ee] dark:bg-[#141414]"
           >
@@ -1497,10 +1649,10 @@ const capabilities = [
                 Direct Contact
               </span>
               <a
-                href="mailto:contact@navoyovan.com"
+                href="mailto:yovangunardio@gmail.com"
                 class="text-lg sm:text-xl font-heading font-bold text-neutral-950 dark:text-white hover:text-[#52FF1A] dark:hover:text-[#52FF1A] transition-colors break-all"
               >
-                contact@navoyovan.com
+                yovangunardio@gmail.com
               </a>
             </div>
 
@@ -1510,7 +1662,7 @@ const capabilities = [
               <ActionButton
                 variant="primary"
                 size="sm"
-                href="mailto:contact@navoyovan.com"
+                href="mailto:yovangunardio@gmail.com"
               >
                 Send an Email ↗
               </ActionButton>
@@ -1526,13 +1678,30 @@ const capabilities = [
               <ActionButton
                 variant="secondary"
                 size="sm"
-                href="https://linkedin.com/in/yovan"
+                href="https://linkedin.com/in/yovan-g-d-22379ba7/"
                 target="_blank"
                 rel="noopener noreferrer"
               >
                 LinkedIn ↗
               </ActionButton>
             </div>
+          </div>
+
+          <!-- Right Column: Title & Body Description -->
+          <div class="lg:col-span-6 space-y-4">
+            <h2
+              id="heading-contact"
+              class="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-neutral-950 dark:text-white leading-tight font-heading"
+            >
+              Have an idea or a project in mind? Let's build it.
+            </h2>
+            <p
+              class="text-base sm:text-lg text-neutral-600 dark:text-neutral-400 leading-relaxed font-normal"
+            >
+              Whether you want to build a custom web platform, a touchscreen
+              kiosk, or explore a hardware experiment, I'm always open to
+              discussing new engineering challenges.
+            </p>
           </div>
         </div>
       </section>

@@ -1,0 +1,65 @@
+---
+import RootLayout from '../layouts/RootLayout.astro';
+import ActionButton from '../components/ActionButton.astro';
+
+const rawBase = import.meta.env.BASE_URL;
+const base = rawBase.endsWith('/') ? rawBase.slice(0, -1) : rawBase;
+---
+
+<RootLayout
+  title="404: Page Not Found | Yovan"
+  description="The requested page could not be found."
+  noindex={true}
+>
+  <div class="w-[92%] sm:w-[86%] lg:w-[80%] mx-auto min-h-[70vh] flex flex-col justify-center items-start py-16 sm:py-24">
+    <div class="max-w-2xl space-y-8">
+      
+      <!-- Hero 404 Headline -->
+      <div class="space-y-2">
+        <p class="text-base sm:text-lg font-medium text-neutral-600 dark:text-neutral-400 font-sans tracking-normal">
+          page_not_found;
+        </p>
+        <h1 class="text-5xl sm:text-7xl lg:text-8xl font-black tracking-tight text-neutral-950 dark:text-white font-heading leading-none">
+          <span>&lt;&nbsp;404&nbsp;</span><span class="text-[#52FF1A]">/</span><span>&gt;</span>
+        </h1>
+      </div>
+
+      <!-- Description -->
+      <p class="text-base sm:text-lg text-neutral-600 dark:text-neutral-400 max-w-xl font-normal leading-relaxed">
+        The route you are looking for does not exist, has been moved, or is under construction.
+      </p>
+
+      <!-- Action Navigation Buttons -->
+      <div class="pt-4 flex items-center gap-4 flex-wrap">
+        <ActionButton
+          variant="primary"
+          size="md"
+          href={`${base}/`}
+          class="group overflow-hidden"
+        >
+          <div class="inline-flex items-center translate-x-[8px] group-hover:translate-x-0 transition-transform duration-200 ease-out">
+            <span>RETURN HOME</span>
+            <span class="inline-flex items-center justify-center w-3.5 ml-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-200 ease-out">
+              ←
+            </span>
+          </div>
+        </ActionButton>
+
+        <ActionButton
+          variant="secondary"
+          size="md"
+          href={`${base}/portfolio-index`}
+          class="group overflow-hidden"
+        >
+          <div class="inline-flex items-center translate-x-[8px] group-hover:translate-x-0 transition-transform duration-200 ease-out">
+            <span>PORTFOLIO INDEX</span>
+            <span class="inline-flex items-center justify-center w-3.5 ml-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-200 ease-out">
+              →
+            </span>
+          </div>
+        </ActionButton>
+      </div>
+
+    </div>
+  </div>
+</RootLayout>
