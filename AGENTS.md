@@ -42,11 +42,11 @@ Run this checklist before any commit to `master` / push to GitHub Pages.
 
 ### Phase 2 — GitHub Pages Configuration
 
-- [ ] **`astro.config.mjs`**: Both `site: 'https://navoyovan.github.io'` and `base: '/porfolio-yovan-v5'` are set.
+- [ ] **`astro.config.mjs`**: Both `site: 'https://navoyovan.github.io'` and `base: '/portfolio-yovan'` are set.
 - [ ] **Internal links**: No hardcoded root-relative paths (`/portfolio-index`, `/favicon.ico`, `/og-default.png`). All use `import.meta.env.BASE_URL`.
 - [ ] **Navbar active state**: `Astro.url.pathname` comparisons account for `BASE_URL` prefix.
 - [ ] **SEO / `<head>`**: Favicon `href`, OG image URL, and canonical `<link>` all prepend `BASE_URL`.
-- [ ] **`robots.txt.ts`**: The `Sitemap:` line produces `https://navoyovan.github.io/porfolio-yovan-v5/sitemap-index.xml`.
+- [ ] **`robots.txt.ts`**: The `Sitemap:` line produces `https://navoyovan.github.io/portfolio-yovan/sitemap-index.xml`.
 - [ ] **`public/og-default.png`**: 1200×630 static OG card exists. Without it, social previews 404.
 
 ### Phase 3 — Inline Style & Asset Hygiene
