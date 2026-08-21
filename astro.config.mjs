@@ -8,7 +8,7 @@ import sitemap from '@astrojs/sitemap';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://navoyovan.github.io',
-  base: '/porfolio-yovan-v5',
+  base: '/portfolio-yovan',
   integrations: [
     react(),
     sitemap({
