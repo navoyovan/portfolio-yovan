@@ -114,13 +114,17 @@ const currentYear = new Date().getFullYear();
     </div>
 
     <!-- Bottom Strip: Copyright & Platform Stack -->
-    <div class="pt-8 border-t border-neutral-200/80 dark:border-neutral-800/80 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-neutral-500 dark:text-neutral-500">
-      <div class="flex items-center gap-2">
+    <div class="pt-8 border-t border-neutral-200/80 dark:border-neutral-800/80 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-neutral-500 dark:text-neutral-500">
+      <div class="flex flex-wrap items-center justify-center md:justify-start gap-x-2 gap-y-1">
         <span class="font-heading font-bold text-neutral-950 dark:text-white">
           Yovan Gunardio Darmawan
         </span>
         <span class="select-none">•</span>
         <span>&copy; {currentYear}</span>
+        <span class="hidden sm:inline select-none">•</span>
+        <span class="text-[11px] text-neutral-400 dark:text-neutral-600">
+          Map tiles by <a href="https://carto.com/attributions" target="_blank" rel="noopener noreferrer" class="hover:underline hover:text-neutral-600 dark:hover:text-neutral-300">CARTO</a> &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer" class="hover:underline hover:text-neutral-600 dark:hover:text-neutral-300">OpenStreetMap</a>
+        </span>
       </div>
 
       <div class="flex items-center gap-2 font-mono text-[11px]">

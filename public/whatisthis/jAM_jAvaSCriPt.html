@@ -1,0 +1,93 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Jam Digital</title>
+
+<style type="text/css">
+h1 {
+	position: absolute;
+	left : 10%;
+	top :23%;
+	font-family: Square721 BT; 
+	text-shadow: 3px 3px 2px #f75e5e;
+	color: pink;
+	letter-spacing: 15px;}
+	
+#jam {
+	font-family: Square721 BT;}
+body {
+    background: #17D4FE;}
+.clock {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    color: #f75e5e;
+    font-size: 70px;
+    letter-spacing: 15px;}
+	
+.clock2 {
+    position: absolute;
+    top: 21%;
+    left: 74.5%;
+    transform: translateX(-50%) translateY(-50%);
+    color: #f75e5e;
+    font-size: 100px;
+    letter-spacing: 15px;
+	font-family: Square721 BT;}
+	
+.outter {
+	position: absolute;
+	top : 30%;
+	left :32%;
+	border: 0px solid rgba(247, 94, 94, 0.6);
+	border-radius:15px 0px 15px 0px;
+	background-color:#f7bf5e;
+	width:50%;
+	height:40px;}
+
+</style>
+
+</head>
+
+<body>
+<br></br>
+<center>
+<h1 style="font-size:110px">Jam Digital</h1>
+<div class="outter"> </div>
+<div style="text-shadow: 3px 3px 2px #17D4FE" id="jam" class="clock" onload="showTime()"></div>
+<div style="text-shadow: 5px 4px 2px #f7bf5e" id="sesi" class="clock2" onload="showTime()"></div>
+<script>
+function showTime() {
+  var date = new Date();
+  var h = date.getHours();
+  var m = date.getMinutes();
+  var s = date.getSeconds();
+  
+  var session = "AM" ;
+  if (h == 0) {h = 12;}
+  if (h > 12) {h = h - 12;session = "PM";}
+
+  h = h < 10 ? "0" + h : h;
+  m = m < 10 ? "0" + m : m;
+  s = s < 10 ? "0" + s : s;
+
+  var time = h + ":" + m + ":" + s + " " ;
+  document.getElementById("jam").innerText = time;
+  document.getElementById("jam").textContent = time;
+  
+   var ampm = session ;
+  document.getElementById("sesi").innerText = session;
+  document.getElementById("sesi").textContent = session;
+  setTimeout(showTime, 1000);}
+  
+  
+  
+
+showTime();
+
+        </script>
+</center>
+</body>
+</html>

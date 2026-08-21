@@ -2,7 +2,6 @@
 import RootLayout from "../layouts/RootLayout.astro";
 import Hero from "../components/Hero.astro";
 import StatusBadge from "../components/StatusBadge.astro";
-import ArchitectureDiagram from "../components/ArchitectureDiagram.astro";
 import ActionButton from "../components/ActionButton.astro";
 import ProjectTile from "../components/ProjectTile.astro";
 
@@ -52,15 +51,48 @@ const supportingStack = [
   { name: "GitHub Pages", icon: "ti-brand-git" },
   { name: "OWASP Guidelines", icon: "ti-shield-check" },
 ];
+
+const capabilities = [
+  {
+    number: "01",
+    title: "Landing Pages & Websites",
+    description:
+      "Fast, responsive websites for products, businesses, campaigns, and personal brands. Optimized for both desktop and mobile UI.",
+    tags: ["Astro", "Tailwind", "SEO", "Responsive UI"],
+  },
+  {
+    number: "02",
+    title: "Web Applications",
+    description:
+      "Dashboards, internal tools, SaaS products, MVP projects, authentication, APIs, and the logic behind them. Optimized for both desktop and mobile UIs.",
+    tags: ["React / Vue", "Full-Stack", "Auth & RBAC", "REST APIs"],
+  },
+  {
+    number: "03",
+    title: "Interactive & Kiosk Apps",
+    description:
+      "Touchscreen interfaces, Electron applications (Desktop), camera workflows, printing, and other screen-to-device experiences.",
+    tags: ["Electron", "Touch UI", "Hardware I/O", "Camera / Print"],
+  },
+  {
+    number: "04",
+    title: "Connected Systems",
+    description:
+      "Realtime communication, payment integrations, cloud services, and software that needs to talk to hardware.",
+    tags: [
+      "WebSockets",
+      "Payment Gateways",
+      "Cloud Storage",
+      "IPC / Hardware I/O",
+    ],
+  },
+];
 ---
 
 <RootLayout
   title="Yovan Gunardio Darmawan | Software Engineer & Builder"
   description="Hey, I'm Yovan, a developer who likes turning weird ideas into working products. Building web apps, touchscreen kiosks, and physical hardware experiences."
 >
-
-
-
   <!-- JAM Digital Clock Floating Popup (Component Library 07: Project Tile / Case Study Card) -->
   <div
     id="egg-popup"
@@ -79,51 +111,71 @@ const supportingStack = [
     </div>
 
     <!-- Popup Card -->
-    <div class="w-full bg-[#f6f4ee] dark:bg-[#141414] border border-neutral-300/80 dark:border-neutral-800 shadow-2xl shadow-black/40 overflow-hidden flex flex-col">
+    <div
+      class="w-full bg-[#f6f4ee] dark:bg-[#141414] border border-neutral-300/80 dark:border-neutral-800 shadow-2xl shadow-black/40 overflow-hidden flex flex-col"
+    >
       <!-- Media / Viewfinder Container (Exact Original Jam Digital HTML via Iframe) -->
-      <div class="relative w-full aspect-[16/9.5] bg-[#17D4FE] overflow-hidden border-b border-neutral-300/80 dark:border-neutral-800/80 select-none flex items-center justify-center">
+      <div
+        class="relative w-full aspect-[16/9.5] bg-[#17D4FE] overflow-hidden border-b border-neutral-300/80 dark:border-neutral-800/80 select-none flex items-center justify-center"
+      >
         <iframe
           src={`${base}/whatisthis/jAM_jAvaSCriPt.html`}
           title="Jam Digital"
           class="border-0 pointer-events-none select-none shrink-0"
           style="width: 1440px; height: 855px; transform: scale(0.28); transform-origin: center center;"
-          loading="eager"
-        ></iframe>
+          loading="eager"></iframe>
       </div>
 
       <!-- Content Section (Project Tile Format) -->
       <div class="p-4 sm:p-5 flex flex-col flex-1 gap-3">
         <!-- Category Tag -->
-        <span class="font-sans text-[11px] uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-semibold">
+        <span
+          class="font-sans text-[11px] uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-semibold"
+        >
           00 // EASTER EGG
         </span>
 
         <!-- Title -->
-        <h3 class="text-lg sm:text-xl font-bold text-neutral-950 dark:text-white tracking-tight leading-tight font-heading">
+        <h3
+          class="text-lg sm:text-xl font-bold text-neutral-950 dark:text-white tracking-tight leading-tight font-heading"
+        >
           Jam Digital (JavaScript Clock)
         </h3>
 
         <!-- Description -->
-        <p class="font-sans text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed font-normal">
-          An early standalone digital clock project built with vanilla JavaScript, CSS text-shadow layering, and DOM timer manipulation.
+        <p
+          class="font-sans text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed font-normal"
+        >
+          An early standalone digital clock project built with vanilla
+          JavaScript, CSS text-shadow layering, and DOM timer manipulation.
         </p>
 
         <!-- Tags Row -->
         <div class="flex flex-wrap gap-1.5 pt-0.5">
-          <span class="font-sans text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2.5 py-0.5 rounded">
+          <span
+            class="font-sans text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2.5 py-0.5 rounded"
+          >
             VANILLA JS
           </span>
-          <span class="font-sans text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2.5 py-0.5 rounded">
+          <span
+            class="font-sans text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2.5 py-0.5 rounded"
+          >
             CSS3 SHADOWS
           </span>
-          <span class="font-sans text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2.5 py-0.5 rounded">
+          <span
+            class="font-sans text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2.5 py-0.5 rounded"
+          >
             SETTIMEOUT
           </span>
         </div>
 
         <!-- Metadata Footer -->
-        <div class="mt-auto pt-3 border-t border-neutral-200/80 dark:border-neutral-800/80 flex items-center">
-          <span class="font-mono text-[11px] text-neutral-400 dark:text-neutral-500 truncate">
+        <div
+          class="mt-auto pt-3 border-t border-neutral-200/80 dark:border-neutral-800/80 flex items-center"
+        >
+          <span
+            class="font-mono text-[11px] text-neutral-400 dark:text-neutral-500 truncate"
+          >
             JAM_jAvaSCriPt.html
           </span>
         </div>
@@ -134,7 +186,9 @@ const supportingStack = [
   <style>
     /* Popup slide/fade animation */
     #egg-popup {
-      transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1), transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      transition:
+        opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
     }
     #egg-popup.popup-hidden {
       opacity: 0;
@@ -152,7 +206,9 @@ const supportingStack = [
       opacity: 0.08;
       user-select: none;
       pointer-events: none;
-      transition: opacity 0.2s ease, text-decoration 0.2s ease;
+      transition:
+        opacity 0.2s ease,
+        text-decoration 0.2s ease;
     }
     .egg-label-hover {
       opacity: 0.75 !important;
@@ -173,22 +229,22 @@ const supportingStack = [
   <script>
     (function () {
       function openPopup() {
-        const popup = document.getElementById('egg-popup');
+        const popup = document.getElementById("egg-popup");
         if (!popup) return;
-        popup.classList.remove('popup-hidden');
-        popup.classList.add('popup-visible');
+        popup.classList.remove("popup-hidden");
+        popup.classList.add("popup-visible");
       }
 
       function closePopup() {
-        const popup = document.getElementById('egg-popup');
+        const popup = document.getElementById("egg-popup");
         if (!popup) return;
-        popup.classList.remove('popup-visible');
-        popup.classList.add('popup-hidden');
+        popup.classList.remove("popup-visible");
+        popup.classList.add("popup-hidden");
       }
 
       function togglePopup() {
-        const popup = document.getElementById('egg-popup');
-        if (popup && popup.classList.contains('popup-visible')) {
+        const popup = document.getElementById("egg-popup");
+        if (popup && popup.classList.contains("popup-visible")) {
           closePopup();
         } else {
           openPopup();
@@ -196,26 +252,34 @@ const supportingStack = [
       }
 
       // Mouseover/mouseout for hitbox -> label hover link
-      document.addEventListener('mouseover', (e) => {
+      document.addEventListener("mouseover", (e) => {
         const target = e.target as HTMLElement | null;
-        const hitbox = target?.closest?.('[data-target-label]') as HTMLElement | null;
+        const hitbox = target?.closest?.(
+          "[data-target-label]",
+        ) as HTMLElement | null;
         if (hitbox) {
-          const labelId = hitbox.getAttribute('data-target-label');
-          if (labelId) document.getElementById(labelId)?.classList.add('egg-label-hover');
+          const labelId = hitbox.getAttribute("data-target-label");
+          if (labelId)
+            document.getElementById(labelId)?.classList.add("egg-label-hover");
         }
       });
 
-      document.addEventListener('mouseout', (e) => {
+      document.addEventListener("mouseout", (e) => {
         const target = e.target as HTMLElement | null;
-        const hitbox = target?.closest?.('[data-target-label]') as HTMLElement | null;
+        const hitbox = target?.closest?.(
+          "[data-target-label]",
+        ) as HTMLElement | null;
         if (hitbox) {
-          const labelId = hitbox.getAttribute('data-target-label');
-          if (labelId) document.getElementById(labelId)?.classList.remove('egg-label-hover');
+          const labelId = hitbox.getAttribute("data-target-label");
+          if (labelId)
+            document
+              .getElementById(labelId)
+              ?.classList.remove("egg-label-hover");
         }
       });
 
       // Event delegation on document to guarantee clicks are captured
-      document.addEventListener('click', (e) => {
+      document.addEventListener("click", (e) => {
         const target = e.target as HTMLElement | null;
         if (!target) return;
 
@@ -227,7 +291,7 @@ const supportingStack = [
           return;
         }
 
-        const closeBtn = target.closest('#egg-popup-close, #egg-popup-dismiss');
+        const closeBtn = target.closest("#egg-popup-close, #egg-popup-dismiss");
         if (closeBtn) {
           e.preventDefault();
           closePopup();
@@ -235,46 +299,77 @@ const supportingStack = [
         }
       });
 
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') closePopup();
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") closePopup();
       });
     })();
   </script>
 
   <!-- page wrapper — position: relative so easter eggs scatter through scroll height -->
   <div class="relative">
-
     <!-- ░░ EASTER EGGS — Visual labels in background (z-0) ░░ -->
     <div class="absolute inset-0 pointer-events-none overflow-hidden z-0">
       <!-- 01: setTimeout(showTime, 1000); (Hero Top Left) -->
-      <span class="egg-static absolute font-mono text-xs text-neutral-600 dark:text-neutral-300 select-none rotate-[-5deg]" style="top:2%;left:2.5%;">setTimeout(showTime, 1000);</span>
-      
+      <span
+        class="egg-static absolute font-mono text-xs text-neutral-600 dark:text-neutral-300 select-none rotate-[-5deg]"
+        style="top:2%;left:2.5%;">setTimeout(showTime, 1000);</span
+      >
+
       <!-- 02: WS2812B (Hero Right) -->
-      <span class="egg-static absolute font-mono text-xs text-neutral-600 dark:text-neutral-300 select-none rotate-[4deg]" style="top:11%;right:2%;">WS2812B</span>
-      
+      <span
+        class="egg-static absolute font-mono text-xs text-neutral-600 dark:text-neutral-300 select-none rotate-[4deg]"
+        style="top:11%;right:2%;">WS2812B</span
+      >
+
       <!-- 03: GPIO16 (Between Hero & Sec 01) -->
-      <span class="egg-static absolute font-mono text-xs text-neutral-600 dark:text-neutral-300 select-none rotate-[-3deg]" style="top:21%;left:1.5%;">GPIO16</span>
-      
+      <span
+        class="egg-static absolute font-mono text-xs text-neutral-600 dark:text-neutral-300 select-none rotate-[-3deg]"
+        style="top:21%;left:1.5%;">GPIO16</span
+      >
+
       <!-- 04: DateTime.Now (Sec 01 / Sec 02 Gap - ACTIVE EASTER EGG VISUAL) -->
-      <span id="egg-label-jam" class="egg-static absolute font-mono text-xs text-neutral-600 dark:text-neutral-300 select-none rotate-[4deg]" style="top:31%;right:2%;">DateTime.Now</span>
-      
+      <span
+        id="egg-label-jam"
+        class="egg-static absolute font-mono text-xs text-neutral-600 dark:text-neutral-300 select-none rotate-[4deg]"
+        style="top:31%;right:2%;">DateTime.Now</span
+      >
+
       <!-- 05: Node_12 (Sec 02 / Sec 03 Gap) -->
-      <span class="egg-static absolute font-mono text-xs text-neutral-600 dark:text-neutral-300 select-none rotate-[-4deg]" style="top:44%;left:2%;">Node_12</span>
-      
+      <span
+        class="egg-static absolute font-mono text-xs text-neutral-600 dark:text-neutral-300 select-none rotate-[-4deg]"
+        style="top:44%;left:2%;">Node_12</span
+      >
+
       <!-- 06: ASCII_RENDERER (Sec 03 / Sec 04 Gap) -->
-      <span class="egg-static absolute font-mono text-xs text-neutral-600 dark:text-neutral-300 select-none rotate-[3deg]" style="top:55%;right:1.5%;">ASCII_RENDERER</span>
-      
+      <span
+        class="egg-static absolute font-mono text-xs text-neutral-600 dark:text-neutral-300 select-none rotate-[3deg]"
+        style="top:55%;right:1.5%;">ASCII_RENDERER</span
+      >
+
       <!-- 07: since(2026); (Sec 04 / Sec 05 Gap) -->
-      <span class="egg-static absolute font-mono text-xs text-neutral-600 dark:text-neutral-300 select-none rotate-[-4deg]" style="top:66%;left:2%;">since(2026);</span>
-      
+      <span
+        class="egg-static absolute font-mono text-xs text-neutral-600 dark:text-neutral-300 select-none rotate-[-4deg]"
+        style="top:66%;left:2%;">since(2026);</span
+      >
+
       <!-- 08: process.env.PORT || 8080 -->
-      <span class="egg-static absolute font-mono text-xs text-neutral-600 dark:text-neutral-300 select-none rotate-[5deg]" style="top:75%;right:3%;">process.env.PORT || 8080</span>
-      
+      <span
+        class="egg-static absolute font-mono text-xs text-neutral-600 dark:text-neutral-300 select-none rotate-[5deg]"
+        style="top:75%;right:3%;">process.env.PORT || 8080</span
+      >
+
       <!-- 09: struct Pixel { r: u8, g: u8, b: u8 } (Sec 06 / Sec 07 Gap) -->
-      <span class="egg-static absolute font-mono text-xs text-neutral-600 dark:text-neutral-300 select-none rotate-[2deg]" style="top:89%;left:1.5%;">struct Pixel &#123; r: u8, g: u8, b: u8 &#125;</span>
-      
+      <span
+        class="egg-static absolute font-mono text-xs text-neutral-600 dark:text-neutral-300 select-none rotate-[2deg]"
+        style="top:89%;left:1.5%;"
+        >struct Pixel &#123; r: u8, g: u8, b: u8 &#125;</span
+      >
+
       <!-- 10: 0x7F454C46 (Footer Area) -->
-      <span class="egg-static absolute font-mono text-xs text-neutral-600 dark:text-neutral-300 select-none rotate-[-3deg]" style="top:98%;right:2%;">0x7F454C46</span>
+      <span
+        class="egg-static absolute font-mono text-xs text-neutral-600 dark:text-neutral-300 select-none rotate-[-3deg]"
+        style="top:98%;right:2%;">0x7F454C46</span
+      >
     </div>
 
     <!-- ░░ EASTER EGGS — Clickable Hitbox Layer in Front (z-30) ░░ -->
@@ -295,300 +390,398 @@ const supportingStack = [
     <Hero firstName="yovan" middleName="gunardio" lastName="darmawan" />
 
     <div class="w-[92%] sm:w-[86%] lg:w-[80%] mx-auto space-y-24 pb-28">
-    <!-- 01 // OVERVIEW & HERO STATEMENT -->
-    <section
-      id="intro"
-      class="border-t border-neutral-200 dark:border-neutral-800 pt-16 space-y-8"
-    >
-      <div
-        class="flex items-center justify-between pb-2 border-b border-neutral-200 dark:border-neutral-800"
+      <!-- 01 // OVERVIEW & HERO STATEMENT -->
+      <section
+        id="intro"
+        class="border-t border-neutral-200 dark:border-neutral-800 pt-16 space-y-8"
       >
-        <span
-          class="font-sans text-xs uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-bold"
+        <div
+          class="flex items-center justify-between pb-2 border-b border-neutral-200 dark:border-neutral-800"
         >
-          01 // OVERVIEW
-        </span>
-      </div>
-
-      <!-- Section Headline Header (Header 1 Full Width) -->
-      <h1
-        class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-neutral-950 dark:text-white leading-[1.12] font-heading w-full"
-      >
-        I build software that makes ideas real.
-      </h1>
-
-      <div
-        class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start pt-2"
-      >
-        <!-- 35% Left Column: Architecture Topology Diagram -->
-        <div class="lg:col-span-5 xl:col-span-5 lg:sticky lg:top-24 space-y-4">
-          <ArchitectureDiagram />
+          <span
+            class="font-sans text-xs uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-bold"
+          >
+            01 // OVERVIEW
+          </span>
         </div>
 
-        <!-- 65% Right Column: Narrative, Tech Stack & CTA -->
-        <div class="lg:col-span-7 xl:col-span-7 space-y-6">
-          <p
-            class="text-base sm:text-lg text-neutral-700 dark:text-neutral-300 leading-relaxed font-normal"
-          >
-            Hello, I'm Yovan. I build things for the world wide web and
-            occasionally things that talk to machines.
-          </p>
+        <!-- Section Headline Header (Header 1 Full Width) -->
+        <h1
+          class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-neutral-950 dark:text-white leading-[1.12] font-heading w-full"
+        >
+          I build software that makes ideas real.
+        </h1>
 
+        <div
+          class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start pt-2"
+        >
+          <!-- Left Column: Portrait Photo with Technical Halo -->
           <div
-            class="space-y-2.5 py-1.5 pl-4 border-l-2 border-[#52FF1A]/50 font-sans text-sm sm:text-base text-neutral-600 dark:text-neutral-400"
+            class="lg:col-span-5 xl:col-span-5 lg:sticky lg:top-24 flex flex-col items-center justify-center pt-4 sm:pt-6"
           >
-            <p class="flex items-center gap-2.5">
-              <span
-                class="text-[#52FF1A] text-xs font-mono select-none font-bold"
-                >›</span
+            <div
+              class="relative w-full max-w-md sm:max-w-lg flex flex-col items-center justify-center border-b border-neutral-300/80 dark:border-neutral-800 overflow-hidden"
+            >
+              <!-- Layer 1: Lava Lamp / Water Blob Dot Matrix Field -->
+              <div
+                class="absolute inset-0 flex items-center justify-center pointer-events-none select-none"
               >
-              <span>A little bit of webapp in my life</span>
-            </p>
-            <p class="flex items-center gap-2.5">
-              <span
-                class="text-[#52FF1A] text-xs font-mono select-none font-bold"
-                >›</span
+                <div
+                  class="w-88 h-88 sm:w-[380px] sm:h-[380px] animate-blob-morph bg-[radial-gradient(rgba(0,0,0,0.18)_1.5px,transparent_1.5px)] dark:bg-[radial-gradient(rgba(255,255,255,0.22)_1.5px,transparent_1.5px)] [background-size:15px_15px] [mask-image:radial-gradient(circle,black_55%,transparent_85%)] opacity-90"
+                ></div>
+              </div>
+
+              <!-- Layer 2: Technical Reticle / Concentric Dashed Halo Rings -->
+              <div
+                class="absolute inset-0 flex items-center justify-center pointer-events-none select-none"
               >
-              <span>A little bit of vscode by my side</span>
-            </p>
-            <p class="flex items-center gap-2.5">
-              <span
-                class="text-[#52FF1A] text-xs font-mono select-none font-bold"
-                >›</span
-              >
-              <span>A little bit of dashboard all I need</span>
-            </p>
-            <p class="flex items-center gap-2.5">
-              <span
-                class="text-[#52FF1A] text-xs font-mono select-none font-bold"
-                >›</span
-              >
-              <span>A little bit of touchscreen kiosk  what I see</span>
-            </p>
-            <p class="flex items-center gap-2.5">
-              <span
-                class="text-[#52FF1A] text-xs font-mono select-none font-bold"
-                >›</span
-              >
-              <span>A little bit of 12v in the sun</span>
-            </p>
-            <p class="flex items-center gap-2.5">
-              <span
-                class="text-[#52FF1A] text-xs font-mono select-none font-bold"
-                >›</span
-              >
-              <span>A little bit of solder all night long</span>
-            </p>
-            <p class="flex items-center gap-2.5">
-              <span
-                class="text-[#52FF1A] text-xs font-mono select-none font-bold"
-                >›</span
-              >
-              <span>A little bit of LED, here I am</span>
-            </p>
-            <p class="flex items-center gap-2.5">
-              <span
-                class="text-[#52FF1A] text-xs font-mono select-none font-bold"
-                >›</span
-              >
-              <span>A little bit of git makes me your man</span>
-            </p>
+                <!-- Outer Dashed Ring -->
+                <div
+                  class="w-72 h-72 sm:w-80 sm:h-80 rounded-full border border-dashed border-neutral-300 dark:border-neutral-700/80"
+                ></div>
+                <!-- Inner Solid Hairline Ring -->
+                <div
+                  class="absolute w-52 h-52 sm:w-60 sm:h-60 rounded-full border border-neutral-200/80 dark:border-neutral-800"
+                ></div>
+                <!-- Center Crosshair Accents -->
+                <div
+                  class="absolute w-84 h-[1px] bg-gradient-to-r from-transparent via-neutral-200/60 dark:via-neutral-800 to-transparent"
+                ></div>
+                <div
+                  class="absolute h-84 w-[1px] bg-gradient-to-b from-transparent via-neutral-200/60 dark:via-neutral-800 to-transparent"
+                ></div>
+              </div>
+
+              <img
+                src={`${base}/images/v.png`}
+                alt="Yovan"
+                class="relative z-10 w-full max-h-[500px] sm:max-h-[540px] object-contain object-bottom select-none pt-4"
+                loading="eager"
+              />
+            </div>
           </div>
 
-          <p
-            class="text-sm sm:text-base text-neutral-600 dark:text-neutral-400 leading-relaxed font-normal"
-          >
-            I enjoy building things across the stack, from the interface people
-            see to the systems making everything run behind the scenes.
-          </p>
-
-          <!-- Tech Stack Layout -->
-          <div
-            class="pt-6 space-y-8 border-t border-neutral-200/80 dark:border-neutral-800/80"
-          >
-            <div class="flex items-center justify-between">
-              <span
-                class="font-heading font-bold text-xs sm:text-sm uppercase tracking-wider text-neutral-500 dark:text-neutral-400"
-              >
-                Core Stack
-              </span>
-              <span
-                class="font-sans text-[11px] text-neutral-400 dark:text-neutral-500 font-medium"
-              >
-                {coreStack.length} core • {supportingStack.length} supporting
-              </span>
-            </div>
-
-            <!-- Core Stack (Icon-as-Object: Unboxed, Breathing Grid) -->
-            <div
-              class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-6 sm:gap-8 pt-1"
+          <!-- 65% Right Column: Narrative, Tech Stack & CTA -->
+          <div class="lg:col-span-7 xl:col-span-7 space-y-6">
+            <p
+              class="text-base sm:text-lg text-neutral-700 dark:text-neutral-300 leading-relaxed font-normal"
             >
-              {
-                coreStack.map((tech) => (
-                  <div class="flex flex-col space-y-2.5 group cursor-default">
-                    <div class="text-3xl sm:text-4xl text-neutral-800 dark:text-neutral-200 group-hover:text-[#52FF1A] transition-[transform,color] duration-200 group-hover:-translate-y-1 group-hover:scale-105 inline-flex items-center">
-                      <i class={`ti ${tech.icon}`} />
-                    </div>
-                    <div class="space-y-0.5">
-                      <span class="font-heading font-bold text-sm sm:text-base text-neutral-950 dark:text-white block tracking-tight">
-                        {tech.name}
-                      </span>
-                      <span class="font-sans text-[11px] sm:text-xs text-neutral-500 dark:text-neutral-400 block leading-tight group-hover:text-neutral-700 dark:group-hover:text-neutral-300 transition-colors">
-                        {tech.category}
-                      </span>
-                    </div>
-                  </div>
-                ))
-              }
+              Hello, I'm Yovan. I build things for the world wide web and
+              occasionally things that talk to machines.
+            </p>
+
+            <div
+              class="space-y-2.5 py-1.5 pl-4 border-l-2 border-[#52FF1A]/50 font-sans text-sm sm:text-base text-neutral-600 dark:text-neutral-400"
+            >
+              <p class="flex items-center gap-2.5">
+                <span
+                  class="text-[#52FF1A] text-xs font-mono select-none font-bold"
+                  >›</span
+                >
+                <span>A little bit of webapp in my life</span>
+              </p>
+              <p class="flex items-center gap-2.5">
+                <span
+                  class="text-[#52FF1A] text-xs font-mono select-none font-bold"
+                  >›</span
+                >
+                <span>A little bit of vscode by my side</span>
+              </p>
+              <p class="flex items-center gap-2.5">
+                <span
+                  class="text-[#52FF1A] text-xs font-mono select-none font-bold"
+                  >›</span
+                >
+                <span>A little bit of dashboard all I need</span>
+              </p>
+              <p class="flex items-center gap-2.5">
+                <span
+                  class="text-[#52FF1A] text-xs font-mono select-none font-bold"
+                  >›</span
+                >
+                <span>A little bit of touchscreen kiosk what I see</span>
+              </p>
+              <p class="flex items-center gap-2.5">
+                <span
+                  class="text-[#52FF1A] text-xs font-mono select-none font-bold"
+                  >›</span
+                >
+                <span>A little bit of 12v in the sun</span>
+              </p>
+              <p class="flex items-center gap-2.5">
+                <span
+                  class="text-[#52FF1A] text-xs font-mono select-none font-bold"
+                  >›</span
+                >
+                <span>A little bit of solder all night long</span>
+              </p>
+              <p class="flex items-center gap-2.5">
+                <span
+                  class="text-[#52FF1A] text-xs font-mono select-none font-bold"
+                  >›</span
+                >
+                <span>A little bit of LED, here I am</span>
+              </p>
+              <p class="flex items-center gap-2.5">
+                <span
+                  class="text-[#52FF1A] text-xs font-mono select-none font-bold"
+                  >›</span
+                >
+                <span>A little bit of git makes me your guy</span>
+              </p>
             </div>
 
-            <!-- Supporting Stack (Unboxed / Clean Inline Flow for Visual Weight Balance) -->
-            <div class="pt-2 space-y-2.5">
-              <span
-                class="font-heading font-bold text-xs uppercase tracking-wider text-neutral-400 dark:text-neutral-500 block"
+            <p
+              class="text-sm sm:text-base text-neutral-600 dark:text-neutral-400 leading-relaxed font-normal"
+            >
+              I enjoy building things across the stack, from the interface
+              people see to the systems making everything run behind the scenes.
+            </p>
+
+            <!-- Tech Stack Layout -->
+            <div
+              class="pt-6 space-y-8 border-t border-neutral-200/80 dark:border-neutral-800/80"
+            >
+              <div class="flex items-center justify-between">
+                <span
+                  class="font-heading font-bold text-xs sm:text-sm uppercase tracking-wider text-neutral-500 dark:text-neutral-400"
+                >
+                  Core Stack
+                </span>
+                <span
+                  class="font-sans text-[11px] text-neutral-400 dark:text-neutral-500 font-medium"
+                >
+                  {coreStack.length} core • {supportingStack.length} supporting
+                </span>
+              </div>
+
+              <!-- Core Stack (Icon-as-Object: Unboxed, Breathing Grid) -->
+              <div
+                class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-6 sm:gap-8 pt-1"
               >
-                Ecosystem & Supporting Tech
-              </span>
-              <div class="flex flex-wrap items-center gap-x-4 gap-y-2.5 pt-0.5">
                 {
-                  supportingStack.map((tech) => (
-                    <div class="inline-flex items-center gap-1.5 text-xs text-neutral-600 dark:text-neutral-400 hover:text-neutral-950 dark:hover:text-white transition-colors group">
-                      <i
-                        class={`ti ${tech.icon} text-sm text-neutral-400 dark:text-neutral-500 group-hover:text-[#52FF1A] transition-colors`}
-                      />
-                      <span class="font-sans font-medium">{tech.name}</span>
+                  coreStack.map((tech) => (
+                    <div class="flex flex-col space-y-2.5 group cursor-default">
+                      <div class="text-3xl sm:text-4xl text-neutral-800 dark:text-neutral-200 group-hover:text-[#52FF1A] transition-[transform,color] duration-200 group-hover:-translate-y-1 group-hover:scale-105 inline-flex items-center">
+                        <i class={`ti ${tech.icon}`} />
+                      </div>
+                      <div class="space-y-0.5">
+                        <span class="font-heading font-bold text-sm sm:text-base text-neutral-950 dark:text-white block tracking-tight">
+                          {tech.name}
+                        </span>
+                        <span class="font-sans text-[11px] sm:text-xs text-neutral-500 dark:text-neutral-400 block leading-tight group-hover:text-neutral-700 dark:group-hover:text-neutral-300 transition-colors">
+                          {tech.category}
+                        </span>
+                      </div>
                     </div>
                   ))
                 }
               </div>
+
+              <!-- Supporting Stack (Unboxed / Clean Inline Flow for Visual Weight Balance) -->
+              <div class="pt-2 space-y-2.5">
+                <span
+                  class="font-heading font-bold text-xs uppercase tracking-wider text-neutral-400 dark:text-neutral-500 block"
+                >
+                  Ecosystem & Supporting Tech
+                </span>
+                <div
+                  class="flex flex-wrap items-center gap-x-4 gap-y-2.5 pt-0.5"
+                >
+                  {
+                    supportingStack.map((tech) => (
+                      <div class="inline-flex items-center gap-1.5 text-xs text-neutral-600 dark:text-neutral-400 hover:text-neutral-950 dark:hover:text-white transition-colors group">
+                        <i
+                          class={`ti ${tech.icon} text-sm text-neutral-400 dark:text-neutral-500 group-hover:text-[#52FF1A] transition-colors`}
+                        />
+                        <span class="font-sans font-medium">{tech.name}</span>
+                      </div>
+                    ))
+                  }
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- 02 // PROJECTS & HYPEBOX -->
-    <section
-      id="projects"
-      class="border-t border-neutral-200 dark:border-neutral-800 pt-16 space-y-10"
-    >
-      <div
-        class="flex items-center justify-between pb-2 border-b border-neutral-200 dark:border-neutral-800"
+      <!-- 02 // PROJECTS & HYPEBOX -->
+      <section
+        id="projects"
+        class="border-t border-neutral-200 dark:border-neutral-800 pt-16 space-y-10"
       >
-        <span
-          class="font-sans text-xs uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-bold"
-        >
-          02 // FEATURED WORK
-        </span>
-        <a
-          href={`${base}/portfolio-index`}
-          class="text-xs font-semibold text-neutral-600 hover:text-neutral-950 dark:text-neutral-400 dark:hover:text-white transition-colors flex items-center gap-1"
-        >
-          View Full Index <span>→</span>
-        </a>
-      </div>
-
-      <!-- Project Intro Copywriting -->
-      <div class="space-y-3 max-w-3xl">
-        <h2
-          class="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-neutral-950 dark:text-white leading-tight font-heading"
-        >
-          Things I've built
-        </h2>
-        <p
-          class="text-base sm:text-lg text-neutral-600 dark:text-neutral-400 leading-relaxed font-normal"
-        >
-          A collection of experiments, products, and projects where I tried to
-          solve a problem, learn something new, or just see "what if?"
-        </p>
-      </div>
-
-      <!-- Featured Spotlight: Hypebox -->
-      <div
-        class="border border-neutral-300/80 dark:border-neutral-800 bg-[#f6f4ee] dark:bg-[#141414] p-6 sm:p-8 space-y-8"
-      >
-        <!-- Hypebox Header -->
         <div
-          class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-neutral-200/80 dark:border-neutral-800/80"
+          class="flex items-center justify-between pb-2 border-b border-neutral-200 dark:border-neutral-800"
         >
-          <div class="space-y-1">
-            <h3
-              class="text-2xl sm:text-3xl font-black tracking-tight text-neutral-950 dark:text-white leading-none font-heading"
-            >
-              HYPE-BOX
-            </h3>
-            <p
-              class="text-sm font-medium text-neutral-600 dark:text-neutral-400 pt-1"
-            >
-              A photobooth platform, built from kiosk to backend.
-            </p>
-          </div>
-
-          <a
-            href="https://navoyovan.github.io/hypebox/"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-neutral-950 dark:text-white bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700 px-4 py-2.5 hover:border-neutral-950 dark:hover:border-white transition-all w-fit"
+          <span
+            class="font-sans text-xs uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-bold"
           >
-            <span>Visit Hypebox Site</span>
-            <span>↗</span>
+            02 // FEATURED WORK
+          </span>
+          <a
+            href={`${base}/portfolio-index`}
+            class="group/action inline-flex items-center gap-1 font-sans text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-neutral-500 dark:text-neutral-400 hover:text-[#52FF1A] transition-colors focus:outline-none"
+          >
+            <span
+              class="group-hover/action:underline underline-offset-4 decoration-[#52FF1A]"
+            >
+              View Full Index
+            </span>
+            <span
+              class="inline-block opacity-0 -translate-x-1.5 transition-all duration-200 group-hover/action:opacity-100 group-hover/action:translate-x-0"
+            >
+              →
+            </span>
           </a>
         </div>
 
-        <p
-          class="text-sm sm:text-base text-neutral-700 dark:text-neutral-300 leading-relaxed max-w-3xl font-normal"
-        >
-          A connected photo booth system with a touchscreen-optimized Electron kiosk, Laravel backend, management dashboard, realtime communication, and integrated payments, with the broader ecosystem still in development.
-        </p>
-
-        <!-- Ecosystem Grid of Sub-systems -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-5 pt-2">
-          <!-- Kiosk Hero Subsystem (Full Width with 35% Screenshot Box) -->
-          <div
-            class="col-span-1 md:col-span-3 p-6 sm:p-8 border border-neutral-300/90 dark:border-neutral-700/80 bg-white/90 dark:bg-neutral-900/60 shadow-sm"
+        <!-- Project Intro Copywriting -->
+        <div class="space-y-3 max-w-3xl">
+          <h2
+            class="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-neutral-950 dark:text-white leading-tight font-heading"
           >
-            <div class="flex flex-col lg:flex-row items-stretch justify-between gap-6 lg:gap-8">
-              <!-- 65% Left Column: Copy & Specs & CTA (Bottom-aligned ActionButton) -->
-              <div class="w-full lg:w-[65%] flex flex-col justify-between space-y-6">
-                <div class="space-y-4">
-                  <div class="space-y-2">
-                    <span class="text-[11px] font-mono text-neutral-500 font-semibold tracking-wider block">
-                      ELECTRON / REACT
-                    </span>
-                    <div class="flex flex-wrap items-baseline justify-between sm:justify-start sm:gap-4">
-                      <h4
-                        class="text-xl sm:text-2xl font-bold text-neutral-950 dark:text-white font-heading tracking-tight"
+            Things I've built
+          </h2>
+          <p
+            class="text-base sm:text-lg text-neutral-600 dark:text-neutral-400 leading-relaxed font-normal"
+          >
+            A collection of experiments, products, and projects where I tried to
+            solve a problem, learn something new, or just see "what if?"
+          </p>
+        </div>
+
+        <!-- Featured Spotlight: Hypebox -->
+        <div
+          class="border border-neutral-300/80 dark:border-neutral-800 bg-[#f6f4ee] dark:bg-[#141414] p-6 sm:p-8 space-y-8"
+        >
+          <!-- Hypebox Header -->
+          <div
+            class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-neutral-200/80 dark:border-neutral-800/80"
+          >
+            <div class="space-y-1">
+              <h3
+                class="text-2xl sm:text-3xl font-black tracking-tight text-neutral-950 dark:text-white leading-none font-heading"
+              >
+                HYPE-BOX
+              </h3>
+              <p
+                class="text-sm font-medium text-neutral-600 dark:text-neutral-400 pt-1"
+              >
+                A photobooth platform, built from kiosk to backend.
+              </p>
+            </div>
+
+            <ActionButton
+              variant="secondary"
+              size="sm"
+              href="https://navoyovan.github.io/hypebox/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="group/btn overflow-hidden w-fit"
+            >
+              <div
+                class="inline-flex items-center translate-x-[10px] group-hover/btn:translate-x-0 transition-transform duration-200 ease-out"
+              >
+                <span>Visit Hypebox Site</span>
+                <span
+                  class="inline-flex items-center justify-center w-3.5 ml-1.5 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-200 ease-out"
+                >
+                  ↗
+                </span>
+              </div>
+            </ActionButton>
+          </div>
+
+          <p
+            class="text-sm sm:text-base text-neutral-700 dark:text-neutral-300 leading-relaxed max-w-3xl font-normal"
+          >
+            A connected photo booth system with a touchscreen-optimized Electron
+            kiosk, Laravel backend, management dashboard, realtime
+            communication, and integrated payments, with the broader ecosystem
+            still in development.
+          </p>
+
+          <!-- Ecosystem Grid of Sub-systems -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-5 pt-2">
+            <!-- Kiosk Hero Subsystem (Full Width with Full-Bleed Right Screenshot) -->
+            <div
+              class="group col-span-1 md:col-span-3 border border-neutral-300/90 dark:border-neutral-700/80 bg-white/90 dark:bg-neutral-900/60 shadow-sm transition-all duration-200 hover:border-neutral-400 dark:hover:border-neutral-600 overflow-hidden"
+            >
+              <div
+                class="flex flex-col lg:flex-row items-stretch justify-between"
+              >
+                <!-- 60% Left Column: Copy & Specs & CTA -->
+                <div
+                  class="w-full lg:w-[60%] xl:w-[62%] p-6 sm:p-8 flex flex-col justify-between space-y-6"
+                >
+                  <div class="space-y-4">
+                    <div class="space-y-2">
+                      <span
+                        class="text-[11px] font-sans text-neutral-500 font-semibold tracking-wider block"
                       >
-                        Photobooth Kiosk
-                      </h4>
-                      <span class="text-xs font-mono text-neutral-400 dark:text-neutral-500">
                         Touchscreen & Hardware Engine
                       </span>
+                      <div
+                        class="flex flex-wrap items-baseline justify-between sm:justify-start sm:gap-4"
+                      >
+                        <h4
+                          class="text-xl sm:text-2xl font-bold text-neutral-950 dark:text-white group-hover:text-[#52FF1A] transition-colors font-heading tracking-tight"
+                        >
+                          Photobooth Kiosk
+                        </h4>
+                      </div>
+                    </div>
+                    <div class="space-y-3">
+                      <p
+                        class="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed"
+                      >
+                        Standalone touchscreen software engineered for event
+                        photobooth/self service photobooths. orchestrating
+                        real-time camera feeds, countdown capture loops,
+                        physical thermal printing, and seamless offline-tolerant
+                        hardware communication.
+                      </p>
+                      <div class="flex flex-wrap gap-1.5 pt-0.5">
+                        <span
+                          class="font-sans text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2.5 py-0.5 rounded"
+                        >
+                          ELECTRON
+                        </span>
+                        <span
+                          class="font-sans text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2.5 py-0.5 rounded"
+                        >
+                          REACT
+                        </span>
+                      </div>
                     </div>
                   </div>
-                  <p
-                    class="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed"
-                  >
-                    Standalone touchscreen software engineered for event kiosks, orchestrating real-time camera feeds, countdown capture loops, physical thermal printing, and seamless offline-tolerant hardware communication.
-                  </p>
+                  <div class="pt-3">
+                    <ActionButton
+                      variant="secondary"
+                      size="md"
+                      href="https://navoyovan.github.io/photobooth-kiosk-demo/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="group/btn overflow-hidden w-fit text-xs sm:text-sm"
+                    >
+                      <div
+                        class="inline-flex items-center translate-x-[10px] group-hover/btn:translate-x-0 transition-transform duration-200 ease-out"
+                      >
+                        <span>Launch Kiosk Demo</span>
+                        <span
+                          class="inline-flex items-center justify-center w-3.5 ml-1.5 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-200 ease-out"
+                        >
+                          ↗
+                        </span>
+                      </div>
+                    </ActionButton>
+                  </div>
                 </div>
-                <div class="pt-3">
-                  <ActionButton
-                    variant="secondary"
-                    size="md"
-                    href="https://navoyovan.github.io/photobooth-kiosk-demo/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="w-fit text-xs sm:text-sm"
-                  >
-                    Launch Kiosk Demo ↗
-                  </ActionButton>
-                </div>
-              </div>
 
-              <!-- 35% Right Column: Simple Image Box (16:9 Landscape Display) -->
-              <div class="w-full lg:w-[35%] shrink-0 flex items-center">
-                <div class="w-full border border-neutral-300 dark:border-neutral-700 bg-neutral-100 dark:bg-neutral-900 overflow-hidden relative aspect-video flex items-center justify-center group/preview shadow-md">
+                <!-- 40% Right Column: Full Bleed Image Box (No Padding) -->
+                <div
+                  class="w-full lg:w-[40%] xl:w-[38%] shrink-0 border-t lg:border-t-0 lg:border-l border-neutral-300/80 dark:border-neutral-700/80 bg-neutral-100 dark:bg-neutral-900 overflow-hidden relative flex items-center justify-center min-h-[240px] lg:min-h-full group/preview"
+                >
                   <img
                     src={`${base}/images/kiosk-screenshot.webp`}
                     alt="Photobooth Kiosk UI Screenshot"
@@ -597,599 +790,752 @@ const supportingStack = [
                     onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"
                   />
                   <!-- Fallback Placeholder when image is not yet placed -->
-                  <div class="hidden absolute inset-0 flex-col items-center justify-center p-4 text-center space-y-2 bg-[#121212]">
-                    <div class="w-8 h-8 rounded-full border border-dashed border-neutral-700 flex items-center justify-center text-neutral-500">
+                  <div
+                    class="hidden absolute inset-0 flex-col items-center justify-center p-4 text-center space-y-2 bg-[#121212]"
+                  >
+                    <div
+                      class="w-8 h-8 rounded-full border border-dashed border-neutral-700 flex items-center justify-center text-neutral-500"
+                    >
                       <i class="ti ti-device-desktop text-lg"></i>
                     </div>
-                    <span class="font-mono text-[11px] text-neutral-400">Place screenshot at <br /><code class="text-[#52FF1A]">public/images/kiosk-screenshot.webp</code></span>
+                    <span class="font-mono text-[11px] text-neutral-400"
+                      >Place screenshot at <br /><code class="text-[#52FF1A]"
+                        >public/images/kiosk-screenshot.webp</code
+                      ></span
+                    >
                   </div>
                 </div>
               </div>
             </div>
-          </div>
 
-          <!-- REST & WebSocket API Subsystem (Col 1) -->
-          <div
-            class="col-span-1 p-5 sm:p-6 border border-neutral-200/80 dark:border-neutral-800/80 bg-white/60 dark:bg-neutral-900/40 space-y-4 flex flex-col justify-between items-start shadow-sm"
-          >
-            <div class="space-y-3 w-full">
-              <div class="space-y-1.5">
-                <span class="text-[11px] font-mono text-neutral-500 font-semibold tracking-wider block">
-                  LARAVEL / REVERB
-                </span>
-                <div class="flex flex-wrap items-baseline justify-start gap-3 sm:gap-4">
-                  <h4
-                    class="text-xl sm:text-2xl font-bold text-neutral-950 dark:text-white font-heading tracking-tight"
+            <!-- REST & WebSocket API Subsystem (Col 1) -->
+            <div
+              class="group col-span-1 border border-neutral-200/80 dark:border-neutral-800/80 bg-white/60 dark:bg-neutral-900/40 flex flex-col justify-between items-start shadow-sm transition-all duration-200 hover:border-neutral-400 dark:hover:border-neutral-600 overflow-hidden"
+            >
+              <div class="p-5 sm:p-6 space-y-3 w-full">
+                <div class="space-y-1.5">
+                  <span
+                    class="text-[11px] font-sans text-neutral-500 font-semibold tracking-wider block"
                   >
-                    Backend API
-                  </h4>
-                  <span class="text-xs font-mono text-neutral-400 dark:text-neutral-500">
                     Cloud Engine
                   </span>
+                  <div
+                    class="flex flex-wrap items-baseline justify-start gap-3 sm:gap-4"
+                  >
+                    <h4
+                      class="text-xl sm:text-2xl font-bold text-neutral-950 dark:text-white group-hover:text-[#52FF1A] transition-colors font-heading tracking-tight"
+                    >
+                      Backend API
+                    </h4>
+                  </div>
+                </div>
+                <div class="space-y-3">
+                  <p
+                    class="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed"
+                  >
+                    Laravel backend for a photobooth kiosk. Integrating SNAP API
+                    for QRIS payments, Google Cloud Storage for photo
+                    synchronization, and Reverb-powered WebSockets for live
+                    kiosk telemetry.
+                  </p>
+                  <div class="flex flex-wrap gap-1.5 pt-0.5">
+                    <span
+                      class="font-sans text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2.5 py-0.5 rounded"
+                    >
+                      LARAVEL
+                    </span>
+                    <span
+                      class="font-sans text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2.5 py-0.5 rounded"
+                    >
+                      REVERB
+                    </span>
+                    <span
+                      class="font-sans text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2.5 py-0.5 rounded"
+                    >
+                      GCS
+                    </span>
+                    <span
+                      class="font-sans text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2.5 py-0.5 rounded"
+                    >
+                      GCP
+                    </span>
+                    <span
+                      class="font-sans text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2.5 py-0.5 rounded"
+                    >
+                      DOCKER
+                    </span>
+                  </div>
                 </div>
               </div>
-              <p
-                class="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed"
+
+              <!-- Backend Communication Diagram Box (Full-Bleed Bottom) -->
+              <div
+                class="w-full border-t border-neutral-200/80 dark:border-neutral-800/80 bg-[#fbf9f4] dark:bg-[#121212] overflow-hidden relative aspect-video flex items-center justify-center p-2 sm:p-2.5 select-none group/diagram mt-auto"
               >
-                Laravel backend integrating SNAP API for QRIS payments, Google Cloud Storage for photo synchronization, and Reverb-powered WebSockets for live kiosk telemetry.
-              </p>
-            </div>
-
-            <!-- Backend Communication Diagram Box -->
-            <div class="w-full border border-neutral-300 dark:border-neutral-700 bg-[#fbf9f4] dark:bg-[#121212] overflow-hidden relative aspect-video flex items-center justify-center p-2 sm:p-2.5 shadow-sm select-none group/diagram">
-              <svg
-                viewBox="0 0 420 230"
-                class="w-full h-full text-neutral-900 dark:text-neutral-100"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <!-- Top-Left Box: LARAVEL CORE -->
-                <rect
-                  x="15"
-                  y="15"
-                  width="160"
-                  height="74"
-                  class="fill-white dark:fill-neutral-900 stroke-neutral-300 dark:stroke-neutral-700"
-                  stroke-width="1.5"
-                />
-                <text
-                  x="95"
-                  y="46"
-                  text-anchor="middle"
-                  class="font-mono text-[13.5px] font-bold fill-neutral-950 dark:fill-white uppercase tracking-wider"
+                <svg
+                  viewBox="0 0 420 230"
+                  class="w-full h-full text-neutral-900 dark:text-neutral-100"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
-                  LARAVEL
-                </text>
-                <text
-                  x="95"
-                  y="65"
-                  text-anchor="middle"
-                  class="font-mono text-[11.5px] font-semibold fill-[#52FF1A] tracking-tight"
-                >
-                  CORE BACKEND
-                </text>
-
-                <!-- Top Horizontal Connector: Dual Arrows -->
-                <line
-                  x1="183"
-                  y1="47"
-                  x2="235"
-                  y2="47"
-                  class="stroke-neutral-400 dark:stroke-neutral-600"
-                  stroke-width="1.3"
-                />
-                <path
-                  d="M231 43L237 47L231 51"
-                  class="stroke-neutral-400 dark:stroke-neutral-600"
-                  stroke-width="1.3"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-                <line
-                  x1="187"
-                  y1="57"
-                  x2="239"
-                  y2="57"
-                  class="stroke-neutral-400 dark:stroke-neutral-600"
-                  stroke-width="1.3"
-                />
-                <path
-                  d="M191 53L185 57L191 61"
-                  class="stroke-neutral-400 dark:stroke-neutral-600"
-                  stroke-width="1.3"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-
-                <!-- Top-Right Box: REACT Vendor Portal -->
-                <rect
-                  x="245"
-                  y="15"
-                  width="160"
-                  height="74"
-                  class="fill-white dark:fill-neutral-900 stroke-neutral-300 dark:stroke-neutral-700"
-                  stroke-width="1.5"
-                />
-                <text
-                  x="325"
-                  y="46"
-                  text-anchor="middle"
-                  class="font-mono text-[13.5px] font-bold fill-neutral-950 dark:fill-white uppercase tracking-wider"
-                >
-                  REACT
-                </text>
-                <text
-                  x="325"
-                  y="65"
-                  text-anchor="middle"
-                  class="font-mono text-[11.5px] font-semibold fill-neutral-600 dark:fill-neutral-300 tracking-tight"
-                >
-                  VENDOR PORTAL
-                </text>
-
-                <!-- Left Vertical Connector: Dual Arrows -->
-                <line
-                  x1="90"
-                  y1="96"
-                  x2="90"
-                  y2="132"
-                  class="stroke-neutral-400 dark:stroke-neutral-600"
-                  stroke-width="1.3"
-                />
-                <path
-                  d="M86 129L90 134L94 129"
-                  class="stroke-neutral-400 dark:stroke-neutral-600"
-                  stroke-width="1.3"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-                <line
-                  x1="100"
-                  y1="100"
-                  x2="100"
-                  y2="136"
-                  class="stroke-neutral-400 dark:stroke-neutral-600"
-                  stroke-width="1.3"
-                />
-                <path
-                  d="M96 103L100 98L104 103"
-                  class="stroke-neutral-400 dark:stroke-neutral-600"
-                  stroke-width="1.3"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-
-                <!-- Bottom-Left Box: ELECTRON Kiosk Client -->
-                <rect
-                  x="15"
-                  y="141"
-                  width="160"
-                  height="74"
-                  class="fill-white dark:fill-neutral-900 stroke-neutral-300 dark:stroke-neutral-700"
-                  stroke-width="1.5"
-                />
-                <text
-                  x="95"
-                  y="172"
-                  text-anchor="middle"
-                  class="font-mono text-[13.5px] font-bold fill-neutral-950 dark:fill-white uppercase tracking-wider"
-                >
-                  ELECTRON
-                </text>
-                <text
-                  x="95"
-                  y="191"
-                  text-anchor="middle"
-                  class="font-mono text-[11.5px] font-semibold fill-neutral-600 dark:fill-neutral-300 tracking-tight"
-                >
-                  KIOSK CLIENT
-                </text>
-
-                <!-- Hardware Peripherals hugging Electron -->
-                <g class="font-mono text-[12px] font-medium fill-neutral-800 dark:fill-neutral-200">
-                  <text x="185" y="162">
-                    <tspan class="fill-neutral-400 dark:fill-neutral-500 font-bold">⇄</tspan> Camera
-                  </text>
-                  <text x="185" y="182">
-                    <tspan class="fill-neutral-400 dark:fill-neutral-500 font-bold">⇄</tspan> Printer
-                  </text>
-                  <text x="185" y="202">
-                    <tspan class="fill-neutral-400 dark:fill-neutral-500 font-bold">⇄</tspan> IoT
-                  </text>
-                </g>
-              </svg>
-            </div>
-          </div>
-
-          <!-- Vendor Portal Subsystem (Col 2) -->
-          <div
-            class="col-span-1 p-5 sm:p-6 border border-neutral-200/80 dark:border-neutral-800/80 bg-white/60 dark:bg-neutral-900/40 space-y-4 flex flex-col justify-between items-start shadow-sm"
-          >
-            <div class="space-y-3 w-full">
-              <div class="space-y-1.5">
-                <span class="text-[11px] font-mono text-neutral-500 font-semibold tracking-wider block">
-                  REACT / CSS MODULES
-                </span>
-                <div class="flex flex-wrap items-baseline justify-start gap-3 sm:gap-4">
-                  <h4
-                    class="text-xl sm:text-2xl font-bold text-neutral-950 dark:text-white font-heading tracking-tight"
+                  <!-- Top-Left Box: LARAVEL CORE -->
+                  <rect
+                    x="15"
+                    y="15"
+                    width="160"
+                    height="74"
+                    class="fill-white dark:fill-neutral-900 stroke-neutral-300 dark:stroke-neutral-700"
+                    stroke-width="1.5"></rect>
+                  <text
+                    x="95"
+                    y="46"
+                    text-anchor="middle"
+                    class="font-mono text-[13.5px] font-bold fill-neutral-950 dark:fill-white uppercase tracking-wider"
                   >
-                    Vendor Portal
-                  </h4>
-                  <span class="text-xs font-mono text-neutral-400 dark:text-neutral-500">
+                    LARAVEL
+                  </text>
+                  <text
+                    x="95"
+                    y="65"
+                    text-anchor="middle"
+                    class="font-mono text-[11.5px] font-semibold fill-[#52FF1A] tracking-tight"
+                  >
+                    CORE BACKEND
+                  </text>
+
+                  <!-- Top Horizontal Connector: Dual Arrows -->
+                  <line
+                    x1="183"
+                    y1="47"
+                    x2="235"
+                    y2="47"
+                    class="stroke-neutral-400 dark:stroke-neutral-600"
+                    stroke-width="1.3"></line>
+                  <path
+                    d="M231 43L237 47L231 51"
+                    class="stroke-neutral-400 dark:stroke-neutral-600"
+                    stroke-width="1.3"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"></path>
+                  <line
+                    x1="187"
+                    y1="57"
+                    x2="239"
+                    y2="57"
+                    class="stroke-neutral-400 dark:stroke-neutral-600"
+                    stroke-width="1.3"></line>
+                  <path
+                    d="M191 53L185 57L191 61"
+                    class="stroke-neutral-400 dark:stroke-neutral-600"
+                    stroke-width="1.3"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"></path>
+
+                  <!-- Top-Right Box: REACT Vendor Portal -->
+                  <rect
+                    x="245"
+                    y="15"
+                    width="160"
+                    height="74"
+                    class="fill-white dark:fill-neutral-900 stroke-neutral-300 dark:stroke-neutral-700"
+                    stroke-width="1.5"></rect>
+                  <text
+                    x="325"
+                    y="46"
+                    text-anchor="middle"
+                    class="font-mono text-[13.5px] font-bold fill-neutral-950 dark:fill-white uppercase tracking-wider"
+                  >
+                    REACT
+                  </text>
+                  <text
+                    x="325"
+                    y="65"
+                    text-anchor="middle"
+                    class="font-mono text-[11.5px] font-semibold fill-neutral-600 dark:fill-neutral-300 tracking-tight"
+                  >
+                    VENDOR PORTAL
+                  </text>
+
+                  <!-- Left Vertical Connector: Dual Arrows -->
+                  <line
+                    x1="90"
+                    y1="96"
+                    x2="90"
+                    y2="132"
+                    class="stroke-neutral-400 dark:stroke-neutral-600"
+                    stroke-width="1.3"></line>
+                  <path
+                    d="M86 129L90 134L94 129"
+                    class="stroke-neutral-400 dark:stroke-neutral-600"
+                    stroke-width="1.3"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"></path>
+                  <line
+                    x1="100"
+                    y1="100"
+                    x2="100"
+                    y2="136"
+                    class="stroke-neutral-400 dark:stroke-neutral-600"
+                    stroke-width="1.3"></line>
+                  <path
+                    d="M96 103L100 98L104 103"
+                    class="stroke-neutral-400 dark:stroke-neutral-600"
+                    stroke-width="1.3"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"></path>
+
+                  <!-- Bottom-Left Box: ELECTRON Kiosk Client -->
+                  <rect
+                    x="15"
+                    y="141"
+                    width="160"
+                    height="74"
+                    class="fill-white dark:fill-neutral-900 stroke-neutral-300 dark:stroke-neutral-700"
+                    stroke-width="1.5"></rect>
+                  <text
+                    x="95"
+                    y="172"
+                    text-anchor="middle"
+                    class="font-mono text-[13.5px] font-bold fill-neutral-950 dark:fill-white uppercase tracking-wider"
+                  >
+                    ELECTRON
+                  </text>
+                  <text
+                    x="95"
+                    y="191"
+                    text-anchor="middle"
+                    class="font-mono text-[11.5px] font-semibold fill-neutral-600 dark:fill-neutral-300 tracking-tight"
+                  >
+                    KIOSK CLIENT
+                  </text>
+
+                  <!-- Hardware Peripherals hugging Electron -->
+                  <g
+                    class="font-mono text-[12px] font-medium fill-neutral-800 dark:fill-neutral-200"
+                  >
+                    <text x="185" y="162">
+                      <tspan
+                        class="fill-neutral-400 dark:fill-neutral-500 font-bold"
+                        >⇄</tspan
+                      > Camera
+                    </text>
+                    <text x="185" y="182">
+                      <tspan
+                        class="fill-neutral-400 dark:fill-neutral-500 font-bold"
+                        >⇄</tspan
+                      > Printer
+                    </text>
+                    <text x="185" y="202">
+                      <tspan
+                        class="fill-neutral-400 dark:fill-neutral-500 font-bold"
+                        >⇄</tspan
+                      > IoT
+                    </text>
+                  </g>
+                </svg>
+              </div>
+            </div>
+
+            <!-- Vendor Portal Subsystem (Col 2) -->
+            <div
+              class="group col-span-1 border border-neutral-200/80 dark:border-neutral-800/80 bg-white/60 dark:bg-neutral-900/40 flex flex-col justify-between items-start shadow-sm transition-all duration-200 hover:border-neutral-400 dark:hover:border-neutral-600 overflow-hidden"
+            >
+              <div class="p-5 sm:p-6 space-y-3 w-full">
+                <div class="space-y-1.5">
+                  <span
+                    class="text-[11px] font-sans text-neutral-500 font-semibold tracking-wider block"
+                  >
                     Fleet Control
                   </span>
-                </div>
-              </div>
-              <p
-                class="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed"
-              >
-                Cloud management interface for event operators: real-time telemetry, session analytics, custom template designers, and financial reports.
-              </p>
-            </div>
-
-            <!-- 16:9 Screenshot Box -->
-            <div class="w-full border border-neutral-300 dark:border-neutral-700 bg-neutral-100 dark:bg-neutral-900 overflow-hidden relative aspect-video flex items-center justify-center group/preview shadow-sm">
-              <img
-                src={`${base}/images/vendor-portal-screenshot.webp`}
-                alt="Vendor Portal UI Screenshot"
-                class="w-full h-full object-cover object-top transition-transform duration-500 group-hover/preview:scale-[1.02]"
-                loading="lazy"
-                onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"
-              />
-              <!-- Fallback Placeholder when image is not yet placed -->
-              <div class="hidden absolute inset-0 flex-col items-center justify-center p-3 text-center space-y-1.5 bg-[#121212]">
-                <div class="w-7 h-7 rounded-full border border-dashed border-neutral-700 flex items-center justify-center text-neutral-500">
-                  <i class="ti ti-layout-dashboard text-base"></i>
-                </div>
-                <span class="font-mono text-[10px] text-neutral-400">Place screenshot at <br /><code class="text-[#52FF1A]">public/images/vendor-portal-screenshot.webp</code></span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Marketing Site Subsystem (Col 3) -->
-          <div
-            class="col-span-1 p-5 sm:p-6 border border-neutral-200/80 dark:border-neutral-800/80 bg-white/60 dark:bg-neutral-900/40 space-y-6 flex flex-col justify-between items-start"
-          >
-            <div class="space-y-3 w-full">
-              <div class="space-y-1.5">
-                <span class="text-[11px] font-mono text-neutral-500 font-semibold tracking-wider block">
-                  ASTRO / TAILWIND v4
-                </span>
-                <div class="flex flex-wrap items-baseline justify-start gap-3 sm:gap-4">
-                  <h4
-                    class="text-xl sm:text-2xl font-bold text-neutral-950 dark:text-white font-heading tracking-tight"
+                  <div
+                    class="flex flex-wrap items-baseline justify-start gap-3 sm:gap-4"
                   >
-                    Marketing Site
-                  </h4>
-                  <span class="text-xs font-mono text-neutral-400 dark:text-neutral-500">
+                    <h4
+                      class="text-xl sm:text-2xl font-bold text-neutral-950 dark:text-white group-hover:text-[#52FF1A] transition-colors font-heading tracking-tight"
+                    >
+                      Vendor Portal
+                    </h4>
+                  </div>
+                </div>
+                <div class="space-y-3">
+                  <p
+                    class="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed"
+                  >
+                    Cloud management interface for event operators. Real-time
+                    telemetry, session analytics, custom template designers, and
+                    financial reports.
+                  </p>
+                  <div class="flex flex-wrap gap-1.5 pt-0.5">
+                    <span
+                      class="font-sans text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2.5 py-0.5 rounded"
+                    >
+                      REACT
+                    </span>
+                    <span
+                      class="font-sans text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2.5 py-0.5 rounded"
+                    >
+                      CSS MODULES
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 16:9 Screenshot Box (Full-Bleed Bottom) -->
+              <div
+                class="w-full border-t border-neutral-200/80 dark:border-neutral-800/80 bg-neutral-100 dark:bg-neutral-900 overflow-hidden relative aspect-video flex items-center justify-center group/preview mt-auto"
+              >
+                <img
+                  src={`${base}/images/vendor-portal-screenshot.webp`}
+                  alt="Vendor Portal UI Screenshot"
+                  class="w-full h-full object-cover object-top transition-transform duration-500 group-hover/preview:scale-[1.02]"
+                  loading="lazy"
+                  onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"
+                />
+                <!-- Fallback Placeholder when image is not yet placed -->
+                <div
+                  class="hidden absolute inset-0 flex-col items-center justify-center p-3 text-center space-y-1.5 bg-[#121212]"
+                >
+                  <div
+                    class="w-7 h-7 rounded-full border border-dashed border-neutral-700 flex items-center justify-center text-neutral-500"
+                  >
+                    <i class="ti ti-layout-dashboard text-base"></i>
+                  </div>
+                  <span class="font-mono text-[10px] text-neutral-400"
+                    >Place screenshot at <br /><code class="text-[#52FF1A]"
+                      >public/images/vendor-portal-screenshot.webp</code
+                    ></span
+                  >
+                </div>
+              </div>
+            </div>
+
+            <!-- Marketing Site Subsystem (Col 3) -->
+            <div
+              class="group col-span-1 p-5 sm:p-6 border border-neutral-200/80 dark:border-neutral-800/80 bg-white/60 dark:bg-neutral-900/40 space-y-6 flex flex-col justify-between items-start transition-all duration-200 hover:border-neutral-400 dark:hover:border-neutral-600"
+            >
+              <div class="space-y-3 w-full">
+                <div class="space-y-1.5">
+                  <span
+                    class="text-[11px] font-sans text-neutral-500 font-semibold tracking-wider block"
+                  >
                     Static Portal
                   </span>
+                  <div
+                    class="flex flex-wrap items-baseline justify-start gap-3 sm:gap-4"
+                  >
+                    <h4
+                      class="text-xl sm:text-2xl font-bold text-neutral-950 dark:text-white group-hover:text-[#52FF1A] transition-colors font-heading tracking-tight"
+                    >
+                      Marketing Site
+                    </h4>
+                  </div>
+                </div>
+                <div class="space-y-3">
+                  <p
+                    class="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed"
+                  >
+                    Fast static marketing portal engineered for speed. Feature
+                    showcases, and booking conversion.
+                  </p>
+                  <div class="flex flex-wrap gap-1.5 pt-0.5">
+                    <span
+                      class="font-sans text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2.5 py-0.5 rounded"
+                    >
+                      ASTRO
+                    </span>
+                    <span
+                      class="font-sans text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2.5 py-0.5 rounded"
+                    >
+                      TAILWIND V4
+                    </span>
+                  </div>
                 </div>
               </div>
-              <p
-                class="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed"
+              <div
+                class="pt-2 flex items-center justify-between text-xs w-full"
               >
-                Fast static marketing portal engineered for speed, interactive feature showcases, and booking conversion.
+                <a
+                  href="https://navoyovan.github.io/hypebox/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="group/action inline-flex items-center gap-1 font-sans text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-neutral-500 dark:text-neutral-400 hover:text-[#52FF1A] transition-colors focus:outline-none"
+                >
+                  <span
+                    class="group-hover/action:underline underline-offset-4 decoration-[#52FF1A]"
+                  >
+                    Explore Site
+                  </span>
+                  <span
+                    class="inline-block opacity-0 -translate-x-1.5 transition-all duration-200 group-hover/action:opacity-100 group-hover/action:translate-x-0"
+                  >
+                    ↗
+                  </span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Additional Featured Work Grid (4-Column Layout Sizing) -->
+        <div class="pt-8 space-y-4">
+          <h3
+            class="text-xl sm:text-2xl font-bold tracking-tight text-neutral-950 dark:text-white font-heading"
+          >
+            Other(s)
+          </h3>
+          <div
+            class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 pt-2"
+          >
+            <ProjectTile
+              title="Interactive Map Engine"
+              category="01 // GIS & SPATIAL"
+              description="Geospatial visualization and tracking platform with custom boundary polygons and telemetry."
+              status="PROTOTYPE"
+              statusVariant="neutral"
+              tags={["Laravel", "Leaflet.js", "AJAX", "Tailwind"]}
+              metaText="interactive-map.git"
+              actionText="VIEW REPO"
+              href="https://github.com/navoyovan/interactive-map"
+            />
+          </div>
+        </div>
+      </section>
+
+      <!-- 03 // WHAT I CAN BUILD -->
+      <section
+        id="capabilities"
+        class="border-t border-neutral-200 dark:border-neutral-800 pt-16 space-y-8"
+      >
+        <div
+          class="flex items-center justify-between pb-2 border-b border-neutral-200 dark:border-neutral-800"
+        >
+          <span
+            class="font-sans text-xs uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-bold"
+          >
+            03 // WHAT I CAN BUILD
+          </span>
+        </div>
+
+        <div class="space-y-3">
+          <h2
+            class="text-3xl sm:text-4xl font-heading font-bold tracking-tight text-neutral-900 dark:text-neutral-100"
+          >
+            From simple pages to systems that do stuff.
+          </h2>
+        </div>
+
+        <div class="flex flex-col gap-4 pb-4">
+          {
+            capabilities.map((item) => (
+              <div class="group relative p-6 sm:p-7 border border-neutral-300/80 dark:border-neutral-800 bg-[#f6f4ee] dark:bg-[#141414] transition-all duration-200 hover:border-neutral-400 dark:hover:border-neutral-600">
+                <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 lg:gap-8">
+                  <div class="flex items-start gap-4 sm:gap-6 flex-1">
+                    <span class="text-xs sm:text-sm font-sans font-bold text-neutral-400 dark:text-neutral-500 group-hover:text-[#52FF1A] transition-colors pt-0.5 shrink-0">
+                      {item.number}
+                    </span>
+                    <div class="space-y-1.5 flex-1">
+                      <h3 class="text-lg sm:text-xl font-heading font-bold text-neutral-950 dark:text-white group-hover:text-[#52FF1A] transition-colors">
+                        {item.title}
+                      </h3>
+                      <p class="text-sm leading-relaxed text-neutral-600 dark:text-neutral-400 max-w-3xl">
+                        {item.description}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div class="flex flex-wrap gap-1.5 lg:justify-end shrink-0 pl-8 sm:pl-10 lg:pl-0">
+                    {item.tags.map((tag) => (
+                      <span class="text-[10px] font-sans font-semibold px-2.5 py-1 rounded bg-neutral-200/60 dark:bg-neutral-800/80 text-neutral-600 dark:text-neutral-400 uppercase tracking-wider">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </section>
+
+      <!-- 04 // PHILOSOPHY -->
+      <section
+        id="philosophy"
+        class="border-t border-neutral-200 dark:border-neutral-800 pt-16 space-y-8"
+      >
+        <div
+          class="flex items-center justify-between pb-2 border-b border-neutral-200 dark:border-neutral-800"
+        >
+          <span
+            class="font-sans text-xs uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-bold"
+          >
+            04 // PHILOSOPHY
+          </span>
+        </div>
+
+        <div class="flex flex-col lg:flex-row items-start gap-8 lg:gap-12">
+          <!-- 65% Left Column: Principles, Strategy & Quote -->
+          <div class="w-full lg:w-[65%] space-y-8">
+            <div class="space-y-4">
+              <h2
+                class="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-neutral-950 dark:text-white leading-tight font-heading"
+              >
+                I build for the thing, not the stack.
+              </h2>
+              <p
+                class="text-base sm:text-lg text-neutral-700 dark:text-neutral-300 leading-relaxed font-normal"
+              >
+                I like understanding the whole problem before deciding how to solve
+                it. The interface, the backend, the hardware, the weird edge cases
+                — they're all part of the same product.
               </p>
             </div>
-            <div class="pt-2 flex items-center justify-between text-xs w-full">
+
+            <div class="space-y-8 sm:space-y-10 pt-2">
+              <div class="group flex items-start gap-4 sm:gap-6">
+                <span
+                  class="text-xs sm:text-sm font-sans font-bold text-neutral-400 dark:text-neutral-500 group-hover:text-[#52FF1A] transition-colors pt-1 shrink-0 select-none"
+                >
+                  01
+                </span>
+                <div class="space-y-1.5 flex-1">
+                  <h3
+                    class="text-lg sm:text-xl font-bold text-neutral-950 dark:text-white tracking-tight group-hover:text-[#52FF1A] transition-colors font-heading"
+                  >
+                    Start with the actual use case.
+                  </h3>
+                  <p
+                    class="text-sm sm:text-base text-neutral-600 dark:text-neutral-400 leading-relaxed"
+                  >
+                    Technology is just the tool. I care more about what the product
+                    needs to accomplish, who is using it, and what could get in
+                    their way.
+                  </p>
+                </div>
+              </div>
+
+              <div class="group flex items-start gap-4 sm:gap-6">
+                <span
+                  class="text-xs sm:text-sm font-sans font-bold text-neutral-400 dark:text-neutral-500 group-hover:text-[#52FF1A] transition-colors pt-1 shrink-0 select-none"
+                >
+                  02
+                </span>
+                <div class="space-y-1.5 flex-1">
+                  <h3
+                    class="text-lg sm:text-xl font-bold text-neutral-950 dark:text-white tracking-tight group-hover:text-[#52FF1A] transition-colors font-heading"
+                  >
+                    Keep complexity earned.
+                  </h3>
+                  <p
+                    class="text-sm sm:text-base text-neutral-600 dark:text-neutral-400 leading-relaxed"
+                  >
+                    Not every project needs a giant architecture. I use what the
+                    problem calls for, and add complexity when there's a reason for
+                    it.
+                  </p>
+                </div>
+              </div>
+
+              <div class="group flex items-start gap-4 sm:gap-6">
+                <span
+                  class="text-xs sm:text-sm font-sans font-bold text-neutral-400 dark:text-neutral-500 group-hover:text-[#52FF1A] transition-colors pt-1 shrink-0 select-none"
+                >
+                  03
+                </span>
+                <div class="space-y-1.5 flex-1">
+                  <h3
+                    class="text-lg sm:text-xl font-bold text-neutral-950 dark:text-white tracking-tight group-hover:text-[#52FF1A] transition-colors font-heading"
+                  >
+                    Make the pieces work together.
+                  </h3>
+                  <p
+                    class="text-sm sm:text-base text-neutral-600 dark:text-neutral-400 leading-relaxed"
+                  >
+                    A good interface is only one part of a good product. I like
+                    connecting the things behind it — APIs, databases, realtime
+                    systems, devices, payments, and everything in between.
+                  </p>
+                </div>
+              </div>
+
+              <div class="group flex items-start gap-4 sm:gap-6">
+                <span
+                  class="text-xs sm:text-sm font-sans font-bold text-neutral-400 dark:text-neutral-500 group-hover:text-[#52FF1A] transition-colors pt-1 shrink-0 select-none"
+                >
+                  04
+                </span>
+                <div class="space-y-1.5 flex-1">
+                  <h3
+                    class="text-lg sm:text-xl font-bold text-neutral-950 dark:text-white tracking-tight group-hover:text-[#52FF1A] transition-colors font-heading"
+                  >
+                    Sweat the details that matter.
+                  </h3>
+                  <p
+                    class="text-sm sm:text-base text-neutral-600 dark:text-neutral-400 leading-relaxed"
+                  >
+                    Loading states, feedback, transitions, edge cases, awkward
+                    workflows — the little things are often what separate something
+                    that technically works from something that actually feels good
+                    to use.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="pt-4 space-y-4">
+              <p class="text-neutral-600 dark:text-neutral-400 text-base">
+                And the final product should make someone say:
+              </p>
+
+              <!-- Quote Highlight -->
+              <div
+                class="p-6 sm:p-7 border-l-4 border-[#52FF1A] bg-[#f6f4ee] dark:bg-[#141414] border-y border-r border-neutral-300/60 dark:border-neutral-800 space-y-3"
+              >
+                <blockquote
+                  class="text-2xl sm:text-3xl md:text-4xl font-bold italic tracking-tight text-neutral-950 dark:text-white font-heading"
+                >
+                  "..."
+                </blockquote>
+                <p
+                  class="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed"
+                >
+                  Nothing. That's how I know I built it for the actual use case —
+                  when the software gets out of the way, does what it's supposed
+                  to do, and leaves nothing for the user to complain about.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 35% Right Column (Empty for now) -->
+          <div class="hidden lg:block lg:w-[35%]"></div>
+        </div>
+      </section>
+
+      <!-- 05 // ABOUT -->
+      <section
+        id="about"
+        class="border-t border-neutral-200 dark:border-neutral-800 pt-16 space-y-8"
+      >
+        <div
+          class="flex items-center justify-between pb-2 border-b border-neutral-200 dark:border-neutral-800"
+        >
+          <span
+            class="font-sans text-xs uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-bold"
+          >
+            05 // ABOUT
+          </span>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          <div class="lg:col-span-5 space-y-3">
+            <h2
+              class="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-neutral-950 dark:text-white leading-tight font-heading"
+            >
+              I like figuring out how things work.
+            </h2>
+          </div>
+
+          <div
+            class="lg:col-span-7 space-y-6 text-base sm:text-lg text-neutral-700 dark:text-neutral-300 leading-relaxed font-normal"
+          >
+            <p>
+              My journey started with modding java games back when i was in
+              elementary school and android games in highschool, but curiosity
+              pulled me into everything around it, like designing interfaces,
+              building backend, connecting hardware, and creating intuitive
+              experiences for users.
+            </p>
+            <p
+              class="text-neutral-600 dark:text-neutral-400 text-sm sm:text-base"
+            >
+              I enjoy working on projects where software isn't just sitting on a
+              screen, but where it interacts with people, devices, and the real
+              world.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 06 // GET IN TOUCH -->
+      <section
+        id="contact"
+        class="border-t border-neutral-200 dark:border-neutral-800 pt-16 space-y-8"
+      >
+        <div
+          class="flex items-center justify-between pb-2 border-b border-neutral-200 dark:border-neutral-800"
+        >
+          <span
+            class="font-sans text-xs uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-bold"
+          >
+            06 // GET IN TOUCH
+          </span>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          <div class="lg:col-span-6 space-y-4">
+            <h2
+              class="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-neutral-950 dark:text-white leading-tight font-heading"
+            >
+              Have an idea or a project in mind? Let's build it.
+            </h2>
+            <p
+              class="text-base sm:text-lg text-neutral-600 dark:text-neutral-400 leading-relaxed font-normal"
+            >
+              Whether you want to build a custom web platform, a touchscreen
+              kiosk, or explore a hardware experiment, I'm always open to
+              discussing new engineering challenges.
+            </p>
+          </div>
+
+          <div
+            class="lg:col-span-6 flex flex-col gap-5 p-6 sm:p-8 border border-neutral-300/80 dark:border-neutral-800 bg-[#f6f4ee] dark:bg-[#141414]"
+          >
+            <div class="space-y-1.5">
+              <span
+                class="font-sans text-[11px] uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-bold block"
+              >
+                Direct Contact
+              </span>
               <a
-                href="https://navoyovan.github.io/hypebox/"
+                href="mailto:contact@navoyovan.com"
+                class="text-lg sm:text-xl font-heading font-bold text-neutral-950 dark:text-white hover:text-[#52FF1A] dark:hover:text-[#52FF1A] transition-colors break-all"
+              >
+                contact@navoyovan.com
+              </a>
+            </div>
+
+            <div
+              class="pt-3 border-t border-neutral-200/80 dark:border-neutral-800/80 flex flex-wrap items-center gap-3"
+            >
+              <ActionButton
+                variant="primary"
+                size="sm"
+                href="mailto:contact@navoyovan.com"
+              >
+                Send an Email ↗
+              </ActionButton>
+              <ActionButton
+                variant="secondary"
+                size="sm"
+                href="https://github.com/navoyovan"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="text-neutral-900 dark:text-neutral-100 font-semibold hover:text-[#52FF1A] flex items-center gap-1"
               >
-                Explore Site ↗
-              </a>
+                GitHub ↗
+              </ActionButton>
+              <ActionButton
+                variant="secondary"
+                size="sm"
+                href="https://linkedin.com/in/yovan"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                LinkedIn ↗
+              </ActionButton>
             </div>
           </div>
         </div>
-      </div>
-
-      <!-- Additional Featured Work Grid (4-Column Layout Sizing) -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 pt-2">
-        <ProjectTile
-          title="Interactive Map Engine"
-          category="01 // GIS & SPATIAL"
-          description="Geospatial visualization and tracking platform with custom boundary polygons and telemetry."
-          status="PROTOTYPE"
-          statusVariant="neutral"
-          tags={["Laravel", "Leaflet.js", "AJAX", "Tailwind"]}
-          metaText="interactive-map.git"
-          actionText="VIEW REPO"
-          href="https://github.com/navoyovan/interactive-map"
-        />
-      </div>
-    </section>
-
-    <!-- 03 // ABOUT -->
-    <section
-      id="about"
-      class="border-t border-neutral-200 dark:border-neutral-800 pt-16 space-y-8"
-    >
-      <div
-        class="flex items-center justify-between pb-2 border-b border-neutral-200 dark:border-neutral-800"
-      >
-        <span
-          class="font-sans text-xs uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-bold"
-        >
-          03 // ABOUT
-        </span>
-      </div>
-
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-        <div class="lg:col-span-5 space-y-3">
-          <h2
-            class="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-neutral-950 dark:text-white leading-tight font-heading"
-          >
-            I like figuring out how things work.
-          </h2>
-        </div>
-
-        <div
-          class="lg:col-span-7 space-y-6 text-base sm:text-lg text-neutral-700 dark:text-neutral-300 leading-relaxed font-normal"
-        >
-          <p>
-            My journey started with modding java games back when i was in
-            elementary school and android games in highschool, but curiosity
-            pulled me into everything around it, like designing interfaces,
-            building backend, connecting hardware, and creating intuitive
-            experiences for users.
-          </p>
-          <p
-            class="text-neutral-600 dark:text-neutral-400 text-sm sm:text-base"
-          >
-            I enjoy working on projects where software isn't just sitting on a
-            screen, but where it interacts with people, devices, and the real
-            world.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- 04 // CURRENTLY -->
-    <section
-      id="currently"
-      class="border-t border-neutral-200 dark:border-neutral-800 pt-16 space-y-8"
-    >
-      <div
-        class="flex items-center justify-between pb-2 border-b border-neutral-200 dark:border-neutral-800"
-      >
-        <span
-          class="font-sans text-xs uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-bold"
-        >
-          04 // CURRENT FOCUS
-        </span>
-      </div>
-
-      <div class="space-y-2">
-        <h2
-          class="text-2xl sm:text-3xl font-bold tracking-tight text-neutral-950 dark:text-white font-heading"
-        >
-          Currently
-        </h2>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <!-- Building Card -->
-        <div
-          class="p-6 sm:p-8 border border-neutral-300/80 dark:border-neutral-800 bg-[#f6f4ee] dark:bg-[#141414] space-y-6 transition-all hover:border-neutral-400 dark:hover:border-neutral-600"
-        >
-          <div
-            class="flex items-center justify-between pb-3 border-b border-neutral-200/80 dark:border-neutral-800/80"
-          >
-            <h3
-              class="text-lg sm:text-xl font-bold text-neutral-950 dark:text-white tracking-tight flex items-center gap-2 font-heading"
-            >
-              <span
-                class="w-2 h-2 bg-[#52FF1A] rounded-full inline-block animate-pulse"
-              ></span>
-              Building
-            </h3>
-            <StatusBadge variant="accent" size="sm">ACTIVE DEV</StatusBadge>
-          </div>
-
-          <ul
-            class="space-y-3.5 text-sm sm:text-base text-neutral-700 dark:text-neutral-300 font-sans"
-          >
-            <li class="flex items-start gap-3">
-              <span
-                class="text-[#52FF1A] font-bold text-sm shrink-0 select-none"
-                >→</span
-              >
-              <span
-                >Web applications with modern frontend and backend technologies</span
-              >
-            </li>
-            <li class="flex items-start gap-3">
-              <span
-                class="text-[#52FF1A] font-bold text-sm shrink-0 select-none"
-                >→</span
-              >
-              <span
-                >Interactive experiences with animations and visual elements</span
-              >
-            </li>
-            <li class="flex items-start gap-3">
-              <span
-                class="text-[#52FF1A] font-bold text-sm shrink-0 select-none"
-                >→</span
-              >
-              <span>Systems that connect software with physical devices</span>
-            </li>
-          </ul>
-        </div>
-
-        <!-- Learning Card -->
-        <div
-          class="p-6 sm:p-8 border border-neutral-300/80 dark:border-neutral-800 bg-[#f6f4ee] dark:bg-[#141414] space-y-6 transition-all hover:border-neutral-400 dark:hover:border-neutral-600"
-        >
-          <div
-            class="flex items-center justify-between pb-3 border-b border-neutral-200/80 dark:border-neutral-800/80"
-          >
-            <h3
-              class="text-lg sm:text-xl font-bold text-neutral-950 dark:text-white tracking-tight flex items-center gap-2 font-heading"
-            >
-              <span class="w-2 h-2 bg-sky-400 rounded-full inline-block"></span>
-              Learning
-            </h3>
-            <StatusBadge variant="info" size="sm">EXPLORING</StatusBadge>
-          </div>
-
-          <ul
-            class="space-y-3.5 text-sm sm:text-base text-neutral-700 dark:text-neutral-300 font-sans"
-          >
-            <li class="flex items-start gap-3">
-              <span
-                class="text-neutral-400 dark:text-neutral-500 font-bold text-sm shrink-0 select-none"
-                >→</span
-              >
-              <span>Better architecture</span>
-            </li>
-            <li class="flex items-start gap-3">
-              <span
-                class="text-neutral-400 dark:text-neutral-500 font-bold text-sm shrink-0 select-none"
-                >→</span
-              >
-              <span>Better user experiences</span>
-            </li>
-            <li class="flex items-start gap-3">
-              <span
-                class="text-neutral-400 dark:text-neutral-500 font-bold text-sm shrink-0 select-none"
-                >→</span
-              >
-              <span>Better ways to turn ideas into reality</span>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <!-- 05 // PHILOSOPHY -->
-    <section
-      id="philosophy"
-      class="border-t border-neutral-200 dark:border-neutral-800 pt-16 space-y-8"
-    >
-      <div
-        class="flex items-center justify-between pb-2 border-b border-neutral-200 dark:border-neutral-800"
-      >
-        <span
-          class="font-sans text-xs uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-bold"
-        >
-          05 // PHILOSOPHY
-        </span>
-      </div>
-
-      <div class="max-w-3xl space-y-8">
-        <h2
-          class="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-neutral-950 dark:text-white leading-tight font-heading"
-        >
-          I believe good software sits somewhere between logic and creativity.
-        </h2>
-
-        <div
-          class="space-y-4 text-base sm:text-lg text-neutral-700 dark:text-neutral-300 font-normal"
-        >
-          <p class="flex items-center gap-3">
-            <span class="w-1.5 h-1.5 rounded-full bg-[#52FF1A]"></span>
-            <span>The code needs to work.</span>
-          </p>
-          <p class="flex items-center gap-3">
-            <span class="w-1.5 h-1.5 rounded-full bg-[#52FF1A]"></span>
-            <span>The experience needs to feel right.</span>
-          </p>
-          <p class="text-neutral-600 dark:text-neutral-400 pt-2">
-            And the final product should make someone say:
-          </p>
-        </div>
-
-        <!-- Quote Highlight -->
-        <div
-          class="p-6 sm:p-8 border-l-4 border-[#52FF1A] bg-[#f6f4ee] dark:bg-[#141414] border-y border-r border-neutral-300/60 dark:border-neutral-800"
-        >
-          <blockquote
-            class="text-xl sm:text-2xl md:text-3xl font-black italic tracking-tight text-neutral-950 dark:text-white font-heading"
-          >
-            "oh, that's actually pretty cool."
-          </blockquote>
-        </div>
-      </div>
-    </section>
-
-    <!-- 06 // GET IN TOUCH -->
-    <section
-      id="contact"
-      class="border-t border-neutral-200 dark:border-neutral-800 pt-16 space-y-8"
-    >
-      <div
-        class="flex items-center justify-between pb-2 border-b border-neutral-200 dark:border-neutral-800"
-      >
-        <span
-          class="font-sans text-xs uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-bold"
-        >
-          06 // GET IN TOUCH
-        </span>
-      </div>
-
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-        <div class="lg:col-span-6 space-y-4">
-          <h2
-            class="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-neutral-950 dark:text-white leading-tight font-heading"
-          >
-            Have an idea or a project in mind? Let's build it.
-          </h2>
-          <p
-            class="text-base sm:text-lg text-neutral-600 dark:text-neutral-400 leading-relaxed font-normal"
-          >
-            Whether you want to build a custom web platform, a touchscreen kiosk, or explore a hardware experiment, I'm always open to discussing new engineering challenges.
-          </p>
-        </div>
-
-        <div class="lg:col-span-6 flex flex-col gap-5 p-6 sm:p-8 border border-neutral-300/80 dark:border-neutral-800 bg-[#f6f4ee] dark:bg-[#141414]">
-          <div class="space-y-1.5">
-            <span class="font-sans text-[11px] uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-bold block">
-              Direct Contact
-            </span>
-            <a
-              href="mailto:contact@navoyovan.com"
-              class="text-lg sm:text-xl font-heading font-bold text-neutral-950 dark:text-white hover:text-[#52FF1A] dark:hover:text-[#52FF1A] transition-colors break-all"
-            >
-              contact@navoyovan.com
-            </a>
-          </div>
-
-          <div class="pt-3 border-t border-neutral-200/80 dark:border-neutral-800/80 flex flex-wrap items-center gap-3">
-            <ActionButton
-              variant="primary"
-              size="sm"
-              href="mailto:contact@navoyovan.com"
-            >
-              Send an Email ↗
-            </ActionButton>
-            <ActionButton
-              variant="secondary"
-              size="sm"
-              href="https://github.com/navoyovan"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              GitHub ↗
-            </ActionButton>
-            <ActionButton
-              variant="secondary"
-              size="sm"
-              href="https://linkedin.com/in/yovan"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              LinkedIn ↗
-            </ActionButton>
-          </div>
-        </div>
-      </div>
-    </section>
-  </div>
+      </section>
+    </div>
   </div>{/* end page wrapper */}
 </RootLayout>
-

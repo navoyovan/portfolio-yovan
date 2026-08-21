@@ -118,12 +118,32 @@ const base = rawBase.endsWith('/') ? rawBase.slice(0, -1) : rawBase;
           </div>
 
           <div class="flex items-center gap-3 sm:gap-4 flex-wrap">
-            <ActionButton variant="primary" size="md" href="#projects">
-              FEATURED WORK
+            <ActionButton
+              variant="primary"
+              size="md"
+              href="#projects"
+              class="group overflow-hidden"
+            >
+              <div class="inline-flex items-center translate-x-[10px] group-hover:translate-x-0 transition-transform duration-200 ease-out">
+                <span>FEATURED WORK</span>
+                <span class="inline-flex items-center justify-center w-3.5 ml-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-200 ease-out">
+                  ↓
+                </span>
+              </div>
             </ActionButton>
 
-            <ActionButton variant="secondary" size="md" href={`${base}/portfolio-index`}>
-              PORTFOLIO INDEX
+            <ActionButton
+              variant="secondary"
+              size="md"
+              href={`${base}/portfolio-index`}
+              class="group overflow-hidden"
+            >
+              <div class="inline-flex items-center translate-x-[10px] group-hover:translate-x-0 transition-transform duration-200 ease-out">
+                <span>PORTFOLIO INDEX</span>
+                <span class="inline-flex items-center justify-center w-3.5 ml-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-200 ease-out">
+                  →
+                </span>
+              </div>
             </ActionButton>
           </div>
         </div>

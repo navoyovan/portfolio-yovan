@@ -4,12 +4,12 @@
 
 <div
   id="custom-scrollbar-track"
-  class="fixed right-1.5 top-20 sm:top-22 bottom-3 w-1.5 z-40 pointer-events-none transition-opacity duration-300 opacity-0 md:opacity-100 group"
+  class="fixed right-1 top-20 sm:top-22 bottom-3 w-4 z-40 pointer-events-none md:pointer-events-auto flex justify-end transition-opacity duration-300 opacity-0 md:opacity-100 group cursor-pointer"
   aria-hidden="true"
 >
   <div
     id="custom-scrollbar-thumb"
-    class="w-full bg-neutral-900/25 dark:bg-white/25 hover:bg-neutral-900/50 dark:hover:bg-white/50 active:bg-neutral-900/70 dark:active:bg-white/70 rounded-full cursor-pointer pointer-events-auto transition-colors duration-150"
+    class="w-1.5 group-hover:w-3.5 group-active:w-3.5 bg-neutral-900/30 dark:bg-white/30 hover:bg-neutral-900/60 dark:hover:bg-white/60 active:bg-neutral-900/80 dark:active:bg-white/80 rounded-full cursor-grab active:cursor-grabbing pointer-events-auto transition-[width,background-color] duration-200"
     style="transform: translateY(0px);"
   >
   </div>
@@ -23,15 +23,17 @@
 
     let isDragging = false;
     let startY = 0;
-    let startScroll = 0;
+    let startThumbY = 0;
+    let currentThumbY = 0;
 
     const updateThumb = () => {
+      if (isDragging) return;
       const docHeight = document.documentElement.scrollHeight - window.innerHeight;
       if (docHeight <= 0) {
         track.style.display = 'none';
         return;
       }
-      track.style.display = 'block';
+      track.style.display = 'flex';
 
       const trackHeight = track.clientHeight;
       const thumbHeight = Math.max(
@@ -43,9 +45,9 @@
       const maxThumbTravel = trackHeight - thumbHeight;
       const scrollY = window.scrollY || 0;
       const progress = Math.min(1, Math.max(0, scrollY / docHeight));
-      const thumbY = progress * maxThumbTravel;
+      currentThumbY = progress * maxThumbTravel;
 
-      thumb.style.transform = `translateY(${thumbY}px)`;
+      thumb.style.transform = `translateY(${currentThumbY}px)`;
     };
 
     window.addEventListener('scroll', updateThumb, { passive: true });
@@ -58,8 +60,9 @@
     thumb.addEventListener('mousedown', (e) => {
       isDragging = true;
       startY = e.clientY;
-      startScroll = window.scrollY || 0;
-      document.body.classList.add('select-none');
+      startThumbY = currentThumbY;
+      document.documentElement.style.scrollBehavior = 'auto';
+      document.body.classList.add('select-none', 'cursor-grabbing');
       e.preventDefault();
     });
 
@@ -69,21 +72,30 @@
       const trackHeight = track.clientHeight;
       const thumbHeight = thumb.clientHeight;
       const maxThumbTravel = trackHeight - thumbHeight;
-      if (maxThumbTravel <= 0) return;
+      if (maxThumbTravel <= 0 || docHeight <= 0) return;
 
       const deltaY = e.clientY - startY;
-      const scrollDelta = (deltaY / maxThumbTravel) * docHeight;
-      const targetScroll = Math.min(docHeight, Math.max(0, startScroll + scrollDelta));
+      const targetThumbY = Math.min(maxThumbTravel, Math.max(0, startThumbY + deltaY));
+      currentThumbY = targetThumbY;
+
+      thumb.style.transform = `translateY(${targetThumbY}px)`;
+      const progress = targetThumbY / maxThumbTravel;
+      const targetScroll = progress * docHeight;
 
       window.scrollTo(0, targetScroll);
     });
 
-    window.addEventListener('mouseup', () => {
+    const stopDragging = () => {
       if (isDragging) {
         isDragging = false;
-        document.body.classList.remove('select-none');
+        document.documentElement.style.scrollBehavior = '';
+        document.body.classList.remove('select-none', 'cursor-grabbing');
+        updateThumb();
       }
-    });
+    };
+
+    window.addEventListener('mouseup', stopDragging);
+    window.addEventListener('blur', stopDragging);
 
     // Track click to jump
     track.addEventListener('click', (e) => {
@@ -91,8 +103,13 @@
       const rect = track.getBoundingClientRect();
       const clickY = e.clientY - rect.top;
       const trackHeight = track.clientHeight;
+      const thumbHeight = thumb.clientHeight;
+      const maxThumbTravel = trackHeight - thumbHeight;
       const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const targetProgress = Math.min(1, Math.max(0, clickY / trackHeight));
+      if (maxThumbTravel <= 0 || docHeight <= 0) return;
+
+      const targetThumbY = Math.min(maxThumbTravel, Math.max(0, clickY - thumbHeight / 2));
+      const targetProgress = targetThumbY / maxThumbTravel;
       const targetScroll = targetProgress * docHeight;
 
       window.scrollTo({ top: targetScroll, behavior: 'smooth' });
