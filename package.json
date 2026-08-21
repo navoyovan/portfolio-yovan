@@ -1,5 +1,8 @@
 {
-  "name": "astro-seo-starter",
+  "name": "porfolio-yovan-v5",
+  "description": "Personal portfolio of Yovan Gunardio Darmawan — software engineer.",
+  "author": "Yovan Gunardio Darmawan <yovangunardio@gmail.com>",
+  "private": true,
   "type": "module",
   "version": "0.0.1",
   "engines": {

@@ -12,7 +12,7 @@ export default defineConfig({
   integrations: [
     react(),
     sitemap({
-      filter: (page) => !page.includes('component-library'),
+      filter: (page) => !page.includes('component-library') && !page.includes('404'),
     }),
   ],
 

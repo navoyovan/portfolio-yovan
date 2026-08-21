@@ -266,3 +266,15 @@ body {
 .hero-h3-slashes:active {
   transform: scale(0.65) !important;
 }
+
+/* Accessibility: Safe Reduced Motion Handling (WCAG 2.3.3) */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .animate-blob-morph,
+  .animate-kiosk-pulse {
+    animation: none !important;
+  }
+}

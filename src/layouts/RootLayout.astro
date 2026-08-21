@@ -33,7 +33,14 @@ const { title, description, image, canonicalURL, type, keywords, schema, noindex
         }
       })();
     </script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css" />
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css" crossorigin="anonymous" />
+    <meta name="author" content="Yovan Gunardio Darmawan" />
+    <meta name="theme-color" content="#fcfbf9" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0e0e0e" media="(prefers-color-scheme: dark)" />
+    <link rel="me" href="mailto:yovangunardio@gmail.com" />
+    <link rel="me" href="https://github.com/navoyovan" />
+    <link rel="me" href="https://linkedin.com/in/yovan-g-d-22379ba7/" />
     <SEO
       title={title}
       description={description}
@@ -46,9 +53,15 @@ const { title, description, image, canonicalURL, type, keywords, schema, noindex
     />
   </head>
   <body class="min-h-full flex flex-col relative">
+    <a
+      href="#main-content"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2.5 focus:bg-[#52FF1A] focus:text-black focus:font-heading focus:font-bold focus:text-xs focus:uppercase focus:tracking-wider focus:shadow-lg focus:outline-none"
+    >
+      Skip to content
+    </a>
     <CustomScrollbar />
     <Navbar />
-    <main class="flex-1 w-full">
+    <main id="main-content" class="flex-1 w-full">
       <slot />
     </main>
     <Footer />
