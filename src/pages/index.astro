@@ -121,13 +121,16 @@ const capabilities = [
   <!-- 01: JAM Digital Clock Floating Popup -->
   <div
     id="egg-popup-clock"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="egg-clock-title"
     class="egg-popup-modal popup-hidden fixed bottom-4 inset-x-0 mx-auto sm:inset-x-auto sm:right-6 sm:mx-0 sm:bottom-6 z-50 w-[92vw] max-w-[390px] sm:max-w-[420px] flex flex-col font-sans"
   >
     <!-- Floating Dismiss Text Above Popup (Centered on mobile) -->
     <div class="flex items-center justify-center sm:justify-end mb-1 px-1">
       <button
         type="button"
-        aria-label="Dismiss popup"
+        aria-label="Dismiss Jam Digital popup"
         class="egg-popup-close font-mono text-xs text-red-500 hover:text-red-600 dark:text-red-400 dark:hover:text-red-300 hover:underline cursor-pointer select-none transition-colors p-0 bg-transparent border-0 flex items-center justify-center gap-1 w-full sm:w-auto text-center"
       >
         <span class="sm:hidden">↓ Swipe down to dismiss</span>
@@ -145,7 +148,7 @@ const capabilities = [
       >
         <iframe
           data-src={`${base}/whatisthis/jAM_jAvaSCriPt.html`}
-          title="Jam Digital"
+          title="Jam Digital Clock Interactive Display"
           class="border-0 pointer-events-none select-none shrink-0"
           style="width: 1440px; height: 855px; transform: scale(0.28); transform-origin: center center;"
           loading="lazy"></iframe>
@@ -162,6 +165,7 @@ const capabilities = [
 
         <!-- Title -->
         <h3
+          id="egg-clock-title"
           class="text-lg sm:text-xl font-bold text-neutral-950 dark:text-white tracking-tight leading-tight font-heading"
         >
           Jam Digital (JavaScript Clock)
@@ -176,23 +180,29 @@ const capabilities = [
         </p>
 
         <!-- Tags Row -->
-        <div class="flex flex-wrap gap-1.5 pt-0.5">
-          <span
-            class="font-sans text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2.5 py-0.5 rounded"
-          >
-            VANILLA JS
-          </span>
-          <span
-            class="font-sans text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2.5 py-0.5 rounded"
-          >
-            CSS3 SHADOWS
-          </span>
-          <span
-            class="font-sans text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2.5 py-0.5 rounded"
-          >
-            SETTIMEOUT
-          </span>
-        </div>
+        <ul class="flex flex-wrap gap-2 pt-1 list-none p-0 m-0" aria-label="Tags">
+          <li>
+            <span
+              class="font-sans text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2.5 py-1 rounded inline-block"
+            >
+              VANILLA JS
+            </span>
+          </li>
+          <li>
+            <span
+              class="font-sans text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2.5 py-1 rounded inline-block"
+            >
+              CSS3 SHADOWS
+            </span>
+          </li>
+          <li>
+            <span
+              class="font-sans text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2.5 py-1 rounded inline-block"
+            >
+              SETTIMEOUT
+            </span>
+          </li>
+        </ul>
 
         <!-- Metadata Footer -->
         <div
@@ -211,13 +221,16 @@ const capabilities = [
   <!-- 02: MCPE ModPE 2014 Scripting Floating Popup -->
   <div
     id="egg-popup-modpe"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="egg-modpe-title"
     class="egg-popup-modal popup-hidden fixed bottom-4 inset-x-0 mx-auto sm:inset-x-auto sm:right-6 sm:mx-0 sm:bottom-6 z-50 w-[92vw] max-w-[340px] sm:max-w-[370px] flex flex-col font-sans"
   >
     <!-- Floating Dismiss Text Above Popup (Centered on mobile) -->
     <div class="flex items-center justify-center sm:justify-end mb-1 px-1">
       <button
         type="button"
-        aria-label="Dismiss popup"
+        aria-label="Dismiss ModPE Scripting popup"
         class="egg-popup-close font-mono text-xs text-red-500 hover:text-red-600 dark:text-red-400 dark:hover:text-red-300 hover:underline cursor-pointer select-none transition-colors p-0 bg-transparent border-0 flex items-center justify-center gap-1 w-full sm:w-auto text-center"
       >
         <span class="sm:hidden">↓ Swipe down to dismiss</span>
@@ -255,6 +268,7 @@ const capabilities = [
 
         <!-- Title -->
         <h3
+          id="egg-modpe-title"
           class="text-base sm:text-lg font-bold text-neutral-950 dark:text-white tracking-tight leading-tight font-mono"
         >
           Entity.setRenderType(mob, 3);
@@ -352,6 +366,8 @@ const capabilities = [
 
   <script>
     (function () {
+      let lastFocusedElement: HTMLElement | null = null;
+
       function closeAllPopups() {
         document.querySelectorAll(".egg-popup-modal").forEach((p) => {
           const el = p as HTMLElement;
@@ -368,9 +384,15 @@ const capabilities = [
         }
         document.documentElement.style.overflow = "";
         document.body.style.overflow = "";
+
+        if (lastFocusedElement && document.contains(lastFocusedElement)) {
+          lastFocusedElement.focus();
+        }
+        lastFocusedElement = null;
       }
 
       function openPopup(id: string) {
+        lastFocusedElement = document.activeElement as HTMLElement | null;
         closeAllPopups();
         const popup = document.getElementById(id);
         if (!popup) return;
@@ -383,6 +405,12 @@ const capabilities = [
         popup.style.transition = "";
         popup.classList.remove("popup-hidden");
         popup.classList.add("popup-visible");
+
+        // Focus close button inside popup for screen readers & keyboard users
+        requestAnimationFrame(() => {
+          const closeBtn = popup.querySelector<HTMLElement>('.egg-popup-close');
+          closeBtn?.focus();
+        });
 
         // Only lock background scroll and activate backdrop overlay on mobile screens (< 640px)
         if (window.innerWidth < 640) {
@@ -549,8 +577,40 @@ const capabilities = [
         }
       });
 
+      // Keyboard Trap & Escape Handling for Dialog Modals
       document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape") closeAllPopups();
+        const activePopup = document.querySelector<HTMLElement>(".egg-popup-modal.popup-visible");
+        if (!activePopup) return;
+
+        if (e.key === "Escape") {
+          e.preventDefault();
+          closeAllPopups();
+          return;
+        }
+
+        if (e.key === "Tab") {
+          const focusables = Array.from(
+            activePopup.querySelectorAll<HTMLElement>(
+              'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+            )
+          ).filter((el) => !el.hasAttribute("disabled") && el.offsetParent !== null);
+
+          if (focusables.length === 0) return;
+          const firstEl = focusables[0];
+          const lastEl = focusables[focusables.length - 1];
+
+          if (e.shiftKey) {
+            if (document.activeElement === firstEl) {
+              e.preventDefault();
+              lastEl.focus();
+            }
+          } else {
+            if (document.activeElement === lastEl) {
+              e.preventDefault();
+              firstEl.focus();
+            }
+          }
+        }
       });
     })();
   </script>
@@ -558,7 +618,7 @@ const capabilities = [
   <!-- page wrapper: position relative so easter eggs scatter through scroll height -->
   <div class="relative">
     <!-- ░░ EASTER EGGS - Visual labels in background (z-0) ░░ -->
-    <div class="absolute inset-0 pointer-events-none overflow-hidden z-0">
+    <div aria-hidden="true" class="absolute inset-0 pointer-events-none overflow-hidden z-0">
       <!-- 01: setTimeout(showTime, 1000); (Hero Top Left) -->
       <span
         class="egg-static absolute font-mono text-xs text-neutral-600 dark:text-neutral-300 select-none rotate-[-5deg]"
@@ -629,7 +689,7 @@ const capabilities = [
         type="button"
         data-easter="jam-clock"
         data-target-label="egg-label-jam"
-        class="egg-hitbox absolute pointer-events-auto p-3 font-mono text-xs rotate-[4deg]"
+        class="egg-hitbox absolute pointer-events-auto p-3 font-mono text-xs rotate-[4deg] focus-visible:opacity-100 focus-visible:bg-[#f6f4ee] dark:focus-visible:bg-[#141414] focus-visible:text-[#52FF1A] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#52FF1A] rounded"
         style="top:30.5%;right:1.5%;"
         aria-label="Unlock Jam Digital Easter Egg"
       >
@@ -731,66 +791,75 @@ const capabilities = [
               occasionally things that talk to machines.
             </p>
 
-            <div
-              class="space-y-2.5 py-1.5 pl-4 border-l-2 border-[#52FF1A]/50 font-sans text-sm sm:text-base text-neutral-600 dark:text-neutral-400"
+            <ul
+              class="space-y-2.5 py-1.5 pl-4 border-l-2 border-[#52FF1A]/50 font-sans text-sm sm:text-base text-neutral-600 dark:text-neutral-400 list-none m-0 p-0"
+              aria-label="Overview highlights"
             >
-              <p class="flex items-center gap-2.5">
+              <li class="flex items-center gap-2.5">
                 <span
                   class="text-[#52FF1A] text-xs font-mono select-none font-bold"
+                  aria-hidden="true"
                   >›</span
                 >
                 <span>A little bit of webapp in my life</span>
-              </p>
-              <p class="flex items-center gap-2.5">
+              </li>
+              <li class="flex items-center gap-2.5">
                 <span
                   class="text-[#52FF1A] text-xs font-mono select-none font-bold"
+                  aria-hidden="true"
                   >›</span
                 >
                 <span>A little bit of vscode by my side</span>
-              </p>
-              <p class="flex items-center gap-2.5">
+              </li>
+              <li class="flex items-center gap-2.5">
                 <span
                   class="text-[#52FF1A] text-xs font-mono select-none font-bold"
+                  aria-hidden="true"
                   >›</span
                 >
                 <span>A little bit of dashboard all I need</span>
-              </p>
-              <p class="flex items-center gap-2.5">
+              </li>
+              <li class="flex items-center gap-2.5">
                 <span
                   class="text-[#52FF1A] text-xs font-mono select-none font-bold"
+                  aria-hidden="true"
                   >›</span
                 >
                 <span>A little bit of touchscreen kiosk what I see</span>
-              </p>
-              <p class="flex items-center gap-2.5">
+              </li>
+              <li class="flex items-center gap-2.5">
                 <span
                   class="text-[#52FF1A] text-xs font-mono select-none font-bold"
+                  aria-hidden="true"
                   >›</span
                 >
                 <span>A little bit of 12v in the sun</span>
-              </p>
-              <p class="flex items-center gap-2.5">
+              </li>
+              <li class="flex items-center gap-2.5">
                 <span
                   class="text-[#52FF1A] text-xs font-mono select-none font-bold"
+                  aria-hidden="true"
                   >›</span
                 >
                 <span>A little bit of solder all night long</span>
-              </p>
-              <p class="flex items-center gap-2.5">
+              </li>
+              <li class="flex items-center gap-2.5">
                 <span
                   class="text-[#52FF1A] text-xs font-mono select-none font-bold"
+                  aria-hidden="true"
                   >›</span
                 >
                 <span>A little bit of LED, here I am</span>
-              </p>
-              <p class="flex items-center gap-2.5">
+              </li>
+              <li class="flex items-center gap-2.5">
                 <span
                   class="text-[#52FF1A] text-xs font-mono select-none font-bold"
+                  aria-hidden="true"
                   >›</span
                 >
                 <span>A little bit of git makes me your guy</span>
-              </p>
-            </div>
+              </li>
+            </ul>
 
             <p
               class="text-sm sm:text-base text-neutral-600 dark:text-neutral-400 leading-relaxed font-normal"
@@ -804,11 +873,11 @@ const capabilities = [
               class="pt-6 space-y-8 border-t border-neutral-200/80 dark:border-neutral-800/80"
             >
               <div class="flex items-center justify-between">
-                <span
-                  class="font-heading font-bold text-xs sm:text-sm uppercase tracking-wider text-neutral-500 dark:text-neutral-400"
+                <h3
+                  class="font-heading font-bold text-xs sm:text-sm uppercase tracking-wider text-neutral-500 dark:text-neutral-400 m-0"
                 >
                   Core Stack
-                </span>
+                </h3>
                 <span
                   class="font-sans text-[11px] text-neutral-400 dark:text-neutral-500 font-medium"
                 >
@@ -817,50 +886,52 @@ const capabilities = [
               </div>
 
               <!-- Core Stack (Icon-as-Object: Unboxed, Breathing Grid) -->
-              <div
-                class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-6 sm:gap-8 pt-1"
+              <ul
+                class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-6 sm:gap-8 pt-1 list-none m-0 p-0"
+                aria-label="Core Technologies"
               >
                 {
                   coreStack.map((tech) => (
-                    <div class="flex flex-col space-y-2.5 group cursor-default">
+                    <li class="flex flex-col space-y-2.5 group cursor-default">
                       <div class="text-3xl sm:text-4xl text-neutral-800 dark:text-neutral-200 group-hover:text-[#52FF1A] transition-[transform,color] duration-200 group-hover:-translate-y-1 group-hover:scale-105 inline-flex items-center">
                         <i class={`ti ${tech.icon}`} aria-hidden="true" />
                       </div>
                       <div class="space-y-0.5">
-                        <span class="font-heading font-bold text-sm sm:text-base text-neutral-950 dark:text-white block tracking-tight">
+                        <h4 class="font-heading font-bold text-sm sm:text-base text-neutral-950 dark:text-white block tracking-tight m-0">
                           {tech.name}
-                        </span>
-                        <span class="font-sans text-[11px] sm:text-xs text-neutral-500 dark:text-neutral-400 block leading-tight group-hover:text-neutral-700 dark:group-hover:text-neutral-300 transition-colors">
+                        </h4>
+                        <p class="font-sans text-[11px] sm:text-xs text-neutral-500 dark:text-neutral-400 block leading-tight group-hover:text-neutral-700 dark:group-hover:text-neutral-300 transition-colors m-0">
                           {tech.category}
-                        </span>
+                        </p>
                       </div>
-                    </div>
+                    </li>
                   ))
                 }
-              </div>
+              </ul>
 
               <!-- Supporting Stack (Unboxed / Clean Inline Flow for Visual Weight Balance) -->
               <div class="pt-2 space-y-2.5">
-                <span
-                  class="font-heading font-bold text-xs uppercase tracking-wider text-neutral-400 dark:text-neutral-500 block"
+                <h3
+                  class="font-heading font-bold text-xs uppercase tracking-wider text-neutral-400 dark:text-neutral-500 block m-0"
                 >
                   Ecosystem & Supporting Tech
-                </span>
-                <div
-                  class="flex flex-wrap items-center gap-x-4 gap-y-2.5 pt-0.5"
+                </h3>
+                <ul
+                  class="flex flex-wrap items-center gap-x-4 gap-y-2.5 pt-0.5 list-none m-0 p-0"
+                  aria-label="Ecosystem and Supporting Technologies"
                 >
                   {
                     supportingStack.map((tech) => (
-                      <div class="inline-flex items-center gap-1.5 text-xs text-neutral-600 dark:text-neutral-400 hover:text-neutral-950 dark:hover:text-white transition-colors group">
+                      <li class="inline-flex items-center gap-1.5 text-xs text-neutral-600 dark:text-neutral-400 hover:text-neutral-950 dark:hover:text-white transition-colors group">
                         <i
                           class={`ti ${tech.icon} text-sm text-neutral-400 dark:text-neutral-500 group-hover:text-[#52FF1A] transition-colors`}
                           aria-hidden="true"
                         />
                         <span class="font-sans font-medium">{tech.name}</span>
-                      </div>
+                      </li>
                     ))
                   }
-                </div>
+                </ul>
               </div>
             </div>
           </div>
@@ -915,7 +986,8 @@ const capabilities = [
         </div>
 
         <!-- Featured Spotlight: Hypebox -->
-        <div
+        <article
+          aria-labelledby="heading-hypebox"
           class="border border-neutral-300/80 dark:border-neutral-800 bg-[#f6f4ee] dark:bg-[#141414] p-6 sm:p-8 space-y-8"
         >
           <!-- Hypebox Header -->
@@ -924,6 +996,7 @@ const capabilities = [
           >
             <div class="space-y-1">
               <h3
+                id="heading-hypebox"
                 class="text-2xl sm:text-3xl font-black tracking-tight text-neutral-950 dark:text-white leading-none font-heading"
               >
                 HYPE-BOX
@@ -941,6 +1014,7 @@ const capabilities = [
               href="https://navoyovan.github.io/hypebox/"
               target="_blank"
               rel="noopener noreferrer"
+              ariaLabel="Visit Hypebox Site (opens in new tab)"
               class="group/btn overflow-hidden w-fit"
             >
               <div
@@ -949,6 +1023,7 @@ const capabilities = [
                 <span>Visit Hypebox Site</span>
                 <span
                   class="inline-flex items-center justify-center w-3.5 ml-1.5 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-200 ease-out"
+                  aria-hidden="true"
                 >
                   ↗
                 </span>
@@ -968,7 +1043,8 @@ const capabilities = [
           <!-- Ecosystem Grid of Sub-systems -->
           <div class="grid grid-cols-1 md:grid-cols-3 gap-5 pt-2">
             <!-- Kiosk Hero Subsystem (Full Width with Full-Bleed Right Screenshot) -->
-            <div
+            <article
+              aria-labelledby="heading-subsystem-kiosk"
               class="group col-span-1 md:col-span-3 border border-neutral-300/90 dark:border-neutral-700/80 bg-white/90 dark:bg-neutral-900/60 shadow-sm transition-all duration-200 hover:border-neutral-400 dark:hover:border-neutral-600 overflow-hidden"
             >
               <div
@@ -980,16 +1056,17 @@ const capabilities = [
                 >
                   <div class="space-y-4">
                     <div class="space-y-2">
-                      <span
-                        class="text-[11px] font-sans text-neutral-500 font-semibold tracking-wider block"
+                      <p
+                        class="text-[11px] font-sans text-neutral-500 font-semibold tracking-wider block m-0"
                       >
                         Touchscreen & Hardware Engine
-                      </span>
+                      </p>
                       <div
                         class="flex flex-wrap items-baseline justify-between sm:justify-start sm:gap-4"
                       >
                         <h4
-                          class="text-xl sm:text-2xl font-bold text-neutral-950 dark:text-white group-hover:text-[#52FF1A] transition-colors font-heading tracking-tight"
+                          id="heading-subsystem-kiosk"
+                          class="text-xl sm:text-2xl font-bold text-neutral-950 dark:text-white group-hover:text-[#52FF1A] transition-colors font-heading tracking-tight m-0"
                         >
                           Photobooth Kiosk
                         </h4>
@@ -1005,18 +1082,22 @@ const capabilities = [
                         physical thermal printing, and seamless offline-tolerant
                         hardware communication.
                       </p>
-                      <div class="flex flex-wrap gap-1.5 pt-0.5">
-                        <span
-                          class="font-sans text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2.5 py-0.5 rounded"
-                        >
-                          ELECTRON
-                        </span>
-                        <span
-                          class="font-sans text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2.5 py-0.5 rounded"
-                        >
-                          REACT
-                        </span>
-                      </div>
+                      <ul class="flex flex-wrap gap-2 pt-1 list-none p-0 m-0" aria-label="Technologies">
+                        <li>
+                          <span
+                            class="font-sans text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2.5 py-1 rounded inline-block"
+                          >
+                            ELECTRON
+                          </span>
+                        </li>
+                        <li>
+                          <span
+                            class="font-sans text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2.5 py-1 rounded inline-block"
+                          >
+                            REACT
+                          </span>
+                        </li>
+                      </ul>
                     </div>
                   </div>
                   <div class="pt-3">
@@ -1026,6 +1107,7 @@ const capabilities = [
                       href="https://navoyovan.github.io/photobooth-kiosk-demo/"
                       target="_blank"
                       rel="noopener noreferrer"
+                      ariaLabel="Launch Kiosk Demo (opens in new tab)"
                       class="group/btn overflow-hidden w-fit text-xs sm:text-sm"
                     >
                       <div
@@ -1034,6 +1116,7 @@ const capabilities = [
                         <span>Launch Kiosk Demo</span>
                         <span
                           class="inline-flex items-center justify-center w-3.5 ml-1.5 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-200 ease-out"
+                          aria-hidden="true"
                         >
                           ↗
                         </span>
@@ -1074,24 +1157,26 @@ const capabilities = [
                   </div>
                 </div>
               </div>
-            </div>
+            </article>
 
             <!-- REST & WebSocket API Subsystem (Col 1) -->
-            <div
+            <article
+              aria-labelledby="heading-subsystem-backend"
               class="group col-span-1 border border-neutral-200/80 dark:border-neutral-800/80 bg-white/60 dark:bg-neutral-900/40 flex flex-col justify-between items-start shadow-sm transition-all duration-200 hover:border-neutral-400 dark:hover:border-neutral-600 overflow-hidden"
             >
               <div class="p-5 sm:p-6 space-y-3 w-full">
                 <div class="space-y-1.5">
-                  <span
-                    class="text-[11px] font-sans text-neutral-500 font-semibold tracking-wider block"
+                  <p
+                    class="text-[11px] font-sans text-neutral-500 font-semibold tracking-wider block m-0"
                   >
                     Cloud Engine
-                  </span>
+                  </p>
                   <div
                     class="flex flex-wrap items-baseline justify-start gap-3 sm:gap-4"
                   >
                     <h4
-                      class="text-xl sm:text-2xl font-bold text-neutral-950 dark:text-white group-hover:text-[#52FF1A] transition-colors font-heading tracking-tight"
+                      id="heading-subsystem-backend"
+                      class="text-xl sm:text-2xl font-bold text-neutral-950 dark:text-white group-hover:text-[#52FF1A] transition-colors font-heading tracking-tight m-0"
                     >
                       Backend API
                     </h4>
@@ -1106,33 +1191,43 @@ const capabilities = [
                     synchronization, and Reverb-powered WebSockets for live
                     kiosk telemetry.
                   </p>
-                  <div class="flex flex-wrap gap-1.5 pt-0.5">
-                    <span
-                      class="font-sans text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2.5 py-0.5 rounded"
-                    >
-                      LARAVEL
-                    </span>
-                    <span
-                      class="font-sans text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2.5 py-0.5 rounded"
-                    >
-                      REVERB
-                    </span>
-                    <span
-                      class="font-sans text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2.5 py-0.5 rounded"
-                    >
-                      GCS
-                    </span>
-                    <span
-                      class="font-sans text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2.5 py-0.5 rounded"
-                    >
-                      GCP
-                    </span>
-                    <span
-                      class="font-sans text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2.5 py-0.5 rounded"
-                    >
-                      DOCKER
-                    </span>
-                  </div>
+                  <ul class="flex flex-wrap gap-2 pt-1 list-none p-0 m-0" aria-label="Technologies">
+                    <li>
+                      <span
+                        class="font-sans text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2.5 py-1 rounded inline-block"
+                      >
+                        LARAVEL
+                      </span>
+                    </li>
+                    <li>
+                      <span
+                        class="font-sans text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2.5 py-1 rounded inline-block"
+                      >
+                        REVERB
+                      </span>
+                    </li>
+                    <li>
+                      <span
+                        class="font-sans text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2.5 py-1 rounded inline-block"
+                      >
+                        GCS
+                      </span>
+                    </li>
+                    <li>
+                      <span
+                        class="font-sans text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2.5 py-1 rounded inline-block"
+                      >
+                        GCP
+                      </span>
+                    </li>
+                    <li>
+                      <span
+                        class="font-sans text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2.5 py-1 rounded inline-block"
+                      >
+                        DOCKER
+                      </span>
+                    </li>
+                  </ul>
                 </div>
               </div>
 
@@ -1142,10 +1237,13 @@ const capabilities = [
               >
                 <svg
                   viewBox="0 0 420 230"
+                  role="img"
+                  aria-label="System architecture diagram: Laravel core backend communicates bidirectionally with React Vendor Portal and Electron Kiosk Client, which connects to Camera, Printer, and IoT peripherals."
                   class="w-full h-full text-neutral-900 dark:text-neutral-100"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
                 >
+                  <title>HYPE-BOX Backend Communication Architecture Diagram</title>
                   <!-- Top-Left Box: LARAVEL CORE -->
                   <rect
                     x="15"
@@ -1302,24 +1400,26 @@ const capabilities = [
                   </g>
                 </svg>
               </div>
-            </div>
+            </article>
 
             <!-- Vendor Portal Subsystem (Col 2) -->
-            <div
+            <article
+              aria-labelledby="heading-subsystem-vendor-portal"
               class="group col-span-1 border border-neutral-200/80 dark:border-neutral-800/80 bg-white/60 dark:bg-neutral-900/40 flex flex-col justify-between items-start shadow-sm transition-all duration-200 hover:border-neutral-400 dark:hover:border-neutral-600 overflow-hidden"
             >
               <div class="p-5 sm:p-6 space-y-3 w-full">
                 <div class="space-y-1.5">
-                  <span
-                    class="text-[11px] font-sans text-neutral-500 font-semibold tracking-wider block"
+                  <p
+                    class="text-[11px] font-sans text-neutral-500 font-semibold tracking-wider block m-0"
                   >
                     Fleet Control
-                  </span>
+                  </p>
                   <div
                     class="flex flex-wrap items-baseline justify-start gap-3 sm:gap-4"
                   >
                     <h4
-                      class="text-xl sm:text-2xl font-bold text-neutral-950 dark:text-white group-hover:text-[#52FF1A] transition-colors font-heading tracking-tight"
+                      id="heading-subsystem-vendor-portal"
+                      class="text-xl sm:text-2xl font-bold text-neutral-950 dark:text-white group-hover:text-[#52FF1A] transition-colors font-heading tracking-tight m-0"
                     >
                       Vendor Portal
                     </h4>
@@ -1333,18 +1433,22 @@ const capabilities = [
                     telemetry, session analytics, custom template designers, and
                     financial reports.
                   </p>
-                  <div class="flex flex-wrap gap-1.5 pt-0.5">
-                    <span
-                      class="font-sans text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2.5 py-0.5 rounded"
-                    >
-                      REACT
-                    </span>
-                    <span
-                      class="font-sans text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2.5 py-0.5 rounded"
-                    >
-                      CSS MODULES
-                    </span>
-                  </div>
+                  <ul class="flex flex-wrap gap-2 pt-1 list-none p-0 m-0" aria-label="Technologies">
+                    <li>
+                      <span
+                        class="font-sans text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2.5 py-1 rounded inline-block"
+                      >
+                        REACT
+                      </span>
+                    </li>
+                    <li>
+                      <span
+                        class="font-sans text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2.5 py-1 rounded inline-block"
+                      >
+                        CSS MODULES
+                      </span>
+                    </li>
+                  </ul>
                 </div>
               </div>
 
@@ -1380,24 +1484,26 @@ const capabilities = [
                   >
                 </div>
               </div>
-            </div>
+            </article>
 
             <!-- Marketing Site Subsystem (Col 3) -->
-            <div
+            <article
+              aria-labelledby="heading-subsystem-marketing"
               class="group col-span-1 p-5 sm:p-6 border border-neutral-200/80 dark:border-neutral-800/80 bg-white/60 dark:bg-neutral-900/40 space-y-6 flex flex-col justify-between items-start transition-all duration-200 hover:border-neutral-400 dark:hover:border-neutral-600"
             >
               <div class="space-y-3 w-full">
                 <div class="space-y-1.5">
-                  <span
-                    class="text-[11px] font-sans text-neutral-500 font-semibold tracking-wider block"
+                  <p
+                    class="text-[11px] font-sans text-neutral-500 font-semibold tracking-wider block m-0"
                   >
                     Static Portal
-                  </span>
+                  </p>
                   <div
                     class="flex flex-wrap items-baseline justify-start gap-3 sm:gap-4"
                   >
                     <h4
-                      class="text-xl sm:text-2xl font-bold text-neutral-950 dark:text-white group-hover:text-[#52FF1A] transition-colors font-heading tracking-tight"
+                      id="heading-subsystem-marketing"
+                      class="text-xl sm:text-2xl font-bold text-neutral-950 dark:text-white group-hover:text-[#52FF1A] transition-colors font-heading tracking-tight m-0"
                     >
                       Marketing Site
                     </h4>
@@ -1410,18 +1516,22 @@ const capabilities = [
                     Fast static marketing portal engineered for speed. Feature
                     showcases, and booking conversion.
                   </p>
-                  <div class="flex flex-wrap gap-1.5 pt-0.5">
-                    <span
-                      class="font-sans text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2.5 py-0.5 rounded"
-                    >
-                      ASTRO
-                    </span>
-                    <span
-                      class="font-sans text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2.5 py-0.5 rounded"
-                    >
-                      TAILWIND V4
-                    </span>
-                  </div>
+                  <ul class="flex flex-wrap gap-2 pt-1 list-none p-0 m-0" aria-label="Technologies">
+                    <li>
+                      <span
+                        class="font-sans text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2.5 py-1 rounded inline-block"
+                      >
+                        ASTRO
+                      </span>
+                    </li>
+                    <li>
+                      <span
+                        class="font-sans text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2.5 py-1 rounded inline-block"
+                      >
+                        TAILWIND V4
+                      </span>
+                    </li>
+                  </ul>
                 </div>
               </div>
               <div
@@ -1445,9 +1555,9 @@ const capabilities = [
                   </span>
                 </a>
               </div>
-            </div>
+            </article>
           </div>
-        </div>
+        </article>
 
         <!-- Additional Featured Work Grid (4-Column Layout Sizing) -->
         <div class="pt-8 space-y-4">
@@ -1505,26 +1615,28 @@ const capabilities = [
               <div class="group relative p-6 sm:p-7 border border-neutral-300/80 dark:border-neutral-800 bg-[#f6f4ee] dark:bg-[#141414] transition-all duration-200 hover:border-neutral-400 dark:hover:border-neutral-600">
                 <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 lg:gap-8">
                   <div class="flex items-start gap-4 sm:gap-6 flex-1">
-                    <span class="text-xs sm:text-sm font-sans font-bold text-neutral-400 dark:text-neutral-500 group-hover:text-[#52FF1A] transition-colors pt-0.5 shrink-0">
+                    <span class="text-xs sm:text-sm font-sans font-bold text-neutral-400 dark:text-neutral-500 group-hover:text-[#52FF1A] transition-colors pt-0.5 shrink-0" aria-hidden="true">
                       {item.number}
                     </span>
                     <div class="space-y-1.5 flex-1">
-                      <h3 class="text-lg sm:text-xl font-heading font-bold text-neutral-950 dark:text-white group-hover:text-[#52FF1A] transition-colors">
+                      <h3 class="text-lg sm:text-xl font-heading font-bold text-neutral-950 dark:text-white group-hover:text-[#52FF1A] transition-colors m-0">
                         {item.title}
                       </h3>
-                      <p class="text-sm leading-relaxed text-neutral-600 dark:text-neutral-400 max-w-3xl">
+                      <p class="text-sm leading-relaxed text-neutral-600 dark:text-neutral-400 max-w-3xl m-0">
                         {item.description}
                       </p>
                     </div>
                   </div>
 
-                  <div class="flex flex-wrap gap-1.5 lg:justify-end shrink-0 pl-8 sm:pl-10 lg:pl-0">
+                  <ul class="flex flex-wrap gap-2 lg:justify-end shrink-0 pl-8 sm:pl-10 lg:pl-0 list-none m-0 p-0" aria-label="Capability tags">
                     {item.tags.map((tag) => (
-                      <span class="text-[10px] font-sans font-semibold px-2.5 py-1 rounded bg-neutral-200/60 dark:bg-neutral-800/80 text-neutral-600 dark:text-neutral-400 uppercase tracking-wider">
-                        {tag}
-                      </span>
+                      <li>
+                        <span class="text-[10px] font-sans font-semibold px-2.5 py-1 rounded bg-neutral-200/60 dark:bg-neutral-800/80 text-neutral-600 dark:text-neutral-400 uppercase tracking-wider inline-block">
+                          {tag}
+                        </span>
+                      </li>
                     ))}
-                  </div>
+                  </ul>
                 </div>
               </div>
             ))
@@ -1571,17 +1683,18 @@ const capabilities = [
               <div class="group flex items-start gap-4 sm:gap-6">
                 <span
                   class="text-xs sm:text-sm font-sans font-bold text-neutral-400 dark:text-neutral-500 group-hover:text-[#52FF1A] transition-colors pt-1 shrink-0 select-none"
+                  aria-hidden="true"
                 >
                   01
                 </span>
                 <div class="space-y-1.5 flex-1">
                   <h3
-                    class="text-lg sm:text-xl font-bold text-neutral-950 dark:text-white tracking-tight group-hover:text-[#52FF1A] transition-colors font-heading"
+                    class="text-lg sm:text-xl font-bold text-neutral-950 dark:text-white tracking-tight group-hover:text-[#52FF1A] transition-colors font-heading m-0"
                   >
                     Start with the actual use case.
                   </h3>
                   <p
-                    class="text-sm sm:text-base text-neutral-600 dark:text-neutral-400 leading-relaxed"
+                    class="text-sm sm:text-base text-neutral-600 dark:text-neutral-400 leading-relaxed m-0"
                   >
                     Technology is just the tool. I care more about what the
                     product needs to accomplish, who is using it, and what could
@@ -1593,17 +1706,18 @@ const capabilities = [
               <div class="group flex items-start gap-4 sm:gap-6">
                 <span
                   class="text-xs sm:text-sm font-sans font-bold text-neutral-400 dark:text-neutral-500 group-hover:text-[#52FF1A] transition-colors pt-1 shrink-0 select-none"
+                  aria-hidden="true"
                 >
                   02
                 </span>
                 <div class="space-y-1.5 flex-1">
                   <h3
-                    class="text-lg sm:text-xl font-bold text-neutral-950 dark:text-white tracking-tight group-hover:text-[#52FF1A] transition-colors font-heading"
+                    class="text-lg sm:text-xl font-bold text-neutral-950 dark:text-white tracking-tight group-hover:text-[#52FF1A] transition-colors font-heading m-0"
                   >
                     Keep complexity earned.
                   </h3>
                   <p
-                    class="text-sm sm:text-base text-neutral-600 dark:text-neutral-400 leading-relaxed"
+                    class="text-sm sm:text-base text-neutral-600 dark:text-neutral-400 leading-relaxed m-0"
                   >
                     Not every project needs a giant architecture. I use what the
                     problem calls for, and add complexity when there's a reason
@@ -1615,17 +1729,18 @@ const capabilities = [
               <div class="group flex items-start gap-4 sm:gap-6">
                 <span
                   class="text-xs sm:text-sm font-sans font-bold text-neutral-400 dark:text-neutral-500 group-hover:text-[#52FF1A] transition-colors pt-1 shrink-0 select-none"
+                  aria-hidden="true"
                 >
                   03
                 </span>
                 <div class="space-y-1.5 flex-1">
                   <h3
-                    class="text-lg sm:text-xl font-bold text-neutral-950 dark:text-white tracking-tight group-hover:text-[#52FF1A] transition-colors font-heading"
+                    class="text-lg sm:text-xl font-bold text-neutral-950 dark:text-white tracking-tight group-hover:text-[#52FF1A] transition-colors font-heading m-0"
                   >
                     Make the pieces work together.
                   </h3>
                   <p
-                    class="text-sm sm:text-base text-neutral-600 dark:text-neutral-400 leading-relaxed"
+                    class="text-sm sm:text-base text-neutral-600 dark:text-neutral-400 leading-relaxed m-0"
                   >
                     A good interface is only one part of a good product. I like
                     connecting the things behind it: APIs, databases, realtime
@@ -1637,12 +1752,13 @@ const capabilities = [
               <div class="group flex items-start gap-4 sm:gap-6">
                 <span
                   class="text-xs sm:text-sm font-sans font-bold text-neutral-400 dark:text-neutral-500 group-hover:text-[#52FF1A] transition-colors pt-1 shrink-0 select-none"
+                  aria-hidden="true"
                 >
                   04
                 </span>
                 <div class="space-y-1.5 flex-1">
                   <h3
-                    class="text-lg sm:text-xl font-bold text-neutral-950 dark:text-white tracking-tight group-hover:text-[#52FF1A] transition-colors font-heading"
+                    class="text-lg sm:text-xl font-bold text-neutral-950 dark:text-white tracking-tight group-hover:text-[#52FF1A] transition-colors font-heading m-0"
                   >
                     Sweat the details that matter.
                   </h3>
@@ -1723,7 +1839,7 @@ const capabilities = [
             <button
               type="button"
               data-easter="modpe"
-              class="font-mono text-[10px] text-neutral-600 dark:text-neutral-300 opacity-[0.08] hover:opacity-75 hover:underline underline-offset-4 cursor-pointer select-none transition-[opacity,text-decoration] duration-200 [writing-mode:vertical-rl] rotate-180 pointer-events-auto p-1 bg-transparent border-0 tracking-wider"
+              class="font-mono text-[10px] text-neutral-600 dark:text-neutral-300 opacity-[0.08] hover:opacity-75 hover:underline underline-offset-4 cursor-pointer select-none transition-[opacity,text-decoration] duration-200 [writing-mode:vertical-rl] rotate-180 pointer-events-auto p-1 bg-transparent border-0 tracking-wider focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#52FF1A] rounded"
               aria-label="Unlock ModPE Scripting Easter Egg"
             >
               Entity.setRenderType(mob, 3);
@@ -1753,7 +1869,7 @@ const capabilities = [
               <button
                 type="button"
                 data-easter="modpe"
-                class="font-mono text-[10px] text-neutral-600 dark:text-neutral-300 opacity-[0.08] hover:opacity-75 hover:underline underline-offset-4 cursor-pointer select-none transition-[opacity,text-decoration] duration-200 text-left p-0 bg-transparent border-0 inline-block"
+                class="font-mono text-[10px] text-neutral-600 dark:text-neutral-300 opacity-[0.08] hover:opacity-75 hover:underline underline-offset-4 cursor-pointer select-none transition-[opacity,text-decoration] duration-200 text-left p-0 bg-transparent border-0 inline-block focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#52FF1A] rounded"
                 aria-label="Unlock ModPE Scripting Easter Egg"
               >
                 Entity.setRenderType(mob, 3);
@@ -1805,6 +1921,7 @@ const capabilities = [
                 variant="primary"
                 size="sm"
                 href="mailto:yovangunardio@gmail.com"
+                ariaLabel="Send an email to Yovan"
               >
                 Send an Email ↗
               </ActionButton>
@@ -1814,6 +1931,7 @@ const capabilities = [
                 href="https://github.com/navoyovan"
                 target="_blank"
                 rel="noopener noreferrer"
+                ariaLabel="GitHub Profile (opens in new tab)"
               >
                 GitHub ↗
               </ActionButton>
@@ -1823,6 +1941,7 @@ const capabilities = [
                 href="https://linkedin.com/in/yovan-g-d-22379ba7/"
                 target="_blank"
                 rel="noopener noreferrer"
+                ariaLabel="LinkedIn Profile (opens in new tab)"
               >
                 LinkedIn ↗
               </ActionButton>

@@ -13,7 +13,8 @@ const currentYear = new Date().getFullYear();
       <div class="md:col-span-5 space-y-4">
         <a
           href={`${base}/`}
-          class="text-xl font-black tracking-tight text-neutral-950 dark:text-white font-heading hover:opacity-80 transition-opacity inline-block"
+          aria-label="Home"
+          class="text-xl font-black tracking-tight text-neutral-950 dark:text-white font-heading hover:opacity-80 transition-opacity inline-block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#52FF1A] rounded"
         >
           &lt;&nbsp;yovan&nbsp;/&gt;
         </a>
@@ -29,87 +30,87 @@ const currentYear = new Date().getFullYear();
       <!-- Right Columns: Navigation & Connect -->
       <div class="md:col-span-7 grid grid-cols-2 sm:grid-cols-3 gap-8">
         <!-- Navigation -->
-        <div class="space-y-3">
-          <span class="font-heading font-bold text-xs uppercase tracking-wider text-neutral-950 dark:text-white block">
+        <nav aria-label="Footer Navigation" class="space-y-3">
+          <h3 class="font-heading font-bold text-xs uppercase tracking-wider text-neutral-950 dark:text-white block m-0">
             Navigation
-          </span>
-          <ul class="space-y-2 text-xs">
+          </h3>
+          <ul class="space-y-2 text-xs list-none p-0 m-0">
             <li>
-              <a href={`${base}/`} class="hover:text-neutral-950 dark:hover:text-white transition-colors">
+              <a href={`${base}/`} class="hover:text-neutral-950 dark:hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#52FF1A] rounded">
                 Home
               </a>
             </li>
             <li>
-              <a href={`${base}/#about`} class="hover:text-neutral-950 dark:hover:text-white transition-colors">
+              <a href={`${base}/#about`} class="hover:text-neutral-950 dark:hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#52FF1A] rounded">
                 About
               </a>
             </li>
             <li>
-              <a href={`${base}/#projects`} class="hover:text-neutral-950 dark:hover:text-white transition-colors">
+              <a href={`${base}/#projects`} class="hover:text-neutral-950 dark:hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#52FF1A] rounded">
                 Featured Work
               </a>
             </li>
             <li>
-              <a href={`${base}/portfolio-index`} class="hover:text-neutral-950 dark:hover:text-white transition-colors">
+              <a href={`${base}/portfolio-index`} class="hover:text-neutral-950 dark:hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#52FF1A] rounded">
                 Portfolio Index
               </a>
             </li>
           </ul>
-        </div>
+        </nav>
 
         <!-- Ecosystem & Showcase -->
-        <div class="space-y-3">
-          <span class="font-heading font-bold text-xs uppercase tracking-wider text-neutral-950 dark:text-white block">
+        <nav aria-label="Systems and Design" class="space-y-3">
+          <h3 class="font-heading font-bold text-xs uppercase tracking-wider text-neutral-950 dark:text-white block m-0">
             Systems & Design
-          </span>
-          <ul class="space-y-2 text-xs">
+          </h3>
+          <ul class="space-y-2 text-xs list-none p-0 m-0">
             <li>
-              <a href={`${base}/component-library`} class="hover:text-[#52FF1A] transition-colors flex items-center gap-1">
+              <a href={`${base}/component-library`} class="hover:text-[#52FF1A] transition-colors flex items-center gap-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#52FF1A] rounded">
                 <span>UI Primitives</span>
-                <span class="text-[10px] font-mono text-neutral-400 dark:text-neutral-500">↗</span>
+                <span class="text-[10px] font-mono text-neutral-400 dark:text-neutral-500" aria-hidden="true">↗</span>
               </a>
             </li>
             <li>
-              <a href="https://navoyovan.github.io/hypebox/" target="_blank" rel="noopener noreferrer" class="hover:text-neutral-950 dark:hover:text-white transition-colors flex items-center gap-1">
+              <a href="https://navoyovan.github.io/hypebox/" target="_blank" rel="noopener noreferrer" aria-label="Hypebox Project (opens in new tab)" class="hover:text-neutral-950 dark:hover:text-white transition-colors flex items-center gap-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#52FF1A] rounded">
                 <span>Hypebox</span>
-                <span class="text-[10px] font-mono text-neutral-400 dark:text-neutral-500">↗</span>
+                <span class="text-[10px] font-mono text-neutral-400 dark:text-neutral-500" aria-hidden="true">↗</span>
               </a>
             </li>
             <li>
-              <a href="https://navoyovan.github.io/photobooth-kiosk-demo/" target="_blank" rel="noopener noreferrer" class="hover:text-neutral-950 dark:hover:text-white transition-colors flex items-center gap-1">
+              <a href="https://navoyovan.github.io/photobooth-kiosk-demo/" target="_blank" rel="noopener noreferrer" aria-label="Photobooth Kiosk Demo (opens in new tab)" class="hover:text-neutral-950 dark:hover:text-white transition-colors flex items-center gap-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#52FF1A] rounded">
                 <span>Kiosk Demo</span>
-                <span class="text-[10px] font-mono text-neutral-400 dark:text-neutral-500">↗</span>
+                <span class="text-[10px] font-mono text-neutral-400 dark:text-neutral-500" aria-hidden="true">↗</span>
               </a>
             </li>
           </ul>
-        </div>
+        </nav>
 
         <!-- Connect -->
-        <div class="space-y-3 col-span-2 sm:col-span-1">
-          <span class="font-heading font-bold text-xs uppercase tracking-wider text-neutral-950 dark:text-white block">
+        <nav aria-label="Connect Links" class="space-y-3 col-span-2 sm:col-span-1">
+          <h3 class="font-heading font-bold text-xs uppercase tracking-wider text-neutral-950 dark:text-white block m-0">
             Connect
-          </span>
-          <ul class="space-y-2 text-xs">
+          </h3>
+          <ul class="space-y-2 text-xs list-none p-0 m-0">
             <li>
-              <a href="https://github.com/navoyovan" target="_blank" rel="noopener noreferrer" class="hover:text-neutral-950 dark:hover:text-white transition-colors flex items-center gap-1.5">
+              <a href="https://github.com/navoyovan" target="_blank" rel="noopener noreferrer" aria-label="GitHub Profile (opens in new tab)" class="hover:text-neutral-950 dark:hover:text-white transition-colors flex items-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#52FF1A] rounded">
                 <i class="ti ti-brand-github text-sm" aria-hidden="true"></i>
                 <span>GitHub</span>
               </a>
             </li>
             <li>
-              <a href="https://linkedin.com/in/yovan-g-d-22379ba7/" target="_blank" rel="noopener noreferrer" class="hover:text-neutral-950 dark:hover:text-white transition-colors flex items-center gap-1.5">
+              <a href="https://linkedin.com/in/yovan-g-d-22379ba7/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn Profile (opens in new tab)" class="hover:text-neutral-950 dark:hover:text-white transition-colors flex items-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#52FF1A] rounded">
                 <i class="ti ti-brand-linkedin text-sm" aria-hidden="true"></i>
                 <span>LinkedIn</span>
               </a>
             </li>
             <li>
-              <a href="mailto:yovangunardio@gmail.com" class="hover:text-neutral-950 dark:hover:text-white transition-colors flex items-center gap-1.5">
+              <a href="mailto:yovangunardio@gmail.com" aria-label="Send email to Yovan" class="hover:text-neutral-950 dark:hover:text-white transition-colors flex items-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#52FF1A] rounded">
                 <i class="ti ti-mail text-sm" aria-hidden="true"></i>
                 <span>Email</span>
               </a>
             </li>
           </ul>
-        </div>
+        </nav>
       </div>
     </div>
 
@@ -119,11 +120,11 @@ const currentYear = new Date().getFullYear();
         <span class="font-heading font-bold text-neutral-950 dark:text-white">
           Yovan Gunardio Darmawan
         </span>
-        <span class="select-none">•</span>
+        <span class="select-none" aria-hidden="true">•</span>
         <span>&copy; {currentYear}</span>
-        <span class="hidden sm:inline select-none">•</span>
+        <span class="hidden sm:inline select-none" aria-hidden="true">•</span>
         <span class="text-[11px] text-neutral-400 dark:text-neutral-600">
-          Map tiles by <a href="https://carto.com/attributions" target="_blank" rel="noopener noreferrer" class="hover:underline hover:text-neutral-600 dark:hover:text-neutral-300">CARTO</a> &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer" class="hover:underline hover:text-neutral-600 dark:hover:text-neutral-300">OpenStreetMap</a>
+          Map tiles by <a href="https://carto.com/attributions" target="_blank" rel="noopener noreferrer" aria-label="CARTO map tile attribution (opens in new tab)" class="hover:underline hover:text-neutral-600 dark:hover:text-neutral-300">CARTO</a> &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer" aria-label="OpenStreetMap copyright notice (opens in new tab)" class="hover:underline hover:text-neutral-600 dark:hover:text-neutral-300">OpenStreetMap</a>
         </span>
       </div>
 

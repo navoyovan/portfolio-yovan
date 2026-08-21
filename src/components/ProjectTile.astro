@@ -95,38 +95,40 @@ const titleId = `tile-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
   <!-- Content Section (Compact Easter Egg Card Format) -->
   <div class="p-4 sm:p-5 flex flex-col flex-1 gap-3">
     <!-- Category Tag -->
-    <span class="font-sans text-[11px] uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-semibold">
+    <p class="font-sans text-[11px] uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-semibold m-0">
       {category}
-    </span>
+    </p>
 
     <!-- Syne Title -->
     <h3
       id={titleId}
-      class="text-lg sm:text-xl font-bold text-neutral-950 dark:text-white tracking-tight leading-tight group-hover:text-[#52FF1A] transition-colors font-heading"
+      class="text-lg sm:text-xl font-bold text-neutral-950 dark:text-white tracking-tight leading-tight group-hover:text-[#52FF1A] transition-colors font-heading m-0"
     >
       {title}
     </h3>
 
     <!-- Outfit Description -->
     {description && (
-      <p class="font-sans text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed font-normal">
+      <p class="font-sans text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed font-normal m-0">
         {description}
       </p>
     )}
 
     <!-- Tags Row -->
     {tags.length > 0 && (
-      <div class="flex flex-wrap gap-1.5 pt-0.5">
+      <ul class="flex flex-wrap gap-2 pt-1 list-none p-0 m-0" aria-label="Tags">
         {tags.map((tag) => (
-          <span class="font-sans text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2.5 py-0.5 rounded">
-            {tag}
-          </span>
+          <li>
+            <span class="font-sans text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2.5 py-1 rounded inline-block">
+              {tag}
+            </span>
+          </li>
         ))}
-      </div>
+      </ul>
     )}
 
     <!-- Action Link / Metadata Footer -->
-    <div class="mt-auto pt-3 border-t border-neutral-200/80 dark:border-neutral-800/80 flex items-center justify-between gap-2">
+    <div class="mt-auto pt-3.5 border-t border-neutral-200/80 dark:border-neutral-800/80 flex items-center justify-between gap-3">
       {metaText ? (
         <span class="font-mono text-[11px] text-neutral-400 dark:text-neutral-500 truncate">
           {metaText}
@@ -139,7 +141,7 @@ const titleId = `tile-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
           href={href}
           target={isExternal ? '_blank' : undefined}
           rel={isExternal ? 'noopener noreferrer' : undefined}
-          aria-label={`${actionText}: ${title}`}
+          aria-label={`${actionText}: ${title}${isExternal ? ' (opens in new tab)' : ''}`}
           class="group/action relative z-10 font-sans text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-neutral-500 dark:text-neutral-400 hover:text-[#52FF1A] transition-colors flex items-center gap-1 shrink-0 ml-auto focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#52FF1A] rounded px-1"
         >
           <span class="group-hover/action:underline underline-offset-4 decoration-[#52FF1A]">

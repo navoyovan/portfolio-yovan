@@ -163,15 +163,15 @@ const base = rawBase.endsWith('/') ? rawBase.slice(0, -1) : rawBase;
       id="hero-map-badge"
       aria-label="Toggle Jabodetabek Map View"
       title="Click to expand view to Jabodetabek"
-      class="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-white/85 dark:bg-black/70 hover:bg-white dark:hover:bg-neutral-900 backdrop-blur-xl border border-neutral-300/90 dark:border-neutral-700/80 hover:border-neutral-900 dark:hover:border-white shadow-md select-none pointer-events-auto cursor-pointer self-start lg:self-end mb-2 text-neutral-800 dark:text-neutral-200 active:scale-95 transition-all duration-200 group/badge focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#52FF1A] focus-visible:ring-offset-2 dark:focus-visible:ring-offset-neutral-950"
+      class="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-white/85 dark:bg-black/70 hover:bg-white dark:hover:bg-neutral-900 backdrop-blur-xl border border-neutral-300/90 dark:border-neutral-700/80 hover:border-neutral-900 dark:hover:border-white shadow-md select-none pointer-events-auto cursor-pointer self-start lg:self-end mb-2 text-neutral-800 dark:text-neutral-200 active:scale-95 transition-[transform,background-color,color,border-color,opacity,box-shadow] duration-200 group/badge focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#52FF1A] focus-visible:ring-offset-2 dark:focus-visible:ring-offset-neutral-950"
     >
       <span class="relative flex h-2 w-2 shrink-0">
-        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#52FF1A] opacity-75"></span>
+        <span class="motion-safe:animate-ping absolute inline-flex h-full w-full rounded-full bg-[#52FF1A] opacity-75"></span>
         <span class="relative inline-flex rounded-full h-2 w-2 bg-[#52FF1A]"></span>
       </span>
       <span
         id="hero-map-badge-text"
-        class="font-mono text-xs font-medium tracking-wide transition-all duration-200"
+        class="font-mono text-xs font-medium tracking-wide transition-[transform,color,opacity] duration-200"
       >
         BOGOR, ID &bull; UTC+7
       </span>

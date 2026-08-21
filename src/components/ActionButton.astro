@@ -8,6 +8,7 @@ interface Props {
   class?: string;
   type?: 'button' | 'submit' | 'reset';
   id?: string;
+  ariaLabel?: string;
   [key: string]: any;
 }
 
@@ -19,6 +20,7 @@ const {
   class: className = '',
   type = 'button',
   id,
+  ariaLabel,
   ...rest
 } = Astro.props;
 
@@ -41,10 +43,13 @@ const variantStyles = {
 
 <Tag
   id={id}
-  href={href}
+  href={href && !disabled ? href : (href && disabled ? undefined : href)}
   type={!href ? type : undefined}
   disabled={!href && disabled ? true : undefined}
-  class:list={[baseStyles, sizeStyles[size], variantStyles[variant], className]}
+  aria-disabled={href && disabled ? 'true' : undefined}
+  tabindex={href && disabled ? -1 : undefined}
+  aria-label={ariaLabel || rest['aria-label']}
+  class:list={[baseStyles, sizeStyles[size], variantStyles[variant], className, href && disabled ? 'opacity-35 cursor-not-allowed pointer-events-none' : '']}
   {...rest}
 >
   <slot />

@@ -8,17 +8,26 @@ interface Props {
 const { class: className = "" } = Astro.props;
 ---
 
-<div class:list={[
-  "w-full relative flex justify-center items-center select-none py-4 system-topology-wrapper",
-  className
-]}>
+<div
+  role="button"
+  tabindex="0"
+  aria-label="Toggle system architecture exploded view"
+  class:list={[
+    "w-full relative flex justify-center items-center select-none py-4 system-topology-wrapper cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#52FF1A] rounded-lg",
+    className
+  ]}
+>
   <!-- SVG Exploded Isometric Diagram (Floating) -->
   <svg
     viewBox="-80 0 580 740"
-    class="w-full h-auto max-w-[480px] overflow-visible drop-shadow-[0_16px_36px_rgba(0,0,0,0.3)] dark:drop-shadow-[0_24px_50px_rgba(0,0,0,0.85)] relative z-10"
+    role="img"
+    aria-labelledby="topology-title topology-desc"
+    class="w-full h-auto max-w-[480px] overflow-visible drop-shadow-[0_16px_36px_rgba(0,0,0,0.3)] dark:drop-shadow-[0_24px_50px_rgba(0,0,0,0.85)] relative z-10 pointer-events-none"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
+    <title id="topology-title">HYPE-BOX System Architecture Diagram</title>
+    <desc id="topology-desc">An exploded isometric diagram showing 4 layers: Client Layer (Electron Kiosk App) at top, Persistence (MySQL and GCS Buckets) second, Laravel API Core Backend third, and Tenant Portal (Vite + React Dashboard) at the base.</desc>
     <defs>
       <!-- Gradients -->
       <linearGradient id="glass-top-grad" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -444,11 +453,30 @@ const { class: className = "" } = Astro.props;
         }
       }
 
+      function toggleExplosion() {
+        targetProgress = targetProgress > 0.5 ? 0 : 1;
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (prefersReducedMotion) {
+          currentProgress = targetProgress;
+          updateLayers(currentProgress);
+        } else {
+          if (!animFrameId) {
+            animFrameId = requestAnimationFrame(renderLoop);
+          }
+        }
+      }
+
       // Interactive Click-to-Toggle between Collapsed (0) and Exploded (1)
       wrapper.addEventListener('click', () => {
-        targetProgress = targetProgress > 0.5 ? 0 : 1;
-        if (!animFrameId) {
-          animFrameId = requestAnimationFrame(renderLoop);
+        toggleExplosion();
+      });
+
+      // Keyboard support for Enter and Space
+      wrapper.addEventListener('keydown', (e: Event) => {
+        const keyEvent = e as KeyboardEvent;
+        if (keyEvent.key === 'Enter' || keyEvent.key === ' ') {
+          keyEvent.preventDefault();
+          toggleExplosion();
         }
       });
 

@@ -42,7 +42,13 @@ const {
 } = Astro.props;
 ---
 
-<div class="app-window relative w-full max-w-sm sm:max-w-md mx-auto lg:mx-0 rounded-2xl sm:rounded-3xl border border-neutral-300/80 dark:border-neutral-800/80 bg-[#fcfbf9] dark:bg-[#0e0e0e] overflow-hidden shadow-2xl shadow-black/10 dark:shadow-black/50 aspect-square group">
+<div
+  class="app-window relative w-full max-w-sm sm:max-w-md mx-auto lg:mx-0 rounded-2xl sm:rounded-3xl border border-neutral-300/80 dark:border-neutral-800/80 bg-[#fcfbf9] dark:bg-[#0e0e0e] overflow-hidden shadow-2xl shadow-black/10 dark:shadow-black/50 aspect-square group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#52FF1A]"
+  role="region"
+  aria-roledescription="carousel"
+  aria-label="Project Application Showcase"
+  tabindex="0"
+>
   <!-- Slides Viewport -->
   <div class="relative w-full h-full overflow-hidden bg-neutral-950">
     {items.map((item, idx) => (
@@ -52,6 +58,7 @@ const {
           idx === 0 ? "opacity-100 z-10" : "opacity-0 z-0 pointer-events-none"
         ]}
         data-slide-index={idx}
+        aria-hidden={idx === 0 ? "false" : "true"}
       >
         <img
           src={item.image}
@@ -64,7 +71,11 @@ const {
     ))}
 
     <!-- Floating Minimal Carousel Indicator -->
-    <div class="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/50 backdrop-blur-md border border-white/10">
+    <div
+      class="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/50 backdrop-blur-md border border-white/10"
+      role="group"
+      aria-label="Slide controls"
+    >
       {items.map((_, idx) => (
         <button
           type="button"
@@ -76,6 +87,7 @@ const {
               : "w-1.5 bg-white/40 hover:bg-white/70"
           ]}
           aria-label={`Go to slide ${idx + 1}`}
+          aria-current={idx === 0 ? "true" : "false"}
         />
       ))}
     </div>
@@ -92,21 +104,26 @@ const {
 
       let currentIdx = 0;
       let interval: any = null;
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
       const setSlide = (index: number) => {
-        currentIdx = index;
+        currentIdx = (index + slides.length) % slides.length;
         slides.forEach((slide, sIdx) => {
-          if (sIdx === index) {
+          if (sIdx === currentIdx) {
             slide.classList.remove('opacity-0', 'pointer-events-none', 'z-0');
             slide.classList.add('opacity-100', 'z-10');
+            slide.setAttribute('aria-hidden', 'false');
           } else {
             slide.classList.remove('opacity-100', 'z-10');
             slide.classList.add('opacity-0', 'pointer-events-none', 'z-0');
+            slide.setAttribute('aria-hidden', 'true');
           }
         });
 
         bullets.forEach((bullet, bIdx) => {
-          if (bIdx === index) {
+          const isCurrent = bIdx === currentIdx;
+          bullet.setAttribute('aria-current', isCurrent ? 'true' : 'false');
+          if (isCurrent) {
             bullet.classList.add('w-5', 'bg-white');
             bullet.classList.remove('w-1.5', 'bg-white/40');
           } else {
@@ -126,11 +143,39 @@ const {
 
       const resetInterval = () => {
         if (interval) clearInterval(interval);
+        if (prefersReducedMotion) return; // Do not auto-advance if reduced motion is requested
         interval = setInterval(() => {
-          const next = (currentIdx + 1) % slides.length;
-          setSlide(next);
+          setSlide(currentIdx + 1);
         }, 5000);
       };
+
+      // Keyboard left/right arrow navigation
+      win.addEventListener('keydown', (e: Event) => {
+        const keyEvent = e as KeyboardEvent;
+        if (keyEvent.key === 'ArrowLeft') {
+          keyEvent.preventDefault();
+          setSlide(currentIdx - 1);
+          resetInterval();
+        } else if (keyEvent.key === 'ArrowRight') {
+          keyEvent.preventDefault();
+          setSlide(currentIdx + 1);
+          resetInterval();
+        }
+      });
+
+      // Pause on hover / focus
+      win.addEventListener('mouseenter', () => {
+        if (interval) clearInterval(interval);
+      });
+      win.addEventListener('mouseleave', () => {
+        resetInterval();
+      });
+      win.addEventListener('focusin', () => {
+        if (interval) clearInterval(interval);
+      });
+      win.addEventListener('focusout', () => {
+        resetInterval();
+      });
 
       resetInterval();
     });

@@ -9,6 +9,20 @@ const navItems = [
   { label: 'Component Library', href: `${base}/component-library` },
   { label: 'Portfolio Index', href: `${base}/portfolio-index` },
 ];
+
+const homeNavItems = [
+  { label: 'Overview', href: `${base}/#intro`, number: '01' },
+  { label: 'Featured Work', href: `${base}/#projects`, number: '02' },
+  { label: 'What I Can Build', href: `${base}/#capabilities`, number: '03' },
+  { label: 'Philosophy', href: `${base}/#philosophy`, number: '04' },
+  { label: 'About', href: `${base}/#about`, number: '05' },
+  { label: 'Contact', href: `${base}/#contact`, number: '06' },
+];
+
+const secondaryNavItems = [
+  { label: 'Component Library', href: `${base}/component-library` },
+  { label: 'Portfolio Index', href: `${base}/portfolio-index` },
+];
 ---
 
 <header
@@ -28,10 +42,10 @@ const navItems = [
       </a>
     </div>
 
-    <div class="flex items-center gap-1.5 sm:gap-3">
+    <div class="flex items-center gap-2.5 sm:gap-3">
       <!-- Desktop Navigation -->
       <nav aria-label="Main Navigation" class="hidden md:block">
-        <ul class="flex items-center gap-1 sm:gap-2">
+        <ul class="flex items-center gap-1.5 sm:gap-2">
           {navItems.map((item) => {
             const itemPath = item.href.replace(/\/$/, '');
             const normalizedPathname = pathname.replace(/\/$/, '');
@@ -56,7 +70,7 @@ const navItems = [
         </ul>
       </nav>
 
-      <div class="hidden md:block h-4 w-px bg-neutral-200 dark:bg-neutral-800 mx-0.5"></div>
+      <div class="hidden md:block h-4 w-px bg-neutral-200 dark:bg-neutral-800 mx-1"></div>
 
       <!-- Theme Toggle Button -->
       <button
@@ -69,6 +83,7 @@ const navItems = [
         <!-- Sun Icon (shown in dark mode to switch to light) -->
         <svg
           id="theme-toggle-sun"
+          aria-hidden="true"
           class="w-4 h-4 hidden"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
@@ -91,6 +106,7 @@ const navItems = [
         <!-- Moon Icon (shown in light mode to switch to dark) -->
         <svg
           id="theme-toggle-moon"
+          aria-hidden="true"
           class="w-4 h-4 hidden"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
@@ -100,7 +116,7 @@ const navItems = [
           stroke-linecap="round"
           stroke-linejoin="round"
         >
-          <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+          <path d="M12 3a6 6 0 0 0 9 9 9 0 1 1-9-9Z"></path>
         </svg>
       </button>
 
@@ -129,49 +145,101 @@ const navItems = [
   <div
     id="mobile-menu-drawer"
     aria-hidden="true"
-    class="md:hidden absolute top-full left-0 w-full bg-[#fcfbf9]/90 dark:bg-[#0e0e0e]/90 border-b border-neutral-300/80 dark:border-neutral-800/80 shadow-2xl transition-all duration-300 ease-out -translate-y-4 opacity-0 pointer-events-none z-50 overflow-hidden"
+    class="md:hidden absolute top-full left-0 w-full bg-[#fcfbf9]/95 dark:bg-[#0e0e0e]/95 border-b border-neutral-300/80 dark:border-neutral-800/80 shadow-2xl transition-all duration-300 ease-out -translate-y-4 opacity-0 pointer-events-none z-50 max-h-[calc(100dvh-4.5rem)] overflow-y-auto"
   >
-    <div class="px-6 py-8 flex flex-col gap-4 text-left items-start">
-      {navItems.map((item) => {
-        const itemPath = item.href.replace(/\/$/, '');
-        const normalizedPathname = pathname.replace(/\/$/, '');
-        const isActive = normalizedPathname === itemPath || (item.href !== homeHref && normalizedPathname.startsWith(itemPath));
-        return (
-          <a
-            href={item.href}
-            class:list={[
-              'mobile-nav-link font-heading font-bold text-2xl uppercase tracking-tight transition-colors text-left w-full',
-              isActive
-                ? 'text-neutral-950 dark:text-white font-black'
-                : 'text-neutral-600 dark:text-neutral-400 hover:text-neutral-950 dark:hover:text-white',
-            ]}
-            aria-current={isActive ? 'page' : undefined}
-          >
-            {item.label}
-          </a>
-        );
-      })}
-
-      <!-- Contact Links (Aligned on the Left) -->
-      <div class="w-full mt-4 pt-6 border-t border-neutral-200/80 dark:border-neutral-800/80 flex items-center justify-start gap-6 text-xs text-neutral-500 dark:text-neutral-400 font-mono">
-        <a
-          href="https://github.com/navoyovan"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="hover:text-neutral-950 dark:hover:text-white transition-colors"
-        >
-          GitHub
-        </a>
-        <a
-          href="https://linkedin.com/in/yovan-g-d-22379ba7/"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="hover:text-neutral-950 dark:hover:text-white transition-colors"
-        >
-          LinkedIn
-        </a>
+    <nav aria-label="Mobile Navigation" class="px-6 py-6 sm:py-8 flex flex-col gap-5 text-left items-start">
+      <!-- Home Navigation Sections -->
+      <div class="w-full flex flex-col gap-2">
+        <span class="text-[11px] font-mono font-semibold uppercase tracking-wider text-neutral-400 dark:text-neutral-500 select-none">
+          // Home
+        </span>
+        <ul class="w-full flex flex-col gap-1 list-none m-0 p-0" aria-label="Home Sections">
+          {homeNavItems.map((item) => (
+            <li>
+              <a
+                href={item.href}
+                class="mobile-nav-link group flex items-center justify-between py-1.5 text-sm sm:text-base font-heading font-bold uppercase tracking-tight text-neutral-700 dark:text-neutral-300 hover:text-neutral-950 dark:hover:text-white transition-colors text-left w-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#52FF1A] rounded"
+              >
+                <span>{item.label}</span>
+                <span class="text-[10px] font-mono text-neutral-400 dark:text-neutral-600 group-hover:text-[#52FF1A] transition-colors">
+                  {item.number}
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
       </div>
-    </div>
+
+      <!-- Divider -->
+      <div class="w-full h-px bg-neutral-200/80 dark:bg-neutral-800/80 my-0.5"></div>
+
+      <!-- Pages / Component Library Section -->
+      <div class="w-full flex flex-col gap-2">
+        <span class="text-[11px] font-mono font-semibold uppercase tracking-wider text-neutral-400 dark:text-neutral-500 select-none">
+          // Pages
+        </span>
+        <ul class="w-full flex flex-col gap-1 list-none m-0 p-0" aria-label="Additional Pages">
+          {secondaryNavItems.map((item) => {
+            const itemPath = item.href.replace(/\/$/, '');
+            const normalizedPathname = pathname.replace(/\/$/, '');
+            const isActive = normalizedPathname === itemPath || (item.href !== homeHref && normalizedPathname.startsWith(itemPath));
+            return (
+              <li>
+                <a
+                  href={item.href}
+                  class:list={[
+                    'mobile-nav-link group flex items-center justify-between py-1.5 text-sm sm:text-base font-heading font-bold uppercase tracking-tight transition-colors text-left w-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#52FF1A] rounded',
+                    isActive
+                      ? 'text-neutral-950 dark:text-white font-black'
+                      : 'text-neutral-700 dark:text-neutral-300 hover:text-neutral-950 dark:hover:text-white',
+                  ]}
+                  aria-current={isActive ? 'page' : undefined}
+                >
+                  <span>{item.label}</span>
+                  <span class="text-xs font-mono text-neutral-400 dark:text-neutral-500 group-hover:text-[#52FF1A] transition-colors">
+                    →
+                  </span>
+                </a>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+
+      <!-- Contact Links (Left) & Fullscreen Toggle (Right) -->
+      <div class="w-full mt-6 pt-6 border-t border-neutral-200/80 dark:border-neutral-800/80 flex items-center justify-between text-xs text-neutral-500 dark:text-neutral-400 font-mono">
+        <div class="flex items-center gap-6 sm:gap-8">
+          <a
+            href="https://github.com/navoyovan"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="hover:text-neutral-950 dark:hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#52FF1A] rounded py-0.5"
+            aria-label="GitHub Profile (opens in new tab)"
+          >
+            GitHub
+          </a>
+          <a
+            href="https://linkedin.com/in/yovan-g-d-22379ba7/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="hover:text-neutral-950 dark:hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#52FF1A] rounded py-0.5"
+            aria-label="LinkedIn Profile (opens in new tab)"
+          >
+            LinkedIn
+          </a>
+        </div>
+
+        <button
+          id="mobile-fullscreen-toggle"
+          type="button"
+          aria-label="Toggle Fullscreen Mode"
+          aria-pressed="false"
+          class="px-2 py-1 -mr-1 rounded hover:text-neutral-950 dark:hover:text-white hover:bg-neutral-200/50 dark:hover:bg-neutral-800/50 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#52FF1A]"
+        >
+          <span id="fullscreen-text" class="text-xs uppercase tracking-wider">Fullscreen</span>
+        </button>
+      </div>
+    </nav>
   </div>
 
   <!-- Mobile Menu Dark Backdrop Overlay -->
@@ -210,6 +278,7 @@ const navItems = [
     const updateIcons = () => {
       const isDark = document.documentElement.classList.contains('dark');
       toggleBtn.setAttribute('aria-pressed', String(isDark));
+      toggleBtn.setAttribute('aria-label', isDark ? 'Switch to light theme' : 'Switch to dark theme');
       if (isDark) {
         sunIcon.classList.remove('hidden');
         moonIcon.classList.add('hidden');
@@ -251,10 +320,32 @@ const navItems = [
 
     let isOpen = false;
 
+    const getFocusableInDrawer = (): HTMLElement[] => {
+      return Array.from(
+        drawer.querySelectorAll<HTMLElement>('a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])')
+      ).filter(el => !el.hasAttribute('disabled') && el.offsetParent !== null);
+    };
+
+    const updateDrawerTabIndex = (open: boolean) => {
+      const focusables = drawer.querySelectorAll<HTMLElement>('a, button');
+      focusables.forEach((el) => {
+        if (open) {
+          el.removeAttribute('tabindex');
+        } else {
+          el.setAttribute('tabindex', '-1');
+        }
+      });
+    };
+
+    // Initial state: drawer elements are not focusable
+    updateDrawerTabIndex(false);
+
     const setMenuState = (open: boolean) => {
       isOpen = open;
       toggleBtn.setAttribute('aria-expanded', open.toString());
+      toggleBtn.setAttribute('aria-label', open ? 'Close Navigation Menu' : 'Open Navigation Menu');
       drawer.setAttribute('aria-hidden', (!open).toString());
+      updateDrawerTabIndex(open);
 
       if (open) {
         drawer.classList.remove('-translate-y-4', 'opacity-0', 'pointer-events-none');
@@ -265,6 +356,13 @@ const navItems = [
         }
         bar1.style.transform = 'translateY(4px) rotate(45deg)';
         bar2.style.transform = 'translateY(-4px) rotate(-45deg)';
+
+        requestAnimationFrame(() => {
+          const focusables = getFocusableInDrawer();
+          if (focusables.length > 0) {
+            focusables[0].focus();
+          }
+        });
       } else {
         drawer.classList.remove('translate-y-0', 'opacity-100', 'pointer-events-auto');
         drawer.classList.add('-translate-y-4', 'opacity-0', 'pointer-events-none');
@@ -287,6 +385,7 @@ const navItems = [
       backdrop.onclick = (e) => {
         e.stopPropagation();
         setMenuState(false);
+        toggleBtn.focus();
       };
     }
 
@@ -297,11 +396,35 @@ const navItems = [
       });
     });
 
-    // Close on Escape key
+    // Keyboard navigation & Focus Trap
     const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && isOpen) {
+      if (!isOpen) return;
+
+      if (e.key === 'Escape') {
+        e.preventDefault();
         setMenuState(false);
         toggleBtn.focus();
+        return;
+      }
+
+      if (e.key === 'Tab') {
+        const focusables = getFocusableInDrawer();
+        if (focusables.length === 0) return;
+
+        const firstEl = focusables[0];
+        const lastEl = focusables[focusables.length - 1];
+
+        if (e.shiftKey) {
+          if (document.activeElement === firstEl || document.activeElement === toggleBtn) {
+            e.preventDefault();
+            lastEl.focus();
+          }
+        } else {
+          if (document.activeElement === lastEl) {
+            e.preventDefault();
+            firstEl.focus();
+          }
+        }
       }
     };
     document.removeEventListener('keydown', onKeyDown);
@@ -311,6 +434,7 @@ const navItems = [
     const onDocClick = (e: MouseEvent) => {
       if (isOpen && !drawer.contains(e.target as Node) && !toggleBtn.contains(e.target as Node)) {
         setMenuState(false);
+        toggleBtn.focus();
       }
     };
     document.removeEventListener('click', onDocClick);
@@ -326,10 +450,83 @@ const navItems = [
     window.addEventListener('resize', onResize);
   };
 
+  const setupFullscreenToggle = () => {
+    const toggleBtn = document.getElementById('mobile-fullscreen-toggle');
+    const textSpan = document.getElementById('fullscreen-text');
+    if (!toggleBtn) return;
+
+    const isFullscreen = () => {
+      const doc = document as any;
+      return !!(
+        doc.fullscreenElement ||
+        doc.webkitFullscreenElement ||
+        doc.mozFullScreenElement ||
+        doc.msFullscreenElement
+      );
+    };
+
+    const updateUI = () => {
+      const active = isFullscreen();
+      toggleBtn.setAttribute('aria-pressed', String(active));
+      toggleBtn.setAttribute('aria-label', active ? 'Exit Fullscreen Mode' : 'Toggle Fullscreen Mode');
+      if (textSpan) {
+        textSpan.textContent = active ? 'Exit' : 'Fullscreen';
+      }
+    };
+
+    updateUI();
+
+    toggleBtn.onclick = async (e) => {
+      e.stopPropagation();
+      try {
+        if (!isFullscreen()) {
+          const docEl = document.documentElement as any;
+          if (docEl.requestFullscreen) {
+            await docEl.requestFullscreen();
+          } else if (docEl.webkitRequestFullscreen) {
+            await docEl.webkitRequestFullscreen();
+          } else if (docEl.mozRequestFullScreen) {
+            await docEl.mozRequestFullScreen();
+          } else if (docEl.msRequestFullscreen) {
+            await docEl.msRequestFullscreen();
+          }
+        } else {
+          const doc = document as any;
+          if (doc.exitFullscreen) {
+            await doc.exitFullscreen();
+          } else if (doc.webkitExitFullscreen) {
+            await doc.webkitExitFullscreen();
+          } else if (doc.mozCancelFullScreen) {
+            await doc.mozCancelFullScreen();
+          } else if (doc.msExitFullscreen) {
+            await doc.msExitFullscreen();
+          }
+        }
+      } catch (err) {
+        console.warn('Fullscreen toggle failed:', err);
+      }
+      updateUI();
+    };
+
+    const onFullscreenChange = () => {
+      updateUI();
+    };
+
+    document.removeEventListener('fullscreenchange', onFullscreenChange);
+    document.addEventListener('fullscreenchange', onFullscreenChange);
+    document.removeEventListener('webkitfullscreenchange', onFullscreenChange);
+    document.addEventListener('webkitfullscreenchange', onFullscreenChange);
+    document.removeEventListener('mozfullscreenchange', onFullscreenChange);
+    document.addEventListener('mozfullscreenchange', onFullscreenChange);
+    document.removeEventListener('MSFullscreenChange', onFullscreenChange);
+    document.addEventListener('MSFullscreenChange', onFullscreenChange);
+  };
+
   const initNavbar = () => {
     setupLogoScroll();
     setupThemeToggle();
     setupMobileMenu();
+    setupFullscreenToggle();
   };
 
   if (document.readyState === 'loading') {

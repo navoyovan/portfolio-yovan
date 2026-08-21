@@ -274,7 +274,18 @@ body {
   }
 
   .animate-blob-morph,
-  .animate-kiosk-pulse {
+  .animate-kiosk-pulse,
+  .animate-ping,
+  .animate-pulse {
     animation: none !important;
+  }
+
+  .hero-h1-bracket-l,
+  .hero-h1-bracket-r,
+  .hero-h2-semi,
+  .hero-h3-slashes,
+  .egg-popup-modal {
+    transition: none !important;
+    transform: none !important;
   }
 }

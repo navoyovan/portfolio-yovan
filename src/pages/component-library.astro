@@ -175,33 +175,33 @@ import SystemTopology from '../components/SystemTopology.astro';
           </div>
 
           <div class="space-y-8 border-l-2 border-neutral-200 dark:border-neutral-800 pl-6">
-            <!-- H1 Display -->
+            <!-- H1 Display Specimen -->
             <div class="flex flex-col gap-2">
-              <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight text-neutral-950 dark:text-white">
+              <p class="font-heading text-4xl sm:text-5xl font-extrabold tracking-tight text-neutral-950 dark:text-white" aria-hidden="true">
                 Systemata Visualia Architectata
-              </h1>
+              </p>
               <div class="flex flex-col">
                 <span class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100">Heading 1 / Display</span>
                 <span class="font-mono text-[11px] text-neutral-500">Syne 800 • text-4xl sm:text-5xl • tracking-tight</span>
               </div>
             </div>
 
-            <!-- H2 Section -->
+            <!-- H2 Section Specimen -->
             <div class="flex flex-col gap-2">
-              <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-neutral-950 dark:text-white" style="font-family: var(--font-heading);">
+              <p class="font-heading text-2xl sm:text-3xl font-bold tracking-tight text-neutral-950 dark:text-white" aria-hidden="true">
                 Architectura Editorialis et Interfacies
-              </h2>
+              </p>
               <div class="flex flex-col">
                 <span class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100">Heading 2 / Section</span>
                 <span class="font-mono text-[11px] text-neutral-500">Syne 700 • text-2xl sm:text-3xl • tracking-tight</span>
               </div>
             </div>
 
-            <!-- H3 Subtitle -->
+            <!-- H3 Subtitle Specimen -->
             <div class="flex flex-col gap-2">
-              <h3 class="text-lg sm:text-xl font-bold tracking-normal text-neutral-950 dark:text-white">
+              <p class="font-heading text-lg sm:text-xl font-bold tracking-normal text-neutral-950 dark:text-white" aria-hidden="true">
                 Elementa Interactiva et Fundamenta Telemetriae
-              </h3>
+              </p>
               <div class="flex flex-col">
                 <span class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100">Heading 3 / Subtitle</span>
                 <span class="font-mono text-[11px] text-neutral-500">Syne 700 • text-lg sm:text-xl</span>
@@ -374,7 +374,7 @@ import SystemTopology from '../components/SystemTopology.astro';
           <span class="font-mono text-[11px] text-neutral-500">brand type mark • Syne 700 titles • 5 items</span>
         </div>
 
-        <div class="border border-neutral-300/80 dark:border-neutral-800 bg-[#f6f4ee] dark:bg-[#141414] p-5 sm:p-7 space-y-6 font-sans rounded-md">
+        <div class="border border-neutral-300/80 dark:border-neutral-800 bg-[#f6f4ee] dark:bg-[#141414] p-5 sm:p-7 space-y-7 font-sans rounded-md">
           <!-- Top Logo Header: Typography Logo -->
           <div class="flex items-center gap-3 pb-4 border-b border-neutral-200/80 dark:border-neutral-800/80">
             <div class="text-xl sm:text-2xl font-black tracking-tight text-neutral-950 dark:text-white leading-none font-heading">
@@ -387,9 +387,9 @@ import SystemTopology from '../components/SystemTopology.astro';
 
           <!-- Items 1 to 5 -->
           <!-- Item 1 -->
-          <div class="space-y-1.5 group">
-            <div class="flex items-center gap-2 sm:gap-2.5 flex-wrap sm:flex-nowrap min-w-0">
-              <span class="text-neutral-400 dark:text-neutral-600 select-none font-sans font-medium text-sm shrink-0">├──</span>
+          <div class="space-y-2 group">
+            <div class="flex items-center gap-x-3 gap-y-1 flex-wrap sm:flex-nowrap min-w-0">
+              <span class="text-neutral-400 dark:text-neutral-600 select-none font-sans font-medium text-sm shrink-0" aria-hidden="true">├──</span>
               <span class="text-xs text-neutral-500 font-semibold font-sans shrink-0">2026</span>
               <h3
                 class="text-sm sm:text-base text-neutral-950 dark:text-white group-hover:text-[#52FF1A] transition-colors font-sans font-heading font-bold"
@@ -398,11 +398,12 @@ import SystemTopology from '../components/SystemTopology.astro';
                   href="https://navoyovan.github.io/hypebox/"
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label="HYPE-BOX Pagina Prima (opens in new tab)"
                   class="hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#52FF1A] rounded px-0.5 inline-flex items-center gap-1.5"
                 >
                   <span>HYPE-BOX Pagina Prima</span>
                   <span class="opacity-30 group-hover:opacity-100 transition-all duration-150 text-neutral-500 dark:text-neutral-400 group-hover:!text-[#52FF1A]">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 sm:w-4 sm:h-4" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 sm:w-4 sm:h-4" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                       <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                       <path d="M17 7l-10 10" />
                       <path d="M8 7l9 0l0 9" />
@@ -411,21 +412,21 @@ import SystemTopology from '../components/SystemTopology.astro';
                 </a>
               </h3>
             </div>
-            <div class="pl-7 sm:pl-8 text-[11px] text-neutral-400 dark:text-neutral-500 flex items-center gap-1.5 font-sans flex-wrap">
-              <span class="text-neutral-300 dark:text-neutral-700 select-none">└──</span>
+            <div class="pl-7 sm:pl-8 text-[11px] text-neutral-400 dark:text-neutral-500 flex items-center gap-x-2 gap-y-1 font-sans flex-wrap">
+              <span class="text-neutral-300 dark:text-neutral-700 select-none" aria-hidden="true">└──</span>
               <span class="text-neutral-400 dark:text-neutral-600 font-medium shrink-0 mr-1">stack:</span>
-              <span class="text-neutral-500 dark:text-neutral-400 flex items-center flex-wrap">
+              <span class="text-neutral-500 dark:text-neutral-400 flex items-center flex-wrap gap-x-2 gap-y-1">
                 <span>Astro</span>
-                <span class="text-neutral-300 dark:text-neutral-700 mx-1.5 select-none text-[8px]">•</span>
+                <span class="text-neutral-300 dark:text-neutral-700 select-none text-[8px]" aria-hidden="true">•</span>
                 <span>Tailwind CSS v4</span>
               </span>
             </div>
           </div>
 
           <!-- Item 2 -->
-          <div class="space-y-1.5 group">
-            <div class="flex items-center gap-2 sm:gap-2.5 flex-wrap sm:flex-nowrap min-w-0">
-              <span class="text-neutral-400 dark:text-neutral-600 select-none font-sans font-medium text-sm shrink-0">├──</span>
+          <div class="space-y-2 group">
+            <div class="flex items-center gap-x-3 gap-y-1 flex-wrap sm:flex-nowrap min-w-0">
+              <span class="text-neutral-400 dark:text-neutral-600 select-none font-sans font-medium text-sm shrink-0" aria-hidden="true">├──</span>
               <span class="text-xs text-neutral-500 font-semibold font-sans shrink-0">2026</span>
               <h3
                 class="text-sm sm:text-base text-neutral-950 dark:text-white group-hover:text-[#52FF1A] transition-colors font-sans font-heading font-bold"
@@ -433,25 +434,25 @@ import SystemTopology from '../components/SystemTopology.astro';
                 Taberna Photographica
               </h3>
             </div>
-            <div class="pl-7 sm:pl-8 text-[11px] text-neutral-400 dark:text-neutral-500 flex items-center gap-1.5 font-sans flex-wrap">
-              <span class="text-neutral-300 dark:text-neutral-700 select-none">└──</span>
+            <div class="pl-7 sm:pl-8 text-[11px] text-neutral-400 dark:text-neutral-500 flex items-center gap-x-2 gap-y-1 font-sans flex-wrap">
+              <span class="text-neutral-300 dark:text-neutral-700 select-none" aria-hidden="true">└──</span>
               <span class="text-neutral-400 dark:text-neutral-600 font-medium shrink-0 mr-1">stack:</span>
-              <span class="text-neutral-500 dark:text-neutral-400 flex items-center flex-wrap">
+              <span class="text-neutral-500 dark:text-neutral-400 flex items-center flex-wrap gap-x-2 gap-y-1">
                 <span>Electron</span>
-                <span class="text-neutral-300 dark:text-neutral-700 mx-1.5 select-none text-[8px]">•</span>
+                <span class="text-neutral-300 dark:text-neutral-700 select-none text-[8px]" aria-hidden="true">•</span>
                 <span>React 19</span>
-                <span class="text-neutral-300 dark:text-neutral-700 mx-1.5 select-none text-[8px]">•</span>
+                <span class="text-neutral-300 dark:text-neutral-700 select-none text-[8px]" aria-hidden="true">•</span>
                 <span>Anime.js</span>
-                <span class="text-neutral-300 dark:text-neutral-700 mx-1.5 select-none text-[8px]">•</span>
+                <span class="text-neutral-300 dark:text-neutral-700 select-none text-[8px]" aria-hidden="true">•</span>
                 <span>Vite</span>
               </span>
             </div>
           </div>
 
           <!-- Item 3 -->
-          <div class="space-y-1.5 group">
-            <div class="flex items-center gap-2 sm:gap-2.5 flex-wrap sm:flex-nowrap min-w-0">
-              <span class="text-neutral-400 dark:text-neutral-600 select-none font-sans font-medium text-sm shrink-0">├──</span>
+          <div class="space-y-2 group">
+            <div class="flex items-center gap-x-3 gap-y-1 flex-wrap sm:flex-nowrap min-w-0">
+              <span class="text-neutral-400 dark:text-neutral-600 select-none font-sans font-medium text-sm shrink-0" aria-hidden="true">├──</span>
               <span class="text-xs text-neutral-500 font-semibold font-sans shrink-0">2026</span>
               <h3
                 class="text-sm sm:text-base text-neutral-950 dark:text-white group-hover:text-[#52FF1A] transition-colors font-sans font-heading font-bold"
@@ -459,25 +460,25 @@ import SystemTopology from '../components/SystemTopology.astro';
                 Porta Curatoris Tabernae
               </h3>
             </div>
-            <div class="pl-7 sm:pl-8 text-[11px] text-neutral-400 dark:text-neutral-500 flex items-center gap-1.5 font-sans flex-wrap">
-              <span class="text-neutral-300 dark:text-neutral-700 select-none">└──</span>
+            <div class="pl-7 sm:pl-8 text-[11px] text-neutral-400 dark:text-neutral-500 flex items-center gap-x-2 gap-y-1 font-sans flex-wrap">
+              <span class="text-neutral-300 dark:text-neutral-700 select-none" aria-hidden="true">└──</span>
               <span class="text-neutral-400 dark:text-neutral-600 font-medium shrink-0 mr-1">stack:</span>
-              <span class="text-neutral-500 dark:text-neutral-400 flex items-center flex-wrap">
+              <span class="text-neutral-500 dark:text-neutral-400 flex items-center flex-wrap gap-x-2 gap-y-1">
                 <span>React 19</span>
-                <span class="text-neutral-300 dark:text-neutral-700 mx-1.5 select-none text-[8px]">•</span>
+                <span class="text-neutral-300 dark:text-neutral-700 select-none text-[8px]" aria-hidden="true">•</span>
                 <span>Vite</span>
-                <span class="text-neutral-300 dark:text-neutral-700 mx-1.5 select-none text-[8px]">•</span>
+                <span class="text-neutral-300 dark:text-neutral-700 select-none text-[8px]" aria-hidden="true">•</span>
                 <span>CSS Modules</span>
-                <span class="text-neutral-300 dark:text-neutral-700 mx-1.5 select-none text-[8px]">•</span>
+                <span class="text-neutral-300 dark:text-neutral-700 select-none text-[8px]" aria-hidden="true">•</span>
                 <span>Anime.js</span>
               </span>
             </div>
           </div>
 
           <!-- Item 4 -->
-          <div class="space-y-1.5 group">
-            <div class="flex items-center gap-2 sm:gap-2.5 flex-wrap sm:flex-nowrap min-w-0">
-              <span class="text-neutral-400 dark:text-neutral-600 select-none font-sans font-medium text-sm shrink-0">├──</span>
+          <div class="space-y-2 group">
+            <div class="flex items-center gap-x-3 gap-y-1 flex-wrap sm:flex-nowrap min-w-0">
+              <span class="text-neutral-400 dark:text-neutral-600 select-none font-sans font-medium text-sm shrink-0" aria-hidden="true">├──</span>
               <span class="text-xs text-neutral-500 font-semibold font-sans shrink-0">2026</span>
               <h3
                 class="text-sm sm:text-base text-neutral-950 dark:text-white group-hover:text-[#52FF1A] transition-colors font-sans font-heading font-bold"
@@ -486,11 +487,12 @@ import SystemTopology from '../components/SystemTopology.astro';
                   href="https://navoyovan.github.io/photobooth-kiosk-demo/"
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label="Exemplum Tabernae Photographicae (opens in new tab)"
                   class="hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#52FF1A] rounded px-0.5 inline-flex items-center gap-1.5"
                 >
                   <span>Exemplum Tabernae Photographicae</span>
                   <span class="opacity-30 group-hover:opacity-100 transition-all duration-150 text-neutral-500 dark:text-neutral-400 group-hover:!text-[#52FF1A]">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 sm:w-4 sm:h-4" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 sm:w-4 sm:h-4" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                       <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                       <path d="M17 7l-10 10" />
                       <path d="M8 7l9 0l0 9" />
@@ -499,23 +501,23 @@ import SystemTopology from '../components/SystemTopology.astro';
                 </a>
               </h3>
             </div>
-            <div class="pl-7 sm:pl-8 text-[11px] text-neutral-400 dark:text-neutral-500 flex items-center gap-1.5 font-sans flex-wrap">
-              <span class="text-neutral-300 dark:text-neutral-700 select-none">└──</span>
+            <div class="pl-7 sm:pl-8 text-[11px] text-neutral-400 dark:text-neutral-500 flex items-center gap-x-2 gap-y-1 font-sans flex-wrap">
+              <span class="text-neutral-300 dark:text-neutral-700 select-none" aria-hidden="true">└──</span>
               <span class="text-neutral-400 dark:text-neutral-600 font-medium shrink-0 mr-1">stack:</span>
-              <span class="text-neutral-500 dark:text-neutral-400 flex items-center flex-wrap">
+              <span class="text-neutral-500 dark:text-neutral-400 flex items-center flex-wrap gap-x-2 gap-y-1">
                 <span>React 19</span>
-                <span class="text-neutral-300 dark:text-neutral-700 mx-1.5 select-none text-[8px]">•</span>
+                <span class="text-neutral-300 dark:text-neutral-700 select-none text-[8px]" aria-hidden="true">•</span>
                 <span>Anime.js</span>
-                <span class="text-neutral-300 dark:text-neutral-700 mx-1.5 select-none text-[8px]">•</span>
+                <span class="text-neutral-300 dark:text-neutral-700 select-none text-[8px]" aria-hidden="true">•</span>
                 <span>Vite</span>
               </span>
             </div>
           </div>
 
           <!-- Item 5 -->
-          <div class="space-y-1.5 group">
-            <div class="flex items-center gap-2 sm:gap-2.5 flex-wrap sm:flex-nowrap min-w-0">
-              <span class="text-neutral-400 dark:text-neutral-600 select-none font-sans font-medium text-sm shrink-0">└──</span>
+          <div class="space-y-2 group">
+            <div class="flex items-center gap-x-3 gap-y-1 flex-wrap sm:flex-nowrap min-w-0">
+              <span class="text-neutral-400 dark:text-neutral-600 select-none font-sans font-medium text-sm shrink-0" aria-hidden="true">└──</span>
               <span class="text-xs text-neutral-500 font-semibold font-sans shrink-0">2026</span>
               <h3
                 class="text-sm sm:text-base text-neutral-950 dark:text-white group-hover:text-[#52FF1A] transition-colors font-sans font-heading font-bold"
@@ -523,16 +525,16 @@ import SystemTopology from '../components/SystemTopology.astro';
                 <span>API REST et WebSocket Tabernae</span>
               </h3>
             </div>
-            <div class="pl-7 sm:pl-8 text-[11px] text-neutral-400 dark:text-neutral-500 flex items-center gap-1.5 font-sans flex-wrap">
-              <span class="text-neutral-300 dark:text-neutral-700 select-none">└──</span>
+            <div class="pl-7 sm:pl-8 text-[11px] text-neutral-400 dark:text-neutral-500 flex items-center gap-x-2 gap-y-1 font-sans flex-wrap">
+              <span class="text-neutral-300 dark:text-neutral-700 select-none" aria-hidden="true">└──</span>
               <span class="text-neutral-400 dark:text-neutral-600 font-medium shrink-0 mr-1">stack:</span>
-              <span class="text-neutral-500 dark:text-neutral-400 flex items-center flex-wrap">
+              <span class="text-neutral-500 dark:text-neutral-400 flex items-center flex-wrap gap-x-2 gap-y-1">
                 <span>Laravel 13</span>
-                <span class="text-neutral-300 dark:text-neutral-700 mx-1.5 select-none text-[8px]">•</span>
+                <span class="text-neutral-300 dark:text-neutral-700 select-none text-[8px]" aria-hidden="true">•</span>
                 <span>Reverb</span>
-                <span class="text-neutral-300 dark:text-neutral-700 mx-1.5 select-none text-[8px]">•</span>
+                <span class="text-neutral-300 dark:text-neutral-700 select-none text-[8px]" aria-hidden="true">•</span>
                 <span>Google Cloud Storage</span>
-                <span class="text-neutral-300 dark:text-neutral-700 mx-1.5 select-none text-[8px]">•</span>
+                <span class="text-neutral-300 dark:text-neutral-700 select-none text-[8px]" aria-hidden="true">•</span>
                 <span>Google Cloud Platform</span>
               </span>
             </div>
@@ -549,11 +551,11 @@ import SystemTopology from '../components/SystemTopology.astro';
           <span class="font-mono text-[11px] text-neutral-500">image/icon logo • Syne 700 titles • 3 items</span>
         </div>
 
-        <div class="border border-neutral-300/80 dark:border-neutral-800 bg-[#f6f4ee] dark:bg-[#141414] p-5 sm:p-7 space-y-6 font-sans rounded-md">
+        <div class="border border-neutral-300/80 dark:border-neutral-800 bg-[#f6f4ee] dark:bg-[#141414] p-5 sm:p-7 space-y-7 font-sans rounded-md">
           <!-- Top Logo Header: Image Logo -->
           <div class="flex items-center gap-3 pb-4 border-b border-neutral-200/80 dark:border-neutral-800/80">
-            <div class="w-8 h-8 rounded bg-neutral-900 dark:bg-white flex items-center justify-center text-white dark:text-neutral-900 font-black text-sm select-none shadow-sm">
-              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <div class="w-8 h-8 rounded bg-neutral-900 dark:bg-white flex items-center justify-center text-white dark:text-neutral-900 font-black text-sm select-none shadow-sm" aria-hidden="true">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
               </svg>
             </div>
@@ -569,9 +571,9 @@ import SystemTopology from '../components/SystemTopology.astro';
 
           <!-- Items 1 to 3 -->
           <!-- Item 1 -->
-          <div class="space-y-1.5 group">
-            <div class="flex items-center gap-2 sm:gap-2.5 flex-wrap sm:flex-nowrap min-w-0">
-              <span class="text-neutral-400 dark:text-neutral-600 select-none font-sans font-medium text-sm shrink-0">├──</span>
+          <div class="space-y-2 group">
+            <div class="flex items-center gap-x-3 gap-y-1 flex-wrap sm:flex-nowrap min-w-0">
+              <span class="text-neutral-400 dark:text-neutral-600 select-none font-sans font-medium text-sm shrink-0" aria-hidden="true">├──</span>
               <span class="text-xs text-neutral-500 font-semibold font-sans shrink-0">2025</span>
               <h3
                 class="text-sm sm:text-base text-neutral-950 dark:text-white group-hover:text-[#52FF1A] transition-colors font-sans font-heading font-bold"
@@ -580,11 +582,12 @@ import SystemTopology from '../components/SystemTopology.astro';
                   href="https://github.com/navoyovan/interactive-map"
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label="Systema Cartographicum Interactivum (opens in new tab)"
                   class="hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#52FF1A] rounded px-0.5 inline-flex items-center gap-1.5"
                 >
                   <span>Systema Cartographicum Interactivum</span>
                   <span class="opacity-30 group-hover:opacity-100 transition-all duration-150 text-neutral-500 dark:text-neutral-400 group-hover:!text-[#52FF1A]">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 sm:w-4 sm:h-4" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 sm:w-4 sm:h-4" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                       <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                       <path d="M17 7l-10 10" />
                       <path d="M8 7l9 0l0 9" />
@@ -593,23 +596,23 @@ import SystemTopology from '../components/SystemTopology.astro';
                 </a>
               </h3>
             </div>
-            <div class="pl-7 sm:pl-8 text-[11px] text-neutral-400 dark:text-neutral-500 flex items-center gap-1.5 font-sans flex-wrap">
-              <span class="text-neutral-300 dark:text-neutral-700 select-none">└──</span>
+            <div class="pl-7 sm:pl-8 text-[11px] text-neutral-400 dark:text-neutral-500 flex items-center gap-x-2 gap-y-1 font-sans flex-wrap">
+              <span class="text-neutral-300 dark:text-neutral-700 select-none" aria-hidden="true">└──</span>
               <span class="text-neutral-400 dark:text-neutral-600 font-medium shrink-0 mr-1">stack:</span>
-              <span class="text-neutral-500 dark:text-neutral-400 flex items-center flex-wrap">
+              <span class="text-neutral-500 dark:text-neutral-400 flex items-center flex-wrap gap-x-2 gap-y-1">
                 <span>Laravel</span>
-                <span class="text-neutral-300 dark:text-neutral-700 mx-1.5 select-none text-[8px]">•</span>
+                <span class="text-neutral-300 dark:text-neutral-700 select-none text-[8px]" aria-hidden="true">•</span>
                 <span>Leaflet.js</span>
-                <span class="text-neutral-300 dark:text-neutral-700 mx-1.5 select-none text-[8px]">•</span>
+                <span class="text-neutral-300 dark:text-neutral-700 select-none text-[8px]" aria-hidden="true">•</span>
                 <span>Tailwind</span>
               </span>
             </div>
           </div>
 
           <!-- Item 2 -->
-          <div class="space-y-1.5 group">
-            <div class="flex items-center gap-2 sm:gap-2.5 flex-wrap sm:flex-nowrap min-w-0">
-              <span class="text-neutral-400 dark:text-neutral-600 select-none font-sans font-medium text-sm shrink-0">├──</span>
+          <div class="space-y-2 group">
+            <div class="flex items-center gap-x-3 gap-y-1 flex-wrap sm:flex-nowrap min-w-0">
+              <span class="text-neutral-400 dark:text-neutral-600 select-none font-sans font-medium text-sm shrink-0" aria-hidden="true">├──</span>
               <span class="text-xs text-neutral-500 font-semibold font-sans shrink-0">2026</span>
               <h3
                 class="text-sm sm:text-base text-neutral-950 dark:text-white group-hover:text-[#52FF1A] transition-colors font-sans font-heading font-bold"
@@ -617,23 +620,23 @@ import SystemTopology from '../components/SystemTopology.astro';
                 Director Fluminis Telemetriae
               </h3>
             </div>
-            <div class="pl-7 sm:pl-8 text-[11px] text-neutral-400 dark:text-neutral-500 flex items-center gap-1.5 font-sans flex-wrap">
-              <span class="text-neutral-300 dark:text-neutral-700 select-none">└──</span>
+            <div class="pl-7 sm:pl-8 text-[11px] text-neutral-400 dark:text-neutral-500 flex items-center gap-x-2 gap-y-1 font-sans flex-wrap">
+              <span class="text-neutral-300 dark:text-neutral-700 select-none" aria-hidden="true">└──</span>
               <span class="text-neutral-400 dark:text-neutral-600 font-medium shrink-0 mr-1">stack:</span>
-              <span class="text-neutral-500 dark:text-neutral-400 flex items-center flex-wrap">
+              <span class="text-neutral-500 dark:text-neutral-400 flex items-center flex-wrap gap-x-2 gap-y-1">
                 <span>Node.js</span>
-                <span class="text-neutral-300 dark:text-neutral-700 mx-1.5 select-none text-[8px]">•</span>
+                <span class="text-neutral-300 dark:text-neutral-700 select-none text-[8px]" aria-hidden="true">•</span>
                 <span>Redis</span>
-                <span class="text-neutral-300 dark:text-neutral-700 mx-1.5 select-none text-[8px]">•</span>
+                <span class="text-neutral-300 dark:text-neutral-700 select-none text-[8px]" aria-hidden="true">•</span>
                 <span>WebSockets</span>
               </span>
             </div>
           </div>
 
           <!-- Item 3 -->
-          <div class="space-y-1.5 group">
-            <div class="flex items-center gap-2 sm:gap-2.5 flex-wrap sm:flex-nowrap min-w-0">
-              <span class="text-neutral-400 dark:text-neutral-600 select-none font-sans font-medium text-sm shrink-0">├──</span>
+          <div class="space-y-2 group">
+            <div class="flex items-center gap-x-3 gap-y-1 flex-wrap sm:flex-nowrap min-w-0">
+              <span class="text-neutral-400 dark:text-neutral-600 select-none font-sans font-medium text-sm shrink-0" aria-hidden="true">└──</span>
               <span class="text-xs text-neutral-500 font-semibold font-sans shrink-0">2026</span>
               <h3
                 class="text-sm sm:text-base text-neutral-950 dark:text-white group-hover:text-[#52FF1A] transition-colors font-sans font-heading font-bold"
@@ -641,12 +644,12 @@ import SystemTopology from '../components/SystemTopology.astro';
                 Series Libellorum OWASP
               </h3>
             </div>
-            <div class="pl-7 sm:pl-8 text-[11px] text-neutral-400 dark:text-neutral-500 flex items-center gap-1.5 font-sans flex-wrap">
-              <span class="text-neutral-300 dark:text-neutral-700 select-none">└──</span>
+            <div class="pl-7 sm:pl-8 text-[11px] text-neutral-400 dark:text-neutral-500 flex items-center gap-x-2 gap-y-1 font-sans flex-wrap">
+              <span class="text-neutral-300 dark:text-neutral-700 select-none" aria-hidden="true">└──</span>
               <span class="text-neutral-400 dark:text-neutral-600 font-medium shrink-0 mr-1">stack:</span>
-              <span class="text-neutral-500 dark:text-neutral-400 flex items-center flex-wrap">
+              <span class="text-neutral-500 dark:text-neutral-400 flex items-center flex-wrap gap-x-2 gap-y-1">
                 <span>Threat Modeling</span>
-                <span class="text-neutral-300 dark:text-neutral-700 mx-1.5 select-none text-[8px]">•</span>
+                <span class="text-neutral-300 dark:text-neutral-700 select-none text-[8px]" aria-hidden="true">•</span>
                 <span>Security Specs</span>
               </span>
             </div>

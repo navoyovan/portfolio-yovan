@@ -169,19 +169,32 @@ const {
       if (badgeBtn) {
         badgeBtn.addEventListener('click', () => {
           isJabodetabek = !isJabodetabek;
+          badgeBtn.setAttribute('aria-pressed', String(isJabodetabek));
+          const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
           if (isJabodetabek) {
             const target = getJabodetabekTarget();
-            map.flyTo(target.center, target.zoom, { duration: 1.4 });
+            if (prefersReducedMotion) {
+              map.setView(target.center, target.zoom);
+            } else {
+              map.flyTo(target.center, target.zoom, { duration: 1.4 });
+            }
             setBadgeText('JABODETABEK &bull; UTC+7');
             badgeBtn.setAttribute('title', 'Click to focus on Bogor');
+            badgeBtn.setAttribute('aria-label', 'Focus map on Bogor');
             if (badgeIcon) {
               badgeIcon.className = 'ti ti-arrows-minimize text-xs text-neutral-400 group-hover/badge:text-neutral-900 dark:group-hover/badge:text-white transition-colors';
             }
           } else {
             const target = getBogorTarget();
-            map.flyTo(target.center, target.zoom, { duration: 1.4 });
+            if (prefersReducedMotion) {
+              map.setView(target.center, target.zoom);
+            } else {
+              map.flyTo(target.center, target.zoom, { duration: 1.4 });
+            }
             setBadgeText('BOGOR, ID &bull; UTC+7');
             badgeBtn.setAttribute('title', 'Click to expand view to Jabodetabek');
+            badgeBtn.setAttribute('aria-label', 'Expand map view to Jabodetabek');
             if (badgeIcon) {
               badgeIcon.className = 'ti ti-arrows-maximize text-xs text-neutral-400 group-hover/badge:text-neutral-900 dark:group-hover/badge:text-white transition-colors';
             }
