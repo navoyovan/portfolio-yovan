@@ -43,16 +43,15 @@ const {
 
 // Parse label for optional (subtext) pattern, e.g. "Username (optional)"
 const labelMatch = typeof label === 'string' ? label.match(/^(.*?)\s*(\(.*?\))$/) : null;
+const mainLabel = labelMatch ? labelMatch[1] : label;
+const subText = labelMatch ? labelMatch[2] : null;
 ---
 
 <div class:list={["ti-wrapper", className]}>
   {(label || (hasError && errorMsg) || (hasWarning && warningMsg) || (isSafe && safeMsg)) && (
     <div class="ti-label-row">
       {label && (
-        <label for={id} class="ti-label">
-          {labelMatch ? labelMatch[1] + ' ' : label}
-          {labelMatch && <span class="ti-label-subtext">{labelMatch[2]}</span>}
-        </label>
+        <label for={id} class="ti-label">{mainLabel}{subText && <span class="ti-label-subtext"> {subText}</span>}</label>
       )}
       <div class="ti-label-right">
         {hasError && errorMsg ? (
@@ -116,6 +115,12 @@ const labelMatch = typeof label === 'string' ? label.match(/^(.*?)\s*(\(.*?\))$/
     letter-spacing: 0.1em;
     color: #111111;
     cursor: default;
+  }
+
+  .ti-label::before,
+  .ti-label::after {
+    content: none !important;
+    display: none !important;
   }
 
   :global(.dark) .ti-label {

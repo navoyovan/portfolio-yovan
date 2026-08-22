@@ -121,7 +121,8 @@ const capabilities = [
     id="egg-backdrop"
     aria-hidden="true"
     class="sm:hidden fixed inset-0 z-40 bg-black/40 backdrop-blur-xs transition-opacity duration-200 opacity-0 pointer-events-none"
-  ></div>
+  >
+  </div>
 
   <!-- 01: JAM Digital Clock Floating Popup -->
   <div
@@ -173,7 +174,7 @@ const capabilities = [
           id="egg-clock-title"
           class="text-lg sm:text-xl font-bold text-neutral-950 dark:text-white tracking-tight leading-tight font-heading"
         >
-          Jam Digital (JavaScript Clock)
+          Jam Digital
         </h3>
 
         <!-- Description -->
@@ -185,7 +186,10 @@ const capabilities = [
         </p>
 
         <!-- Tags Row -->
-        <ul class="flex flex-wrap gap-1.5 sm:gap-2 pt-1 list-none p-0 m-0" aria-label="Tags">
+        <ul
+          class="flex flex-wrap gap-1.5 sm:gap-2 pt-1 list-none p-0 m-0"
+          aria-label="Tags"
+        >
           <li>
             <span
               class="font-sans text-[9px] sm:text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2 sm:px-2.5 py-0.5 sm:py-1 rounded inline-block"
@@ -276,7 +280,7 @@ const capabilities = [
           id="egg-modpe-title"
           class="text-base sm:text-lg font-bold text-neutral-950 dark:text-white tracking-tight leading-tight font-mono"
         >
-          Entity.setRenderType(mob, 3);
+          Game Mods
         </h3>
 
         <!-- Description -->
@@ -320,6 +324,118 @@ const capabilities = [
             class="font-mono text-[10px] text-neutral-400 dark:text-neutral-500"
           >
             MAY 7, 2014
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 03: WS2812B & GPIO16 Hardware Video Floating Popup -->
+  <div
+    id="egg-popup-ws2812b"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="egg-ws2812b-title"
+    class="egg-popup-modal popup-hidden fixed bottom-4 inset-x-0 mx-auto sm:inset-x-auto sm:right-6 sm:mx-0 sm:bottom-6 z-50 w-[92vw] max-w-[340px] sm:max-w-[370px] flex flex-col font-sans"
+  >
+    <!-- Floating Dismiss Text Above Popup (Centered on mobile) -->
+    <div class="flex items-center justify-center sm:justify-end mb-1 px-1">
+      <button
+        type="button"
+        aria-label="Dismiss WS2812B Hardware popup"
+        class="egg-popup-close font-mono text-xs text-red-500 hover:text-red-600 dark:text-red-400 dark:hover:text-red-300 hover:underline cursor-pointer select-none transition-colors p-0 bg-transparent border-0 flex items-center justify-center gap-1 w-full sm:w-auto text-center"
+      >
+        <span class="sm:hidden">↓ Swipe down to dismiss</span>
+        <span class="hidden sm:inline">Dismiss x [esc]</span>
+      </button>
+    </div>
+
+    <!-- Popup Card -->
+    <div
+      class="w-full bg-[#f6f4ee] dark:bg-[#141414] border border-neutral-300/80 dark:border-neutral-800 shadow-2xl shadow-black/40 overflow-hidden flex flex-col"
+    >
+      <!-- Media / Viewfinder Container (Full Bleed Vertical Video) -->
+      <div
+        class="relative w-full bg-black overflow-hidden border-b border-neutral-300/80 dark:border-neutral-800/80 select-none flex items-center justify-center"
+      >
+        <video
+          data-src={`${base}/whatisthis/PXL_20230410_134215282.CINEMATIC.webm`}
+          autoplay
+          loop
+          muted
+          playsinline
+          controls
+          class="w-full h-auto max-h-[55vh] sm:max-h-[58vh] object-contain block select-none bg-black"
+        ></video>
+      </div>
+
+      <!-- Content Section (Project Tile Format) -->
+      <div class="p-4 sm:p-5 flex flex-col flex-1 gap-3">
+        <!-- Category Tag -->
+        <span
+          class="font-sans text-[11px] uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-semibold"
+        >
+          02 // EASTER EGG &bull; HARDWARE LAB
+        </span>
+
+        <!-- Title -->
+        <h3
+          id="egg-ws2812b-title"
+          class="text-lg sm:text-xl font-bold text-neutral-950 dark:text-white tracking-tight leading-tight font-heading"
+        >
+          ESP8266 LED Controller
+        </h3>
+
+        <!-- Description -->
+        <p
+          class="font-sans text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed font-normal"
+        >
+          Microcontroller firmware experimenting with single-wire addressable
+          RGB LED timing signals, custom color chases, and hardware pulse
+          generation.
+        </p>
+
+        <!-- Tags Row -->
+        <ul
+          class="flex flex-wrap gap-1.5 sm:gap-2 pt-1 list-none p-0 m-0"
+          aria-label="Tags"
+        >
+          <li>
+            <span
+              class="font-sans text-[9px] sm:text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2 sm:px-2.5 py-0.5 sm:py-1 rounded inline-block"
+            >
+              WS2812B
+            </span>
+          </li>
+          <li>
+            <span
+              class="font-sans text-[9px] sm:text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2 sm:px-2.5 py-0.5 sm:py-1 rounded inline-block"
+            >
+              ESP8266
+            </span>
+          </li>
+          <li>
+            <span
+              class="font-sans text-[9px] sm:text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2 sm:px-2.5 py-0.5 sm:py-1 rounded inline-block"
+            >
+              EMBEDDED C++
+            </span>
+          </li>
+        </ul>
+
+        <!-- Metadata Footer -->
+        <div
+          class="mt-auto pt-3 border-t border-neutral-200/80 dark:border-neutral-800/80 flex items-center justify-between"
+        >
+          <span
+            class="font-mono text-[11px] text-neutral-400 dark:text-neutral-500 truncate"
+          >
+            PXL_20230410_134215282.CINEMATIC.webm
+          </span>
+          <span
+            class="font-mono text-[10px] text-neutral-400 dark:text-neutral-500"
+          >
+            APR 10, 2023
           </span>
         </div>
       </div>
@@ -382,6 +498,11 @@ const capabilities = [
           el.classList.remove("popup-visible");
           el.classList.add("popup-hidden");
         });
+        document.querySelectorAll(".egg-popup-modal video").forEach((v) => {
+          const video = v as HTMLVideoElement;
+          video.pause();
+          video.currentTime = 0;
+        });
         const backdrop = document.getElementById("egg-backdrop");
         if (backdrop) {
           backdrop.classList.remove("opacity-100", "pointer-events-auto");
@@ -401,9 +522,20 @@ const capabilities = [
         closeAllPopups();
         const popup = document.getElementById(id);
         if (!popup) return;
-        const iframe = popup.querySelector('iframe[data-src]') as HTMLIFrameElement | null;
+        const iframe = popup.querySelector(
+          "iframe[data-src]",
+        ) as HTMLIFrameElement | null;
         if (iframe && !iframe.src) {
-          iframe.src = iframe.dataset.src || '';
+          iframe.src = iframe.dataset.src || "";
+        }
+        const video = popup.querySelector(
+          "video[data-src]",
+        ) as HTMLVideoElement | null;
+        if (video) {
+          if (!video.src) {
+            video.src = video.dataset.src || "";
+          }
+          video.play().catch(() => {});
         }
         popup.style.transform = "";
         popup.style.opacity = "";
@@ -413,7 +545,7 @@ const capabilities = [
 
         // Focus close button inside popup for screen readers & keyboard users
         requestAnimationFrame(() => {
-          const closeBtn = popup.querySelector<HTMLElement>('.egg-popup-close');
+          const closeBtn = popup.querySelector<HTMLElement>(".egg-popup-close");
           closeBtn?.focus();
         });
 
@@ -462,7 +594,7 @@ const capabilities = [
           (e) => {
             if (e.cancelable) e.preventDefault();
           },
-          { passive: false }
+          { passive: false },
         );
       }
 
@@ -485,7 +617,7 @@ const capabilities = [
             isDragging = true;
             popup.style.transition = "none";
           },
-          { passive: true }
+          { passive: true },
         );
 
         popup.addEventListener(
@@ -500,7 +632,7 @@ const capabilities = [
               popup.style.opacity = `${Math.max(0.1, 1 - deltaY / 280)}`;
             }
           },
-          { passive: false }
+          { passive: false },
         );
 
         const endDrag = () => {
@@ -570,6 +702,8 @@ const capabilities = [
             togglePopup("egg-popup-clock");
           } else if (easterType === "modpe") {
             togglePopup("egg-popup-modpe");
+          } else if (easterType === "ws2812b" || easterType === "gpio") {
+            togglePopup("egg-popup-ws2812b");
           }
           return;
         }
@@ -584,7 +718,9 @@ const capabilities = [
 
       // Keyboard Trap & Escape Handling for Dialog Modals
       document.addEventListener("keydown", (e) => {
-        const activePopup = document.querySelector<HTMLElement>(".egg-popup-modal.popup-visible");
+        const activePopup = document.querySelector<HTMLElement>(
+          ".egg-popup-modal.popup-visible",
+        );
         if (!activePopup) return;
 
         if (e.key === "Escape") {
@@ -596,9 +732,11 @@ const capabilities = [
         if (e.key === "Tab") {
           const focusables = Array.from(
             activePopup.querySelectorAll<HTMLElement>(
-              'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
-            )
-          ).filter((el) => !el.hasAttribute("disabled") && el.offsetParent !== null);
+              'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])',
+            ),
+          ).filter(
+            (el) => !el.hasAttribute("disabled") && el.offsetParent !== null,
+          );
 
           if (focusables.length === 0) return;
           const firstEl = focusables[0];
@@ -623,7 +761,10 @@ const capabilities = [
   <!-- page wrapper: position relative so easter eggs scatter through scroll height -->
   <div class="relative">
     <!-- ░░ EASTER EGGS - Visual labels in background (z-0) ░░ -->
-    <div aria-hidden="true" class="absolute inset-0 pointer-events-none overflow-hidden z-0">
+    <div
+      aria-hidden="true"
+      class="absolute inset-0 pointer-events-none overflow-hidden z-0"
+    >
       <!-- 01: setTimeout(showTime, 1000); (Hero Top Left) -->
       <span
         class="egg-static absolute font-mono text-xs text-neutral-600 dark:text-neutral-300 select-none rotate-[-5deg]"
@@ -632,12 +773,14 @@ const capabilities = [
 
       <!-- 02: WS2812B (Hero Right) -->
       <span
+        id="egg-label-ws2812b"
         class="egg-static absolute font-mono text-xs text-neutral-600 dark:text-neutral-300 select-none rotate-[4deg]"
         style="top:11%;right:2%;">WS2812B</span
       >
 
       <!-- 03: GPIO16 (Between Hero & Sec 01) -->
       <span
+        id="egg-label-gpio16"
         class="egg-static absolute font-mono text-xs text-neutral-600 dark:text-neutral-300 select-none rotate-[-3deg]"
         style="top:21%;left:1.5%;">GPIO16</span
       >
@@ -689,6 +832,30 @@ const capabilities = [
 
     <!-- ░░ EASTER EGGS - Clickable Hitbox Layer in Front (z-30) ░░ -->
     <div class="absolute inset-0 pointer-events-none overflow-hidden z-30">
+      <!-- Hitbox for WS2812B -> Hardware Video -->
+      <button
+        type="button"
+        data-easter="ws2812b"
+        data-target-label="egg-label-ws2812b"
+        class="egg-hitbox absolute pointer-events-auto p-3 font-mono text-xs rotate-[4deg] focus-visible:opacity-100 focus-visible:bg-[#f6f4ee] dark:focus-visible:bg-[#141414] focus-visible:text-[#52FF1A] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#52FF1A] rounded"
+        style="top:10.5%;right:1.5%;"
+        aria-label="Unlock WS2812B LED Easter Egg"
+      >
+        WS2812B
+      </button>
+
+      <!-- Hitbox for GPIO16 -> Hardware Video -->
+      <button
+        type="button"
+        data-easter="gpio"
+        data-target-label="egg-label-gpio16"
+        class="egg-hitbox absolute pointer-events-auto p-3 font-mono text-xs rotate-[-3deg] focus-visible:opacity-100 focus-visible:bg-[#f6f4ee] dark:focus-visible:bg-[#141414] focus-visible:text-[#52FF1A] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#52FF1A] rounded"
+        style="top:20.5%;left:1%;"
+        aria-label="Unlock GPIO16 Easter Egg"
+      >
+        GPIO16
+      </button>
+
       <!-- Hitbox for DateTime.Now -> Jam Digital -->
       <button
         type="button"
@@ -735,34 +902,25 @@ const capabilities = [
           <!-- Left Column: Portrait Photo with Technical Halo -->
           <div
             class="lg:col-span-5 xl:col-span-5 lg:sticky lg:top-24 flex flex-col items-center justify-center pt-4 sm:pt-6"
+            style="transform: translateZ(0);"
           >
             <div
               class="relative w-full max-w-md sm:max-w-lg flex flex-col items-center justify-center border-b border-neutral-300/80 dark:border-neutral-800 overflow-hidden"
+              style="transform: translateZ(0); contain: paint;"
             >
               <!-- Texture Backdrop: Full Soft 3/4 Radial Mask -->
               <div
                 class="absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden [mask-image:radial-gradient(circle_at_50%_40%,black_35%,transparent_75%)]"
+                style="transform: translateZ(0); will-change: transform; backface-visibility: hidden;"
               >
                 <!-- tx1: Halftone dot pattern -->
                 <img
                   src={`${base}/images/tx1.jpg`}
                   alt=""
                   aria-hidden="true"
+                  loading="lazy"
+                  decoding="async"
                   class="absolute inset-0 w-full h-full object-cover object-center opacity-40 dark:opacity-30 mix-blend-multiply dark:mix-blend-screen dark:invert grayscale filter contrast-125"
-                />
-                <!-- tx2: Crumpled paper grain & creases -->
-                <img
-                  src={`${base}/images/tx2.jpg`}
-                  alt=""
-                  aria-hidden="true"
-                  class="absolute inset-0 w-full h-full object-cover object-center opacity-30 dark:opacity-20 mix-blend-multiply dark:mix-blend-screen dark:invert grayscale filter contrast-150"
-                />
-                <!-- tx3: Distressed vintage typography -->
-                <img
-                  src={`${base}/images/tx3.jpg`}
-                  alt=""
-                  aria-hidden="true"
-                  class="absolute inset-0 w-full h-full object-cover object-center opacity-35 dark:opacity-25 mix-blend-multiply dark:mix-blend-screen dark:invert grayscale filter contrast-150"
                 />
               </div>
 
@@ -795,64 +953,56 @@ const capabilities = [
               <li class="flex items-center gap-2.5">
                 <span
                   class="text-[#52FF1A] text-xs font-mono select-none font-bold"
-                  aria-hidden="true"
-                  >›</span
+                  aria-hidden="true">›</span
                 >
                 <span>A little bit of webapp in my life</span>
               </li>
               <li class="flex items-center gap-2.5">
                 <span
                   class="text-[#52FF1A] text-xs font-mono select-none font-bold"
-                  aria-hidden="true"
-                  >›</span
+                  aria-hidden="true">›</span
                 >
                 <span>A little bit of vscode by my side</span>
               </li>
               <li class="flex items-center gap-2.5">
                 <span
                   class="text-[#52FF1A] text-xs font-mono select-none font-bold"
-                  aria-hidden="true"
-                  >›</span
+                  aria-hidden="true">›</span
                 >
                 <span>A little bit of dashboard all I need</span>
               </li>
               <li class="flex items-center gap-2.5">
                 <span
                   class="text-[#52FF1A] text-xs font-mono select-none font-bold"
-                  aria-hidden="true"
-                  >›</span
+                  aria-hidden="true">›</span
                 >
                 <span>A little bit of touchscreen kiosk what I see</span>
               </li>
               <li class="flex items-center gap-2.5">
                 <span
                   class="text-[#52FF1A] text-xs font-mono select-none font-bold"
-                  aria-hidden="true"
-                  >›</span
+                  aria-hidden="true">›</span
                 >
                 <span>A little bit of 12v in the sun</span>
               </li>
               <li class="flex items-center gap-2.5">
                 <span
                   class="text-[#52FF1A] text-xs font-mono select-none font-bold"
-                  aria-hidden="true"
-                  >›</span
+                  aria-hidden="true">›</span
                 >
                 <span>A little bit of solder all night long</span>
               </li>
               <li class="flex items-center gap-2.5">
                 <span
                   class="text-[#52FF1A] text-xs font-mono select-none font-bold"
-                  aria-hidden="true"
-                  >›</span
+                  aria-hidden="true">›</span
                 >
                 <span>A little bit of LED, here I am</span>
               </li>
               <li class="flex items-center gap-2.5">
                 <span
                   class="text-[#52FF1A] text-xs font-mono select-none font-bold"
-                  aria-hidden="true"
-                  >›</span
+                  aria-hidden="true">›</span
                 >
                 <span>A little bit of git makes me your guy</span>
               </li>
@@ -908,7 +1058,9 @@ const capabilities = [
               </ul>
 
               <!-- Supporting Stack Divider & Container -->
-              <div class="mt-10 pt-8 border-t border-neutral-200/80 dark:border-neutral-800/80">
+              <div
+                class="mt-10 pt-8 border-t border-neutral-200/80 dark:border-neutral-800/80"
+              >
                 <h3
                   class="font-heading font-bold text-xs sm:text-sm uppercase tracking-wider text-neutral-500 dark:text-neutral-400 block m-0 pb-4"
                 >
@@ -978,8 +1130,8 @@ const capabilities = [
           <p
             class="text-base sm:text-lg text-neutral-600 dark:text-neutral-400 leading-relaxed font-normal"
           >
-            A collection of experiments, products, and projects where I tried to
-            solve a problem, learn something new, or just see "what if?"
+            A collection of projects, and products where I tried to solve a
+            problem, learn something new, or just see "what if?"
           </p>
         </div>
 
@@ -1006,7 +1158,9 @@ const capabilities = [
               </p>
             </div>
 
-            <div class="flex items-center gap-3 flex-wrap">
+            <div
+              class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full sm:w-auto"
+            >
               <ActionButton
                 variant="secondary"
                 size="sm"
@@ -1014,7 +1168,7 @@ const capabilities = [
                 target="_blank"
                 rel="noopener noreferrer"
                 ariaLabel="Launch Kiosk Demo (opens in new tab)"
-                class="group/btn overflow-hidden w-fit"
+                class="group/btn overflow-hidden w-full sm:w-auto max-sm:!py-[11px]"
               >
                 <div
                   class="inline-flex items-center translate-x-[10px] group-hover/btn:translate-x-0 transition-transform duration-200 ease-out"
@@ -1035,7 +1189,7 @@ const capabilities = [
                 target="_blank"
                 rel="noopener noreferrer"
                 ariaLabel="Visit Hypebox Site (opens in new tab)"
-                class="group/btn overflow-hidden w-fit"
+                class="group/btn overflow-hidden w-full sm:w-auto max-sm:!py-[11px]"
               >
                 <div
                   class="inline-flex items-center translate-x-[10px] group-hover/btn:translate-x-0 transition-transform duration-200 ease-out"
@@ -1056,132 +1210,288 @@ const capabilities = [
           <p
             class="text-sm sm:text-base text-neutral-700 dark:text-neutral-300 leading-relaxed max-w-3xl font-normal m-0"
           >
-            An integrated hardware-software pipeline orchestrating physical thermal printers, camera hardware, a touchscreen Electron client, real-time WebSocket telemetry, and cloud fleet management.
+            An integrated hardware-software pipeline orchestrating physical
+            thermal printers, camera hardware, a touchscreen Electron client,
+            real-time WebSocket telemetry, and cloud fleet management.
           </p>
 
           <!-- Pipeline Cards (1-line side-scroll on mobile, 4-col grid on desktop) -->
-          <div class="flex flex-nowrap overflow-x-auto gap-4 pb-4 pt-3 sm:pt-4 -mx-4 px-4 sm:mx-0 sm:px-0 lg:grid lg:grid-cols-4 lg:overflow-visible lg:pb-0 lg:gap-4 no-scrollbar">
-              
-              <!-- STAGE 01: Initiation & Payment -->
-              <div class="w-[280px] sm:w-[320px] lg:w-auto shrink-0 lg:shrink flex flex-col justify-between p-4 sm:p-5 bg-white/90 dark:bg-neutral-900/60 border border-neutral-300/80 dark:border-neutral-800 transition-all duration-200 hover:border-neutral-400 dark:hover:border-neutral-600 shadow-sm relative group">
-                <div class="flex flex-col flex-1 gap-3">
-                  <p class="font-sans text-[11px] uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-semibold m-0">
-                    Edge &rarr; API
-                  </p>
-                  <h4 class="text-lg sm:text-xl font-bold text-neutral-950 dark:text-white tracking-tight leading-tight group-hover:text-[#52FF1A] transition-colors font-heading m-0">
-                    Touch &amp; QRIS Payment
-                  </h4>
-                  <p class="font-sans text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed font-normal m-0">
-                    Customer taps package on Electron kiosk. Laravel REST API generates dynamic QRIS via Midtrans SNAP with instant webhook confirmation.
-                  </p>
-                </div>
-                <div class="mt-auto pt-3.5 border-t border-neutral-200/80 dark:border-neutral-800/80 space-y-2">
-                  <div class="flex items-center justify-between font-mono text-[10px] text-neutral-500 dark:text-neutral-400">
-                    <span>Protocol:</span>
-                    <span class="font-semibold text-neutral-700 dark:text-neutral-300">HTTPS / SNAP</span>
-                  </div>
-                  <ul class="flex flex-wrap gap-1.5 list-none p-0 m-0" aria-label="Tech tokens">
-                    <li><span class="font-sans text-[9px] sm:text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2 sm:px-2.5 py-0.5 rounded inline-block">ELECTRON</span></li>
-                    <li><span class="font-sans text-[9px] sm:text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2 sm:px-2.5 py-0.5 rounded inline-block">LARAVEL</span></li>
-                    <li><span class="font-sans text-[9px] sm:text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2 sm:px-2.5 py-0.5 rounded inline-block">MIDTRANS</span></li>
-                  </ul>
-                </div>
+          <div
+            class="flex flex-nowrap overflow-x-auto gap-4 pb-4 pt-3 sm:pt-4 -mx-4 px-4 sm:mx-0 sm:px-0 lg:grid lg:grid-cols-4 lg:overflow-visible lg:pb-0 lg:gap-4 no-scrollbar"
+          >
+            <!-- STAGE 01: Initiation & Payment -->
+            <div
+              class="w-[280px] sm:w-[320px] lg:w-auto shrink-0 lg:shrink flex flex-col justify-between p-4 sm:p-5 bg-white/90 dark:bg-neutral-900/60 border border-neutral-300/80 dark:border-neutral-800 transition-all duration-200 hover:border-neutral-400 dark:hover:border-neutral-600 shadow-sm relative group"
+            >
+              <div class="flex flex-col flex-1 gap-3">
+                <p
+                  class="font-sans text-[11px] uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-semibold m-0"
+                >
+                  Edge &rarr; API
+                </p>
+                <h4
+                  class="text-lg sm:text-xl font-bold text-neutral-950 dark:text-white tracking-tight leading-tight group-hover:text-[#52FF1A] transition-colors font-heading m-0"
+                >
+                  Touch &amp; QRIS Payment
+                </h4>
+                <p
+                  class="font-sans text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed font-normal m-0"
+                >
+                  Kiosk generates order. Laravel REST API generates dynamic QRIS
+                  via SNAP API with webhook confirmation.
+                </p>
               </div>
-
-              <!-- STAGE 02: Real-time Capture -->
-              <div class="w-[280px] sm:w-[320px] lg:w-auto shrink-0 lg:shrink flex flex-col justify-between p-4 sm:p-5 bg-white/90 dark:bg-neutral-900/60 border border-neutral-300/80 dark:border-neutral-800 transition-all duration-200 hover:border-neutral-400 dark:hover:border-neutral-600 shadow-sm relative group">
-                <div class="flex flex-col flex-1 gap-3">
-                  <p class="font-sans text-[11px] uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-semibold m-0">
-                    Camera Engine
-                  </p>
-                  <h4 class="text-lg sm:text-xl font-bold text-neutral-950 dark:text-white tracking-tight leading-tight group-hover:text-[#52FF1A] transition-colors font-heading m-0">
-                    60 FPS Viewfinder &amp; FX
-                  </h4>
-                  <p class="font-sans text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed font-normal m-0">
-                    Low-latency DSLR/USB camera loop with countdown burst. Canvas compositor renders multi-frame layouts and color grading with offline cache.
-                  </p>
+              <div
+                class="mt-auto pt-3.5 border-t border-neutral-200/80 dark:border-neutral-800/80 space-y-2"
+              >
+                <div
+                  class="flex items-center justify-between font-mono text-[10px] text-neutral-500 dark:text-neutral-400"
+                >
+                  <span>Protocol:</span>
+                  <span
+                    class="font-semibold text-neutral-700 dark:text-neutral-300"
+                    >REST / SNAP</span
+                  >
                 </div>
-                <div class="mt-auto pt-3.5 border-t border-neutral-200/80 dark:border-neutral-800/80 space-y-2">
-                  <div class="flex items-center justify-between font-mono text-[10px] text-neutral-500 dark:text-neutral-400">
-                    <span>Performance:</span>
-                    <span class="font-semibold text-neutral-700 dark:text-neutral-300">60 FPS / GPU Accel</span>
-                  </div>
-                  <ul class="flex flex-wrap gap-1.5 list-none p-0 m-0" aria-label="Tech tokens">
-                    <li><span class="font-sans text-[9px] sm:text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2 sm:px-2.5 py-0.5 rounded inline-block">REACT 19</span></li>
-                    <li><span class="font-sans text-[9px] sm:text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2 sm:px-2.5 py-0.5 rounded inline-block">CANVAS API</span></li>
-                    <li><span class="font-sans text-[9px] sm:text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2 sm:px-2.5 py-0.5 rounded inline-block">NODE IPC</span></li>
-                  </ul>
-                </div>
+                <ul
+                  class="flex flex-wrap gap-1.5 list-none p-0 m-0"
+                  aria-label="Tech tokens"
+                >
+                  <li>
+                    <span
+                      class="font-sans text-[9px] sm:text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2 sm:px-2.5 py-0.5 rounded inline-block"
+                      >ELECTRON</span
+                    >
+                  </li>
+                  <li>
+                    <span
+                      class="font-sans text-[9px] sm:text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2 sm:px-2.5 py-0.5 rounded inline-block"
+                      >LARAVEL</span
+                    >
+                  </li>
+                  <li>
+                    <span
+                      class="font-sans text-[9px] sm:text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2 sm:px-2.5 py-0.5 rounded inline-block"
+                      >SNAP API</span
+                    >
+                  </li>
+                </ul>
               </div>
-
-              <!-- STAGE 03: Cloud Sync & WebSockets -->
-              <div class="w-[280px] sm:w-[320px] lg:w-auto shrink-0 lg:shrink flex flex-col justify-between p-4 sm:p-5 bg-white/90 dark:bg-neutral-900/60 border border-neutral-300/80 dark:border-neutral-800 transition-all duration-200 hover:border-neutral-400 dark:hover:border-neutral-600 shadow-sm relative group">
-                <div class="flex flex-col flex-1 gap-3">
-                  <p class="font-sans text-[11px] uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-semibold m-0">
-                    Live Reverb &amp; GCS
-                  </p>
-                  <h4 class="text-lg sm:text-xl font-bold text-neutral-950 dark:text-white tracking-tight leading-tight group-hover:text-[#52FF1A] transition-colors font-heading m-0">
-                    WebSocket Push &amp; GCS
-                  </h4>
-                  <p class="font-sans text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed font-normal m-0">
-                    Composited strips sync to Google Cloud Storage while Laravel Reverb broadcasts real-time telemetry to connected operator dashboards.
-                  </p>
-                </div>
-                <div class="mt-auto pt-3.5 border-t border-neutral-200/80 dark:border-neutral-800/80 space-y-2">
-                  <div class="flex items-center justify-between font-mono text-[10px] text-neutral-500 dark:text-neutral-400">
-                    <span>Telemetry:</span>
-                    <span class="font-semibold text-neutral-700 dark:text-neutral-300">WebSocket / WSS</span>
-                  </div>
-                  <ul class="flex flex-wrap gap-1.5 list-none p-0 m-0" aria-label="Tech tokens">
-                    <li><span class="font-sans text-[9px] sm:text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2 sm:px-2.5 py-0.5 rounded inline-block">REVERB</span></li>
-                    <li><span class="font-sans text-[9px] sm:text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2 sm:px-2.5 py-0.5 rounded inline-block">GCS BUCKET</span></li>
-                    <li><span class="font-sans text-[9px] sm:text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2 sm:px-2.5 py-0.5 rounded inline-block">SQLITE</span></li>
-                  </ul>
-                </div>
-              </div>
-
-              <!-- STAGE 04: Hardware Print & Fleet -->
-              <div class="w-[280px] sm:w-[320px] lg:w-auto shrink-0 lg:shrink flex flex-col justify-between p-4 sm:p-5 bg-white/90 dark:bg-neutral-900/60 border border-neutral-300/80 dark:border-neutral-800 transition-all duration-200 hover:border-neutral-400 dark:hover:border-neutral-600 shadow-sm relative group">
-                <div class="flex flex-col flex-1 gap-3">
-                  <p class="font-sans text-[11px] uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-semibold m-0">
-                    Hardware &amp; Ops
-                  </p>
-                  <h4 class="text-lg sm:text-xl font-bold text-neutral-950 dark:text-white tracking-tight leading-tight group-hover:text-[#52FF1A] transition-colors font-heading m-0">
-                    Thermal Print &amp; Fleet Ops
-                  </h4>
-                  <p class="font-sans text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed font-normal m-0">
-                    Electron dispatches native ESC/POS print jobs to hardware thermal printers while Vendor Portal aggregates live sales revenue & telemetry.
-                  </p>
-                </div>
-                <div class="mt-auto pt-3.5 border-t border-neutral-200/80 dark:border-neutral-800/80 space-y-2">
-                  <div class="flex items-center justify-between font-mono text-[10px] text-neutral-500 dark:text-neutral-400">
-                    <span>Hardware:</span>
-                    <span class="font-semibold text-neutral-700 dark:text-neutral-300">USB ESC/POS Driver</span>
-                  </div>
-                  <ul class="flex flex-wrap gap-1.5 list-none p-0 m-0" aria-label="Tech tokens">
-                    <li><span class="font-sans text-[9px] sm:text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2 sm:px-2.5 py-0.5 rounded inline-block">THERMAL USB</span></li>
-                    <li><span class="font-sans text-[9px] sm:text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2 sm:px-2.5 py-0.5 rounded inline-block">REACT SPA</span></li>
-                    <li><span class="font-sans text-[9px] sm:text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2 sm:px-2.5 py-0.5 rounded inline-block">ASTRO SSG</span></li>
-                  </ul>
-                </div>
-              </div>
-
             </div>
 
-          <!-- Dual Visual Specimen Viewports: Kiosk Client & Vendor Portal -->
-          <div class="grid grid-cols-1 lg:grid-cols-2 gap-5 sm:gap-6 pt-4 sm:pt-6">
-            <!-- Specimen 1: Kiosk Touchscreen -->
-            <div class="group relative border border-neutral-300/80 dark:border-neutral-800 bg-white/60 dark:bg-neutral-900/40 flex flex-col justify-between overflow-hidden shadow-sm transition-all duration-200 hover:border-neutral-400 dark:hover:border-neutral-600">
-              <div class="p-4 sm:p-5 flex flex-col flex-1 gap-3">
-                <p class="font-sans text-[11px] uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-semibold m-0">
-                  STANDALONE APP
+            <!-- STAGE 02: Real-time Capture -->
+            <div
+              class="w-[280px] sm:w-[320px] lg:w-auto shrink-0 lg:shrink flex flex-col justify-between p-4 sm:p-5 bg-white/90 dark:bg-neutral-900/60 border border-neutral-300/80 dark:border-neutral-800 transition-all duration-200 hover:border-neutral-400 dark:hover:border-neutral-600 shadow-sm relative group"
+            >
+              <div class="flex flex-col flex-1 gap-3">
+                <p
+                  class="font-sans text-[11px] uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-semibold m-0"
+                >
+                  Camera Engine
                 </p>
-                <h4 class="text-lg sm:text-xl font-bold text-neutral-950 dark:text-white tracking-tight leading-tight group-hover:text-[#52FF1A] transition-colors font-heading m-0">Touchscreen Kiosk Client</h4>
-                <p class="font-sans text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed font-normal m-0">
-                  Electron-based self-service UI for event guests. Offline-tolerant state machine, thermal printer spooler, and countdown capture loop.
+                <h4
+                  class="text-lg sm:text-xl font-bold text-neutral-950 dark:text-white tracking-tight leading-tight group-hover:text-[#52FF1A] transition-colors font-heading m-0"
+                >
+                  Viewfinder &amp; FX
+                </h4>
+                <p
+                  class="font-sans text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed font-normal m-0"
+                >
+                  Camera via USB, captures images with countdown burst. Canvas
+                  compositor renders multi-frame layouts and color grading.
                 </p>
               </div>
-              <div class="relative w-full aspect-[16/9] border-t border-neutral-200/80 dark:border-neutral-800 overflow-hidden bg-neutral-100 dark:bg-neutral-900">
+              <div
+                class="mt-auto pt-3.5 border-t border-neutral-200/80 dark:border-neutral-800/80 space-y-2"
+              >
+                <div
+                  class="flex items-center justify-between font-mono text-[10px] text-neutral-500 dark:text-neutral-400"
+                >
+                  <span>Performance:</span>
+                  <span
+                    class="font-semibold text-neutral-700 dark:text-neutral-300"
+                    >Fast / GPU Accel</span
+                  >
+                </div>
+                <ul
+                  class="flex flex-wrap gap-1.5 list-none p-0 m-0"
+                  aria-label="Tech tokens"
+                >
+                  <li>
+                    <span
+                      class="font-sans text-[9px] sm:text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2 sm:px-2.5 py-0.5 rounded inline-block"
+                      >REACT 19</span
+                    >
+                  </li>
+                  <li>
+                    <span
+                      class="font-sans text-[9px] sm:text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2 sm:px-2.5 py-0.5 rounded inline-block"
+                      >CANVAS API</span
+                    >
+                  </li>
+                  <li>
+                    <span
+                      class="font-sans text-[9px] sm:text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2 sm:px-2.5 py-0.5 rounded inline-block"
+                      >NODE IPC</span
+                    >
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- STAGE 03: Cloud Sync & WebSockets -->
+            <div
+              class="w-[280px] sm:w-[320px] lg:w-auto shrink-0 lg:shrink flex flex-col justify-between p-4 sm:p-5 bg-white/90 dark:bg-neutral-900/60 border border-neutral-300/80 dark:border-neutral-800 transition-all duration-200 hover:border-neutral-400 dark:hover:border-neutral-600 shadow-sm relative group"
+            >
+              <div class="flex flex-col flex-1 gap-3">
+                <p
+                  class="font-sans text-[11px] uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-semibold m-0"
+                >
+                  Live Reverb &amp; GCS
+                </p>
+                <h4
+                  class="text-lg sm:text-xl font-bold text-neutral-950 dark:text-white tracking-tight leading-tight group-hover:text-[#52FF1A] transition-colors font-heading m-0"
+                >
+                  WebSocket Push &amp; GCS
+                </h4>
+                <p
+                  class="font-sans text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed font-normal m-0"
+                >
+                  Composited strips sync to Google Cloud Storage while Laravel
+                  Reverb broadcasts real-time telemetry to connected operator
+                  dashboards.
+                </p>
+              </div>
+              <div
+                class="mt-auto pt-3.5 border-t border-neutral-200/80 dark:border-neutral-800/80 space-y-2"
+              >
+                <div
+                  class="flex items-center justify-between font-mono text-[10px] text-neutral-500 dark:text-neutral-400"
+                >
+                  <span>Telemetry:</span>
+                  <span
+                    class="font-semibold text-neutral-700 dark:text-neutral-300"
+                    >WebSocket / WSS</span
+                  >
+                </div>
+                <ul
+                  class="flex flex-wrap gap-1.5 list-none p-0 m-0"
+                  aria-label="Tech tokens"
+                >
+                  <li>
+                    <span
+                      class="font-sans text-[9px] sm:text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2 sm:px-2.5 py-0.5 rounded inline-block"
+                      >REVERB</span
+                    >
+                  </li>
+                  <li>
+                    <span
+                      class="font-sans text-[9px] sm:text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2 sm:px-2.5 py-0.5 rounded inline-block"
+                      >GCS BUCKET</span
+                    >
+                  </li>
+                  <li>
+                    <span
+                      class="font-sans text-[9px] sm:text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2 sm:px-2.5 py-0.5 rounded inline-block"
+                      >SQLITE</span
+                    >
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- STAGE 04: Hardware Print & Fleet -->
+            <div
+              class="w-[280px] sm:w-[320px] lg:w-auto shrink-0 lg:shrink flex flex-col justify-between p-4 sm:p-5 bg-white/90 dark:bg-neutral-900/60 border border-neutral-300/80 dark:border-neutral-800 transition-all duration-200 hover:border-neutral-400 dark:hover:border-neutral-600 shadow-sm relative group"
+            >
+              <div class="flex flex-col flex-1 gap-3">
+                <p
+                  class="font-sans text-[11px] uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-semibold m-0"
+                >
+                  Hardware &amp; Ops
+                </p>
+                <h4
+                  class="text-lg sm:text-xl font-bold text-neutral-950 dark:text-white tracking-tight leading-tight group-hover:text-[#52FF1A] transition-colors font-heading m-0"
+                >
+                  Printer &amp; Fleet Ops
+                </h4>
+                <p
+                  class="font-sans text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed font-normal m-0"
+                >
+                  Electron dispatches native ESC/POS print jobs to printers
+                  while Portal Dashboard aggregates live sales revenue &
+                  telemetry.
+                </p>
+              </div>
+              <div
+                class="mt-auto pt-3.5 border-t border-neutral-200/80 dark:border-neutral-800/80 space-y-2"
+              >
+                <div
+                  class="flex items-center justify-between font-mono text-[10px] text-neutral-500 dark:text-neutral-400"
+                >
+                  <span>Hardware:</span>
+                  <span
+                    class="font-semibold text-neutral-700 dark:text-neutral-300"
+                    >USB ESC/POS Driver</span
+                  >
+                </div>
+                <ul
+                  class="flex flex-wrap gap-1.5 list-none p-0 m-0"
+                  aria-label="Tech tokens"
+                >
+                  <li>
+                    <span
+                      class="font-sans text-[9px] sm:text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2 sm:px-2.5 py-0.5 rounded inline-block"
+                      >THERMAL USB</span
+                    >
+                  </li>
+                  <li>
+                    <span
+                      class="font-sans text-[9px] sm:text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2 sm:px-2.5 py-0.5 rounded inline-block"
+                      >REACT SPA</span
+                    >
+                  </li>
+                  <li>
+                    <span
+                      class="font-sans text-[9px] sm:text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2 sm:px-2.5 py-0.5 rounded inline-block"
+                      >ASTRO SSG</span
+                    >
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Dual Visual Specimen Viewports: Kiosk Client & Vendor Portal -->
+          <div
+            class="grid grid-cols-1 lg:grid-cols-2 gap-5 sm:gap-6 pt-4 sm:pt-6"
+          >
+            <!-- Specimen 1: Kiosk Touchscreen -->
+            <div
+              class="group relative border border-neutral-300/80 dark:border-neutral-800 bg-white/60 dark:bg-neutral-900/40 flex flex-col justify-between overflow-hidden shadow-sm transition-all duration-200 hover:border-neutral-400 dark:hover:border-neutral-600"
+            >
+              <div class="p-4 sm:p-5 flex flex-col flex-1 gap-3">
+                <p
+                  class="font-sans text-[11px] uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-semibold m-0"
+                >
+                  STANDALONE APP
+                </p>
+                <h4
+                  class="text-lg sm:text-xl font-bold text-neutral-950 dark:text-white tracking-tight leading-tight group-hover:text-[#52FF1A] transition-colors font-heading m-0"
+                >
+                  Touchscreen Kiosk Client
+                </h4>
+                <p
+                  class="font-sans text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed font-normal m-0"
+                >
+                  Electron-based self-service UI for event guests.
+                  Offline-tolerant state machine, thermal printer spooler, and
+                  countdown capture loop.
+                </p>
+              </div>
+              <div
+                class="relative w-full aspect-[16/9] border-t border-neutral-200/80 dark:border-neutral-800 overflow-hidden bg-neutral-100 dark:bg-neutral-900"
+              >
                 <img
                   src={`${base}/images/kiosk-screenshot.webp`}
                   alt="Photobooth Kiosk UI Screenshot"
@@ -1192,39 +1502,73 @@ const capabilities = [
                   decoding="async"
                   onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"
                 />
-                <div class="hidden absolute inset-0 flex-col items-center justify-center p-4 text-center space-y-2 bg-[#121212]">
-                  <div class="w-8 h-8 rounded-full border border-dashed border-neutral-700 flex items-center justify-center text-neutral-500">
-                    <i class="ti ti-device-desktop text-lg" aria-hidden="true"></i>
+                <div
+                  class="hidden absolute inset-0 flex-col items-center justify-center p-4 text-center space-y-2 bg-[#121212]"
+                >
+                  <div
+                    class="w-8 h-8 rounded-full border border-dashed border-neutral-700 flex items-center justify-center text-neutral-500"
+                  >
+                    <i class="ti ti-device-desktop text-lg" aria-hidden="true"
+                    ></i>
                   </div>
-                  <span class="font-mono text-[11px] text-neutral-400">Place screenshot at <br /><code class="text-[#52FF1A]">public/images/kiosk-screenshot.webp</code></span>
+                  <span class="font-mono text-[11px] text-neutral-400"
+                    >Place screenshot at <br /><code class="text-[#52FF1A]"
+                      >public/images/kiosk-screenshot.webp</code
+                    ></span
+                  >
                 </div>
               </div>
-              <div class="p-3.5 sm:p-4 bg-neutral-100/60 dark:bg-neutral-900/60 border-t border-neutral-200/80 dark:border-neutral-800 flex items-center justify-between">
-                <span class="font-mono text-[10px] sm:text-[11px] text-neutral-400 dark:text-neutral-500">Electron • React 19 • Canvas</span>
+              <div
+                class="p-3.5 sm:p-4 bg-neutral-100/60 dark:bg-neutral-900/60 border-t border-neutral-200/80 dark:border-neutral-800 flex items-center justify-between"
+              >
+                <span
+                  class="font-mono text-[10px] sm:text-[11px] text-neutral-400 dark:text-neutral-500"
+                  >Electron</span
+                >
                 <a
                   href="https://navoyovan.github.io/photobooth-kiosk-demo/"
                   target="_blank"
                   rel="noopener noreferrer"
                   class="group/action inline-flex items-center gap-1 font-sans text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-neutral-500 dark:text-neutral-400 hover:text-[#52FF1A] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#52FF1A] rounded px-1"
                 >
-                  <span class="group-hover/action:underline underline-offset-4 decoration-[#52FF1A]">Launch Demo</span>
-                  <span class="inline-block opacity-40 transition-all duration-200 group-hover/action:opacity-100 group-hover/action:translate-x-0.5">↗</span>
+                  <span
+                    class="group-hover/action:underline underline-offset-4 decoration-[#52FF1A]"
+                    >Launch Demo</span
+                  >
+                  <span
+                    class="inline-block opacity-40 transition-all duration-200 group-hover/action:opacity-100 group-hover/action:translate-x-0.5"
+                    >↗</span
+                  >
                 </a>
               </div>
             </div>
 
             <!-- Specimen 2: Vendor Portal & Cloud Telemetry -->
-            <div class="group relative border border-neutral-300/80 dark:border-neutral-800 bg-white/60 dark:bg-neutral-900/40 flex flex-col justify-between overflow-hidden shadow-sm transition-all duration-200 hover:border-neutral-400 dark:hover:border-neutral-600">
+            <div
+              class="group relative border border-neutral-300/80 dark:border-neutral-800 bg-white/60 dark:bg-neutral-900/40 flex flex-col justify-between overflow-hidden shadow-sm transition-all duration-200 hover:border-neutral-400 dark:hover:border-neutral-600"
+            >
               <div class="p-4 sm:p-5 flex flex-col flex-1 gap-3">
-                <p class="font-sans text-[11px] uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-semibold m-0">
+                <p
+                  class="font-sans text-[11px] uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-semibold m-0"
+                >
                   FLEET MANAGER
                 </p>
-                <h4 class="text-lg sm:text-xl font-bold text-neutral-950 dark:text-white tracking-tight leading-tight group-hover:text-[#52FF1A] transition-colors font-heading m-0">Vendor Portal &amp; Telemetry</h4>
-                <p class="font-sans text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed font-normal m-0">
-                  Operator web portal for real-time kiosk fleet telemetry, custom print frame asset designers, coupon engines, and sales analytics.
+                <h4
+                  class="text-lg sm:text-xl font-bold text-neutral-950 dark:text-white tracking-tight leading-tight group-hover:text-[#52FF1A] transition-colors font-heading m-0"
+                >
+                  Vendor Portal &amp; Telemetry
+                </h4>
+                <p
+                  class="font-sans text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed font-normal m-0"
+                >
+                  Operator web portal for real-time kiosk fleet telemetry,
+                  custom print frame asset designers, coupon engines, and sales
+                  analytics.
                 </p>
               </div>
-              <div class="relative w-full aspect-[16/9] border-t border-neutral-200/80 dark:border-neutral-800 overflow-hidden bg-neutral-100 dark:bg-neutral-900">
+              <div
+                class="relative w-full aspect-[16/9] border-t border-neutral-200/80 dark:border-neutral-800 overflow-hidden bg-neutral-100 dark:bg-neutral-900"
+              >
                 <img
                   src={`${base}/images/vendor-portal-screenshot.webp`}
                   alt="Vendor Portal UI Screenshot"
@@ -1235,23 +1579,44 @@ const capabilities = [
                   decoding="async"
                   onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"
                 />
-                <div class="hidden absolute inset-0 flex-col items-center justify-center p-3 text-center space-y-1.5 bg-[#121212]">
-                  <div class="w-7 h-7 rounded-full border border-dashed border-neutral-700 flex items-center justify-center text-neutral-500">
-                    <i class="ti ti-layout-dashboard text-base" aria-hidden="true"></i>
+                <div
+                  class="hidden absolute inset-0 flex-col items-center justify-center p-3 text-center space-y-1.5 bg-[#121212]"
+                >
+                  <div
+                    class="w-7 h-7 rounded-full border border-dashed border-neutral-700 flex items-center justify-center text-neutral-500"
+                  >
+                    <i
+                      class="ti ti-layout-dashboard text-base"
+                      aria-hidden="true"></i>
                   </div>
-                  <span class="font-mono text-[10px] text-neutral-400">Place screenshot at <br /><code class="text-[#52FF1A]">public/images/vendor-portal-screenshot.webp</code></span>
+                  <span class="font-mono text-[10px] text-neutral-400"
+                    >Place screenshot at <br /><code class="text-[#52FF1A]"
+                      >public/images/vendor-portal-screenshot.webp</code
+                    ></span
+                  >
                 </div>
               </div>
-              <div class="p-3.5 sm:p-4 bg-neutral-100/60 dark:bg-neutral-900/60 border-t border-neutral-200/80 dark:border-neutral-800 flex items-center justify-between">
-                <span class="font-mono text-[10px] sm:text-[11px] text-neutral-400 dark:text-neutral-500">React • Laravel 13 • Reverb</span>
+              <div
+                class="p-3.5 sm:p-4 bg-neutral-100/60 dark:bg-neutral-900/60 border-t border-neutral-200/80 dark:border-neutral-800 flex items-center justify-between"
+              >
+                <span
+                  class="font-mono text-[10px] sm:text-[11px] text-neutral-400 dark:text-neutral-500"
+                  >React • Laravel • Reverb</span
+                >
                 <a
                   href="https://navoyovan.github.io/hypebox/"
                   target="_blank"
                   rel="noopener noreferrer"
                   class="group/action inline-flex items-center gap-1 font-sans text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-neutral-500 dark:text-neutral-400 hover:text-[#52FF1A] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#52FF1A] rounded px-1"
                 >
-                  <span class="group-hover/action:underline underline-offset-4 decoration-[#52FF1A]">Explore Ecosystem</span>
-                  <span class="inline-block opacity-40 transition-all duration-200 group-hover/action:opacity-100 group-hover/action:translate-x-0.5">↗</span>
+                  <span
+                    class="group-hover/action:underline underline-offset-4 decoration-[#52FF1A]"
+                    >Explore Ecosystem</span
+                  >
+                  <span
+                    class="inline-block opacity-40 transition-all duration-200 group-hover/action:opacity-100 group-hover/action:translate-x-0.5"
+                    >↗</span
+                  >
                 </a>
               </div>
             </div>
@@ -1271,7 +1636,7 @@ const capabilities = [
             <div class="w-[280px] sm:w-auto shrink-0 sm:shrink flex flex-col">
               <ProjectTile
                 title="Component Library"
-                category="01 // DESIGN SYSTEM"
+                category="DESIGN SYSTEM"
                 description="Design system, typography specimens, color tokens, and interactive UI primitives architected for Portfolio v5."
                 status="LIVE_DOCS"
                 statusVariant="accent"
@@ -1284,7 +1649,7 @@ const capabilities = [
             <div class="w-[280px] sm:w-auto shrink-0 sm:shrink flex flex-col">
               <ProjectTile
                 title="Interactive Map Engine"
-                category="02 // GIS & SPATIAL"
+                category="GIS & SPATIAL"
                 description="Geospatial visualization and tracking platform with custom boundary polygons and telemetry."
                 status="PROTOTYPE"
                 statusVariant="neutral"
@@ -1329,7 +1694,10 @@ const capabilities = [
               <div class="group relative p-6 sm:p-7 border border-neutral-300/80 dark:border-neutral-800 bg-[#f6f4ee] dark:bg-[#141414] transition-all duration-200 hover:border-neutral-400 dark:hover:border-neutral-600">
                 <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 lg:gap-8">
                   <div class="flex items-start gap-4 sm:gap-6 flex-1">
-                    <span class="text-xs sm:text-sm font-sans font-bold text-neutral-400 dark:text-neutral-500 group-hover:text-[#52FF1A] transition-colors pt-0.5 shrink-0" aria-hidden="true">
+                    <span
+                      class="text-xs sm:text-sm font-sans font-bold text-neutral-400 dark:text-neutral-500 group-hover:text-[#52FF1A] transition-colors pt-0.5 shrink-0"
+                      aria-hidden="true"
+                    >
                       {item.number}
                     </span>
                     <div class="space-y-1.5 flex-1">
@@ -1342,7 +1710,10 @@ const capabilities = [
                     </div>
                   </div>
 
-                  <ul class="flex flex-wrap gap-1.5 sm:gap-2 lg:justify-end shrink-0 pl-8 sm:pl-10 lg:pl-0 list-none m-0 p-0" aria-label="Capability tags">
+                  <ul
+                    class="flex flex-wrap gap-1.5 sm:gap-2 lg:justify-end shrink-0 pl-8 sm:pl-10 lg:pl-0 list-none m-0 p-0"
+                    aria-label="Capability tags"
+                  >
                     {item.tags.map((tag) => (
                       <li>
                         <span class="text-[9px] sm:text-[10px] font-sans font-semibold px-2 sm:px-2.5 py-0.5 sm:py-1 rounded bg-neutral-200/60 dark:bg-neutral-800/80 text-neutral-600 dark:text-neutral-400 uppercase tracking-wider inline-block">
@@ -1617,13 +1988,14 @@ const capabilities = [
             </div>
 
             <div
-              class="pt-3 border-t border-neutral-200/80 dark:border-neutral-800/80 flex flex-wrap items-center gap-3"
+              class="pt-3 border-t border-neutral-200/80 dark:border-neutral-800/80 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full sm:w-auto"
             >
               <ActionButton
                 variant="primary"
                 size="sm"
                 href="mailto:yovangunardio@gmail.com"
                 ariaLabel="Send an email to Yovan"
+                class="w-full sm:w-auto max-sm:!py-[11px]"
               >
                 Send an Email ↗
               </ActionButton>
@@ -1634,6 +2006,7 @@ const capabilities = [
                 target="_blank"
                 rel="noopener noreferrer"
                 ariaLabel="GitHub Profile (opens in new tab)"
+                class="w-full sm:w-auto max-sm:!py-[11px]"
               >
                 GitHub ↗
               </ActionButton>
@@ -1644,6 +2017,7 @@ const capabilities = [
                 target="_blank"
                 rel="noopener noreferrer"
                 ariaLabel="LinkedIn Profile (opens in new tab)"
+                class="w-full sm:w-auto max-sm:!py-[11px]"
               >
                 LinkedIn ↗
               </ActionButton>

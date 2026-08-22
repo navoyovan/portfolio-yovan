@@ -48,6 +48,8 @@ const initialDisplay = formatDateDisplay(value);
 
 // Parse label for optional (subtext) pattern, e.g. "Dies (optionale)"
 const labelMatch = typeof label === 'string' ? label.match(/^(.*?)\s*(\(.*?\))$/) : null;
+const mainLabel = labelMatch ? labelMatch[1] : label;
+const subText = labelMatch ? labelMatch[2] : null;
 ---
 
 <div
@@ -59,10 +61,7 @@ const labelMatch = typeof label === 'string' ? label.match(/^(.*?)\s*(\(.*?\))$/
 >
   {label && (
     <div class="dp-label-row">
-      <label class="dp-label">
-        {labelMatch ? labelMatch[1] + ' ' : label}
-        {labelMatch && <span class="dp-label-subtext">{labelMatch[2]}</span>}
-      </label>
+      <label class="dp-label">{mainLabel}{subText && <span class="dp-label-subtext"> {subText}</span>}</label>
     </div>
   )}
 

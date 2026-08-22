@@ -30,6 +30,16 @@
 
   --animate-kiosk-pulse: kiosk-pulse-accent-glow 2.4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
   --animate-blob-morph: blob-morph 14s ease-in-out infinite;
+  --animate-marquee-scroll: marquee-scroll 24s linear infinite;
+
+  @keyframes marquee-scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
 
   @keyframes kiosk-pulse-accent-glow {
     0% {
@@ -297,4 +307,21 @@ body {
     transition: none !important;
     transform: none !important;
   }
+}
+
+/* Form control label pseudo-element reset */
+.ti-label::before,
+.ti-label::after,
+.pw-label::before,
+.pw-label::after,
+.limit-ta-label::before,
+.limit-ta-label::after,
+.fs-label::before,
+.fs-label::after,
+.dp-label::before,
+.dp-label::after,
+.sd-label::before,
+.sd-label::after {
+  content: none !important;
+  display: none !important;
 }

@@ -62,16 +62,15 @@ const isPlaceholder = !value || !selectedOption;
 
 // Parse label for optional (subtext) pattern, e.g. "Categoria (optionale)"
 const labelMatch = typeof label === 'string' ? label.match(/^(.*?)\s*(\(.*?\))$/) : null;
+const mainLabel = labelMatch ? labelMatch[1] : label;
+const subText = labelMatch ? labelMatch[2] : null;
 ---
 
 <div class:list={["fs-wrapper", className]} data-select-wrapper id={`${id}-wrapper`}>
   {(label || (hasError && errorMsg) || (hasWarning && warningMsg) || (isSafe && safeMsg)) && (
     <div class="fs-label-row">
       {label && (
-        <label for={id} class="fs-label">
-          {labelMatch ? labelMatch[1] + ' ' : label}
-          {labelMatch && <span class="fs-label-subtext">{labelMatch[2]}</span>}
-        </label>
+        <label for={id} class="fs-label">{mainLabel}{subText && <span class="fs-label-subtext"> {subText}</span>}</label>
       )}
       <div class="fs-label-right">
         {hasError && errorMsg ? (

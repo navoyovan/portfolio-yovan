@@ -151,57 +151,77 @@ const collectionSchema = {
               const isLast = idx === category.items.length - 1;
               const branchSymbol = isLast ? '└──' : '├──';
               return (
-                <div class="space-y-2 group">
-                  <!-- Top Row: Tree Branch + Year + Title (+ Hover Reveal ↗) -->
-                  <div class="flex items-center gap-x-3 gap-y-1 flex-wrap sm:flex-nowrap min-w-0">
+                <div class="space-y-1.5 group min-w-0">
+                  <!-- Top Row: Tree Branch + Year + Title -->
+                  <div class="flex items-center gap-2.5 sm:gap-3 min-w-0">
                     <span class="text-neutral-400 dark:text-neutral-600 select-none font-sans font-medium text-sm shrink-0" aria-hidden="true">
                       {branchSymbol}
                     </span>
                     <span class="text-xs text-neutral-500 font-semibold font-sans shrink-0">
                       {item.year}
                     </span>
-                    <h3
-                      class="text-sm sm:text-base text-neutral-950 dark:text-white group-hover:text-[#52FF1A] transition-colors font-heading font-bold"
-                    >
-                      {item.href ? (
-                        <a
-                          href={item.href}
-                          target={item.href.startsWith('http') ? '_blank' : undefined}
-                          rel={item.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                          aria-label={item.href.startsWith('http') ? `${item.title} (opens in new tab)` : undefined}
-                          class="hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#52FF1A] rounded px-0.5 inline-flex items-center gap-1.5"
-                        >
-                          <span>{item.title}</span>
-                          <span class="opacity-30 group-hover:opacity-100 transition-all duration-150 text-neutral-500 dark:text-neutral-400 group-hover:!text-[#52FF1A]">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 sm:w-4 sm:h-4" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                              <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                              <path d="M17 7l-10 10" />
-                              <path d="M8 7l9 0l0 9" />
-                            </svg>
-                          </span>
-                        </a>
-                      ) : (
-                        item.title
-                      )}
-                    </h3>
-                  </div>
 
-                  <!-- Sub Row: Nested Stack Line (Muted Secondary Hierarchy) -->
-                  <div class="pl-7 sm:pl-8 text-[11px] text-neutral-400 dark:text-neutral-500 flex items-center gap-x-2 gap-y-1 font-sans flex-wrap">
-                    <span class="text-neutral-300 dark:text-neutral-700 select-none" aria-hidden="true">└──</span>
-                    <span class="text-neutral-400 dark:text-neutral-600 font-medium shrink-0 mr-1">stack:</span>
-                    <span class="text-neutral-500 dark:text-neutral-400 flex items-center flex-wrap gap-x-2 gap-y-1">
-                      {item.tech.map((techItem, tIdx) => (
-                        <>
-                          <span>{techItem}</span>
-                          {tIdx < item.tech.length - 1 && (
-                            <span class="text-neutral-300 dark:text-neutral-700 select-none text-[8px]" aria-hidden="true">
+                    <!-- Title Marquee Container (Loops on Overflow) -->
+                    <div class="index-marquee-wrapper relative overflow-hidden min-w-0 flex-1">
+                      <div class="index-marquee-track inline-flex items-center">
+                        <div class="index-marquee-content inline-flex items-center shrink-0">
+                          <h3
+                            class="text-sm sm:text-base text-neutral-950 dark:text-white group-hover:text-[#52FF1A] transition-colors font-heading font-bold whitespace-nowrap m-0 inline-flex items-center"
+                          >
+                            {item.href ? (
+                              <a
+                                href={item.href}
+                                target={item.href.startsWith('http') ? '_blank' : undefined}
+                                rel={item.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                                aria-label={item.href.startsWith('http') ? `${item.title} (opens in new tab)` : undefined}
+                                class="hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#52FF1A] rounded px-0.5 inline-flex items-center gap-1.5"
+                              >
+                                <span>{item.title}</span>
+                                <span class="opacity-30 group-hover:opacity-100 transition-all duration-150 text-neutral-500 dark:text-neutral-400 group-hover:!text-[#52FF1A]">
+                                  <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 sm:w-4 sm:h-4" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                    <path d="M17 7l-10 10" />
+                                    <path d="M8 7l9 0l0 9" />
+                                  </svg>
+                                </span>
+                              </a>
+                            ) : (
+                              <span>{item.title}</span>
+                            )}
+                            <span class="title-dot-trailing text-neutral-400 dark:text-neutral-600 select-none text-xs mx-3" aria-hidden="true">
                               •
                             </span>
-                          )}
-                        </>
-                      ))}
-                    </span>
+                          </h3>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Sub Row: Nested Stack Line (Loops on Overflow) -->
+                  <div class="pl-7 sm:pl-8 text-[11px] text-neutral-400 dark:text-neutral-500 flex items-center min-w-0 font-sans">
+                    <span class="text-neutral-300 dark:text-neutral-700 select-none shrink-0 mr-2" aria-hidden="true">└──</span>
+                    <span class="text-neutral-400 dark:text-neutral-600 font-medium shrink-0 mr-1.5">stack:</span>
+
+                    <div class="index-marquee-wrapper relative overflow-hidden min-w-0 flex-1">
+                      <div class="index-marquee-track inline-flex items-center">
+                        <div class="index-marquee-content inline-flex items-center text-neutral-500 dark:text-neutral-400 whitespace-nowrap shrink-0">
+                          {item.tech.map((techItem, tIdx) => (
+                            <span class="inline-flex items-center">
+                              <span>{techItem}</span>
+                              <span
+                                class:list={[
+                                  "text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2",
+                                  tIdx === item.tech.length - 1 ? "stack-dot-trailing" : ""
+                                ]}
+                                aria-hidden="true"
+                              >
+                                •
+                              </span>
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               );
@@ -212,3 +232,113 @@ const collectionSchema = {
     </div>
   </div>
 </RootLayout>
+
+<style is:global>
+  @keyframes marquee-scroll {
+    0% {
+      transform: translate3d(0, 0, 0);
+    }
+    100% {
+      transform: translate3d(-50%, 0, 0);
+    }
+  }
+
+  .index-marquee-wrapper:not(.is-overflowing) .stack-dot-trailing,
+  .index-marquee-wrapper:not(.is-overflowing) .title-dot-trailing {
+    display: none !important;
+  }
+
+  .index-marquee-wrapper.is-overflowing {
+    -webkit-mask-image: linear-gradient(to right, black calc(100% - 36px), transparent 100%);
+    mask-image: linear-gradient(to right, black calc(100% - 36px), transparent 100%);
+  }
+
+  .index-marquee-track {
+    display: inline-flex;
+    align-items: center;
+    width: max-content;
+    will-change: transform;
+  }
+
+  .index-marquee-wrapper:hover .index-marquee-track,
+  .group:hover .index-marquee-track,
+  .index-marquee-wrapper:focus-within .index-marquee-track {
+    animation-play-state: paused !important;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .index-marquee-track {
+      animation: none !important;
+      transform: none !important;
+    }
+    .index-marquee-wrapper {
+      overflow-x: auto !important;
+      mask-image: none !important;
+      -webkit-mask-image: none !important;
+    }
+  }
+</style>
+
+<script>
+  const initIndexMarquees = () => {
+    const wrappers = document.querySelectorAll<HTMLElement>('.index-marquee-wrapper');
+    wrappers.forEach((wrapper) => {
+      const track = wrapper.querySelector<HTMLElement>('.index-marquee-track');
+      const content = wrapper.querySelector<HTMLElement>('.index-marquee-content');
+      if (!track || !content) return;
+
+      const wrapperWidth = wrapper.clientWidth;
+      if (wrapperWidth === 0) return;
+
+      // Reset styles for clean measurement
+      const existingClone = track.querySelector('.index-marquee-clone');
+      if (existingClone) {
+        existingClone.remove();
+      }
+      wrapper.classList.remove('is-overflowing');
+      track.style.animation = 'none';
+
+      // Measure natural width (trailing dot is hidden when not overflowing)
+      const naturalWidth = content.scrollWidth;
+
+      if (naturalWidth > wrapperWidth + 2) {
+        // Enable overflowing mode (which reveals trailing dot divider)
+        wrapper.classList.add('is-overflowing');
+
+        // Clone with trailing dot included
+        const clone = content.cloneNode(true) as HTMLElement;
+        clone.classList.add('index-marquee-clone');
+        clone.setAttribute('aria-hidden', 'true');
+        track.appendChild(clone);
+
+        // Measured unit width includes all items and the trailing divider dot
+        const unitWidth = content.scrollWidth;
+        // Consistent calm reading pace (~26px/s)
+        const duration = Math.max(12, unitWidth / 26);
+
+        track.style.animationName = 'marquee-scroll';
+        track.style.animationDuration = `${duration}s`;
+        track.style.animationTimingFunction = 'linear';
+        track.style.animationIterationCount = 'infinite';
+      }
+    });
+  };
+
+  let lastWidth = typeof window !== 'undefined' ? window.innerWidth : 0;
+  let resizeTimer: number | null = null;
+  const onResize = () => {
+    if (window.innerWidth === lastWidth) return;
+    lastWidth = window.innerWidth;
+    if (resizeTimer) clearTimeout(resizeTimer);
+    resizeTimer = window.setTimeout(initIndexMarquees, 150);
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initIndexMarquees);
+  } else {
+    initIndexMarquees();
+  }
+
+  window.addEventListener('resize', onResize, { passive: true });
+  document.addEventListener('astro:page-load', initIndexMarquees);
+</script>

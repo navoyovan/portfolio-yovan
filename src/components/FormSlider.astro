@@ -97,6 +97,14 @@ const initialPercent = Math.min(100, Math.max(0, ((value - min) / (max - min)) *
 </div>
 
 <style>
+  .slider-container,
+  .slider-track-wrap,
+  .slider-input {
+    touch-action: none;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
   /* Ensure input thumb spans full touch target area */
   .slider-input::-webkit-slider-thumb {
     width: 24px;
@@ -224,7 +232,7 @@ const initialPercent = Math.min(100, Math.max(0, ((value - min) / (max - min)) *
           // --- DRAGGING RIGHT ---
           const maxTravel = (max - min) * 0.45;
           const rawDeltaRatio = Math.min(1, Math.max(0, currentDragDelta / maxTravel));
-          const minH = 0.4;
+          const minH = 0.8;
           const fullH = 3.0;
           const leftHalfH = fullH - rawDeltaRatio * (fullH - minH);
 
@@ -248,7 +256,7 @@ const initialPercent = Math.min(100, Math.max(0, ((value - min) / (max - min)) *
           // --- DRAGGING LEFT ---
           const maxTravel = (max - min) * 0.45;
           const rawDeltaRatio = Math.min(1, Math.max(0, Math.abs(currentDragDelta) / maxTravel));
-          const minH = 0.4;
+          const minH = 0.8;
           const fullH = 3.0;
           const rightHalfH = fullH - rawDeltaRatio * (fullH - minH);
 
@@ -270,7 +278,7 @@ const initialPercent = Math.min(100, Math.max(0, ((value - min) / (max - min)) *
 
         } else if (!isDragging && releasePullDir !== null && (releaseWaveIntensity > 0.005 || releaseThinIntensity > 0.005)) {
           // --- RELEASING: wave decaying back to flat line ---
-          const minH = 0.4;
+          const minH = 0.8;
           const fullH = 3.0;
           const decayingHalfH = fullH - releaseThinIntensity * (fullH - minH);
           const uniformWaveAmp = releaseWaveIntensity * 7.0;
@@ -373,10 +381,17 @@ const initialPercent = Math.min(100, Math.max(0, ((value - min) / (max - min)) *
         releaseRafId = requestAnimationFrame(animateRelease);
       };
 
-      // Native pointer + mouse + touch listeners
+      const onTouchMove = (e: TouchEvent) => {
+        if (isDragging) {
+          e.preventDefault();
+        }
+      };
+
+      // Native pointer + mouse + touch listeners with scroll interception protection
       input.addEventListener('pointerdown', startDrag);
       input.addEventListener('mousedown', startDrag);
-      input.addEventListener('touchstart', startDrag, { passive: true });
+      input.addEventListener('touchstart', startDrag, { passive: false });
+      input.addEventListener('touchmove', onTouchMove, { passive: false });
 
       window.addEventListener('pointerup', endDrag);
       window.addEventListener('mouseup', endDrag);

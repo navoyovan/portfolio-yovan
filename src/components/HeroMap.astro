@@ -17,6 +17,7 @@ const {
 
 <div
   class="hero-map-background absolute inset-0 w-full h-full overflow-hidden pointer-events-none select-none z-10"
+  style="transform: translateZ(0); contain: paint;"
   data-lat={lat}
   data-lng={lng}
   data-zoom={zoom}
@@ -26,6 +27,7 @@ const {
   <div
     id="hero-leaflet-map"
     class="w-full h-full bg-[#fcfbf9] dark:bg-[#0e0e0e] opacity-90 dark:opacity-80 transition-opacity duration-500"
+    style="transform: translateZ(0);"
   ></div>
 
   <!-- Interactive Map Location Toggle Rectangle (Sharp Accent Patch & Typography) -->
@@ -35,7 +37,7 @@ const {
     data-view="bogor"
     aria-label="Toggle Jabodetabek Map View"
     title="Click to expand view to Jabodetabek"
-    class="absolute right-[8%] sm:right-[12%] lg:right-[16%] top-[10%] sm:top-[20%] lg:top-[22%] flex flex-col items-center pointer-events-auto cursor-pointer z-30 select-none group/maptarget focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#52FF1A] p-1 bg-transparent border-0 data-[view=jabodetabek]:translate-x-0 data-[view=jabodetabek]:translate-y-0 sm:data-[view=jabodetabek]:-translate-x-44 sm:data-[view=jabodetabek]:translate-y-40 lg:data-[view=jabodetabek]:-translate-x-64 lg:data-[view=jabodetabek]:translate-y-52 transition-[opacity,transform] duration-300 ease-out"
+    class="absolute right-[8%] sm:right-[12%] lg:right-[16%] top-[5%] sm:top-[20%] lg:top-[22%] flex flex-col items-center pointer-events-auto cursor-pointer z-30 select-none group/maptarget focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#52FF1A] p-1 bg-transparent border-0 data-[view=jabodetabek]:translate-x-0 data-[view=jabodetabek]:translate-y-0 sm:data-[view=jabodetabek]:-translate-x-44 sm:data-[view=jabodetabek]:translate-y-40 lg:data-[view=jabodetabek]:-translate-x-64 lg:data-[view=jabodetabek]:translate-y-52 transition-[opacity,transform] duration-300 ease-out"
   >
     <!-- Sharp Borderless Rectangle with hover feedback -->
     <div

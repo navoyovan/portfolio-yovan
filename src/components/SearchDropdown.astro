@@ -46,15 +46,14 @@ const initialTriggerLabel = isAllSelected
 
 // Parse label for optional (subtext) pattern, e.g. "Colum (optionale)"
 const labelMatch = typeof label === 'string' ? label.match(/^(.*?)\s*(\(.*?\))$/) : null;
+const mainLabel = labelMatch ? labelMatch[1] : label;
+const subText = labelMatch ? labelMatch[2] : null;
 ---
 
 <div class:list={["sd-wrapper", className]} data-search-dropdown-wrapper id={`${id}-wrapper`}>
   {label && (
     <div class="sd-label-row">
-      <label class="sd-label">
-        {labelMatch ? labelMatch[1] + ' ' : label}
-        {labelMatch && <span class="sd-label-subtext">{labelMatch[2]}</span>}
-      </label>
+      <label class="sd-label">{mainLabel}{subText && <span class="sd-label-subtext"> {subText}</span>}</label>
     </div>
   )}
 

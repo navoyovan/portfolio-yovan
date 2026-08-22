@@ -1,7 +1,7 @@
 ---
 // Hero.astro - Pure server-rendered static Hero with Syne 900 and clean editorial row spacing
-import ActionButton from './ActionButton.astro';
-import HeroMap from './HeroMap.astro';
+import ActionButton from "./ActionButton.astro";
+import HeroMap from "./HeroMap.astro";
 
 interface Props {
   firstName?: string;
@@ -16,7 +16,7 @@ const {
 } = Astro.props;
 
 const rawBase = import.meta.env.BASE_URL;
-const base = rawBase.endsWith('/') ? rawBase.slice(0, -1) : rawBase;
+const base = rawBase.endsWith("/") ? rawBase.slice(0, -1) : rawBase;
 ---
 
 <section
@@ -82,8 +82,7 @@ const base = rawBase.endsWith('/') ? rawBase.slice(0, -1) : rawBase;
             <span
               id="hero-bracket-r"
               class="hero-h1-bracket-r ml-[0.15em] select-none text-neutral-950 dark:text-white"
-              style="opacity: 0.6; font-weight: 900;"
-              >/&gt;</span
+              style="opacity: 0.6; font-weight: 900;">/&gt;</span
             >
           </span>
         </div>
@@ -91,51 +90,64 @@ const base = rawBase.endsWith('/') ? rawBase.slice(0, -1) : rawBase;
 
       <!-- Editorial Subtitle & Quick Action Pills -->
       <div class="mt-6 sm:mt-10 max-w-xl space-y-6">
-        <p class="text-sm sm:text-base md:text-lg text-neutral-600 dark:text-neutral-400 font-normal leading-relaxed">
-          Developer & systems builder turning ideas into working products; from landing pages and web apps to touchscreen kiosks and the hardware behind them.
+        <p
+          class="text-sm sm:text-base md:text-lg text-neutral-600 dark:text-neutral-400 font-normal leading-relaxed"
+        >
+          Software Engineer & systems builder turning ideas into working
+          products; from landing pages and web apps to touchscreen kiosks and
+          the hardware behind them.
         </p>
 
         <div class="space-y-4 pt-1">
-          <div class="flex items-center gap-2.5">
-            <a
+          <div class="flex items-center gap-2">
+            <ActionButton
               href="https://github.com/navoyovan"
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="GitHub Profile"
-              class="w-9 h-9 sm:w-10 sm:h-10 rounded-full border border-dashed border-neutral-400 dark:border-neutral-600 hover:border-solid hover:border-neutral-900 dark:hover:border-white hover:bg-neutral-900/5 dark:hover:bg-white/10 inline-flex items-center justify-center text-neutral-800 dark:text-neutral-200 transition-[transform,background-color,color,border-color] duration-150 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#52FF1A] focus-visible:ring-offset-2 dark:focus-visible:ring-offset-neutral-950"
+              ariaLabel="GitHub Profile"
+              variant="secondary"
+              size="micro"
             >
-              <i class="ti ti-brand-github text-base sm:text-lg" aria-hidden="true"></i>
-            </a>
+              <i class="ti ti-brand-github text-sm" aria-hidden="true"></i>
+            </ActionButton>
 
-            <a
+            <ActionButton
               href="https://linkedin.com/in/yovan-g-d-22379ba7/"
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="LinkedIn Profile"
-              class="w-9 h-9 sm:w-10 sm:h-10 rounded-full border border-dashed border-neutral-400 dark:border-neutral-600 hover:border-solid hover:border-neutral-900 dark:hover:border-white hover:bg-neutral-900/5 dark:hover:bg-white/10 inline-flex items-center justify-center text-neutral-800 dark:text-neutral-200 transition-[transform,background-color,color,border-color] duration-150 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#52FF1A] focus-visible:ring-offset-2 dark:focus-visible:ring-offset-neutral-950"
+              ariaLabel="LinkedIn Profile"
+              variant="secondary"
+              size="micro"
             >
-              <i class="ti ti-brand-linkedin text-base sm:text-lg" aria-hidden="true"></i>
-            </a>
+              <i class="ti ti-brand-linkedin text-sm" aria-hidden="true"></i>
+            </ActionButton>
 
-            <a
+            <ActionButton
               href="mailto:yovangunardio@gmail.com"
-              aria-label="Send Email"
-              class="w-9 h-9 sm:w-10 sm:h-10 rounded-full border border-dashed border-neutral-400 dark:border-neutral-600 hover:border-solid hover:border-neutral-900 dark:hover:border-white hover:bg-neutral-900/5 dark:hover:bg-white/10 inline-flex items-center justify-center text-neutral-800 dark:text-neutral-200 transition-[transform,background-color,color,border-color] duration-150 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#52FF1A] focus-visible:ring-offset-2 dark:focus-visible:ring-offset-neutral-950"
+              ariaLabel="Send Email"
+              variant="secondary"
+              size="micro"
             >
-              <i class="ti ti-mail text-base sm:text-lg" aria-hidden="true"></i>
-            </a>
+              <i class="ti ti-mail text-sm" aria-hidden="true"></i>
+            </ActionButton>
           </div>
 
-          <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 w-full sm:w-auto">
+          <div
+            class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 w-full sm:w-auto"
+          >
             <ActionButton
               variant="primary"
               size="md"
               href="#projects"
               class="group overflow-hidden w-full sm:w-auto max-sm:!py-[11px]"
             >
-              <div class="inline-flex items-center translate-x-[10px] group-hover:translate-x-0 transition-transform duration-200 ease-out">
+              <div
+                class="inline-flex items-center translate-x-[10px] group-hover:translate-x-0 transition-transform duration-200 ease-out"
+              >
                 <span>FEATURED WORK</span>
-                <span class="inline-flex items-center justify-center w-3.5 ml-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-200 ease-out">
+                <span
+                  class="inline-flex items-center justify-center w-3.5 ml-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-200 ease-out"
+                >
                   ↓
                 </span>
               </div>
@@ -147,9 +159,13 @@ const base = rawBase.endsWith('/') ? rawBase.slice(0, -1) : rawBase;
               href={`${base}/portfolio-index`}
               class="group overflow-hidden w-full sm:w-auto max-sm:!py-[11px]"
             >
-              <div class="inline-flex items-center translate-x-[10px] group-hover:translate-x-0 transition-transform duration-200 ease-out">
+              <div
+                class="inline-flex items-center translate-x-[10px] group-hover:translate-x-0 transition-transform duration-200 ease-out"
+              >
                 <span>PORTFOLIO INDEX</span>
-                <span class="inline-flex items-center justify-center w-3.5 ml-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-200 ease-out">
+                <span
+                  class="inline-flex items-center justify-center w-3.5 ml-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-200 ease-out"
+                >
                   →
                 </span>
               </div>
