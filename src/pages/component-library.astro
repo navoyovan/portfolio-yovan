@@ -94,13 +94,20 @@ const systemNav = [
             ))}
           </ul>
         </div>
+
+        <!-- 03 // LICENSE -->
+        <div class="pt-4 px-5 border-t border-neutral-200/80 dark:border-neutral-800/80">
+          <span class="text-[11px] font-mono text-neutral-400 dark:text-neutral-500">
+            CC BY 4.0 / Attribution
+          </span>
+        </div>
       </nav>
     </aside>
 
     <!-- Main Content Container -->
-    <main class="flex-1 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-16 min-w-0">
+    <main class="flex-1 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 min-w-0">
       <!-- Header -->
-      <div id="library-header" class="border-b border-neutral-200 dark:border-neutral-800 pb-8">
+      <div id="library-header" class="border-b border-neutral-200 dark:border-neutral-800 pb-6 mb-4 xl:mb-12">
         <h1 class="text-3xl sm:text-4xl font-bold tracking-tight text-neutral-950 dark:text-white font-heading">
           Component Library
         </h1>
@@ -110,32 +117,28 @@ const systemNav = [
       </div>
 
       <!-- Mobile Sticky Tab Switcher -->
-      <div class="xl:hidden sticky top-16 z-30 bg-[#fcfbf9]/95 dark:bg-[#0e0e0e]/95 backdrop-blur-md border-b border-neutral-200 dark:border-neutral-800 py-3 -mx-4 sm:-mx-6 px-4 sm:px-6 overflow-x-auto flex gap-2 no-scrollbar">
-        <div class="flex items-center gap-1.5 shrink-0">
-          <span class="text-[10px] font-mono uppercase font-bold text-neutral-400 dark:text-neutral-500 mr-1 select-none">Primitives:</span>
-          {primitivesNav.map((item) => (
-            <button
-              type="button"
-              data-target={item.id}
-              class="tab-nav-btn px-2.5 py-1 text-xs font-mono rounded bg-neutral-100 dark:bg-neutral-900 text-neutral-600 dark:text-neutral-400 hover:text-neutral-950 dark:hover:text-white transition-colors cursor-pointer border border-transparent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#52FF1A]"
-            >
-              {item.label}
-            </button>
-          ))}
-        </div>
-        <div class="w-px h-5 bg-neutral-300 dark:bg-neutral-700 my-auto shrink-0"></div>
-        <div class="flex items-center gap-1.5 shrink-0">
-          <span class="text-[10px] font-mono uppercase font-bold text-neutral-400 dark:text-neutral-500 mr-1 select-none">Systems:</span>
-          {systemNav.map((item) => (
-            <button
-              type="button"
-              data-target={item.id}
-              class="tab-nav-btn px-2.5 py-1 text-xs font-mono rounded bg-neutral-100 dark:bg-neutral-900 text-neutral-600 dark:text-neutral-400 hover:text-neutral-950 dark:hover:text-white transition-colors cursor-pointer border border-transparent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#52FF1A]"
-            >
-              {item.label}
-            </button>
-          ))}
-        </div>
+      <div id="mobile-tab-switcher" class="xl:hidden sticky top-16 z-30 bg-[#fcfbf9]/95 dark:bg-[#0e0e0e]/95 backdrop-blur-md border-b border-neutral-200 dark:border-neutral-800 py-2.5 -mx-4 sm:-mx-6 px-4 sm:px-6 mb-8 overflow-x-auto flex items-center gap-1.5 no-scrollbar">
+        <span class="text-[10px] font-mono uppercase font-bold text-neutral-400 dark:text-neutral-500 shrink-0 select-none mr-0.5">Primitives:</span>
+        {primitivesNav.map((item) => (
+          <button
+            type="button"
+            data-target={item.id}
+            class="tab-nav-btn shrink-0 px-2.5 py-1 text-xs font-mono rounded bg-neutral-100 dark:bg-neutral-900 text-neutral-600 dark:text-neutral-400 hover:text-neutral-950 dark:hover:text-white transition-colors cursor-pointer border border-transparent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#52FF1A]"
+          >
+            {item.label}
+          </button>
+        ))}
+        <div class="w-px h-5 bg-neutral-300 dark:bg-neutral-700 my-auto shrink-0 mx-1"></div>
+        <span class="text-[10px] font-mono uppercase font-bold text-neutral-400 dark:text-neutral-500 shrink-0 select-none mr-0.5">Systems:</span>
+        {systemNav.map((item) => (
+          <button
+            type="button"
+            data-target={item.id}
+            class="tab-nav-btn shrink-0 px-2.5 py-1 text-xs font-mono rounded bg-neutral-100 dark:bg-neutral-900 text-neutral-600 dark:text-neutral-400 hover:text-neutral-950 dark:hover:text-white transition-colors cursor-pointer border border-transparent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#52FF1A]"
+          >
+            {item.label}
+          </button>
+        ))}
       </div>
 
       <!-- Group 1: Core Primitives Container -->
@@ -240,9 +243,9 @@ const systemNav = [
               <span class="font-mono text-[10px] text-neutral-400">minimal surface · neutral hover</span>
             </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5">
+            <div class="flex flex-nowrap overflow-x-auto gap-4 pb-4 pt-1 -mx-4 px-4 sm:mx-0 sm:px-0 sm:grid sm:grid-cols-2 lg:grid-cols-5 sm:overflow-visible sm:pb-0 sm:gap-5 no-scrollbar">
               <!-- Tier 0: Dashed Line Outline -->
-              <div class="flex flex-col gap-2.5">
+              <div class="flex flex-col gap-2.5 w-[160px] sm:w-auto shrink-0 sm:shrink">
                 <DepthCard
                   elevation="dashed"
                   title="LINEA DISIUNCTA"
@@ -255,7 +258,7 @@ const systemNav = [
               </div>
 
               <!-- Tier 1: Flat / Flush Solid -->
-              <div class="flex flex-col gap-2.5">
+              <div class="flex flex-col gap-2.5 w-[160px] sm:w-auto shrink-0 sm:shrink">
                 <DepthCard
                   elevation="flat"
                   title="SUPERFICIES PLANA"
@@ -268,7 +271,7 @@ const systemNav = [
               </div>
 
               <!-- Tier 2: Low Contact -->
-              <div class="flex flex-col gap-2.5">
+              <div class="flex flex-col gap-2.5 w-[160px] sm:w-auto shrink-0 sm:shrink">
                 <DepthCard
                   elevation="low"
                   title="ELEVATIO PRIMA"
@@ -281,7 +284,7 @@ const systemNav = [
               </div>
 
               <!-- Tier 3: Mid Raised -->
-              <div class="flex flex-col gap-2.5">
+              <div class="flex flex-col gap-2.5 w-[160px] sm:w-auto shrink-0 sm:shrink">
                 <DepthCard
                   elevation="mid"
                   title="ELEVATIO MEDIA"
@@ -294,7 +297,7 @@ const systemNav = [
               </div>
 
               <!-- Tier 4: Floating Atmospheric -->
-              <div class="flex flex-col gap-2.5">
+              <div class="flex flex-col gap-2.5 w-[160px] sm:w-auto shrink-0 sm:shrink">
                 <DepthCard
                   elevation="floating"
                   title="ELEVATIO SUBLIMIS"
@@ -1063,7 +1066,7 @@ const systemNav = [
   </div>
 
   <!-- Divider between Primitives & Systems -->
-  <div class="pt-8 border-t border-dashed border-neutral-300 dark:border-neutral-800"></div>
+  <div class="my-16 border-t border-dashed border-neutral-300 dark:border-neutral-800"></div>
 
   <!-- Group 2: System Components Container -->
   <div id="system-components" class="space-y-16 scroll-mt-24">
@@ -1075,23 +1078,27 @@ const systemNav = [
         </h2>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <ProjectTile
-          title="HYPE-BOX SYSTEMA TABERNAE"
-          category="01 // SYSTEMA INTERACTIVUM"
-          description="Programma tabernae photographicae tactu directum, cum motu sexaginta imaginum per secundum et ordine sine interrete firmo."
-          status="STATUS_VIVUS"
-          statusVariant="accent"
-          tags={['ELECTRON', 'REACT 19', 'TAILWIND v4', 'SQLITE']}
-        />
-        <ProjectTile
-          title="PORTA CURATORIS TABERNAE"
-          category="02 // PLATFORMA CURATIONIS"
-          description="Analytica summae praestantiae, gubernatio telemetriae tabernae, designator formarum, et ordinatio solutionum."
-          status="VERSIO_STABILIS"
-          statusVariant="neutral"
-          tags={['LARAVEL 13', 'REVERB', 'FILAMENT', 'MIDTRANS']}
-        />
+      <div class="flex flex-nowrap overflow-x-auto gap-6 pb-4 pt-1 -mx-4 px-4 sm:mx-0 sm:px-0 md:grid md:grid-cols-2 md:overflow-visible md:pb-0 md:gap-8 no-scrollbar">
+        <div class="w-[300px] sm:w-[360px] md:w-auto shrink-0 md:shrink flex flex-col">
+          <ProjectTile
+            title="HYPE-BOX SYSTEMA TABERNAE"
+            category="01 // SYSTEMA INTERACTIVUM"
+            description="Programma tabernae photographicae tactu directum, cum motu sexaginta imaginum per secundum et ordine sine interrete firmo."
+            status="STATUS_VIVUS"
+            statusVariant="accent"
+            tags={['ELECTRON', 'REACT 19', 'TAILWIND v4', 'SQLITE']}
+          />
+        </div>
+        <div class="w-[300px] sm:w-[360px] md:w-auto shrink-0 md:shrink flex flex-col">
+          <ProjectTile
+            title="PORTA CURATORIS TABERNAE"
+            category="02 // PLATFORMA CURATIONIS"
+            description="Analytica summae praestantiae, gubernatio telemetriae tabernae, designator formarum, et ordinatio solutionum."
+            status="VERSIO_STABILIS"
+            statusVariant="neutral"
+            tags={['LARAVEL 13', 'REVERB', 'FILAMENT', 'MIDTRANS']}
+          />
+        </div>
       </div>
     </section>
 
@@ -1421,6 +1428,28 @@ const systemNav = [
         <SystemTopology />
       </div>
     </section>
+
+    <!-- License & Attribution Section -->
+    <section id="library-license" class="pt-8 border-t border-neutral-200 dark:border-neutral-800 pb-4">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-5 bg-neutral-100/60 dark:bg-neutral-900/60 border border-neutral-200/80 dark:border-neutral-800">
+        <div class="space-y-1">
+          <span class="font-mono text-xs font-bold uppercase tracking-wider text-neutral-950 dark:text-white block">
+            CC BY 4.0 / Creative Commons Attribution
+          </span>
+          <p class="text-xs text-neutral-600 dark:text-neutral-400 font-normal">
+            Free to use and adapt in personal & commercial projects with a backlink credit to <span class="font-medium text-neutral-900 dark:text-neutral-100">Yovan</span>.
+          </p>
+        </div>
+        <a
+          href="https://creativecommons.org/licenses/by/4.0/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="font-mono text-[11px] text-neutral-500 hover:text-neutral-900 dark:hover:text-white underline underline-offset-4 shrink-0 transition-colors"
+        >
+          View Terms ↗
+        </a>
+      </div>
+    </section>
       </div>
     </main>
   </div>
@@ -1465,6 +1494,8 @@ const systemNav = [
           if (isActive) {
             btn.classList.add('bg-neutral-900', 'dark:bg-white', 'text-white', 'dark:text-neutral-950', 'font-bold');
             btn.classList.remove('bg-neutral-100', 'dark:bg-neutral-900', 'text-neutral-600', 'dark:text-neutral-400');
+            // Auto-scroll the mobile tab bar so active tab scrolls smoothly into view
+            btn.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
           } else {
             btn.classList.remove('bg-neutral-900', 'dark:bg-white', 'text-white', 'dark:text-neutral-950', 'font-bold');
             btn.classList.add('bg-neutral-100', 'dark:bg-neutral-900', 'text-neutral-600', 'dark:text-neutral-400');

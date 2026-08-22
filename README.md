@@ -54,6 +54,20 @@ export default defineConfig({
 });
 ```
 
+---
+
+## Component Library & Licensing
+
+The UI primitives in `src/components/` and showcased in the [Component Library](https://navoyovan.github.io/portfolio-yovan/component-library) are licensed under **Creative Commons Attribution 4.0 International ([CC BY 4.0](https://creativecommons.org/licenses/by/4.0/))**.
+
+You are free to use, adapt, and remix these components in personal or commercial projects. In return, please include an attribution backlink:
+
+```html
+<span>UI Components by <a href="https://navoyovan.github.io/portfolio-yovan" target="_blank" rel="noopener noreferrer">Yovan Gunardio Darmawan</a></span>
+```
+
+---
+
 ## to-do
 easter egg swipe to exit gesture
 hamburger menu

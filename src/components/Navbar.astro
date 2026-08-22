@@ -160,7 +160,7 @@ if (isComponentLibrary) {
         <svg
           id="theme-toggle-sun"
           aria-hidden="true"
-          class="w-4 h-4 hidden"
+          class="w-4 h-4 hidden dark:block"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
           fill="none"
@@ -183,7 +183,7 @@ if (isComponentLibrary) {
         <svg
           id="theme-toggle-moon"
           aria-hidden="true"
-          class="w-4 h-4 hidden"
+          class="w-4 h-4 block dark:hidden"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
           fill="none"
@@ -192,7 +192,7 @@ if (isComponentLibrary) {
           stroke-linecap="round"
           stroke-linejoin="round"
         >
-          <path d="M12 3a6 6 0 0 0 9 9 9 0 1 1-9-9Z"></path>
+          <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
         </svg>
       </button>
 
@@ -347,24 +347,15 @@ if (isComponentLibrary) {
 
   const setupThemeToggle = () => {
     const toggleBtn = document.getElementById('theme-toggle');
-    const sunIcon = document.getElementById('theme-toggle-sun');
-    const moonIcon = document.getElementById('theme-toggle-moon');
-    if (!toggleBtn || !sunIcon || !moonIcon) return;
+    if (!toggleBtn) return;
 
-    const updateIcons = () => {
+    const updateAria = () => {
       const isDark = document.documentElement.classList.contains('dark');
       toggleBtn.setAttribute('aria-pressed', String(isDark));
       toggleBtn.setAttribute('aria-label', isDark ? 'Switch to light theme' : 'Switch to dark theme');
-      if (isDark) {
-        sunIcon.classList.remove('hidden');
-        moonIcon.classList.add('hidden');
-      } else {
-        sunIcon.classList.add('hidden');
-        moonIcon.classList.remove('hidden');
-      }
     };
 
-    updateIcons();
+    updateAria();
 
     toggleBtn.onclick = () => {
       const isDark = document.documentElement.classList.contains('dark');
@@ -375,7 +366,7 @@ if (isComponentLibrary) {
         document.documentElement.classList.add('dark');
         localStorage.setItem('theme', 'dark');
       }
-      updateIcons();
+      updateAria();
     };
   };
 

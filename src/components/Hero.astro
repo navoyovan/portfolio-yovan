@@ -27,15 +27,15 @@ const base = rawBase.endsWith('/') ? rawBase.slice(0, -1) : rawBase;
   <HeroMap />
 
   <div
-    class="w-[92%] sm:w-[86%] lg:w-[80%] mx-auto relative z-10 flex flex-col lg:flex-row lg:items-end justify-between gap-10"
+    class="w-[92%] sm:w-[86%] lg:w-[80%] mx-auto relative z-20 pointer-events-none flex flex-col lg:flex-row lg:items-end justify-between gap-10"
   >
     <!-- Main Column: Title & Actions -->
-    <div class="max-w-2xl flex flex-col items-start w-full">
+    <div class="max-w-2xl flex flex-col items-start w-full pointer-events-auto">
       <h1
         class="hero-title-group select-none flex flex-col leading-none pl-7 sm:pl-0 m-0 p-0"
         aria-label={`${firstName} ${middleName} ${lastName}`}
       >
-        <!-- Row 1: < yovan /> -->
+        <!-- Row 1: < yovan -->
         <div
           id="hero-h1"
           class="hero-h1 relative inline-flex items-baseline whitespace-nowrap leading-[0.9] m-0 p-0 text-neutral-950/90 dark:text-white/90 font-heading font-black"
@@ -48,12 +48,6 @@ const base = rawBase.endsWith('/') ? rawBase.slice(0, -1) : rawBase;
             style="bottom: 0.15em; opacity: 0.6; font-weight: 900;">&lt;</span
           >
           <span id="hero-title-text">{firstName}</span>
-          <span
-            id="hero-bracket-r"
-            class="hero-h1-bracket-r ml-[0.1em] self-end select-none text-neutral-950 dark:text-white"
-            style="margin-bottom: 0.15em; opacity: 0.6; font-weight: 900;"
-            >&nbsp;/&gt;</span
-          >
         </div>
 
         <!-- Row 2: gunardio; -->
@@ -70,7 +64,7 @@ const base = rawBase.endsWith('/') ? rawBase.slice(0, -1) : rawBase;
           >
         </div>
 
-        <!-- Row 3: // darmawan -->
+        <!-- Row 3: // darmawan /> -->
         <div
           id="hero-h3"
           class="hero-h3 relative inline-flex items-baseline whitespace-nowrap p-0 m-0 leading-[1] font-heading font-normal"
@@ -81,9 +75,17 @@ const base = rawBase.endsWith('/') ? rawBase.slice(0, -1) : rawBase;
             class="hero-h3-slashes text-[#52FF1A] mr-[0.25em] select-none"
             style="opacity: 0.6; font-weight: 400;">//</span
           >
-          <span class="text-neutral-700/80 dark:text-neutral-300/80"
-            >{lastName}</span
-          >
+          <span class="inline-flex items-baseline whitespace-nowrap">
+            <span class="text-neutral-700/80 dark:text-neutral-300/80"
+              >{lastName}</span
+            >
+            <span
+              id="hero-bracket-r"
+              class="hero-h1-bracket-r ml-[0.15em] select-none text-neutral-950 dark:text-white"
+              style="opacity: 0.6; font-weight: 900;"
+              >/&gt;</span
+            >
+          </span>
         </div>
       </h1>
 
@@ -124,12 +126,12 @@ const base = rawBase.endsWith('/') ? rawBase.slice(0, -1) : rawBase;
             </a>
           </div>
 
-          <div class="flex items-center gap-3 sm:gap-4 flex-wrap">
+          <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 w-full sm:w-auto">
             <ActionButton
               variant="primary"
               size="md"
               href="#projects"
-              class="group overflow-hidden"
+              class="group overflow-hidden w-full sm:w-auto max-sm:!py-[11px]"
             >
               <div class="inline-flex items-center translate-x-[10px] group-hover:translate-x-0 transition-transform duration-200 ease-out">
                 <span>FEATURED WORK</span>
@@ -143,7 +145,7 @@ const base = rawBase.endsWith('/') ? rawBase.slice(0, -1) : rawBase;
               variant="secondary"
               size="md"
               href={`${base}/portfolio-index`}
-              class="group overflow-hidden"
+              class="group overflow-hidden w-full sm:w-auto max-sm:!py-[11px]"
             >
               <div class="inline-flex items-center translate-x-[10px] group-hover:translate-x-0 transition-transform duration-200 ease-out">
                 <span>PORTFOLIO INDEX</span>
@@ -156,30 +158,6 @@ const base = rawBase.endsWith('/') ? rawBase.slice(0, -1) : rawBase;
         </div>
       </div>
     </div>
-
-    <!-- Interactive Location Status Indicator Badge -->
-    <button
-      type="button"
-      id="hero-map-badge"
-      aria-label="Toggle Jabodetabek Map View"
-      title="Click to expand view to Jabodetabek"
-      class="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-white/85 dark:bg-black/70 hover:bg-white dark:hover:bg-neutral-900 backdrop-blur-xl border border-neutral-300/90 dark:border-neutral-700/80 hover:border-neutral-900 dark:hover:border-white shadow-md select-none pointer-events-auto cursor-pointer self-start lg:self-end mb-2 text-neutral-800 dark:text-neutral-200 active:scale-95 transition-[transform,background-color,color,border-color,opacity,box-shadow] duration-200 group/badge focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#52FF1A] focus-visible:ring-offset-2 dark:focus-visible:ring-offset-neutral-950"
-    >
-      <span class="relative flex h-2 w-2 shrink-0">
-        <span class="motion-safe:animate-ping absolute inline-flex h-full w-full rounded-full bg-[#52FF1A] opacity-75"></span>
-        <span class="relative inline-flex rounded-full h-2 w-2 bg-[#52FF1A]"></span>
-      </span>
-      <span
-        id="hero-map-badge-text"
-        class="font-mono text-xs font-medium tracking-wide transition-[transform,color,opacity] duration-200"
-      >
-        BOGOR, ID &bull; UTC+7
-      </span>
-      <i
-        id="hero-map-badge-icon"
-        class="ti ti-arrows-maximize text-xs text-neutral-400 group-hover/badge:text-neutral-900 dark:group-hover/badge:text-white transition-colors"
-      ></i>
-    </button>
   </div>
 </section>
 

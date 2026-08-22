@@ -16,7 +16,7 @@ const {
 ---
 
 <div
-  class="hero-map-background absolute inset-0 w-full h-full overflow-hidden pointer-events-none select-none z-0"
+  class="hero-map-background absolute inset-0 w-full h-full overflow-hidden pointer-events-none select-none z-10"
   data-lat={lat}
   data-lng={lng}
   data-zoom={zoom}
@@ -27,6 +27,34 @@ const {
     id="hero-leaflet-map"
     class="w-full h-full bg-[#fcfbf9] dark:bg-[#0e0e0e] opacity-90 dark:opacity-80 transition-opacity duration-500"
   ></div>
+
+  <!-- Interactive Map Location Toggle Rectangle (Sharp Accent Patch & Typography) -->
+  <button
+    type="button"
+    id="hero-map-badge"
+    data-view="bogor"
+    aria-label="Toggle Jabodetabek Map View"
+    title="Click to expand view to Jabodetabek"
+    class="absolute right-[8%] sm:right-[12%] lg:right-[16%] top-[10%] sm:top-[20%] lg:top-[22%] flex flex-col items-center pointer-events-auto cursor-pointer z-30 select-none group/maptarget focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#52FF1A] p-1 bg-transparent border-0 data-[view=jabodetabek]:translate-x-0 data-[view=jabodetabek]:translate-y-0 sm:data-[view=jabodetabek]:-translate-x-44 sm:data-[view=jabodetabek]:translate-y-40 lg:data-[view=jabodetabek]:-translate-x-64 lg:data-[view=jabodetabek]:translate-y-52 transition-[opacity,transform] duration-300 ease-out"
+  >
+    <!-- Sharp Borderless Rectangle with hover feedback -->
+    <div
+      class="w-[110px] sm:w-[150px] lg:w-[190px] h-[75px] sm:h-[100px] lg:h-[125px] bg-neutral-900/[0.08] dark:bg-[#52FF1A]/[0.08] group-hover/maptarget:bg-neutral-900/[0.15] dark:group-hover/maptarget:bg-[#52FF1A]/[0.15] transition-colors duration-200 rounded-none"
+    ></div>
+
+    <!-- Centered Typography Directly Under Rectangle -->
+    <div class="flex flex-col items-center justify-center text-center pt-2 sm:pt-2.5 gap-0.5">
+      <span
+        id="hero-map-location-title"
+        class="font-heading font-bold text-xs sm:text-sm lg:text-base uppercase tracking-wider text-neutral-950 dark:text-white group-hover/maptarget:text-black dark:group-hover/maptarget:text-[#52FF1A] transition-colors duration-200 leading-tight"
+      >
+        BOGOR
+      </span>
+      <span class="font-mono text-[9px] sm:text-[10px] lg:text-[11px] font-bold text-neutral-700 dark:text-neutral-400 tracking-wider">
+        UTC+7
+      </span>
+    </div>
+  </button>
 
   <!-- Radial & Linear Gradient Scrims (Minimal left edge protection for typography, maximum map exposure) -->
   <div
@@ -96,8 +124,8 @@ const {
       const getBogorTarget = () => {
         const isMobile = window.innerWidth < 768;
         return {
-          // Mobile: original center (106.8060) at zoom 13. Desktop: offset (106.7640) at zoom 14
-          center: (isMobile ? [-6.6120, 106.8060] : [-6.6120, 106.7640]) as [number, number],
+          // Mobile: moderated offset [-6.6340, 106.7780] at zoom 13. Desktop: [-6.6120, 106.7640] at zoom 14
+          center: (isMobile ? [-6.6340, 106.7780] : [-6.6120, 106.7640]) as [number, number],
           zoom: isMobile ? 13 : 14,
         };
       };
@@ -105,8 +133,8 @@ const {
       const getJabodetabekTarget = () => {
         const isMobile = window.innerWidth < 768;
         return {
-          // Mobile: original center (106.8270) at zoom 10. Desktop: offset west (106.5270) at zoom 11 so Jakarta lands at ~75% width
-          center: (isMobile ? [-6.22, 106.8270] : [-6.22, 106.5270]) as [number, number],
+          // Mobile: shifted north [-6.44, 106.8270] at zoom 10. Desktop: original offset [-6.22, 106.5270] at zoom 11
+          center: (isMobile ? [-6.44, 106.8270] : [-6.22, 106.5270]) as [number, number],
           zoom: isMobile ? 10 : 11,
         };
       };
@@ -149,56 +177,60 @@ const {
 
       updateTileTheme();
 
-      // Badge Click Toggle (Bogor <-> Jabodetabek)
+      // Location Toggle (Bogor <-> Jabodetabek)
       const badgeBtn = document.getElementById('hero-map-badge');
-      const badgeText = document.getElementById('hero-map-badge-text');
-      const badgeIcon = document.getElementById('hero-map-badge-icon');
+      const locationTitle = document.getElementById('hero-map-location-title');
       let isJabodetabek = false;
-
-      const setBadgeText = (text: string) => {
-        if (!badgeText) return;
-        badgeText.style.opacity = '0';
-        badgeText.style.transform = 'translateY(-2px)';
-        setTimeout(() => {
-          badgeText.innerHTML = text;
-          badgeText.style.opacity = '1';
-          badgeText.style.transform = 'translateY(0)';
-        }, 150);
-      };
+      let isTransitioning = false;
 
       if (badgeBtn) {
         badgeBtn.addEventListener('click', () => {
+          if (isTransitioning) return;
+          isTransitioning = true;
           isJabodetabek = !isJabodetabek;
-          badgeBtn.setAttribute('aria-pressed', String(isJabodetabek));
-          const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-          if (isJabodetabek) {
-            const target = getJabodetabekTarget();
-            if (prefersReducedMotion) {
-              map.setView(target.center, target.zoom);
-            } else {
-              map.flyTo(target.center, target.zoom, { duration: 1.4 });
-            }
-            setBadgeText('JABODETABEK &bull; UTC+7');
-            badgeBtn.setAttribute('title', 'Click to focus on Bogor');
-            badgeBtn.setAttribute('aria-label', 'Focus map on Bogor');
-            if (badgeIcon) {
-              badgeIcon.className = 'ti ti-arrows-minimize text-xs text-neutral-400 group-hover/badge:text-neutral-900 dark:group-hover/badge:text-white transition-colors';
-            }
+          // 1. Fade out smoothly on click
+          badgeBtn.style.opacity = '0';
+          badgeBtn.style.pointerEvents = 'none';
+
+          const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+          const target = isJabodetabek ? getJabodetabekTarget() : getBogorTarget();
+          const duration = prefersReducedMotion ? 0 : 1.4;
+
+          // 2. Fly map to target
+          if (prefersReducedMotion) {
+            map.setView(target.center, target.zoom);
           } else {
-            const target = getBogorTarget();
-            if (prefersReducedMotion) {
-              map.setView(target.center, target.zoom);
-            } else {
-              map.flyTo(target.center, target.zoom, { duration: 1.4 });
-            }
-            setBadgeText('BOGOR, ID &bull; UTC+7');
-            badgeBtn.setAttribute('title', 'Click to expand view to Jabodetabek');
-            badgeBtn.setAttribute('aria-label', 'Expand map view to Jabodetabek');
-            if (badgeIcon) {
-              badgeIcon.className = 'ti ti-arrows-maximize text-xs text-neutral-400 group-hover/badge:text-neutral-900 dark:group-hover/badge:text-white transition-colors';
-            }
+            map.flyTo(target.center, target.zoom, { duration });
           }
+
+          // 3. Update text & position while invisible
+          setTimeout(() => {
+            badgeBtn.setAttribute('data-view', isJabodetabek ? 'jabodetabek' : 'bogor');
+            badgeBtn.setAttribute('aria-pressed', String(isJabodetabek));
+            if (locationTitle) {
+              locationTitle.textContent = isJabodetabek ? 'JABODETABEK' : 'BOGOR';
+            }
+            badgeBtn.setAttribute('title', isJabodetabek ? 'Click to focus on Bogor' : 'Click to expand view to Jabodetabek');
+            badgeBtn.setAttribute('aria-label', isJabodetabek ? 'Focus map on Bogor' : 'Expand map view to Jabodetabek');
+          }, 250);
+
+          // 4. Reintroduce smoothly once map finishes moving
+          let reintroduced = false;
+          const reintroduce = () => {
+            if (reintroduced) return;
+            reintroduced = true;
+            badgeBtn.style.opacity = '1';
+            badgeBtn.style.pointerEvents = 'auto';
+            isTransitioning = false;
+          };
+
+          map.once('moveend', () => {
+            setTimeout(reintroduce, 120);
+          });
+
+          // Safety fallback timeout
+          setTimeout(reintroduce, (duration * 1000) + 300);
         });
       }
 

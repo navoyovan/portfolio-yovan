@@ -3,6 +3,7 @@
   "description": "Personal portfolio of Yovan Gunardio Darmawan — software engineer.",
   "author": "Yovan Gunardio Darmawan <yovangunardio@gmail.com>",
   "private": true,
+  "license": "SEE LICENSE IN LICENSE",
   "type": "module",
   "version": "0.0.1",
   "engines": {

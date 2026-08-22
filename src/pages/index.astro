@@ -185,24 +185,24 @@ const capabilities = [
         </p>
 
         <!-- Tags Row -->
-        <ul class="flex flex-wrap gap-2 pt-1 list-none p-0 m-0" aria-label="Tags">
+        <ul class="flex flex-wrap gap-1.5 sm:gap-2 pt-1 list-none p-0 m-0" aria-label="Tags">
           <li>
             <span
-              class="font-sans text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2.5 py-1 rounded inline-block"
+              class="font-sans text-[9px] sm:text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2 sm:px-2.5 py-0.5 sm:py-1 rounded inline-block"
             >
               VANILLA JS
             </span>
           </li>
           <li>
             <span
-              class="font-sans text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2.5 py-1 rounded inline-block"
+              class="font-sans text-[9px] sm:text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2 sm:px-2.5 py-0.5 sm:py-1 rounded inline-block"
             >
               CSS3 SHADOWS
             </span>
           </li>
           <li>
             <span
-              class="font-sans text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2.5 py-1 rounded inline-block"
+              class="font-sans text-[9px] sm:text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2 sm:px-2.5 py-0.5 sm:py-1 rounded inline-block"
             >
               SETTIMEOUT
             </span>
@@ -291,17 +291,17 @@ const capabilities = [
         <!-- Tags Row -->
         <div class="flex flex-wrap gap-1.5 pt-0.5">
           <span
-            class="font-sans text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2.5 py-0.5 rounded"
+            class="font-sans text-[9px] sm:text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2 sm:px-2.5 py-0.5 sm:py-1 rounded"
           >
             MODPE JS
           </span>
           <span
-            class="font-sans text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2.5 py-0.5 rounded"
+            class="font-sans text-[9px] sm:text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2 sm:px-2.5 py-0.5 sm:py-1 rounded"
           >
             BLOCKLAUNCHER
           </span>
           <span
-            class="font-sans text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2.5 py-0.5 rounded"
+            class="font-sans text-[9px] sm:text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2 sm:px-2.5 py-0.5 sm:py-1 rounded"
           >
             ANDROID 2014
           </span>
@@ -739,39 +739,31 @@ const capabilities = [
             <div
               class="relative w-full max-w-md sm:max-w-lg flex flex-col items-center justify-center border-b border-neutral-300/80 dark:border-neutral-800 overflow-hidden"
             >
-              <!-- Layer 1: Lava Lamp / Water Blob Dot Matrix Field -->
+              <!-- Texture Backdrop: Full Soft 3/4 Radial Mask -->
               <div
-                class="absolute inset-0 flex items-center justify-center pointer-events-none select-none"
+                class="absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden [mask-image:radial-gradient(circle_at_50%_40%,black_35%,transparent_75%)]"
               >
-                <div
-                  class="w-88 h-88 sm:w-[380px] sm:h-[380px] animate-blob-morph bg-[radial-gradient(rgba(0,0,0,0.18)_1.5px,transparent_1.5px)] dark:bg-[radial-gradient(rgba(255,255,255,0.22)_1.5px,transparent_1.5px)] [background-size:15px_15px] [mask-image:radial-gradient(circle,black_55%,transparent_85%)] opacity-90"
-                >
-                </div>
-              </div>
-
-              <!-- Layer 2: Technical Reticle / Concentric Dashed Halo Rings -->
-              <div
-                class="absolute inset-0 flex items-center justify-center pointer-events-none select-none"
-              >
-                <!-- Outer Dashed Ring -->
-                <div
-                  class="w-72 h-72 sm:w-80 sm:h-80 rounded-full border border-dashed border-neutral-300 dark:border-neutral-700/80"
-                >
-                </div>
-                <!-- Inner Solid Hairline Ring -->
-                <div
-                  class="absolute w-52 h-52 sm:w-60 sm:h-60 rounded-full border border-neutral-200/80 dark:border-neutral-800"
-                >
-                </div>
-                <!-- Center Crosshair Accents -->
-                <div
-                  class="absolute w-84 h-[1px] bg-gradient-to-r from-transparent via-neutral-200/60 dark:via-neutral-800 to-transparent"
-                >
-                </div>
-                <div
-                  class="absolute h-84 w-[1px] bg-gradient-to-b from-transparent via-neutral-200/60 dark:via-neutral-800 to-transparent"
-                >
-                </div>
+                <!-- tx1: Halftone dot pattern -->
+                <img
+                  src={`${base}/images/tx1.jpg`}
+                  alt=""
+                  aria-hidden="true"
+                  class="absolute inset-0 w-full h-full object-cover object-center opacity-40 dark:opacity-30 mix-blend-multiply dark:mix-blend-screen dark:invert grayscale filter contrast-125"
+                />
+                <!-- tx2: Crumpled paper grain & creases -->
+                <img
+                  src={`${base}/images/tx2.jpg`}
+                  alt=""
+                  aria-hidden="true"
+                  class="absolute inset-0 w-full h-full object-cover object-center opacity-30 dark:opacity-20 mix-blend-multiply dark:mix-blend-screen dark:invert grayscale filter contrast-150"
+                />
+                <!-- tx3: Distressed vintage typography -->
+                <img
+                  src={`${base}/images/tx3.jpg`}
+                  alt=""
+                  aria-hidden="true"
+                  class="absolute inset-0 w-full h-full object-cover object-center opacity-35 dark:opacity-25 mix-blend-multiply dark:mix-blend-screen dark:invert grayscale filter contrast-150"
+                />
               </div>
 
               <img
@@ -875,9 +867,10 @@ const capabilities = [
 
             <!-- Tech Stack Layout -->
             <div
-              class="pt-6 space-y-8 border-t border-neutral-200/80 dark:border-neutral-800/80"
+              class="pt-6 border-t border-neutral-200/80 dark:border-neutral-800/80"
             >
-              <div class="flex items-center justify-between">
+              <!-- Core Stack Header -->
+              <div class="flex items-center justify-between pb-6">
                 <h3
                   class="font-heading font-bold text-xs sm:text-sm uppercase tracking-wider text-neutral-500 dark:text-neutral-400 m-0"
                 >
@@ -892,7 +885,7 @@ const capabilities = [
 
               <!-- Core Stack (Icon-as-Object: Unboxed, Breathing Grid) -->
               <ul
-                class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-6 sm:gap-8 pt-1 list-none m-0 p-0"
+                class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-6 sm:gap-8 list-none m-0 p-0"
                 aria-label="Core Technologies"
               >
                 {
@@ -914,15 +907,15 @@ const capabilities = [
                 }
               </ul>
 
-              <!-- Supporting Stack (Unboxed / Clean Inline Flow for Visual Weight Balance) -->
-              <div class="pt-2 space-y-2.5">
+              <!-- Supporting Stack Divider & Container -->
+              <div class="mt-10 pt-8 border-t border-neutral-200/80 dark:border-neutral-800/80">
                 <h3
-                  class="font-heading font-bold text-xs uppercase tracking-wider text-neutral-400 dark:text-neutral-500 block m-0"
+                  class="font-heading font-bold text-xs sm:text-sm uppercase tracking-wider text-neutral-500 dark:text-neutral-400 block m-0 pb-4"
                 >
                   Ecosystem & Supporting Tech
                 </h3>
                 <ul
-                  class="flex flex-wrap items-center gap-x-4 gap-y-2.5 pt-0.5 list-none m-0 p-0"
+                  class="flex flex-wrap items-center gap-x-4 sm:gap-x-5 gap-y-2.5 sm:gap-y-3 list-none m-0 p-0"
                   aria-label="Ecosystem and Supporting Technologies"
                 >
                   {
@@ -990,12 +983,12 @@ const capabilities = [
           </p>
         </div>
 
-        <!-- Featured Spotlight: Hypebox -->
+        <!-- Featured Spotlight: Hypebox Pipeline & Connected Ecosystem -->
         <article
           aria-labelledby="heading-hypebox"
           class="border border-neutral-300/80 dark:border-neutral-800 bg-[#f6f4ee] dark:bg-[#141414] p-6 sm:p-8 space-y-8"
         >
-          <!-- Hypebox Header -->
+          <!-- Hypebox Header & Actions -->
           <div
             class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-neutral-200/80 dark:border-neutral-800/80"
           >
@@ -1007,560 +1000,261 @@ const capabilities = [
                 HYPE-BOX
               </h3>
               <p
-                class="text-sm font-medium text-neutral-600 dark:text-neutral-400 pt-1"
+                class="text-sm font-medium text-neutral-600 dark:text-neutral-400 m-0 pt-0.5"
               >
-                A photobooth platform, built from kiosk to backend.
+                A connected photo booth platform, built from kiosk to backend.
               </p>
             </div>
 
-            <ActionButton
-              variant="secondary"
-              size="sm"
-              href="https://navoyovan.github.io/hypebox/"
-              target="_blank"
-              rel="noopener noreferrer"
-              ariaLabel="Visit Hypebox Site (opens in new tab)"
-              class="group/btn overflow-hidden w-fit"
-            >
-              <div
-                class="inline-flex items-center translate-x-[10px] group-hover/btn:translate-x-0 transition-transform duration-200 ease-out"
+            <div class="flex items-center gap-3 flex-wrap">
+              <ActionButton
+                variant="secondary"
+                size="sm"
+                href="https://navoyovan.github.io/photobooth-kiosk-demo/"
+                target="_blank"
+                rel="noopener noreferrer"
+                ariaLabel="Launch Kiosk Demo (opens in new tab)"
+                class="group/btn overflow-hidden w-fit"
               >
-                <span>Visit Hypebox Site</span>
-                <span
-                  class="inline-flex items-center justify-center w-3.5 ml-1.5 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-200 ease-out"
-                  aria-hidden="true"
+                <div
+                  class="inline-flex items-center translate-x-[10px] group-hover/btn:translate-x-0 transition-transform duration-200 ease-out"
                 >
-                  ↗
-                </span>
-              </div>
-            </ActionButton>
+                  <span>Launch Kiosk Demo</span>
+                  <span
+                    class="inline-flex items-center justify-center w-3.5 ml-1.5 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-200 ease-out"
+                    aria-hidden="true"
+                  >
+                    ↗
+                  </span>
+                </div>
+              </ActionButton>
+              <ActionButton
+                variant="primary"
+                size="sm"
+                href="https://navoyovan.github.io/hypebox/"
+                target="_blank"
+                rel="noopener noreferrer"
+                ariaLabel="Visit Hypebox Site (opens in new tab)"
+                class="group/btn overflow-hidden w-fit"
+              >
+                <div
+                  class="inline-flex items-center translate-x-[10px] group-hover/btn:translate-x-0 transition-transform duration-200 ease-out"
+                >
+                  <span>Visit Hypebox Site</span>
+                  <span
+                    class="inline-flex items-center justify-center w-3.5 ml-1.5 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-200 ease-out"
+                    aria-hidden="true"
+                  >
+                    ↗
+                  </span>
+                </div>
+              </ActionButton>
+            </div>
           </div>
 
+          <!-- Architecture Summary -->
           <p
-            class="text-sm sm:text-base text-neutral-700 dark:text-neutral-300 leading-relaxed max-w-3xl font-normal"
+            class="text-sm sm:text-base text-neutral-700 dark:text-neutral-300 leading-relaxed max-w-3xl font-normal m-0"
           >
-            A connected photo booth system with a touchscreen-optimized Electron
-            kiosk, Laravel backend, management dashboard, realtime
-            communication, and integrated payments, with the broader ecosystem
-            still in development.
+            An integrated hardware-software pipeline orchestrating physical thermal printers, camera hardware, a touchscreen Electron client, real-time WebSocket telemetry, and cloud fleet management.
           </p>
 
-          <!-- Ecosystem Grid of Sub-systems -->
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-5 pt-2">
-            <!-- Kiosk Hero Subsystem (Full Width with Full-Bleed Right Screenshot) -->
-            <article
-              aria-labelledby="heading-subsystem-kiosk"
-              class="group col-span-1 md:col-span-3 border border-neutral-300/90 dark:border-neutral-700/80 bg-white/90 dark:bg-neutral-900/60 shadow-sm transition-all duration-200 hover:border-neutral-400 dark:hover:border-neutral-600 overflow-hidden"
-            >
-              <div
-                class="flex flex-col lg:flex-row items-stretch justify-between"
-              >
-                <!-- 60% Left Column: Copy & Specs & CTA -->
-                <div
-                  class="w-full lg:w-[60%] xl:w-[62%] p-6 sm:p-8 flex flex-col justify-between space-y-6"
-                >
-                  <div class="space-y-4">
-                    <div class="space-y-2">
-                      <p
-                        class="text-[11px] font-sans text-neutral-500 font-semibold tracking-wider block m-0"
-                      >
-                        Touchscreen & Hardware Engine
-                      </p>
-                      <div
-                        class="flex flex-wrap items-baseline justify-between sm:justify-start sm:gap-4"
-                      >
-                        <h4
-                          id="heading-subsystem-kiosk"
-                          class="text-xl sm:text-2xl font-bold text-neutral-950 dark:text-white group-hover:text-[#52FF1A] transition-colors font-heading tracking-tight m-0"
-                        >
-                          Photobooth Kiosk
-                        </h4>
-                      </div>
-                    </div>
-                    <div class="space-y-3">
-                      <p
-                        class="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed"
-                      >
-                        Standalone touchscreen software engineered for event
-                        photobooth/self service photobooths. orchestrating
-                        real-time camera feeds, countdown capture loops,
-                        physical thermal printing, and seamless offline-tolerant
-                        hardware communication.
-                      </p>
-                      <ul class="flex flex-wrap gap-2 pt-1 list-none p-0 m-0" aria-label="Technologies">
-                        <li>
-                          <span
-                            class="font-sans text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2.5 py-1 rounded inline-block"
-                          >
-                            ELECTRON
-                          </span>
-                        </li>
-                        <li>
-                          <span
-                            class="font-sans text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2.5 py-1 rounded inline-block"
-                          >
-                            REACT
-                          </span>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                  <div class="pt-3">
-                    <ActionButton
-                      variant="secondary"
-                      size="md"
-                      href="https://navoyovan.github.io/photobooth-kiosk-demo/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      ariaLabel="Launch Kiosk Demo (opens in new tab)"
-                      class="group/btn overflow-hidden w-fit text-xs sm:text-sm"
-                    >
-                      <div
-                        class="inline-flex items-center translate-x-[10px] group-hover/btn:translate-x-0 transition-transform duration-200 ease-out"
-                      >
-                        <span>Launch Kiosk Demo</span>
-                        <span
-                          class="inline-flex items-center justify-center w-3.5 ml-1.5 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-200 ease-out"
-                          aria-hidden="true"
-                        >
-                          ↗
-                        </span>
-                      </div>
-                    </ActionButton>
-                  </div>
-                </div>
-
-                <!-- 40% Right Column: Full Bleed Image Box (No Padding) -->
-                <div
-                  class="w-full lg:w-[40%] xl:w-[38%] shrink-0 border-t lg:border-t-0 lg:border-l border-neutral-300/80 dark:border-neutral-700/80 bg-neutral-100 dark:bg-neutral-900 overflow-hidden relative flex items-center justify-center min-h-[240px] lg:min-h-full group/preview"
-                >
-                  <img
-                    src={`${base}/images/kiosk-screenshot.webp`}
-                    alt="Photobooth Kiosk UI Screenshot"
-                    width="1280"
-                    height="720"
-                    class="w-full h-full object-cover object-top transition-transform duration-500 group-hover/preview:scale-[1.02]"
-                    loading="lazy"
-                    decoding="async"
-                    onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"
-                  />
-                  <!-- Fallback Placeholder when image is not yet placed -->
-                  <div
-                    class="hidden absolute inset-0 flex-col items-center justify-center p-4 text-center space-y-2 bg-[#121212]"
-                  >
-                    <div
-                      class="w-8 h-8 rounded-full border border-dashed border-neutral-700 flex items-center justify-center text-neutral-500"
-                    >
-                      <i class="ti ti-device-desktop text-lg" aria-hidden="true"
-                      ></i>
-                    </div>
-                    <span class="font-mono text-[11px] text-neutral-400"
-                      >Place screenshot at <br /><code class="text-[#52FF1A]"
-                        >public/images/kiosk-screenshot.webp</code
-                      ></span
-                    >
-                  </div>
-                </div>
-              </div>
-            </article>
-
-            <!-- REST & WebSocket API Subsystem (Col 1) -->
-            <article
-              aria-labelledby="heading-subsystem-backend"
-              class="group col-span-1 border border-neutral-200/80 dark:border-neutral-800/80 bg-white/60 dark:bg-neutral-900/40 flex flex-col justify-between items-start shadow-sm transition-all duration-200 hover:border-neutral-400 dark:hover:border-neutral-600 overflow-hidden"
-            >
-              <div class="p-5 sm:p-6 space-y-3 w-full">
-                <div class="space-y-1.5">
-                  <p
-                    class="text-[11px] font-sans text-neutral-500 font-semibold tracking-wider block m-0"
-                  >
-                    Cloud Engine
+          <!-- Pipeline Cards (1-line side-scroll on mobile, 4-col grid on desktop) -->
+          <div class="flex flex-nowrap overflow-x-auto gap-4 pb-4 pt-3 sm:pt-4 -mx-4 px-4 sm:mx-0 sm:px-0 lg:grid lg:grid-cols-4 lg:overflow-visible lg:pb-0 lg:gap-4 no-scrollbar">
+              
+              <!-- STAGE 01: Initiation & Payment -->
+              <div class="w-[280px] sm:w-[320px] lg:w-auto shrink-0 lg:shrink flex flex-col justify-between p-4 sm:p-5 bg-white/90 dark:bg-neutral-900/60 border border-neutral-300/80 dark:border-neutral-800 transition-all duration-200 hover:border-neutral-400 dark:hover:border-neutral-600 shadow-sm relative group">
+                <div class="flex flex-col flex-1 gap-3">
+                  <p class="font-sans text-[11px] uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-semibold m-0">
+                    Edge &rarr; API
                   </p>
-                  <div
-                    class="flex flex-wrap items-baseline justify-start gap-3 sm:gap-4"
-                  >
-                    <h4
-                      id="heading-subsystem-backend"
-                      class="text-xl sm:text-2xl font-bold text-neutral-950 dark:text-white group-hover:text-[#52FF1A] transition-colors font-heading tracking-tight m-0"
-                    >
-                      Backend API
-                    </h4>
-                  </div>
-                </div>
-                <div class="space-y-3">
-                  <p
-                    class="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed"
-                  >
-                    Laravel backend for a photobooth kiosk. Integrating SNAP API
-                    for QRIS payments, Google Cloud Storage for photo
-                    synchronization, and Reverb-powered WebSockets for live
-                    kiosk telemetry.
+                  <h4 class="text-lg sm:text-xl font-bold text-neutral-950 dark:text-white tracking-tight leading-tight group-hover:text-[#52FF1A] transition-colors font-heading m-0">
+                    Touch &amp; QRIS Payment
+                  </h4>
+                  <p class="font-sans text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed font-normal m-0">
+                    Customer taps package on Electron kiosk. Laravel REST API generates dynamic QRIS via Midtrans SNAP with instant webhook confirmation.
                   </p>
-                  <ul class="flex flex-wrap gap-2 pt-1 list-none p-0 m-0" aria-label="Technologies">
-                    <li>
-                      <span
-                        class="font-sans text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2.5 py-1 rounded inline-block"
-                      >
-                        LARAVEL
-                      </span>
-                    </li>
-                    <li>
-                      <span
-                        class="font-sans text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2.5 py-1 rounded inline-block"
-                      >
-                        REVERB
-                      </span>
-                    </li>
-                    <li>
-                      <span
-                        class="font-sans text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2.5 py-1 rounded inline-block"
-                      >
-                        GCS
-                      </span>
-                    </li>
-                    <li>
-                      <span
-                        class="font-sans text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2.5 py-1 rounded inline-block"
-                      >
-                        GCP
-                      </span>
-                    </li>
-                    <li>
-                      <span
-                        class="font-sans text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2.5 py-1 rounded inline-block"
-                      >
-                        DOCKER
-                      </span>
-                    </li>
+                </div>
+                <div class="mt-auto pt-3.5 border-t border-neutral-200/80 dark:border-neutral-800/80 space-y-2">
+                  <div class="flex items-center justify-between font-mono text-[10px] text-neutral-500 dark:text-neutral-400">
+                    <span>Protocol:</span>
+                    <span class="font-semibold text-neutral-700 dark:text-neutral-300">HTTPS / SNAP</span>
+                  </div>
+                  <ul class="flex flex-wrap gap-1.5 list-none p-0 m-0" aria-label="Tech tokens">
+                    <li><span class="font-sans text-[9px] sm:text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2 sm:px-2.5 py-0.5 rounded inline-block">ELECTRON</span></li>
+                    <li><span class="font-sans text-[9px] sm:text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2 sm:px-2.5 py-0.5 rounded inline-block">LARAVEL</span></li>
+                    <li><span class="font-sans text-[9px] sm:text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2 sm:px-2.5 py-0.5 rounded inline-block">MIDTRANS</span></li>
                   </ul>
                 </div>
               </div>
 
-              <!-- Backend Communication Diagram Box (Full-Bleed Bottom) -->
-              <div
-                class="w-full border-t border-neutral-200/80 dark:border-neutral-800/80 bg-[#fbf9f4] dark:bg-[#121212] overflow-hidden relative aspect-video flex items-center justify-center p-2 sm:p-2.5 select-none group/diagram mt-auto"
-              >
-                <svg
-                  viewBox="0 0 420 230"
-                  role="img"
-                  aria-label="System architecture diagram: Laravel core backend communicates bidirectionally with React Vendor Portal and Electron Kiosk Client, which connects to Camera, Printer, and IoT peripherals."
-                  class="w-full h-full text-neutral-900 dark:text-neutral-100"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <title>HYPE-BOX Backend Communication Architecture Diagram</title>
-                  <!-- Top-Left Box: LARAVEL CORE -->
-                  <rect
-                    x="15"
-                    y="15"
-                    width="160"
-                    height="74"
-                    class="fill-white dark:fill-neutral-900 stroke-neutral-300 dark:stroke-neutral-700"
-                    stroke-width="1.5"></rect>
-                  <text
-                    x="95"
-                    y="46"
-                    text-anchor="middle"
-                    class="font-mono text-[13.5px] font-bold fill-neutral-950 dark:fill-white uppercase tracking-wider"
-                  >
-                    LARAVEL
-                  </text>
-                  <text
-                    x="95"
-                    y="65"
-                    text-anchor="middle"
-                    class="font-mono text-[11.5px] font-semibold fill-[#52FF1A] tracking-tight"
-                  >
-                    CORE BACKEND
-                  </text>
-
-                  <!-- Top Horizontal Connector: Dual Arrows -->
-                  <line
-                    x1="183"
-                    y1="47"
-                    x2="235"
-                    y2="47"
-                    class="stroke-neutral-400 dark:stroke-neutral-600"
-                    stroke-width="1.3"></line>
-                  <path
-                    d="M231 43L237 47L231 51"
-                    class="stroke-neutral-400 dark:stroke-neutral-600"
-                    stroke-width="1.3"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"></path>
-                  <line
-                    x1="187"
-                    y1="57"
-                    x2="239"
-                    y2="57"
-                    class="stroke-neutral-400 dark:stroke-neutral-600"
-                    stroke-width="1.3"></line>
-                  <path
-                    d="M191 53L185 57L191 61"
-                    class="stroke-neutral-400 dark:stroke-neutral-600"
-                    stroke-width="1.3"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"></path>
-
-                  <!-- Top-Right Box: REACT Vendor Portal -->
-                  <rect
-                    x="245"
-                    y="15"
-                    width="160"
-                    height="74"
-                    class="fill-white dark:fill-neutral-900 stroke-neutral-300 dark:stroke-neutral-700"
-                    stroke-width="1.5"></rect>
-                  <text
-                    x="325"
-                    y="46"
-                    text-anchor="middle"
-                    class="font-mono text-[13.5px] font-bold fill-neutral-950 dark:fill-white uppercase tracking-wider"
-                  >
-                    REACT
-                  </text>
-                  <text
-                    x="325"
-                    y="65"
-                    text-anchor="middle"
-                    class="font-mono text-[11.5px] font-semibold fill-neutral-600 dark:fill-neutral-300 tracking-tight"
-                  >
-                    VENDOR PORTAL
-                  </text>
-
-                  <!-- Left Vertical Connector: Dual Arrows -->
-                  <line
-                    x1="90"
-                    y1="96"
-                    x2="90"
-                    y2="132"
-                    class="stroke-neutral-400 dark:stroke-neutral-600"
-                    stroke-width="1.3"></line>
-                  <path
-                    d="M86 129L90 134L94 129"
-                    class="stroke-neutral-400 dark:stroke-neutral-600"
-                    stroke-width="1.3"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"></path>
-                  <line
-                    x1="100"
-                    y1="100"
-                    x2="100"
-                    y2="136"
-                    class="stroke-neutral-400 dark:stroke-neutral-600"
-                    stroke-width="1.3"></line>
-                  <path
-                    d="M96 103L100 98L104 103"
-                    class="stroke-neutral-400 dark:stroke-neutral-600"
-                    stroke-width="1.3"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"></path>
-
-                  <!-- Bottom-Left Box: ELECTRON Kiosk Client -->
-                  <rect
-                    x="15"
-                    y="141"
-                    width="160"
-                    height="74"
-                    class="fill-white dark:fill-neutral-900 stroke-neutral-300 dark:stroke-neutral-700"
-                    stroke-width="1.5"></rect>
-                  <text
-                    x="95"
-                    y="172"
-                    text-anchor="middle"
-                    class="font-mono text-[13.5px] font-bold fill-neutral-950 dark:fill-white uppercase tracking-wider"
-                  >
-                    ELECTRON
-                  </text>
-                  <text
-                    x="95"
-                    y="191"
-                    text-anchor="middle"
-                    class="font-mono text-[11.5px] font-semibold fill-neutral-600 dark:fill-neutral-300 tracking-tight"
-                  >
-                    KIOSK CLIENT
-                  </text>
-
-                  <!-- Hardware Peripherals hugging Electron -->
-                  <g
-                    class="font-mono text-[12px] font-medium fill-neutral-800 dark:fill-neutral-200"
-                  >
-                    <text x="185" y="162">
-                      <tspan
-                        class="fill-neutral-400 dark:fill-neutral-500 font-bold"
-                        >⇄</tspan
-                      > Camera
-                    </text>
-                    <text x="185" y="182">
-                      <tspan
-                        class="fill-neutral-400 dark:fill-neutral-500 font-bold"
-                        >⇄</tspan
-                      > Printer
-                    </text>
-                    <text x="185" y="202">
-                      <tspan
-                        class="fill-neutral-400 dark:fill-neutral-500 font-bold"
-                        >⇄</tspan
-                      > IoT
-                    </text>
-                  </g>
-                </svg>
-              </div>
-            </article>
-
-            <!-- Vendor Portal Subsystem (Col 2) -->
-            <article
-              aria-labelledby="heading-subsystem-vendor-portal"
-              class="group col-span-1 border border-neutral-200/80 dark:border-neutral-800/80 bg-white/60 dark:bg-neutral-900/40 flex flex-col justify-between items-start shadow-sm transition-all duration-200 hover:border-neutral-400 dark:hover:border-neutral-600 overflow-hidden"
-            >
-              <div class="p-5 sm:p-6 space-y-3 w-full">
-                <div class="space-y-1.5">
-                  <p
-                    class="text-[11px] font-sans text-neutral-500 font-semibold tracking-wider block m-0"
-                  >
-                    Fleet Control
+              <!-- STAGE 02: Real-time Capture -->
+              <div class="w-[280px] sm:w-[320px] lg:w-auto shrink-0 lg:shrink flex flex-col justify-between p-4 sm:p-5 bg-white/90 dark:bg-neutral-900/60 border border-neutral-300/80 dark:border-neutral-800 transition-all duration-200 hover:border-neutral-400 dark:hover:border-neutral-600 shadow-sm relative group">
+                <div class="flex flex-col flex-1 gap-3">
+                  <p class="font-sans text-[11px] uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-semibold m-0">
+                    Camera Engine
                   </p>
-                  <div
-                    class="flex flex-wrap items-baseline justify-start gap-3 sm:gap-4"
-                  >
-                    <h4
-                      id="heading-subsystem-vendor-portal"
-                      class="text-xl sm:text-2xl font-bold text-neutral-950 dark:text-white group-hover:text-[#52FF1A] transition-colors font-heading tracking-tight m-0"
-                    >
-                      Vendor Portal
-                    </h4>
-                  </div>
+                  <h4 class="text-lg sm:text-xl font-bold text-neutral-950 dark:text-white tracking-tight leading-tight group-hover:text-[#52FF1A] transition-colors font-heading m-0">
+                    60 FPS Viewfinder &amp; FX
+                  </h4>
+                  <p class="font-sans text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed font-normal m-0">
+                    Low-latency DSLR/USB camera loop with countdown burst. Canvas compositor renders multi-frame layouts and color grading with offline cache.
+                  </p>
                 </div>
-                <div class="space-y-3">
-                  <p
-                    class="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed"
-                  >
-                    Cloud management interface for event operators. Real-time
-                    telemetry, session analytics, custom template designers, and
-                    financial reports.
-                  </p>
-                  <ul class="flex flex-wrap gap-2 pt-1 list-none p-0 m-0" aria-label="Technologies">
-                    <li>
-                      <span
-                        class="font-sans text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2.5 py-1 rounded inline-block"
-                      >
-                        REACT
-                      </span>
-                    </li>
-                    <li>
-                      <span
-                        class="font-sans text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2.5 py-1 rounded inline-block"
-                      >
-                        CSS MODULES
-                      </span>
-                    </li>
+                <div class="mt-auto pt-3.5 border-t border-neutral-200/80 dark:border-neutral-800/80 space-y-2">
+                  <div class="flex items-center justify-between font-mono text-[10px] text-neutral-500 dark:text-neutral-400">
+                    <span>Performance:</span>
+                    <span class="font-semibold text-neutral-700 dark:text-neutral-300">60 FPS / GPU Accel</span>
+                  </div>
+                  <ul class="flex flex-wrap gap-1.5 list-none p-0 m-0" aria-label="Tech tokens">
+                    <li><span class="font-sans text-[9px] sm:text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2 sm:px-2.5 py-0.5 rounded inline-block">REACT 19</span></li>
+                    <li><span class="font-sans text-[9px] sm:text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2 sm:px-2.5 py-0.5 rounded inline-block">CANVAS API</span></li>
+                    <li><span class="font-sans text-[9px] sm:text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2 sm:px-2.5 py-0.5 rounded inline-block">NODE IPC</span></li>
                   </ul>
                 </div>
               </div>
 
-              <!-- 16:9 Screenshot Box (Full-Bleed Bottom) -->
-              <div
-                class="w-full border-t border-neutral-200/80 dark:border-neutral-800/80 bg-neutral-100 dark:bg-neutral-900 overflow-hidden relative aspect-video flex items-center justify-center group/preview mt-auto"
-              >
+              <!-- STAGE 03: Cloud Sync & WebSockets -->
+              <div class="w-[280px] sm:w-[320px] lg:w-auto shrink-0 lg:shrink flex flex-col justify-between p-4 sm:p-5 bg-white/90 dark:bg-neutral-900/60 border border-neutral-300/80 dark:border-neutral-800 transition-all duration-200 hover:border-neutral-400 dark:hover:border-neutral-600 shadow-sm relative group">
+                <div class="flex flex-col flex-1 gap-3">
+                  <p class="font-sans text-[11px] uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-semibold m-0">
+                    Live Reverb &amp; GCS
+                  </p>
+                  <h4 class="text-lg sm:text-xl font-bold text-neutral-950 dark:text-white tracking-tight leading-tight group-hover:text-[#52FF1A] transition-colors font-heading m-0">
+                    WebSocket Push &amp; GCS
+                  </h4>
+                  <p class="font-sans text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed font-normal m-0">
+                    Composited strips sync to Google Cloud Storage while Laravel Reverb broadcasts real-time telemetry to connected operator dashboards.
+                  </p>
+                </div>
+                <div class="mt-auto pt-3.5 border-t border-neutral-200/80 dark:border-neutral-800/80 space-y-2">
+                  <div class="flex items-center justify-between font-mono text-[10px] text-neutral-500 dark:text-neutral-400">
+                    <span>Telemetry:</span>
+                    <span class="font-semibold text-neutral-700 dark:text-neutral-300">WebSocket / WSS</span>
+                  </div>
+                  <ul class="flex flex-wrap gap-1.5 list-none p-0 m-0" aria-label="Tech tokens">
+                    <li><span class="font-sans text-[9px] sm:text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2 sm:px-2.5 py-0.5 rounded inline-block">REVERB</span></li>
+                    <li><span class="font-sans text-[9px] sm:text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2 sm:px-2.5 py-0.5 rounded inline-block">GCS BUCKET</span></li>
+                    <li><span class="font-sans text-[9px] sm:text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2 sm:px-2.5 py-0.5 rounded inline-block">SQLITE</span></li>
+                  </ul>
+                </div>
+              </div>
+
+              <!-- STAGE 04: Hardware Print & Fleet -->
+              <div class="w-[280px] sm:w-[320px] lg:w-auto shrink-0 lg:shrink flex flex-col justify-between p-4 sm:p-5 bg-white/90 dark:bg-neutral-900/60 border border-neutral-300/80 dark:border-neutral-800 transition-all duration-200 hover:border-neutral-400 dark:hover:border-neutral-600 shadow-sm relative group">
+                <div class="flex flex-col flex-1 gap-3">
+                  <p class="font-sans text-[11px] uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-semibold m-0">
+                    Hardware &amp; Ops
+                  </p>
+                  <h4 class="text-lg sm:text-xl font-bold text-neutral-950 dark:text-white tracking-tight leading-tight group-hover:text-[#52FF1A] transition-colors font-heading m-0">
+                    Thermal Print &amp; Fleet Ops
+                  </h4>
+                  <p class="font-sans text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed font-normal m-0">
+                    Electron dispatches native ESC/POS print jobs to hardware thermal printers while Vendor Portal aggregates live sales revenue & telemetry.
+                  </p>
+                </div>
+                <div class="mt-auto pt-3.5 border-t border-neutral-200/80 dark:border-neutral-800/80 space-y-2">
+                  <div class="flex items-center justify-between font-mono text-[10px] text-neutral-500 dark:text-neutral-400">
+                    <span>Hardware:</span>
+                    <span class="font-semibold text-neutral-700 dark:text-neutral-300">USB ESC/POS Driver</span>
+                  </div>
+                  <ul class="flex flex-wrap gap-1.5 list-none p-0 m-0" aria-label="Tech tokens">
+                    <li><span class="font-sans text-[9px] sm:text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2 sm:px-2.5 py-0.5 rounded inline-block">THERMAL USB</span></li>
+                    <li><span class="font-sans text-[9px] sm:text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2 sm:px-2.5 py-0.5 rounded inline-block">REACT SPA</span></li>
+                    <li><span class="font-sans text-[9px] sm:text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2 sm:px-2.5 py-0.5 rounded inline-block">ASTRO SSG</span></li>
+                  </ul>
+                </div>
+              </div>
+
+            </div>
+
+          <!-- Dual Visual Specimen Viewports: Kiosk Client & Vendor Portal -->
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-5 sm:gap-6 pt-4 sm:pt-6">
+            <!-- Specimen 1: Kiosk Touchscreen -->
+            <div class="group relative border border-neutral-300/80 dark:border-neutral-800 bg-white/60 dark:bg-neutral-900/40 flex flex-col justify-between overflow-hidden shadow-sm transition-all duration-200 hover:border-neutral-400 dark:hover:border-neutral-600">
+              <div class="p-4 sm:p-5 flex flex-col flex-1 gap-3">
+                <p class="font-sans text-[11px] uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-semibold m-0">
+                  STANDALONE APP
+                </p>
+                <h4 class="text-lg sm:text-xl font-bold text-neutral-950 dark:text-white tracking-tight leading-tight group-hover:text-[#52FF1A] transition-colors font-heading m-0">Touchscreen Kiosk Client</h4>
+                <p class="font-sans text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed font-normal m-0">
+                  Electron-based self-service UI for event guests. Offline-tolerant state machine, thermal printer spooler, and countdown capture loop.
+                </p>
+              </div>
+              <div class="relative w-full aspect-[16/9] border-t border-neutral-200/80 dark:border-neutral-800 overflow-hidden bg-neutral-100 dark:bg-neutral-900">
+                <img
+                  src={`${base}/images/kiosk-screenshot.webp`}
+                  alt="Photobooth Kiosk UI Screenshot"
+                  width="1280"
+                  height="720"
+                  class="w-full h-full object-cover object-top"
+                  loading="lazy"
+                  decoding="async"
+                  onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"
+                />
+                <div class="hidden absolute inset-0 flex-col items-center justify-center p-4 text-center space-y-2 bg-[#121212]">
+                  <div class="w-8 h-8 rounded-full border border-dashed border-neutral-700 flex items-center justify-center text-neutral-500">
+                    <i class="ti ti-device-desktop text-lg" aria-hidden="true"></i>
+                  </div>
+                  <span class="font-mono text-[11px] text-neutral-400">Place screenshot at <br /><code class="text-[#52FF1A]">public/images/kiosk-screenshot.webp</code></span>
+                </div>
+              </div>
+              <div class="p-3.5 sm:p-4 bg-neutral-100/60 dark:bg-neutral-900/60 border-t border-neutral-200/80 dark:border-neutral-800 flex items-center justify-between">
+                <span class="font-mono text-[10px] sm:text-[11px] text-neutral-400 dark:text-neutral-500">Electron • React 19 • Canvas</span>
+                <a
+                  href="https://navoyovan.github.io/photobooth-kiosk-demo/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="group/action inline-flex items-center gap-1 font-sans text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-neutral-500 dark:text-neutral-400 hover:text-[#52FF1A] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#52FF1A] rounded px-1"
+                >
+                  <span class="group-hover/action:underline underline-offset-4 decoration-[#52FF1A]">Launch Demo</span>
+                  <span class="inline-block opacity-40 transition-all duration-200 group-hover/action:opacity-100 group-hover/action:translate-x-0.5">↗</span>
+                </a>
+              </div>
+            </div>
+
+            <!-- Specimen 2: Vendor Portal & Cloud Telemetry -->
+            <div class="group relative border border-neutral-300/80 dark:border-neutral-800 bg-white/60 dark:bg-neutral-900/40 flex flex-col justify-between overflow-hidden shadow-sm transition-all duration-200 hover:border-neutral-400 dark:hover:border-neutral-600">
+              <div class="p-4 sm:p-5 flex flex-col flex-1 gap-3">
+                <p class="font-sans text-[11px] uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-semibold m-0">
+                  FLEET MANAGER
+                </p>
+                <h4 class="text-lg sm:text-xl font-bold text-neutral-950 dark:text-white tracking-tight leading-tight group-hover:text-[#52FF1A] transition-colors font-heading m-0">Vendor Portal &amp; Telemetry</h4>
+                <p class="font-sans text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed font-normal m-0">
+                  Operator web portal for real-time kiosk fleet telemetry, custom print frame asset designers, coupon engines, and sales analytics.
+                </p>
+              </div>
+              <div class="relative w-full aspect-[16/9] border-t border-neutral-200/80 dark:border-neutral-800 overflow-hidden bg-neutral-100 dark:bg-neutral-900">
                 <img
                   src={`${base}/images/vendor-portal-screenshot.webp`}
                   alt="Vendor Portal UI Screenshot"
                   width="1280"
                   height="720"
-                  class="w-full h-full object-cover object-top transition-transform duration-500 group-hover/preview:scale-[1.02]"
+                  class="w-full h-full object-cover object-top"
                   loading="lazy"
                   decoding="async"
                   onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"
                 />
-                <!-- Fallback Placeholder when image is not yet placed -->
-                <div
-                  class="hidden absolute inset-0 flex-col items-center justify-center p-3 text-center space-y-1.5 bg-[#121212]"
-                >
-                  <div
-                    class="w-7 h-7 rounded-full border border-dashed border-neutral-700 flex items-center justify-center text-neutral-500"
-                  >
-                    <i
-                      class="ti ti-layout-dashboard text-base"
-                      aria-hidden="true"></i>
+                <div class="hidden absolute inset-0 flex-col items-center justify-center p-3 text-center space-y-1.5 bg-[#121212]">
+                  <div class="w-7 h-7 rounded-full border border-dashed border-neutral-700 flex items-center justify-center text-neutral-500">
+                    <i class="ti ti-layout-dashboard text-base" aria-hidden="true"></i>
                   </div>
-                  <span class="font-mono text-[10px] text-neutral-400"
-                    >Place screenshot at <br /><code class="text-[#52FF1A]"
-                      >public/images/vendor-portal-screenshot.webp</code
-                    ></span
-                  >
+                  <span class="font-mono text-[10px] text-neutral-400">Place screenshot at <br /><code class="text-[#52FF1A]">public/images/vendor-portal-screenshot.webp</code></span>
                 </div>
               </div>
-            </article>
-
-            <!-- Marketing Site Subsystem (Col 3) -->
-            <article
-              aria-labelledby="heading-subsystem-marketing"
-              class="group col-span-1 p-5 sm:p-6 border border-neutral-200/80 dark:border-neutral-800/80 bg-white/60 dark:bg-neutral-900/40 space-y-6 flex flex-col justify-between items-start transition-all duration-200 hover:border-neutral-400 dark:hover:border-neutral-600"
-            >
-              <div class="space-y-3 w-full">
-                <div class="space-y-1.5">
-                  <p
-                    class="text-[11px] font-sans text-neutral-500 font-semibold tracking-wider block m-0"
-                  >
-                    Static Portal
-                  </p>
-                  <div
-                    class="flex flex-wrap items-baseline justify-start gap-3 sm:gap-4"
-                  >
-                    <h4
-                      id="heading-subsystem-marketing"
-                      class="text-xl sm:text-2xl font-bold text-neutral-950 dark:text-white group-hover:text-[#52FF1A] transition-colors font-heading tracking-tight m-0"
-                    >
-                      Marketing Site
-                    </h4>
-                  </div>
-                </div>
-                <div class="space-y-3">
-                  <p
-                    class="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed"
-                  >
-                    Fast static marketing portal engineered for speed. Feature
-                    showcases, and booking conversion.
-                  </p>
-                  <ul class="flex flex-wrap gap-2 pt-1 list-none p-0 m-0" aria-label="Technologies">
-                    <li>
-                      <span
-                        class="font-sans text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2.5 py-1 rounded inline-block"
-                      >
-                        ASTRO
-                      </span>
-                    </li>
-                    <li>
-                      <span
-                        class="font-sans text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2.5 py-1 rounded inline-block"
-                      >
-                        TAILWIND V4
-                      </span>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-              <div
-                class="pt-2 flex items-center justify-between text-xs w-full"
-              >
+              <div class="p-3.5 sm:p-4 bg-neutral-100/60 dark:bg-neutral-900/60 border-t border-neutral-200/80 dark:border-neutral-800 flex items-center justify-between">
+                <span class="font-mono text-[10px] sm:text-[11px] text-neutral-400 dark:text-neutral-500">React • Laravel 13 • Reverb</span>
                 <a
                   href="https://navoyovan.github.io/hypebox/"
                   target="_blank"
                   rel="noopener noreferrer"
                   class="group/action inline-flex items-center gap-1 font-sans text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-neutral-500 dark:text-neutral-400 hover:text-[#52FF1A] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#52FF1A] rounded px-1"
                 >
-                  <span
-                    class="group-hover/action:underline underline-offset-4 decoration-[#52FF1A]"
-                  >
-                    Explore Site
-                  </span>
-                  <span
-                    class="inline-block opacity-40 transition-all duration-200 group-hover/action:opacity-100 group-hover/action:translate-x-0.5"
-                  >
-                    ↗
-                  </span>
+                  <span class="group-hover/action:underline underline-offset-4 decoration-[#52FF1A]">Explore Ecosystem</span>
+                  <span class="inline-block opacity-40 transition-all duration-200 group-hover/action:opacity-100 group-hover/action:translate-x-0.5">↗</span>
                 </a>
               </div>
-            </article>
+            </div>
           </div>
         </article>
 
@@ -1572,30 +1266,34 @@ const capabilities = [
             Other(s)
           </h3>
           <div
-            class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 pt-2"
+            class="flex flex-nowrap overflow-x-auto gap-4 sm:gap-5 pb-4 pt-2 -mx-4 px-4 sm:mx-0 sm:px-0 sm:grid sm:grid-cols-2 lg:grid-cols-4 sm:overflow-visible sm:pb-0 no-scrollbar"
           >
-            <ProjectTile
-              title="Component Library"
-              category="01 // DESIGN SYSTEM"
-              description="Design system, typography specimens, color tokens, and interactive UI primitives architected for Portfolio v5."
-              status="LIVE_DOCS"
-              statusVariant="accent"
-              tags={["Astro v5", "Tailwind v4", "UI Tokens", "Components"]}
-              metaText="component-library"
-              actionText="EXPLORE SYSTEM"
-              href={`${base}/component-library`}
-            />
-            <ProjectTile
-              title="Interactive Map Engine"
-              category="02 // GIS & SPATIAL"
-              description="Geospatial visualization and tracking platform with custom boundary polygons and telemetry."
-              status="PROTOTYPE"
-              statusVariant="neutral"
-              tags={["Laravel", "Leaflet.js", "AJAX", "Tailwind"]}
-              metaText="interactive-map.git"
-              actionText="VIEW REPO"
-              href="https://github.com/navoyovan/interactive-map"
-            />
+            <div class="w-[280px] sm:w-auto shrink-0 sm:shrink flex flex-col">
+              <ProjectTile
+                title="Component Library"
+                category="01 // DESIGN SYSTEM"
+                description="Design system, typography specimens, color tokens, and interactive UI primitives architected for Portfolio v5."
+                status="LIVE_DOCS"
+                statusVariant="accent"
+                tags={["Astro v5", "Tailwind v4", "UI Tokens", "Components"]}
+                metaText="component-library"
+                actionText="EXPLORE SYSTEM"
+                href={`${base}/component-library`}
+              />
+            </div>
+            <div class="w-[280px] sm:w-auto shrink-0 sm:shrink flex flex-col">
+              <ProjectTile
+                title="Interactive Map Engine"
+                category="02 // GIS & SPATIAL"
+                description="Geospatial visualization and tracking platform with custom boundary polygons and telemetry."
+                status="PROTOTYPE"
+                statusVariant="neutral"
+                tags={["Laravel", "Leaflet.js", "AJAX", "Tailwind"]}
+                metaText="interactive-map.git"
+                actionText="VIEW REPO"
+                href="https://github.com/navoyovan/interactive-map"
+              />
+            </div>
           </div>
         </div>
       </section>
@@ -1644,10 +1342,10 @@ const capabilities = [
                     </div>
                   </div>
 
-                  <ul class="flex flex-wrap gap-2 lg:justify-end shrink-0 pl-8 sm:pl-10 lg:pl-0 list-none m-0 p-0" aria-label="Capability tags">
+                  <ul class="flex flex-wrap gap-1.5 sm:gap-2 lg:justify-end shrink-0 pl-8 sm:pl-10 lg:pl-0 list-none m-0 p-0" aria-label="Capability tags">
                     {item.tags.map((tag) => (
                       <li>
-                        <span class="text-[10px] font-sans font-semibold px-2.5 py-1 rounded bg-neutral-200/60 dark:bg-neutral-800/80 text-neutral-600 dark:text-neutral-400 uppercase tracking-wider inline-block">
+                        <span class="text-[9px] sm:text-[10px] font-sans font-semibold px-2 sm:px-2.5 py-0.5 sm:py-1 rounded bg-neutral-200/60 dark:bg-neutral-800/80 text-neutral-600 dark:text-neutral-400 uppercase tracking-wider inline-block">
                           {tag}
                         </span>
                       </li>
@@ -1848,14 +1546,14 @@ const capabilities = [
             </h2>
           </div>
 
-          <!-- Vertical Easter Egg Divider between the 2 About Columns (Desktop) -->
+          <!-- Easter Egg Divider / Background Watermark (Absolute - takes 0 layout flow space) -->
           <div
-            class="hidden lg:flex absolute left-[41.6%] inset-y-0 items-center justify-center -translate-x-1/2 select-none pointer-events-none"
+            class="absolute -bottom-5 right-0 lg:bottom-auto lg:left-[41.6%] lg:right-auto lg:inset-y-0 flex items-center justify-center lg:-translate-x-1/2 select-none pointer-events-none"
           >
             <button
               type="button"
               data-easter="modpe"
-              class="font-mono text-[10px] text-neutral-600 dark:text-neutral-300 opacity-[0.08] hover:opacity-75 hover:underline underline-offset-4 cursor-pointer select-none transition-[opacity,text-decoration] duration-200 [writing-mode:vertical-rl] rotate-180 pointer-events-auto p-1 bg-transparent border-0 tracking-wider focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#52FF1A] rounded"
+              class="font-mono text-[9px] sm:text-[10px] text-neutral-600 dark:text-neutral-400 opacity-[0.06] hover:opacity-75 hover:underline underline-offset-4 cursor-pointer select-none transition-[opacity,text-decoration] duration-200 lg:[writing-mode:vertical-rl] lg:rotate-180 pointer-events-auto p-1 bg-transparent border-0 tracking-wider focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#52FF1A] rounded"
               aria-label="Unlock ModPE Scripting Easter Egg"
             >
               Entity.setRenderType(mob, 3);
@@ -1879,18 +1577,6 @@ const capabilities = [
               screen, but where it interacts with people, devices, and the real
               world.
             </p>
-
-            <!-- Mobile Easter Egg inline fallback -->
-            <div class="block lg:hidden pt-1">
-              <button
-                type="button"
-                data-easter="modpe"
-                class="font-mono text-[10px] text-neutral-600 dark:text-neutral-300 opacity-[0.08] hover:opacity-75 hover:underline underline-offset-4 cursor-pointer select-none transition-[opacity,text-decoration] duration-200 text-left p-0 bg-transparent border-0 inline-block focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#52FF1A] rounded"
-                aria-label="Unlock ModPE Scripting Easter Egg"
-              >
-                Entity.setRenderType(mob, 3);
-              </button>
-            </div>
           </div>
         </div>
       </section>
