@@ -63,3 +63,16 @@ Run this checklist before any commit to `master` / push to GitHub Pages.
 
 - [ ] **Neutral names**: No components named after internal products or implementation contexts (e.g., `KioskButton`). Use functional names (`ActionButton`, `PrimaryButton`, etc.).
 
+### Phase 6 — Component Showcase Labeling Standards
+
+- [ ] **Dual-Layer Showcase Pattern**: All showcase components follow the 2-Tier format:
+  - **Specimen Visual & Production Labels**: Strictly in **Latin** to match the portfolio's editorial motif (e.g. `INCIPE SESSIONEM`, `CONFIRMA ET IMPRIME`, `NOTIFICATIO ACTIVA`, `ELECTIO INDETERMINATA`, `QUALITAS ORDINARIA`, `STATUS_VIVUS`).
+  - **Tier 1 (Title)**: Functional English variant name (`font-mono text-xs font-semibold`, e.g. `CTA Pulse`, `3-State Checkbox`).
+  - **Tier 2 (Props & Tokens)**: Technical API shorthand and dimensions in English (`font-mono text-[11px] text-neutral-500`, e.g. `variant="cta" • Syne 700`, `indeterminate=true • 24px solid`).
+- [ ] **Preserve Site Theme**: When aligning labels for newly added components, never overwrite existing established section motifs. Production component specimens are always written in Latin.
+
+### Phase 7 — Form Control Transition & Animation Safety
+
+- [ ] **Transition State Scoping**: Active state CSS rules (checked background, active checkmark/dot icons) must be scoped with `:not(.is-transitioning)` so that loading/spinner overlays can cleanly suppress indicator icons without CSS specificity collisions.
+
+

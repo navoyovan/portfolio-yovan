@@ -1,12 +1,43 @@
 ---
 import RootLayout from '../layouts/RootLayout.astro';
 import ActionButton from '../components/ActionButton.astro';
+import DepthCard from '../components/DepthCard.astro';
+import Checkbox from '../components/Checkbox.astro';
+import RadioButton from '../components/RadioButton.astro';
+import ToggleSwitch from '../components/ToggleSwitch.astro';
+import FormSlider from '../components/FormSlider.astro';
+import TextInput from '../components/TextInput.astro';
+import LimitTextarea from '../components/LimitTextarea.astro';
+import PasswordInput from '../components/PasswordInput.astro';
+import FormSelect from '../components/FormSelect.astro';
+import SearchDropdown from '../components/SearchDropdown.astro';
+import DatePicker from '../components/DatePicker.astro';
 import SquareWaveLoader from '../components/SquareWaveLoader.astro';
 import StatusBadge from '../components/StatusBadge.astro';
 import MetricCard from '../components/MetricCard.astro';
 import ProjectTile from '../components/ProjectTile.astro';
 import AppWindow from '../components/AppWindow.astro';
 import SystemTopology from '../components/SystemTopology.astro';
+
+const primitivesNav = [
+  { id: 'colors', label: 'Color Tokens' },
+  { id: 'depth-cards', label: 'Spatial Depth Cards' },
+  { id: 'buttons', label: 'Buttons & Micro' },
+  { id: 'forms', label: 'Forms & Selection' },
+  { id: 'text-inputs', label: 'Text Inputs' },
+  { id: 'dropdowns', label: 'Dropdowns & Date Picker' },
+  { id: 'loaders', label: 'Loaders' },
+  { id: 'typography', label: 'Typography Hierarchy' },
+  { id: 'status-badges', label: 'Status Badges' },
+  { id: 'metric-cards', label: 'Metric Cards' },
+];
+
+const systemNav = [
+  { id: 'project-tiles', label: 'Project Tiles' },
+  { id: 'tree-index', label: 'Directory Tree Index' },
+  { id: 'app-window', label: 'App Window Mockup' },
+  { id: 'system-topology', label: 'System Topology' },
+];
 ---
 
 <RootLayout
@@ -14,114 +45,815 @@ import SystemTopology from '../components/SystemTopology.astro';
   description="Design system, typography specimens, color tokens, and UI primitives architected for Portfolio v5."
   noindex={true}
 >
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-16">
-    <!-- Header -->
-    <div id="library-header" class="border-b border-neutral-200 dark:border-neutral-800 pb-8">
-      <h1 class="text-3xl sm:text-4xl font-bold tracking-tight text-neutral-950 dark:text-white">
-        Component Library
-      </h1>
-      <p class="text-sm sm:text-base text-neutral-600 dark:text-neutral-400 mt-2 max-w-2xl font-normal">
-        A showcase of typography, color tokens, and interactive UI primitives.
-      </p>
-    </div>
+  <div class="w-full flex min-h-[calc(100vh-4rem)]">
+    <!-- Outer Sidebar Nav (Sticky, Outside Main Content) -->
+    <aside class="hidden xl:block w-64 shrink-0 border-r border-neutral-200/80 dark:border-neutral-800/80 py-8 px-0 sticky top-16 h-[calc(100vh-4rem)] overflow-y-auto">
+      <nav class="space-y-6">
+        <!-- 01 // CORE PRIMITIVES -->
+        <div class="space-y-2">
+          <div class="px-5 pb-1.5 border-b border-neutral-200/80 dark:border-neutral-800/80">
+            <span class="font-mono text-[11px] font-bold text-neutral-400 dark:text-neutral-500 uppercase tracking-wider">
+              01 // CORE PRIMITIVES
+            </span>
+          </div>
+          <ul class="space-y-0.5 list-none p-0 m-0">
+            {primitivesNav.map((item) => (
+              <li>
+                <button
+                  type="button"
+                  data-target={item.id}
+                  class="sidebar-nav-btn group w-full flex items-center justify-between px-5 py-2 text-xs font-mono text-left rounded-none text-neutral-600 dark:text-neutral-400 hover:text-neutral-950 dark:hover:text-white hover:bg-neutral-100 dark:hover:bg-neutral-900 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#52FF1A]"
+                >
+                  <span class="inline-block transition-transform duration-150 ease-out group-hover:translate-x-1.5">{item.label}</span>
+                  <span class="text-[10px] text-neutral-400 dark:text-neutral-600 opacity-0 group-hover:opacity-100 transition-opacity">→</span>
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
 
-    <!-- 01 / Color Tokens -->
-    <section class="space-y-6">
-      <div class="pb-2 border-b border-neutral-200 dark:border-neutral-800">
-        <h2 class="!font-mono font-mono text-xs uppercase tracking-[0.15em] text-neutral-500 dark:text-neutral-400 font-semibold">
-          01 / Color Tokens
-        </h2>
+        <!-- 02 // SYSTEM COMPONENTS -->
+        <div class="space-y-2">
+          <div class="px-5 pb-1.5 border-b border-neutral-200/80 dark:border-neutral-800/80">
+            <span class="font-mono text-[11px] font-bold text-neutral-400 dark:text-neutral-500 uppercase tracking-wider">
+              02 // SYSTEM COMPONENTS
+            </span>
+          </div>
+          <ul class="space-y-0.5 list-none p-0 m-0">
+            {systemNav.map((item) => (
+              <li>
+                <button
+                  type="button"
+                  data-target={item.id}
+                  class="sidebar-nav-btn group w-full flex items-center justify-between px-5 py-2 text-xs font-mono text-left rounded-none text-neutral-600 dark:text-neutral-400 hover:text-neutral-950 dark:hover:text-white hover:bg-neutral-100 dark:hover:bg-neutral-900 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#52FF1A]"
+                >
+                  <span class="inline-block transition-transform duration-150 ease-out group-hover:translate-x-1.5">{item.label}</span>
+                  <span class="text-[10px] text-neutral-400 dark:text-neutral-600 opacity-0 group-hover:opacity-100 transition-opacity">→</span>
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </nav>
+    </aside>
+
+    <!-- Main Content Container -->
+    <main class="flex-1 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-16 min-w-0">
+      <!-- Header -->
+      <div id="library-header" class="border-b border-neutral-200 dark:border-neutral-800 pb-8">
+        <h1 class="text-3xl sm:text-4xl font-bold tracking-tight text-neutral-950 dark:text-white font-heading">
+          Component Library
+        </h1>
+        <p class="text-sm sm:text-base text-neutral-600 dark:text-neutral-400 mt-2 max-w-2xl font-normal">
+          A showcase of typography, color tokens, and interactive UI primitives.
+        </p>
       </div>
-      <div class="grid grid-cols-2 sm:grid-cols-4 gap-6">
-        <!-- Neon Green Accent -->
-        <div class="flex flex-col gap-2">
-          <div class="w-full aspect-video bg-[#52FF1A] border border-black/10 shadow-[0_0_20px_rgba(82,255,26,0.3)]"></div>
-          <div class="flex flex-col">
-            <span class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100">Accent Neon</span>
-            <span class="font-mono text-[11px] text-neutral-500">#52FF1A</span>
-          </div>
+
+      <!-- Mobile Sticky Tab Switcher -->
+      <div class="xl:hidden sticky top-16 z-30 bg-[#fcfbf9]/95 dark:bg-[#0e0e0e]/95 backdrop-blur-md border-b border-neutral-200 dark:border-neutral-800 py-3 -mx-4 sm:-mx-6 px-4 sm:px-6 overflow-x-auto flex gap-2 no-scrollbar">
+        <div class="flex items-center gap-1.5 shrink-0">
+          <span class="text-[10px] font-mono uppercase font-bold text-neutral-400 dark:text-neutral-500 mr-1 select-none">Primitives:</span>
+          {primitivesNav.map((item) => (
+            <button
+              type="button"
+              data-target={item.id}
+              class="tab-nav-btn px-2.5 py-1 text-xs font-mono rounded bg-neutral-100 dark:bg-neutral-900 text-neutral-600 dark:text-neutral-400 hover:text-neutral-950 dark:hover:text-white transition-colors cursor-pointer border border-transparent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#52FF1A]"
+            >
+              {item.label}
+            </button>
+          ))}
         </div>
-
-        <!-- Primary Background -->
-        <div class="flex flex-col gap-2">
-          <div class="w-full aspect-video bg-[#fcfbf9] dark:bg-[#0e0e0e] border border-neutral-300 dark:border-neutral-700"></div>
-          <div class="flex flex-col">
-            <span class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100">Surface Base</span>
-            <span class="font-mono text-[11px] text-neutral-500">#fcfbf9 / #0e0e0e</span>
-          </div>
-        </div>
-
-        <!-- Ink Text -->
-        <div class="flex flex-col gap-2">
-          <div class="w-full aspect-video bg-[#1a1a1a] dark:bg-[#e5e5e5] border border-neutral-300 dark:border-neutral-700"></div>
-          <div class="flex flex-col">
-            <span class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100">Text Primary</span>
-            <span class="font-mono text-[11px] text-neutral-500">#1a1a1a / #e5e5e5</span>
-          </div>
-        </div>
-
-        <!-- Secondary Surface -->
-        <div class="flex flex-col gap-2">
-          <div class="w-full aspect-video bg-[#f6f4ee] dark:bg-[#141414] border border-neutral-300 dark:border-neutral-700"></div>
-          <div class="flex flex-col">
-            <span class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100">Surface Card</span>
-            <span class="font-mono text-[11px] text-neutral-500">#f6f4ee / #141414</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 02 / Buttons -->
-    <section class="space-y-6">
-      <div class="pb-2 border-b border-neutral-200 dark:border-neutral-800">
-        <h2 class="!font-mono font-mono text-xs uppercase tracking-[0.15em] text-neutral-500 dark:text-neutral-400 font-semibold">
-          02 / Buttons (CTA, Primary, Secondary)
-        </h2>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <!-- CTA Variant -->
-        <div class="flex flex-col gap-4">
-          <div class="flex flex-col items-start">
-            <ActionButton variant="cta">INCIPE SESSIONEM</ActionButton>
-          </div>
-          <div class="flex flex-col">
-            <span class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100">CTA Pulse</span>
-            <span class="font-mono text-[11px] text-neutral-500">variant="cta" • Syne 700</span>
-          </div>
-        </div>
-
-        <!-- Primary Variant -->
-        <div class="flex flex-col gap-4">
-          <div class="flex flex-col items-start">
-            <ActionButton variant="primary">CONFIRMA ET IMPRIME</ActionButton>
-          </div>
-          <div class="flex flex-col">
-            <span class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100">Primary Solid</span>
-            <span class="font-mono text-[11px] text-neutral-500">variant="primary" • Syne 700</span>
-          </div>
-        </div>
-
-        <!-- Secondary Variant -->
-        <div class="flex flex-col gap-4">
-          <div class="flex flex-col items-start">
-            <ActionButton variant="secondary">REDI AD PINACOTHECAM</ActionButton>
-          </div>
-          <div class="flex flex-col">
-            <span class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100">Secondary Dashed</span>
-            <span class="font-mono text-[11px] text-neutral-500">variant="secondary" • Syne 700</span>
-          </div>
+        <div class="w-px h-5 bg-neutral-300 dark:bg-neutral-700 my-auto shrink-0"></div>
+        <div class="flex items-center gap-1.5 shrink-0">
+          <span class="text-[10px] font-mono uppercase font-bold text-neutral-400 dark:text-neutral-500 mr-1 select-none">Systems:</span>
+          {systemNav.map((item) => (
+            <button
+              type="button"
+              data-target={item.id}
+              class="tab-nav-btn px-2.5 py-1 text-xs font-mono rounded bg-neutral-100 dark:bg-neutral-900 text-neutral-600 dark:text-neutral-400 hover:text-neutral-950 dark:hover:text-white transition-colors cursor-pointer border border-transparent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#52FF1A]"
+            >
+              {item.label}
+            </button>
+          ))}
         </div>
       </div>
-    </section>
 
-    <!-- 03 / Loaders -->
-    <section class="space-y-6">
-      <div class="pb-2 border-b border-neutral-200 dark:border-neutral-800">
-        <h2 class="!font-mono font-mono text-xs uppercase tracking-[0.15em] text-neutral-500 dark:text-neutral-400 font-semibold">
-          03 / Loaders (Square Wave)
-        </h2>
-      </div>
+      <!-- Group 1: Core Primitives Container -->
+      <div id="core-primitives" class="space-y-16 scroll-mt-24">
+        <!-- 01 / Color Tokens -->
+        <section id="colors" class="space-y-6 scroll-mt-24">
+          <div class="pb-2 border-b border-neutral-200 dark:border-neutral-800">
+            <h2 class="!font-mono font-mono text-xs uppercase tracking-[0.15em] text-neutral-500 dark:text-neutral-400 font-semibold">
+              01 / Color Tokens
+            </h2>
+          </div>
+          <!-- 01.0 / Core Brand & Surface Tokens -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-6">
+            <!-- Neon Green Accent -->
+            <div class="flex flex-col gap-2">
+              <div class="w-full aspect-video bg-[#52FF1A] border border-black/10 shadow-[0_0_20px_rgba(82,255,26,0.3)]"></div>
+              <div class="flex flex-col">
+                <span class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100">Accent Neon</span>
+                <span class="font-mono text-[11px] text-neutral-500">--color-accent • #52FF1A</span>
+              </div>
+            </div>
+
+            <!-- Primary Background -->
+            <div class="flex flex-col gap-2">
+              <div class="w-full aspect-video bg-[#fcfbf9] dark:bg-[#0e0e0e] border border-neutral-300 dark:border-neutral-700"></div>
+              <div class="flex flex-col">
+                <span class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100">Surface Base</span>
+                <span class="font-mono text-[11px] text-neutral-500">#fcfbf9 / #0e0e0e</span>
+              </div>
+            </div>
+
+            <!-- Ink Text -->
+            <div class="flex flex-col gap-2">
+              <div class="w-full aspect-video bg-[#1a1a1a] dark:bg-[#e5e5e5] border border-neutral-300 dark:border-neutral-700"></div>
+              <div class="flex flex-col">
+                <span class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100">Text Primary</span>
+                <span class="font-mono text-[11px] text-neutral-500">#1a1a1a / #e5e5e5</span>
+              </div>
+            </div>
+
+            <!-- Secondary Surface -->
+            <div class="flex flex-col gap-2">
+              <div class="w-full aspect-video bg-[#f6f4ee] dark:bg-[#141414] border border-neutral-300 dark:border-neutral-700"></div>
+              <div class="flex flex-col">
+                <span class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100">Surface Card</span>
+                <span class="font-mono text-[11px] text-neutral-500">#f6f4ee / #141414</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 01.1 / Semantic State Tokens (Smaller Paintchips) -->
+          <div class="pt-2 space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="font-mono text-xs font-semibold text-neutral-400 uppercase tracking-wider">01.1 / Semantic State Tokens</span>
+              <span class="font-mono text-[10px] text-neutral-400">Feedback &amp; Status Swatches</span>
+            </div>
+
+            <div class="grid grid-cols-3 sm:grid-cols-6 gap-4">
+              <!-- Safe / Success -->
+              <div class="flex flex-col gap-1.5">
+                <div class="w-full h-9 sm:h-10 bg-[#10B981] border border-black/10"></div>
+                <div class="flex flex-col">
+                  <span class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100">Safe</span>
+                  <span class="font-mono text-[10px] text-neutral-500">--color-safe</span>
+                </div>
+              </div>
+
+              <!-- Warning -->
+              <div class="flex flex-col gap-1.5">
+                <div class="w-full h-9 sm:h-10 bg-[#F59E0B] border border-black/10"></div>
+                <div class="flex flex-col">
+                  <span class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100">Warning</span>
+                  <span class="font-mono text-[10px] text-neutral-500">--color-warning</span>
+                </div>
+              </div>
+
+              <!-- Danger -->
+              <div class="flex flex-col gap-1.5">
+                <div class="w-full h-9 sm:h-10 bg-[#EF4444] border border-black/10"></div>
+                <div class="flex flex-col">
+                  <span class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100">Danger</span>
+                  <span class="font-mono text-[10px] text-neutral-500">--color-danger</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 01.5 / Plain Portrait Cards (Spatial Depth & Elevation Tiers) -->
+        <section id="depth-cards" class="space-y-8 scroll-mt-24">
+          <div class="pb-2 border-b border-neutral-200 dark:border-neutral-800">
+            <h2 class="!font-mono font-mono text-xs uppercase tracking-[0.15em] text-neutral-500 dark:text-neutral-400 font-semibold">
+              01.5 / Plain Portrait Cards &amp; Spatial Depth
+            </h2>
+          </div>
+
+          <div class="space-y-4">
+            <div class="flex items-center justify-between pb-1">
+              <span class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100 uppercase tracking-wider">
+                Plain Elevation Cards (3:4 Portrait)
+              </span>
+              <span class="font-mono text-[10px] text-neutral-400">minimal surface · neutral hover</span>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5">
+              <!-- Tier 0: Dashed Line Outline -->
+              <div class="flex flex-col gap-2.5">
+                <DepthCard
+                  elevation="dashed"
+                  title="LINEA DISIUNCTA"
+                  depth="dashed • 0dp"
+                />
+                <div class="flex flex-col">
+                  <span class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100">Level 00 // Dashed</span>
+                  <span class="font-mono text-[11px] text-neutral-500">elevation="dashed" • 1.5px dashed</span>
+                </div>
+              </div>
+
+              <!-- Tier 1: Flat / Flush Solid -->
+              <div class="flex flex-col gap-2.5">
+                <DepthCard
+                  elevation="flat"
+                  title="SUPERFICIES PLANA"
+                  depth="0dp • z: 0px"
+                />
+                <div class="flex flex-col">
+                  <span class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100">Level 0 // Planar</span>
+                  <span class="font-mono text-[11px] text-neutral-500">elevation="flat" • solid 1px • 0dp</span>
+                </div>
+              </div>
+
+              <!-- Tier 2: Low Contact -->
+              <div class="flex flex-col gap-2.5">
+                <DepthCard
+                  elevation="low"
+                  title="ELEVATIO PRIMA"
+                  depth="4dp • z: 4px"
+                />
+                <div class="flex flex-col">
+                  <span class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100">Level 1 // Contact</span>
+                  <span class="font-mono text-[11px] text-neutral-500">elevation="low" • subtle shadow • 4dp</span>
+                </div>
+              </div>
+
+              <!-- Tier 3: Mid Raised -->
+              <div class="flex flex-col gap-2.5">
+                <DepthCard
+                  elevation="mid"
+                  title="ELEVATIO MEDIA"
+                  depth="12dp • z: 12px"
+                />
+                <div class="flex flex-col">
+                  <span class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100">Level 2 // Raised</span>
+                  <span class="font-mono text-[11px] text-neutral-500">elevation="mid" • ambient depth • 12dp</span>
+                </div>
+              </div>
+
+              <!-- Tier 4: Floating Atmospheric -->
+              <div class="flex flex-col gap-2.5">
+                <DepthCard
+                  elevation="floating"
+                  title="ELEVATIO SUBLIMIS"
+                  depth="32dp • z: 32px"
+                />
+                <div class="flex flex-col">
+                  <span class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100">Level 3 // Floating</span>
+                  <span class="font-mono text-[11px] text-neutral-500">elevation="floating" • deep shadow • 32dp</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 02 / Buttons & Micro Triggers -->
+        <section id="buttons" class="space-y-8 scroll-mt-24">
+          <div class="pb-2 border-b border-neutral-200 dark:border-neutral-800">
+            <h2 class="!font-mono font-mono text-xs uppercase tracking-[0.15em] text-neutral-500 dark:text-neutral-400 font-semibold">
+              02 / Buttons &amp; Micro Action Triggers
+            </h2>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- CTA Variant -->
+            <div class="flex flex-col gap-4">
+              <div class="flex flex-col items-start">
+                <ActionButton variant="cta">INCIPE SESSIONEM</ActionButton>
+              </div>
+              <div class="flex flex-col">
+                <span class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100">CTA Pulse</span>
+                <span class="font-mono text-[11px] text-neutral-500">variant="cta" • Syne 700</span>
+              </div>
+            </div>
+
+            <!-- Primary Variant -->
+            <div class="flex flex-col gap-4">
+              <div class="flex flex-col items-start">
+                <ActionButton variant="primary">CONFIRMA ET IMPRIME</ActionButton>
+              </div>
+              <div class="flex flex-col">
+                <span class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100">Primary Solid</span>
+                <span class="font-mono text-[11px] text-neutral-500">variant="primary" • Syne 700</span>
+              </div>
+            </div>
+
+            <!-- Secondary Variant -->
+            <div class="flex flex-col gap-4">
+              <div class="flex flex-col items-start">
+                <ActionButton variant="secondary">REDI AD PINACOTHECAM</ActionButton>
+              </div>
+              <div class="flex flex-col">
+                <span class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100">Secondary Dashed</span>
+                <span class="font-mono text-[11px] text-neutral-500">variant="secondary" • Syne 700</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Micro & Icon Triggers -->
+          <div class="pt-2 space-y-4">
+            <div class="flex items-center justify-between">
+              <span class="font-mono text-xs font-semibold text-neutral-400 uppercase tracking-wider">02.1 / Micro &amp; Icon Triggers (size="micro" • 32×32px)</span>
+              <span class="font-mono text-[10px] text-neutral-400">Tactile Utility Controls</span>
+            </div>
+            
+            <div class="flex flex-wrap items-center gap-6">
+              <!-- Primary Micro -->
+              <div class="flex items-center gap-2.5">
+                <ActionButton variant="primary" size="micro" ariaLabel="Add New Item">
+                  <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                </ActionButton>
+                <div class="flex flex-col">
+                  <span class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100">Primary</span>
+                  <span class="font-mono text-[10px] text-neutral-500">size="micro"</span>
+                </div>
+              </div>
+
+              <!-- CTA Micro -->
+              <div class="flex items-center gap-2.5">
+                <ActionButton variant="cta" size="micro" ariaLabel="Play Action">
+                  <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                </ActionButton>
+                <div class="flex flex-col">
+                  <span class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100">CTA</span>
+                  <span class="font-mono text-[10px] text-neutral-500">size="micro"</span>
+                </div>
+              </div>
+
+              <!-- Secondary Micro -->
+              <div class="flex items-center gap-2.5">
+                <ActionButton variant="secondary" size="micro" ariaLabel="Edit Record">
+                  <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                </ActionButton>
+                <div class="flex flex-col">
+                  <span class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100">Secondary</span>
+                  <span class="font-mono text-[10px] text-neutral-500">size="micro"</span>
+                </div>
+              </div>
+
+              <!-- Ghost Micro -->
+              <div class="flex items-center gap-2.5">
+                <ActionButton variant="ghost" size="micro" ariaLabel="Settings">
+                  <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                </ActionButton>
+                <div class="flex flex-col">
+                  <span class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100">Ghost</span>
+                  <span class="font-mono text-[10px] text-neutral-500">size="micro"</span>
+                </div>
+              </div>
+
+              <!-- Danger Micro -->
+              <div class="flex items-center gap-2.5">
+                <ActionButton variant="danger" size="micro" ariaLabel="Delete Record">
+                  <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                </ActionButton>
+                <div class="flex flex-col">
+                  <span class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100">Danger</span>
+                  <span class="font-mono text-[10px] text-neutral-500">size="micro"</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 03 / Form Controls (Checkboxes, Radios, Toggles & Sliders) -->
+        <section id="forms" class="space-y-10 scroll-mt-24">
+          <div class="pb-2 border-b border-neutral-200 dark:border-neutral-800">
+            <h2 class="!font-mono font-mono text-xs uppercase tracking-[0.15em] text-neutral-500 dark:text-neutral-400 font-semibold">
+              03 / Form Controls &amp; Input Primitives
+            </h2>
+          </div>
+
+          <!-- Row 1: Checkboxes & Radio Buttons -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-14">
+            <!-- 03.1 / Checkbox List (Left Side) -->
+            <div class="space-y-4">
+              <div class="flex items-center justify-between pb-1">
+                <span class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100 uppercase tracking-wider">
+                  03.1 / Checkboxes
+                </span>
+                <span class="font-mono text-[10px] text-neutral-400">24px dashed square</span>
+              </div>
+
+              <div class="flex flex-col gap-6">
+                <div class="flex flex-col gap-2.5">
+                  <Checkbox
+                    id="cb-regular"
+                    name="demo_regular"
+                    label="NOTIFICATIO ACTIVA"
+                    description="Status interactus summae praestantiae"
+                    checked={false}
+                  />
+                  <div class="flex flex-col pl-9">
+                    <span class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100">Regular Checkbox</span>
+                    <span class="font-mono text-[11px] text-neutral-500">checked=false • 24px dashed square</span>
+                  </div>
+                </div>
+
+                <div class="flex flex-col gap-2.5">
+                  <Checkbox
+                    id="cb-3state"
+                    name="demo_3state"
+                    label="ELECTIO INDETERMINATA"
+                    description="Status mixtus per ordinem batch"
+                    indeterminate={true}
+                  />
+                  <div class="flex flex-col pl-9">
+                    <span class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100">3-State Checkbox</span>
+                    <span class="font-mono text-[11px] text-neutral-500">indeterminate=true • 24px solid square</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 03.2 / Radio Buttons List (Right Side) -->
+            <div class="space-y-4">
+              <div class="flex items-center justify-between pb-1">
+                <span class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100 uppercase tracking-wider">
+                  03.2 / Radio Buttons
+                </span>
+                <span class="font-mono text-[10px] text-neutral-400">24px dashed circle</span>
+              </div>
+
+              <div class="flex flex-col gap-6">
+                <div class="flex flex-col gap-2.5">
+                  <RadioButton
+                    id="rb-mode-std"
+                    name="demo_radio_group"
+                    value="std"
+                    label="QUALITAS ORDINARIA"
+                    description="Tempus processus celerrimum"
+                    checked={true}
+                  />
+                  <div class="flex flex-col pl-9">
+                    <span class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100">Standard Radio</span>
+                    <span class="font-mono text-[11px] text-neutral-500">checked=true • 24px dashed circle</span>
+                  </div>
+                </div>
+
+                <div class="flex flex-col gap-2.5">
+                  <RadioButton
+                    id="rb-mode-studio"
+                    name="demo_radio_group"
+                    value="studio"
+                    label="QUALITAS STUDII"
+                    description="Amplificatio artificialis provecta"
+                  />
+                  <div class="flex flex-col pl-9">
+                    <span class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100">Option Radio</span>
+                    <span class="font-mono text-[11px] text-neutral-500">checked=false • 24px dashed circle</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Row 2: Toggle Switches & Sliders -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-14 pt-4 border-t border-neutral-200/60 dark:border-neutral-800/60">
+            <!-- 03.3 / Toggle Switches (Left Side) -->
+            <div class="space-y-4">
+              <div class="flex items-center justify-between pb-1">
+                <span class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100 uppercase tracking-wider">
+                  03.3 / Toggle Switches
+                </span>
+                <span class="font-mono text-[10px] text-neutral-400">44×22px pill track</span>
+              </div>
+
+              <div class="flex flex-col gap-6">
+                <div class="flex flex-col gap-2.5">
+                  <ToggleSwitch
+                    id="toggle-telemetry"
+                    name="telemetry_active"
+                    label="SYNCHRONIZATIO VIVA"
+                    description="Flumen continuum telemetriae ad tabernam"
+                    checked={true}
+                    loading={true}
+                  />
+                  <div class="flex flex-col pl-15">
+                    <span class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100">Loading State Switch</span>
+                    <span class="font-mono text-[11px] text-neutral-500">loading=true • perpetual fill spinner</span>
+                  </div>
+                </div>
+
+                <div class="flex flex-col gap-2.5">
+                  <ToggleSwitch
+                    id="toggle-acceleratio"
+                    name="gpu_accel"
+                    label="ACCELERATIO GRAFICA"
+                    description="Reductio oneris CPU per transformationes GPU"
+                    checked={false}
+                  />
+                  <div class="flex flex-col pl-15">
+                    <span class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100">Inactive Switch</span>
+                    <span class="font-mono text-[11px] text-neutral-500">checked=false • solid border</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 03.4 / Form Sliders (Right Side) -->
+            <div class="space-y-4">
+              <div class="flex items-center justify-between pb-1">
+                <span class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100 uppercase tracking-wider">
+                  03.4 / Range Sliders
+                </span>
+                <span class="font-mono text-[10px] text-neutral-400">continuous tactile rail</span>
+              </div>
+
+              <div class="flex flex-col gap-6">
+                <div class="flex flex-col gap-2.5">
+                  <FormSlider
+                    id="slider-intensitas"
+                    name="filter_intensity"
+                    label="INTENSITAS COLORIS"
+                    description="Gradus saturationis et luminositatis photographicae"
+                    min={0}
+                    max={100}
+                    value={75}
+                    unit="%"
+                  />
+                  <div class="flex flex-col">
+                    <span class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100">Percentage Slider</span>
+                    <span class="font-mono text-[11px] text-neutral-500">min=0 • max=100 • value=75 • unit="%"</span>
+                  </div>
+                </div>
+
+                <div class="flex flex-col gap-2.5">
+                  <FormSlider
+                    id="slider-fps"
+                    name="render_budget"
+                    label="LIMES MOTUS"
+                    description="Fines imaginum per secundum ad motum lenem"
+                    min={30}
+                    max={120}
+                    step={5}
+                    value={60}
+                    unit=" FPS"
+                  />
+                  <div class="flex flex-col">
+                    <span class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100">Step Interval Slider</span>
+                    <span class="font-mono text-[11px] text-neutral-500">min=30 • max=120 • step=5 • unit=" FPS"</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Row 3: Text Inputs & Soft-Limit Textarea -->
+          <div id="text-inputs" class="grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-14 pt-4 border-t border-neutral-200/60 dark:border-neutral-800/60 scroll-mt-24">
+            <!-- 03.5 / Text Inputs (Left Side) -->
+            <div class="space-y-4">
+              <div class="flex items-center justify-between pb-1">
+                <span class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100 uppercase tracking-wider">
+                  03.5 / Text Inputs
+                </span>
+                <span class="font-mono text-[10px] text-neutral-400">Syne label · Outfit input</span>
+              </div>
+
+              <div class="flex flex-col gap-6">
+
+                <!-- Standard / Optional -->
+                <div class="flex flex-col gap-2.5">
+                  <TextInput
+                    id="ti-default"
+                    name="demo_default"
+                    label="NOMEN UTENTIS (optionale)"
+                    placeholder="Inscribe nomen..."
+                    tips="Nomen ad systema notum."
+                  />
+                  <div class="flex flex-col">
+                    <span class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100">Standard Input</span>
+                    <span class="font-mono text-[11px] text-neutral-500">label="... (optionale)" • tips present</span>
+                  </div>
+                </div>
+
+                <!-- Error -->
+                <div class="flex flex-col gap-2.5">
+                  <TextInput
+                    id="ti-error"
+                    name="demo_error"
+                    label="INSCRIPTIO ERRATA"
+                    placeholder="Valor invalidus..."
+                    hasError={true}
+                    errorMsg="Hoc est requirentur"
+                  />
+                  <div class="flex flex-col">
+                    <span class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100">Error State</span>
+                    <span class="font-mono text-[11px] text-neutral-500">hasError=true • errorMsg inline</span>
+                  </div>
+                </div>
+
+                <!-- Warning -->
+                <div class="flex flex-col gap-2.5">
+                  <TextInput
+                    id="ti-warning"
+                    name="demo_warning"
+                    label="SIGNUM MONITIONIS"
+                    placeholder="Valor suspectus..."
+                    hasWarning={true}
+                    warningMsg="Confirma valorem"
+                    tips="Haec inscriptio possit conflictum causare."
+                  />
+                  <div class="flex flex-col">
+                    <span class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100">Warning State</span>
+                    <span class="font-mono text-[11px] text-neutral-500">hasWarning=true • amber border + tips</span>
+                  </div>
+                </div>
+
+                <!-- Safe / Valid -->
+                <div class="flex flex-col gap-2.5">
+                  <TextInput
+                    id="ti-safe"
+                    name="demo_safe"
+                    label="SIGNUM TUTUM"
+                    value="navoyovan"
+                    isSafe={true}
+                    safeMsg="Validum!"
+                  />
+                  <div class="flex flex-col">
+                    <span class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100">Safe / Valid State</span>
+                    <span class="font-mono text-[11px] text-neutral-500">isSafe=true • green border</span>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- 03.6 / Text Area & Password (Right Side) -->
+            <div class="space-y-4">
+              <div class="flex items-center justify-between pb-1">
+                <span class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100 uppercase tracking-wider">
+                  03.6 / Text Area & Password
+                </span>
+                <span class="font-mono text-[10px] text-neutral-400">overflow highlight · validation cues</span>
+              </div>
+
+              <div class="flex flex-col gap-6">
+
+                <!-- One Big Soft-Limit Textarea -->
+                <div class="flex flex-col gap-2.5">
+                  <LimitTextarea
+                    id="lta-demo"
+                    name="commentarium_demo"
+                    label="COMMENTARIUM NOTAE"
+                    value="Systema prototypum cum limite verborum et excessu highlight."
+                    placeholder="Scribe hic notam tuam..."
+                    maxLength={40}
+                    tips="Typa ultra 40 litteras ut excessus ruber appareat."
+                  />
+                  <div class="flex flex-col">
+                    <span class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100">Soft-Limit Textarea</span>
+                    <span class="font-mono text-[11px] text-neutral-500">maxLength=40 • live backdrop overflow highlight</span>
+                  </div>
+                </div>
+
+                <!-- Password Input with Char Cues Checklist -->
+                <div class="flex flex-col gap-2.5">
+                  <PasswordInput
+                    id="pw-demo"
+                    name="tessera_demo"
+                    label="TESSERA SECURA"
+                    value="Aegis#2026"
+                    placeholder="Inscribe tesseram..."
+                  />
+                  <div class="flex flex-col">
+                    <span class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100">Secure Password Input</span>
+                    <span class="font-mono text-[11px] text-neutral-500">disc masked • toggle visibility • live rule cues</span>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <!-- Row 4: Regular Dropdowns, Dropdown Search & Date Picker -->
+          <div id="dropdowns" class="grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-14 pt-4 border-t border-neutral-200/60 dark:border-neutral-800/60 scroll-mt-24">
+            <!-- 03.7 / Regular Dropdown & Dropdown Search (Left Side) -->
+            <div class="space-y-4">
+              <div class="flex items-center justify-between pb-1">
+                <span class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100 uppercase tracking-wider">
+                  03.7 / Dropdown Selectors
+                </span>
+                <span class="font-mono text-[10px] text-neutral-400">single &amp; search multi-select</span>
+              </div>
+
+              <div class="flex flex-col gap-6">
+
+                <!-- Regular Select Dropdown -->
+                <div class="flex flex-col gap-2.5">
+                  <FormSelect
+                    id="fs-specimen-regular"
+                    name="genus_dispositivi"
+                    label="GENUS DISPOSITIVI (optionale)"
+                    value="kiosk"
+                    options={[
+                      { value: 'kiosk', label: 'KIOSK TOUCHSCREEN' },
+                      { value: 'dslr', label: 'CAMERA CANON EOS' },
+                      { value: 'printer', label: 'IMPRESSOR TERMALIS' },
+                      { value: 'payment', label: 'TERMINALE EDC / QRIS' },
+                    ]}
+                    tips="Elige genus hardware configurati ad sessionem."
+                  />
+                  <div class="flex flex-col">
+                    <span class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100">Standard Dropdown</span>
+                    <span class="font-mono text-[11px] text-neutral-500">label="... (optionale)" • single value • custom trigger caret</span>
+                  </div>
+                </div>
+
+                <!-- Dropdown Search with Multi-select Checkboxes -->
+                <div class="flex flex-col gap-2.5">
+                  <SearchDropdown
+                    id="sd-specimen"
+                    name="distributio_regionum"
+                    label="DISTRIBUTIO REGIONUM"
+                    allLabel="Omnes regiones (Jabodetabek)"
+                    placeholder="Elige regiones..."
+                    items={[
+                      { id: 'bogor', label: 'Bogor Centralis', subLabel: 'BOG-01' },
+                      { id: 'jakarta', label: 'Jakarta Meridionalis', subLabel: 'JKT-02' },
+                      { id: 'depok', label: 'Depok Margonda', subLabel: 'DPK-01' },
+                      { id: 'tangerang', label: 'Tangerang BSD', subLabel: 'TNG-03' },
+                      { id: 'bekasi', label: 'Bekasi Barat', subLabel: 'BKS-01' },
+                    ]}
+                    selectedItems={['bogor', 'jakarta']}
+                    tips="Quaere et filtra unitates per regionem geographicam."
+                  />
+                  <div class="flex flex-col">
+                    <span class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100">Searchable Multi-Select</span>
+                    <span class="font-mono text-[11px] text-neutral-500">searchable=true • multi-select=true • 18px dashed box • batch badge</span>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- 03.8 / Calendar Date Picker (Right Side) -->
+            <div class="space-y-4">
+              <div class="flex items-center justify-between pb-1">
+                <span class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100 uppercase tracking-wider">
+                  03.8 / Calendar Date Picker
+                </span>
+                <span class="font-mono text-[10px] text-neutral-400">interactive matrix · count badges</span>
+              </div>
+
+              <div class="flex flex-col gap-6">
+
+                <!-- Interactive Date Picker Specimen -->
+                <div class="flex flex-col gap-2.5">
+                  <DatePicker
+                    id="dp-specimen"
+                    name="dies_sessionis"
+                    label="DIES SESSIONIS"
+                    value="2026-08-22"
+                    sessionCountsByDate={{
+                      "2026-08-15": 12,
+                      "2026-08-18": 34,
+                      "2026-08-20": 48,
+                      "2026-08-22": 64
+                    }}
+                    tips="Elige diem ad inspiciendam telemetriam et sessionum volumen."
+                  />
+                  <div class="flex flex-col">
+                    <span class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100">Calendar Date Picker</span>
+                    <span class="font-mono text-[11px] text-neutral-500">interactive month navigation • live activity badges • quick today jump</span>
+                  </div>
+                </div>
+
+                <!-- Error State Select -->
+                <div class="flex flex-col gap-2.5">
+                  <FormSelect
+                    id="fs-specimen-error"
+                    name="formatum_archivi"
+                    label="FORMATUM ARCHIVI"
+                    options={[
+                      { value: 'raw', label: 'RAW IMAGO (.CR3)' },
+                      { value: 'png', label: 'PNG 24-BIT' },
+                      { value: 'webp', label: 'WEBP ULTRA' },
+                    ]}
+                    hasError={true}
+                    errorMsg="Formatum requiritur"
+                    placeholder="Elige formatum..."
+                  />
+                  <div class="flex flex-col">
+                    <span class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100">Select Error State</span>
+                    <span class="font-mono text-[11px] text-neutral-500">hasError=true • errorMsg="Formatum requiritur"</span>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 04 / Loaders -->
+        <section id="loaders" class="space-y-6 scroll-mt-24">
+          <div class="pb-2 border-b border-neutral-200 dark:border-neutral-800">
+            <h2 class="!font-mono font-mono text-xs uppercase tracking-[0.15em] text-neutral-500 dark:text-neutral-400 font-semibold">
+              04 / Loaders (Square Wave)
+            </h2>
+          </div>
 
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-8">
         <!-- Accent Neon Loader -->
@@ -159,11 +891,11 @@ import SystemTopology from '../components/SystemTopology.astro';
       </div>
     </section>
 
-    <!-- 04 / Typography -->
-    <section class="space-y-8">
+    <!-- 05 / Typography -->
+    <section id="typography" class="space-y-8 scroll-mt-24">
       <div class="pb-2 border-b border-neutral-200 dark:border-neutral-800">
         <h2 class="!font-mono font-mono text-xs uppercase tracking-[0.15em] text-neutral-500 dark:text-neutral-400 font-semibold">
-          04 / Typography Hierarchy
+          05 / Typography Hierarchy
         </h2>
       </div>
 
@@ -171,7 +903,7 @@ import SystemTopology from '../components/SystemTopology.astro';
         <!-- Display & Headings (Syne) -->
         <div class="space-y-6">
           <div class="flex items-center gap-2">
-            <span class="font-mono text-xs font-semibold text-neutral-400 uppercase tracking-wider">04.1 / Display & Headings</span>
+            <span class="font-mono text-xs font-semibold text-neutral-400 uppercase tracking-wider">05.1 / Display & Headings</span>
           </div>
 
           <div class="space-y-8 border-l-2 border-neutral-200 dark:border-neutral-800 pl-6">
@@ -213,7 +945,7 @@ import SystemTopology from '../components/SystemTopology.astro';
         <!-- Body & Editorial (Outfit) -->
         <div class="space-y-6">
           <div class="flex items-center gap-2">
-            <span class="font-mono text-xs font-semibold text-neutral-400 uppercase tracking-wider">04.2 / Body & Editorial Text</span>
+            <span class="font-mono text-xs font-semibold text-neutral-400 uppercase tracking-wider">05.2 / Body & Editorial Text</span>
           </div>
 
           <div class="space-y-8 border-l-2 border-neutral-200 dark:border-neutral-800 pl-6">
@@ -254,11 +986,11 @@ import SystemTopology from '../components/SystemTopology.astro';
       </div>
     </section>
 
-    <!-- 05 / Status Badges -->
-    <section class="space-y-6">
+    <!-- 06 / Status Badges -->
+    <section id="status-badges" class="space-y-6 scroll-mt-24">
       <div class="pb-2 border-b border-neutral-200 dark:border-neutral-800">
         <h2 class="!font-mono font-mono text-xs uppercase tracking-[0.15em] text-neutral-500 dark:text-neutral-400 font-semibold">
-          05 / Status Badges (High-Contrast Solid)
+          06 / Status Badges (High-Contrast Solid)
         </h2>
       </div>
 
@@ -296,11 +1028,11 @@ import SystemTopology from '../components/SystemTopology.astro';
       </div>
     </section>
 
-    <!-- 06 / Metric Cards -->
-    <section class="space-y-6">
+    <!-- 07 / Metric Cards -->
+    <section id="metric-cards" class="space-y-6 scroll-mt-24">
       <div class="pb-2 border-b border-neutral-200 dark:border-neutral-800">
         <h2 class="!font-mono font-mono text-xs uppercase tracking-[0.15em] text-neutral-500 dark:text-neutral-400 font-semibold">
-          06 / Metric Cards (Editorial Telemetry)
+          07 / Metric Cards (Editorial Telemetry)
         </h2>
       </div>
 
@@ -328,12 +1060,18 @@ import SystemTopology from '../components/SystemTopology.astro';
         />
       </div>
     </section>
+  </div>
 
-    <!-- 07 / Project Tiles -->
-    <section class="space-y-6">
+  <!-- Divider between Primitives & Systems -->
+  <div class="pt-8 border-t border-dashed border-neutral-300 dark:border-neutral-800"></div>
+
+  <!-- Group 2: System Components Container -->
+  <div id="system-components" class="space-y-16 scroll-mt-24">
+    <!-- 08 / Project Tiles -->
+    <section id="project-tiles" class="space-y-6 scroll-mt-24">
       <div class="pb-2 border-b border-neutral-200 dark:border-neutral-800">
         <h2 class="!font-mono font-mono text-xs uppercase tracking-[0.15em] text-neutral-500 dark:text-neutral-400 font-semibold">
-          07 / Project Tiles (Case Study Cards)
+          08 / Project Tiles (Case Study Cards)
         </h2>
       </div>
 
@@ -357,11 +1095,11 @@ import SystemTopology from '../components/SystemTopology.astro';
       </div>
     </section>
 
-    <!-- 08 / Directory & Tree Index Pattern -->
-    <section class="space-y-10">
+    <!-- 09 / Directory & Tree Index Pattern -->
+    <section id="tree-index" class="space-y-10 scroll-mt-24">
       <div class="pb-2 border-b border-neutral-200 dark:border-neutral-800">
         <h2 class="!font-mono font-mono text-xs uppercase tracking-[0.15em] text-neutral-500 dark:text-neutral-400 font-semibold">
-          08 / Directory & Tree Index Pattern (With Brand Logo Headers)
+          09 / Directory & Tree Index Pattern (With Brand Logo Headers)
         </h2>
       </div>
 
@@ -658,11 +1396,11 @@ import SystemTopology from '../components/SystemTopology.astro';
       </div>
     </section>
 
-    <!-- 09 / Application Window Mockup -->
-    <section class="space-y-6">
+    <!-- 10 / Application Window Mockup -->
+    <section id="app-window" class="space-y-6 scroll-mt-24">
       <div class="pb-2 border-b border-neutral-200 dark:border-neutral-800">
         <h2 class="!font-mono font-mono text-xs uppercase tracking-[0.15em] text-neutral-500 dark:text-neutral-400 font-semibold">
-          09 / Application Window Mockup (Interactive Showcase Frame)
+          10 / Application Window Mockup (Interactive Showcase Frame)
         </h2>
       </div>
 
@@ -671,11 +1409,11 @@ import SystemTopology from '../components/SystemTopology.astro';
       </div>
     </section>
 
-    <!-- 10 / Exploded 3D Isometric System Topology -->
-    <section class="space-y-6">
+    <!-- 11 / Exploded 3D Isometric System Topology -->
+    <section id="system-topology" class="space-y-6 scroll-mt-24">
       <div class="pb-2 border-b border-neutral-200 dark:border-neutral-800">
         <h2 class="!font-mono font-mono text-xs uppercase tracking-[0.15em] text-neutral-500 dark:text-neutral-400 font-semibold">
-          10 / Exploded 3D Isometric System Topology
+          11 / Exploded 3D Isometric System Topology
         </h2>
       </div>
 
@@ -683,5 +1421,78 @@ import SystemTopology from '../components/SystemTopology.astro';
         <SystemTopology />
       </div>
     </section>
+      </div>
+    </main>
   </div>
 </RootLayout>
+
+<script>
+  const setupComponentLibraryNav = () => {
+    const navButtons = document.querySelectorAll<HTMLButtonElement>('.sidebar-nav-btn, .tab-nav-btn');
+    if (navButtons.length === 0) return;
+
+    navButtons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const targetId = btn.getAttribute('data-target');
+        if (!targetId) return;
+        const targetEl = document.getElementById(targetId);
+        if (targetEl) {
+          targetEl.scrollIntoView({ behavior: 'smooth' });
+          history.replaceState(null, '', `#${targetId}`);
+        }
+      });
+    });
+
+    const sectionIds = [
+      'colors', 'depth-cards', 'buttons', 'forms', 'text-inputs', 'dropdowns', 'loaders', 'typography', 'status-badges', 'metric-cards',
+      'project-tiles', 'tree-index', 'app-window', 'system-topology'
+    ];
+
+    const updateActiveTab = (activeId: string) => {
+      navButtons.forEach((btn) => {
+        const targetId = btn.getAttribute('data-target');
+        const isActive = targetId === activeId;
+        if (btn.classList.contains('sidebar-nav-btn')) {
+          if (isActive) {
+            btn.classList.add('bg-neutral-900', 'dark:bg-white', 'text-white', 'dark:text-neutral-950', 'font-bold');
+            btn.classList.remove('text-neutral-600', 'dark:text-neutral-400');
+          } else {
+            btn.classList.remove('bg-neutral-900', 'dark:bg-white', 'text-white', 'dark:text-neutral-950', 'font-bold');
+            btn.classList.add('text-neutral-600', 'dark:text-neutral-400');
+          }
+        } else {
+          // mobile tab
+          if (isActive) {
+            btn.classList.add('bg-neutral-900', 'dark:bg-white', 'text-white', 'dark:text-neutral-950', 'font-bold');
+            btn.classList.remove('bg-neutral-100', 'dark:bg-neutral-900', 'text-neutral-600', 'dark:text-neutral-400');
+          } else {
+            btn.classList.remove('bg-neutral-900', 'dark:bg-white', 'text-white', 'dark:text-neutral-950', 'font-bold');
+            btn.classList.add('bg-neutral-100', 'dark:bg-neutral-900', 'text-neutral-600', 'dark:text-neutral-400');
+          }
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            updateActiveTab(entry.target.id);
+          }
+        });
+      },
+      {
+        rootMargin: '-10% 0px -70% 0px',
+        threshold: 0,
+      }
+    );
+
+    sectionIds.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+  };
+
+  setupComponentLibraryNav();
+  document.addEventListener('astro:page-load', setupComponentLibraryNav);
+</script>

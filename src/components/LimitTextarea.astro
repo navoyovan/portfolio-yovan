@@ -1,0 +1,390 @@
+---
+// LimitTextarea.astro — Soft-Limit Textarea with Real-time Overflow Highlighter
+// Ported and normalized from Kiosk Electron Playground for Portfolio v5
+interface Props {
+  id?: string;
+  name?: string;
+  value?: string;
+  label?: string;
+  placeholder?: string;
+  maxLength?: number;
+  disabled?: boolean;
+  tips?: string;
+  rows?: number;
+  class?: string;
+  [key: string]: any;
+}
+
+const {
+  id = `lta-${Math.random().toString(36).substring(2, 9)}`,
+  name,
+  value = '',
+  label,
+  placeholder = 'Inscribe textum...',
+  maxLength = 40,
+  disabled = false,
+  tips,
+  rows = 4,
+  class: className = '',
+  ...rest
+} = Astro.props;
+
+const charCount = value.length;
+let initialStatus = 'neutral';
+let initialStatusText = 'BREVE SIT';
+
+if (charCount > maxLength) {
+  initialStatus = 'danger';
+  initialStatusText = 'EXTRA LIMITEM';
+} else if (charCount > maxLength * 0.65) {
+  initialStatus = 'warning';
+  initialStatusText = 'PROPE PLENUM';
+}
+
+const safeText = value.slice(0, maxLength);
+const excessText = value.slice(maxLength);
+---
+
+<div class:list={["limit-ta-wrapper", className]} data-max-length={maxLength}>
+  <div class="limit-ta-label-row">
+    {label && (
+      <label for={id} class="limit-ta-label">
+        {label}
+      </label>
+    )}
+    <span class:list={["limit-ta-indicator", `status-${initialStatus}`]}>
+      <span class="indicator-status-text">{initialStatusText}</span> | <span class="indicator-count">{charCount}</span>/{maxLength}
+    </span>
+  </div>
+
+  {tips && <div class="limit-ta-tips">{tips}</div>}
+
+  <div class="limit-ta-slot">
+    <div class:list={["limit-ta-container", disabled ? "limit-ta--disabled" : ""]}>
+      <div class="limit-ta-backdrop" aria-hidden="true">{safeText}{excessText && <span class="textarea-excess-highlight">{excessText}</span>}</div>
+      <textarea
+        id={id}
+        name={name}
+        class="limit-ta-input"
+        placeholder={placeholder}
+        disabled={disabled ? true : undefined}
+        rows={rows}
+        {...rest}
+      >{value}</textarea>
+    </div>
+  </div>
+</div>
+
+<style>
+  /* ── Wrapper ──────────────────────────────────────────────── */
+  .limit-ta-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+    position: relative;
+  }
+
+  /* ── Label Row ────────────────────────────────────────────── */
+  .limit-ta-label-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+
+  .limit-ta-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #111111;
+    cursor: default;
+  }
+
+  :global(.dark) .limit-ta-label {
+    color: #f8fafc;
+  }
+
+  /* ── Indicator ────────────────────────────────────────────── */
+  .limit-ta-indicator {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    transition: color 0.2s ease;
+  }
+
+  .limit-ta-indicator.status-neutral {
+    color: var(--text-muted, #888888);
+  }
+
+  :global(.dark) .limit-ta-indicator.status-neutral {
+    color: var(--text-muted, #a3a3a3);
+  }
+
+  .limit-ta-indicator.status-warning {
+    color: var(--color-warning-hover, #d97706);
+  }
+
+  .limit-ta-indicator.status-danger {
+    color: var(--color-danger, #ef4444);
+  }
+
+  /* ── Helper Tips ──────────────────────────────────── */
+  .limit-ta-tips {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.8125rem;
+    font-weight: 400;
+    color: var(--text-muted, #6b7280);
+    margin-top: -2px;
+    margin-bottom: 4px;
+    line-height: 1.4;
+  }
+
+  :global(.dark) .limit-ta-tips {
+    color: var(--text-muted, #737373);
+  }
+
+  /* ── Slot Wrapper (Static height prevents pushing elements below) ── */
+  .limit-ta-slot {
+    position: relative;
+    width: 100%;
+    height: 140px;
+    z-index: 10;
+  }
+
+  .limit-ta-slot:focus-within {
+    z-index: 30;
+  }
+
+  /* ── Expanding Container Overlay ──────────────────────────── */
+  .limit-ta-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 140px;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 0;
+    transition: height 0.26s cubic-bezier(0.16, 1, 0.3, 1),
+                border-color 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+                box-shadow 0.26s cubic-bezier(0.16, 1, 0.3, 1),
+                background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+
+  :global(.dark) .limit-ta-container {
+    background: #141414;
+    border-color: #404040;
+  }
+
+  /* Expands on focus hovering above subsequent layout elements with dynamic auto-growth */
+  .limit-ta-container:focus-within {
+    height: var(--expanded-h, 140px);
+    min-height: 140px;
+    max-height: 380px;
+    border-color: var(--color-accent, #52FF1A);
+    box-shadow: 0 16px 36px -4px rgba(0, 0, 0, 0.16),
+                0 0 0 4px color-mix(in srgb, var(--color-accent, #52FF1A) 15%, transparent);
+  }
+
+  :global(.dark) .limit-ta-container:focus-within {
+    border-color: var(--color-accent, #52FF1A);
+    box-shadow: 0 20px 42px -4px rgba(0, 0, 0, 0.65),
+                0 0 0 3px color-mix(in srgb, var(--color-accent, #52FF1A) 15%, transparent);
+  }
+
+  .limit-ta--disabled {
+    background-color: #f3f4f6 !important;
+    border-color: #e5e7eb !important;
+    cursor: not-allowed;
+  }
+
+  :global(.dark) .limit-ta--disabled {
+    background-color: #1a1a1a !important;
+    border-color: #262626 !important;
+  }
+
+  /* ── Backdrop & Textarea Overlay ──────────────────────────── */
+  .limit-ta-backdrop,
+  .limit-ta-input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 0.75rem 1rem;
+    font-family: 'Outfit', sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 1.5;
+    box-sizing: border-box;
+    border: none;
+    border-radius: 0;
+    outline: none;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow-y: auto;
+    margin: 0;
+  }
+
+  .limit-ta-backdrop {
+    background: transparent;
+    color: var(--text-primary, #111111);
+    pointer-events: none;
+    scrollbar-width: none;
+    z-index: 1;
+  }
+
+  :global(.dark) .limit-ta-backdrop {
+    color: var(--text-primary, #ffffff);
+  }
+
+  .limit-ta-backdrop::-webkit-scrollbar {
+    display: none;
+  }
+
+  .limit-ta-input {
+    background: transparent;
+    color: transparent;
+    caret-color: var(--text-primary, #111111);
+    resize: none;
+    z-index: 2;
+  }
+
+  :global(.dark) .limit-ta-input {
+    caret-color: var(--text-primary, #ffffff);
+  }
+
+  .limit-ta-input::placeholder {
+    color: var(--text-muted, #9ca3af);
+    font-weight: 400;
+  }
+
+  :global(.dark) .limit-ta-input::placeholder {
+    color: var(--text-muted, #525252);
+  }
+
+  .limit-ta-input:disabled {
+    cursor: not-allowed;
+  }
+
+  /* ── Excess Text Highlight ────────────────────────────────── */
+  .textarea-excess-highlight {
+    background-color: color-mix(in srgb, var(--color-danger, #EF4444) 15%, transparent);
+    color: var(--color-danger, #ef4444);
+    border-bottom: 2px dashed var(--color-danger, #ef4444);
+    padding: 1px 0;
+    border-radius: 2px;
+  }
+
+  :global(.dark) .textarea-excess-highlight {
+    background-color: color-mix(in srgb, var(--color-danger, #EF4444) 28%, transparent);
+    color: var(--color-danger, #ef4444);
+    border-bottom-color: var(--color-danger, #ef4444);
+  }
+</style>
+
+<script>
+  function setupLimitTextareas() {
+    document.querySelectorAll<HTMLElement>('.limit-ta-wrapper').forEach((wrapper) => {
+      if (wrapper.dataset.initialized) return;
+      wrapper.dataset.initialized = 'true';
+
+      const maxLen = parseInt(wrapper.dataset.maxLength || '40', 10);
+      const container = wrapper.querySelector<HTMLElement>('.limit-ta-container');
+      const input = wrapper.querySelector<HTMLTextAreaElement>('.limit-ta-input');
+      const backdrop = wrapper.querySelector<HTMLElement>('.limit-ta-backdrop');
+      const indicator = wrapper.querySelector<HTMLElement>('.limit-ta-indicator');
+      const countEl = wrapper.querySelector<HTMLElement>('.indicator-count');
+      const statusTextEl = wrapper.querySelector<HTMLElement>('.indicator-status-text');
+
+      if (!input || !backdrop || !indicator || !countEl || !statusTextEl || !container) return;
+
+      const BASE_EXPANDED_H = 140;
+      const MAX_EXPANDED_H = 340;
+
+      const updateHeight = () => {
+        if (!wrapper.matches(':focus-within')) {
+          container.style.removeProperty('--expanded-h');
+          return;
+        }
+
+        // Only expand beyond the 140px base if content actually fills and overflows the box
+        const scrollH = backdrop.scrollHeight;
+        if (scrollH > BASE_EXPANDED_H) {
+          const targetH = Math.min(scrollH + 16, MAX_EXPANDED_H);
+          container.style.setProperty('--expanded-h', `${targetH}px`);
+        } else {
+          container.style.removeProperty('--expanded-h');
+        }
+      };
+
+      const update = () => {
+        const val = input.value;
+        const count = val.length;
+
+        // Synchronize count
+        countEl.textContent = String(count);
+
+        // Update status class & text
+        indicator.classList.remove('status-neutral', 'status-warning', 'status-danger');
+        if (count > maxLen) {
+          indicator.classList.add('status-danger');
+          statusTextEl.textContent = 'EXTRA LIMITEM';
+        } else if (count > maxLen * 0.65) {
+          indicator.classList.add('status-warning');
+          statusTextEl.textContent = 'PROPE PLENUM';
+        } else {
+          indicator.classList.add('status-neutral');
+          statusTextEl.textContent = 'BREVE SIT';
+        }
+
+        // Render highlighted backdrop text
+        const safe = val.slice(0, maxLen);
+        const excess = val.slice(maxLen);
+
+        // Safely escape HTML characters in backdrop
+        const escapeHtml = (str: string) =>
+          str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+        if (excess) {
+          backdrop.innerHTML = `${escapeHtml(safe)}<span class="textarea-excess-highlight">${escapeHtml(excess)}</span>`;
+        } else {
+          backdrop.textContent = safe;
+        }
+
+        // Sync scroll & dynamic height
+        backdrop.scrollTop = input.scrollTop;
+        updateHeight();
+      };
+
+      input.addEventListener('input', update);
+      input.addEventListener('scroll', () => {
+        backdrop.scrollTop = input.scrollTop;
+      });
+
+      input.addEventListener('focus', () => {
+        setTimeout(updateHeight, 20);
+      });
+
+      input.addEventListener('blur', () => {
+        container.style.removeProperty('--expanded-h');
+      });
+
+      // Initial run
+      update();
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupLimitTextareas);
+  } else {
+    setupLimitTextareas();
+  }
+</script>

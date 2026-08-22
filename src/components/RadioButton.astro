@@ -1,0 +1,158 @@
+---
+// RadioButton.astro - High-Contrast System Radio Button Primitive (Vendor Portal Specification)
+interface Props {
+  id?: string;
+  name: string;
+  value: string;
+  label?: string;
+  description?: string;
+  checked?: boolean;
+  disabled?: boolean;
+  compact?: boolean;
+  class?: string;
+  [key: string]: any;
+}
+
+const {
+  id = `rb-${Math.random().toString(36).substring(2, 9)}`,
+  name,
+  value,
+  label,
+  description,
+  checked = false,
+  disabled = false,
+  compact = false,
+  class: className = '',
+  ...rest
+} = Astro.props;
+---
+
+<label
+  for={id}
+  class:list={[
+    "radio-container group flex items-start select-none transition-opacity",
+    compact ? "gap-2.5 items-center" : "gap-3 items-start",
+    disabled ? "opacity-50 cursor-not-allowed pointer-events-none" : "cursor-pointer",
+    className
+  ]}
+>
+  <div class:list={["relative flex items-center justify-center shrink-0", compact ? "mt-0" : "mt-0.5"]}>
+    <input
+      type="radio"
+      id={id}
+      name={name}
+      value={value}
+      checked={checked ? true : undefined}
+      disabled={disabled ? true : undefined}
+      class="peer sr-only radio-input"
+      {...rest}
+    />
+    <div
+      class:list={[
+        "radio-box relative rounded-full bg-white dark:bg-[#141414] transition-all duration-150 flex items-center justify-center shrink-0 border border-dashed border-[#d1d5db] dark:border-neutral-700",
+        compact ? "w-[18px] h-[18px]" : "w-6 h-6",
+        "group-hover:border-solid group-hover:border-neutral-950 dark:group-hover:border-white",
+        "peer-focus-visible:ring-2 peer-focus-visible:ring-[#52FF1A] peer-focus-visible:ring-offset-2 dark:peer-focus-visible:ring-offset-neutral-950"
+      ]}
+    >
+      <!-- Spinning border overlay during transition -->
+      <div class="radio-border-spinner absolute -inset-[1.5px] rounded-full pointer-events-none overflow-hidden hidden">
+        <div class="w-[200%] h-[200%] absolute -top-1/2 -left-1/2 bg-[conic-gradient(from_0deg,#52FF1A_0%,transparent_60%,#52FF1A_100%)] animate-spin"></div>
+        <div class="absolute inset-[1.5px] rounded-full bg-white dark:bg-[#141414]"></div>
+      </div>
+
+      <div
+        class:list={[
+          "radio-dot relative z-10 rounded-full bg-[#52FF1A] transition-transform duration-150 shrink-0",
+          compact ? "w-2 h-2" : "w-2.5 h-2.5"
+        ]}
+      ></div>
+    </div>
+  </div>
+
+  {(label || description) && (
+    <div class="flex flex-col text-left leading-tight">
+      {label && (
+        <span class:list={[
+          "font-heading font-bold text-neutral-950 dark:text-white transition-colors",
+          compact ? "text-xs font-mono font-medium" : "text-sm sm:text-base font-bold"
+        ]}>
+          {label}
+        </span>
+      )}
+      {description && (
+        <span class="text-xs sm:text-[13px] text-neutral-500 dark:text-neutral-400 mt-1 font-sans font-normal leading-normal">
+          {description}
+        </span>
+      )}
+    </div>
+  )}
+</label>
+
+<style>
+  /* When transitioning: show spinning border and hide dot */
+  .radio-container.is-transitioning .radio-border-spinner {
+    display: block !important;
+  }
+  .radio-container.is-transitioning .radio-box {
+    border-color: transparent !important;
+    background-color: transparent !important;
+  }
+  .radio-container.is-transitioning .radio-dot {
+    display: none !important;
+    transform: scale(0) !important;
+    opacity: 0 !important;
+  }
+
+  .radio-container:not(.is-transitioning) input[type="radio"]:checked ~ .radio-box {
+    border-color: #52FF1A !important;
+    border-style: solid !important;
+  }
+  .radio-container:not(.is-transitioning) input[type="radio"]:checked ~ .radio-box .radio-dot {
+    transform: scale(1) !important;
+    opacity: 1 !important;
+  }
+  .radio-container:not(.is-transitioning) input[type="radio"]:not(:checked) ~ .radio-box {
+    border-color: #d1d5db !important;
+    border-style: dashed !important;
+  }
+  :global(.dark) .radio-container:not(.is-transitioning) input[type="radio"]:not(:checked) ~ .radio-box {
+    border-color: #404040 !important;
+  }
+  .radio-container:not(.is-transitioning) input[type="radio"]:not(:checked) ~ .radio-box .radio-dot {
+    transform: scale(0) !important;
+    opacity: 0 !important;
+  }
+</style>
+
+<script>
+  function setupRadios() {
+    document.querySelectorAll<HTMLElement>('.radio-container').forEach((container) => {
+      if (container.dataset.initialized) return;
+      container.dataset.initialized = 'true';
+
+      const input = container.querySelector<HTMLInputElement>('.radio-input');
+      if (!input) return;
+
+      container.addEventListener('click', (e) => {
+        if (input.disabled || input.checked || container.classList.contains('is-transitioning')) return;
+        e.preventDefault();
+
+        // Show spinner on the newly selected container
+        container.classList.add('is-transitioning');
+
+        setTimeout(() => {
+          container.classList.remove('is-transitioning');
+          input.checked = true;
+          input.dispatchEvent(new Event('change', { bubbles: true }));
+        }, 650);
+      });
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupRadios);
+  } else {
+    setupRadios();
+  }
+</script>

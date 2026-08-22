@@ -19,10 +19,35 @@ const homeNavItems = [
   { label: 'Contact', href: `${base}/#contact`, number: '06' },
 ];
 
+const componentLibraryNavItems = [
+  { label: 'Core Primitives', href: `${base}/component-library#core-primitives`, number: '01' },
+  { label: 'System Components', href: `${base}/component-library#system-components`, number: '02' },
+];
+
+const portfolioIndexNavItems = [
+  { label: 'HYPE-BOX Ecosystem', href: `${base}/portfolio-index#hypebox-ecosystem`, number: '01' },
+  { label: 'Other Systems', href: `${base}/portfolio-index#other-systems`, number: '02' },
+];
+
 const secondaryNavItems = [
+  { label: 'Home', href: homeHref },
   { label: 'Component Library', href: `${base}/component-library` },
   { label: 'Portfolio Index', href: `${base}/portfolio-index` },
 ];
+
+const isComponentLibrary = pathname.includes('/component-library');
+const isPortfolioIndex = pathname.includes('/portfolio-index');
+
+let currentPageTitle = '// Home';
+let currentSectionItems = homeNavItems;
+
+if (isComponentLibrary) {
+  currentPageTitle = '// Component Library';
+  currentSectionItems = componentLibraryNavItems;
+} else if (isPortfolioIndex) {
+  currentPageTitle = '// Portfolio Index';
+  currentSectionItems = portfolioIndexNavItems;
+}
 ---
 
 <header
@@ -51,19 +76,70 @@ const secondaryNavItems = [
             const normalizedPathname = pathname.replace(/\/$/, '');
             const isActive = normalizedPathname === itemPath || (item.href !== homeHref && normalizedPathname.startsWith(itemPath));
             return (
-              <li>
-                <a
-                  href={item.href}
-                  class:list={[
-                    'text-xs sm:text-sm font-medium px-3.5 py-2 rounded-md transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#52FF1A]',
-                    isActive
-                      ? 'text-neutral-950 dark:text-white bg-neutral-100 dark:bg-neutral-900 font-semibold'
-                      : 'text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white hover:bg-neutral-50 dark:hover:bg-neutral-900/50',
-                  ]}
-                  aria-current={isActive ? 'page' : undefined}
-                >
-                  {item.label}
-                </a>
+              <li class={isActive ? 'relative' : undefined}>
+                {isActive ? (
+                  <>
+                    <button
+                      type="button"
+                      id="desktop-active-nav-btn"
+                      aria-label={`${item.label} navigation menu, currently active. Click to view sections`}
+                      aria-expanded="false"
+                      aria-haspopup="true"
+                      aria-controls="desktop-sections-dropdown"
+                      class="group/nav-active relative inline-flex items-center justify-center text-xs sm:text-sm font-medium px-3.5 py-2 rounded-md transition-[background-color,color,border-color] duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#52FF1A] text-neutral-950 dark:text-white bg-neutral-100 dark:bg-neutral-900 font-semibold cursor-pointer select-none overflow-hidden"
+                      aria-current="page"
+                    >
+                      <div
+                        id="desktop-nav-content"
+                        class="inline-flex items-center translate-x-[10px] group-hover/nav-active:translate-x-0 transition-transform duration-200 ease-out"
+                      >
+                        <span>{item.label}</span>
+                        <span
+                          id="desktop-nav-arrow"
+                          class="inline-flex items-center justify-center w-3.5 ml-1.5 opacity-0 group-hover/nav-active:opacity-100 transition-[opacity,transform] duration-200 ease-out text-neutral-500 dark:text-neutral-400 group-hover/nav-active:text-neutral-950 dark:group-hover/nav-active:text-white"
+                          aria-hidden="true"
+                        >
+                          ↓
+                        </span>
+                      </div>
+                    </button>
+
+                    <!-- Desktop Sections Dropdown Menu -->
+                    <div
+                      id="desktop-sections-dropdown"
+                      role="menu"
+                      aria-label={`${item.label} Sections`}
+                      class="absolute top-full left-0 mt-2 min-w-[210px] bg-[#fcfbf9]/95 dark:bg-[#0e0e0e]/95 backdrop-blur-xl border border-neutral-200/90 dark:border-neutral-800/90 rounded-lg shadow-xl dark:shadow-2xl p-1.5 z-50 opacity-0 -translate-y-2 scale-95 pointer-events-none transition-[opacity,transform] duration-200 ease-out origin-top flex flex-col gap-1"
+                    >
+                      <div class="px-3 pt-2 pb-1 text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-neutral-500 font-semibold border-b border-neutral-200/60 dark:border-neutral-800/60 select-none">
+                        {currentPageTitle}
+                      </div>
+                      <ul class="flex flex-col gap-0.5 list-none m-0 p-0" role="none">
+                        {currentSectionItems.map((section) => (
+                          <li role="none">
+                            <a
+                              href={section.href}
+                              role="menuitem"
+                              class="desktop-section-link group flex items-center justify-between px-3 py-2 text-xs font-heading font-bold uppercase tracking-tight text-neutral-700 dark:text-neutral-300 hover:text-neutral-950 dark:hover:text-white hover:bg-neutral-100 dark:hover:bg-neutral-900/80 rounded transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#52FF1A]"
+                            >
+                              <span>{section.label}</span>
+                              <span class="text-[10px] font-mono text-neutral-400 dark:text-neutral-600 group-hover:text-[#52FF1A] transition-colors">
+                                {section.number}
+                              </span>
+                            </a>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </>
+                ) : (
+                  <a
+                    href={item.href}
+                    class="text-xs sm:text-sm font-medium px-3.5 py-2 rounded-md transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#52FF1A] text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white hover:bg-neutral-50 dark:hover:bg-neutral-900/50"
+                  >
+                    {item.label}
+                  </a>
+                )}
               </li>
             );
           })}
@@ -148,13 +224,13 @@ const secondaryNavItems = [
     class="md:hidden absolute top-full left-0 w-full bg-[#fcfbf9]/95 dark:bg-[#0e0e0e]/95 border-b border-neutral-300/80 dark:border-neutral-800/80 shadow-2xl transition-all duration-300 ease-out -translate-y-4 opacity-0 pointer-events-none z-50 max-h-[calc(100dvh-4.5rem)] overflow-y-auto"
   >
     <nav aria-label="Mobile Navigation" class="px-6 py-6 sm:py-8 flex flex-col gap-5 text-left items-start">
-      <!-- Home Navigation Sections -->
+      <!-- Current Page Navigation Sections -->
       <div class="w-full flex flex-col gap-2">
         <span class="text-[11px] font-mono font-semibold uppercase tracking-wider text-neutral-400 dark:text-neutral-500 select-none">
-          // Home
+          {currentPageTitle}
         </span>
-        <ul class="w-full flex flex-col gap-1 list-none m-0 p-0" aria-label="Home Sections">
-          {homeNavItems.map((item) => (
+        <ul class="w-full flex flex-col gap-1 list-none m-0 p-0" aria-label="Page Sections">
+          {currentSectionItems.map((item) => (
             <li>
               <a
                 href={item.href}
@@ -173,7 +249,7 @@ const secondaryNavItems = [
       <!-- Divider -->
       <div class="w-full h-px bg-neutral-200/80 dark:bg-neutral-800/80 my-0.5"></div>
 
-      <!-- Pages / Component Library Section -->
+      <!-- Pages Section -->
       <div class="w-full flex flex-col gap-2">
         <span class="text-[11px] font-mono font-semibold uppercase tracking-wider text-neutral-400 dark:text-neutral-500 select-none">
           // Pages
@@ -450,6 +526,114 @@ const secondaryNavItems = [
     window.addEventListener('resize', onResize);
   };
 
+  const setupDesktopNavDropdown = () => {
+    const toggleBtn = document.getElementById('desktop-active-nav-btn');
+    const dropdown = document.getElementById('desktop-sections-dropdown');
+    const arrow = document.getElementById('desktop-nav-arrow');
+    const content = document.getElementById('desktop-nav-content');
+    const sectionLinks = document.querySelectorAll<HTMLAnchorElement>('.desktop-section-link');
+
+    if (!toggleBtn || !dropdown) return;
+
+    let isOpen = false;
+
+    const setDropdownState = (open: boolean) => {
+      isOpen = open;
+      toggleBtn.setAttribute('aria-expanded', open.toString());
+      dropdown.setAttribute('aria-hidden', (!open).toString());
+
+      if (open) {
+        dropdown.classList.remove('opacity-0', '-translate-y-2', 'scale-95', 'pointer-events-none');
+        dropdown.classList.add('opacity-100', 'translate-y-0', 'scale-100', 'pointer-events-auto');
+        if (arrow) {
+          arrow.classList.add('!opacity-100', 'rotate-180');
+        }
+        if (content) {
+          content.classList.add('!translate-x-0');
+        }
+        sectionLinks.forEach((link) => link.removeAttribute('tabindex'));
+      } else {
+        dropdown.classList.remove('opacity-100', 'translate-y-0', 'scale-100', 'pointer-events-auto');
+        dropdown.classList.add('opacity-0', '-translate-y-2', 'scale-95', 'pointer-events-none');
+        if (arrow) {
+          arrow.classList.remove('!opacity-100', 'rotate-180');
+        }
+        if (content) {
+          content.classList.remove('!translate-x-0');
+        }
+        sectionLinks.forEach((link) => link.setAttribute('tabindex', '-1'));
+      }
+    };
+
+    // Initial state: not focusable when closed
+    setDropdownState(false);
+
+    toggleBtn.onclick = (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      setDropdownState(!isOpen);
+    };
+
+    sectionLinks.forEach((link) => {
+      link.onclick = (e) => {
+        const href = link.getAttribute('href');
+        if (href) {
+          const hashIndex = href.indexOf('#');
+          if (hashIndex !== -1) {
+            const hash = href.slice(hashIndex);
+            const targetEl = document.querySelector(hash);
+            if (targetEl) {
+              e.preventDefault();
+              targetEl.scrollIntoView({ behavior: 'smooth' });
+              history.pushState(null, '', hash);
+            }
+          }
+        }
+        setDropdownState(false);
+      };
+    });
+
+    const onDocClick = (e: MouseEvent) => {
+      if (isOpen && !dropdown.contains(e.target as Node) && !toggleBtn.contains(e.target as Node)) {
+        setDropdownState(false);
+      }
+    };
+    document.removeEventListener('click', onDocClick);
+    document.addEventListener('click', onDocClick);
+
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (!isOpen) return;
+
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        setDropdownState(false);
+        toggleBtn.focus();
+      } else if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        const focusables = Array.from(sectionLinks);
+        const currentIndex = focusables.indexOf(document.activeElement as HTMLAnchorElement);
+        const nextIndex = (currentIndex + 1) % focusables.length;
+        focusables[nextIndex]?.focus();
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        const focusables = Array.from(sectionLinks);
+        const currentIndex = focusables.indexOf(document.activeElement as HTMLAnchorElement);
+        const prevIndex = (currentIndex - 1 + focusables.length) % focusables.length;
+        focusables[prevIndex]?.focus();
+      }
+    };
+    document.removeEventListener('keydown', onKeyDown);
+    document.addEventListener('keydown', onKeyDown);
+
+    const onResize = () => {
+      if (window.innerWidth < 768 && isOpen) {
+        setDropdownState(false);
+      }
+    };
+    window.removeEventListener('resize', onResize);
+    window.addEventListener('resize', onResize);
+  };
+
   const setupFullscreenToggle = () => {
     const toggleBtn = document.getElementById('mobile-fullscreen-toggle');
     const textSpan = document.getElementById('fullscreen-text');
@@ -526,6 +710,7 @@ const secondaryNavItems = [
     setupLogoScroll();
     setupThemeToggle();
     setupMobileMenu();
+    setupDesktopNavDropdown();
     setupFullscreenToggle();
   };
 

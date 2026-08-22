@@ -1,0 +1,686 @@
+---
+// DatePicker.astro — Calendar Date Picker primitive ported to Portfolio v5
+// Mirrors DatePicker.jsx + DatePicker.module.css architecture.
+interface Props {
+  id?: string;
+  name?: string;
+  label?: string;
+  value?: string; // YYYY-MM-DD
+  placeholder?: string;
+  sessionCountsByDate?: Record<string, number>;
+  tips?: string;
+  class?: string;
+  [key: string]: any;
+}
+
+const monthNames = [
+  'Ianuarius', 'Februarius', 'Martius', 'Aprilis', 'Maius', 'Iunius',
+  'Iulius', 'Augustus', 'September', 'October', 'November', 'December'
+];
+
+const dayNames = ['DI', 'LU', 'MA', 'ME', 'JO', 'VE', 'SA'];
+
+const {
+  id = `dp-${Math.random().toString(36).substring(2, 9)}`,
+  name,
+  label,
+  value = '',
+  placeholder = 'Elige diem...',
+  sessionCountsByDate = {},
+  tips,
+  class: className = '',
+  ...rest
+} = Astro.props;
+
+// Formatting helper
+const formatDateDisplay = (dateStr: string) => {
+  if (!dateStr) return placeholder;
+  const parts = dateStr.split('-');
+  if (parts.length !== 3) return dateStr;
+  const year = parts[0];
+  const monthIdx = parseInt(parts[1], 10) - 1;
+  const day = parseInt(parts[2], 10);
+  const mName = monthNames[monthIdx] || '';
+  return `${day} ${mName} ${year}`;
+};
+
+const initialDisplay = formatDateDisplay(value);
+
+// Parse label for optional (subtext) pattern, e.g. "Dies (optionale)"
+const labelMatch = typeof label === 'string' ? label.match(/^(.*?)\s*(\(.*?\))$/) : null;
+---
+
+<div
+  class:list={["dp-wrapper", className]}
+  data-date-picker-wrapper
+  id={`${id}-wrapper`}
+  data-initial-value={value}
+  data-counts={JSON.stringify(sessionCountsByDate)}
+>
+  {label && (
+    <div class="dp-label-row">
+      <label class="dp-label">
+        {labelMatch ? labelMatch[1] + ' ' : label}
+        {labelMatch && <span class="dp-label-subtext">{labelMatch[2]}</span>}
+      </label>
+    </div>
+  )}
+
+  {tips && <div class="dp-tips">{tips}</div>}
+
+  <div class="dp-dropdown-container">
+    <button
+      type="button"
+      id={id}
+      aria-haspopup="dialog"
+      aria-expanded="false"
+      class="dp-trigger"
+      {...rest}
+    >
+      <span class="dp-trigger-text">{initialDisplay}</span>
+      <svg
+        class="dp-caret"
+        width="16"
+        height="16"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+      >
+        <polyline points="6 9 12 15 18 9"></polyline>
+      </svg>
+    </button>
+
+    <input type="hidden" name={name} value={value} class="dp-hidden-input" />
+
+    <!-- Calendar Dropdown Card -->
+    <div class="dp-calendar-card" role="dialog" aria-label="Calendar">
+      <!-- Calendar Header -->
+      <div class="dp-cal-header">
+        <button
+          type="button"
+          class="dp-nav-btn dp-btn-prev"
+          aria-label="Previous Month"
+          title="Mensis Prior"
+        >
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="15 18 9 12 15 6"></polyline>
+          </svg>
+        </button>
+
+        <span class="dp-month-label"></span>
+
+        <button
+          type="button"
+          class="dp-nav-btn dp-btn-next"
+          aria-label="Next Month"
+          title="Mensis Sequens"
+        >
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Weekday Headers -->
+      <div class="dp-cal-grid">
+        {dayNames.map((d) => (
+          <div class="dp-day-name">{d}</div>
+        ))}
+      </div>
+
+      <!-- Days Grid Container -->
+      <div class="dp-days-grid"></div>
+
+      <!-- Footer Action -->
+      <div class="dp-cal-footer">
+        <button type="button" class="dp-today-btn">
+          Ad hodiernum
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  /* ── Wrapper ──────────────────────────────────────────────── */
+  .dp-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+    position: relative;
+  }
+
+  /* ── Label Row ────────────────────────────────────────────── */
+  .dp-label-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+
+  .dp-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #111111;
+    cursor: default;
+  }
+
+  :global(.dark) .dp-label {
+    color: #ffffff;
+  }
+
+  .dp-label-subtext {
+    color: #9ca3af;
+    font-weight: 500;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+    opacity: 0.75;
+    text-transform: uppercase;
+  }
+
+  :global(.dark) .dp-label-subtext {
+    color: #6b7280;
+  }
+
+  .dp-tips {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.78rem;
+    color: #8a857b;
+    line-height: 1.35;
+    margin-top: -0.2rem;
+  }
+
+  :global(.dark) .dp-tips {
+    color: #737373;
+  }
+
+  /* ── Container & Trigger ──────────────────────────────────── */
+  .dp-dropdown-container {
+    position: relative;
+    width: 100%;
+  }
+
+  .dp-trigger {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #111111;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    outline: none;
+    text-align: left;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+    box-sizing: border-box;
+  }
+
+  :global(.dark) .dp-trigger {
+    background: #141414;
+    border-color: #262626;
+    color: #ffffff;
+  }
+
+  .dp-trigger:focus,
+  .dp-trigger.is-active {
+    border-color: #52FF1A;
+    box-shadow: 0 0 0 3px rgba(82, 255, 26, 0.2);
+  }
+
+  :global(.dark) .dp-trigger:focus,
+  :global(.dark) .dp-trigger.is-active {
+    border-color: #52FF1A;
+    box-shadow: 0 0 0 3px rgba(82, 255, 26, 0.25);
+  }
+
+  .dp-caret {
+    color: #888888;
+    margin-left: 1rem;
+    flex-shrink: 0;
+    transition: transform 0.2s ease;
+  }
+
+  .dp-trigger.is-active .dp-caret {
+    transform: rotate(180deg);
+  }
+
+  /* ── Calendar Dropdown Card ───────────────────────────────── */
+  .dp-calendar-card {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    width: 290px;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 0;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.12), 0 8px 16px -6px rgba(0, 0, 0, 0.08);
+    padding: 14px;
+    z-index: 70;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    opacity: 0;
+    transform: translateY(-8px) scale(0.97);
+    pointer-events: none;
+    transform-origin: top center;
+    transition: opacity 0.2s cubic-bezier(0.16, 1, 0.3, 1), transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  :global(.dark) .dp-calendar-card {
+    background: #161616;
+    border-color: #262626;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.6), 0 8px 16px -6px rgba(0, 0, 0, 0.4);
+  }
+
+  .dp-calendar-card.is-open {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+  }
+
+  /* ── Header ───────────────────────────────────────────────── */
+  .dp-cal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 4px;
+  }
+
+  .dp-month-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #111827;
+  }
+
+  :global(.dark) .dp-month-label {
+    color: #ffffff;
+  }
+
+  .dp-nav-btn {
+    width: 28px;
+    height: 28px;
+    border: 1px dashed #d1d5db;
+    background: transparent;
+    border-radius: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #374151;
+    transition: all 0.15s ease;
+  }
+
+  :global(.dark) .dp-nav-btn {
+    border-color: #404040;
+    color: #d1d5db;
+  }
+
+  .dp-nav-btn:hover {
+    border-style: solid;
+    border-color: #52FF1A;
+    background: rgba(82, 255, 26, 0.08);
+    color: #111111;
+  }
+
+  :global(.dark) .dp-nav-btn:hover {
+    border-color: #52FF1A;
+    background: rgba(82, 255, 26, 0.15);
+    color: #ffffff;
+  }
+
+  .dp-nav-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+    border-color: #e5e7eb;
+  }
+
+  :global(.dark) .dp-nav-btn:disabled {
+    border-color: #262626;
+  }
+
+  /* ── Grid ─────────────────────────────────────────────────── */
+  .dp-cal-grid,
+  .dp-days-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 2px;
+  }
+
+  .dp-day-name {
+    font-family: 'Space Grotesk', monospace;
+    font-size: 10px;
+    font-weight: 700;
+    text-align: center;
+    color: #9ca3af;
+    text-transform: uppercase;
+    padding: 3px 0 6px;
+    letter-spacing: 0.05em;
+  }
+
+  :global(.dark) .dp-day-name {
+    color: #6b7280;
+  }
+
+  /* ── Day Cell (Styled dynamically via script) ─────────────── */
+  :global(.dp-cell) {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background: transparent;
+    border-radius: 0;
+    padding: 4px 1px;
+    cursor: pointer;
+    min-height: 32px;
+    transition: background-color 0.12s ease;
+    user-select: none;
+  }
+
+  :global(.dp-cell:hover:not(.dp-cell--disabled)) {
+    background: rgba(82, 255, 26, 0.12);
+  }
+
+  :global(.dp-cell--today) {
+    border: 1.5px solid #111827 !important;
+  }
+
+  :global(.dark .dp-cell--today) {
+    border: 1.5px solid #ffffff !important;
+  }
+
+  :global(.dp-cell--selected) {
+    background: #52FF1A !important;
+    color: #000000 !important;
+  }
+
+  :global(.dp-cell--disabled) {
+    opacity: 0.3;
+    cursor: not-allowed !important;
+  }
+
+  :global(.dp-day-num) {
+    font-family: 'Space Grotesk', monospace;
+    font-size: 12px;
+    font-weight: 600;
+    color: #374151;
+  }
+
+  :global(.dark .dp-day-num) {
+    color: #d1d5db;
+  }
+
+  :global(.dp-cell--selected .dp-day-num) {
+    color: #000000 !important;
+    font-weight: 700;
+  }
+
+  :global(.dp-count-badge) {
+    font-family: 'Space Grotesk', monospace;
+    font-size: 8px;
+    font-weight: 700;
+    color: #059669;
+    background: #d1fae5;
+    border-radius: 2px;
+    padding: 0 3px;
+    line-height: 1.1;
+    margin-top: 1px;
+  }
+
+  :global(.dark .dp-count-badge) {
+    background: #064e3b;
+    color: #6ee7b7;
+  }
+
+  :global(.dp-cell--selected .dp-count-badge) {
+    background: rgba(0, 0, 0, 0.2);
+    color: #000000;
+  }
+
+  /* ── Footer ───────────────────────────────────────────────── */
+  .dp-cal-footer {
+    margin-top: 6px;
+    border-top: 1px dashed #d1d5db;
+    padding-top: 8px;
+    display: flex;
+    justify-content: center;
+  }
+
+  :global(.dark) .dp-cal-footer {
+    border-top-color: #333333;
+  }
+
+  .dp-today-btn {
+    font-family: 'Space Grotesk', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    color: #111111;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    transition: color 0.15s ease;
+  }
+
+  :global(.dark) .dp-today-btn {
+    color: #52FF1A;
+  }
+
+  .dp-today-btn:hover {
+    text-decoration: underline;
+    color: #52FF1A;
+  }
+</style>
+
+<script>
+  const monthNamesLatin = [
+    'Ianuarius', 'Februarius', 'Martius', 'Aprilis', 'Maius', 'Iunius',
+    'Iulius', 'Augustus', 'September', 'October', 'November', 'December'
+  ];
+
+  const toDateKey = (d: Date) => {
+    const y = d.getFullYear();
+    const m = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    return `${y}-${m}-${day}`;
+  };
+
+  function initDatePickers() {
+    document.querySelectorAll<HTMLElement>('[data-date-picker-wrapper]').forEach((wrapper) => {
+      if (wrapper.dataset.initialized === 'true') return;
+      wrapper.dataset.initialized = 'true';
+
+      const trigger = wrapper.querySelector<HTMLButtonElement>('.dp-trigger');
+      const triggerText = wrapper.querySelector<HTMLElement>('.dp-trigger-text');
+      const card = wrapper.querySelector<HTMLElement>('.dp-calendar-card');
+      const hiddenInput = wrapper.querySelector<HTMLInputElement>('.dp-hidden-input');
+      const monthLabel = wrapper.querySelector<HTMLElement>('.dp-month-label');
+      const btnPrev = wrapper.querySelector<HTMLButtonElement>('.dp-btn-prev');
+      const btnNext = wrapper.querySelector<HTMLButtonElement>('.dp-btn-next');
+      const daysGrid = wrapper.querySelector<HTMLElement>('.dp-days-grid');
+      const todayBtn = wrapper.querySelector<HTMLButtonElement>('.dp-today-btn');
+
+      if (!trigger || !card || !daysGrid || !monthLabel) return;
+
+      let selectedDateStr = wrapper.dataset.initialValue || '';
+      let counts: Record<string, number> = {};
+      try {
+        counts = JSON.parse(wrapper.dataset.counts || '{}');
+      } catch {
+        counts = {};
+      }
+
+      const initialDate = selectedDateStr ? new Date(selectedDateStr) : new Date();
+      let viewYear = isNaN(initialDate.getTime()) ? new Date().getFullYear() : initialDate.getFullYear();
+      let viewMonth = isNaN(initialDate.getTime()) ? new Date().getMonth() : initialDate.getMonth();
+
+      const todayStr = toDateKey(new Date());
+
+      const renderGrid = () => {
+        monthLabel.textContent = `${monthNamesLatin[viewMonth]} ${viewYear}`;
+
+        const daysInMonth = new Date(viewYear, viewMonth + 1, 0).getDate();
+        const firstDay = new Date(viewYear, viewMonth, 1).getDay(); // 0 is Sunday
+
+        daysGrid.innerHTML = '';
+
+        // Empty offset cells
+        for (let i = 0; i < firstDay; i++) {
+          const empty = document.createElement('div');
+          daysGrid.appendChild(empty);
+        }
+
+        // Days
+        for (let d = 1; d <= daysInMonth; d++) {
+          const mStr = String(viewMonth + 1).padStart(2, '0');
+          const dStr = String(d).padStart(2, '0');
+          const dateKey = `${viewYear}-${mStr}-${dStr}`;
+
+          const isSelected = dateKey === selectedDateStr;
+          const isToday = dateKey === todayStr;
+          const count = counts[dateKey] || 0;
+
+          const cell = document.createElement('button');
+          cell.type = 'button';
+          cell.className = 'dp-cell';
+          if (isSelected) cell.classList.add('dp-cell--selected');
+          if (isToday && !isSelected) cell.classList.add('dp-cell--today');
+
+          const num = document.createElement('span');
+          num.className = 'dp-day-num';
+          num.textContent = d.toString();
+          cell.appendChild(num);
+
+          if (count > 0) {
+            const badge = document.createElement('span');
+            badge.className = 'dp-count-badge';
+            badge.textContent = count.toString();
+            cell.appendChild(badge);
+          }
+
+          cell.addEventListener('click', (e) => {
+            e.stopPropagation();
+            selectedDateStr = dateKey;
+            if (hiddenInput) {
+              hiddenInput.value = selectedDateStr;
+              hiddenInput.dispatchEvent(new Event('change', { bubbles: true }));
+            }
+            if (triggerText) {
+              triggerText.textContent = `${d} ${monthNamesLatin[viewMonth]} ${viewYear}`;
+            }
+            setOpen(false);
+            trigger.focus();
+          });
+
+          daysGrid.appendChild(cell);
+        }
+      };
+
+      const setOpen = (open: boolean) => {
+        if (open) {
+          document.querySelectorAll('.dp-calendar-card.is-open').forEach((c) => {
+            if (c !== card) {
+              c.classList.remove('is-open');
+              c.closest('.dp-dropdown-container')?.querySelector('.dp-trigger')?.classList.remove('is-active');
+              c.closest('.dp-dropdown-container')?.querySelector('.dp-trigger')?.setAttribute('aria-expanded', 'false');
+            }
+          });
+          card.classList.add('is-open');
+          trigger.classList.add('is-active');
+          trigger.setAttribute('aria-expanded', 'true');
+          renderGrid();
+        } else {
+          card.classList.remove('is-open');
+          trigger.classList.remove('is-active');
+          trigger.setAttribute('aria-expanded', 'false');
+        }
+      };
+
+      trigger.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const isOpen = card.classList.contains('is-open');
+        setOpen(!isOpen);
+      });
+
+      btnPrev?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (viewMonth === 0) {
+          viewMonth = 11;
+          viewYear -= 1;
+        } else {
+          viewMonth -= 1;
+        }
+        renderGrid();
+      });
+
+      btnNext?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (viewMonth === 11) {
+          viewMonth = 0;
+          viewYear += 1;
+        } else {
+          viewMonth += 1;
+        }
+        renderGrid();
+      });
+
+      todayBtn?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const now = new Date();
+        viewYear = now.getFullYear();
+        viewMonth = now.getMonth();
+        selectedDateStr = todayStr;
+        if (hiddenInput) {
+          hiddenInput.value = selectedDateStr;
+          hiddenInput.dispatchEvent(new Event('change', { bubbles: true }));
+        }
+        if (triggerText) {
+          triggerText.textContent = `${now.getDate()} ${monthNamesLatin[viewMonth]} ${viewYear}`;
+        }
+        setOpen(false);
+        trigger.focus();
+      });
+
+      wrapper.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          setOpen(false);
+          trigger.focus();
+        }
+      });
+    });
+
+    document.addEventListener('click', () => {
+      document.querySelectorAll('.dp-calendar-card.is-open').forEach((card) => {
+        card.classList.remove('is-open');
+        card.closest('.dp-dropdown-container')?.querySelector('.dp-trigger')?.classList.remove('is-active');
+        card.closest('.dp-dropdown-container')?.querySelector('.dp-trigger')?.setAttribute('aria-expanded', 'false');
+      });
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initDatePickers);
+  } else {
+    initDatePickers();
+  }
+  document.addEventListener('astro:page-load', initDatePickers);
+</script>

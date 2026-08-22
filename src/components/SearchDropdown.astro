@@ -1,0 +1,820 @@
+---
+// SearchDropdown.astro — Dropdown Search with live search filter & multi-select checkboxes
+// Ported from SearchDropdown.jsx + SearchDropdown.module.css for Portfolio v5
+interface Item {
+  id: string;
+  label: string;
+  subLabel?: string;
+}
+
+interface Props {
+  id?: string;
+  name?: string;
+  label?: string;
+  placeholder?: string;
+  allLabel?: string;
+  items?: Item[];
+  selectedItems?: string[];
+  tips?: string;
+  class?: string;
+  [key: string]: any;
+}
+
+const {
+  id = `sd-${Math.random().toString(36).substring(2, 9)}`,
+  name,
+  label,
+  placeholder = 'Elige elementa...',
+  allLabel = 'Omnia elementa',
+  items = [],
+  selectedItems = [],
+  tips,
+  class: className = '',
+  ...rest
+} = Astro.props;
+
+const isAllSelected = selectedItems.length === items.length && items.length > 0;
+const hasSelections = selectedItems.length > 0;
+
+const initialTriggerLabel = isAllSelected
+  ? allLabel
+  : selectedItems.length === 1
+    ? (items.find((k) => k.id === selectedItems[0])?.label || placeholder)
+    : selectedItems.length > 1
+      ? 'Selecta'
+      : placeholder;
+
+// Parse label for optional (subtext) pattern, e.g. "Colum (optionale)"
+const labelMatch = typeof label === 'string' ? label.match(/^(.*?)\s*(\(.*?\))$/) : null;
+---
+
+<div class:list={["sd-wrapper", className]} data-search-dropdown-wrapper id={`${id}-wrapper`}>
+  {label && (
+    <div class="sd-label-row">
+      <label class="sd-label">
+        {labelMatch ? labelMatch[1] + ' ' : label}
+        {labelMatch && <span class="sd-label-subtext">{labelMatch[2]}</span>}
+      </label>
+    </div>
+  )}
+
+  {tips && <div class="sd-tips">{tips}</div>}
+
+  <div class="sd-dropdown-container">
+    <button
+      type="button"
+      id={id}
+      aria-haspopup="true"
+      aria-expanded="false"
+      class="sd-trigger"
+      {...rest}
+    >
+      <div class="sd-trigger-content">
+        <span class="sd-trigger-text">{initialTriggerLabel}</span>
+        <span
+          class:list={[
+            "sd-badge",
+            hasSelections && !isAllSelected ? "" : "sd-hidden",
+          ]}
+        >
+          {selectedItems.length}
+        </span>
+      </div>
+      <svg
+        class="sd-caret"
+        width="16"
+        height="16"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+      >
+        <polyline points="6 9 12 15 18 9"></polyline>
+      </svg>
+    </button>
+
+    <input
+      type="hidden"
+      name={name}
+      value={JSON.stringify(selectedItems)}
+      class="sd-hidden-input"
+    />
+
+    <!-- Dropdown Menu Panel -->
+    <div class="sd-menu" role="dialog" aria-label={label || placeholder}>
+      <!-- Search Box Header -->
+      <div class="sd-search-box">
+        <div class="sd-search-input-wrapper">
+          <svg
+            class="sd-search-icon"
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input
+            type="text"
+            placeholder="Quaere..."
+            class="sd-search-input"
+            autocomplete="off"
+            spellcheck="false"
+          />
+          <button type="button" class="sd-search-clear sd-hidden" aria-label="Clear search">
+            ✕
+          </button>
+        </div>
+      </div>
+
+      <!-- Select All Row -->
+      <div class="sd-list-container">
+        <div
+          class:list={["sd-checkbox-row", "sd-row-select-all", isAllSelected ? "is-checked" : ""]}
+          data-action="toggle-all"
+        >
+          <div class:list={["sd-checkbox-box", isAllSelected ? "is-checked" : ""]}>
+            <svg
+              class="sd-check-icon"
+              width="10"
+              height="10"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="3.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+          </div>
+          <span class="sd-checkbox-label">{allLabel}</span>
+          <span class="sd-checkbox-meta">{items.length} total</span>
+        </div>
+
+        <div class="sd-divider"></div>
+
+        <!-- Filterable Items Scroll Area -->
+        <div class="sd-items-scroll">
+          <div class="sd-empty sd-hidden">Nullum elementum inventum</div>
+          {items.map((item) => {
+            const isChecked = selectedItems.includes(item.id);
+            return (
+              <div
+                class:list={["sd-checkbox-row", "sd-item-row", isChecked ? "is-checked" : ""]}
+                data-item-id={item.id}
+                data-item-label={item.label}
+                data-item-sublabel={item.subLabel || ''}
+              >
+                <div class:list={["sd-checkbox-box", isChecked ? "is-checked" : ""]}>
+                  <svg
+                    class="sd-check-icon"
+                    width="10"
+                    height="10"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="3.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                </div>
+                <span class="sd-checkbox-label">{item.label}</span>
+                {item.subLabel && <span class="sd-checkbox-meta">{item.subLabel}</span>}
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      <!-- Footer Action -->
+      <div class:list={["sd-footer", hasSelections ? "" : "sd-hidden"]}>
+        <button type="button" class="sd-clear-btn">
+          Purga colum
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  /* ── Wrapper ──────────────────────────────────────────────── */
+  .sd-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+    position: relative;
+  }
+
+  /* ── Label Row ────────────────────────────────────────────── */
+  .sd-label-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+
+  .sd-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #111111;
+    cursor: default;
+  }
+
+  :global(.dark) .sd-label {
+    color: #ffffff;
+  }
+
+  .sd-label-subtext {
+    color: #9ca3af;
+    font-weight: 500;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+    opacity: 0.75;
+    text-transform: uppercase;
+  }
+
+  :global(.dark) .sd-label-subtext {
+    color: #6b7280;
+  }
+
+  .sd-tips {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.78rem;
+    color: #8a857b;
+    line-height: 1.35;
+    margin-top: -0.2rem;
+  }
+
+  :global(.dark) .sd-tips {
+    color: #737373;
+  }
+
+  /* ── Container & Trigger ──────────────────────────────────── */
+  .sd-dropdown-container {
+    position: relative;
+    width: 100%;
+  }
+
+  .sd-trigger {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #111111;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    outline: none;
+    text-align: left;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+    box-sizing: border-box;
+  }
+
+  :global(.dark) .sd-trigger {
+    background: #141414;
+    border-color: #262626;
+    color: #ffffff;
+  }
+
+  .sd-trigger:focus,
+  .sd-trigger.is-active {
+    border-color: #52FF1A;
+    box-shadow: 0 0 0 3px rgba(82, 255, 26, 0.2);
+  }
+
+  :global(.dark) .sd-trigger:focus,
+  :global(.dark) .sd-trigger.is-active {
+    border-color: #52FF1A;
+    box-shadow: 0 0 0 3px rgba(82, 255, 26, 0.25);
+  }
+
+  .sd-trigger-content {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .sd-trigger-text {
+    font-weight: 500;
+  }
+
+  .sd-badge {
+    font-family: 'Space Grotesk', monospace;
+    font-size: 10px;
+    font-weight: 700;
+    background: #52FF1A;
+    color: #000000;
+    padding: 1px 6px;
+    border-radius: 4px;
+    letter-spacing: 0.02em;
+  }
+
+  .sd-caret {
+    color: #888888;
+    margin-left: 1rem;
+    flex-shrink: 0;
+    transition: transform 0.2s ease;
+  }
+
+  .sd-trigger.is-active .sd-caret {
+    transform: rotate(180deg);
+  }
+
+  .sd-hidden {
+    display: none !important;
+  }
+
+  /* ── Dropdown Menu ────────────────────────────────────────── */
+  .sd-menu {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    width: 100%;
+    min-width: 250px;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 0;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.12), 0 8px 16px -6px rgba(0, 0, 0, 0.08);
+    padding: 0.5rem 0 0.25rem 0;
+    z-index: 60;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    opacity: 0;
+    transform: translateY(-8px) scale(0.97);
+    pointer-events: none;
+    transform-origin: top center;
+    transition: opacity 0.2s cubic-bezier(0.16, 1, 0.3, 1), transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  :global(.dark) .sd-menu {
+    background: #161616;
+    border-color: #262626;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.6), 0 8px 16px -6px rgba(0, 0, 0, 0.4);
+  }
+
+  .sd-menu.is-open {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+  }
+
+  /* ── Search Box ───────────────────────────────────────────── */
+  .sd-search-box {
+    padding: 0 0.75rem 0.35rem 0.75rem;
+  }
+
+  .sd-search-input-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    border-bottom: 1.5px solid #e5e7eb;
+    padding-bottom: 0.35rem;
+    transition: border-color 0.15s ease;
+  }
+
+  :global(.dark) .sd-search-input-wrapper {
+    border-bottom-color: #262626;
+  }
+
+  .sd-search-input-wrapper:focus-within {
+    border-bottom-color: #52FF1A;
+  }
+
+  .sd-search-icon {
+    color: #9ca3af;
+    flex-shrink: 0;
+  }
+
+  .sd-search-input {
+    width: 100%;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #111111;
+  }
+
+  :global(.dark) .sd-search-input {
+    color: #ffffff;
+  }
+
+  .sd-search-input::placeholder {
+    color: #9ca3af;
+  }
+
+  :global(.dark) .sd-search-input::placeholder {
+    color: #6b7280;
+  }
+
+  .sd-search-clear {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #9ca3af;
+    font-size: 11px;
+    padding: 0 2px;
+  }
+
+  .sd-search-clear:hover {
+    color: #111111;
+  }
+
+  :global(.dark) .sd-search-clear:hover {
+    color: #ffffff;
+  }
+
+  /* ── Checkbox Rows & List ─────────────────────────────────── */
+  .sd-list-container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .sd-items-scroll {
+    max-height: 180px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+  }
+
+  .sd-checkbox-row {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    padding: 0.55rem 0.85rem;
+    cursor: pointer;
+    transition: background-color 0.12s ease;
+    user-select: none;
+  }
+
+  .sd-checkbox-row:hover {
+    background: rgba(82, 255, 26, 0.08);
+  }
+
+  :global(.dark) .sd-checkbox-row:hover {
+    background: rgba(82, 255, 26, 0.12);
+  }
+
+  .sd-checkbox-row.is-checked {
+    background: rgba(82, 255, 26, 0.06);
+  }
+
+  :global(.dark) .sd-checkbox-row.is-checked {
+    background: rgba(82, 255, 26, 0.09);
+  }
+
+  .sd-checkbox-box {
+    width: 18px;
+    height: 18px;
+    border: 1px dashed #d1d5db;
+    background: #ffffff;
+    border-radius: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s ease;
+    flex-shrink: 0;
+  }
+
+  :global(.dark) .sd-checkbox-box {
+    background: #141414;
+    border-color: #404040;
+  }
+
+  .sd-checkbox-box.is-checked {
+    background: #52FF1A;
+    border: 1px solid #52FF1A;
+  }
+
+  .sd-check-icon {
+    color: #000000;
+    display: none;
+  }
+
+  .sd-checkbox-box.is-checked .sd-check-icon {
+    display: block;
+  }
+
+  .sd-checkbox-label {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: #374151;
+  }
+
+  :global(.dark) .sd-checkbox-label {
+    color: #d1d5db;
+  }
+
+  .sd-checkbox-row.is-checked .sd-checkbox-label {
+    font-weight: 600;
+    color: #111111;
+  }
+
+  :global(.dark) .sd-checkbox-row.is-checked .sd-checkbox-label {
+    color: #ffffff;
+  }
+
+  .sd-checkbox-meta {
+    font-family: 'Space Grotesk', monospace;
+    font-size: 0.75rem;
+    color: #9ca3af;
+    margin-left: auto;
+  }
+
+  :global(.dark) .sd-checkbox-meta {
+    color: #6b7280;
+  }
+
+  .sd-divider {
+    height: 1px;
+    background: #e5e7eb;
+    margin: 0.25rem 0.5rem;
+  }
+
+  :global(.dark) .sd-divider {
+    background: #262626;
+  }
+
+  .sd-empty {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.82rem;
+    color: #9ca3af;
+    text-align: center;
+    padding: 1rem 0;
+  }
+
+  /* ── Footer ───────────────────────────────────────────────── */
+  .sd-footer {
+    display: flex;
+    justify-content: flex-end;
+    padding: 0.35rem 0.85rem 0.15rem 0.85rem;
+    border-top: 1px solid #e5e7eb;
+    margin-top: 0.2rem;
+  }
+
+  :global(.dark) .sd-footer {
+    border-top-color: #262626;
+  }
+
+  .sd-clear-btn {
+    font-family: 'Space Grotesk', monospace;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #ef4444;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 2px 4px;
+    transition: opacity 0.15s ease;
+  }
+
+  .sd-clear-btn:hover {
+    opacity: 0.8;
+    text-decoration: underline;
+  }
+</style>
+
+<script>
+  function initSearchDropdowns() {
+    document.querySelectorAll<HTMLElement>('[data-search-dropdown-wrapper]').forEach((wrapper) => {
+      if (wrapper.dataset.initialized === 'true') return;
+      wrapper.dataset.initialized = 'true';
+
+      const trigger = wrapper.querySelector<HTMLButtonElement>('.sd-trigger');
+      const menu = wrapper.querySelector<HTMLElement>('.sd-menu');
+      const triggerText = wrapper.querySelector<HTMLElement>('.sd-trigger-text');
+      const badge = wrapper.querySelector<HTMLElement>('.sd-badge');
+      const searchInput = wrapper.querySelector<HTMLInputElement>('.sd-search-input');
+      const searchClear = wrapper.querySelector<HTMLButtonElement>('.sd-search-clear');
+      const selectAllRow = wrapper.querySelector<HTMLElement>('.sd-row-select-all');
+      const selectAllBox = selectAllRow?.querySelector<HTMLElement>('.sd-checkbox-box');
+      const itemRows = wrapper.querySelectorAll<HTMLElement>('.sd-item-row');
+      const hiddenInput = wrapper.querySelector<HTMLInputElement>('.sd-hidden-input');
+      const footer = wrapper.querySelector<HTMLElement>('.sd-footer');
+      const clearBtn = wrapper.querySelector<HTMLButtonElement>('.sd-clear-btn');
+      const emptyState = wrapper.querySelector<HTMLElement>('.sd-empty');
+
+      if (!trigger || !menu) return;
+
+      let selectedIds: string[] = [];
+      try {
+        selectedIds = JSON.parse(hiddenInput?.value || '[]');
+      } catch {
+        selectedIds = [];
+      }
+
+      const totalItems = itemRows.length;
+
+      const updateUI = () => {
+        const isAll = selectedIds.length === totalItems && totalItems > 0;
+        const count = selectedIds.length;
+
+        // Update select all row
+        if (selectAllRow && selectAllBox) {
+          if (isAll) {
+            selectAllRow.classList.add('is-checked');
+            selectAllBox.classList.add('is-checked');
+          } else {
+            selectAllRow.classList.remove('is-checked');
+            selectAllBox.classList.remove('is-checked');
+          }
+        }
+
+        // Update each item row
+        itemRows.forEach((row) => {
+          const id = row.dataset.itemId || '';
+          const isChecked = selectedIds.includes(id);
+          const box = row.querySelector('.sd-checkbox-box');
+          if (isChecked) {
+            row.classList.add('is-checked');
+            box?.classList.add('is-checked');
+          } else {
+            row.classList.remove('is-checked');
+            box?.classList.remove('is-checked');
+          }
+        });
+
+        // Update trigger text & badge
+        if (triggerText) {
+          if (isAll) {
+            triggerText.textContent = selectAllRow?.querySelector('.sd-checkbox-label')?.textContent || 'Omnia elementa';
+          } else if (count === 1) {
+            const singleRow = Array.from(itemRows).find((r) => r.dataset.itemId === selectedIds[0]);
+            triggerText.textContent = singleRow?.dataset.itemLabel || '1 Selectum';
+          } else if (count > 1) {
+            triggerText.textContent = 'Selecta';
+          } else {
+            triggerText.textContent = 'Elige elementa...';
+          }
+        }
+
+        if (badge) {
+          if (count > 0 && !isAll) {
+            badge.textContent = count.toString();
+            badge.classList.remove('sd-hidden');
+          } else {
+            badge.classList.add('sd-hidden');
+          }
+        }
+
+        // Update footer
+        if (footer) {
+          if (count > 0) {
+            footer.classList.remove('sd-hidden');
+          } else {
+            footer.classList.add('sd-hidden');
+          }
+        }
+
+        // Update hidden input
+        if (hiddenInput) {
+          hiddenInput.value = JSON.stringify(selectedIds);
+          hiddenInput.dispatchEvent(new Event('change', { bubbles: true }));
+        }
+      };
+
+      const setOpen = (open: boolean) => {
+        if (open) {
+          document.querySelectorAll('.sd-menu.is-open').forEach((m) => {
+            if (m !== menu) {
+              m.classList.remove('is-open');
+              m.closest('.sd-dropdown-container')?.querySelector('.sd-trigger')?.classList.remove('is-active');
+              m.closest('.sd-dropdown-container')?.querySelector('.sd-trigger')?.setAttribute('aria-expanded', 'false');
+            }
+          });
+          menu.classList.add('is-open');
+          trigger.classList.add('is-active');
+          trigger.setAttribute('aria-expanded', 'true');
+          setTimeout(() => searchInput?.focus(), 50);
+        } else {
+          menu.classList.remove('is-open');
+          trigger.classList.remove('is-active');
+          trigger.setAttribute('aria-expanded', 'false');
+        }
+      };
+
+      trigger.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const isOpen = menu.classList.contains('is-open');
+        setOpen(!isOpen);
+      });
+
+      // Item row clicks
+      itemRows.forEach((row) => {
+        row.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const id = row.dataset.itemId || '';
+          if (selectedIds.includes(id)) {
+            selectedIds = selectedIds.filter((x) => x !== id);
+          } else {
+            selectedIds.push(id);
+          }
+          updateUI();
+        });
+      });
+
+      // Select all toggle
+      selectAllRow?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (selectedIds.length === totalItems) {
+          selectedIds = [];
+        } else {
+          selectedIds = Array.from(itemRows).map((r) => r.dataset.itemId || '').filter(Boolean);
+        }
+        updateUI();
+      });
+
+      // Clear filter footer button
+      clearBtn?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        selectedIds = [];
+        updateUI();
+      });
+
+      // Search filter live typing
+      const handleSearch = () => {
+        const query = (searchInput?.value || '').trim().toLowerCase();
+        if (searchClear) {
+          if (query.length > 0) searchClear.classList.remove('sd-hidden');
+          else searchClear.classList.add('sd-hidden');
+        }
+
+        let visibleCount = 0;
+        itemRows.forEach((row) => {
+          const label = (row.dataset.itemLabel || '').toLowerCase();
+          const sub = (row.dataset.itemSublabel || '').toLowerCase();
+          if (label.includes(query) || sub.includes(query)) {
+            row.style.display = 'flex';
+            visibleCount++;
+          } else {
+            row.style.display = 'none';
+          }
+        });
+
+        if (emptyState) {
+          if (visibleCount === 0) emptyState.classList.remove('sd-hidden');
+          else emptyState.classList.add('sd-hidden');
+        }
+      };
+
+      searchInput?.addEventListener('input', handleSearch);
+
+      searchClear?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (searchInput) searchInput.value = '';
+        handleSearch();
+        searchInput?.focus();
+      });
+
+      // Keyboard Esc
+      wrapper.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          setOpen(false);
+          trigger.focus();
+        }
+      });
+    });
+
+    document.addEventListener('click', () => {
+      document.querySelectorAll('.sd-menu.is-open').forEach((menu) => {
+        menu.classList.remove('is-open');
+        menu.closest('.sd-dropdown-container')?.querySelector('.sd-trigger')?.classList.remove('is-active');
+        menu.closest('.sd-dropdown-container')?.querySelector('.sd-trigger')?.setAttribute('aria-expanded', 'false');
+      });
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initSearchDropdowns);
+  } else {
+    initSearchDropdowns();
+  }
+  document.addEventListener('astro:page-load', initSearchDropdowns);
+</script>

@@ -1,0 +1,239 @@
+---
+// ToggleSwitch.astro - 1:1 Vendor Portal Architecture
+interface Props {
+  id?: string;
+  name?: string;
+  value?: string;
+  label?: string;
+  description?: string;
+  checked?: boolean;
+  disabled?: boolean;
+  loading?: boolean;
+  size?: 'sm' | 'md' | 'lg';
+  class?: string;
+  [key: string]: any;
+}
+
+const {
+  id = `toggle-${Math.random().toString(36).substring(2, 9)}`,
+  name,
+  value,
+  label,
+  description,
+  checked = false,
+  disabled = false,
+  loading = false,
+  size = 'md',
+  class: className = '',
+  ...rest
+} = Astro.props;
+
+const sizeTrackClass = size === 'sm' ? 'w-9 h-[18px] rounded-[4px]' : size === 'lg' ? 'w-[52px] h-[26px] rounded-[8px]' : 'w-11 h-[22px] rounded-[5px]';
+---
+
+<label
+  for={id}
+  class:list={[
+    "toggle-wrapper group inline-flex items-start gap-3 select-none transition-opacity",
+    disabled || loading ? "opacity-60 cursor-not-allowed pointer-events-none" : "cursor-pointer",
+    loading ? "is-loading is-expanding" : "",
+    className
+  ]}
+  data-state={checked ? "checked" : "unchecked"}
+  data-loading={loading ? "true" : undefined}
+>
+  <div class="relative flex items-center justify-center shrink-0 mt-0.5">
+    <input
+      type="checkbox"
+      id={id}
+      name={name}
+      value={value}
+      checked={checked ? true : undefined}
+      disabled={disabled || loading ? true : undefined}
+      class="peer sr-only toggle-input"
+      {...rest}
+    />
+    
+    <!-- Outer Track Wrapper -->
+    <div class="relative inline-flex items-center justify-center">
+      <!-- Spinning Conic Border Overlay (Exact size) -->
+      <div class:list={[
+        "toggle-border-spinner absolute -inset-[1px] rounded-[6px] pointer-events-none overflow-hidden z-30",
+        loading ? "!block" : "hidden"
+      ]}>
+        <div class="w-[200%] h-[200%] absolute -top-1/2 -left-1/2 bg-[conic-gradient(from_0deg,#52FF1A_0%,transparent_50%,#52FF1A_100%)] animate-spin"></div>
+        <div class="absolute inset-[1.5px] rounded-[4.5px] bg-[#e2e8f0] dark:bg-[#141414]"></div>
+      </div>
+
+      <!-- Vendor Portal Pill Track Container -->
+      <div
+        class:list={[
+          "toggle-track relative flex items-center shrink-0 overflow-hidden box-border transition-[border-color,background-color] duration-300 ease-out",
+          sizeTrackClass,
+          "border"
+        ]}
+      >
+        <!-- 65% Width Sliding Block Knob with Smooth Width Expansion & Slide Animation -->
+        <div
+          class="toggle-thumb absolute top-0 bottom-0 box-border transition-[width,transform,background-color,border-color,left] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] z-10"
+        >
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {(label || description) && (
+    <div class="flex flex-col text-left leading-tight">
+      {label && (
+        <span class="font-heading font-bold text-sm sm:text-base text-neutral-950 dark:text-white transition-colors">
+          {label}
+        </span>
+      )}
+      {description && (
+        <span class="text-xs sm:text-[13px] text-neutral-500 dark:text-neutral-400 mt-1 font-sans font-normal leading-normal">
+          {description}
+        </span>
+      )}
+    </div>
+  )}
+</label>
+
+<style>
+  /* ── High-Contrast Portfolio Theme Architecture ──────────── */
+
+  /* Track Transitions */
+  .toggle-track {
+    transition: background-color 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  /* Thumb Transitions: Always animate width, left, transform and colors */
+  .toggle-thumb {
+    top: -1px !important;
+    bottom: -1px !important;
+    height: calc(100% + 2px) !important;
+    transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  }
+
+  /* Default / OFF State */
+  .toggle-wrapper[data-state="unchecked"] .toggle-track {
+    border: 1px solid #d1d5db;
+    background-color: #f3f4f6;
+  }
+  :global(.dark) .toggle-wrapper[data-state="unchecked"] .toggle-track {
+    border-color: #404040;
+    background-color: #141414;
+  }
+
+  .toggle-wrapper[data-state="unchecked"] .toggle-thumb {
+    left: -1px !important;
+    width: calc(65% + 1px) !important;
+    transform: translateX(0);
+    background-color: #ffffff;
+    border: 1px solid #d1d5db;
+    border-radius: 5px 0 0 5px;
+  }
+  :global(.dark) .toggle-wrapper[data-state="unchecked"] .toggle-thumb {
+    background-color: #262626;
+    border-color: #404040;
+    border-radius: 5px 0 0 5px;
+  }
+
+  /* ON State (Transparent Track with #52FF1A Border and Solid #52FF1A Sliding Thumb Knob) */
+  .toggle-wrapper[data-state="checked"] .toggle-track {
+    border: 1px solid #52FF1A;
+    background-color: transparent;
+  }
+  :global(.dark) .toggle-wrapper[data-state="checked"] .toggle-track {
+    border-color: #52FF1A;
+    background-color: transparent;
+  }
+
+  .toggle-wrapper[data-state="checked"] .toggle-thumb {
+    left: calc(100% + 1px) !important;
+    width: calc(65% + 1px) !important;
+    transform: translateX(-100%);
+    background-color: #52FF1A;
+    border: 1px solid #52FF1A;
+    border-radius: 0 5px 5px 0;
+  }
+  :global(.dark) .toggle-wrapper[data-state="checked"] .toggle-thumb {
+    background-color: #52FF1A;
+    border-color: #52FF1A;
+    border-radius: 0 5px 5px 0;
+  }
+
+  /* Phase 1: Expanding to 100% Full Track Fill */
+  .toggle-wrapper.is-expanding .toggle-thumb {
+    left: -1px !important;
+    width: calc(100% + 2px) !important;
+    transform: translateX(0) !important;
+    border-radius: 5px !important;
+  }
+  .toggle-wrapper.is-expanding .toggle-border-spinner {
+    display: block !important;
+  }
+
+  /* When expanding while turning ON: fill with accent */
+  .toggle-wrapper.is-expanding[data-next-state="checked"] .toggle-thumb {
+    background-color: #52FF1A !important;
+  }
+  .toggle-wrapper.is-expanding[data-next-state="checked"] .toggle-track {
+    border-color: #52FF1A !important;
+    background-color: transparent !important;
+  }
+
+  /* When expanding while turning OFF: fill with neutral */
+  .toggle-wrapper.is-expanding[data-next-state="unchecked"] .toggle-thumb {
+    background-color: #ffffff !important;
+  }
+  :global(.dark) .toggle-wrapper.is-expanding[data-next-state="unchecked"] .toggle-thumb {
+    background-color: #262626 !important;
+  }
+  .toggle-wrapper.is-expanding[data-next-state="unchecked"] .toggle-track {
+    border-color: #d1d5db !important;
+    background-color: #f3f4f6 !important;
+  }
+  :global(.dark) .toggle-wrapper.is-expanding[data-next-state="unchecked"] .toggle-track {
+    border-color: #404040 !important;
+    background-color: #141414 !important;
+  }
+</style>
+
+<script>
+  function setupVendorToggles() {
+    document.querySelectorAll<HTMLElement>('.toggle-wrapper').forEach((container) => {
+      if (container.dataset.initialized) return;
+      container.dataset.initialized = 'true';
+
+      const input = container.querySelector<HTMLInputElement>('.toggle-input');
+      if (!input) return;
+
+      container.addEventListener('click', (e) => {
+        if (input.disabled || container.classList.contains('is-expanding')) return;
+        e.preventDefault();
+
+        const targetChecked = !input.checked;
+        container.setAttribute('data-next-state', targetChecked ? 'checked' : 'unchecked');
+        
+        // Step 1: Smoothly expand thumb from 65% to 100% full track width
+        container.classList.add('is-expanding');
+
+        // Step 2: After expanding (220ms), snap to target checked state and contract back to 65%
+        setTimeout(() => {
+          input.checked = targetChecked;
+          container.setAttribute('data-state', targetChecked ? 'checked' : 'unchecked');
+          container.classList.remove('is-expanding');
+          container.removeAttribute('data-next-state');
+          input.dispatchEvent(new Event('change', { bubbles: true }));
+        }, 220);
+      });
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupVendorToggles);
+  } else {
+    setupVendorToggles();
+  }
+</script>
+

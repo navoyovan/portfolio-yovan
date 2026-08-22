@@ -14,6 +14,9 @@ interface CategoryGroup {
   items: IndexItem[];
 }
 
+const rawBase = import.meta.env.BASE_URL;
+const base = rawBase.endsWith('/') ? rawBase.slice(0, -1) : rawBase;
+
 const categories: CategoryGroup[] = [
   {
     number: '01',
@@ -52,6 +55,12 @@ const categories: CategoryGroup[] = [
     number: '02',
     title: 'OTHER SYSTEMS',
     items: [
+      {
+        title: 'Component Library & Design Tokens',
+        year: '2026',
+        tech: ['Astro v5', 'Tailwind CSS v4', 'Design Tokens'],
+        href: `${base}/component-library`,
+      },
       {
         title: 'Interactive Mapping System',
         year: '2025',
@@ -106,8 +115,9 @@ const collectionSchema = {
     <div class="space-y-12">
       {categories.map((category) => (
         <section
+          id={category.number === '01' ? 'hypebox-ecosystem' : 'other-systems'}
           aria-labelledby={`cat-heading-${category.number}`}
-          class="space-y-4"
+          class="space-y-4 scroll-mt-24"
         >
           <!-- Parent Category Header -->
           <div class="pb-2 border-b border-neutral-200 dark:border-neutral-800 flex items-center justify-between">

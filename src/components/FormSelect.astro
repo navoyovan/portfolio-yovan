@@ -1,0 +1,545 @@
+---
+// FormSelect.astro — Standard Select / Regular Dropdown primitive ported to Portfolio v5
+// Mirrors FormSelect.jsx + FormSelect.module.css architecture.
+interface OptionItem {
+  value: string;
+  label?: string;
+  name?: string;
+}
+
+interface Props {
+  id?: string;
+  name?: string;
+  value?: string;
+  label?: string;
+  placeholder?: string;
+  options?: (OptionItem | string)[];
+  disabled?: boolean;
+  hasError?: boolean;
+  errorMsg?: string;
+  hasWarning?: boolean;
+  warningMsg?: string;
+  isSafe?: boolean;
+  safeMsg?: string;
+  tips?: string;
+  class?: string;
+  [key: string]: any;
+}
+
+const {
+  id = `fs-${Math.random().toString(36).substring(2, 9)}`,
+  name,
+  value = '',
+  label,
+  placeholder = 'Elige optionem...',
+  options = [],
+  disabled = false,
+  hasError = false,
+  errorMsg,
+  hasWarning = false,
+  warningMsg,
+  isSafe = false,
+  safeMsg,
+  tips,
+  class: className = '',
+  ...rest
+} = Astro.props;
+
+// Normalize options array
+const normalizedOptions = options.map((opt) => {
+  if (typeof opt === 'string') {
+    return { value: opt, label: opt };
+  }
+  return {
+    value: opt.value !== undefined ? opt.value : (opt.name || ''),
+    label: opt.label || opt.name || opt.value || '',
+  };
+});
+
+const selectedOption = normalizedOptions.find((opt) => opt.value === value);
+const displayLabel = selectedOption ? selectedOption.label : (value || placeholder);
+const isPlaceholder = !value || !selectedOption;
+
+// Parse label for optional (subtext) pattern, e.g. "Categoria (optionale)"
+const labelMatch = typeof label === 'string' ? label.match(/^(.*?)\s*(\(.*?\))$/) : null;
+---
+
+<div class:list={["fs-wrapper", className]} data-select-wrapper id={`${id}-wrapper`}>
+  {(label || (hasError && errorMsg) || (hasWarning && warningMsg) || (isSafe && safeMsg)) && (
+    <div class="fs-label-row">
+      {label && (
+        <label for={id} class="fs-label">
+          {labelMatch ? labelMatch[1] + ' ' : label}
+          {labelMatch && <span class="fs-label-subtext">{labelMatch[2]}</span>}
+        </label>
+      )}
+      <div class="fs-label-right">
+        {hasError && errorMsg ? (
+          <span class="fs-error-msg">{errorMsg}</span>
+        ) : hasWarning && warningMsg && !hasError ? (
+          <span class="fs-warning-msg">{warningMsg}</span>
+        ) : isSafe && safeMsg && !hasError && !hasWarning ? (
+          <span class="fs-safe-msg">{safeMsg}</span>
+        ) : null}
+      </div>
+    </div>
+  )}
+
+  {tips && (
+    <div class:list={["fs-tips", hasWarning ? "fs-tips--warning" : ""]}>{tips}</div>
+  )}
+
+  <div class="fs-dropdown-container">
+    <button
+      type="button"
+      id={id}
+      disabled={disabled ? true : undefined}
+      aria-haspopup="listbox"
+      aria-expanded="false"
+      class:list={[
+        "fs-trigger",
+        hasError ? "fs-trigger--error" : "",
+        hasWarning && !hasError ? "fs-trigger--warning" : "",
+        isSafe && !hasError && !hasWarning ? "fs-trigger--safe" : "",
+        disabled ? "fs-trigger--disabled" : "",
+      ]}
+      {...rest}
+    >
+      <span class:list={["fs-display-text", isPlaceholder ? "fs-placeholder" : "fs-selected"]}>
+        {displayLabel}
+      </span>
+      <svg
+        class="fs-caret"
+        width="16"
+        height="16"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+      >
+        <polyline points="6 9 12 15 18 9"></polyline>
+      </svg>
+    </button>
+
+    <input type="hidden" name={name} value={value} class="fs-hidden-input" />
+
+    <!-- Dropdown Menu -->
+    <div class="fs-menu" role="listbox" aria-labelledby={id} tabindex="-1">
+      {normalizedOptions.map((opt) => {
+        const isSelected = opt.value === value;
+        return (
+          <div
+            role="option"
+            aria-selected={isSelected ? "true" : "false"}
+            data-value={opt.value}
+            data-label={opt.label}
+            class:list={["fs-item", isSelected ? "fs-item--selected" : ""]}
+          >
+            <span>{opt.label}</span>
+            {isSelected && <span class="fs-check-mark">✓</span>}
+          </div>
+        );
+      })}
+    </div>
+  </div>
+</div>
+
+<style>
+  /* ── Wrapper ──────────────────────────────────────────────── */
+  .fs-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+    position: relative;
+  }
+
+  /* ── Label Row ────────────────────────────────────────────── */
+  .fs-label-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+
+  .fs-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #111111;
+    cursor: default;
+  }
+
+  :global(.dark) .fs-label {
+    color: #ffffff;
+  }
+
+  .fs-label-subtext {
+    color: #9ca3af;
+    font-weight: 500;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+    opacity: 0.75;
+    text-transform: uppercase;
+  }
+
+  :global(.dark) .fs-label-subtext {
+    color: #6b7280;
+  }
+
+  .fs-label-right {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .fs-error-msg {
+    font-family: 'Space Grotesk', monospace;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #ef4444;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .fs-warning-msg {
+    font-family: 'Space Grotesk', monospace;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #f59e0b;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .fs-safe-msg {
+    font-family: 'Space Grotesk', monospace;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #52FF1A;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  /* ── Tips ─────────────────────────────────────────────────── */
+  .fs-tips {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.78rem;
+    color: #8a857b;
+    line-height: 1.35;
+    margin-top: -0.2rem;
+  }
+
+  :global(.dark) .fs-tips {
+    color: #737373;
+  }
+
+  .fs-tips--warning {
+    color: #d97706;
+  }
+
+  :global(.dark) .fs-tips--warning {
+    color: #f59e0b;
+  }
+
+  /* ── Dropdown Container & Trigger ─────────────────────────── */
+  .fs-dropdown-container {
+    position: relative;
+    width: 100%;
+  }
+
+  .fs-trigger {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #111111;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    outline: none;
+    text-align: left;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+    box-sizing: border-box;
+  }
+
+  :global(.dark) .fs-trigger {
+    background: #141414;
+    border-color: #262626;
+    color: #ffffff;
+  }
+
+  .fs-trigger:focus,
+  .fs-trigger.is-active {
+    border-color: #52FF1A;
+    box-shadow: 0 0 0 3px rgba(82, 255, 26, 0.2);
+  }
+
+  :global(.dark) .fs-trigger:focus,
+  :global(.dark) .fs-trigger.is-active {
+    border-color: #52FF1A;
+    box-shadow: 0 0 0 3px rgba(82, 255, 26, 0.25);
+  }
+
+  .fs-trigger--error {
+    border-color: #ef4444 !important;
+  }
+
+  .fs-trigger--error:focus,
+  .fs-trigger--error.is-active {
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2) !important;
+  }
+
+  .fs-trigger--warning {
+    border-color: #f59e0b !important;
+  }
+
+  .fs-trigger--warning:focus,
+  .fs-trigger--warning.is-active {
+    box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.2) !important;
+  }
+
+  .fs-trigger--safe {
+    border-color: #52FF1A !important;
+  }
+
+  .fs-trigger--disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+    background: #f3f4f6;
+  }
+
+  :global(.dark) .fs-trigger--disabled {
+    background: #1a1a1a;
+  }
+
+  .fs-placeholder {
+    color: #9ca3af;
+    font-weight: 400;
+  }
+
+  :global(.dark) .fs-placeholder {
+    color: #6b7280;
+  }
+
+  .fs-selected {
+    color: #111111;
+    font-weight: 500;
+  }
+
+  :global(.dark) .fs-selected {
+    color: #ffffff;
+  }
+
+  .fs-caret {
+    color: #888888;
+    margin-left: 1rem;
+    flex-shrink: 0;
+    transition: transform 0.2s ease;
+  }
+
+  .fs-trigger.is-active .fs-caret {
+    transform: rotate(180deg);
+  }
+
+  /* ── Dropdown Menu ────────────────────────────────────────── */
+  .fs-menu {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    width: 100%;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 0;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.12), 0 8px 16px -6px rgba(0, 0, 0, 0.08);
+    padding: 0.35rem 0;
+    z-index: 50;
+    max-height: 240px;
+    overflow-y: auto;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    opacity: 0;
+    transform: translateY(-8px) scale(0.97);
+    pointer-events: none;
+    transform-origin: top center;
+    transition: opacity 0.2s cubic-bezier(0.16, 1, 0.3, 1), transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  :global(.dark) .fs-menu {
+    background: #161616;
+    border-color: #262626;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.6), 0 8px 16px -6px rgba(0, 0, 0, 0.4);
+  }
+
+  .fs-menu.is-open {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+  }
+
+  .fs-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.65rem 1rem;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #4b5563;
+    cursor: pointer;
+    transition: background-color 0.12s ease, color 0.12s ease;
+    user-select: none;
+  }
+
+  :global(.dark) .fs-item {
+    color: #a3a3a3;
+  }
+
+  .fs-item:hover {
+    background: rgba(82, 255, 26, 0.08);
+    color: #111111;
+  }
+
+  :global(.dark) .fs-item:hover {
+    background: rgba(82, 255, 26, 0.12);
+    color: #ffffff;
+  }
+
+  .fs-item--selected {
+    background: rgba(82, 255, 26, 0.12);
+    color: #111111;
+    font-weight: 600;
+  }
+
+  :global(.dark) .fs-item--selected {
+    background: rgba(82, 255, 26, 0.16);
+    color: #52FF1A;
+  }
+
+  .fs-check-mark {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #10B981;
+  }
+
+  :global(.dark) .fs-check-mark {
+    color: #52FF1A;
+  }
+</style>
+
+<script>
+  function initFormSelects() {
+    document.querySelectorAll<HTMLElement>('[data-select-wrapper]').forEach((wrapper) => {
+      if (wrapper.dataset.initialized === 'true') return;
+      wrapper.dataset.initialized = 'true';
+
+      const trigger = wrapper.querySelector<HTMLButtonElement>('.fs-trigger');
+      const menu = wrapper.querySelector<HTMLElement>('.fs-menu');
+      const hiddenInput = wrapper.querySelector<HTMLInputElement>('.fs-hidden-input');
+      const displayText = wrapper.querySelector<HTMLElement>('.fs-display-text');
+      const items = wrapper.querySelectorAll<HTMLElement>('.fs-item');
+
+      if (!trigger || !menu) return;
+
+      const setOpen = (open: boolean) => {
+        if (open) {
+          // Close any other open select
+          document.querySelectorAll('.fs-menu.is-open').forEach((m) => {
+            if (m !== menu) {
+              m.classList.remove('is-open');
+              m.closest('.fs-dropdown-container')?.querySelector('.fs-trigger')?.classList.remove('is-active');
+              m.closest('.fs-dropdown-container')?.querySelector('.fs-trigger')?.setAttribute('aria-expanded', 'false');
+            }
+          });
+          menu.classList.add('is-open');
+          trigger.classList.add('is-active');
+          trigger.setAttribute('aria-expanded', 'true');
+        } else {
+          menu.classList.remove('is-open');
+          trigger.classList.remove('is-active');
+          trigger.setAttribute('aria-expanded', 'false');
+        }
+      };
+
+      trigger.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const isOpen = menu.classList.contains('is-open');
+        setOpen(!isOpen);
+      });
+
+      items.forEach((item) => {
+        item.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const val = item.dataset.value || '';
+          const lbl = item.dataset.label || val;
+
+          if (hiddenInput) {
+            hiddenInput.value = val;
+            hiddenInput.dispatchEvent(new Event('change', { bubbles: true }));
+          }
+
+          if (displayText) {
+            displayText.textContent = lbl;
+            displayText.classList.remove('fs-placeholder');
+            displayText.classList.add('fs-selected');
+          }
+
+          items.forEach((i) => {
+            i.classList.remove('fs-item--selected');
+            i.setAttribute('aria-selected', 'false');
+            const check = i.querySelector('.fs-check-mark');
+            if (check) check.remove();
+          });
+
+          item.classList.add('fs-item--selected');
+          item.setAttribute('aria-selected', 'true');
+          const check = document.createElement('span');
+          check.className = 'fs-check-mark';
+          check.textContent = '✓';
+          item.appendChild(check);
+
+          setOpen(false);
+          trigger.focus();
+        });
+      });
+
+      // Keyboard navigation
+      trigger.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowDown' || e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          setOpen(true);
+          const firstSelected = menu.querySelector<HTMLElement>('.fs-item--selected') || items[0];
+          firstSelected?.focus();
+        } else if (e.key === 'Escape') {
+          setOpen(false);
+        }
+      });
+    });
+
+    document.addEventListener('click', () => {
+      document.querySelectorAll('.fs-menu.is-open').forEach((menu) => {
+        menu.classList.remove('is-open');
+        menu.closest('.fs-dropdown-container')?.querySelector('.fs-trigger')?.classList.remove('is-active');
+        menu.closest('.fs-dropdown-container')?.querySelector('.fs-trigger')?.setAttribute('aria-expanded', 'false');
+      });
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initFormSelects);
+  } else {
+    initFormSelects();
+  }
+  document.addEventListener('astro:page-load', initFormSelects);
+</script>

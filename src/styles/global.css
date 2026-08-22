@@ -19,6 +19,15 @@
   --color-accent: #52FF1A;
   --color-accent-hover: #42e012;
 
+  --color-safe: #10B981;
+  --color-safe-hover: #059669;
+
+  --color-warning: #F59E0B;
+  --color-warning-hover: #D97706;
+
+  --color-danger: #EF4444;
+  --color-danger-hover: #DC2626;
+
   --animate-kiosk-pulse: kiosk-pulse-accent-glow 2.4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
   --animate-blob-morph: blob-morph 14s ease-in-out infinite;
 

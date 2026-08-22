@@ -1,0 +1,292 @@
+---
+// TextInput.astro — Vendor Portal TextInput primitive ported to Portfolio v5
+// Mirrors TextInput.jsx + TextInput.module.css architecture.
+interface Props {
+  id?: string;
+  name?: string;
+  value?: string;
+  label?: string;
+  placeholder?: string;
+  type?: string;
+  disabled?: boolean;
+  hasError?: boolean;
+  errorMsg?: string;
+  hasWarning?: boolean;
+  warningMsg?: string;
+  isSafe?: boolean;
+  safeMsg?: string;
+  tips?: string;
+  maxLength?: number;
+  class?: string;
+  [key: string]: any;
+}
+
+const {
+  id = `ti-${Math.random().toString(36).substring(2, 9)}`,
+  name,
+  value,
+  label,
+  placeholder,
+  type = 'text',
+  disabled = false,
+  hasError = false,
+  errorMsg,
+  hasWarning = false,
+  warningMsg,
+  isSafe = false,
+  safeMsg,
+  tips,
+  maxLength,
+  class: className = '',
+  ...rest
+} = Astro.props;
+
+// Parse label for optional (subtext) pattern, e.g. "Username (optional)"
+const labelMatch = typeof label === 'string' ? label.match(/^(.*?)\s*(\(.*?\))$/) : null;
+---
+
+<div class:list={["ti-wrapper", className]}>
+  {(label || (hasError && errorMsg) || (hasWarning && warningMsg) || (isSafe && safeMsg)) && (
+    <div class="ti-label-row">
+      {label && (
+        <label for={id} class="ti-label">
+          {labelMatch ? labelMatch[1] + ' ' : label}
+          {labelMatch && <span class="ti-label-subtext">{labelMatch[2]}</span>}
+        </label>
+      )}
+      <div class="ti-label-right">
+        {hasError && errorMsg ? (
+          <span class="ti-error-msg">{errorMsg}</span>
+        ) : hasWarning && warningMsg && !hasError ? (
+          <span class="ti-warning-msg">{warningMsg}</span>
+        ) : isSafe && safeMsg && !hasError && !hasWarning ? (
+          <span class="ti-safe-msg">{safeMsg}</span>
+        ) : null}
+      </div>
+    </div>
+  )}
+
+  {tips && (
+    <div class:list={["ti-tips", hasWarning ? "ti-tips--warning" : ""]}>{tips}</div>
+  )}
+
+  <div class:list={[
+    "ti-field",
+    hasError ? "ti-field--error" : "",
+    hasWarning && !hasError ? "ti-field--warning" : "",
+    isSafe && !hasError && !hasWarning ? "ti-field--safe" : "",
+    disabled ? "ti-field--disabled" : "",
+  ]}>
+    <input
+      type={type}
+      id={id}
+      name={name}
+      value={value}
+      placeholder={placeholder}
+      disabled={disabled ? true : undefined}
+      maxlength={maxLength}
+      class="ti-input"
+      {...rest}
+    />
+  </div>
+</div>
+
+<style>
+  /* ── Wrapper ──────────────────────────────────────────────── */
+  .ti-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+  }
+
+  /* ── Label Row ────────────────────────────────────────────── */
+  .ti-label-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+
+  .ti-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #111111;
+    cursor: default;
+  }
+
+  :global(.dark) .ti-label {
+    color: #f8fafc;
+  }
+
+  .ti-label-subtext {
+    color: #9ca3af;
+    font-weight: 500;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+    opacity: 0.75;
+    text-transform: uppercase;
+  }
+
+  .ti-label-right {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  /* ── Status Messages ──────────────────────────────────────── */
+  .ti-error-msg {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--color-danger, #EF4444);
+  }
+
+  .ti-warning-msg {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--color-warning-hover, #D97706);
+  }
+
+  .ti-safe-msg {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--color-safe, #10B981);
+  }
+
+  /* ── Helper Tips ──────────────────────────────────── */
+  .ti-tips {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.8125rem;
+    font-weight: 400;
+    color: var(--text-muted, #6b7280);
+    margin-top: -2px;
+    margin-bottom: 4px;
+    line-height: 1.4;
+  }
+
+  :global(.dark) .ti-tips {
+    color: var(--text-muted, #737373);
+  }
+
+  .ti-tips--warning {
+    color: var(--color-warning-hover, #D97706) !important;
+    font-weight: 600;
+  }
+
+  /* ── Field Container ──────────────────────────────────────── */
+  .ti-field {
+    display: flex;
+    align-items: center;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 0;
+    transition: border-color 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+                box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+                background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    box-sizing: border-box;
+  }
+
+  :global(.dark) .ti-field {
+    background: #141414;
+    border-color: #404040;
+  }
+
+  .ti-field:focus-within {
+    border-color: var(--color-accent, #52FF1A);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--color-accent, #52FF1A) 15%, transparent);
+  }
+
+  :global(.dark) .ti-field:focus-within {
+    border-color: var(--color-accent, #52FF1A);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-accent, #52FF1A) 15%, transparent);
+  }
+
+  /* State variants */
+  .ti-field--error {
+    border-color: var(--color-danger, #EF4444) !important;
+  }
+  .ti-field--error:focus-within {
+    border-color: var(--color-danger, #EF4444) !important;
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--color-danger, #EF4444) 15%, transparent) !important;
+  }
+
+  .ti-field--warning {
+    border-color: var(--color-warning, #F59E0B) !important;
+    background-color: color-mix(in srgb, var(--color-warning, #F59E0B) 5%, transparent) !important;
+  }
+  .ti-field--warning:focus-within {
+    border-color: var(--color-warning-hover, #D97706) !important;
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--color-warning, #F59E0B) 18%, transparent) !important;
+  }
+
+  .ti-field--safe {
+    border-color: var(--color-safe, #10B981) !important;
+    background-color: color-mix(in srgb, var(--color-safe, #10B981) 5%, transparent) !important;
+  }
+  .ti-field--safe:focus-within {
+    border-color: var(--color-safe, #10B981) !important;
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--color-safe, #10B981) 15%, transparent) !important;
+  }
+
+  .ti-field--disabled {
+    background-color: #f3f4f6 !important;
+    border-color: #e5e7eb !important;
+    cursor: not-allowed;
+  }
+
+  :global(.dark) .ti-field--disabled {
+    background-color: #1a1a1a !important;
+    border-color: #262626 !important;
+  }
+
+  /* ── Input ────────────────────────────────────────────────── */
+  .ti-input {
+    flex: 1;
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-family: 'Outfit', sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #111111;
+    background: transparent;
+    border: none;
+    outline: none;
+    box-sizing: border-box;
+    min-width: 0;
+  }
+
+  :global(.dark) .ti-input {
+    color: #ffffff;
+    background: transparent !important;
+  }
+
+  .ti-input::placeholder {
+    color: #9ca3af;
+    font-weight: 400;
+  }
+
+  :global(.dark) .ti-input::placeholder {
+    color: #525252;
+  }
+
+  .ti-input:disabled {
+    color: #6b7280;
+    cursor: not-allowed;
+  }
+
+  :global(.dark) .ti-input:disabled {
+    color: #525252;
+  }
+</style>
