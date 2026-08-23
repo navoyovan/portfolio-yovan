@@ -2,7 +2,7 @@
 
 Personal portfolio site for Yovan Gunardio Darmawan. Fifth major version. Static, fast, no backend.
 
-Soon Live at [navoyovan.github.io/portfolio-yovan](https://navoyovan.github.io/portfolio-yovan)
+Live at [navoyovan.github.io/portfolio-yovan](https://navoyovan.github.io/portfolio-yovan)
 
 ---
 
