@@ -1,11 +1,13 @@
 ---
-// Footer.astro - Global Editorial & Systems Footer
+// Footer.astro - Global Systems Footer
 const rawBase = import.meta.env.BASE_URL;
-const base = rawBase.endsWith('/') ? rawBase.slice(0, -1) : rawBase;
+const base = rawBase.endsWith("/") ? rawBase.slice(0, -1) : rawBase;
 const currentYear = new Date().getFullYear();
 ---
 
-<footer class="w-full border-t border-neutral-200 dark:border-neutral-800 bg-[#fcfbf9] dark:bg-[#0e0e0e] text-neutral-600 dark:text-neutral-400 font-sans transition-colors duration-200">
+<footer
+  class="w-full border-t border-neutral-200 dark:border-neutral-800 bg-[#fcfbf9] dark:bg-[#0e0e0e] text-neutral-600 dark:text-neutral-400 font-sans transition-colors duration-200"
+>
   <div class="w-[92%] sm:w-[86%] lg:w-[80%] mx-auto py-12 sm:py-16 space-y-12">
     <!-- Top Grid: Brand & Link Groups -->
     <div class="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12">
@@ -14,15 +16,20 @@ const currentYear = new Date().getFullYear();
         <a
           href={`${base}/`}
           aria-label="Home"
-          class="text-xl font-black tracking-tight text-neutral-950 dark:text-white font-heading hover:opacity-80 transition-opacity inline-block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#52FF1A] rounded"
+          class="text-xl font-black tracking-tight text-neutral-950 dark:text-white font-heading hover:opacity-80 transition-opacity inline-block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent,#52FF1A)] rounded"
         >
           &lt;&nbsp;yovan&nbsp;/&gt;
         </a>
-        <p class="text-xs sm:text-sm text-neutral-500 dark:text-neutral-400 max-w-sm leading-relaxed font-normal">
-          Software engineer & systems builder turning ideas into production web apps, touchscreen kiosk platforms, and hardware integrations.
+        <p
+          class="text-xs sm:text-sm text-neutral-500 dark:text-neutral-400 max-w-sm leading-relaxed font-normal"
+        >
+          Software engineer & systems builder turning ideas into production web
+          apps, touchscreen kiosk platforms, and hardware integrations.
         </p>
-        <div class="flex items-center gap-2 pt-1 text-xs text-neutral-500 dark:text-neutral-400">
-          <span class="w-2 h-2 rounded-full bg-[#52FF1A] animate-pulse"></span>
+        <div
+          class="flex items-center gap-2 pt-1 text-xs text-neutral-500 dark:text-neutral-400"
+        >
+          <span class="w-2 h-2 rounded-full bg-[var(--color-accent,#52FF1A)] animate-pulse"></span>
           <span class="font-mono text-[11px]">AVAILABLE FOR NEW PROJECTS</span>
         </div>
       </div>
@@ -31,35 +38,58 @@ const currentYear = new Date().getFullYear();
       <div class="md:col-span-7 grid grid-cols-2 gap-8 sm:gap-12">
         <!-- Navigation -->
         <nav aria-label="Footer Navigation">
-          <h3 class="font-heading font-bold text-xs uppercase tracking-wider text-neutral-950 dark:text-white block m-0 mb-5 sm:mb-6">
+          <h3
+            class="font-heading font-bold text-xs uppercase tracking-wider text-neutral-950 dark:text-white block m-0 mb-5 sm:mb-6"
+          >
             Navigation
           </h3>
           <ul class="space-y-2 text-xs list-none p-0 m-0">
             <li>
-              <a href={`${base}/`} class="hover:text-neutral-950 dark:hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#52FF1A] rounded">
+              <a
+                href={`${base}/`}
+                class="hover:text-neutral-950 dark:hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent,#52FF1A)] rounded"
+              >
                 Home
               </a>
             </li>
             <li>
-              <a href={`${base}/#about`} class="hover:text-neutral-950 dark:hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#52FF1A] rounded">
+              <a
+                href={`${base}/#about`}
+                class="hover:text-neutral-950 dark:hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent,#52FF1A)] rounded"
+              >
                 About
               </a>
             </li>
             <li>
-              <a href={`${base}/#projects`} class="hover:text-neutral-950 dark:hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#52FF1A] rounded">
+              <a
+                href={`${base}/#projects`}
+                class="hover:text-neutral-950 dark:hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent,#52FF1A)] rounded"
+              >
                 Featured Work
               </a>
             </li>
             <li>
-              <a href={`${base}/portfolio-index`} class="hover:text-neutral-950 dark:hover:text-white transition-colors flex items-center gap-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#52FF1A] rounded">
+              <a
+                href={`${base}/portfolio-index`}
+                class="hover:text-neutral-950 dark:hover:text-white transition-colors flex items-center gap-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent,#52FF1A)] rounded"
+              >
                 <span>Portfolio Index</span>
-                <span class="text-[10px] font-mono text-neutral-400 dark:text-neutral-500" aria-hidden="true">↗</span>
+                <span
+                  class="text-[10px] font-mono text-neutral-400 dark:text-neutral-500"
+                  aria-hidden="true">↗</span
+                >
               </a>
             </li>
             <li>
-              <a href={`${base}/component-library`} class="hover:text-neutral-950 dark:hover:text-white transition-colors flex items-center gap-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#52FF1A] rounded">
-                <span>UI Primitives</span>
-                <span class="text-[10px] font-mono text-neutral-400 dark:text-neutral-500" aria-hidden="true">↗</span>
+              <a
+                href={`${base}/component-library`}
+                class="hover:text-neutral-950 dark:hover:text-white transition-colors flex items-center gap-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent,#52FF1A)] rounded"
+              >
+                <span>Component Library</span>
+                <span
+                  class="text-[10px] font-mono text-neutral-400 dark:text-neutral-500"
+                  aria-hidden="true">↗</span
+                >
               </a>
             </li>
           </ul>
@@ -67,24 +97,42 @@ const currentYear = new Date().getFullYear();
 
         <!-- Connect -->
         <nav aria-label="Connect Links">
-          <h3 class="font-heading font-bold text-xs uppercase tracking-wider text-neutral-950 dark:text-white block m-0 mb-5 sm:mb-6">
+          <h3
+            class="font-heading font-bold text-xs uppercase tracking-wider text-neutral-950 dark:text-white block m-0 mb-5 sm:mb-6"
+          >
             Connect
           </h3>
           <ul class="space-y-2 text-xs list-none p-0 m-0">
             <li>
-              <a href="https://github.com/navoyovan" target="_blank" rel="noopener noreferrer" aria-label="GitHub Profile (opens in new tab)" class="hover:text-neutral-950 dark:hover:text-white transition-colors flex items-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#52FF1A] rounded">
+              <a
+                href="https://github.com/navoyovan"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="GitHub Profile (opens in new tab)"
+                class="hover:text-neutral-950 dark:hover:text-white transition-colors flex items-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent,#52FF1A)] rounded"
+              >
                 <i class="ti ti-brand-github text-sm" aria-hidden="true"></i>
                 <span>GitHub</span>
               </a>
             </li>
             <li>
-              <a href="https://linkedin.com/in/yovan-g-d-22379ba7/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn Profile (opens in new tab)" class="hover:text-neutral-950 dark:hover:text-white transition-colors flex items-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#52FF1A] rounded">
+              <a
+                href="https://linkedin.com/in/yovan-g-d-22379ba7/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="LinkedIn Profile (opens in new tab)"
+                class="hover:text-neutral-950 dark:hover:text-white transition-colors flex items-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent,#52FF1A)] rounded"
+              >
                 <i class="ti ti-brand-linkedin text-sm" aria-hidden="true"></i>
                 <span>LinkedIn</span>
               </a>
             </li>
             <li>
-              <a href="mailto:yovangunardio@gmail.com" aria-label="Send email to Yovan" class="hover:text-neutral-950 dark:hover:text-white transition-colors flex items-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#52FF1A] rounded">
+              <a
+                href="mailto:yovangunardio@gmail.com"
+                aria-label="Send email to Yovan"
+                class="hover:text-neutral-950 dark:hover:text-white transition-colors flex items-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent,#52FF1A)] rounded"
+              >
                 <i class="ti ti-mail text-sm" aria-hidden="true"></i>
                 <span>Email</span>
               </a>
@@ -95,8 +143,12 @@ const currentYear = new Date().getFullYear();
     </div>
 
     <!-- Bottom Strip: Copyright & Platform Stack -->
-    <div class="pt-8 border-t border-neutral-200/80 dark:border-neutral-800/80 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-neutral-500 dark:text-neutral-500">
-      <div class="flex flex-wrap items-center justify-center md:justify-start gap-x-2 gap-y-1">
+    <div
+      class="pt-8 border-t border-neutral-200/80 dark:border-neutral-800/80 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-neutral-500 dark:text-neutral-500"
+    >
+      <div
+        class="flex flex-wrap items-center justify-center md:justify-start gap-x-2 gap-y-1"
+      >
         <span class="font-heading font-bold text-neutral-950 dark:text-white">
           Yovan Gunardio Darmawan
         </span>
@@ -104,7 +156,21 @@ const currentYear = new Date().getFullYear();
         <span>&copy; {currentYear}</span>
         <span class="hidden sm:inline select-none" aria-hidden="true">•</span>
         <span class="text-[11px] text-neutral-400 dark:text-neutral-600">
-          Map tiles by <a href="https://carto.com/attributions" target="_blank" rel="noopener noreferrer" aria-label="CARTO map tile attribution (opens in new tab)" class="hover:underline hover:text-neutral-600 dark:hover:text-neutral-300">CARTO</a> &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer" aria-label="OpenStreetMap copyright notice (opens in new tab)" class="hover:underline hover:text-neutral-600 dark:hover:text-neutral-300">OpenStreetMap</a> contributors
+          Map tiles by <a
+            href="https://carto.com/attributions"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="CARTO map tile attribution (opens in new tab)"
+            class="hover:underline hover:text-neutral-600 dark:hover:text-neutral-300"
+            >CARTO</a
+          > &copy; <a
+            href="https://www.openstreetmap.org/copyright"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="OpenStreetMap copyright notice (opens in new tab)"
+            class="hover:underline hover:text-neutral-600 dark:hover:text-neutral-300"
+            >OpenStreetMap</a
+          > contributors
         </span>
       </div>
 

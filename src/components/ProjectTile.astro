@@ -13,12 +13,18 @@ interface Props {
   statusVariant?: 'accent' | 'neutral' | 'warning' | 'danger' | 'info';
   tags?: string[];
   actionText?: string;
+  actionVariant?: 'dashed' | 'solid' | 'cta' | 'danger';
   metaText?: string;
+  fileName?: string;
+  footerName?: string;
+  date?: string;
+  dateLabel?: string;
   class?: string;
   [key: string]: any;
 }
 
 import StatusBadge from './StatusBadge.astro';
+import HoverExpandButton from './HoverExpandButton.astro';
 
 const {
   title,
@@ -34,11 +40,18 @@ const {
   statusVariant = 'accent',
   tags = [],
   actionText = 'VIEW CASE STUDY',
+  actionVariant = 'solid',
   metaText,
+  fileName,
+  footerName,
+  date,
+  dateLabel,
   class: className = '',
   ...rest
 } = Astro.props;
 
+const displayFooterName = footerName || fileName || metaText;
+const displayDate = date || dateLabel;
 const isExternal = typeof href === 'string' && href.startsWith('http');
 const titleId = `tile-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
 ---
@@ -102,7 +115,7 @@ const titleId = `tile-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
     <!-- Syne Title -->
     <h3
       id={titleId}
-      class="text-lg sm:text-xl font-bold text-neutral-950 dark:text-white tracking-tight leading-tight group-hover:text-[#52FF1A] transition-colors font-heading m-0"
+      class="text-lg sm:text-xl font-bold text-neutral-950 dark:text-white tracking-tight leading-tight group-hover:text-[var(--color-accent,#52FF1A)] transition-colors font-heading m-0"
     >
       {title}
     </h3>
@@ -128,30 +141,170 @@ const titleId = `tile-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
     )}
 
     <!-- Action Link / Metadata Footer -->
-    <div class="mt-auto pt-3.5 border-t border-neutral-200/80 dark:border-neutral-800/80 flex items-center justify-between gap-3">
-      {metaText ? (
-        <span class="font-mono text-[11px] text-neutral-400 dark:text-neutral-500 truncate">
-          {metaText}
-        </span>
+    <div class="mt-auto pt-3.5 border-t border-neutral-200/80 dark:border-neutral-800/80 flex items-center justify-between gap-3 min-w-0">
+      {displayFooterName ? (
+        <div class="tile-marquee-wrapper relative overflow-hidden min-w-0 flex-1">
+          <div class="tile-marquee-track inline-flex items-center">
+            <div class="tile-marquee-content inline-flex items-center text-neutral-400 dark:text-neutral-500 whitespace-nowrap shrink-0 font-mono text-[11px]">
+              <span>{displayFooterName}</span>
+              <span class="tile-dot-trailing text-neutral-400 dark:text-neutral-600 select-none text-[8px] mx-2.5" aria-hidden="true">
+                •
+              </span>
+            </div>
+          </div>
+        </div>
       ) : (
         <span></span>
       )}
+
+      {displayDate && (
+        <span class="font-mono text-[10px] sm:text-[11px] text-neutral-400 dark:text-neutral-500 whitespace-nowrap shrink-0">
+          {displayDate}
+        </span>
+      )}
+
       {actionText && (
-        <a
+        <HoverExpandButton
           href={href}
+          label={actionText}
+          size="micro"
+          variant={actionVariant}
+          expandDirection="left"
+          rotateIcon={false}
+          ariaLabel={`${actionText}: ${title}${isExternal ? ' (opens in new tab)' : ''}`}
           target={isExternal ? '_blank' : undefined}
           rel={isExternal ? 'noopener noreferrer' : undefined}
-          aria-label={`${actionText}: ${title}${isExternal ? ' (opens in new tab)' : ''}`}
-          class="group/action relative z-10 font-sans text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-neutral-500 dark:text-neutral-400 hover:text-[#52FF1A] transition-colors flex items-center gap-1 shrink-0 ml-auto focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#52FF1A] rounded px-1"
+          class="shrink-0 ml-auto z-10"
         >
-          <span class="group-hover/action:underline underline-offset-4 decoration-[#52FF1A]">
-            {actionText}
-          </span>
-          <span class="inline-block opacity-40 transition-all duration-200 group-hover/action:opacity-100 group-hover/action:translate-x-0.5" aria-hidden="true">
-            {isExternal ? '↗' : '→'}
-          </span>
-        </a>
+          <svg
+            slot="icon"
+            class="w-3.5 h-3.5"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            {isExternal ? (
+              <>
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M17 7l-10 10" />
+                <path d="M8 7l9 0l0 9" />
+              </>
+            ) : (
+              <>
+                <line x1="5" y1="12" x2="19" y2="12" />
+                <polyline points="12 5 19 12 12 19" />
+              </>
+            )}
+          </svg>
+        </HoverExpandButton>
       )}
     </div>
   </div>
 </article>
+
+<style is:global>
+  @keyframes tile-marquee-scroll {
+    0% {
+      transform: translate3d(0, 0, 0);
+    }
+    100% {
+      transform: translate3d(-50%, 0, 0);
+    }
+  }
+
+  .tile-marquee-wrapper:not(.is-overflowing) .tile-dot-trailing {
+    display: none !important;
+  }
+
+  .tile-marquee-wrapper.is-overflowing {
+    mask-image: linear-gradient(to right, black calc(100% - 24px), transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, black calc(100% - 24px), transparent 100%);
+  }
+
+  .tile-marquee-track {
+    display: inline-flex;
+    align-items: center;
+    width: max-content;
+    will-change: transform;
+  }
+
+  .tile-marquee-wrapper:hover .tile-marquee-track,
+  .group:hover .tile-marquee-track,
+  .tile-marquee-wrapper:focus-within .tile-marquee-track {
+    animation-play-state: paused !important;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .tile-marquee-track {
+      animation: none !important;
+      transform: none !important;
+    }
+    .tile-marquee-wrapper {
+      mask-image: none !important;
+      -webkit-mask-image: none !important;
+      overflow-x: auto !important;
+    }
+  }
+</style>
+
+<script>
+  function initTileMarquees(targetContainer?: HTMLElement | Document) {
+    const root = targetContainer || document;
+    const wrappers = root.querySelectorAll<HTMLElement>(".tile-marquee-wrapper");
+
+    wrappers.forEach((wrapper) => {
+      const track = wrapper.querySelector<HTMLElement>(".tile-marquee-track");
+      const content = wrapper.querySelector<HTMLElement>(".tile-marquee-content");
+
+      if (!track || !content) return;
+
+      const containerWidth = wrapper.clientWidth;
+      if (containerWidth === 0) return;
+
+      const existingClone = track.querySelector(".tile-marquee-clone");
+      if (existingClone) {
+        existingClone.remove();
+      }
+      wrapper.classList.remove("is-overflowing");
+      track.style.animation = "none";
+
+      const contentWidth = content.scrollWidth;
+
+      if (contentWidth > containerWidth + 2) {
+        wrapper.classList.add("is-overflowing");
+
+        const clone = content.cloneNode(true) as HTMLElement;
+        clone.classList.add("tile-marquee-clone");
+        clone.setAttribute("aria-hidden", "true");
+        track.appendChild(clone);
+
+        const duration = Math.max(8, contentWidth / 26);
+        track.style.animationName = "tile-marquee-scroll";
+        track.style.animationDuration = `${duration}s`;
+        track.style.animationTimingFunction = "linear";
+        track.style.animationIterationCount = "infinite";
+      }
+    });
+  }
+
+  if (typeof window !== "undefined") {
+    let resizeTimer: number | null = null;
+    let lastWidth = window.innerWidth;
+
+    const onResize = () => {
+      if (window.innerWidth === lastWidth) return;
+      lastWidth = window.innerWidth;
+      if (resizeTimer) clearTimeout(resizeTimer);
+      resizeTimer = window.setTimeout(() => initTileMarquees(), 150);
+    };
+
+    document.addEventListener("DOMContentLoaded", () => initTileMarquees());
+    window.addEventListener("resize", onResize, { passive: true });
+    document.addEventListener("astro:page-load", () => initTileMarquees());
+    initTileMarquees();
+  }
+</script>

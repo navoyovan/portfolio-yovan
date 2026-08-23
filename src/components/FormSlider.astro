@@ -1,5 +1,5 @@
 ---
-// FormSlider.astro - High-Contrast System Slider Primitive
+// FormSlider.astro - High-Contrast System Slider Primitive with Fluid Dynamic Elastic Track
 interface Props {
   id?: string;
   name?: string;
@@ -55,14 +55,13 @@ const initialPercent = Math.min(100, Math.max(0, ((value - min) / (max - min)) *
   )}
 
   <div class="relative w-full flex items-center py-3">
-    <!-- Custom Track Container with Canvas / SVG Dynamic Geometry Mesh -->
+    <!-- Custom Track Container with SVG Dynamic Geometry Mesh -->
     <div class="slider-track-wrap relative w-full h-6 flex items-center">
-      <!-- Two Separate Non-Overlapping Track Lines with Padding Around Handle -->
       <svg class="slider-svg absolute inset-0 w-full h-full pointer-events-none overflow-visible" preserveAspectRatio="none">
-        <!-- Left Active Line (0 to handleX - pad) -->
-        <path class="slider-active-path fill-[#52FF1A] transition-[d] duration-150 ease-out" d="" />
+        <!-- Left Active Line (0 to handleX - pad) - Instant GPU path updates without CSS transition lag -->
+        <path class="slider-active-path fill-[var(--color-accent,#52FF1A)]" d="" />
         <!-- Right Inactive Line (handleX + pad to width) -->
-        <path class="slider-inactive-path fill-neutral-200 dark:fill-neutral-800 transition-[d] duration-150 ease-out" d="" />
+        <path class="slider-inactive-path fill-neutral-200 dark:fill-neutral-800" d="" />
       </svg>
     </div>
 
@@ -75,14 +74,15 @@ const initialPercent = Math.min(100, Math.max(0, ((value - min) / (max - min)) *
       max={max}
       step={step}
       value={value}
+      data-unit={unit}
       disabled={disabled ? true : undefined}
       class="slider-input absolute inset-0 w-full opacity-0 cursor-pointer z-20 h-full m-0 p-0"
       {...rest}
     />
 
-    <!-- Vertical Bar Handle | (5px width, 24px height, high-contrast #52FF1A) -->
+    <!-- Vertical Bar Handle | (5px width, 24px height, high-contrast Accent) -->
     <div
-      class="slider-handle pointer-events-none absolute w-[5px] h-[24px] -ml-[2.5px] rounded-none bg-[#52FF1A] dark:bg-[#52FF1A] shadow-[0_0_10px_rgba(82,255,26,0.7)] z-10 transition-[transform,box-shadow] duration-100 ease-out"
+      class="slider-handle pointer-events-none absolute w-[5px] h-[24px] -ml-[2.5px] rounded-none bg-[var(--color-accent,#52FF1A)] shadow-none z-10 transition-[transform,box-shadow] duration-150 ease-out"
       style={`left: ${initialPercent}%;`}
     >
       <div class="w-full h-full bg-neutral-950 dark:bg-white opacity-25"></div>
@@ -107,15 +107,15 @@ const initialPercent = Math.min(100, Math.max(0, ((value - min) / (max - min)) *
 
   /* Ensure input thumb spans full touch target area */
   .slider-input::-webkit-slider-thumb {
-    width: 24px;
-    height: 24px;
+    width: 32px;
+    height: 32px;
     cursor: grab;
     -webkit-appearance: none;
     appearance: none;
   }
   .slider-input::-moz-range-thumb {
-    width: 24px;
-    height: 24px;
+    width: 32px;
+    height: 32px;
     cursor: grab;
     border: none;
   }
@@ -129,7 +129,8 @@ const initialPercent = Math.min(100, Math.max(0, ((value - min) / (max - min)) *
   /* Handle active drag expansion */
   .slider-container.is-dragging .slider-handle {
     transform: scaleY(1.25) scaleX(1.2);
-    box-shadow: 0 0 16px rgba(82, 255, 26, 0.95);
+    box-shadow: 0 0 16px color-mix(in srgb, var(--color-accent, var(--accent-color, #52FF1A)) 80%, transparent),
+                0 0 6px var(--color-accent, var(--accent-color, #52FF1A));
   }
 </style>
 
@@ -150,20 +151,18 @@ const initialPercent = Math.min(100, Math.max(0, ((value - min) / (max - min)) *
       const unit = input.getAttribute('data-unit') || '%';
       const min = parseFloat(input.min) || 0;
       const max = parseFloat(input.max) || 100;
+      const rangeSpan = Math.max(max - min, 1);
+      const maxTravelSpan = rangeSpan * 0.22; // Reach maximum stretch within 22% slider travel
 
       let isDragging = false;
       let dragStartVal = parseFloat(input.value);
-      let currentDragDelta = 0;
+      
+      // Dynamic deformation state continuously derived from drag displacement
+      let waveAmp = 0;          // animated wave amplitude (px)
+      let thinRatio = 0;        // animated thinning ratio (0..1)
       let pullDirection: 'right' | 'left' | null = null;
-      let resetTimeout: any = null;
-
-      // Release animation state
-      let releaseWaveIntensity = 0;   // current animated wave intensity on release
-      let releaseThinIntensity = 0;   // current animated thin intensity on release
-      let releasePullDir: 'right' | 'left' | null = null;
+      
       let releaseRafId: number | null = null;
-
-      // Hoisted helpers — available to both render() and endDrag()
 
       // Uniform sinusoidal wave ribbon across any horizontal span
       const buildUniformSineWavePath = (
@@ -176,42 +175,29 @@ const initialPercent = Math.min(100, Math.max(0, ((value - min) / (max - min)) *
       ) => {
         if (endX <= startX) return '';
         if (uniformWaveAmp <= 0.1) {
-          return `
-            M ${startX} ${midY - ribbonHalfThickness}
-            L ${endX} ${midY - ribbonHalfThickness}
-            L ${endX} ${midY + ribbonHalfThickness}
-            L ${startX} ${midY + ribbonHalfThickness}
-            Z
-          `;
+          return `M ${startX} ${midY - ribbonHalfThickness} L ${endX} ${midY - ribbonHalfThickness} L ${endX} ${midY + ribbonHalfThickness} L ${startX} ${midY + ribbonHalfThickness} Z`;
         }
         const len = endX - startX;
-        const steps = Math.max(12, Math.floor(len / 2));
+        const steps = Math.max(16, Math.floor(len / 4));
         const stepSize = len / steps;
-        let topPoints: string[] = [];
-        let bottomPoints: string[] = [];
+        const topPoints: string[] = [];
+        const bottomPoints: string[] = [];
+
         for (let i = 0; i <= steps; i++) {
           const x = startX + i * stepSize;
           const waveOffset = Math.sin((x / waveLen) * Math.PI * 2) * uniformWaveAmp;
           const yTop = midY + waveOffset - ribbonHalfThickness;
           const yBottom = midY + waveOffset + ribbonHalfThickness;
-          topPoints.push(`${i === 0 ? 'M' : 'L'} ${x} ${yTop}`);
-          bottomPoints.unshift(`L ${x} ${yBottom}`);
+          topPoints.push(`${i === 0 ? 'M' : 'L'} ${x.toFixed(1)} ${yTop.toFixed(1)}`);
+          bottomPoints.unshift(`L ${x.toFixed(1)} ${yBottom.toFixed(1)}`);
         }
         return `${topPoints.join(' ')} ${bottomPoints.join(' ')} Z`;
       };
 
-      // Early drag wave resistance: 15% deadzone + x^2.5 power curve
-      const computeWaveDragIntensity = (rawDeltaRatio: number) => {
-        const threshold = 0.15;
-        if (rawDeltaRatio <= threshold) return 0;
-        const normalized = (rawDeltaRatio - threshold) / (1 - threshold);
-        return Math.pow(normalized, 2.5);
-      };
-
       const render = () => {
         const val = parseFloat(input.value);
-        const percent = Math.min(100, Math.max(0, ((val - min) / (max - min)) * 100));
-        
+        const percent = Math.min(100, Math.max(0, ((val - min) / rangeSpan) * 100));
+
         handle.style.left = `${percent}%`;
         if (display) {
           display.textContent = `${val}${unit}`;
@@ -222,123 +208,55 @@ const initialPercent = Math.min(100, Math.max(0, ((value - min) / (max - min)) *
         const midY = height / 2;
         const handleX = (percent / 100) * width;
 
-        const normalHalfH = 3; // 6px normal resting thickness
-        const handlePad = 6; // 6px clear padding on each side of the handle
+        const normalHalfH = 3.0; // 6.0px normal resting track thickness
+        const minHalfH = 0.5;    // Exactly 1.0px total minimum thickness when fully stretched (0.5px * 2)
+        const handlePad = 6;     // 6px padding around the vertical bar
 
         const leftEndX = Math.max(0, handleX - handlePad);
         const rightStartX = Math.min(width, handleX + handlePad);
 
-        if (isDragging && pullDirection === 'right') {
-          // --- DRAGGING RIGHT ---
-          const maxTravel = (max - min) * 0.45;
-          const rawDeltaRatio = Math.min(1, Math.max(0, currentDragDelta / maxTravel));
-          const minH = 0.8;
-          const fullH = 3.0;
-          const leftHalfH = fullH - rawDeltaRatio * (fullH - minH);
+        if (pullDirection === 'right' && (waveAmp > 0.05 || thinRatio > 0.01)) {
+          // Dragged right from start point: left side stretches down to 0.8px minimum, right side waves
+          const leftHalfH = normalHalfH - thinRatio * (normalHalfH - minHalfH);
+          const waveLen = Math.max(22, 44 - (waveAmp / 7.5) * 20);
+          const ribbonThickness = 1.8;
 
-          const dActive = leftEndX > 0 ? `
-            M 0 ${midY - leftHalfH}
-            L ${leftEndX} ${midY - leftHalfH}
-            L ${leftEndX} ${midY + leftHalfH}
-            L 0 ${midY + leftHalfH}
-            Z
-          ` : '';
+          const dActive = leftEndX > 0 ? `M 0 ${midY - leftHalfH} L ${leftEndX} ${midY - leftHalfH} L ${leftEndX} ${midY + leftHalfH} L 0 ${midY + leftHalfH} Z` : '';
           activePath.setAttribute('d', dActive);
 
-          const waveIntensity = computeWaveDragIntensity(rawDeltaRatio);
-          const uniformWaveAmp = waveIntensity * 7.0;
-          const waveLen = Math.max(20, 40 - waveIntensity * 20);
-          const ribbonThickness = 2.4;
-          const dInactive = rightStartX < width ? buildUniformSineWavePath(rightStartX, width, midY, ribbonThickness, uniformWaveAmp, waveLen) : '';
+          const dInactive = rightStartX < width ? buildUniformSineWavePath(rightStartX, width, midY, ribbonThickness, waveAmp, waveLen) : '';
           inactivePath.setAttribute('d', dInactive);
 
-        } else if (isDragging && pullDirection === 'left') {
-          // --- DRAGGING LEFT ---
-          const maxTravel = (max - min) * 0.45;
-          const rawDeltaRatio = Math.min(1, Math.max(0, Math.abs(currentDragDelta) / maxTravel));
-          const minH = 0.8;
-          const fullH = 3.0;
-          const rightHalfH = fullH - rawDeltaRatio * (fullH - minH);
+        } else if (pullDirection === 'left' && (waveAmp > 0.05 || thinRatio > 0.01)) {
+          // Dragged left from start point: right side stretches down to 0.8px minimum, left side waves
+          const rightHalfH = normalHalfH - thinRatio * (normalHalfH - minHalfH);
+          const waveLen = Math.max(22, 44 - (waveAmp / 7.5) * 20);
+          const ribbonThickness = 1.8;
 
-          const waveIntensity = computeWaveDragIntensity(rawDeltaRatio);
-          const uniformWaveAmp = waveIntensity * 7.0;
-          const waveLen = Math.max(20, 40 - waveIntensity * 20);
-          const ribbonThickness = 2.4;
-          const dActive = leftEndX > 0 ? buildUniformSineWavePath(0, leftEndX, midY, ribbonThickness, uniformWaveAmp, waveLen) : '';
+          const dActive = leftEndX > 0 ? buildUniformSineWavePath(0, leftEndX, midY, ribbonThickness, waveAmp, waveLen) : '';
           activePath.setAttribute('d', dActive);
 
-          const dInactive = rightStartX < width ? `
-            M ${rightStartX} ${midY - rightHalfH}
-            L ${width} ${midY - rightHalfH}
-            L ${width} ${midY + rightHalfH}
-            L ${rightStartX} ${midY + rightHalfH}
-            Z
-          ` : '';
+          const dInactive = rightStartX < width ? `M ${rightStartX} ${midY - rightHalfH} L ${width} ${midY - rightHalfH} L ${width} ${midY + rightHalfH} L ${rightStartX} ${midY + rightHalfH} Z` : '';
           inactivePath.setAttribute('d', dInactive);
-
-        } else if (!isDragging && releasePullDir !== null && (releaseWaveIntensity > 0.005 || releaseThinIntensity > 0.005)) {
-          // --- RELEASING: wave decaying back to flat line ---
-          const minH = 0.8;
-          const fullH = 3.0;
-          const decayingHalfH = fullH - releaseThinIntensity * (fullH - minH);
-          const uniformWaveAmp = releaseWaveIntensity * 7.0;
-          const waveLen = Math.max(20, 40 - releaseWaveIntensity * 20);
-          const ribbonThickness = 2.4;
-
-          if (releasePullDir === 'right') {
-            // Left side was thinning, right side was waving
-            const dActive = leftEndX > 0 ? `
-              M 0 ${midY - decayingHalfH}
-              L ${leftEndX} ${midY - decayingHalfH}
-              L ${leftEndX} ${midY + decayingHalfH}
-              L 0 ${midY + decayingHalfH}
-              Z
-            ` : '';
-            activePath.setAttribute('d', dActive);
-            const dInactive = rightStartX < width ? buildUniformSineWavePath(rightStartX, width, midY, ribbonThickness, uniformWaveAmp, waveLen) : '';
-            inactivePath.setAttribute('d', dInactive);
-          } else {
-            // Right side was thinning, left side was waving
-            const dActive = leftEndX > 0 ? buildUniformSineWavePath(0, leftEndX, midY, ribbonThickness, uniformWaveAmp, waveLen) : '';
-            activePath.setAttribute('d', dActive);
-            const dInactive = rightStartX < width ? `
-              M ${rightStartX} ${midY - decayingHalfH}
-              L ${width} ${midY - decayingHalfH}
-              L ${width} ${midY + decayingHalfH}
-              L ${rightStartX} ${midY + decayingHalfH}
-              Z
-            ` : '';
-            inactivePath.setAttribute('d', dInactive);
-          }
 
         } else {
-          // --- RESTING STATE ---
-          const dActive = leftEndX > 0 ? `
-            M 0 ${midY - normalHalfH}
-            L ${leftEndX} ${midY - normalHalfH}
-            L ${leftEndX} ${midY + normalHalfH}
-            L 0 ${midY + normalHalfH}
-            Z
-          ` : '';
+          // Flat resting track (6.0px total thickness)
+          const dActive = leftEndX > 0 ? `M 0 ${midY - normalHalfH} L ${leftEndX} ${midY - normalHalfH} L ${leftEndX} ${midY + normalHalfH} L 0 ${midY + normalHalfH} Z` : '';
           activePath.setAttribute('d', dActive);
 
-          const dInactive = rightStartX < width ? `
-            M ${rightStartX} ${midY - normalHalfH}
-            L ${width} ${midY - normalHalfH}
-            L ${width} ${midY + normalHalfH}
-            L ${rightStartX} ${midY + normalHalfH}
-            Z
-          ` : '';
+          const dInactive = rightStartX < width ? `M ${rightStartX} ${midY - normalHalfH} L ${width} ${midY - normalHalfH} L ${width} ${midY + normalHalfH} L ${rightStartX} ${midY + normalHalfH} Z` : '';
           inactivePath.setAttribute('d', dInactive);
         }
       };
 
       const startDrag = () => {
+        if (releaseRafId !== null) {
+          cancelAnimationFrame(releaseRafId);
+          releaseRafId = null;
+        }
         isDragging = true;
         container.classList.add('is-dragging');
         dragStartVal = parseFloat(input.value);
-        currentDragDelta = 0;
-        clearTimeout(resetTimeout);
       };
 
       const endDrag = () => {
@@ -346,31 +264,21 @@ const initialPercent = Math.min(100, Math.max(0, ((value - min) / (max - min)) *
         isDragging = false;
         container.classList.remove('is-dragging');
 
-        // Capture the last wave/thin intensities to animate from
-        const maxTravel = (max - min) * 0.45;
-        const rawDeltaRatio = Math.min(1, Math.max(0, Math.abs(currentDragDelta) / maxTravel));
-        releaseWaveIntensity = computeWaveDragIntensity(rawDeltaRatio);
-        releaseThinIntensity = rawDeltaRatio;
-        releasePullDir = pullDirection;
+        if (releaseRafId !== null) {
+          cancelAnimationFrame(releaseRafId);
+        }
 
-        pullDirection = null;
-        currentDragDelta = 0;
-
-        // Cancel any previous release animation
-        if (releaseRafId !== null) cancelAnimationFrame(releaseRafId);
-
-        // Animate wave settling back to a flat line
-        const DECAY = 0.10; // fraction to reduce per frame (~60fps ≈ ~250ms settle)
+        // On release: smoothly snap the active deformation back to resting 0
         const animateRelease = () => {
-          releaseWaveIntensity *= (1 - DECAY);
-          releaseThinIntensity *= (1 - DECAY);
+          waveAmp *= 0.80;
+          thinRatio *= 0.80;
 
-          if (releaseWaveIntensity < 0.005 && releaseThinIntensity < 0.005) {
-            releaseWaveIntensity = 0;
-            releaseThinIntensity = 0;
-            releasePullDir = null;
+          if (waveAmp < 0.05 && thinRatio < 0.01) {
+            waveAmp = 0;
+            thinRatio = 0;
+            pullDirection = null;
             releaseRafId = null;
-            render(); // final resting state
+            render();
             return;
           }
 
@@ -381,56 +289,54 @@ const initialPercent = Math.min(100, Math.max(0, ((value - min) / (max - min)) *
         releaseRafId = requestAnimationFrame(animateRelease);
       };
 
-      const onTouchMove = (e: TouchEvent) => {
-        if (isDragging) {
-          e.preventDefault();
-        }
-      };
-
-      // Native pointer + mouse + touch listeners with scroll interception protection
-      input.addEventListener('pointerdown', startDrag);
-      input.addEventListener('mousedown', startDrag);
-      input.addEventListener('touchstart', startDrag, { passive: false });
-      input.addEventListener('touchmove', onTouchMove, { passive: false });
-
-      window.addEventListener('pointerup', endDrag);
-      window.addEventListener('mouseup', endDrag);
-      window.addEventListener('touchend', endDrag);
-
+      // Input event listener - deformation directly scales with displacement from drag start position
       input.addEventListener('input', () => {
-        const val = parseFloat(input.value);
+        const currentVal = parseFloat(input.value);
         if (!isDragging) {
-          isDragging = true;
-          container.classList.add('is-dragging');
-          dragStartVal = val;
+          startDrag();
         }
-        currentDragDelta = val - dragStartVal;
-        if (currentDragDelta > 0) {
-          pullDirection = 'right';
-        } else if (currentDragDelta < 0) {
-          pullDirection = 'left';
-        }
-        render();
 
-        // Safety fallback: if user slides without mouseup triggering
-        clearTimeout(resetTimeout);
-        resetTimeout = setTimeout(() => {
-          if (!input.matches(':active')) {
-            endDrag();
-          }
-        }, 300);
+        const displacement = currentVal - dragStartVal;
+        const normalizedDisplacement = Math.min(1, Math.max(-1, displacement / maxTravelSpan));
+        const absRatio = Math.abs(normalizedDisplacement);
+
+        if (displacement > 0) {
+          pullDirection = 'right';
+        } else if (displacement < 0) {
+          pullDirection = 'left';
+        } else {
+          pullDirection = null;
+        }
+
+        // Reaches full 7.5px wave amp and 100% thinning (0.8px line) smoothly
+        waveAmp = absRatio * 7.5;
+        thinRatio = absRatio * 1.0;
+
+        render();
       });
 
-      input.addEventListener('change', endDrag);
+      // Pointer & touch events
+      input.addEventListener('pointerdown', startDrag);
+      window.addEventListener('pointerup', endDrag);
+      window.addEventListener('pointercancel', endDrag);
 
-      requestAnimationFrame(render);
+      input.addEventListener('touchstart', startDrag, { passive: true });
+      window.addEventListener('touchend', endDrag, { passive: true });
+      window.addEventListener('touchcancel', endDrag, { passive: true });
+
+      input.addEventListener('change', endDrag);
       window.addEventListener('resize', render);
+
+      // Initial layout render
+      render();
     });
   }
 
+  // Setup on initial page load and Astro page transitions
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', setupSliders);
   } else {
     setupSliders();
   }
+  document.addEventListener('astro:page-load', setupSliders);
 </script>

@@ -66,13 +66,30 @@ Run this checklist before any commit to `master` / push to GitHub Pages.
 ### Phase 6 — Component Showcase Labeling Standards
 
 - [ ] **Dual-Layer Showcase Pattern**: All showcase components follow the 2-Tier format:
-  - **Specimen Visual & Production Labels**: Strictly in **Latin** to match the portfolio's editorial motif (e.g. `INCIPE SESSIONEM`, `CONFIRMA ET IMPRIME`, `NOTIFICATIO ACTIVA`, `ELECTIO INDETERMINATA`, `QUALITAS ORDINARIA`, `STATUS_VIVUS`).
-  - **Tier 1 (Title)**: Functional English variant name (`font-mono text-xs font-semibold`, e.g. `CTA Pulse`, `3-State Checkbox`).
-  - **Tier 2 (Props & Tokens)**: Technical API shorthand and dimensions in English (`font-mono text-[11px] text-neutral-500`, e.g. `variant="cta" • Syne 700`, `indeterminate=true • 24px solid`).
-- [ ] **Preserve Site Theme**: When aligning labels for newly added components, never overwrite existing established section motifs. Production component specimens are always written in Latin.
+  - **Specimen Visual & Production Labels**: Strictly in **Latin** to match the portfolio's editorial motif (e.g. `INCIPE SESSIONEM`, `CONFIRMA ET IMPRIME`, `NOTIFICATIO ACTIVA`, `ELECTIO INDETERMINATA`, `QUALITAS ORDINARIA`, `STATUS_VIVUS`, `TENDENTIA SESSIONUM`).
+  - **Tier 1 (Title)**: Functional English variant name (`font-mono text-xs font-semibold`, e.g. `CTA Pulse`, `3-State Checkbox`, `Weekly Telemetry Trend Spline`).
+  - **Tier 2 (Props & Tokens)**: Technical API shorthand and dimensions in English (`font-mono text-[11px] text-neutral-500`, e.g. `variant="cta" • Syne 700`, `data={...} • 7-day comparative spline`).
+- [ ] **Subsection & Section Headers**: Section/subsection headers in `component-library.astro` must be in English (`font-mono text-xs font-semibold`, e.g. `12.1 / Telemetry Trend Curve`, `12.2 / Activity Schedule Timeline`).
+- [ ] **No Redundant Container Boxes**: Never wrap showcase specimens in artificial outer border/padding box containers (`<div class="p-5 border ... bg-...">`). Components mount directly into showcase grid cells.
 
-### Phase 7 — Form Control Transition & Animation Safety
+### Phase 7 — Typography & Font Scoping Rules
+
+- [ ] **Monospace Scoping (`font-mono`)**: `font-mono` is strictly reserved for developer-facing showcase metadata, code snippets, Tier 1/Tier 2 token descriptors, and section numbering badges. **Never use `font-mono` on public-facing component UI.**
+- [ ] **Outfit (`font-sans`) Casing**: Elements using `font-sans` (Outfit) must use natural/title casing (`Lun`, `Mar`, `Hebdomada currens`, `sessiones`). **Do not apply `uppercase` to `font-sans`.**
+- [ ] **Syne (`font-heading`) for Headings & "Today"**:
+  - Headings, primary numeric values, and action button labels use `font-heading font-bold` (Syne).
+  - In date pickers, trend charts, and timelines, regular days use `font-sans` (Outfit); **only the active "Today" mark uses `font-heading font-black` (Syne 900) in `uppercase`**.
+- [ ] **Header Row Casing Exception**: Component header rows (month headers, sticky legend/status bars, bottom category headers) are permitted to use `uppercase tracking-wider`.
+
+### Phase 8 — Indicator & State Neutrality
+
+- [ ] **Neutral Focal Indicators**: Active "Today" badges and timeline current-day markers must use clean, high-contrast neutral styling (`bg-neutral-950 text-white dark:bg-white dark:text-neutral-950`, `fill-neutral-950 dark:fill-white`) rather than unprompted neon green `#52FF1A` accents.
+
+### Phase 9 — Form Control Transition & Animation Safety
 
 - [ ] **Transition State Scoping**: Active state CSS rules (checked background, active checkmark/dot icons) must be scoped with `:not(.is-transitioning)` so that loading/spinner overlays can cleanly suppress indicator icons without CSS specificity collisions.
 
+### Phase 10 — Component Modularity & Page Isolation
+
+- [ ] **No Inline Interactive Overlays/Modals in Page Templates**: Page templates (`src/pages/*.astro`) must only contain page layout structure, metadata, content orchestration, and component composition. Complex interactive widgets, modal dialogs, backdrop overlays, and easter egg layers must be extracted to dedicated modular components in `src/components/` (e.g. `EasterEggs.astro`).
 

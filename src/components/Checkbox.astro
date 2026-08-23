@@ -10,6 +10,7 @@ interface Props {
   disabled?: boolean;
   indeterminate?: boolean;
   compact?: boolean;
+  loadingDelay?: number;
   class?: string;
   [key: string]: any;
 }
@@ -24,6 +25,7 @@ const {
   disabled = false,
   indeterminate = false,
   compact = false,
+  loadingDelay = 0,
   class: className = '',
   ...rest
 } = Astro.props;
@@ -41,6 +43,7 @@ const initialState = indeterminate ? 'indeterminate' : (checked ? 'checked' : 'u
   ]}
   data-tristate={indeterminate ? "true" : undefined}
   data-state={initialState}
+  data-loading-delay={loadingDelay > 0 ? loadingDelay : undefined}
 >
   <div class:list={["relative flex items-center justify-center shrink-0", compact ? "mt-0" : "mt-0.5"]}>
     <input
@@ -59,12 +62,12 @@ const initialState = indeterminate ? 'indeterminate' : (checked ? 'checked' : 'u
         "checkbox-box relative rounded-none transition-all duration-150 flex items-center justify-center shrink-0 border border-dashed border-[#d1d5db] dark:border-neutral-700 bg-white dark:bg-[#141414]",
         compact ? "w-[18px] h-[18px]" : "w-6 h-6",
         "group-hover:border-solid group-hover:border-neutral-950 dark:group-hover:border-white",
-        "peer-focus-visible:ring-2 peer-focus-visible:ring-[#52FF1A] peer-focus-visible:ring-offset-2 dark:peer-focus-visible:ring-offset-neutral-950"
+        "peer-focus-visible:ring-2 peer-focus-visible:ring-[var(--color-accent,#52FF1A)] peer-focus-visible:ring-offset-2 dark:peer-focus-visible:ring-offset-neutral-950"
       ]}
     >
       <!-- Spinning border overlay during transition -->
       <div class="border-spinner absolute -inset-[1.5px] pointer-events-none overflow-hidden hidden">
-        <div class="w-[200%] h-[200%] absolute -top-1/2 -left-1/2 bg-[conic-gradient(from_0deg,#52FF1A_0%,transparent_60%,#52FF1A_100%)] animate-spin"></div>
+        <div class="w-[200%] h-[200%] absolute -top-1/2 -left-1/2 bg-[conic-gradient(from_0deg,var(--color-accent,#52FF1A)_0%,transparent_60%,var(--color-accent,#52FF1A)_100%)] animate-spin"></div>
         <div class="absolute inset-[1.5px] bg-white dark:bg-[#141414]"></div>
       </div>
 
@@ -124,8 +127,8 @@ const initialState = indeterminate ? 'indeterminate' : (checked ? 'checked' : 'u
 
   /* Standard 2-State (ONLY when NOT transitioning) */
   .checkbox-container:not([data-tristate="true"]):not(.is-transitioning) input:checked ~ .checkbox-box {
-    background-color: #52FF1A;
-    border-color: #52FF1A;
+    background-color: var(--color-accent, #52FF1A);
+    border-color: var(--color-accent, #52FF1A);
     border-style: solid;
   }
   .checkbox-container:not([data-tristate="true"]):not(.is-transitioning) input:checked ~ .checkbox-box .check-icon {
@@ -142,8 +145,8 @@ const initialState = indeterminate ? 'indeterminate' : (checked ? 'checked' : 'u
 
   /* Tristate Checkbox States (ONLY when NOT transitioning) */
   .checkbox-container[data-state="indeterminate"]:not(.is-transitioning) .checkbox-box {
-    background-color: #52FF1A;
-    border-color: #52FF1A;
+    background-color: var(--color-accent, #52FF1A);
+    border-color: var(--color-accent, #52FF1A);
     border-style: solid;
   }
   .checkbox-container[data-state="indeterminate"]:not(.is-transitioning) .indeterminate-icon {
@@ -151,8 +154,8 @@ const initialState = indeterminate ? 'indeterminate' : (checked ? 'checked' : 'u
   }
 
   .checkbox-container[data-state="checked"]:not(.is-transitioning) .checkbox-box {
-    background-color: #52FF1A;
-    border-color: #52FF1A;
+    background-color: var(--color-accent, #52FF1A);
+    border-color: var(--color-accent, #52FF1A);
     border-style: solid;
   }
   .checkbox-container[data-state="checked"]:not(.is-transitioning) .check-icon {
@@ -171,67 +174,61 @@ const initialState = indeterminate ? 'indeterminate' : (checked ? 'checked' : 'u
 
 <script>
   function setupCheckboxes() {
-    // Tristate cycling with border spinner animation
-    document.querySelectorAll<HTMLElement>('.checkbox-container[data-tristate="true"]').forEach((container) => {
+    document.querySelectorAll<HTMLElement>('.checkbox-container').forEach((container) => {
       if (container.dataset.initialized) return;
       container.dataset.initialized = 'true';
 
       const input = container.querySelector<HTMLInputElement>('.checkbox-input');
       if (!input) return;
 
-      container.addEventListener('click', (e) => {
-        if (input.disabled || container.classList.contains('is-transitioning')) return;
-        e.preventDefault();
-
-        container.classList.add('is-transitioning');
-
-        setTimeout(() => {
-          container.classList.remove('is-transitioning');
-          const currentState = container.getAttribute('data-state') || 'indeterminate';
-          let nextState = 'checked';
-          if (currentState === 'indeterminate') {
-            nextState = 'checked';
-          } else if (currentState === 'checked') {
-            nextState = 'unchecked';
-          } else {
-            nextState = 'indeterminate';
-          }
-
-          container.setAttribute('data-state', nextState);
-          if (nextState === 'checked') {
-            input.checked = true;
-            input.indeterminate = false;
-          } else if (nextState === 'indeterminate') {
-            input.checked = false;
-            input.indeterminate = true;
-          } else {
-            input.checked = false;
-            input.indeterminate = false;
-          }
-        }, 650);
-      });
-    });
-
-    // 2-state synchronization with border spinner animation
-    document.querySelectorAll<HTMLElement>('.checkbox-container:not([data-tristate="true"])').forEach((container) => {
-      if (container.dataset.initialized) return;
-      container.dataset.initialized = 'true';
-
-      const input = container.querySelector<HTMLInputElement>('.checkbox-input');
-      if (!input) return;
+      const isTristate = container.getAttribute('data-tristate') === 'true';
 
       container.addEventListener('click', (e) => {
         if (input.disabled || container.classList.contains('is-transitioning')) return;
         e.preventDefault();
 
-        container.classList.add('is-transitioning');
-        const targetChecked = !input.checked;
+        const delay = parseInt(container.getAttribute('data-loading-delay') || '0', 10);
 
-        setTimeout(() => {
-          container.classList.remove('is-transitioning');
-          input.checked = targetChecked;
-          container.setAttribute('data-state', targetChecked ? 'checked' : 'unchecked');
-        }, 650);
+        const updateState = () => {
+          if (isTristate) {
+            const currentState = container.getAttribute('data-state') || 'indeterminate';
+            let nextState = 'checked';
+            if (currentState === 'indeterminate') {
+              nextState = 'checked';
+            } else if (currentState === 'checked') {
+              nextState = 'unchecked';
+            } else {
+              nextState = 'indeterminate';
+            }
+
+            container.setAttribute('data-state', nextState);
+            if (nextState === 'checked') {
+              input.checked = true;
+              input.indeterminate = false;
+            } else if (nextState === 'indeterminate') {
+              input.checked = false;
+              input.indeterminate = true;
+            } else {
+              input.checked = false;
+              input.indeterminate = false;
+            }
+          } else {
+            const targetChecked = !input.checked;
+            input.checked = targetChecked;
+            container.setAttribute('data-state', targetChecked ? 'checked' : 'unchecked');
+          }
+          input.dispatchEvent(new Event('change', { bubbles: true }));
+        };
+
+        if (delay > 0) {
+          container.classList.add('is-transitioning');
+          setTimeout(() => {
+            container.classList.remove('is-transitioning');
+            updateState();
+          }, delay);
+        } else {
+          updateState();
+        }
       });
     });
   }
@@ -241,4 +238,5 @@ const initialState = indeterminate ? 'indeterminate' : (checked ? 'checked' : 'u
   } else {
     setupCheckboxes();
   }
+  document.addEventListener('astro:page-load', setupCheckboxes);
 </script>

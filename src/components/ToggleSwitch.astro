@@ -9,6 +9,7 @@ interface Props {
   checked?: boolean;
   disabled?: boolean;
   loading?: boolean;
+  loadingDelay?: number;
   size?: 'sm' | 'md' | 'lg';
   class?: string;
   [key: string]: any;
@@ -23,6 +24,7 @@ const {
   checked = false,
   disabled = false,
   loading = false,
+  loadingDelay = 0,
   size = 'md',
   class: className = '',
   ...rest
@@ -35,12 +37,12 @@ const sizeTrackClass = size === 'sm' ? 'w-9 h-[18px] rounded-[4px]' : size === '
   for={id}
   class:list={[
     "toggle-wrapper group inline-flex items-start gap-3 select-none transition-opacity",
-    disabled || loading ? "opacity-60 cursor-not-allowed pointer-events-none" : "cursor-pointer",
+    disabled ? "opacity-60 cursor-not-allowed pointer-events-none" : "cursor-pointer",
     loading ? "is-loading is-expanding" : "",
     className
   ]}
   data-state={checked ? "checked" : "unchecked"}
-  data-loading={loading ? "true" : undefined}
+  data-loading-delay={loadingDelay > 0 ? loadingDelay : undefined}
 >
   <div class="relative flex items-center justify-center shrink-0 mt-0.5">
     <input
@@ -58,24 +60,23 @@ const sizeTrackClass = size === 'sm' ? 'w-9 h-[18px] rounded-[4px]' : size === '
     <div class="relative inline-flex items-center justify-center">
       <!-- Spinning Conic Border Overlay (Exact size) -->
       <div class:list={[
-        "toggle-border-spinner absolute -inset-[1px] rounded-[6px] pointer-events-none overflow-hidden z-30",
+        "toggle-border-spinner absolute -inset-[1.5px] rounded-[6.5px] pointer-events-none overflow-hidden z-30",
         loading ? "!block" : "hidden"
       ]}>
-        <div class="w-[200%] h-[200%] absolute -top-1/2 -left-1/2 bg-[conic-gradient(from_0deg,#52FF1A_0%,transparent_50%,#52FF1A_100%)] animate-spin"></div>
-        <div class="absolute inset-[1.5px] rounded-[4.5px] bg-[#e2e8f0] dark:bg-[#141414]"></div>
+        <div class="w-[200%] h-[200%] absolute -top-1/2 -left-1/2 bg-[conic-gradient(from_0deg,var(--color-accent,#52FF1A)_0%,transparent_50%,var(--color-accent,#52FF1A)_100%)] animate-spin"></div>
+        <div class="spinner-mask absolute inset-[1.5px] rounded-[5px]"></div>
       </div>
 
       <!-- Vendor Portal Pill Track Container -->
       <div
         class:list={[
-          "toggle-track relative flex items-center shrink-0 overflow-hidden box-border transition-[border-color,background-color] duration-300 ease-out",
-          sizeTrackClass,
-          "border"
+          "toggle-track relative flex items-center shrink-0 overflow-hidden box-border",
+          sizeTrackClass
         ]}
       >
-        <!-- 65% Width Sliding Block Knob with Smooth Width Expansion & Slide Animation -->
+        <!-- 60% Width Sliding Block Knob with Smooth Expansion & Slide -->
         <div
-          class="toggle-thumb absolute top-0 bottom-0 box-border transition-[width,transform,background-color,border-color,left] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] z-10"
+          class="toggle-thumb absolute top-0 bottom-0 box-border z-10"
         >
         </div>
       </div>
@@ -103,20 +104,25 @@ const sizeTrackClass = size === 'sm' ? 'w-9 h-[18px] rounded-[4px]' : size === '
 
   /* Track Transitions */
   .toggle-track {
-    transition: background-color 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    border-width: 1px;
+    border-style: solid;
+    transition: background-color 0.22s ease-out, border-color 0.22s ease-out;
   }
 
-  /* Thumb Transitions: Always animate width, left, transform and colors */
+  /* Thumb Transitions: Always animate width, left, background-color and radius */
   .toggle-thumb {
-    top: -1px !important;
-    bottom: -1px !important;
-    height: calc(100% + 2px) !important;
-    transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    top: 0;
+    bottom: 0;
+    height: 100%;
+    transition: left 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+                width 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+                background-color 0.22s ease-out,
+                border-radius 0.22s ease-out;
   }
 
   /* Default / OFF State */
   .toggle-wrapper[data-state="unchecked"] .toggle-track {
-    border: 1px solid #d1d5db;
+    border-color: #d1d5db;
     background-color: #f3f4f6;
   }
   :global(.dark) .toggle-wrapper[data-state="unchecked"] .toggle-track {
@@ -125,60 +131,53 @@ const sizeTrackClass = size === 'sm' ? 'w-9 h-[18px] rounded-[4px]' : size === '
   }
 
   .toggle-wrapper[data-state="unchecked"] .toggle-thumb {
-    left: -1px !important;
-    width: calc(65% + 1px) !important;
-    transform: translateX(0);
+    left: 0;
+    width: 60%;
     background-color: #ffffff;
-    border: 1px solid #d1d5db;
-    border-radius: 5px 0 0 5px;
+    border-radius: 4px 0 0 4px;
+    box-shadow: 1px 0 2px rgba(0, 0, 0, 0.05);
   }
   :global(.dark) .toggle-wrapper[data-state="unchecked"] .toggle-thumb {
     background-color: #262626;
-    border-color: #404040;
-    border-radius: 5px 0 0 5px;
+    border-radius: 4px 0 0 4px;
+    box-shadow: 1px 0 2px rgba(0, 0, 0, 0.2);
   }
 
-  /* ON State (Transparent Track with #52FF1A Border and Solid #52FF1A Sliding Thumb Knob) */
+  /* ON State (Transparent Track with Accent Border and Solid Accent Sliding Thumb Knob) */
   .toggle-wrapper[data-state="checked"] .toggle-track {
-    border: 1px solid #52FF1A;
+    border-color: var(--color-accent, #52FF1A);
     background-color: transparent;
   }
   :global(.dark) .toggle-wrapper[data-state="checked"] .toggle-track {
-    border-color: #52FF1A;
+    border-color: var(--color-accent, #52FF1A);
     background-color: transparent;
   }
 
   .toggle-wrapper[data-state="checked"] .toggle-thumb {
-    left: calc(100% + 1px) !important;
-    width: calc(65% + 1px) !important;
-    transform: translateX(-100%);
-    background-color: #52FF1A;
-    border: 1px solid #52FF1A;
-    border-radius: 0 5px 5px 0;
+    left: 40%;
+    width: 60%;
+    background-color: var(--color-accent, #52FF1A);
+    border-radius: 0 4px 4px 0;
   }
   :global(.dark) .toggle-wrapper[data-state="checked"] .toggle-thumb {
-    background-color: #52FF1A;
-    border-color: #52FF1A;
-    border-radius: 0 5px 5px 0;
+    background-color: var(--color-accent, #52FF1A);
+    border-radius: 0 4px 4px 0;
   }
 
   /* Phase 1: Expanding to 100% Full Track Fill */
   .toggle-wrapper.is-expanding .toggle-thumb {
-    left: -1px !important;
-    width: calc(100% + 2px) !important;
-    transform: translateX(0) !important;
-    border-radius: 5px !important;
-  }
-  .toggle-wrapper.is-expanding .toggle-border-spinner {
-    display: block !important;
+    left: 0 !important;
+    width: 100% !important;
+    border-radius: 4px !important;
+    box-shadow: none !important;
   }
 
   /* When expanding while turning ON: fill with accent */
   .toggle-wrapper.is-expanding[data-next-state="checked"] .toggle-thumb {
-    background-color: #52FF1A !important;
+    background-color: var(--color-accent, #52FF1A) !important;
   }
   .toggle-wrapper.is-expanding[data-next-state="checked"] .toggle-track {
-    border-color: #52FF1A !important;
+    border-color: var(--color-accent, #52FF1A) !important;
     background-color: transparent !important;
   }
 
@@ -197,6 +196,23 @@ const sizeTrackClass = size === 'sm' ? 'w-9 h-[18px] rounded-[4px]' : size === '
     border-color: #404040 !important;
     background-color: #141414 !important;
   }
+
+  /* Loading State */
+  .toggle-wrapper.is-loading .toggle-border-spinner {
+    display: block !important;
+  }
+  .toggle-wrapper.is-loading .toggle-track {
+    border-color: transparent !important;
+  }
+  .toggle-wrapper.is-loading[data-next-state="checked"] .spinner-mask {
+    background-color: var(--color-accent, #52FF1A) !important;
+  }
+  .toggle-wrapper.is-loading[data-next-state="unchecked"] .spinner-mask {
+    background-color: #ffffff !important;
+  }
+  :global(.dark) .toggle-wrapper.is-loading[data-next-state="unchecked"] .spinner-mask {
+    background-color: #262626 !important;
+  }
 </style>
 
 <script>
@@ -209,23 +225,32 @@ const sizeTrackClass = size === 'sm' ? 'w-9 h-[18px] rounded-[4px]' : size === '
       if (!input) return;
 
       container.addEventListener('click', (e) => {
-        if (input.disabled || container.classList.contains('is-expanding')) return;
+        if (input.disabled || container.classList.contains('is-expanding') || container.classList.contains('is-loading')) return;
         e.preventDefault();
 
+        const delay = parseInt(container.getAttribute('data-loading-delay') || '0', 10);
         const targetChecked = !input.checked;
         container.setAttribute('data-next-state', targetChecked ? 'checked' : 'unchecked');
-        
-        // Step 1: Smoothly expand thumb from 65% to 100% full track width
         container.classList.add('is-expanding');
 
-        // Step 2: After expanding (220ms), snap to target checked state and contract back to 65%
-        setTimeout(() => {
-          input.checked = targetChecked;
-          container.setAttribute('data-state', targetChecked ? 'checked' : 'unchecked');
-          container.classList.remove('is-expanding');
-          container.removeAttribute('data-next-state');
-          input.dispatchEvent(new Event('change', { bubbles: true }));
-        }, 220);
+        if (delay > 0) {
+          container.classList.add('is-loading');
+          setTimeout(() => {
+            input.checked = targetChecked;
+            container.setAttribute('data-state', targetChecked ? 'checked' : 'unchecked');
+            container.classList.remove('is-expanding', 'is-loading');
+            container.removeAttribute('data-next-state');
+            input.dispatchEvent(new Event('change', { bubbles: true }));
+          }, delay);
+        } else {
+          setTimeout(() => {
+            input.checked = targetChecked;
+            container.setAttribute('data-state', targetChecked ? 'checked' : 'unchecked');
+            container.classList.remove('is-expanding');
+            container.removeAttribute('data-next-state');
+            input.dispatchEvent(new Event('change', { bubbles: true }));
+          }, 220);
+        }
       });
     });
   }
@@ -235,5 +260,6 @@ const sizeTrackClass = size === 'sm' ? 'w-9 h-[18px] rounded-[4px]' : size === '
   } else {
     setupVendorToggles();
   }
+  document.addEventListener('astro:page-load', setupVendorToggles);
 </script>
 

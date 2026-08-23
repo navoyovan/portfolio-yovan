@@ -18,30 +18,44 @@ import MetricCard from "../components/MetricCard.astro";
 import ProjectTile from "../components/ProjectTile.astro";
 import AppWindow from "../components/AppWindow.astro";
 import SystemTopology from "../components/SystemTopology.astro";
+import TrendChart from "../components/TrendChart.astro";
+import KioskTimeline from "../components/KioskTimeline.astro";
+import HoverExpandButton from "../components/HoverExpandButton.astro";
+import FrameRankChart from "../components/FrameRankChart.astro";
 
-const primitivesNav = [
+const foundationsNav = [
   { id: "colors", label: "Color Tokens" },
-  { id: "depth-cards", label: "Spatial Depth Cards" },
-  { id: "buttons", label: "Buttons & Micro" },
-  { id: "forms", label: "Forms & Selection" },
-  { id: "text-inputs", label: "Text Inputs" },
-  { id: "dropdowns", label: "Dropdowns & Date Picker" },
-  { id: "loaders", label: "Loaders" },
   { id: "typography", label: "Typography Hierarchy" },
+  { id: "depth-cards", label: "Spatial Depth Cards" },
+];
+
+const interactionNav = [
+  { id: "buttons", label: "Buttons & Micro" },
+  { id: "kinetic-triggers", label: "Kinetic Triggers" },
+  { id: "forms", label: "Form Controls & Sliders" },
+  { id: "text-inputs", label: "Text Inputs & Area" },
+  { id: "dropdowns", label: "Dropdowns & Pickers" },
+  { id: "loaders", label: "Loaders (Square Wave)" },
+];
+
+const feedbackNav = [
   { id: "status-badges", label: "Status Badges" },
   { id: "metric-cards", label: "Metric Cards" },
 ];
 
-const systemNav = [
+const systemsNav = [
   { id: "project-tiles", label: "Project Tiles" },
   { id: "tree-index", label: "Directory Tree Index" },
   { id: "app-window", label: "App Window Mockup" },
   { id: "system-topology", label: "System Topology" },
+  { id: "trend-chart", label: "Telemetry Trend Spline" },
+  { id: "kiosk-timeline", label: "Activity Schedule Timeline" },
+  { id: "frame-rank-chart", label: "Filmstrip Asset Ranking" },
 ];
 ---
 
 <RootLayout
-  title="Component Library | Editorial & Systems UI Primitives"
+  title="Component Library | UI Primitives & Design Tokens"
   description="Design system, typography specimens, color tokens, and UI primitives architected for Portfolio v5."
   noindex={true}
 >
@@ -51,7 +65,7 @@ const systemNav = [
       class="hidden xl:block w-64 shrink-0 border-r border-neutral-200/80 dark:border-neutral-800/80 py-8 px-0 sticky top-16 h-[calc(100vh-4rem)] overflow-y-auto"
     >
       <nav class="space-y-6">
-        <!-- 01 // CORE PRIMITIVES -->
+        <!-- 01 // FOUNDATIONS -->
         <div class="space-y-2">
           <div
             class="px-5 pb-1.5 border-b border-neutral-200/80 dark:border-neutral-800/80"
@@ -59,12 +73,12 @@ const systemNav = [
             <span
               class="font-mono text-[11px] font-bold text-neutral-400 dark:text-neutral-500 uppercase tracking-wider"
             >
-              01 // CORE PRIMITIVES
+              01 // FOUNDATIONS
             </span>
           </div>
           <ul class="space-y-0.5 list-none p-0 m-0">
             {
-              primitivesNav.map((item) => (
+              foundationsNav.map((item) => (
                 <li>
                   <button
                     type="button"
@@ -84,7 +98,7 @@ const systemNav = [
           </ul>
         </div>
 
-        <!-- 02 // SYSTEM COMPONENTS -->
+        <!-- 02 // INTERACTION PRIMITIVES -->
         <div class="space-y-2">
           <div
             class="px-5 pb-1.5 border-b border-neutral-200/80 dark:border-neutral-800/80"
@@ -92,12 +106,12 @@ const systemNav = [
             <span
               class="font-mono text-[11px] font-bold text-neutral-400 dark:text-neutral-500 uppercase tracking-wider"
             >
-              02 // SYSTEM COMPONENTS
+              02 // INTERACTION PRIMITIVES
             </span>
           </div>
           <ul class="space-y-0.5 list-none p-0 m-0">
             {
-              systemNav.map((item) => (
+              interactionNav.map((item) => (
                 <li>
                   <button
                     type="button"
@@ -117,7 +131,73 @@ const systemNav = [
           </ul>
         </div>
 
-        <!-- 03 // LICENSE -->
+        <!-- 03 // FEEDBACK & STATUS -->
+        <div class="space-y-2">
+          <div
+            class="px-5 pb-1.5 border-b border-neutral-200/80 dark:border-neutral-800/80"
+          >
+            <span
+              class="font-mono text-[11px] font-bold text-neutral-400 dark:text-neutral-500 uppercase tracking-wider"
+            >
+              03 // FEEDBACK &amp; STATUS
+            </span>
+          </div>
+          <ul class="space-y-0.5 list-none p-0 m-0">
+            {
+              feedbackNav.map((item) => (
+                <li>
+                  <button
+                    type="button"
+                    data-target={item.id}
+                    class="sidebar-nav-btn group w-full flex items-center justify-between px-5 py-2 text-xs font-mono text-left rounded-none text-neutral-600 dark:text-neutral-400 hover:text-neutral-950 dark:hover:text-white hover:bg-neutral-100 dark:hover:bg-neutral-900 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#52FF1A]"
+                  >
+                    <span class="inline-block transition-transform duration-150 ease-out group-hover:translate-x-1.5">
+                      {item.label}
+                    </span>
+                    <span class="text-[10px] text-neutral-400 dark:text-neutral-600 opacity-0 group-hover:opacity-100 transition-opacity">
+                      →
+                    </span>
+                  </button>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+
+        <!-- 04 // SYSTEM & DATA VIZ -->
+        <div class="space-y-2">
+          <div
+            class="px-5 pb-1.5 border-b border-neutral-200/80 dark:border-neutral-800/80"
+          >
+            <span
+              class="font-mono text-[11px] font-bold text-neutral-400 dark:text-neutral-500 uppercase tracking-wider"
+            >
+              04 // SYSTEM &amp; DATA VIZ
+            </span>
+          </div>
+          <ul class="space-y-0.5 list-none p-0 m-0">
+            {
+              systemsNav.map((item) => (
+                <li>
+                  <button
+                    type="button"
+                    data-target={item.id}
+                    class="sidebar-nav-btn group w-full flex items-center justify-between px-5 py-2 text-xs font-mono text-left rounded-none text-neutral-600 dark:text-neutral-400 hover:text-neutral-950 dark:hover:text-white hover:bg-neutral-100 dark:hover:bg-neutral-900 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#52FF1A]"
+                  >
+                    <span class="inline-block transition-transform duration-150 ease-out group-hover:translate-x-1.5">
+                      {item.label}
+                    </span>
+                    <span class="text-[10px] text-neutral-400 dark:text-neutral-600 opacity-0 group-hover:opacity-100 transition-opacity">
+                      →
+                    </span>
+                  </button>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+
+        <!-- 05 // LICENSE -->
         <div
           class="pt-4 px-5 border-t border-neutral-200/80 dark:border-neutral-800/80"
         >
@@ -145,7 +225,7 @@ const systemNav = [
           Component Library
         </h1>
         <p
-          class="text-sm sm:text-base text-neutral-600 dark:text-neutral-400 mt-2 max-w-2xl font-normal"
+          class="text-sm sm:text-base text-neutral-600 dark:text-neutral-400 mt-2 max-w-2xl font-normal font-sans"
         >
           A showcase of typography, color tokens, and interactive UI primitives.
         </p>
@@ -158,10 +238,48 @@ const systemNav = [
       >
         <span
           class="text-[10px] font-mono uppercase font-bold text-neutral-400 dark:text-neutral-500 shrink-0 select-none mr-0.5"
-          >Primitives:</span
+          >Foundations:</span
         >
         {
-          primitivesNav.map((item) => (
+          foundationsNav.map((item) => (
+            <button
+              type="button"
+              data-target={item.id}
+              class="tab-nav-btn shrink-0 px-2.5 py-1 text-xs font-mono rounded bg-neutral-100 dark:bg-neutral-900 text-neutral-600 dark:text-neutral-400 hover:text-neutral-950 dark:hover:text-white transition-colors cursor-pointer border border-transparent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#52FF1A]"
+            >
+              {item.label}
+            </button>
+          ))
+        }
+        <div
+          class="w-px h-5 bg-neutral-300 dark:bg-neutral-700 my-auto shrink-0 mx-1"
+        >
+        </div>
+        <span
+          class="text-[10px] font-mono uppercase font-bold text-neutral-400 dark:text-neutral-500 shrink-0 select-none mr-0.5"
+          >Interaction:</span
+        >
+        {
+          interactionNav.map((item) => (
+            <button
+              type="button"
+              data-target={item.id}
+              class="tab-nav-btn shrink-0 px-2.5 py-1 text-xs font-mono rounded bg-neutral-100 dark:bg-neutral-900 text-neutral-600 dark:text-neutral-400 hover:text-neutral-950 dark:hover:text-white transition-colors cursor-pointer border border-transparent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#52FF1A]"
+            >
+              {item.label}
+            </button>
+          ))
+        }
+        <div
+          class="w-px h-5 bg-neutral-300 dark:bg-neutral-700 my-auto shrink-0 mx-1"
+        >
+        </div>
+        <span
+          class="text-[10px] font-mono uppercase font-bold text-neutral-400 dark:text-neutral-500 shrink-0 select-none mr-0.5"
+          >Feedback:</span
+        >
+        {
+          feedbackNav.map((item) => (
             <button
               type="button"
               data-target={item.id}
@@ -180,7 +298,7 @@ const systemNav = [
           >Systems:</span
         >
         {
-          systemNav.map((item) => (
+          systemsNav.map((item) => (
             <button
               type="button"
               data-target={item.id}
@@ -192,8 +310,8 @@ const systemNav = [
         }
       </div>
 
-      <!-- Group 1: Core Primitives Container -->
-      <div id="core-primitives" class="space-y-16 scroll-mt-24">
+      <!-- 01 // FOUNDATIONS Container -->
+      <div id="foundations" class="space-y-16 scroll-mt-24">
         <!-- 01 / Color Tokens -->
         <section id="colors" class="space-y-6 scroll-mt-24">
           <div class="pb-2 border-b border-neutral-200 dark:border-neutral-800">
@@ -205,20 +323,87 @@ const systemNav = [
           </div>
           <!-- 01.0 / Core Brand & Surface Tokens -->
           <div class="grid grid-cols-2 sm:grid-cols-4 gap-6">
-            <!-- Neon Green Accent -->
-            <div class="flex flex-col gap-2">
+            <!-- Neon Green Accent (Secret Interactive Swatch) -->
+            <div class="relative flex flex-col gap-2" id="accent-swatch-container">
               <div
-                class="w-full aspect-video bg-[#52FF1A] border border-black/10 shadow-[0_0_20px_rgba(82,255,26,0.3)]"
+                id="accent-swatch-chip"
+                class="w-full aspect-video bg-[#52FF1A] border border-black/10 shadow-[0_0_20px_rgba(82,255,26,0.3)] transition-colors duration-200"
               >
               </div>
-              <div class="flex flex-col">
-                <span
-                  class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100"
-                  >Accent Neon</span
+              <div class="flex flex-col relative">
+                <button
+                  type="button"
+                  id="accent-picker-trigger"
+                  aria-label="Select accent color palette"
+                  aria-expanded="false"
+                  aria-haspopup="true"
+                  aria-controls="accent-picker-menu"
+                  class="group/accent-btn text-left p-0 bg-transparent border-0 cursor-pointer select-none inline-flex items-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#52FF1A] rounded"
                 >
-                <span class="font-mono text-[11px] text-neutral-500"
+                  <span
+                    id="accent-swatch-name"
+                    class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100 group-hover/accent-btn:text-neutral-950 dark:group-hover/accent-btn:text-white transition-colors"
+                    >Accent Neon</span
+                  >
+                  <span
+                    id="accent-picker-arrow"
+                    class="inline-flex items-center justify-center w-3 text-neutral-400 dark:text-neutral-500 group-hover/accent-btn:text-neutral-950 dark:group-hover/accent-btn:text-white transition-[opacity,transform] duration-200 text-[11px] leading-none"
+                    aria-hidden="true"
+                  >
+                    ↓
+                  </span>
+                </button>
+                <span id="accent-swatch-hex" class="font-mono text-[11px] text-neutral-500"
                   >--color-accent • #52FF1A</span
                 >
+
+                <!-- Secret Dropdown Menu -->
+                <div
+                  id="accent-picker-menu"
+                  role="menu"
+                  aria-label="Select Accent Color"
+                  class="absolute top-full left-0 mt-2 min-w-[220px] bg-[#fcfbf9]/95 dark:bg-[#0e0e0e]/95 backdrop-blur-xl border border-neutral-200/90 dark:border-neutral-800/90 rounded-lg shadow-xl dark:shadow-2xl p-1.5 z-50 opacity-0 -translate-y-2 scale-95 pointer-events-none transition-[opacity,transform] duration-200 ease-out origin-top flex flex-col gap-1"
+                >
+                  <div class="px-3 pt-2 pb-1 text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-neutral-500 font-semibold border-b border-neutral-200/60 dark:border-neutral-800/60 select-none flex items-center justify-between">
+                    <span>ACCENT PALETTE</span>
+                    <span class="text-[9px] text-neutral-400 font-normal">7 TOKENS</span>
+                  </div>
+                  <ul class="flex flex-col gap-0.5 list-none m-0 p-0" role="none">
+                    {
+                      [
+                        { name: "Neon Green", hex: "#52FF1A" },
+                        { name: "Electric Yellow", hex: "#FFE500" },
+                        { name: "Hot Coral", hex: "#FF5C3A" },
+                        { name: "Sky Cyan", hex: "#00E5FF" },
+                        { name: "Lavender Pulse", hex: "#C87DFF" },
+                        { name: "Neon Pink", hex: "#FF3CAC" },
+                        { name: "Solar Amber", hex: "#FFAA00" },
+                      ].map((item) => (
+                        <li role="none">
+                          <button
+                            type="button"
+                            role="menuitem"
+                            data-accent-pick={item.hex}
+                            data-accent-name={item.name}
+                            class="accent-option-btn group w-full flex items-center justify-between px-2.5 py-1.5 text-xs font-mono rounded text-neutral-700 dark:text-neutral-300 hover:text-neutral-950 dark:hover:text-white hover:bg-neutral-100 dark:hover:bg-neutral-900/80 transition-colors cursor-pointer border-0 bg-transparent text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#52FF1A]"
+                          >
+                            <span class="inline-flex items-center gap-2">
+                              <span
+                                class="w-2.5 h-2.5 rounded-full shrink-0 border border-black/10 dark:border-white/10"
+                                style={`background-color: ${item.hex};`}
+                                aria-hidden="true"
+                              />
+                              <span class="font-medium">{item.name}</span>
+                            </span>
+                            <span class="text-[10px] text-neutral-400 dark:text-neutral-500 group-hover:text-neutral-600 dark:group-hover:text-neutral-300">
+                              {item.hex}
+                            </span>
+                          </button>
+                        </li>
+                      ))
+                    }
+                  </ul>
+                </div>
               </div>
             </div>
 
@@ -242,8 +427,13 @@ const systemNav = [
             <!-- Ink Text -->
             <div class="flex flex-col gap-2">
               <div
-                class="w-full aspect-video bg-[#1a1a1a] dark:bg-[#e5e5e5] border border-neutral-300 dark:border-neutral-700"
+                class="w-full aspect-video bg-transparent border border-neutral-300 dark:border-neutral-700 flex items-center justify-center overflow-hidden"
               >
+                <span
+                  class="font-heading font-bold text-3xl sm:text-4xl lg:text-5xl tracking-[0.03em] leading-none text-neutral-950 dark:text-white select-none"
+                >
+                  Vedis!
+                </span>
               </div>
               <div class="flex flex-col">
                 <span
@@ -341,13 +531,170 @@ const systemNav = [
           </div>
         </section>
 
-        <!-- 01.5 / Plain Portrait Cards (Spatial Depth & Elevation Tiers) -->
+        <!-- 02 / Typography Hierarchy -->
+        <section id="typography" class="space-y-8 scroll-mt-24">
+          <div class="pb-2 border-b border-neutral-200 dark:border-neutral-800">
+            <h2
+              class="!font-mono font-mono text-xs uppercase tracking-[0.15em] text-neutral-500 dark:text-neutral-400 font-semibold"
+            >
+              02 / Typography Hierarchy
+            </h2>
+          </div>
+
+          <div class="space-y-12">
+            <!-- Display & Headings (Syne) -->
+            <div class="space-y-6">
+              <div class="flex items-center gap-2">
+                <span
+                  class="font-mono text-xs font-semibold text-neutral-400 uppercase tracking-wider"
+                  >02.1 / Display & Headings</span
+                >
+              </div>
+
+              <div
+                class="space-y-8 border-l-2 border-neutral-200 dark:border-neutral-800 pl-6"
+              >
+                <!-- H1 Display Specimen -->
+                <div class="flex flex-col gap-2">
+                  <p
+                    class="font-heading text-4xl sm:text-5xl font-extrabold tracking-tight text-neutral-950 dark:text-white"
+                    aria-hidden="true"
+                  >
+                    Systemata Visualia Architectata
+                  </p>
+                  <div class="flex flex-col">
+                    <span
+                      class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100"
+                      >Heading 1 / Display</span
+                    >
+                    <span class="font-mono text-[11px] text-neutral-500"
+                      >Syne 800 • text-4xl sm:text-5xl • tracking-tight</span
+                    >
+                  </div>
+                </div>
+
+                <!-- H2 Section Specimen -->
+                <div class="flex flex-col gap-2">
+                  <p
+                    class="font-heading text-2xl sm:text-3xl font-bold tracking-tight text-neutral-950 dark:text-white"
+                    aria-hidden="true"
+                  >
+                    Architectura Systematum et Interfacies
+                  </p>
+                  <div class="flex flex-col">
+                    <span
+                      class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100"
+                      >Heading 2 / Section</span
+                    >
+                    <span class="font-mono text-[11px] text-neutral-500"
+                      >Syne 700 • text-2xl sm:text-3xl • tracking-tight</span
+                    >
+                  </div>
+                </div>
+
+                <!-- H3 Subtitle Specimen -->
+                <div class="flex flex-col gap-2">
+                  <p
+                    class="font-heading text-lg sm:text-xl font-bold tracking-normal text-neutral-950 dark:text-white"
+                    aria-hidden="true"
+                  >
+                    Elementa Interactiva et Fundamenta Telemetriae
+                  </p>
+                  <div class="flex flex-col">
+                    <span
+                      class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100"
+                      >Heading 3 / Subtitle</span
+                    >
+                    <span class="font-mono text-[11px] text-neutral-500"
+                      >Syne 700 • text-lg sm:text-xl</span
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Body & Paragraphs (Outfit) -->
+            <div class="space-y-6">
+              <div class="flex items-center gap-2">
+                <span
+                  class="font-mono text-xs font-semibold text-neutral-400 uppercase tracking-wider"
+                  >02.2 / Body & Paragraph Text</span
+                >
+              </div>
+
+              <div
+                class="space-y-8 border-l-2 border-neutral-200 dark:border-neutral-800 pl-6"
+              >
+                <!-- Body Lead -->
+                <div class="flex flex-col gap-2">
+                  <p
+                    class="text-lg sm:text-xl text-neutral-800 dark:text-neutral-200 font-normal leading-relaxed max-w-3xl"
+                  >
+                    Portfolio summae efficacitatis cum Astro et Tailwind CSS v4
+                    constructum, typographiam severam cum experimentis technicis
+                    coniungens.
+                  </p>
+                  <div class="flex flex-col">
+                    <span
+                      class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100"
+                      >Body Lead / Intro</span
+                    >
+                    <span class="font-mono text-[11px] text-neutral-500"
+                      >Outfit 400 • text-lg sm:text-xl • leading-relaxed</span
+                    >
+                  </div>
+                </div>
+
+                <!-- Body Regular -->
+                <div class="flex flex-col gap-2">
+                  <p
+                    class="text-sm sm:text-base text-neutral-700 dark:text-neutral-300 font-normal leading-relaxed max-w-3xl"
+                  >
+                    Elementa pura et distincta, ad celeriter onerandum, rhythmum
+                    typographicum severum, nihil oneris runtime, et formas
+                    flexibiles aptata.
+                  </p>
+                  <div class="flex flex-col">
+                    <span
+                      class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100"
+                      >Body Regular / Paragraph</span
+                    >
+                    <span class="font-mono text-[11px] text-neutral-500"
+                      >Outfit 400 • text-sm sm:text-base • leading-relaxed</span
+                    >
+                  </div>
+                </div>
+
+                <!-- Body Small / Caption -->
+                <div class="flex flex-col gap-2">
+                  <p
+                    class="text-xs sm:text-sm text-neutral-500 dark:text-neutral-400 font-normal"
+                  >
+                    Schema structum ad machinas quaerendi, prae-generatio
+                    statica, et fines hydrationis instantanei.
+                  </p>
+                  <div class="flex flex-col">
+                    <span
+                      class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100"
+                      >Body Small / Caption</span
+                    >
+                    <span class="font-mono text-[11px] text-neutral-500"
+                      >Outfit 400 • text-xs sm:text-sm</span
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 03 / Spatial Depth Cards -->
         <section id="depth-cards" class="space-y-8 scroll-mt-24">
           <div class="pb-2 border-b border-neutral-200 dark:border-neutral-800">
             <h2
               class="!font-mono font-mono text-xs uppercase tracking-[0.15em] text-neutral-500 dark:text-neutral-400 font-semibold"
             >
-              01.5 / Plain Portrait Cards &amp; Spatial Depth
+              03 / Spatial Depth Cards &amp; Surface Elevation
             </h2>
           </div>
 
@@ -364,11 +711,11 @@ const systemNav = [
             </div>
 
             <div
-              class="flex flex-nowrap overflow-x-auto gap-4 pb-4 pt-1 -mx-4 px-4 sm:mx-0 sm:px-0 sm:grid sm:grid-cols-2 lg:grid-cols-5 sm:overflow-visible sm:pb-0 sm:gap-5 no-scrollbar"
+              class="flex flex-nowrap overflow-x-auto lg:overflow-visible gap-3.5 sm:gap-4 lg:gap-4 pb-4 pt-1 -mx-4 px-4 sm:mx-0 sm:px-0 lg:grid lg:grid-cols-5 lg:pb-0 no-scrollbar"
             >
               <!-- Tier 0: Dashed Line Outline -->
               <div
-                class="flex flex-col gap-2.5 w-[160px] sm:w-auto shrink-0 sm:shrink"
+                class="flex flex-col gap-2.5 min-w-[140px] sm:min-w-[160px] lg:min-w-0 flex-1 shrink-0 lg:shrink"
               >
                 <DepthCard
                   elevation="dashed"
@@ -388,7 +735,7 @@ const systemNav = [
 
               <!-- Tier 1: Flat / Flush Solid -->
               <div
-                class="flex flex-col gap-2.5 w-[160px] sm:w-auto shrink-0 sm:shrink"
+                class="flex flex-col gap-2.5 min-w-[140px] sm:min-w-[160px] lg:min-w-0 flex-1 shrink-0 lg:shrink"
               >
                 <DepthCard
                   elevation="flat"
@@ -408,7 +755,7 @@ const systemNav = [
 
               <!-- Tier 2: Low Contact -->
               <div
-                class="flex flex-col gap-2.5 w-[160px] sm:w-auto shrink-0 sm:shrink"
+                class="flex flex-col gap-2.5 min-w-[140px] sm:min-w-[160px] lg:min-w-0 flex-1 shrink-0 lg:shrink"
               >
                 <DepthCard
                   elevation="low"
@@ -428,7 +775,7 @@ const systemNav = [
 
               <!-- Tier 3: Mid Raised -->
               <div
-                class="flex flex-col gap-2.5 w-[160px] sm:w-auto shrink-0 sm:shrink"
+                class="flex flex-col gap-2.5 min-w-[140px] sm:min-w-[160px] lg:min-w-0 flex-1 shrink-0 lg:shrink"
               >
                 <DepthCard
                   elevation="mid"
@@ -448,7 +795,7 @@ const systemNav = [
 
               <!-- Tier 4: Floating Atmospheric -->
               <div
-                class="flex flex-col gap-2.5 w-[160px] sm:w-auto shrink-0 sm:shrink"
+                class="flex flex-col gap-2.5 min-w-[140px] sm:min-w-[160px] lg:min-w-0 flex-1 shrink-0 lg:shrink"
               >
                 <DepthCard
                   elevation="floating"
@@ -468,14 +815,23 @@ const systemNav = [
             </div>
           </div>
         </section>
+      </div>
 
-        <!-- 02 / Buttons & Micro Triggers -->
+      <!-- Divider between Foundations & Interaction Primitives -->
+      <div
+        class="my-16 border-t border-dashed border-neutral-300 dark:border-neutral-800"
+      >
+      </div>
+
+      <!-- 02 // INTERACTION PRIMITIVES Container -->
+      <div id="interaction-primitives" class="space-y-16 scroll-mt-24">
+        <!-- 04 / Buttons & Micro Action Triggers -->
         <section id="buttons" class="space-y-8 scroll-mt-24">
           <div class="pb-2 border-b border-neutral-200 dark:border-neutral-800">
             <h2
               class="!font-mono font-mono text-xs uppercase tracking-[0.15em] text-neutral-500 dark:text-neutral-400 font-semibold"
             >
-              02 / Buttons &amp; Micro Action Triggers
+              04 / Buttons &amp; Micro Action Triggers
             </h2>
           </div>
 
@@ -538,7 +894,7 @@ const systemNav = [
             <div class="flex items-center justify-between">
               <span
                 class="font-mono text-xs font-semibold text-neutral-400 uppercase tracking-wider"
-                >02.1 / Micro &amp; Icon Triggers (size="micro" • 32×32px)</span
+                >04.1 / Micro &amp; Icon Triggers (size="micro" • 32×32px)</span
               >
               <span class="font-mono text-[10px] text-neutral-400"
                 >Tactile Utility Controls</span
@@ -687,25 +1043,135 @@ const systemNav = [
           </div>
         </section>
 
-        <!-- 03 / Form Controls (Checkboxes, Radios, Toggles & Sliders) -->
+        <!-- 05 / Kinetic Expand-on-Hover Triggers -->
+        <section id="kinetic-triggers" class="space-y-8 scroll-mt-24">
+          <div class="pb-2 border-b border-neutral-200 dark:border-neutral-800">
+            <h2
+              class="!font-mono font-mono text-xs uppercase tracking-[0.15em] text-neutral-500 dark:text-neutral-400 font-semibold"
+            >
+              05 / Kinetic Expand-on-Hover Triggers
+            </h2>
+          </div>
+
+          <div class="space-y-4">
+            <div class="flex items-center justify-between">
+              <span
+                class="font-mono text-xs font-semibold text-neutral-400 uppercase tracking-wider"
+                >05.1 / Dynamic Label Reveal &amp; Micro States</span
+              >
+              <span class="font-mono text-[10px] text-neutral-400"
+                >Dynamic Label Reveal</span
+              >
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              <!-- Expand Left Dashed -->
+              <div class="flex flex-col gap-2.5">
+                <div class="flex items-center h-12">
+                  <HoverExpandButton
+                    label="ADDE NOVUM"
+                    variant="dashed"
+                    size="md"
+                    expandDirection="left"
+                  />
+                </div>
+                <div class="flex flex-col">
+                  <span
+                    class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100"
+                    >Expand Left Dashed</span
+                  >
+                  <span class="font-mono text-[11px] text-neutral-500"
+                    >expandDirection="left" • 44px dashed</span
+                  >
+                </div>
+              </div>
+
+              <!-- Expand Right Solid -->
+              <div class="flex flex-col gap-2.5">
+                <div class="flex items-center h-12">
+                  <HoverExpandButton
+                    label="FILTRA TABULAM"
+                    variant="solid"
+                    size="md"
+                    expandDirection="right"
+                  />
+                </div>
+                <div class="flex flex-col">
+                  <span
+                    class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100"
+                    >Expand Right Solid</span
+                  >
+                  <span class="font-mono text-[11px] text-neutral-500"
+                    >expandDirection="right" • 44px solid</span
+                  >
+                </div>
+              </div>
+
+              <!-- Micro Expand CTA -->
+              <div class="flex flex-col gap-2.5">
+                <div class="flex items-center h-12">
+                  <HoverExpandButton
+                    label="APPARATUS"
+                    variant="cta"
+                    size="micro"
+                    expandDirection="left"
+                  />
+                </div>
+                <div class="flex flex-col">
+                  <span
+                    class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100"
+                    >Micro Expand CTA</span
+                  >
+                  <span class="font-mono text-[11px] text-neutral-500"
+                    >size="micro" • 32px cta</span
+                  >
+                </div>
+              </div>
+
+              <!-- Micro Toggled Active -->
+              <div class="flex flex-col gap-2.5">
+                <div class="flex items-center h-12">
+                  <HoverExpandButton
+                    label="CLAUSUS"
+                    variant="dashed"
+                    size="micro"
+                    expandDirection="left"
+                    active={true}
+                  />
+                </div>
+                <div class="flex flex-col">
+                  <span
+                    class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100"
+                    >Micro Toggled Active</span
+                  >
+                  <span class="font-mono text-[11px] text-neutral-500"
+                    >size="micro" • active=true</span
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 06 / Form Selection Controls (Checkboxes, Radios, Toggles & Sliders) -->
         <section id="forms" class="space-y-10 scroll-mt-24">
           <div class="pb-2 border-b border-neutral-200 dark:border-neutral-800">
             <h2
               class="!font-mono font-mono text-xs uppercase tracking-[0.15em] text-neutral-500 dark:text-neutral-400 font-semibold"
             >
-              03 / Form Controls &amp; Input Primitives
+              06 / Form Selection Controls &amp; Sliders
             </h2>
           </div>
 
           <!-- Row 1: Checkboxes & Radio Buttons -->
           <div class="grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-14">
-            <!-- 03.1 / Checkbox List (Left Side) -->
+            <!-- 06.1 / Checkbox List (Left Side) -->
             <div class="space-y-4">
               <div class="flex items-center justify-between pb-1">
                 <span
                   class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100 uppercase tracking-wider"
                 >
-                  03.1 / Checkboxes
+                  06.1 / Checkboxes
                 </span>
                 <span class="font-mono text-[10px] text-neutral-400"
                   >24px dashed square</span
@@ -720,6 +1186,7 @@ const systemNav = [
                     label="NOTIFICATIO ACTIVA"
                     description="Status interactus summae praestantiae"
                     checked={false}
+                    loadingDelay={800}
                   />
                   <div class="flex flex-col pl-9">
                     <span
@@ -727,7 +1194,7 @@ const systemNav = [
                       >Regular Checkbox</span
                     >
                     <span class="font-mono text-[11px] text-neutral-500"
-                      >checked=false • 24px dashed square</span
+                      >checked=false • 800ms loading • 24px dashed square</span
                     >
                   </div>
                 </div>
@@ -739,6 +1206,7 @@ const systemNav = [
                     label="ELECTIO INDETERMINATA"
                     description="Status mixtus per ordinem batch"
                     indeterminate={true}
+                    loadingDelay={0}
                   />
                   <div class="flex flex-col pl-9">
                     <span
@@ -746,20 +1214,20 @@ const systemNav = [
                       >3-State Checkbox</span
                     >
                     <span class="font-mono text-[11px] text-neutral-500"
-                      >indeterminate=true • 24px solid square</span
+                      >indeterminate=true • instant 3-state • 24px solid square</span
                     >
                   </div>
                 </div>
               </div>
             </div>
 
-            <!-- 03.2 / Radio Buttons List (Right Side) -->
+            <!-- 06.2 / Radio Buttons List (Right Side) -->
             <div class="space-y-4">
               <div class="flex items-center justify-between pb-1">
                 <span
                   class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100 uppercase tracking-wider"
                 >
-                  03.2 / Radio Buttons
+                  06.2 / Radio Buttons
                 </span>
                 <span class="font-mono text-[10px] text-neutral-400"
                   >24px dashed circle</span
@@ -775,6 +1243,7 @@ const systemNav = [
                     label="QUALITAS ORDINARIA"
                     description="Tempus processus celerrimum"
                     checked={true}
+                    loadingDelay={800}
                   />
                   <div class="flex flex-col pl-9">
                     <span
@@ -782,7 +1251,7 @@ const systemNav = [
                       >Standard Radio</span
                     >
                     <span class="font-mono text-[11px] text-neutral-500"
-                      >checked=true • 24px dashed circle</span
+                      >checked=true • 800ms loading • 24px dashed circle</span
                     >
                   </div>
                 </div>
@@ -794,6 +1263,7 @@ const systemNav = [
                     value="studio"
                     label="QUALITAS STUDII"
                     description="Amplificatio artificialis provecta"
+                    loadingDelay={0}
                   />
                   <div class="flex flex-col pl-9">
                     <span
@@ -801,7 +1271,7 @@ const systemNav = [
                       >Option Radio</span
                     >
                     <span class="font-mono text-[11px] text-neutral-500"
-                      >checked=false • 24px dashed circle</span
+                      >checked=false • instant select • 24px dashed circle</span
                     >
                   </div>
                 </div>
@@ -813,13 +1283,13 @@ const systemNav = [
           <div
             class="grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-14 pt-4 border-t border-neutral-200/60 dark:border-neutral-800/60"
           >
-            <!-- 03.3 / Toggle Switches (Left Side) -->
+            <!-- 06.3 / Toggle Switches (Left Side) -->
             <div class="space-y-4">
               <div class="flex items-center justify-between pb-1">
                 <span
                   class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100 uppercase tracking-wider"
                 >
-                  03.3 / Toggle Switches
+                  06.3 / Toggle Switches
                 </span>
                 <span class="font-mono text-[10px] text-neutral-400"
                   >44×22px pill track</span
@@ -834,15 +1304,15 @@ const systemNav = [
                     label="SYNCHRONIZATIO VIVA"
                     description="Flumen continuum telemetriae ad tabernam"
                     checked={true}
-                    loading={true}
+                    loadingDelay={800}
                   />
                   <div class="flex flex-col pl-15">
                     <span
                       class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100"
-                      >Loading State Switch</span
+                      >Loading Transition Switch</span
                     >
                     <span class="font-mono text-[11px] text-neutral-500"
-                      >loading=true • perpetual fill spinner</span
+                      >checked=true • 800ms loading • 44×22px pill track</span
                     >
                   </div>
                 </div>
@@ -854,27 +1324,28 @@ const systemNav = [
                     label="ACCELERATIO GRAFICA"
                     description="Reductio oneris CPU per transformationes GPU"
                     checked={false}
+                    loadingDelay={0}
                   />
                   <div class="flex flex-col pl-15">
                     <span
                       class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100"
-                      >Inactive Switch</span
+                      >Standard Switch</span
                     >
                     <span class="font-mono text-[11px] text-neutral-500"
-                      >checked=false • solid border</span
+                      >checked=false • instant toggle • 44×22px pill track</span
                     >
                   </div>
                 </div>
               </div>
             </div>
 
-            <!-- 03.4 / Form Sliders (Right Side) -->
+            <!-- 06.4 / Form Sliders (Right Side) -->
             <div class="space-y-4">
               <div class="flex items-center justify-between pb-1">
                 <span
                   class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100 uppercase tracking-wider"
                 >
-                  03.4 / Range Sliders
+                  06.4 / Range Sliders
                 </span>
                 <span class="font-mono text-[10px] text-neutral-400"
                   >continuous tactile rail</span
@@ -929,19 +1400,26 @@ const systemNav = [
               </div>
             </div>
           </div>
+        </section>
 
-          <!-- Row 3: Text Inputs & Soft-Limit Textarea -->
-          <div
-            id="text-inputs"
-            class="grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-14 pt-4 border-t border-neutral-200/60 dark:border-neutral-800/60 scroll-mt-24"
-          >
-            <!-- 03.5 / Text Inputs (Left Side) -->
+        <!-- 07 / Text Inputs & Soft-Limit Textarea -->
+        <section id="text-inputs" class="space-y-10 scroll-mt-24">
+          <div class="pb-2 border-b border-neutral-200 dark:border-neutral-800">
+            <h2
+              class="!font-mono font-mono text-xs uppercase tracking-[0.15em] text-neutral-500 dark:text-neutral-400 font-semibold"
+            >
+              07 / Text Inputs &amp; Soft-Limit Textarea
+            </h2>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-14">
+            <!-- 07.1 / Text Inputs (Left Side) -->
             <div class="space-y-4">
               <div class="flex items-center justify-between pb-1">
                 <span
                   class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100 uppercase tracking-wider"
                 >
-                  03.5 / Text Inputs
+                  07.1 / Text Inputs
                 </span>
                 <span class="font-mono text-[10px] text-neutral-400"
                   >Syne label · Outfit input</span
@@ -1035,13 +1513,13 @@ const systemNav = [
               </div>
             </div>
 
-            <!-- 03.6 / Text Area & Password (Right Side) -->
+            <!-- 07.2 / Text Area & Password (Right Side) -->
             <div class="space-y-4">
               <div class="flex items-center justify-between pb-1">
                 <span
                   class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100 uppercase tracking-wider"
                 >
-                  03.6 / Text Area & Password
+                  07.2 / Text Area &amp; Password
                 </span>
                 <span class="font-mono text-[10px] text-neutral-400"
                   >overflow highlight · validation cues</span
@@ -1093,19 +1571,26 @@ const systemNav = [
               </div>
             </div>
           </div>
+        </section>
 
-          <!-- Row 4: Regular Dropdowns, Dropdown Search & Date Picker -->
-          <div
-            id="dropdowns"
-            class="grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-14 pt-4 border-t border-neutral-200/60 dark:border-neutral-800/60 scroll-mt-24"
-          >
-            <!-- 03.7 / Regular Dropdown & Dropdown Search (Left Side) -->
+        <!-- 08 / Dropdowns & Calendar Date Picker -->
+        <section id="dropdowns" class="space-y-10 scroll-mt-24">
+          <div class="pb-2 border-b border-neutral-200 dark:border-neutral-800">
+            <h2
+              class="!font-mono font-mono text-xs uppercase tracking-[0.15em] text-neutral-500 dark:text-neutral-400 font-semibold"
+            >
+              08 / Dropdowns &amp; Calendar Date Picker
+            </h2>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-14">
+            <!-- 08.1 / Regular Dropdown & Dropdown Search (Left Side) -->
             <div class="space-y-4">
               <div class="flex items-center justify-between pb-1">
                 <span
                   class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100 uppercase tracking-wider"
                 >
-                  03.7 / Dropdown Selectors
+                  08.1 / Dropdown Selectors
                 </span>
                 <span class="font-mono text-[10px] text-neutral-400"
                   >single &amp; search multi-select</span
@@ -1192,13 +1677,13 @@ const systemNav = [
               </div>
             </div>
 
-            <!-- 03.8 / Calendar Date Picker (Right Side) -->
+            <!-- 08.2 / Calendar Date Picker (Right Side) -->
             <div class="space-y-4">
               <div class="flex items-center justify-between pb-1">
                 <span
                   class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100 uppercase tracking-wider"
                 >
-                  03.8 / Calendar Date Picker
+                  08.2 / Calendar Date Picker
                 </span>
                 <span class="font-mono text-[10px] text-neutral-400"
                   >interactive matrix · count badges</span
@@ -1263,13 +1748,13 @@ const systemNav = [
           </div>
         </section>
 
-        <!-- 04 / Loaders -->
+        <!-- 09 / Loaders -->
         <section id="loaders" class="space-y-6 scroll-mt-24">
           <div class="pb-2 border-b border-neutral-200 dark:border-neutral-800">
             <h2
               class="!font-mono font-mono text-xs uppercase tracking-[0.15em] text-neutral-500 dark:text-neutral-400 font-semibold"
             >
-              04 / Loaders (Square Wave)
+              09 / Loaders (Square Wave)
             </h2>
           </div>
 
@@ -1277,7 +1762,7 @@ const systemNav = [
             <!-- Accent Neon Loader -->
             <div class="flex flex-col gap-4">
               <div class="h-28 flex items-center justify-start">
-                <SquareWaveLoader color="#52FF1A" size={14} gap={8} />
+                <SquareWaveLoader color="var(--color-accent, #52FF1A)" size={14} gap={8} />
               </div>
               <div class="flex flex-col">
                 <span
@@ -1327,171 +1812,23 @@ const systemNav = [
             </div>
           </div>
         </section>
+      </div>
 
-        <!-- 05 / Typography -->
-        <section id="typography" class="space-y-8 scroll-mt-24">
-          <div class="pb-2 border-b border-neutral-200 dark:border-neutral-800">
-            <h2
-              class="!font-mono font-mono text-xs uppercase tracking-[0.15em] text-neutral-500 dark:text-neutral-400 font-semibold"
-            >
-              05 / Typography Hierarchy
-            </h2>
-          </div>
+      <!-- Divider between Interaction Primitives & Feedback -->
+      <div
+        class="my-16 border-t border-dashed border-neutral-300 dark:border-neutral-800"
+      >
+      </div>
 
-          <div class="space-y-12">
-            <!-- Display & Headings (Syne) -->
-            <div class="space-y-6">
-              <div class="flex items-center gap-2">
-                <span
-                  class="font-mono text-xs font-semibold text-neutral-400 uppercase tracking-wider"
-                  >05.1 / Display & Headings</span
-                >
-              </div>
-
-              <div
-                class="space-y-8 border-l-2 border-neutral-200 dark:border-neutral-800 pl-6"
-              >
-                <!-- H1 Display Specimen -->
-                <div class="flex flex-col gap-2">
-                  <p
-                    class="font-heading text-4xl sm:text-5xl font-extrabold tracking-tight text-neutral-950 dark:text-white"
-                    aria-hidden="true"
-                  >
-                    Systemata Visualia Architectata
-                  </p>
-                  <div class="flex flex-col">
-                    <span
-                      class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100"
-                      >Heading 1 / Display</span
-                    >
-                    <span class="font-mono text-[11px] text-neutral-500"
-                      >Syne 800 • text-4xl sm:text-5xl • tracking-tight</span
-                    >
-                  </div>
-                </div>
-
-                <!-- H2 Section Specimen -->
-                <div class="flex flex-col gap-2">
-                  <p
-                    class="font-heading text-2xl sm:text-3xl font-bold tracking-tight text-neutral-950 dark:text-white"
-                    aria-hidden="true"
-                  >
-                    Architectura Editorialis et Interfacies
-                  </p>
-                  <div class="flex flex-col">
-                    <span
-                      class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100"
-                      >Heading 2 / Section</span
-                    >
-                    <span class="font-mono text-[11px] text-neutral-500"
-                      >Syne 700 • text-2xl sm:text-3xl • tracking-tight</span
-                    >
-                  </div>
-                </div>
-
-                <!-- H3 Subtitle Specimen -->
-                <div class="flex flex-col gap-2">
-                  <p
-                    class="font-heading text-lg sm:text-xl font-bold tracking-normal text-neutral-950 dark:text-white"
-                    aria-hidden="true"
-                  >
-                    Elementa Interactiva et Fundamenta Telemetriae
-                  </p>
-                  <div class="flex flex-col">
-                    <span
-                      class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100"
-                      >Heading 3 / Subtitle</span
-                    >
-                    <span class="font-mono text-[11px] text-neutral-500"
-                      >Syne 700 • text-lg sm:text-xl</span
-                    >
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Body & Editorial (Outfit) -->
-            <div class="space-y-6">
-              <div class="flex items-center gap-2">
-                <span
-                  class="font-mono text-xs font-semibold text-neutral-400 uppercase tracking-wider"
-                  >05.2 / Body & Editorial Text</span
-                >
-              </div>
-
-              <div
-                class="space-y-8 border-l-2 border-neutral-200 dark:border-neutral-800 pl-6"
-              >
-                <!-- Body Lead -->
-                <div class="flex flex-col gap-2">
-                  <p
-                    class="text-lg sm:text-xl text-neutral-800 dark:text-neutral-200 font-normal leading-relaxed max-w-3xl"
-                  >
-                    Portfolio summae efficacitatis cum Astro et Tailwind CSS v4
-                    constructum, typographiam severam cum experimentis technicis
-                    coniungens.
-                  </p>
-                  <div class="flex flex-col">
-                    <span
-                      class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100"
-                      >Body Lead / Intro</span
-                    >
-                    <span class="font-mono text-[11px] text-neutral-500"
-                      >Outfit 400 • text-lg sm:text-xl • leading-relaxed</span
-                    >
-                  </div>
-                </div>
-
-                <!-- Body Regular -->
-                <div class="flex flex-col gap-2">
-                  <p
-                    class="text-sm sm:text-base text-neutral-700 dark:text-neutral-300 font-normal leading-relaxed max-w-3xl"
-                  >
-                    Elementa pura et distincta, ad celeriter onerandum, rhythmum
-                    typographicum severum, nihil oneris runtime, et formas
-                    flexibiles aptata.
-                  </p>
-                  <div class="flex flex-col">
-                    <span
-                      class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100"
-                      >Body Regular / Paragraph</span
-                    >
-                    <span class="font-mono text-[11px] text-neutral-500"
-                      >Outfit 400 • text-sm sm:text-base • leading-relaxed</span
-                    >
-                  </div>
-                </div>
-
-                <!-- Body Small / Caption -->
-                <div class="flex flex-col gap-2">
-                  <p
-                    class="text-xs sm:text-sm text-neutral-500 dark:text-neutral-400 font-normal"
-                  >
-                    Schema structum ad machinas quaerendi, prae-generatio
-                    statica, et fines hydrationis instantanei.
-                  </p>
-                  <div class="flex flex-col">
-                    <span
-                      class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100"
-                      >Body Small / Caption</span
-                    >
-                    <span class="font-mono text-[11px] text-neutral-500"
-                      >Outfit 400 • text-xs sm:text-sm</span
-                    >
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- 06 / Status Badges -->
+      <!-- 03 // FEEDBACK & STATUS Container -->
+      <div id="feedback-status" class="space-y-16 scroll-mt-24">
+        <!-- 10 / Status Badges -->
         <section id="status-badges" class="space-y-6 scroll-mt-24">
           <div class="pb-2 border-b border-neutral-200 dark:border-neutral-800">
             <h2
               class="!font-mono font-mono text-xs uppercase tracking-[0.15em] text-neutral-500 dark:text-neutral-400 font-semibold"
             >
-              06 / Status Badges (High-Contrast Solid)
+              10 / Status Badges (High-Contrast Solid)
             </h2>
           </div>
 
@@ -1545,13 +1882,13 @@ const systemNav = [
           </div>
         </section>
 
-        <!-- 07 / Metric Cards -->
+        <!-- 11 / Metric Cards -->
         <section id="metric-cards" class="space-y-6 scroll-mt-24">
           <div class="pb-2 border-b border-neutral-200 dark:border-neutral-800">
             <h2
               class="!font-mono font-mono text-xs uppercase tracking-[0.15em] text-neutral-500 dark:text-neutral-400 font-semibold"
             >
-              07 / Metric Cards (Editorial Telemetry)
+              11 / Metric Cards (System Telemetry)
             </h2>
           </div>
 
@@ -1581,21 +1918,21 @@ const systemNav = [
         </section>
       </div>
 
-      <!-- Divider between Primitives & Systems -->
+      <!-- Divider between Feedback & System Components -->
       <div
         class="my-16 border-t border-dashed border-neutral-300 dark:border-neutral-800"
       >
       </div>
 
-      <!-- Group 2: System Components Container -->
-      <div id="system-components" class="space-y-16 scroll-mt-24">
-        <!-- 08 / Project Tiles -->
+      <!-- 04 // SYSTEM & DATA VIZ Container -->
+      <div id="system-data-viz" class="space-y-16 scroll-mt-24">
+        <!-- 12 / Project Tiles -->
         <section id="project-tiles" class="space-y-6 scroll-mt-24">
           <div class="pb-2 border-b border-neutral-200 dark:border-neutral-800">
             <h2
-              class="!font-mono font-mono text-xs uppercase tracking-[0.15em] text-neutral-500 dark:text-neutral-400 font-semibold"
+              class="!font-mono font-mono text-xs uppercase tracking-[0.15em] text-neutral-500 dark:border-neutral-400 font-semibold"
             >
-              08 / Project Tiles (Case Study Cards)
+              12 / Project Tiles (Case Study Cards)
             </h2>
           </div>
 
@@ -1612,6 +1949,10 @@ const systemNav = [
                 status="STATUS_VIVUS"
                 statusVariant="accent"
                 tags={["ELECTRON", "REACT 19", "TAILWIND v4", "SQLITE"]}
+                fileName="hypebox-photobooth-kiosk-orchestration-engine-firmware-v5-production-runtime.bin"
+                date="MMXXVI // FEBRUARIUS"
+                actionText="INSPICE SPECIMEN"
+                href="https://navoyovan.github.io/photobooth-kiosk-demo/"
               />
             </div>
             <div
@@ -1624,18 +1965,54 @@ const systemNav = [
                 status="VERSIO_STABILIS"
                 statusVariant="neutral"
                 tags={["LARAVEL 13", "REVERB", "FILAMENT", "MIDTRANS"]}
+                fileName="photobooth-vendor-portal-admin-console-telemetry-dashboard-cluster-spec.git"
+                date="MMXXVI // IANUARIUS"
+                actionText="INSPICE SPECIMEN"
+                href="https://navoyovan.github.io/photobooth-vendor-portal/"
+              />
+            </div>
+            <div
+              class="w-[300px] sm:w-[360px] md:w-auto shrink-0 md:shrink flex flex-col"
+            >
+              <ProjectTile
+                title="SYSTEMA CARTOGRAPHICUM INTERACTIVUM"
+                category="03 // GIS ET COMPUTATIO SPATIALIS"
+                description="Tabula cartographica interactivum cum polygonis limitum vecturae et telemetria spatiali directa in tempore reali."
+                status="PROTOTYPUS"
+                statusVariant="warning"
+                tags={["LARAVEL", "LEAFLET.JS", "GEOJSON", "TAILWIND"]}
+                fileName="systema-cartographicum-interactivum-geospatial-polygon-telemetry-cluster-node-stream-v3.json"
+                date="MMXXV // NOVEMBER"
+                actionText="INSPICE SPECIMEN"
+                href="https://github.com/navoyovan/interactive-map"
+              />
+            </div>
+            <div
+              class="w-[300px] sm:w-[360px] md:w-auto shrink-0 md:shrink flex flex-col"
+            >
+              <ProjectTile
+                title="BIBLIOTHECA COMPONENTIUM ET TYPOGRAPHIAE"
+                category="04 // ARCHITECTURA DESIGNATIONIS ET SYSTEMA"
+                description="Systema designationis rigorosum cum signis typographicis Syne, formis experimentalibus, et coloribus accentus dynamicis."
+                status="DOCUMENTATIO"
+                statusVariant="accent"
+                tags={["ASTRO v5", "TAILWIND v4", "CSS MODULES", "TOKENS"]}
+                fileName="component-library-token-manifest-and-design-system-specifications-rev5-full-audit.ts"
+                date="MMXXVI // AUGUSTUS"
+                actionText="INSPICE SPECIMEN"
+                href="#component-library"
               />
             </div>
           </div>
         </section>
 
-        <!-- 09 / Directory & Tree Index Pattern -->
+        <!-- 13 / Directory & Tree Index Pattern -->
         <section id="tree-index" class="space-y-10 scroll-mt-24">
           <div class="pb-2 border-b border-neutral-200 dark:border-neutral-800">
             <h2
-              class="!font-mono font-mono text-xs uppercase tracking-[0.15em] text-neutral-500 dark:text-neutral-400 font-semibold"
+              class="!font-mono font-mono text-xs uppercase tracking-[0.15em] text-neutral-500 dark:border-neutral-400 font-semibold"
             >
-              09 / Directory & Tree Index Pattern (With Brand Logo Headers)
+              13 / Directory &amp; Tree Index Pattern (With Brand Logo Headers)
             </h2>
           </div>
 
@@ -1667,314 +2044,207 @@ const systemNav = [
                 <span
                   class="text-xs uppercase tracking-wider text-neutral-400 dark:text-neutral-500 font-semibold pl-3 border-l border-neutral-300 dark:border-neutral-700"
                 >
-                  CLASSIS SYSTEMATIS
+                  CLASSIS SYSTEMATIS PRINCIPALIS
                 </span>
               </div>
 
               <!-- Items 1 to 5 -->
               <!-- Item 1 -->
-              <div class="space-y-2 group">
-                <div
-                  class="flex items-center gap-x-3 gap-y-1 flex-wrap sm:flex-nowrap min-w-0"
-                >
-                  <span
-                    class="text-neutral-400 dark:text-neutral-600 select-none font-sans font-medium text-sm shrink-0"
-                    aria-hidden="true">├──</span
-                  >
-                  <span
-                    class="text-xs text-neutral-500 font-semibold font-sans shrink-0"
-                    >2026</span
-                  >
-                  <h3
-                    class="text-sm sm:text-base text-neutral-950 dark:text-white group-hover:text-[#52FF1A] transition-colors font-sans font-heading font-bold"
-                  >
-                    <a
-                      href="https://navoyovan.github.io/hypebox/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label="HYPE-BOX Pagina Prima (opens in new tab)"
-                      class="hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#52FF1A] rounded px-0.5 inline-flex items-center gap-1.5"
-                    >
-                      <span>HYPE-BOX Pagina Prima</span>
-                      <span
-                        class="opacity-30 group-hover:opacity-100 transition-all duration-150 text-neutral-500 dark:text-neutral-400 group-hover:!text-[#52FF1A]"
-                      >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          class="w-3.5 h-3.5 sm:w-4 sm:h-4"
-                          viewBox="0 0 24 24"
-                          stroke-width="2.5"
-                          stroke="currentColor"
-                          fill="none"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          aria-hidden="true"
-                        >
-                          <path stroke="none" d="M0 0h24v24H0z" fill="none"
-                          ></path>
-                          <path d="M17 7l-10 10"></path>
-                          <path d="M8 7l9 0l0 9"></path>
-                        </svg>
-                      </span>
-                    </a>
-                  </h3>
+              <div class="space-y-2 group min-w-0">
+                <div class="flex items-center gap-2.5 sm:gap-3 min-w-0">
+                  <span class="text-neutral-400 dark:text-neutral-600 select-none font-sans font-medium text-sm shrink-0" aria-hidden="true">├──</span>
+                  <span class="text-xs text-neutral-500 font-semibold font-sans shrink-0">2026</span>
+                  <div class="index-marquee-wrapper relative overflow-hidden min-w-0 flex-1">
+                    <div class="index-marquee-track inline-flex items-center">
+                      <div class="index-marquee-content inline-flex items-center shrink-0">
+                        <h3 class="text-sm sm:text-base text-neutral-950 dark:text-white group-hover:text-[var(--color-accent,#52FF1A)] transition-colors font-sans font-heading font-bold whitespace-nowrap m-0 inline-flex items-center">
+                          <a
+                            href="https://navoyovan.github.io/hypebox/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label="HYPE-BOX Pagina Prima (opens in new tab)"
+                            class="hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent,#52FF1A)] rounded px-0.5 inline-flex items-center gap-1.5"
+                          >
+                            <span>HYPE-BOX Pagina Prima</span>
+                            <span class="opacity-30 group-hover:opacity-100 transition-all duration-150 text-neutral-500 dark:text-neutral-400 group-hover:!text-[var(--color-accent,#52FF1A)]">
+                              <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 sm:w-4 sm:h-4" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                <path d="M17 7l-10 10"></path>
+                                <path d="M8 7l9 0l0 9"></path>
+                              </svg>
+                            </span>
+                          </a>
+                        </h3>
+                        <span class="title-dot-trailing text-neutral-400 dark:text-neutral-600 select-none text-xs mx-3" aria-hidden="true">•</span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div
-                  class="pl-7 sm:pl-8 text-[11px] text-neutral-400 dark:text-neutral-500 flex items-center gap-x-2 gap-y-1 font-sans flex-wrap"
-                >
-                  <span
-                    class="text-neutral-300 dark:text-neutral-700 select-none"
-                    aria-hidden="true">└──</span
-                  >
-                  <span
-                    class="text-neutral-400 dark:text-neutral-600 font-medium shrink-0 mr-1"
-                    >stack:</span
-                  >
-                  <span
-                    class="text-neutral-500 dark:text-neutral-400 flex items-center flex-wrap gap-x-2 gap-y-1"
-                  >
-                    <span>Astro</span>
-                    <span
-                      class="text-neutral-300 dark:text-neutral-700 select-none text-[8px]"
-                      aria-hidden="true">•</span
-                    >
-                    <span>Tailwind CSS v4</span>
-                  </span>
+                <div class="pl-7 sm:pl-8 text-[11px] text-neutral-400 dark:text-neutral-500 flex items-center min-w-0 font-sans">
+                  <span class="text-neutral-300 dark:text-neutral-700 select-none shrink-0 mr-2" aria-hidden="true">└──</span>
+                  <span class="text-neutral-400 dark:text-neutral-600 font-medium shrink-0 mr-1.5">stack:</span>
+                  <div class="index-marquee-wrapper relative overflow-hidden min-w-0 flex-1">
+                    <div class="index-marquee-track inline-flex items-center">
+                      <div class="index-marquee-content inline-flex items-center text-neutral-500 dark:text-neutral-400 whitespace-nowrap shrink-0">
+                        <span class="inline-flex items-center"><span>Astro v5.3</span><span class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2" aria-hidden="true">•</span></span>
+                        <span class="inline-flex items-center"><span>Tailwind CSS v4.0</span><span class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2" aria-hidden="true">•</span></span>
+                        <span class="inline-flex items-center"><span>TypeScript 5.7</span><span class="stack-dot-trailing text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2" aria-hidden="true">•</span></span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
 
-              <!-- Item 2 -->
-              <div class="space-y-2 group">
-                <div
-                  class="flex items-center gap-x-3 gap-y-1 flex-wrap sm:flex-nowrap min-w-0"
-                >
-                  <span
-                    class="text-neutral-400 dark:text-neutral-600 select-none font-sans font-medium text-sm shrink-0"
-                    aria-hidden="true">├──</span
-                  >
-                  <span
-                    class="text-xs text-neutral-500 font-semibold font-sans shrink-0"
-                    >2026</span
-                  >
-                  <h3
-                    class="text-sm sm:text-base text-neutral-950 dark:text-white group-hover:text-[#52FF1A] transition-colors font-sans font-heading font-bold"
-                  >
-                    Taberna Photographica
-                  </h3>
+              <!-- Item 2 (Long Title & Long Stack to showcase Marquee) -->
+              <div class="space-y-2 group min-w-0">
+                <div class="flex items-center gap-2.5 sm:gap-3 min-w-0">
+                  <span class="text-neutral-400 dark:text-neutral-600 select-none font-sans font-medium text-sm shrink-0" aria-hidden="true">├──</span>
+                  <span class="text-xs text-neutral-500 font-semibold font-sans shrink-0">2026</span>
+                  <div class="index-marquee-wrapper relative overflow-hidden min-w-0 flex-1">
+                    <div class="index-marquee-track inline-flex items-center">
+                      <div class="index-marquee-content inline-flex items-center shrink-0">
+                        <h3 class="text-sm sm:text-base text-neutral-950 dark:text-white group-hover:text-[var(--color-accent,#52FF1A)] transition-colors font-sans font-heading font-bold whitespace-nowrap m-0 inline-flex items-center">
+                          <span>Taberna Photographica: Machina Tactilis, Orchestratio Hardware Universalis, Telemetria Directa et Gubernatio Periphericorum Kiosk in Tempore Reali</span>
+                        </h3>
+                        <span class="title-dot-trailing text-neutral-400 dark:text-neutral-600 select-none text-xs mx-3" aria-hidden="true">•</span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div
-                  class="pl-7 sm:pl-8 text-[11px] text-neutral-400 dark:text-neutral-500 flex items-center gap-x-2 gap-y-1 font-sans flex-wrap"
-                >
-                  <span
-                    class="text-neutral-300 dark:text-neutral-700 select-none"
-                    aria-hidden="true">└──</span
-                  >
-                  <span
-                    class="text-neutral-400 dark:text-neutral-600 font-medium shrink-0 mr-1"
-                    >stack:</span
-                  >
-                  <span
-                    class="text-neutral-500 dark:text-neutral-400 flex items-center flex-wrap gap-x-2 gap-y-1"
-                  >
-                    <span>Electron</span>
-                    <span
-                      class="text-neutral-300 dark:text-neutral-700 select-none text-[8px]"
-                      aria-hidden="true">•</span
-                    >
-                    <span>React 19</span>
-                    <span
-                      class="text-neutral-300 dark:text-neutral-700 select-none text-[8px]"
-                      aria-hidden="true">•</span
-                    >
-                    <span>Anime.js</span>
-                    <span
-                      class="text-neutral-300 dark:text-neutral-700 select-none text-[8px]"
-                      aria-hidden="true">•</span
-                    >
-                    <span>Vite</span>
-                  </span>
+                <div class="pl-7 sm:pl-8 text-[11px] text-neutral-400 dark:text-neutral-500 flex items-center min-w-0 font-sans">
+                  <span class="text-neutral-300 dark:text-neutral-700 select-none shrink-0 mr-2" aria-hidden="true">└──</span>
+                  <span class="text-neutral-400 dark:text-neutral-600 font-medium shrink-0 mr-1.5">stack:</span>
+                  <div class="index-marquee-wrapper relative overflow-hidden min-w-0 flex-1">
+                    <div class="index-marquee-track inline-flex items-center">
+                      <div class="index-marquee-content inline-flex items-center text-neutral-500 dark:text-neutral-400 whitespace-nowrap shrink-0">
+                        <span class="inline-flex items-center"><span>Electron 34</span><span class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2" aria-hidden="true">•</span></span>
+                        <span class="inline-flex items-center"><span>React 19.1</span><span class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2" aria-hidden="true">•</span></span>
+                        <span class="inline-flex items-center"><span>Anime.js Engine</span><span class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2" aria-hidden="true">•</span></span>
+                        <span class="inline-flex items-center"><span>Vite 6 Bundler</span><span class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2" aria-hidden="true">•</span></span>
+                        <span class="inline-flex items-center"><span>SQLite Embedded DB</span><span class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2" aria-hidden="true">•</span></span>
+                        <span class="inline-flex items-center"><span>Tailwind CSS v4</span><span class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2" aria-hidden="true">•</span></span>
+                        <span class="inline-flex items-center"><span>Native Node-IPC Pipeline</span><span class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2" aria-hidden="true">•</span></span>
+                        <span class="inline-flex items-center"><span>Direct CUPS / USB Thermal Printer Driver Protocol</span><span class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2" aria-hidden="true">•</span></span>
+                        <span class="inline-flex items-center"><span>GStreamer Video Buffer Stream</span><span class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2" aria-hidden="true">•</span></span>
+                        <span class="inline-flex items-center"><span>WebRTC Camera Feed Pipeline</span><span class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2" aria-hidden="true">•</span></span>
+                        <span class="inline-flex items-center"><span>Hardware Watchdog Service</span><span class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2" aria-hidden="true">•</span></span>
+                        <span class="inline-flex items-center"><span>Offline First Local Cache Engine</span><span class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2" aria-hidden="true">•</span></span>
+                        <span class="inline-flex items-center"><span>Multi-Touch Gesture Recognizer</span><span class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2" aria-hidden="true">•</span></span>
+                        <span class="inline-flex items-center"><span>Low-Latency State Machine</span><span class="stack-dot-trailing text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2" aria-hidden="true">•</span></span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
 
               <!-- Item 3 -->
-              <div class="space-y-2 group">
-                <div
-                  class="flex items-center gap-x-3 gap-y-1 flex-wrap sm:flex-nowrap min-w-0"
-                >
-                  <span
-                    class="text-neutral-400 dark:text-neutral-600 select-none font-sans font-medium text-sm shrink-0"
-                    aria-hidden="true">├──</span
-                  >
-                  <span
-                    class="text-xs text-neutral-500 font-semibold font-sans shrink-0"
-                    >2026</span
-                  >
-                  <h3
-                    class="text-sm sm:text-base text-neutral-950 dark:text-white group-hover:text-[#52FF1A] transition-colors font-sans font-heading font-bold"
-                  >
-                    Porta Curatoris Tabernae
-                  </h3>
+              <div class="space-y-2 group min-w-0">
+                <div class="flex items-center gap-2.5 sm:gap-3 min-w-0">
+                  <span class="text-neutral-400 dark:text-neutral-600 select-none font-sans font-medium text-sm shrink-0" aria-hidden="true">├──</span>
+                  <span class="text-xs text-neutral-500 font-semibold font-sans shrink-0">2026</span>
+                  <div class="index-marquee-wrapper relative overflow-hidden min-w-0 flex-1">
+                    <div class="index-marquee-track inline-flex items-center">
+                      <div class="index-marquee-content inline-flex items-center shrink-0">
+                        <h3 class="text-sm sm:text-base text-neutral-950 dark:text-white group-hover:text-[var(--color-accent,#52FF1A)] transition-colors font-sans font-heading font-bold whitespace-nowrap m-0 inline-flex items-center">
+                          <span>Porta Curatoris Tabernae</span>
+                        </h3>
+                        <span class="title-dot-trailing text-neutral-400 dark:text-neutral-600 select-none text-xs mx-3" aria-hidden="true">•</span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div
-                  class="pl-7 sm:pl-8 text-[11px] text-neutral-400 dark:text-neutral-500 flex items-center gap-x-2 gap-y-1 font-sans flex-wrap"
-                >
-                  <span
-                    class="text-neutral-300 dark:text-neutral-700 select-none"
-                    aria-hidden="true">└──</span
-                  >
-                  <span
-                    class="text-neutral-400 dark:text-neutral-600 font-medium shrink-0 mr-1"
-                    >stack:</span
-                  >
-                  <span
-                    class="text-neutral-500 dark:text-neutral-400 flex items-center flex-wrap gap-x-2 gap-y-1"
-                  >
-                    <span>React 19</span>
-                    <span
-                      class="text-neutral-300 dark:text-neutral-700 select-none text-[8px]"
-                      aria-hidden="true">•</span
-                    >
-                    <span>Vite</span>
-                    <span
-                      class="text-neutral-300 dark:text-neutral-700 select-none text-[8px]"
-                      aria-hidden="true">•</span
-                    >
-                    <span>CSS Modules</span>
-                    <span
-                      class="text-neutral-300 dark:text-neutral-700 select-none text-[8px]"
-                      aria-hidden="true">•</span
-                    >
-                    <span>Anime.js</span>
-                  </span>
+                <div class="pl-7 sm:pl-8 text-[11px] text-neutral-400 dark:text-neutral-500 flex items-center min-w-0 font-sans">
+                  <span class="text-neutral-300 dark:text-neutral-700 select-none shrink-0 mr-2" aria-hidden="true">└──</span>
+                  <span class="text-neutral-400 dark:text-neutral-600 font-medium shrink-0 mr-1.5">stack:</span>
+                  <div class="index-marquee-wrapper relative overflow-hidden min-w-0 flex-1">
+                    <div class="index-marquee-track inline-flex items-center">
+                      <div class="index-marquee-content inline-flex items-center text-neutral-500 dark:text-neutral-400 whitespace-nowrap shrink-0">
+                        <span class="inline-flex items-center"><span>React 19.1</span><span class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2" aria-hidden="true">•</span></span>
+                        <span class="inline-flex items-center"><span>Vite 6 SPA</span><span class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2" aria-hidden="true">•</span></span>
+                        <span class="inline-flex items-center"><span>CSS Modules Architecture</span><span class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2" aria-hidden="true">•</span></span>
+                        <span class="inline-flex items-center"><span>Anime.js</span><span class="stack-dot-trailing text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2" aria-hidden="true">•</span></span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
 
               <!-- Item 4 -->
-              <div class="space-y-2 group">
-                <div
-                  class="flex items-center gap-x-3 gap-y-1 flex-wrap sm:flex-nowrap min-w-0"
-                >
-                  <span
-                    class="text-neutral-400 dark:text-neutral-600 select-none font-sans font-medium text-sm shrink-0"
-                    aria-hidden="true">├──</span
-                  >
-                  <span
-                    class="text-xs text-neutral-500 font-semibold font-sans shrink-0"
-                    >2026</span
-                  >
-                  <h3
-                    class="text-sm sm:text-base text-neutral-950 dark:text-white group-hover:text-[#52FF1A] transition-colors font-sans font-heading font-bold"
-                  >
-                    <a
-                      href="https://navoyovan.github.io/photobooth-kiosk-demo/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label="Exemplum Tabernae Photographicae (opens in new tab)"
-                      class="hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#52FF1A] rounded px-0.5 inline-flex items-center gap-1.5"
-                    >
-                      <span>Exemplum Tabernae Photographicae</span>
-                      <span
-                        class="opacity-30 group-hover:opacity-100 transition-all duration-150 text-neutral-500 dark:text-neutral-400 group-hover:!text-[#52FF1A]"
-                      >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          class="w-3.5 h-3.5 sm:w-4 sm:h-4"
-                          viewBox="0 0 24 24"
-                          stroke-width="2.5"
-                          stroke="currentColor"
-                          fill="none"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          aria-hidden="true"
-                        >
-                          <path stroke="none" d="M0 0h24v24H0z" fill="none"
-                          ></path>
-                          <path d="M17 7l-10 10"></path>
-                          <path d="M8 7l9 0l0 9"></path>
-                        </svg>
-                      </span>
-                    </a>
-                  </h3>
+              <div class="space-y-2 group min-w-0">
+                <div class="flex items-center gap-2.5 sm:gap-3 min-w-0">
+                  <span class="text-neutral-400 dark:text-neutral-600 select-none font-sans font-medium text-sm shrink-0" aria-hidden="true">├──</span>
+                  <span class="text-xs text-neutral-500 font-semibold font-sans shrink-0">2026</span>
+                  <div class="index-marquee-wrapper relative overflow-hidden min-w-0 flex-1">
+                    <div class="index-marquee-track inline-flex items-center">
+                      <div class="index-marquee-content inline-flex items-center shrink-0">
+                        <h3 class="text-sm sm:text-base text-neutral-950 dark:text-white group-hover:text-[var(--color-accent,#52FF1A)] transition-colors font-sans font-heading font-bold whitespace-nowrap m-0 inline-flex items-center">
+                          <a
+                            href="https://navoyovan.github.io/photobooth-kiosk-demo/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label="Exemplum Tabernae Photographicae (opens in new tab)"
+                            class="hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent,#52FF1A)] rounded px-0.5 inline-flex items-center gap-1.5"
+                          >
+                            <span>Exemplum Tabernae Photographicae</span>
+                            <span class="opacity-30 group-hover:opacity-100 transition-all duration-150 text-neutral-500 dark:text-neutral-400 group-hover:!text-[var(--color-accent,#52FF1A)]">
+                              <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 sm:w-4 sm:h-4" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                <path d="M17 7l-10 10"></path>
+                                <path d="M8 7l9 0l0 9"></path>
+                              </svg>
+                            </span>
+                          </a>
+                        </h3>
+                        <span class="title-dot-trailing text-neutral-400 dark:text-neutral-600 select-none text-xs mx-3" aria-hidden="true">•</span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div
-                  class="pl-7 sm:pl-8 text-[11px] text-neutral-400 dark:text-neutral-500 flex items-center gap-x-2 gap-y-1 font-sans flex-wrap"
-                >
-                  <span
-                    class="text-neutral-300 dark:text-neutral-700 select-none"
-                    aria-hidden="true">└──</span
-                  >
-                  <span
-                    class="text-neutral-400 dark:text-neutral-600 font-medium shrink-0 mr-1"
-                    >stack:</span
-                  >
-                  <span
-                    class="text-neutral-500 dark:text-neutral-400 flex items-center flex-wrap gap-x-2 gap-y-1"
-                  >
-                    <span>React 19</span>
-                    <span
-                      class="text-neutral-300 dark:text-neutral-700 select-none text-[8px]"
-                      aria-hidden="true">•</span
-                    >
-                    <span>Anime.js</span>
-                    <span
-                      class="text-neutral-300 dark:text-neutral-700 select-none text-[8px]"
-                      aria-hidden="true">•</span
-                    >
-                    <span>Vite</span>
-                  </span>
+                <div class="pl-7 sm:pl-8 text-[11px] text-neutral-400 dark:text-neutral-500 flex items-center min-w-0 font-sans">
+                  <span class="text-neutral-300 dark:text-neutral-700 select-none shrink-0 mr-2" aria-hidden="true">└──</span>
+                  <span class="text-neutral-400 dark:text-neutral-600 font-medium shrink-0 mr-1.5">stack:</span>
+                  <div class="index-marquee-wrapper relative overflow-hidden min-w-0 flex-1">
+                    <div class="index-marquee-track inline-flex items-center">
+                      <div class="index-marquee-content inline-flex items-center text-neutral-500 dark:text-neutral-400 whitespace-nowrap shrink-0">
+                        <span class="inline-flex items-center"><span>React 19.1</span><span class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2" aria-hidden="true">•</span></span>
+                        <span class="inline-flex items-center"><span>Anime.js</span><span class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2" aria-hidden="true">•</span></span>
+                        <span class="inline-flex items-center"><span>Vite 6</span><span class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2" aria-hidden="true">•</span></span>
+                        <span class="inline-flex items-center"><span>Canvas Engine</span><span class="stack-dot-trailing text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2" aria-hidden="true">•</span></span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
 
               <!-- Item 5 -->
-              <div class="space-y-2 group">
-                <div
-                  class="flex items-center gap-x-3 gap-y-1 flex-wrap sm:flex-nowrap min-w-0"
-                >
-                  <span
-                    class="text-neutral-400 dark:text-neutral-600 select-none font-sans font-medium text-sm shrink-0"
-                    aria-hidden="true">└──</span
-                  >
-                  <span
-                    class="text-xs text-neutral-500 font-semibold font-sans shrink-0"
-                    >2026</span
-                  >
-                  <h3
-                    class="text-sm sm:text-base text-neutral-950 dark:text-white group-hover:text-[#52FF1A] transition-colors font-sans font-heading font-bold"
-                  >
-                    <span>API REST et WebSocket Tabernae</span>
-                  </h3>
+              <div class="space-y-2 group min-w-0">
+                <div class="flex items-center gap-2.5 sm:gap-3 min-w-0">
+                  <span class="text-neutral-400 dark:text-neutral-600 select-none font-sans font-medium text-sm shrink-0" aria-hidden="true">└──</span>
+                  <span class="text-xs text-neutral-500 font-semibold font-sans shrink-0">2026</span>
+                  <div class="index-marquee-wrapper relative overflow-hidden min-w-0 flex-1">
+                    <div class="index-marquee-track inline-flex items-center">
+                      <div class="index-marquee-content inline-flex items-center shrink-0">
+                        <h3 class="text-sm sm:text-base text-neutral-950 dark:text-white group-hover:text-[var(--color-accent,#52FF1A)] transition-colors font-sans font-heading font-bold whitespace-nowrap m-0 inline-flex items-center">
+                          <span>API REST et WebSocket Tabernae</span>
+                        </h3>
+                        <span class="title-dot-trailing text-neutral-400 dark:text-neutral-600 select-none text-xs mx-3" aria-hidden="true">•</span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div
-                  class="pl-7 sm:pl-8 text-[11px] text-neutral-400 dark:text-neutral-500 flex items-center gap-x-2 gap-y-1 font-sans flex-wrap"
-                >
-                  <span
-                    class="text-neutral-300 dark:text-neutral-700 select-none"
-                    aria-hidden="true">└──</span
-                  >
-                  <span
-                    class="text-neutral-400 dark:text-neutral-600 font-medium shrink-0 mr-1"
-                    >stack:</span
-                  >
-                  <span
-                    class="text-neutral-500 dark:text-neutral-400 flex items-center flex-wrap gap-x-2 gap-y-1"
-                  >
-                    <span>Laravel 13</span>
-                    <span
-                      class="text-neutral-300 dark:text-neutral-700 select-none text-[8px]"
-                      aria-hidden="true">•</span
-                    >
-                    <span>Reverb</span>
-                    <span
-                      class="text-neutral-300 dark:text-neutral-700 select-none text-[8px]"
-                      aria-hidden="true">•</span
-                    >
-                    <span>Google Cloud Storage</span>
-                    <span
-                      class="text-neutral-300 dark:text-neutral-700 select-none text-[8px]"
-                      aria-hidden="true">•</span
-                    >
-                    <span>Google Cloud Platform</span>
-                  </span>
+                <div class="pl-7 sm:pl-8 text-[11px] text-neutral-400 dark:text-neutral-500 flex items-center min-w-0 font-sans">
+                  <span class="text-neutral-300 dark:text-neutral-700 select-none shrink-0 mr-2" aria-hidden="true">└──</span>
+                  <span class="text-neutral-400 dark:text-neutral-600 font-medium shrink-0 mr-1.5">stack:</span>
+                  <div class="index-marquee-wrapper relative overflow-hidden min-w-0 flex-1">
+                    <div class="index-marquee-track inline-flex items-center">
+                      <div class="index-marquee-content inline-flex items-center text-neutral-500 dark:text-neutral-400 whitespace-nowrap shrink-0">
+                        <span class="inline-flex items-center"><span>Laravel 13</span><span class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2" aria-hidden="true">•</span></span>
+                        <span class="inline-flex items-center"><span>Reverb</span><span class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2" aria-hidden="true">•</span></span>
+                        <span class="inline-flex items-center"><span>Google Cloud Storage</span><span class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2" aria-hidden="true">•</span></span>
+                        <span class="inline-flex items-center"><span>SQLite</span><span class="stack-dot-trailing text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2" aria-hidden="true">•</span></span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -2034,183 +2304,132 @@ const systemNav = [
               </div>
 
               <!-- Items 1 to 3 -->
-              <!-- Item 1 -->
-              <div class="space-y-2 group">
-                <div
-                  class="flex items-center gap-x-3 gap-y-1 flex-wrap sm:flex-nowrap min-w-0"
-                >
-                  <span
-                    class="text-neutral-400 dark:text-neutral-600 select-none font-sans font-medium text-sm shrink-0"
-                    aria-hidden="true">├──</span
-                  >
-                  <span
-                    class="text-xs text-neutral-500 font-semibold font-sans shrink-0"
-                    >2025</span
-                  >
-                  <h3
-                    class="text-sm sm:text-base text-neutral-950 dark:text-white group-hover:text-[#52FF1A] transition-colors font-sans font-heading font-bold"
-                  >
-                    <a
-                      href="https://github.com/navoyovan/interactive-map"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label="Systema Cartographicum Interactivum (opens in new tab)"
-                      class="hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#52FF1A] rounded px-0.5 inline-flex items-center gap-1.5"
-                    >
-                      <span>Systema Cartographicum Interactivum</span>
-                      <span
-                        class="opacity-30 group-hover:opacity-100 transition-all duration-150 text-neutral-500 dark:text-neutral-400 group-hover:!text-[#52FF1A]"
-                      >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          class="w-3.5 h-3.5 sm:w-4 sm:h-4"
-                          viewBox="0 0 24 24"
-                          stroke-width="2.5"
-                          stroke="currentColor"
-                          fill="none"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          aria-hidden="true"
-                        >
-                          <path stroke="none" d="M0 0h24v24H0z" fill="none"
-                          ></path>
-                          <path d="M17 7l-10 10"></path>
-                          <path d="M8 7l9 0l0 9"></path>
-                        </svg>
-                      </span>
-                    </a>
-                  </h3>
+              <!-- Item 1 (Long Title & Long Stack to showcase Marquee) -->
+              <div class="space-y-2 group min-w-0">
+                <div class="flex items-center gap-2.5 sm:gap-3 min-w-0">
+                  <span class="text-neutral-400 dark:text-neutral-600 select-none font-sans font-medium text-sm shrink-0" aria-hidden="true">├──</span>
+                  <span class="text-xs text-neutral-500 font-semibold font-sans shrink-0">2025</span>
+                  <div class="index-marquee-wrapper relative overflow-hidden min-w-0 flex-1">
+                    <div class="index-marquee-track inline-flex items-center">
+                      <div class="index-marquee-content inline-flex items-center shrink-0">
+                        <h3 class="text-sm sm:text-base text-neutral-950 dark:text-white group-hover:text-[var(--color-accent,#52FF1A)] transition-colors font-sans font-heading font-bold whitespace-nowrap m-0 inline-flex items-center">
+                          <a
+                            href="https://github.com/navoyovan/interactive-map"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label="Systema Cartographicum Interactivum: Computatio Spatialis, Polygonorum Vectorialium Flumen, Clustered Markers et Telemetria Geospatialis Directa in Tempore Reali (opens in new tab)"
+                            class="hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent,#52FF1A)] rounded px-0.5 inline-flex items-center gap-1.5"
+                          >
+                            <span>Systema Cartographicum Interactivum: Computatio Spatialis, Polygonorum Vectorialium Flumen, Clustered Markers et Telemetria Geospatialis Directa in Tempore Reali</span>
+                            <span class="opacity-30 group-hover:opacity-100 transition-all duration-150 text-neutral-500 dark:text-neutral-400 group-hover:!text-[var(--color-accent,#52FF1A)]">
+                              <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 sm:w-4 sm:h-4" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                <path d="M17 7l-10 10"></path>
+                                <path d="M8 7l9 0l0 9"></path>
+                              </svg>
+                            </span>
+                          </a>
+                        </h3>
+                        <span class="title-dot-trailing text-neutral-400 dark:text-neutral-600 select-none text-xs mx-3" aria-hidden="true">•</span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div
-                  class="pl-7 sm:pl-8 text-[11px] text-neutral-400 dark:text-neutral-500 flex items-center gap-x-2 gap-y-1 font-sans flex-wrap"
-                >
-                  <span
-                    class="text-neutral-300 dark:text-neutral-700 select-none"
-                    aria-hidden="true">└──</span
-                  >
-                  <span
-                    class="text-neutral-400 dark:text-neutral-600 font-medium shrink-0 mr-1"
-                    >stack:</span
-                  >
-                  <span
-                    class="text-neutral-500 dark:text-neutral-400 flex items-center flex-wrap gap-x-2 gap-y-1"
-                  >
-                    <span>Laravel</span>
-                    <span
-                      class="text-neutral-300 dark:text-neutral-700 select-none text-[8px]"
-                      aria-hidden="true">•</span
-                    >
-                    <span>Leaflet.js</span>
-                    <span
-                      class="text-neutral-300 dark:text-neutral-700 select-none text-[8px]"
-                      aria-hidden="true">•</span
-                    >
-                    <span>Tailwind</span>
-                  </span>
+                <div class="pl-7 sm:pl-8 text-[11px] text-neutral-400 dark:text-neutral-500 flex items-center min-w-0 font-sans">
+                  <span class="text-neutral-300 dark:text-neutral-700 select-none shrink-0 mr-2" aria-hidden="true">└──</span>
+                  <span class="text-neutral-400 dark:text-neutral-600 font-medium shrink-0 mr-1.5">stack:</span>
+                  <div class="index-marquee-wrapper relative overflow-hidden min-w-0 flex-1">
+                    <div class="index-marquee-track inline-flex items-center">
+                      <div class="index-marquee-content inline-flex items-center text-neutral-500 dark:text-neutral-400 whitespace-nowrap shrink-0">
+                        <span class="inline-flex items-center"><span>Laravel 13</span><span class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2" aria-hidden="true">•</span></span>
+                        <span class="inline-flex items-center"><span>Leaflet.js 1.9</span><span class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2" aria-hidden="true">•</span></span>
+                        <span class="inline-flex items-center"><span>GeoJSON Polygon Vector Stream</span><span class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2" aria-hidden="true">•</span></span>
+                        <span class="inline-flex items-center"><span>AJAX Vector Layer Tiling</span><span class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2" aria-hidden="true">•</span></span>
+                        <span class="inline-flex items-center"><span>Redis PubSub Spatial Event Queue</span><span class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2" aria-hidden="true">•</span></span>
+                        <span class="inline-flex items-center"><span>Haversine Coordinate Mathematical Engine</span><span class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2" aria-hidden="true">•</span></span>
+                        <span class="inline-flex items-center"><span>Tailwind CSS v4</span><span class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2" aria-hidden="true">•</span></span>
+                        <span class="inline-flex items-center"><span>Clustered Marker QuadTree Index</span><span class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2" aria-hidden="true">•</span></span>
+                        <span class="inline-flex items-center"><span>High-Throughput GPS Coordinate Ingestion API</span><span class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2" aria-hidden="true">•</span></span>
+                        <span class="inline-flex items-center"><span>PostGIS Geospatial Geometry Pipeline</span><span class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2" aria-hidden="true">•</span></span>
+                        <span class="inline-flex items-center"><span>Interactive Heatmap Renderer</span><span class="stack-dot-trailing text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2" aria-hidden="true">•</span></span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
 
               <!-- Item 2 -->
-              <div class="space-y-2 group">
-                <div
-                  class="flex items-center gap-x-3 gap-y-1 flex-wrap sm:flex-nowrap min-w-0"
-                >
-                  <span
-                    class="text-neutral-400 dark:text-neutral-600 select-none font-sans font-medium text-sm shrink-0"
-                    aria-hidden="true">├──</span
-                  >
-                  <span
-                    class="text-xs text-neutral-500 font-semibold font-sans shrink-0"
-                    >2026</span
-                  >
-                  <h3
-                    class="text-sm sm:text-base text-neutral-950 dark:text-white group-hover:text-[#52FF1A] transition-colors font-sans font-heading font-bold"
-                  >
-                    Director Fluminis Telemetriae
-                  </h3>
+              <div class="space-y-2 group min-w-0">
+                <div class="flex items-center gap-2.5 sm:gap-3 min-w-0">
+                  <span class="text-neutral-400 dark:text-neutral-600 select-none font-sans font-medium text-sm shrink-0" aria-hidden="true">├──</span>
+                  <span class="text-xs text-neutral-500 font-semibold font-sans shrink-0">2026</span>
+                  <div class="index-marquee-wrapper relative overflow-hidden min-w-0 flex-1">
+                    <div class="index-marquee-track inline-flex items-center">
+                      <div class="index-marquee-content inline-flex items-center shrink-0">
+                        <h3 class="text-sm sm:text-base text-neutral-950 dark:text-white group-hover:text-[var(--color-accent,#52FF1A)] transition-colors font-sans font-heading font-bold whitespace-nowrap m-0 inline-flex items-center">
+                          <span>Director Fluminis Telemetriae</span>
+                        </h3>
+                        <span class="title-dot-trailing text-neutral-400 dark:text-neutral-600 select-none text-xs mx-3" aria-hidden="true">•</span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div
-                  class="pl-7 sm:pl-8 text-[11px] text-neutral-400 dark:text-neutral-500 flex items-center gap-x-2 gap-y-1 font-sans flex-wrap"
-                >
-                  <span
-                    class="text-neutral-300 dark:text-neutral-700 select-none"
-                    aria-hidden="true">└──</span
-                  >
-                  <span
-                    class="text-neutral-400 dark:text-neutral-600 font-medium shrink-0 mr-1"
-                    >stack:</span
-                  >
-                  <span
-                    class="text-neutral-500 dark:text-neutral-400 flex items-center flex-wrap gap-x-2 gap-y-1"
-                  >
-                    <span>Node.js</span>
-                    <span
-                      class="text-neutral-300 dark:text-neutral-700 select-none text-[8px]"
-                      aria-hidden="true">•</span
-                    >
-                    <span>Redis</span>
-                    <span
-                      class="text-neutral-300 dark:text-neutral-700 select-none text-[8px]"
-                      aria-hidden="true">•</span
-                    >
-                    <span>WebSockets</span>
-                  </span>
+                <div class="pl-7 sm:pl-8 text-[11px] text-neutral-400 dark:text-neutral-500 flex items-center min-w-0 font-sans">
+                  <span class="text-neutral-300 dark:text-neutral-700 select-none shrink-0 mr-2" aria-hidden="true">└──</span>
+                  <span class="text-neutral-400 dark:text-neutral-600 font-medium shrink-0 mr-1.5">stack:</span>
+                  <div class="index-marquee-wrapper relative overflow-hidden min-w-0 flex-1">
+                    <div class="index-marquee-track inline-flex items-center">
+                      <div class="index-marquee-content inline-flex items-center text-neutral-500 dark:text-neutral-400 whitespace-nowrap shrink-0">
+                        <span class="inline-flex items-center"><span>Node.js 22 LTS</span><span class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2" aria-hidden="true">•</span></span>
+                        <span class="inline-flex items-center"><span>Redis PubSub</span><span class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2" aria-hidden="true">•</span></span>
+                        <span class="inline-flex items-center"><span>WebSocket Server Engine</span><span class="stack-dot-trailing text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2" aria-hidden="true">•</span></span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
 
               <!-- Item 3 -->
-              <div class="space-y-2 group">
-                <div
-                  class="flex items-center gap-x-3 gap-y-1 flex-wrap sm:flex-nowrap min-w-0"
-                >
-                  <span
-                    class="text-neutral-400 dark:text-neutral-600 select-none font-sans font-medium text-sm shrink-0"
-                    aria-hidden="true">└──</span
-                  >
-                  <span
-                    class="text-xs text-neutral-500 font-semibold font-sans shrink-0"
-                    >2026</span
-                  >
-                  <h3
-                    class="text-sm sm:text-base text-neutral-950 dark:text-white group-hover:text-[#52FF1A] transition-colors font-sans font-heading font-bold"
-                  >
-                    Series Libellorum OWASP
-                  </h3>
+              <div class="space-y-2 group min-w-0">
+                <div class="flex items-center gap-2.5 sm:gap-3 min-w-0">
+                  <span class="text-neutral-400 dark:text-neutral-600 select-none font-sans font-medium text-sm shrink-0" aria-hidden="true">└──</span>
+                  <span class="text-xs text-neutral-500 font-semibold font-sans shrink-0">2026</span>
+                  <div class="index-marquee-wrapper relative overflow-hidden min-w-0 flex-1">
+                    <div class="index-marquee-track inline-flex items-center">
+                      <div class="index-marquee-content inline-flex items-center shrink-0">
+                        <h3 class="text-sm sm:text-base text-neutral-950 dark:text-white group-hover:text-[var(--color-accent,#52FF1A)] transition-colors font-sans font-heading font-bold whitespace-nowrap m-0 inline-flex items-center">
+                          <span>Series Libellorum Securitatis OWASP</span>
+                        </h3>
+                        <span class="title-dot-trailing text-neutral-400 dark:text-neutral-600 select-none text-xs mx-3" aria-hidden="true">•</span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div
-                  class="pl-7 sm:pl-8 text-[11px] text-neutral-400 dark:text-neutral-500 flex items-center gap-x-2 gap-y-1 font-sans flex-wrap"
-                >
-                  <span
-                    class="text-neutral-300 dark:text-neutral-700 select-none"
-                    aria-hidden="true">└──</span
-                  >
-                  <span
-                    class="text-neutral-400 dark:text-neutral-600 font-medium shrink-0 mr-1"
-                    >stack:</span
-                  >
-                  <span
-                    class="text-neutral-500 dark:text-neutral-400 flex items-center flex-wrap gap-x-2 gap-y-1"
-                  >
-                    <span>Threat Modeling</span>
-                    <span
-                      class="text-neutral-300 dark:text-neutral-700 select-none text-[8px]"
-                      aria-hidden="true">•</span
-                    >
-                    <span>Security Specs</span>
-                  </span>
+                <div class="pl-7 sm:pl-8 text-[11px] text-neutral-400 dark:text-neutral-500 flex items-center min-w-0 font-sans">
+                  <span class="text-neutral-300 dark:text-neutral-700 select-none shrink-0 mr-2" aria-hidden="true">└──</span>
+                  <span class="text-neutral-400 dark:text-neutral-600 font-medium shrink-0 mr-1.5">stack:</span>
+                  <div class="index-marquee-wrapper relative overflow-hidden min-w-0 flex-1">
+                    <div class="index-marquee-track inline-flex items-center">
+                      <div class="index-marquee-content inline-flex items-center text-neutral-500 dark:text-neutral-400 whitespace-nowrap shrink-0">
+                        <span class="inline-flex items-center"><span>Threat Modeling</span><span class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2" aria-hidden="true">•</span></span>
+                        <span class="inline-flex items-center"><span>OWASP Guidelines</span><span class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2" aria-hidden="true">•</span></span>
+                        <span class="inline-flex items-center"><span>SAST Engine</span><span class="stack-dot-trailing text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2" aria-hidden="true">•</span></span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </section>
 
-        <!-- 10 / Application Window Mockup -->
+        <!-- 14 / Application Window Mockup -->
         <section id="app-window" class="space-y-6 scroll-mt-24">
           <div class="pb-2 border-b border-neutral-200 dark:border-neutral-800">
             <h2
               class="!font-mono font-mono text-xs uppercase tracking-[0.15em] text-neutral-500 dark:text-neutral-400 font-semibold"
             >
-              10 / Application Window Mockup (Interactive Showcase Frame)
+              14 / Application Window Mockup (Interactive Showcase Frame)
             </h2>
           </div>
 
@@ -2219,13 +2438,13 @@ const systemNav = [
           </div>
         </section>
 
-        <!-- 11 / Exploded 3D Isometric System Topology -->
+        <!-- 15 / Exploded 3D Isometric System Topology -->
         <section id="system-topology" class="space-y-6 scroll-mt-24">
           <div class="pb-2 border-b border-neutral-200 dark:border-neutral-800">
             <h2
               class="!font-mono font-mono text-xs uppercase tracking-[0.15em] text-neutral-500 dark:text-neutral-400 font-semibold"
             >
-              11 / Exploded 3D Isometric System Topology
+              15 / Exploded 3D Isometric System Topology
             </h2>
           </div>
 
@@ -2233,6 +2452,123 @@ const systemNav = [
             <SystemTopology />
           </div>
         </section>
+
+        <!-- 16 / Telemetry Trend Spline -->
+        <section id="trend-chart" class="space-y-6 scroll-mt-24">
+          <div class="pb-2 border-b border-neutral-200 dark:border-neutral-800">
+            <h2
+              class="!font-mono font-mono text-xs uppercase tracking-[0.15em] text-neutral-500 dark:text-neutral-400 font-semibold"
+            >
+              16 / Telemetry Trend Spline (Monotone Cubic Curve)
+            </h2>
+          </div>
+
+          <div class="space-y-4">
+            <div class="flex items-center justify-between">
+              <span
+                class="font-mono text-xs font-semibold text-neutral-400 uppercase tracking-wider"
+                >16.1 / Telemetry Trend Curve</span
+              >
+              <span class="font-mono text-[10px] text-neutral-400"
+                >Monotone Cubic Spline SVG</span
+              >
+            </div>
+
+            <TrendChart
+              data={[
+                { label: 'Lun', value: 34, pastValue: 24 },
+                { label: 'Mar', value: 48, pastValue: 32 },
+                { label: 'Mer', value: 42, pastValue: 38 },
+                { label: 'Iov', value: 65, pastValue: 46 },
+                { label: 'Ven', value: 88, pastValue: 58 },
+                { label: 'Sat', value: 96, pastValue: 72 },
+                { label: 'Sol', value: 74, pastValue: 52 },
+              ]}
+              pastAvg={46}
+            />
+
+            <div class="flex flex-col">
+              <span
+                class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100"
+                >Weekly Telemetry Trend Spline</span
+              >
+              <span class="font-mono text-[11px] text-neutral-500"
+                >data=&#123;...&#125; • 7-day comparative spline • past week benchmark • interactive delta tooltip</span
+              >
+            </div>
+          </div>
+        </section>
+
+        <!-- 17 / Activity Schedule Timeline -->
+        <section id="kiosk-timeline" class="space-y-6 scroll-mt-24">
+          <div class="pb-2 border-b border-neutral-200 dark:border-neutral-800">
+            <h2
+              class="!font-mono font-mono text-xs uppercase tracking-[0.15em] text-neutral-500 dark:text-neutral-400 font-semibold"
+            >
+              17 / Activity Schedule Timeline (Multi-Track Gantt)
+            </h2>
+          </div>
+
+          <div class="space-y-4">
+            <div class="flex items-center justify-between">
+              <span
+                class="font-mono text-xs font-semibold text-neutral-400 uppercase tracking-wider"
+                >17.1 / Activity Schedule Timeline</span
+              >
+              <span class="font-mono text-[10px] text-neutral-400"
+                >Multi-Track Schedule Gantt</span
+              >
+            </div>
+
+            <KioskTimeline />
+
+            <div class="flex flex-col">
+              <span
+                class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100"
+                >Multi-Track Gantt Schedule</span
+              >
+              <span class="font-mono text-[11px] text-neutral-500"
+                >campaigns=&#123;...&#125; • 44px/day dynamic grid • smooth today scroll</span
+              >
+            </div>
+          </div>
+        </section>
+
+        <!-- 18 / Filmstrip Asset Ranking Chart -->
+        <section id="frame-rank-chart" class="space-y-6 scroll-mt-24">
+          <div class="pb-2 border-b border-neutral-200 dark:border-neutral-800">
+            <h2
+              class="!font-mono font-mono text-xs uppercase tracking-[0.15em] text-neutral-500 dark:text-neutral-400 font-semibold"
+            >
+              18 / Filmstrip Asset Ranking (Proportional Filmstrip Slots)
+            </h2>
+          </div>
+
+          <div class="space-y-4">
+            <div class="flex items-center justify-between">
+              <span
+                class="font-mono text-xs font-semibold text-neutral-400 uppercase tracking-wider"
+                >18.1 / Filmstrip Asset Ranking Chart</span
+              >
+              <span class="font-mono text-[10px] text-neutral-400"
+                >Proportional Filmstrip Slots</span
+              >
+            </div>
+
+            <FrameRankChart />
+
+            <div class="flex flex-col">
+              <span
+                class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100"
+                >Filmstrip Popularity Rank Bar</span
+              >
+              <span class="font-mono text-[11px] text-neutral-500"
+                >frames=&#123;...&#125; • 12-slot proportional filmstrip • rank index badges</span
+              >
+            </div>
+          </div>
+        </section>
+      </div>
 
         <!-- License & Attribution Section -->
         <section
@@ -2268,10 +2604,9 @@ const systemNav = [
             </a>
           </div>
         </section>
-      </div>
-    </main>
-  </div>
-</RootLayout>
+      </main>
+    </div>
+  </RootLayout>
 
 <script>
   const setupComponentLibraryNav = () => {
@@ -2294,19 +2629,23 @@ const systemNav = [
 
     const sectionIds = [
       "colors",
+      "typography",
       "depth-cards",
       "buttons",
+      "kinetic-triggers",
       "forms",
       "text-inputs",
       "dropdowns",
       "loaders",
-      "typography",
       "status-badges",
       "metric-cards",
       "project-tiles",
       "tree-index",
       "app-window",
       "system-topology",
+      "trend-chart",
+      "kiosk-timeline",
+      "frame-rank-chart",
     ];
 
     const updateActiveTab = (activeId: string) => {
@@ -2394,6 +2733,221 @@ const systemNav = [
     });
   };
 
+  const setupAccentColorPicker = () => {
+    const trigger = document.getElementById("accent-picker-trigger");
+    const menu = document.getElementById("accent-picker-menu");
+    const chip = document.getElementById("accent-swatch-chip");
+    const hexEl = document.getElementById("accent-swatch-hex");
+    const nameEl = document.getElementById("accent-swatch-name");
+    const arrow = document.getElementById("accent-picker-arrow");
+    const optionBtns = document.querySelectorAll<HTMLButtonElement>(".accent-option-btn");
+
+    if (!trigger || !menu) return;
+
+    let isOpen = false;
+
+    const setDropdownState = (open: boolean) => {
+      isOpen = open;
+      trigger.setAttribute("aria-expanded", open.toString());
+      menu.setAttribute("aria-hidden", (!open).toString());
+
+      if (open) {
+        menu.classList.remove("opacity-0", "-translate-y-2", "scale-95", "pointer-events-none");
+        menu.classList.add("opacity-100", "translate-y-0", "scale-100", "pointer-events-auto");
+        arrow?.classList.add("rotate-180");
+        optionBtns.forEach((btn) => btn.removeAttribute("tabindex"));
+      } else {
+        menu.classList.remove("opacity-100", "translate-y-0", "scale-100", "pointer-events-auto");
+        menu.classList.add("opacity-0", "-translate-y-2", "scale-95", "pointer-events-none");
+        arrow?.classList.remove("rotate-180");
+        optionBtns.forEach((btn) => btn.setAttribute("tabindex", "-1"));
+      }
+    };
+
+    setDropdownState(false);
+
+    trigger.onclick = (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      setDropdownState(!isOpen);
+    };
+
+    const applyAccent = (hex: string, name: string, save = true) => {
+      if (typeof (window as any).__setPortfolioAccent === "function") {
+        (window as any).__setPortfolioAccent(hex, name);
+      } else {
+        document.documentElement.style.setProperty("--color-accent", hex);
+        document.documentElement.style.setProperty("--color-accent-hover", hex);
+        document.documentElement.style.setProperty("--accent-color", hex);
+        document.documentElement.style.setProperty("--accent-hover", hex);
+        document.documentElement.style.setProperty("--terminal-green", hex);
+      }
+      if (chip) {
+        chip.style.backgroundColor = hex;
+        chip.style.boxShadow = `0 0 20px ${hex}4D`;
+      }
+      if (hexEl) {
+        hexEl.textContent = `--color-accent • ${hex}`;
+      }
+      if (nameEl) {
+        nameEl.textContent = `Accent ${name.replace("Accent ", "")}`;
+      }
+    };
+
+    // Restore saved accent UI state if exists
+    try {
+      const savedHex = localStorage.getItem("portfolio_accent_hex");
+      const savedName = localStorage.getItem("portfolio_accent_name");
+      if (savedHex && savedName) {
+        applyAccent(savedHex, savedName, false);
+      }
+    } catch {}
+
+    optionBtns.forEach((btn) => {
+      btn.onclick = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        const hex = btn.getAttribute("data-accent-pick");
+        const name = btn.getAttribute("data-accent-name");
+        if (hex && name) {
+          applyAccent(hex, name);
+        }
+        setDropdownState(false);
+      };
+    });
+
+    const onDocClick = (e: MouseEvent) => {
+      if (isOpen && !menu.contains(e.target as Node) && !trigger.contains(e.target as Node)) {
+        setDropdownState(false);
+      }
+    };
+    document.removeEventListener("click", onDocClick);
+    document.addEventListener("click", onDocClick);
+
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (!isOpen) return;
+      if (e.key === "Escape") {
+        e.preventDefault();
+        setDropdownState(false);
+        trigger.focus();
+      } else if (e.key === "ArrowDown") {
+        e.preventDefault();
+        const focusables = Array.from(optionBtns);
+        const currentIndex = focusables.indexOf(document.activeElement as HTMLButtonElement);
+        const nextIndex = (currentIndex + 1) % focusables.length;
+        focusables[nextIndex]?.focus();
+      } else if (e.key === "ArrowUp") {
+        e.preventDefault();
+        const focusables = Array.from(optionBtns);
+        const currentIndex = focusables.indexOf(document.activeElement as HTMLButtonElement);
+        const nextIndex = (currentIndex - 1 + focusables.length) % focusables.length;
+        focusables[nextIndex]?.focus();
+      }
+    };
+    document.removeEventListener("keydown", onKeyDown);
+    document.addEventListener("keydown", onKeyDown);
+  };
+
+  const initIndexMarquees = () => {
+    const wrappers = document.querySelectorAll<HTMLElement>('.index-marquee-wrapper');
+    wrappers.forEach((wrapper) => {
+      const track = wrapper.querySelector<HTMLElement>('.index-marquee-track');
+      const content = wrapper.querySelector<HTMLElement>('.index-marquee-content');
+      if (!track || !content) return;
+
+      const wrapperWidth = wrapper.clientWidth;
+      if (wrapperWidth === 0) return;
+
+      const existingClone = track.querySelector('.index-marquee-clone');
+      if (existingClone) {
+        existingClone.remove();
+      }
+      wrapper.classList.remove('is-overflowing');
+      track.style.animation = 'none';
+
+      const naturalWidth = content.scrollWidth;
+
+      if (naturalWidth > wrapperWidth + 2) {
+        wrapper.classList.add('is-overflowing');
+
+        const clone = content.cloneNode(true) as HTMLElement;
+        clone.classList.add('index-marquee-clone');
+        clone.setAttribute('aria-hidden', 'true');
+        track.appendChild(clone);
+
+        const unitWidth = content.scrollWidth;
+        const duration = Math.max(12, unitWidth / 26);
+
+        track.style.animationName = 'marquee-scroll';
+        track.style.animationDuration = `${duration}s`;
+        track.style.animationTimingFunction = 'linear';
+        track.style.animationIterationCount = 'infinite';
+      }
+    });
+  };
+
   setupComponentLibraryNav();
-  document.addEventListener("astro:page-load", setupComponentLibraryNav);
+  setupAccentColorPicker();
+  initIndexMarquees();
+
+  let lastMarqueeWidth = typeof window !== 'undefined' ? window.innerWidth : 0;
+  let marqueeResizeTimer: number | null = null;
+  window.addEventListener('resize', () => {
+    if (window.innerWidth === lastMarqueeWidth) return;
+    lastMarqueeWidth = window.innerWidth;
+    if (marqueeResizeTimer) clearTimeout(marqueeResizeTimer);
+    marqueeResizeTimer = window.setTimeout(initIndexMarquees, 150);
+  }, { passive: true });
+
+  document.addEventListener("astro:page-load", () => {
+    setupComponentLibraryNav();
+    setupAccentColorPicker();
+    initIndexMarquees();
+  });
 </script>
+
+<style is:global>
+  @keyframes marquee-scroll {
+    0% {
+      transform: translate3d(0, 0, 0);
+    }
+    100% {
+      transform: translate3d(-50%, 0, 0);
+    }
+  }
+
+  .index-marquee-wrapper:not(.is-overflowing) .stack-dot-trailing,
+  .index-marquee-wrapper:not(.is-overflowing) .title-dot-trailing {
+    display: none !important;
+  }
+
+  .index-marquee-wrapper.is-overflowing {
+    -webkit-mask-image: linear-gradient(to right, black calc(100% - 36px), transparent 100%);
+    mask-image: linear-gradient(to right, black calc(100% - 36px), transparent 100%);
+  }
+
+  .index-marquee-track {
+    display: inline-flex;
+    align-items: center;
+    width: max-content;
+    will-change: transform;
+  }
+
+  .index-marquee-wrapper:hover .index-marquee-track,
+  .group:hover .index-marquee-track,
+  .index-marquee-wrapper:focus-within .index-marquee-track {
+    animation-play-state: paused !important;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .index-marquee-track {
+      animation: none !important;
+      transform: none !important;
+    }
+    .index-marquee-wrapper {
+      overflow-x: auto !important;
+      mask-image: none !important;
+      -webkit-mask-image: none !important;
+    }
+  }
+</style>

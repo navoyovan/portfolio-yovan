@@ -123,7 +123,7 @@ const collectionSchema = {
           <div class="pb-2 border-b border-neutral-200 dark:border-neutral-800 flex items-center justify-between">
             <h2
               id={`cat-heading-${category.number}`}
-              class="text-xs uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-bold font-sans"
+              class="text-xs uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-bold font-heading"
             >
               {category.number} // {category.title}
             </h2>
@@ -166,7 +166,7 @@ const collectionSchema = {
                       <div class="index-marquee-track inline-flex items-center">
                         <div class="index-marquee-content inline-flex items-center shrink-0">
                           <h3
-                            class="text-sm sm:text-base text-neutral-950 dark:text-white group-hover:text-[#52FF1A] transition-colors font-heading font-bold whitespace-nowrap m-0 inline-flex items-center"
+                            class="text-sm sm:text-base text-neutral-950 dark:text-white group-hover:text-[var(--color-accent,#52FF1A)] transition-colors font-heading font-bold whitespace-nowrap m-0 inline-flex items-center"
                           >
                             {item.href ? (
                               <a
@@ -174,10 +174,10 @@ const collectionSchema = {
                                 target={item.href.startsWith('http') ? '_blank' : undefined}
                                 rel={item.href.startsWith('http') ? 'noopener noreferrer' : undefined}
                                 aria-label={item.href.startsWith('http') ? `${item.title} (opens in new tab)` : undefined}
-                                class="hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#52FF1A] rounded px-0.5 inline-flex items-center gap-1.5"
+                                class="hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent,#52FF1A)] rounded px-0.5 inline-flex items-center gap-1.5"
                               >
                                 <span>{item.title}</span>
-                                <span class="opacity-30 group-hover:opacity-100 transition-all duration-150 text-neutral-500 dark:text-neutral-400 group-hover:!text-[#52FF1A]">
+                                <span class="opacity-30 group-hover:opacity-100 transition-all duration-150 text-neutral-500 dark:text-neutral-400 group-hover:!text-[var(--color-accent,#52FF1A)]">
                                   <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 sm:w-4 sm:h-4" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                                     <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                                     <path d="M17 7l-10 10" />

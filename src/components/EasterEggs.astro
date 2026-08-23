@@ -1,0 +1,814 @@
+---
+// EasterEggs.astro - Standalone Easter Egg Overlay, Popups, and Background Visual Markers
+const rawBase = import.meta.env.BASE_URL;
+const base = rawBase.endsWith("/") ? rawBase.slice(0, -1) : rawBase;
+---
+
+<!-- Easter Egg Backdrop (Mobile only: locks and dims background touch/scroll when active) -->
+<div
+  id="egg-backdrop"
+  aria-hidden="true"
+  class="sm:hidden fixed inset-0 z-40 bg-black/40 backdrop-blur-xs transition-opacity duration-200 opacity-0 pointer-events-none"
+>
+</div>
+
+<!-- 01: JAM Digital Clock Floating Popup -->
+<div
+  id="egg-popup-clock"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="egg-clock-title"
+  class="egg-popup-modal popup-hidden fixed bottom-4 inset-x-0 mx-auto sm:inset-x-auto sm:right-6 sm:mx-0 sm:bottom-6 z-50 w-[92vw] max-w-[390px] sm:max-w-[420px] flex flex-col font-sans"
+>
+  <!-- Floating Dismiss Text Above Popup (Centered on mobile) -->
+  <div class="flex items-center justify-center sm:justify-end mb-1 px-1">
+    <button
+      type="button"
+      aria-label="Dismiss Jam Digital popup"
+      class="egg-popup-close font-mono text-xs text-red-500 hover:text-red-600 dark:text-red-400 dark:hover:text-red-300 hover:underline cursor-pointer select-none transition-colors p-0 bg-transparent border-0 flex items-center justify-center gap-1 w-full sm:w-auto text-center"
+    >
+      <span class="sm:hidden">↓ Swipe down to dismiss</span>
+      <span class="hidden sm:inline">Dismiss x [esc]</span>
+    </button>
+  </div>
+
+  <!-- Popup Card -->
+  <div
+    class="w-full bg-[#f6f4ee] dark:bg-[#141414] border border-neutral-300/80 dark:border-neutral-800 shadow-2xl shadow-black/40 overflow-hidden flex flex-col"
+  >
+    <!-- Media / Viewfinder Container (Exact Original Jam Digital HTML via Iframe) -->
+    <div
+      class="relative w-full aspect-[16/9.5] bg-[#17D4FE] overflow-hidden border-b border-neutral-300/80 dark:border-neutral-800/80 select-none flex items-center justify-center"
+    >
+      <iframe
+        data-src={`${base}/whatisthis/jAM_jAvaSCriPt.html`}
+        title="Jam Digital Clock Interactive Display"
+        class="border-0 pointer-events-none select-none shrink-0"
+        style="width: 1440px; height: 855px; transform: scale(0.28); transform-origin: center center;"
+        loading="lazy"></iframe>
+    </div>
+
+    <!-- Content Section (Project Tile Format) -->
+    <div class="p-4 sm:p-5 flex flex-col flex-1 gap-3">
+      <!-- Category Tag -->
+      <span
+        class="font-sans text-[11px] uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-semibold"
+      >
+        00 // EASTER EGG &bull; WEB EXPERIMENT
+      </span>
+
+      <!-- Title -->
+      <h3
+        id="egg-clock-title"
+        class="text-lg sm:text-xl font-bold text-neutral-950 dark:text-white tracking-tight leading-tight font-heading"
+      >
+        Jam Digital
+      </h3>
+
+      <!-- Description -->
+      <p
+        class="font-sans text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed font-normal"
+      >
+        An early standalone digital clock project built with vanilla
+        JavaScript, CSS text-shadow layering, and DOM timer manipulation.
+      </p>
+
+      <!-- Tags Row -->
+      <ul
+        class="flex flex-wrap gap-1.5 sm:gap-2 pt-1 list-none p-0 m-0"
+        aria-label="Tags"
+      >
+        <li>
+          <span
+            class="font-sans text-[9px] sm:text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2 sm:px-2.5 py-0.5 sm:py-1 rounded inline-block"
+          >
+            VANILLA JS
+          </span>
+        </li>
+        <li>
+          <span
+            class="font-sans text-[9px] sm:text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2 sm:px-2.5 py-0.5 sm:py-1 rounded inline-block"
+          >
+            CSS3 SHADOWS
+          </span>
+        </li>
+        <li>
+          <span
+            class="font-sans text-[9px] sm:text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2 sm:px-2.5 py-0.5 sm:py-1 rounded inline-block"
+          >
+            SETTIMEOUT
+          </span>
+        </li>
+      </ul>
+
+      <!-- Metadata Footer -->
+      <div
+        class="mt-auto pt-3 border-t border-neutral-200/80 dark:border-neutral-800/80 flex items-center justify-between gap-3 min-w-0"
+      >
+        <!-- File Name Marquee Container (Loops on Overflow) -->
+        <div class="egg-marquee-wrapper relative overflow-hidden min-w-0 flex-1">
+          <div class="egg-marquee-track inline-flex items-center">
+            <div class="egg-marquee-content inline-flex items-center text-neutral-400 dark:text-neutral-500 whitespace-nowrap shrink-0 font-mono text-[11px]">
+              <span>JAM_jAvaSCriPt.html</span>
+              <span class="egg-dot-trailing text-neutral-400 dark:text-neutral-600 select-none text-[8px] mx-2.5" aria-hidden="true">
+                •
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 02: MCPE ModPE 2014 Scripting Floating Popup -->
+<div
+  id="egg-popup-modpe"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="egg-modpe-title"
+  class="egg-popup-modal popup-hidden fixed bottom-4 inset-x-0 mx-auto sm:inset-x-auto sm:right-6 sm:mx-0 sm:bottom-6 z-50 w-[92vw] max-w-[340px] sm:max-w-[370px] flex flex-col font-sans"
+>
+  <!-- Floating Dismiss Text Above Popup (Centered on mobile) -->
+  <div class="flex items-center justify-center sm:justify-end mb-1 px-1">
+    <button
+      type="button"
+      aria-label="Dismiss ModPE Scripting popup"
+      class="egg-popup-close font-mono text-xs text-red-500 hover:text-red-600 dark:text-red-400 dark:hover:text-red-300 hover:underline cursor-pointer select-none transition-colors p-0 bg-transparent border-0 flex items-center justify-center gap-1 w-full sm:w-auto text-center"
+    >
+      <span class="sm:hidden">↓ Swipe down to dismiss</span>
+      <span class="hidden sm:inline">Dismiss x [esc]</span>
+    </button>
+  </div>
+
+  <!-- Popup Card -->
+  <div
+    class="w-full bg-[#f6f4ee] dark:bg-[#141414] border border-neutral-300/80 dark:border-neutral-800 shadow-2xl shadow-black/40 overflow-hidden flex flex-col"
+  >
+    <!-- Media / Viewfinder Container (Full Bleed Vertical Screenshot) -->
+    <div
+      class="relative w-full bg-black overflow-hidden border-b border-neutral-300/80 dark:border-neutral-800/80 select-none flex items-center justify-center"
+    >
+      <img
+        src={`${base}/whatisthis/Screenshot_20140507-0830.png`}
+        alt="Entity.setRenderType(mob, 3); MCPE ModPE Screenshot 2014"
+        width="370"
+        height="564"
+        class="w-full h-auto block select-none"
+        loading="lazy"
+        decoding="async"
+      />
+    </div>
+
+    <!-- Content Section (Project Tile Format) -->
+    <div class="p-4 sm:p-5 flex flex-col flex-1 gap-3">
+      <!-- Category Tag -->
+      <span
+        class="font-sans text-[11px] uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-semibold"
+      >
+        04 // EASTER EGG
+      </span>
+
+      <!-- Title -->
+      <h3
+        id="egg-modpe-title"
+        class="text-base sm:text-lg font-bold text-neutral-950 dark:text-white tracking-tight leading-tight font-mono"
+      >
+        Game Mods
+      </h3>
+
+      <!-- Description -->
+      <p
+        class="font-sans text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed font-normal"
+      >
+        Early Android game modding in junior high school. Custom Herobrine mob
+        using JavaScript API to alter entity render types and AI hooks in a
+        game.
+      </p>
+
+      <!-- Tags Row -->
+      <div class="flex flex-wrap gap-1.5 pt-0.5">
+        <span
+          class="font-sans text-[9px] sm:text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2 sm:px-2.5 py-0.5 sm:py-1 rounded"
+        >
+          MODPE JS
+        </span>
+        <span
+          class="font-sans text-[9px] sm:text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2 sm:px-2.5 py-0.5 sm:py-1 rounded"
+        >
+          BLOCKLAUNCHER
+        </span>
+        <span
+          class="font-sans text-[9px] sm:text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2 sm:px-2.5 py-0.5 sm:py-1 rounded"
+        >
+          ANDROID 2014
+        </span>
+      </div>
+
+      <!-- Metadata Footer -->
+      <div
+        class="mt-auto pt-3 border-t border-neutral-200/80 dark:border-neutral-800/80 flex items-center justify-between gap-3 min-w-0"
+      >
+        <!-- File Name Marquee Container (Loops on Overflow) -->
+        <div class="egg-marquee-wrapper relative overflow-hidden min-w-0 flex-1">
+          <div class="egg-marquee-track inline-flex items-center">
+            <div class="egg-marquee-content inline-flex items-center text-neutral-400 dark:text-neutral-500 whitespace-nowrap shrink-0 font-mono text-[11px]">
+              <span>Screenshot_20140507-0830.png</span>
+              <span class="egg-dot-trailing text-neutral-400 dark:text-neutral-600 select-none text-[8px] mx-2.5" aria-hidden="true">
+                •
+              </span>
+            </div>
+          </div>
+        </div>
+        <span
+          class="font-mono text-[10px] text-neutral-400 dark:text-neutral-500 whitespace-nowrap shrink-0"
+        >
+          MAY 7, 2014
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 03: WS2812B & GPIO16 Hardware Video Floating Popup -->
+<div
+  id="egg-popup-ws2812b"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="egg-ws2812b-title"
+  class="egg-popup-modal popup-hidden fixed bottom-4 inset-x-0 mx-auto sm:inset-x-auto sm:right-6 sm:mx-0 sm:bottom-6 z-50 w-[92vw] max-w-[340px] sm:max-w-[370px] flex flex-col font-sans"
+>
+  <!-- Floating Dismiss Text Above Popup (Centered on mobile) -->
+  <div class="flex items-center justify-center sm:justify-end mb-1 px-1">
+    <button
+      type="button"
+      aria-label="Dismiss WS2812B Hardware popup"
+      class="egg-popup-close font-mono text-xs text-red-500 hover:text-red-600 dark:text-red-400 dark:hover:text-red-300 hover:underline cursor-pointer select-none transition-colors p-0 bg-transparent border-0 flex items-center justify-center gap-1 w-full sm:w-auto text-center"
+    >
+      <span class="sm:hidden">↓ Swipe down to dismiss</span>
+      <span class="hidden sm:inline">Dismiss x [esc]</span>
+    </button>
+  </div>
+
+  <!-- Popup Card -->
+  <div
+    class="w-full bg-[#f6f4ee] dark:bg-[#141414] border border-neutral-300/80 dark:border-neutral-800 shadow-2xl shadow-black/40 overflow-hidden flex flex-col"
+  >
+    <!-- Media / Viewfinder Container (Full Bleed Vertical Video) -->
+    <div
+      class="relative w-full bg-black overflow-hidden border-b border-neutral-300/80 dark:border-neutral-800/80 select-none flex items-center justify-center"
+    >
+      <video
+        data-src={`${base}/whatisthis/PXL_20230410_134215282.CINEMATIC.webm`}
+        autoplay
+        loop
+        muted
+        playsinline
+        controls
+        class="w-full h-auto max-h-[55vh] sm:max-h-[58vh] object-contain block select-none bg-black"
+      ></video>
+    </div>
+
+    <!-- Content Section (Project Tile Format) -->
+    <div class="p-4 sm:p-5 flex flex-col flex-1 gap-3">
+      <!-- Category Tag -->
+      <span
+        class="font-sans text-[11px] uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-semibold"
+      >
+        02 // EASTER EGG &bull; HARDWARE LAB
+      </span>
+
+      <!-- Title -->
+      <h3
+        id="egg-ws2812b-title"
+        class="text-lg sm:text-xl font-bold text-neutral-950 dark:text-white tracking-tight leading-tight font-heading"
+      >
+        ESP8266 LED Controller
+      </h3>
+
+      <!-- Description -->
+      <p
+        class="font-sans text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed font-normal"
+      >
+        Microcontroller firmware experimenting with single-wire addressable
+        RGB LED timing signals, custom color chases, and hardware pulse
+        generation.
+      </p>
+
+      <!-- Tags Row -->
+      <ul
+        class="flex flex-wrap gap-1.5 sm:gap-2 pt-1 list-none p-0 m-0"
+        aria-label="Tags"
+      >
+        <li>
+          <span
+            class="font-sans text-[9px] sm:text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2 sm:px-2.5 py-0.5 sm:py-1 rounded inline-block"
+          >
+            WS2812B
+          </span>
+        </li>
+        <li>
+          <span
+            class="font-sans text-[9px] sm:text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2 sm:px-2.5 py-0.5 sm:py-1 rounded inline-block"
+          >
+            ESP8266
+          </span>
+        </li>
+        <li>
+          <span
+            class="font-sans text-[9px] sm:text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2 sm:px-2.5 py-0.5 sm:py-1 rounded inline-block"
+          >
+            EMBEDDED C++
+          </span>
+        </li>
+      </ul>
+
+      <!-- Metadata Footer -->
+      <div
+        class="mt-auto pt-3 border-t border-neutral-200/80 dark:border-neutral-800/80 flex items-center justify-between gap-3 min-w-0"
+      >
+        <!-- File Name Marquee Container (Loops on Overflow) -->
+        <div class="egg-marquee-wrapper relative overflow-hidden min-w-0 flex-1">
+          <div class="egg-marquee-track inline-flex items-center">
+            <div class="egg-marquee-content inline-flex items-center text-neutral-400 dark:text-neutral-500 whitespace-nowrap shrink-0 font-mono text-[11px]">
+              <span>PXL_20230410_134215282.CINEMATIC.webm</span>
+              <span class="egg-dot-trailing text-neutral-400 dark:text-neutral-600 select-none text-[8px] mx-2.5" aria-hidden="true">
+                •
+              </span>
+            </div>
+          </div>
+        </div>
+        <span
+          class="font-mono text-[10px] text-neutral-400 dark:text-neutral-500 whitespace-nowrap shrink-0"
+        >
+          APRIL 10, 2023
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ░░ EASTER EGGS - Scattered Background Labels & Interactive Triggers ░░ -->
+<div class="absolute inset-0 pointer-events-none overflow-hidden z-20">
+  <!-- 01: setTimeout(showTime, 1000); (Hero Top Left) -->
+  <span
+    class="egg-static absolute font-mono text-xs text-neutral-600 dark:text-neutral-300 select-none rotate-[-5deg]"
+    style="top:2%;left:2.5%;">setTimeout(showTime, 1000);</span
+  >
+
+  <!-- 02: WS2812B (Hero Right - ACTIVE EASTER EGG) -->
+  <button
+    type="button"
+    data-easter="ws2812b"
+    class="egg-static absolute font-mono text-xs text-neutral-600 dark:text-neutral-300 opacity-[0.08] hover:opacity-75 hover:underline underline-offset-4 cursor-pointer select-none transition-[opacity,text-decoration] duration-200 pointer-events-auto p-1 bg-transparent border-0 tracking-wider focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent,#52FF1A)] rounded rotate-[4deg]"
+    style="top:11%;right:2%;"
+    aria-label="Unlock WS2812B LED Easter Egg"
+  >
+    WS2812B
+  </button>
+
+  <!-- 03: GPIO16 (Between Hero & Sec 01 - ACTIVE EASTER EGG) -->
+  <button
+    type="button"
+    data-easter="gpio"
+    class="egg-static absolute font-mono text-xs text-neutral-600 dark:text-neutral-300 opacity-[0.08] hover:opacity-75 hover:underline underline-offset-4 cursor-pointer select-none transition-[opacity,text-decoration] duration-200 pointer-events-auto p-1 bg-transparent border-0 tracking-wider focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent,#52FF1A)] rounded rotate-[-3deg]"
+    style="top:21%;left:1.5%;"
+    aria-label="Unlock GPIO16 Easter Egg"
+  >
+    GPIO16
+  </button>
+
+  <!-- 04: DateTime.Now (Sec 01 / Sec 02 Gap - ACTIVE EASTER EGG) -->
+  <button
+    type="button"
+    data-easter="jam-clock"
+    class="egg-static absolute font-mono text-xs text-neutral-600 dark:text-neutral-300 opacity-[0.08] hover:opacity-75 hover:underline underline-offset-4 cursor-pointer select-none transition-[opacity,text-decoration] duration-200 pointer-events-auto p-1 bg-transparent border-0 tracking-wider focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent,#52FF1A)] rounded rotate-[4deg]"
+    style="top:31%;right:2%;"
+    aria-label="Unlock Jam Digital Easter Egg"
+  >
+    DateTime.Now
+  </button>
+
+  <!-- 05: Node_12 (Sec 02 / Sec 03 Gap) -->
+  <span
+    class="egg-static absolute font-mono text-xs text-neutral-600 dark:text-neutral-300 select-none rotate-[-4deg]"
+    style="top:44%;left:2%;">Node_12</span
+  >
+
+  <!-- 06: ASCII_RENDERER (Sec 03 / Sec 04 Gap) -->
+  <span
+    class="egg-static absolute font-mono text-xs text-neutral-600 dark:text-neutral-300 select-none rotate-[3deg]"
+    style="top:55%;right:1.5%;">ASCII_RENDERER</span
+  >
+
+  <!-- 07: since(2026); (Sec 04 / Sec 05 Gap) -->
+  <span
+    class="egg-static absolute font-mono text-xs text-neutral-600 dark:text-neutral-300 select-none rotate-[-4deg]"
+    style="top:66%;left:2%;">since(2026);</span
+  >
+
+  <!-- 08: process.env.PORT || 8080 -->
+  <span
+    class="egg-static absolute font-mono text-xs text-neutral-600 dark:text-neutral-300 select-none rotate-[5deg]"
+    style="top:75%;right:3%;">process.env.PORT || 8080</span
+  >
+
+  <!-- 09: struct Pixel { r: u8, g: u8, b: u8 } (Sec 06 / Sec 07 Gap) -->
+  <span
+    class="egg-static absolute font-mono text-xs text-neutral-600 dark:text-neutral-300 select-none rotate-[2deg]"
+    style="top:89%;left:1.5%;"
+    >struct Pixel &#123; r: u8, g: u8, b: u8 &#125;</span
+  >
+
+  <!-- 10: 0x7F454C46 (Footer Area) -->
+  <span
+    class="egg-static absolute font-mono text-xs text-neutral-600 dark:text-neutral-300 select-none rotate-[-3deg]"
+    style="top:98%;right:2%;">0x7F454C46</span
+  >
+</div>
+
+<style>
+  /* Popup slide/fade animation */
+  .egg-popup-modal {
+    transition:
+      opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .egg-popup-modal.popup-hidden {
+    opacity: 0;
+    transform: translateY(24px) scale(0.96);
+    pointer-events: none;
+  }
+  .egg-popup-modal.popup-visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+  }
+
+  /* Easter egg fragments on the back */
+  .egg-static {
+    opacity: 0.08;
+    user-select: none;
+    transition:
+      opacity 0.2s ease,
+      text-decoration 0.2s ease;
+  }
+  button.egg-static:hover,
+  .egg-static[data-easter]:hover {
+    opacity: 0.75 !important;
+    text-decoration: underline !important;
+    text-underline-offset: 4px;
+  }
+
+  /* Marquee Footer Animation & Overflow */
+  @keyframes marquee-scroll {
+    0% {
+      transform: translate3d(0, 0, 0);
+    }
+    100% {
+      transform: translate3d(-50%, 0, 0);
+    }
+  }
+
+  .egg-marquee-wrapper:not(.is-overflowing) .egg-dot-trailing {
+    display: none !important;
+  }
+
+  .egg-marquee-wrapper.is-overflowing {
+    -webkit-mask-image: linear-gradient(to right, black calc(100% - 24px), transparent 100%);
+    mask-image: linear-gradient(to right, black calc(100% - 24px), transparent 100%);
+  }
+
+  .egg-marquee-track {
+    display: inline-flex;
+    align-items: center;
+    width: max-content;
+    will-change: transform;
+  }
+
+  .egg-marquee-wrapper:hover .egg-marquee-track,
+  .egg-popup-modal:hover .egg-marquee-track,
+  .egg-marquee-wrapper:focus-within .egg-marquee-track {
+    animation-play-state: paused !important;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .egg-marquee-track {
+      animation: none !important;
+      transform: none !important;
+    }
+    .egg-marquee-wrapper {
+      overflow-x: auto !important;
+      mask-image: none !important;
+      -webkit-mask-image: none !important;
+    }
+  }
+</style>
+
+<script>
+  (function () {
+    let lastFocusedElement: HTMLElement | null = null;
+
+    function initEggMarquees(targetContainer?: HTMLElement | Document) {
+      const root = targetContainer || document;
+      const wrappers = root.querySelectorAll<HTMLElement>(".egg-marquee-wrapper");
+      wrappers.forEach((wrapper) => {
+        const track = wrapper.querySelector<HTMLElement>(".egg-marquee-track");
+        const content = wrapper.querySelector<HTMLElement>(".egg-marquee-content");
+        if (!track || !content) return;
+
+        const wrapperWidth = wrapper.clientWidth;
+        if (wrapperWidth === 0) return;
+
+        // Reset styles for clean measurement
+        const existingClone = track.querySelector(".egg-marquee-clone");
+        if (existingClone) {
+          existingClone.remove();
+        }
+        wrapper.classList.remove("is-overflowing");
+        track.style.animation = "none";
+
+        // Measure natural width (trailing dot is hidden when not overflowing)
+        const naturalWidth = content.scrollWidth;
+
+        if (naturalWidth > wrapperWidth + 2) {
+          // Enable overflowing mode (which reveals trailing dot divider)
+          wrapper.classList.add("is-overflowing");
+
+          // Clone with trailing dot included
+          const clone = content.cloneNode(true) as HTMLElement;
+          clone.classList.add("egg-marquee-clone");
+          clone.setAttribute("aria-hidden", "true");
+          track.appendChild(clone);
+
+          // Measured unit width includes all items and the trailing divider dot
+          const unitWidth = content.scrollWidth;
+          // Consistent calm reading pace (~22px/s)
+          const duration = Math.max(10, unitWidth / 22);
+
+          track.style.animationName = "marquee-scroll";
+          track.style.animationDuration = `${duration}s`;
+          track.style.animationTimingFunction = "linear";
+          track.style.animationIterationCount = "infinite";
+        }
+      });
+    }
+
+    function closeAllPopups() {
+      document.querySelectorAll(".egg-popup-modal").forEach((p) => {
+        const el = p as HTMLElement;
+        el.style.transform = "";
+        el.style.opacity = "";
+        el.style.transition = "";
+        el.classList.remove("popup-visible");
+        el.classList.add("popup-hidden");
+      });
+      document.querySelectorAll(".egg-popup-modal video").forEach((v) => {
+        const video = v as HTMLVideoElement;
+        video.pause();
+        video.currentTime = 0;
+      });
+      const backdrop = document.getElementById("egg-backdrop");
+      if (backdrop) {
+        backdrop.classList.remove("opacity-100", "pointer-events-auto");
+        backdrop.classList.add("opacity-0", "pointer-events-none");
+      }
+      document.documentElement.style.overflow = "";
+      document.body.style.overflow = "";
+
+      if (lastFocusedElement && document.contains(lastFocusedElement)) {
+        lastFocusedElement.focus();
+      }
+      lastFocusedElement = null;
+    }
+
+    function openPopup(id: string) {
+      lastFocusedElement = document.activeElement as HTMLElement | null;
+      closeAllPopups();
+      const popup = document.getElementById(id);
+      if (!popup) return;
+      const iframe = popup.querySelector(
+        "iframe[data-src]",
+      ) as HTMLIFrameElement | null;
+      if (iframe && !iframe.src) {
+        iframe.src = iframe.dataset.src || "";
+      }
+      const video = popup.querySelector(
+        "video[data-src]",
+      ) as HTMLVideoElement | null;
+      if (video) {
+        if (!video.src) {
+          video.src = video.dataset.src || "";
+        }
+        video.play().catch(() => {});
+      }
+      popup.style.transform = "";
+      popup.style.opacity = "";
+      popup.style.transition = "";
+      popup.classList.remove("popup-hidden");
+      popup.classList.add("popup-visible");
+
+      // Focus close button inside popup for screen readers & keyboard users
+      requestAnimationFrame(() => {
+        const closeBtn = popup.querySelector<HTMLElement>(".egg-popup-close");
+        closeBtn?.focus();
+        initEggMarquees(popup);
+      });
+
+      // Only lock background scroll and activate backdrop overlay on mobile screens (< 640px)
+      if (window.innerWidth < 640) {
+        const backdrop = document.getElementById("egg-backdrop");
+        if (backdrop) {
+          backdrop.classList.remove("opacity-0", "pointer-events-none");
+          backdrop.classList.add("opacity-100", "pointer-events-auto");
+        }
+        document.documentElement.style.overflow = "hidden";
+        document.body.style.overflow = "hidden";
+      }
+    }
+
+    function togglePopup(id: string) {
+      const popup = document.getElementById(id);
+      if (popup && popup.classList.contains("popup-visible")) {
+        closeAllPopups();
+      } else {
+        openPopup(id);
+      }
+    }
+
+    // Ensure desktop resize cleanly clears any mobile scroll locks and recalculates marquees
+    let lastWidth = typeof window !== "undefined" ? window.innerWidth : 0;
+    let resizeTimer: number | null = null;
+    window.addEventListener("resize", () => {
+      if (window.innerWidth >= 640) {
+        document.documentElement.style.overflow = "";
+        document.body.style.overflow = "";
+        const backdrop = document.getElementById("egg-backdrop");
+        if (backdrop) {
+          backdrop.classList.remove("opacity-100", "pointer-events-auto");
+          backdrop.classList.add("opacity-0", "pointer-events-none");
+        }
+      }
+      if (window.innerWidth !== lastWidth) {
+        lastWidth = window.innerWidth;
+        if (resizeTimer) clearTimeout(resizeTimer);
+        resizeTimer = window.setTimeout(() => {
+          initEggMarquees();
+        }, 150);
+      }
+    });
+
+    // Backdrop dismiss click and touchmove block
+    const backdrop = document.getElementById("egg-backdrop");
+    if (backdrop) {
+      backdrop.addEventListener("click", () => {
+        closeAllPopups();
+      });
+      backdrop.addEventListener(
+        "touchmove",
+        (e) => {
+          if (e.cancelable) e.preventDefault();
+        },
+        { passive: false },
+      );
+    }
+
+    // Touch swipe-down to dismiss on mobile
+    document.querySelectorAll(".egg-popup-modal").forEach((popupEl) => {
+      const popup = popupEl as HTMLElement;
+      let startY = 0;
+      let currentY = 0;
+      let isDragging = false;
+      let startTime = 0;
+
+      popup.addEventListener(
+        "touchstart",
+        (e) => {
+          if (!popup.classList.contains("popup-visible")) return;
+          if ((e.target as HTMLElement)?.closest(".egg-popup-close")) return;
+          startY = e.touches[0].clientY;
+          currentY = startY;
+          startTime = Date.now();
+          isDragging = true;
+          popup.style.transition = "none";
+        },
+        { passive: true },
+      );
+
+      popup.addEventListener(
+        "touchmove",
+        (e) => {
+          if (!isDragging) return;
+          currentY = e.touches[0].clientY;
+          const deltaY = currentY - startY;
+          if (deltaY > 0) {
+            if (e.cancelable) e.preventDefault();
+            popup.style.transform = `translateY(${deltaY}px)`;
+            popup.style.opacity = `${Math.max(0.1, 1 - deltaY / 280)}`;
+          }
+        },
+        { passive: false },
+      );
+
+      const endDrag = () => {
+        if (!isDragging) return;
+        isDragging = false;
+        const deltaY = currentY - startY;
+        const duration = Date.now() - startTime;
+        const velocity = deltaY / (duration || 1);
+
+        popup.style.transition = "";
+
+        // If dragged down > 60px or fast flick downward (> 0.4px/ms)
+        if (deltaY > 60 || (velocity > 0.4 && deltaY > 20)) {
+          popup.style.transform = "translateY(120px)";
+          popup.style.opacity = "0";
+          setTimeout(() => {
+            closeAllPopups();
+          }, 180);
+        } else {
+          popup.style.transform = "";
+          popup.style.opacity = "";
+        }
+      };
+
+      popup.addEventListener("touchend", endDrag, { passive: true });
+      popup.addEventListener("touchcancel", endDrag, { passive: true });
+    });
+
+    // Event delegation on document to guarantee clicks are captured
+    document.addEventListener("click", (e) => {
+      const target = e.target as HTMLElement | null;
+      if (!target) return;
+
+      const eggBtn = target.closest("[data-easter]");
+      if (eggBtn) {
+        e.preventDefault();
+        e.stopPropagation();
+        const easterType = eggBtn.getAttribute("data-easter");
+        if (easterType === "jam-clock") {
+          togglePopup("egg-popup-clock");
+        } else if (easterType === "modpe") {
+          togglePopup("egg-popup-modpe");
+        } else if (easterType === "ws2812b" || easterType === "gpio") {
+          togglePopup("egg-popup-ws2812b");
+        }
+        return;
+      }
+
+      const closeBtn = target.closest(".egg-popup-close");
+      if (closeBtn) {
+        e.preventDefault();
+        closeAllPopups();
+        return;
+      }
+    });
+
+    // Keyboard Trap & Escape Handling for Dialog Modals
+    document.addEventListener("keydown", (e) => {
+      const activePopup = document.querySelector<HTMLElement>(
+        ".egg-popup-modal.popup-visible",
+      );
+      if (!activePopup) return;
+
+      if (e.key === "Escape") {
+        e.preventDefault();
+        closeAllPopups();
+        return;
+      }
+
+      if (e.key === "Tab") {
+        const focusables = Array.from(
+          activePopup.querySelectorAll<HTMLElement>(
+            'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])',
+          ),
+        ).filter(
+          (el) => !el.hasAttribute("disabled") && el.offsetParent !== null,
+        );
+
+        if (focusables.length === 0) return;
+        const firstEl = focusables[0];
+        const lastEl = focusables[focusables.length - 1];
+
+        if (e.shiftKey) {
+          if (document.activeElement === firstEl) {
+            e.preventDefault();
+            lastEl.focus();
+          }
+        } else {
+          if (document.activeElement === lastEl) {
+            e.preventDefault();
+            firstEl.focus();
+          }
+        }
+      }
+    });
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", () => initEggMarquees());
+    } else {
+      initEggMarquees();
+    }
+    document.addEventListener("astro:page-load", () => initEggMarquees());
+  })();
+</script>

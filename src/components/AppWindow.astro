@@ -43,7 +43,7 @@ const {
 ---
 
 <div
-  class="app-window relative w-full max-w-sm sm:max-w-md mx-auto lg:mx-0 rounded-2xl sm:rounded-3xl border border-neutral-300/80 dark:border-neutral-800/80 bg-[#fcfbf9] dark:bg-[#0e0e0e] overflow-hidden shadow-2xl shadow-black/10 dark:shadow-black/50 aspect-square group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#52FF1A]"
+  class="app-window relative w-full max-w-sm sm:max-w-md mx-auto lg:mx-0 rounded-2xl sm:rounded-3xl border border-neutral-300/80 dark:border-neutral-800/80 bg-[#fcfbf9] dark:bg-[#0e0e0e] overflow-hidden shadow-2xl shadow-black/10 dark:shadow-black/50 aspect-square group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent,#52FF1A)]"
   role="region"
   aria-roledescription="carousel"
   aria-label="Project Application Showcase"
@@ -81,7 +81,7 @@ const {
           type="button"
           data-index={idx}
           class:list={[
-            "app-bullet-btn h-1.5 rounded-full transition-all duration-300 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#52FF1A] focus-visible:ring-offset-1 focus-visible:ring-offset-black",
+            "app-bullet-btn h-1.5 rounded-full transition-all duration-300 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent,#52FF1A)] focus-visible:ring-offset-1 focus-visible:ring-offset-black",
             idx === 0
               ? "w-5 bg-white"
               : "w-1.5 bg-white/40 hover:bg-white/70"

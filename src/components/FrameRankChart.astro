@@ -1,0 +1,86 @@
+---
+// FrameRankChart.astro — Filmstrip Proportional Asset Popularity & Ranking Chart ported to Portfolio v5
+interface FrameItem {
+  id?: string | number;
+  name: string;
+  count: number;
+  percentage: number;
+}
+
+interface Props {
+  frames?: FrameItem[];
+  totalSlots?: number;
+  class?: string;
+  id?: string;
+  [key: string]: any;
+}
+
+const defaultFrames: FrameItem[] = [
+  { id: '1', name: 'COMPOSITIO AESTIVA RETRO', count: 125, percentage: 48 },
+  { id: '2', name: 'MARGINALIA POLAROID CLASSICA', count: 85, percentage: 32 },
+  { id: '3', name: 'VELUM CYBERPUNK NOCTURNUM', count: 42, percentage: 16 },
+  { id: '4', name: 'FORMA MONOCHROMATICA', count: 24, percentage: 9 },
+];
+
+const {
+  frames = defaultFrames,
+  totalSlots = 12,
+  class: className = '',
+  id,
+  ...rest
+} = Astro.props;
+---
+
+<div class:list={['flex flex-col w-full gap-2 select-none font-sans', className]} id={id} {...rest}>
+  {
+    frames.map((f, idx) => {
+      const filledSlots = Math.round((f.percentage / 100) * totalSlots);
+      return (
+        <div
+          key={f.id || idx}
+          class="group flex items-center gap-4 px-4 py-3.5 bg-[#fcfbf9] dark:bg-[#0e0e0e] border border-dashed border-neutral-300 dark:border-neutral-800 hover:border-neutral-950 dark:hover:border-white hover:bg-white dark:hover:bg-neutral-900 transition-[background-color,border-color,box-shadow,transform] duration-150 cursor-pointer"
+        >
+          {/* Rank Badge */}
+          <div class="font-heading font-black text-2xl text-neutral-300 dark:text-neutral-700 group-hover:text-neutral-950 dark:group-hover:text-white w-10 shrink-0 text-center tracking-tighter transition-colors duration-150">
+            {String(idx + 1).padStart(2, '0')}
+          </div>
+
+          {/* Details & Filmstrip */}
+          <div class="flex-1 flex flex-col gap-2 min-w-0">
+            <div class="flex items-baseline justify-between gap-3">
+              <span class="font-heading font-bold text-xs uppercase tracking-wider text-neutral-900 dark:text-neutral-100 truncate">
+                {f.name}
+              </span>
+              <span class="font-sans text-[11px] font-normal text-neutral-400 dark:text-neutral-500 shrink-0">
+                {f.count} sessiones
+              </span>
+            </div>
+
+            {/* Proportional Filmstrip Slots */}
+            <div class="flex items-center gap-1.5 flex-wrap">
+              <div class="flex items-center gap-1">
+                {Array.from({ length: totalSlots }).map((_, i) => {
+                  const isFilled = i < filledSlots;
+                  return (
+                    <div
+                      key={i}
+                      class:list={[
+                        "w-3.5 h-5 rounded-[2px] border transition-colors duration-150 shrink-0",
+                        isFilled
+                          ? "bg-neutral-950 border-neutral-950 dark:bg-white dark:border-white"
+                          : "bg-neutral-100 border-neutral-200 dark:bg-neutral-800/60 dark:border-neutral-700"
+                      ]}
+                    />
+                  );
+                })}
+              </div>
+              <span class="font-sans text-[11px] font-medium text-neutral-500 dark:text-neutral-400 ml-1 shrink-0">
+                {f.percentage}%
+              </span>
+            </div>
+          </div>
+        </div>
+      );
+    })
+  }
+</div>

@@ -1,5 +1,5 @@
 ---
-// Hero.astro - Pure server-rendered static Hero with Syne 900 and clean editorial row spacing
+// Hero.astro - Server-rendered Hero section with Syne typography
 import ActionButton from "./ActionButton.astro";
 import HeroMap from "./HeroMap.astro";
 
@@ -72,7 +72,7 @@ const base = rawBase.endsWith("/") ? rawBase.slice(0, -1) : rawBase;
           aria-hidden="true"
         >
           <span
-            class="hero-h3-slashes text-[#52FF1A] mr-[0.25em] select-none"
+            class="hero-h3-slashes text-[var(--color-accent,#52FF1A)] mr-[0.25em] select-none"
             style="opacity: 0.6; font-weight: 400;">//</span
           >
           <span class="inline-flex items-baseline whitespace-nowrap">
@@ -88,7 +88,7 @@ const base = rawBase.endsWith("/") ? rawBase.slice(0, -1) : rawBase;
         </div>
       </h1>
 
-      <!-- Editorial Subtitle & Quick Action Pills -->
+      <!-- Subtitle & Quick Action Pills -->
       <div class="mt-6 sm:mt-10 max-w-xl space-y-6">
         <p
           class="text-sm sm:text-base md:text-lg text-neutral-600 dark:text-neutral-400 font-normal leading-relaxed"

@@ -235,14 +235,14 @@ const subText = labelMatch ? labelMatch[2] : null;
 
   .dp-trigger:focus,
   .dp-trigger.is-active {
-    border-color: #52FF1A;
-    box-shadow: 0 0 0 3px rgba(82, 255, 26, 0.2);
+    border-color: var(--color-accent, #52FF1A);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-accent, #52FF1A) 20%, transparent);
   }
 
   :global(.dark) .dp-trigger:focus,
   :global(.dark) .dp-trigger.is-active {
-    border-color: #52FF1A;
-    box-shadow: 0 0 0 3px rgba(82, 255, 26, 0.25);
+    border-color: var(--color-accent, #52FF1A);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-accent, #52FF1A) 25%, transparent);
   }
 
   .dp-caret {
@@ -333,14 +333,14 @@ const subText = labelMatch ? labelMatch[2] : null;
 
   .dp-nav-btn:hover {
     border-style: solid;
-    border-color: #52FF1A;
-    background: rgba(82, 255, 26, 0.08);
+    border-color: var(--color-accent, #52FF1A);
+    background: color-mix(in srgb, var(--color-accent, #52FF1A) 8%, transparent);
     color: #111111;
   }
 
   :global(.dark) .dp-nav-btn:hover {
-    border-color: #52FF1A;
-    background: rgba(82, 255, 26, 0.15);
+    border-color: var(--color-accent, #52FF1A);
+    background: color-mix(in srgb, var(--color-accent, #52FF1A) 15%, transparent);
     color: #ffffff;
   }
 
@@ -395,7 +395,7 @@ const subText = labelMatch ? labelMatch[2] : null;
   }
 
   :global(.dp-cell:hover:not(.dp-cell--disabled)) {
-    background: rgba(82, 255, 26, 0.12);
+    background: color-mix(in srgb, var(--color-accent, #52FF1A) 12%, transparent);
   }
 
   :global(.dp-cell--today) {
@@ -407,7 +407,7 @@ const subText = labelMatch ? labelMatch[2] : null;
   }
 
   :global(.dp-cell--selected) {
-    background: #52FF1A !important;
+    background: var(--color-accent, #52FF1A) !important;
     color: #000000 !important;
   }
 
@@ -481,12 +481,12 @@ const subText = labelMatch ? labelMatch[2] : null;
   }
 
   :global(.dark) .dp-today-btn {
-    color: #52FF1A;
+    color: var(--color-accent, #52FF1A);
   }
 
   .dp-today-btn:hover {
     text-decoration: underline;
-    color: #52FF1A;
+    color: var(--color-accent, #52FF1A);
   }
 </style>
 

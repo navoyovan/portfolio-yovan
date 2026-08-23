@@ -9,6 +9,7 @@ interface Props {
   checked?: boolean;
   disabled?: boolean;
   compact?: boolean;
+  loadingDelay?: number;
   class?: string;
   [key: string]: any;
 }
@@ -22,6 +23,7 @@ const {
   checked = false,
   disabled = false,
   compact = false,
+  loadingDelay = 0,
   class: className = '',
   ...rest
 } = Astro.props;
@@ -35,6 +37,7 @@ const {
     disabled ? "opacity-50 cursor-not-allowed pointer-events-none" : "cursor-pointer",
     className
   ]}
+  data-loading-delay={loadingDelay > 0 ? loadingDelay : undefined}
 >
   <div class:list={["relative flex items-center justify-center shrink-0", compact ? "mt-0" : "mt-0.5"]}>
     <input
@@ -52,18 +55,18 @@ const {
         "radio-box relative rounded-full bg-white dark:bg-[#141414] transition-all duration-150 flex items-center justify-center shrink-0 border border-dashed border-[#d1d5db] dark:border-neutral-700",
         compact ? "w-[18px] h-[18px]" : "w-6 h-6",
         "group-hover:border-solid group-hover:border-neutral-950 dark:group-hover:border-white",
-        "peer-focus-visible:ring-2 peer-focus-visible:ring-[#52FF1A] peer-focus-visible:ring-offset-2 dark:peer-focus-visible:ring-offset-neutral-950"
+        "peer-focus-visible:ring-2 peer-focus-visible:ring-[var(--color-accent,#52FF1A)] peer-focus-visible:ring-offset-2 dark:peer-focus-visible:ring-offset-neutral-950"
       ]}
     >
       <!-- Spinning border overlay during transition -->
       <div class="radio-border-spinner absolute -inset-[1.5px] rounded-full pointer-events-none overflow-hidden hidden">
-        <div class="w-[200%] h-[200%] absolute -top-1/2 -left-1/2 bg-[conic-gradient(from_0deg,#52FF1A_0%,transparent_60%,#52FF1A_100%)] animate-spin"></div>
+        <div class="w-[200%] h-[200%] absolute -top-1/2 -left-1/2 bg-[conic-gradient(from_0deg,var(--color-accent,#52FF1A)_0%,transparent_60%,var(--color-accent,#52FF1A)_100%)] animate-spin"></div>
         <div class="absolute inset-[1.5px] rounded-full bg-white dark:bg-[#141414]"></div>
       </div>
 
       <div
         class:list={[
-          "radio-dot relative z-10 rounded-full bg-[#52FF1A] transition-transform duration-150 shrink-0",
+          "radio-dot relative z-10 rounded-full bg-[var(--color-accent,#52FF1A)] transition-transform duration-150 shrink-0",
           compact ? "w-2 h-2" : "w-2.5 h-2.5"
         ]}
       ></div>
@@ -105,7 +108,7 @@ const {
   }
 
   .radio-container:not(.is-transitioning) input[type="radio"]:checked ~ .radio-box {
-    border-color: #52FF1A !important;
+    border-color: var(--color-accent, #52FF1A) !important;
     border-style: solid !important;
   }
   .radio-container:not(.is-transitioning) input[type="radio"]:checked ~ .radio-box .radio-dot {
@@ -138,14 +141,31 @@ const {
         if (input.disabled || input.checked || container.classList.contains('is-transitioning')) return;
         e.preventDefault();
 
-        // Show spinner on the newly selected container
-        container.classList.add('is-transitioning');
+        const delay = parseInt(container.getAttribute('data-loading-delay') || '0', 10);
 
-        setTimeout(() => {
-          container.classList.remove('is-transitioning');
+        const selectRadio = () => {
           input.checked = true;
+          const name = input.name;
+          if (name) {
+            document.querySelectorAll<HTMLInputElement>(`input[type="radio"][name="${name}"]`).forEach((otherInput) => {
+              if (otherInput !== input) {
+                otherInput.checked = false;
+                otherInput.closest('.radio-container')?.classList.remove('is-transitioning');
+              }
+            });
+          }
           input.dispatchEvent(new Event('change', { bubbles: true }));
-        }, 650);
+        };
+
+        if (delay > 0) {
+          container.classList.add('is-transitioning');
+          setTimeout(() => {
+            container.classList.remove('is-transitioning');
+            selectRadio();
+          }, delay);
+        } else {
+          selectRadio();
+        }
       });
     });
   }
@@ -155,4 +175,5 @@ const {
   } else {
     setupRadios();
   }
+  document.addEventListener('astro:page-load', setupRadios);
 </script>

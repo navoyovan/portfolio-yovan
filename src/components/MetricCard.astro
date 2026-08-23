@@ -31,7 +31,7 @@ const {
   aria-label={`${label}: ${value}${subtext ? ` — ${subtext}` : ''}`}
   class:list={[
     'relative flex flex-col justify-between p-5 sm:p-6 bg-[#f6f4ee] dark:bg-[#141414] border border-neutral-300/80 dark:border-neutral-800 transition-[transform,background-color,color,border-color,opacity,box-shadow] duration-200 hover:border-neutral-400 dark:hover:border-neutral-600',
-    accent ? 'border-[#52FF1A]/50 shadow-[0_0_20px_rgba(82,255,26,0.08)]' : '',
+    accent ? 'border-[var(--color-accent,#52FF1A)]/50 shadow-[0_0_20px_color-mix(in_srgb,var(--color-accent,#52FF1A)_20%,transparent)]' : '',
     className
   ]}
   {...rest}
@@ -45,7 +45,7 @@ const {
       <StatusBadge variant={badgeVariant} size="sm">{badge}</StatusBadge>
     )}
     {trend && !badge && (
-      <span class="font-sans text-xs font-bold text-[#52FF1A] bg-[#52FF1A]/10 px-2 py-0.5 rounded">
+      <span class="font-sans text-xs font-bold text-[var(--color-accent,#52FF1A)] bg-[var(--color-accent,#52FF1A)]/10 px-2 py-0.5 rounded">
         {trend}
       </span>
     )}

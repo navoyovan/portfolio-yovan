@@ -1,0 +1,311 @@
+---
+// KioskTimeline.astro — Multi-track Horizontal Schedule & Activity Timeline ported to Portfolio v5
+interface Campaign {
+  id: string | number;
+  name: string;
+  start: string; // YYYY-MM-DD
+  end: string;   // YYYY-MM-DD
+  color?: 'primary' | 'cta' | 'secondary';
+}
+
+interface Props {
+  campaigns?: Campaign[];
+  class?: string;
+  id?: string;
+  [key: string]: any;
+}
+
+const defaultCampaigns: Campaign[] = [
+  { id: 1, name: 'EXPEDITIO PRIMA // HYPE-01', start: new Date(Date.now() - 5 * 86400000).toISOString().slice(0, 10), end: new Date(Date.now() + 12 * 86400000).toISOString().slice(0, 10), color: 'cta' },
+  { id: 2, name: 'AESTIVUS FESTUS // STRIP-04', start: new Date(Date.now() + 15 * 86400000).toISOString().slice(0, 10), end: new Date(Date.now() + 28 * 86400000).toISOString().slice(0, 10), color: 'primary' },
+  { id: 3, name: 'NOCTURNA CELEBRATIO', start: new Date(Date.now() - 18 * 86400000).toISOString().slice(0, 10), end: new Date(Date.now() - 2 * 86400000).toISOString().slice(0, 10), color: 'secondary' },
+  { id: 4, name: 'CALIBRATIO HARDWARE // DNP-RX1', start: new Date(Date.now() + 2 * 86400000).toISOString().slice(0, 10), end: new Date(Date.now() + 9 * 86400000).toISOString().slice(0, 10), color: 'secondary' },
+];
+
+const {
+  campaigns = defaultCampaigns,
+  class: className = '',
+  id = `kt-${Math.random().toString(36).substring(2, 9)}`,
+  ...rest
+} = Astro.props;
+
+// Date range generation: 1 month back to 2 months forward for showcase
+const now = new Date();
+now.setHours(0, 0, 0, 0);
+
+const startDate = new Date(now.getFullYear(), now.getMonth() - 1, 1);
+const endDate = new Date(now.getFullYear(), now.getMonth() + 3, 0);
+
+const days: Array<{ date: string; isToday: boolean; index: number; dayNum: string }> = [];
+const months: Array<{ name: string; colSpan: number }> = [];
+
+let currentMonthStr = "";
+let daysInCurrentMonth = 0;
+let loopDate = new Date(startDate);
+let dayIdx = 0;
+
+const latinMonthNames = [
+  'IANUARIUS', 'FEBRUARIUS', 'MARTIUS', 'APRILIS', 'MAIUS', 'IUNIUS',
+  'IULIUS', 'AUGUSTUS', 'SEPTEMBER', 'OCTOBER', 'NOVEMBER', 'DECEMBER'
+];
+
+while (loopDate <= endDate) {
+  const isToday = loopDate.getTime() === now.getTime();
+  const mName = latinMonthNames[loopDate.getMonth()] + ' ' + loopDate.getFullYear();
+
+  if (mName !== currentMonthStr) {
+    if (currentMonthStr !== "") {
+      months.push({ name: currentMonthStr, colSpan: daysInCurrentMonth });
+    }
+    currentMonthStr = mName;
+    daysInCurrentMonth = 0;
+  }
+
+  days.push({
+    date: loopDate.toISOString().slice(0, 10),
+    isToday,
+    index: dayIdx,
+    dayNum: loopDate.getDate().toString().padStart(2, '0')
+  });
+
+  daysInCurrentMonth++;
+  dayIdx++;
+  loopDate.setDate(loopDate.getDate() + 1);
+}
+
+if (currentMonthStr !== "") {
+  months.push({ name: currentMonthStr, colSpan: daysInCurrentMonth });
+}
+
+const totalDays = dayIdx;
+
+// Pack campaigns onto non-overlapping track rows
+const sorted = [...campaigns].sort((a, b) => new Date(a.start).getTime() - new Date(b.start).getTime());
+const tracks: Campaign[][] = [];
+
+sorted.forEach((camp) => {
+  const campStart = new Date(camp.start).getTime();
+  let placed = false;
+  for (let i = 0; i < tracks.length; i++) {
+    const lastCamp = tracks[i][tracks[i].length - 1];
+    const lastEnd = new Date(lastCamp.end).getTime();
+    if (campStart >= lastEnd) {
+      tracks[i].push(camp);
+      placed = true;
+      break;
+    }
+  }
+  if (!placed) {
+    tracks.push([camp]);
+  }
+});
+
+// Ensure at least 4 visual tracks
+while (tracks.length < 4) {
+  tracks.push([]);
+}
+
+const MS_PER_DAY = 86400000;
+---
+
+<div
+  class:list={[
+    "kiosk-timeline-container relative w-full border border-neutral-300 dark:border-neutral-800 bg-[#fcfbf9] dark:bg-[#0e0e0e] flex flex-col overflow-x-auto select-none font-sans",
+    className
+  ]}
+  id={id}
+  data-kiosk-timeline
+  {...rest}
+>
+  <!-- Legend Status Header Row (Preserved uppercase header) -->
+  <div
+    class="sticky left-0 z-20 flex flex-wrap items-center justify-between gap-4 px-4 py-2.5 bg-neutral-100/90 dark:bg-neutral-900/90 backdrop-blur-md border-b border-neutral-200 dark:border-neutral-800 text-xs uppercase tracking-wider"
+  >
+    <div class="flex items-center gap-3">
+      <span class="font-heading font-bold text-neutral-500 dark:text-neutral-400 text-xs">
+        STATUS // ORDINES:
+      </span>
+      <span class="inline-flex items-center gap-1.5 text-xs font-semibold text-neutral-800 dark:text-neutral-200">
+        <span class="w-2.5 h-2.5 bg-[#52FF1A] border border-black/20"></span>
+        ACTIVA
+      </span>
+      <span class="inline-flex items-center gap-1.5 text-xs font-semibold text-neutral-800 dark:text-neutral-200">
+        <span class="w-2.5 h-2.5 bg-neutral-900 dark:bg-white border border-neutral-400"></span>
+        PRIMARIA
+      </span>
+      <span class="inline-flex items-center gap-1.5 text-xs font-semibold text-neutral-800 dark:text-neutral-200">
+        <span class="w-2.5 h-2.5 bg-transparent border border-dashed border-neutral-500"></span>
+        ORDINARIA
+      </span>
+    </div>
+    <div class="flex items-center gap-2">
+      <button
+        type="button"
+        data-action="scroll-today"
+        class="px-2.5 py-1 text-xs font-heading font-bold uppercase tracking-wider bg-neutral-200 dark:bg-neutral-800 text-neutral-800 dark:text-neutral-200 hover:bg-neutral-950 hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors cursor-pointer"
+      >
+        HODIE ⊙
+      </button>
+    </div>
+  </div>
+
+  <!-- Header: Months & Days Grid -->
+  <div class="sticky top-0 z-10 bg-[#f6f4ee] dark:bg-[#141414] border-b border-neutral-300 dark:border-neutral-800 min-w-max">
+    <!-- Month row (Preserved uppercase header) -->
+    <div
+      class="grid border-b border-neutral-200 dark:border-neutral-800 font-heading font-bold text-xs uppercase tracking-wider text-neutral-800 dark:text-neutral-200"
+      style={`grid-template-columns: repeat(${totalDays}, 44px);`}
+    >
+      {
+        months.map((m, idx) => (
+          <div
+            key={idx}
+            class="px-3 py-1.5 border-r border-neutral-200 dark:border-neutral-800 whitespace-nowrap"
+            style={`grid-column: span ${m.colSpan};`}
+          >
+            {m.name}
+          </div>
+        ))
+      }
+    </div>
+
+    <!-- Days row: Outfit for normal days, Syne for Today (neutral solid, not accented) -->
+    <div
+      class="grid text-xs text-neutral-500 dark:text-neutral-400"
+      style={`grid-template-columns: repeat(${totalDays}, 44px);`}
+    >
+      {
+        days.map((d) => (
+          <div
+            key={d.index}
+            class:list={[
+              "h-8 flex items-center justify-center border-r border-neutral-200 dark:border-neutral-800/60 cursor-pointer transition-colors hover:bg-neutral-200/50 dark:hover:bg-neutral-800/50",
+              d.isToday
+                ? "bg-neutral-950 text-white dark:bg-white dark:text-neutral-950 font-heading font-black text-xs today-cell"
+                : "font-sans font-normal"
+            ]}
+            data-day-index={d.index}
+            data-date={d.date}
+          >
+            <span>{d.dayNum}</span>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+
+  <!-- Tracks & Rows Area -->
+  <div
+    class="relative min-w-max flex flex-col"
+    style={`width: ${totalDays * 44}px;`}
+  >
+    <!-- Background Grid Lines -->
+    <div
+      class="absolute inset-0 grid pointer-events-none z-0"
+      style={`grid-template-columns: repeat(${totalDays}, 44px);`}
+    >
+      {
+        days.map((d) => (
+          <div
+            key={d.index}
+            class:list={[
+              "border-r border-dotted border-neutral-200 dark:border-neutral-800/50 h-full",
+              d.isToday ? "bg-neutral-900/[0.04] dark:bg-white/[0.04] border-r-neutral-400/40 dark:border-r-neutral-600/40" : ""
+            ]}
+          />
+        ))
+      }
+    </div>
+
+    <!-- Dynamic Campaign Tracks -->
+    {
+      tracks.map((track, trackIdx) => (
+        <div
+          key={trackIdx}
+          class="relative h-12 border-b border-neutral-200/70 dark:border-neutral-800/70 hover:bg-neutral-900/[0.02] dark:hover:bg-white/[0.02] transition-colors z-[1]"
+        >
+          {
+            track.map((camp) => {
+              const campStart = new Date(camp.start).getTime();
+              const campEnd = new Date(camp.end).getTime();
+              const effectiveStart = Math.max(campStart, startDate.getTime());
+              const effectiveEnd = Math.min(campEnd, endDate.getTime());
+
+              if (effectiveEnd < startDate.getTime() || effectiveStart > endDate.getTime()) {
+                return null;
+              }
+
+              const startMs = effectiveStart - startDate.getTime();
+              const durationMs = effectiveEnd - effectiveStart;
+              const startPx = (startMs / MS_PER_DAY) * 44;
+              const widthPx = Math.max((durationMs / MS_PER_DAY) * 44, 44);
+
+              const variantStyles = {
+                cta: "bg-[#52FF1A] text-black border border-black/20 hover:shadow-[0_0_15px_rgba(82,255,26,0.4)]",
+                primary: "bg-neutral-950 text-white dark:bg-white dark:text-neutral-950 border border-neutral-800 dark:border-neutral-200",
+                secondary: "bg-white text-neutral-900 dark:bg-neutral-900 dark:text-neutral-100 border border-dashed border-neutral-400 dark:border-neutral-600"
+              };
+
+              const vClass = camp.color ? variantStyles[camp.color] : variantStyles.cta;
+
+              return (
+                <div
+                  key={camp.id}
+                  class:list={[
+                    "absolute top-2 bottom-2 flex items-center px-3 font-heading font-bold text-xs uppercase tracking-wider whitespace-nowrap overflow-hidden text-ellipsis cursor-pointer transition-[transform,box-shadow] duration-150 hover:-translate-y-0.5 z-[2]",
+                    vClass
+                  ]}
+                  style={`left: ${startPx}px; width: ${widthPx}px;`}
+                  title={`${camp.name} (${camp.start} → ${camp.end})`}
+                >
+                  <span class="truncate">{camp.name}</span>
+                </div>
+              );
+            })
+          }
+        </div>
+      ))
+    }
+
+    <!-- Bottom ALL Row (Preserved uppercase header) -->
+    <div class="relative h-10 border-b border-neutral-200 dark:border-neutral-800 bg-neutral-100/40 dark:bg-neutral-900/40 flex items-center px-3 z-[1]">
+      <span class="font-heading text-xs font-bold text-neutral-400 uppercase tracking-widest sticky left-4 z-10">
+        OMNIA // RATIO UNIVERSALIS
+      </span>
+      <div
+        class="absolute inset-x-0 top-2 bottom-2 bg-neutral-200/40 dark:bg-neutral-800/40 border border-dashed border-neutral-300 dark:border-neutral-700 pointer-events-none"
+      />
+    </div>
+  </div>
+</div>
+
+<script>
+  function setupKioskTimelines() {
+    const timelines = document.querySelectorAll<HTMLElement>('[data-kiosk-timeline]');
+    timelines.forEach((tl) => {
+      const scrollTodayBtn = tl.querySelector<HTMLButtonElement>('[data-action="scroll-today"]');
+      const todayCell = tl.querySelector<HTMLElement>('.today-cell');
+
+      const scrollToToday = () => {
+        if (todayCell) {
+          const containerWidth = tl.clientWidth;
+          const todayOffset = todayCell.offsetLeft;
+          tl.scrollTo({
+            left: todayOffset - containerWidth / 2 + 22,
+            behavior: 'smooth'
+          });
+        }
+      };
+
+      if (scrollTodayBtn) {
+        scrollTodayBtn.addEventListener('click', scrollToToday);
+      }
+
+      // Initial scroll to today on load
+      setTimeout(scrollToToday, 100);
+    });
+  }
+
+  setupKioskTimelines();
+  document.addEventListener('astro:page-load', setupKioskTimelines);
+</script>

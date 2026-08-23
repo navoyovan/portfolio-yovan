@@ -1,0 +1,518 @@
+---
+// TrendChart.astro — Monotone Cubic Spline SVG Trend Curve with Weekly View, Past Week Comparison, and Interactive Tooltip
+interface DataPoint {
+  label: string;
+  value: number;
+  pastValue?: number;
+}
+
+interface Props {
+  data?: DataPoint[];
+  cutoffIdx?: number;
+  pastAvg?: number;
+  showLegend?: boolean;
+  width?: number;
+  height?: number;
+  class?: string;
+  id?: string;
+  [key: string]: any;
+}
+
+const defaultWeeklyData: DataPoint[] = [
+  { label: 'Lun', value: 34, pastValue: 24 },
+  { label: 'Mar', value: 48, pastValue: 32 },
+  { label: 'Mer', value: 42, pastValue: 38 },
+  { label: 'Iov', value: 65, pastValue: 46 },
+  { label: 'Ven', value: 88, pastValue: 58 },
+  { label: 'Sat', value: 96, pastValue: 72 },
+  { label: 'Sol', value: 74, pastValue: 52 },
+];
+
+const {
+  data = defaultWeeklyData,
+  cutoffIdx,
+  pastAvg = 46,
+  showLegend = true,
+  class: className = '',
+  id = `tc-${Math.random().toString(36).substring(2, 9)}`,
+  ...rest
+} = Astro.props;
+
+if (!data || data.length === 0) {
+  return null;
+}
+
+// Calculate dynamic today's index if not explicitly provided
+const latinDayKeys = ['Sol', 'Lun', 'Mar', 'Mer', 'Iov', 'Ven', 'Sat']; // 0 = Sunday, 1 = Monday ...
+const todayDayKey = latinDayKeys[new Date().getDay()];
+let calculatedTodayIdx = data.findIndex(
+  (d) => d.label.toLowerCase() === todayDayKey.toLowerCase()
+);
+if (calculatedTodayIdx === -1) calculatedTodayIdx = data.length - 1;
+
+const latestIdx = cutoffIdx !== undefined ? cutoffIdx : calculatedTodayIdx;
+
+// Calculate max value considering both current and past sessions
+const allValues = data.flatMap((d) => [d.value, d.pastValue ?? 0]);
+if (pastAvg) allValues.push(pastAvg);
+const maxVal = Math.max(...allValues, 10);
+
+const W = 600;
+const H = 200;
+const PT = 14;
+const PB = 14;
+const cW = 600;
+const cH = H - PT - PB;
+const yScale = maxVal * 1.15;
+const baseY = PT + cH;
+
+const getX = (i: number) => (i / Math.max(data.length - 1, 1)) * cW;
+const getY = (val: number) => PT + cH - (val / yScale) * cH;
+
+const coords = data.map((p, i) => ({
+  x: getX(i),
+  y: getY(p.value),
+  label: p.label,
+  value: p.value,
+  pastValue: p.pastValue,
+  isToday: i === latestIdx,
+}));
+
+const pastCoords = data.map((p, i) => ({
+  x: getX(i),
+  y: getY(p.pastValue ?? 0),
+}));
+
+const activeCoords = coords.slice(0, latestIdx + 1);
+
+// Monotone Cubic Spline (Fritsch-Carlson) generator
+function buildSplinePath(pts: Array<{ x: number; y: number }>) {
+  const n = pts.length;
+  if (n === 0) return '';
+  if (n === 1) return `M ${pts[0].x} ${pts[0].y}`;
+  if (n === 2) return `M ${pts[0].x} ${pts[0].y} L ${pts[1].x} ${pts[1].y}`;
+
+  const dx: number[] = [];
+  const dy: number[] = [];
+  const slopes: number[] = [];
+
+  for (let i = 0; i < n - 1; i++) {
+    dx[i] = pts[i + 1].x - pts[i].x;
+    dy[i] = pts[i + 1].y - pts[i].y;
+    slopes[i] = dy[i] / dx[i];
+  }
+
+  const m = new Array(n);
+  m[0] = slopes[0];
+  for (let i = 1; i < n - 1; i++) {
+    m[i] = (slopes[i - 1] + slopes[i]) / 2;
+  }
+  m[n - 1] = slopes[n - 2];
+
+  for (let i = 0; i < n - 1; i++) {
+    if (Math.abs(slopes[i]) < 1e-10) {
+      m[i] = 0;
+      m[i + 1] = 0;
+    } else {
+      const α = m[i] / slopes[i];
+      const β = m[i + 1] / slopes[i];
+      const h = Math.sqrt(α * α + β * β);
+      if (h > 3) {
+        m[i] = (3 / h) * α * slopes[i];
+        m[i + 1] = (3 / h) * β * slopes[i];
+      }
+    }
+  }
+
+  let d = `M ${pts[0].x.toFixed(2)} ${pts[0].y.toFixed(2)}`;
+  for (let i = 0; i < n - 1; i++) {
+    const cp1x = pts[i].x + dx[i] / 3;
+    const cp1y = pts[i].y + (m[i] * dx[i]) / 3;
+    const cp2x = pts[i + 1].x - dx[i] / 3;
+    const cp2y = pts[i + 1].y - (m[i + 1] * dx[i]) / 3;
+    d += ` C ${cp1x.toFixed(2)} ${cp1y.toFixed(2)}, ${cp2x.toFixed(2)} ${cp2y.toFixed(2)}, ${pts[i + 1].x.toFixed(2)} ${pts[i + 1].y.toFixed(2)}`;
+  }
+  return d;
+}
+
+const linePath = buildSplinePath(activeCoords);
+const pastLinePath = buildSplinePath(pastCoords);
+
+const fillPath = linePath
+  ? linePath +
+    ` L ${activeCoords[activeCoords.length - 1].x.toFixed(2)} ${baseY.toFixed(2)}` +
+    ` L ${activeCoords[0].x.toFixed(2)} ${baseY.toFixed(2)} Z`
+  : '';
+
+const mid = Math.round(maxVal / 2);
+const gridLines = [
+  { val: 0, y: baseY },
+  { val: mid, y: getY(mid) },
+  { val: maxVal, y: getY(maxVal) },
+];
+
+const pastAvgY = pastAvg ? getY(pastAvg) : null;
+const latestCoord = activeCoords[activeCoords.length - 1];
+const latestPt = data[latestIdx];
+
+const gradientId = `trend-grad-${id}`;
+---
+
+<div
+  class:list={['trend-chart-wrapper relative w-full select-none overflow-visible flex flex-col gap-3 font-sans', className]}
+  id={id}
+  data-trend-chart
+  data-points={JSON.stringify(coords)}
+  data-w={W}
+  data-h={H}
+  {...rest}
+>
+  {
+    showLegend && (
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 pb-2.5 border-b border-neutral-200/80 dark:border-neutral-800/80 text-xs uppercase tracking-wider">
+        <div class="flex items-center gap-3.5 sm:gap-5 flex-wrap">
+          {/* Current Week */}
+          <div class="inline-flex items-center gap-2 font-heading font-bold text-neutral-900 dark:text-neutral-100">
+            <span class="w-3.5 h-0.5 bg-neutral-950 dark:bg-white"></span>
+            <span>HEBDOMADA CURRENS</span>
+          </div>
+
+          {/* Past Week */}
+          <div class="inline-flex items-center gap-2 font-sans font-medium text-neutral-500 dark:text-neutral-400">
+            <span class="w-3.5 border-t border-dashed border-neutral-400 dark:border-neutral-500"></span>
+            <span>HEBDOMADA PRAETERITA</span>
+          </div>
+
+          {/* Past Average Line */}
+          {
+            pastAvg && (
+              <div class="inline-flex items-center gap-2 font-sans font-medium text-amber-600 dark:text-amber-400">
+                <span class="w-3.5 border-t border-dashed border-amber-500"></span>
+                <span>MEDIA: {pastAvg}</span>
+              </div>
+            )
+          }
+        </div>
+
+        <div class="text-xs font-sans font-semibold text-neutral-400 tracking-widest self-start sm:self-auto">
+          COMPARATIO // VII DIES
+        </div>
+      </div>
+    )
+  }
+
+  <!-- Main Body: HTML Y-Axis + SVG Canvas -->
+  <div class="relative w-full flex items-stretch gap-2.5">
+    <!-- Y-Axis (Left Column) -->
+    <div class="flex flex-col justify-between items-end shrink-0 py-2 text-xs font-mono text-neutral-400 dark:text-neutral-500 select-none w-6">
+      <span>{maxVal}</span>
+      <span>{mid}</span>
+      <span>0</span>
+    </div>
+
+    <!-- SVG Plot Area -->
+    <div class="trend-plot-area relative flex-1 h-[190px] sm:h-[220px] overflow-visible">
+      <svg
+        viewBox={`0 0 ${W} ${H}`}
+        preserveAspectRatio="none"
+        class="trend-svg absolute inset-0 w-full h-full overflow-visible cursor-crosshair font-sans touch-pan-y"
+        aria-label="Weekly Telemetry Trend Chart"
+      >
+        <defs>
+          <linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="currentColor" class="text-neutral-900 dark:text-white" stop-opacity="0.14" />
+            <stop offset="100%" stop-color="currentColor" class="text-neutral-900 dark:text-white" stop-opacity="0.0" />
+          </linearGradient>
+        </defs>
+
+        {/* Grid lines */}
+        {
+          gridLines.map((g, i) => (
+            <line
+              key={i}
+              x1="0"
+              y1={g.y}
+              x2={W}
+              y2={g.y}
+              class="stroke-neutral-200 dark:stroke-neutral-800"
+              stroke-width="1"
+              stroke-dasharray="3 3"
+            />
+          ))
+        }
+
+        {/* Area fill for current week */}
+        {fillPath && <path d={fillPath} fill={`url(#${gradientId})`} />}
+
+        {/* Past average horizontal benchmark line */}
+        {
+          pastAvgY && (
+            <line
+              x1="0"
+              y1={pastAvgY}
+              x2={W}
+              y2={pastAvgY}
+              class="stroke-amber-500/70 dark:stroke-amber-400/70"
+              stroke-width="1.5"
+              stroke-dasharray="6 4"
+            />
+          )
+        }
+
+        {/* Past week dashed comparison curve */}
+        {
+          pastLinePath && (
+            <path
+              d={pastLinePath}
+              fill="none"
+              class="stroke-neutral-400 dark:stroke-neutral-600"
+              stroke-width="2"
+              stroke-dasharray="5 5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          )
+        }
+
+        {/* Current week solid spline curve up to today */}
+        {
+          linePath && (
+            <path
+              d={linePath}
+              fill="none"
+              class="stroke-neutral-950 dark:stroke-white"
+              stroke-width="3"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          )
+        }
+
+        {/* Dynamic Interactive Hover Guide Line */}
+        <line
+          x1="0"
+          y1={PT}
+          x2="0"
+          y2={baseY}
+          class="hover-guide-line stroke-neutral-400 dark:stroke-neutral-500 opacity-0 transition-opacity duration-150 pointer-events-none"
+          stroke-width="1.5"
+          stroke-dasharray="3 3"
+        />
+      </svg>
+
+      {/* Dynamic Interactive Hover Guide Dot (HTML - Guaranteed 100% Perfect Circle) */}
+      <div
+        class="hover-guide-dot pointer-events-none absolute -translate-x-1/2 -translate-y-1/2 z-20 w-3.5 h-3.5 rounded-full bg-white dark:bg-neutral-950 border-[2.5px] border-[var(--color-accent,#52FF1A)] opacity-0 transition-opacity duration-150 shadow-sm"
+      ></div>
+
+      {/* Latest / Today Focal Point Marker & Value (HTML - Guaranteed 100% Perfect Circle) */}
+      {
+        latestCoord && latestPt && (
+          <div
+            class="latest-point-marker absolute pointer-events-none -translate-x-1/2 -translate-y-1/2 z-10 flex items-center justify-center"
+            style={`left: ${(latestCoord.x / W) * 100}%; top: ${(latestCoord.y / H) * 100}%;`}
+          >
+            <!-- Outer Halo Ring -->
+            <div class="w-5 h-5 rounded-full bg-[color-mix(in_srgb,var(--color-accent,#52FF1A)_22%,transparent)] flex items-center justify-center">
+              <!-- Inner Solid Accent Dot -->
+              <div class="w-2.5 h-2.5 rounded-full bg-[var(--color-accent,#52FF1A)]"></div>
+            </div>
+            <!-- Value Badge -->
+            <span class="absolute left-6 font-heading font-bold text-xs text-neutral-950 dark:text-white select-none whitespace-nowrap">
+              {latestPt.value}
+            </span>
+          </div>
+        )
+      }
+
+      {/* Past Average Benchmark Label (HTML) */}
+      {
+        pastAvg && pastAvgY && (
+          <div
+            class="absolute right-0 text-xs font-sans font-medium text-amber-600 dark:text-amber-400 pointer-events-none select-none -translate-y-5"
+            style={`top: ${(pastAvgY / H) * 100}%;`}
+          >
+            Media praeterita ({pastAvg})
+          </div>
+        )
+      }
+
+      <!-- High-Contrast Receipt-Style Tooltip Popup with Past Week Comparison -->
+      <div
+        class="chart-tooltip pointer-events-none absolute z-30 opacity-0 flex flex-col items-center gap-1 bg-neutral-950 dark:bg-neutral-900 text-white border border-neutral-800 dark:border-neutral-700 px-3.5 py-2 shadow-[0_6px_24px_rgba(0,0,0,0.4)] transition-[opacity,transform] duration-150 ease-out min-w-[120px] rounded"
+        style="transform: translate(-50%, calc(-100% - 12px));"
+      >
+        <span class="tooltip-date font-heading text-xs font-bold text-neutral-300 leading-none"></span>
+        
+        <div class="flex items-baseline gap-1.5">
+          <span class="tooltip-val font-heading font-black text-2xl text-white leading-tight"></span>
+          <span class="font-sans font-normal text-xs text-neutral-400">sess.</span>
+        </div>
+
+        <div class="tooltip-comparison flex flex-col items-center gap-0.5 pt-1 border-t border-neutral-800 dark:border-neutral-700 w-full text-center">
+          <span class="tooltip-past font-sans font-normal text-xs text-neutral-400"></span>
+          <span class="tooltip-delta font-sans font-medium text-xs"></span>
+        </div>
+
+        <!-- Downward Arrow -->
+        <div
+          class="tooltip-arrow absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-0 h-0 border-x-[5px] border-x-transparent border-t-[5px] border-t-neutral-950 dark:border-t-neutral-900 transition-[left] duration-150"
+        ></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- X-Axis (Bottom HTML Row) -->
+  <div class="flex items-center justify-between pl-8.5 pr-0 pt-1 select-none text-xs">
+    {coords.map((c) => (
+      <span class:list={[
+        c.isToday
+          ? "font-heading font-bold text-xs uppercase text-neutral-950 dark:text-white"
+          : "font-sans font-medium text-xs text-neutral-400 dark:text-neutral-500"
+      ]}>
+        {c.label}
+      </span>
+    ))}
+  </div>
+</div>
+
+<script>
+  function setupTrendCharts() {
+    document.querySelectorAll<HTMLElement>('[data-trend-chart]').forEach((wrapper) => {
+      if (wrapper.dataset.initialized) return;
+      wrapper.dataset.initialized = 'true';
+
+      const plotArea = wrapper.querySelector<HTMLElement>('.trend-plot-area');
+      const svg = wrapper.querySelector<SVGSVGElement>('.trend-svg');
+      const tooltip = wrapper.querySelector<HTMLElement>('.chart-tooltip');
+      const tooltipDate = wrapper.querySelector<HTMLElement>('.tooltip-date');
+      const tooltipVal = wrapper.querySelector<HTMLElement>('.tooltip-val');
+      const tooltipPast = wrapper.querySelector<HTMLElement>('.tooltip-past');
+      const tooltipDelta = wrapper.querySelector<HTMLElement>('.tooltip-delta');
+      const hoverGuide = wrapper.querySelector<SVGLineElement>('.hover-guide-line');
+      const hoverDot = wrapper.querySelector<HTMLElement>('.hover-guide-dot');
+      const tooltipArrow = tooltip?.querySelector<HTMLElement>('.tooltip-arrow');
+
+      if (!plotArea || !svg || !tooltip || !tooltipDate || !tooltipVal || !hoverGuide || !hoverDot) return;
+
+      const pointsData: Array<{ x: number; y: number; label: string; value: number; pastValue?: number }> = JSON.parse(wrapper.dataset.points || '[]');
+      const W = parseFloat(wrapper.dataset.w || '600');
+      const H = parseFloat(wrapper.dataset.h || '200');
+
+      if (pointsData.length === 0) return;
+
+      const dayFullNames: Record<string, string> = {
+        'lun': 'Dies Lunae',
+        'mar': 'Dies Martis',
+        'mer': 'Dies Mercurii',
+        'iov': 'Dies Iovis',
+        'ven': 'Dies Veneris',
+        'sat': 'Dies Saturni',
+        'sol': 'Dies Solis',
+      };
+
+      const showPoint = (clientX: number) => {
+        const rect = plotArea.getBoundingClientRect();
+        const clampedX = Math.max(0, Math.min(rect.width, clientX - rect.left));
+        const svgX = (clampedX / rect.width) * W;
+
+        // Find nearest coordinate
+        let nearestIdx = 0;
+        let minDist = Infinity;
+        pointsData.forEach((pt, idx) => {
+          const dist = Math.abs(pt.x - svgX);
+          if (dist < minDist) {
+            minDist = dist;
+            nearestIdx = idx;
+          }
+        });
+
+        const targetPt = pointsData[nearestIdx];
+        if (!targetPt) return;
+
+        const xPercent = (targetPt.x / W) * 100;
+        const yPercent = (targetPt.y / H) * 100;
+
+        // Update hover line
+        hoverGuide.setAttribute('x1', targetPt.x.toString());
+        hoverGuide.setAttribute('x2', targetPt.x.toString());
+        hoverGuide.style.opacity = '1';
+
+        // Update hover dot (HTML - 100% round)
+        hoverDot.style.left = `${xPercent}%`;
+        hoverDot.style.top = `${yPercent}%`;
+        hoverDot.style.opacity = '1';
+
+        // Update tooltip content
+        const key = targetPt.label.toLowerCase();
+        const fullDay = dayFullNames[key] || targetPt.label;
+        tooltipDate.textContent = fullDay;
+        tooltipVal.textContent = targetPt.value.toString();
+
+        if (targetPt.pastValue !== undefined && tooltipPast && tooltipDelta) {
+          tooltipPast.textContent = `Praeterita: ${targetPt.pastValue}`;
+          const diff = targetPt.value - targetPt.pastValue;
+          const pct = targetPt.pastValue > 0 ? ((diff / targetPt.pastValue) * 100).toFixed(1) : '100';
+          const isUp = diff >= 0;
+
+          tooltipDelta.textContent = `${isUp ? '+' : ''}${pct}% vs praet.`;
+          tooltipDelta.className = `tooltip-delta font-sans text-xs font-medium ${isUp ? 'text-neutral-200' : 'text-neutral-400'}`;
+        }
+
+        tooltip.style.left = `${xPercent}%`;
+        tooltip.style.top = `${yPercent}%`;
+        tooltip.style.opacity = '1';
+
+        // Dynamic horizontal clamping for edge data points
+        let translateX = -50;
+        if (xPercent < 20) {
+          translateX = -15;
+        } else if (xPercent > 80) {
+          translateX = -85;
+        }
+        tooltip.style.transform = `translate(${translateX}%, calc(-100% - 14px))`;
+
+        if (tooltipArrow) {
+          if (translateX === -15) {
+            tooltipArrow.style.left = '20%';
+          } else if (translateX === -85) {
+            tooltipArrow.style.left = '80%';
+          } else {
+            tooltipArrow.style.left = '50%';
+          }
+        }
+      };
+
+      const hidePoint = () => {
+        hoverGuide.style.opacity = '0';
+        hoverDot.style.opacity = '0';
+        tooltip.style.opacity = '0';
+        tooltip.style.transform = 'translate(-50%, calc(-100% - 8px))';
+      };
+
+      plotArea.addEventListener('pointermove', (e) => showPoint(e.clientX));
+      plotArea.addEventListener('pointerleave', hidePoint);
+
+      plotArea.addEventListener('touchstart', (e) => {
+        if (e.touches.length > 0) {
+          showPoint(e.touches[0].clientX);
+        }
+      }, { passive: true });
+
+      plotArea.addEventListener('touchmove', (e) => {
+        if (e.touches.length > 0) {
+          showPoint(e.touches[0].clientX);
+        }
+      }, { passive: true });
+
+      plotArea.addEventListener('touchend', hidePoint, { passive: true });
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupTrendCharts);
+  } else {
+    setupTrendCharts();
+  }
+  document.addEventListener('astro:page-load', setupTrendCharts);
+</script>

@@ -13,7 +13,7 @@ const { class: className = "" } = Astro.props;
   tabindex="0"
   aria-label="Toggle system architecture exploded view"
   class:list={[
-    "w-full relative flex justify-center items-center select-none py-4 system-topology-wrapper cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#52FF1A] rounded-lg",
+    "w-full relative flex justify-center items-center select-none py-4 system-topology-wrapper cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent,#52FF1A)] rounded-lg",
     className
   ]}
 >
@@ -77,7 +77,7 @@ const { class: className = "" } = Astro.props;
           stroke="#6ee7b7"
           stroke-opacity="0.85"
           stroke-width="1.2"
-          class="transition-colors duration-300 group-hover:stroke-[#52FF1A]"
+          class="transition-colors duration-300 group-hover:stroke-[var(--color-accent,#52FF1A)]"
         />
 
         <!-- ── FAINT SURFACE UI: ISOMETRIC ANALYTICS DASHBOARD ── -->
@@ -192,7 +192,7 @@ const { class: className = "" } = Astro.props;
           stroke="#6ee7b7"
           stroke-opacity="0.85"
           stroke-width="1.2"
-          class="transition-colors duration-300 group-hover:stroke-[#52FF1A]"
+          class="transition-colors duration-300 group-hover:stroke-[var(--color-accent,#52FF1A)]"
         />
       </g>
 
@@ -249,7 +249,7 @@ const { class: className = "" } = Astro.props;
             stroke="#6ee7b7"
             stroke-opacity="0.85"
             stroke-width="1.2"
-            class="transition-colors duration-300 group-hover:stroke-[#52FF1A]"
+            class="transition-colors duration-300 group-hover:stroke-[var(--color-accent,#52FF1A)]"
           />
         </g>
       </g>
@@ -270,7 +270,7 @@ const { class: className = "" } = Astro.props;
           stroke="#6ee7b7"
           stroke-opacity="0.85"
           stroke-width="1.2"
-          class="transition-colors duration-300 group-hover:stroke-[#52FF1A]"
+          class="transition-colors duration-300 group-hover:stroke-[var(--color-accent,#52FF1A)]"
         />
 
         <!-- ── FAINT SURFACE UI: KIOSK APP WIREFRAME ── -->

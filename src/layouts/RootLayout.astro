@@ -31,6 +31,82 @@ const { title, description, image, canonicalURL, type, keywords, schema, noindex
         } else {
           document.documentElement.classList.remove('dark');
         }
+
+        // Global Accent Color Engine
+        function updateAccentStyle(hex) {
+          if (!hex) return;
+          let styleEl = document.getElementById('portfolio-dynamic-accent-css');
+          if (!styleEl) {
+            styleEl = document.createElement('style');
+            styleEl.id = 'portfolio-dynamic-accent-css';
+            document.head.appendChild(styleEl);
+          }
+          if (hex.toUpperCase() === '#52FF1A') {
+            styleEl.textContent = '';
+            document.documentElement.style.removeProperty('--color-accent');
+            document.documentElement.style.removeProperty('--color-accent-hover');
+            document.documentElement.style.removeProperty('--accent-color');
+            document.documentElement.style.removeProperty('--accent-hover');
+            document.documentElement.style.removeProperty('--terminal-green');
+            return;
+          }
+          document.documentElement.style.setProperty('--color-accent', hex);
+          document.documentElement.style.setProperty('--color-accent-hover', hex);
+          document.documentElement.style.setProperty('--accent-color', hex);
+          document.documentElement.style.setProperty('--accent-hover', hex);
+          document.documentElement.style.setProperty('--terminal-green', hex);
+          styleEl.textContent = `
+            :root, :root.dark, html, html.dark, .dark {
+              --color-accent: ${hex} !important;
+              --color-accent-hover: ${hex} !important;
+              --accent-color: ${hex} !important;
+              --accent-hover: ${hex} !important;
+              --terminal-green: ${hex} !important;
+            }
+            .text-\\[\\#52FF1A\\] { color: ${hex} !important; }
+            .bg-\\[\\#52FF1A\\] { background-color: ${hex} !important; }
+            .border-\\[\\#52FF1A\\] { border-color: ${hex} !important; }
+            .border-l-\\[\\#52FF1A\\] { border-left-color: ${hex} !important; }
+            .border-r-\\[\\#52FF1A\\] { border-right-color: ${hex} !important; }
+            .border-t-\\[\\#52FF1A\\] { border-top-color: ${hex} !important; }
+            .border-b-\\[\\#52FF1A\\] { border-bottom-color: ${hex} !important; }
+            .fill-\\[\\#52FF1A\\] { fill: ${hex} !important; }
+            .stroke-\\[\\#52FF1A\\] { stroke: ${hex} !important; }
+            .ring-\\[\\#52FF1A\\] { --tw-ring-color: ${hex} !important; }
+            .focus-visible\\:ring-\\[\\#52FF1A\\]:focus-visible { --tw-ring-color: ${hex} !important; }
+            .focus\\:ring-\\[\\#52FF1A\\]:focus { --tw-ring-color: ${hex} !important; }
+            .peer-focus-visible\\:ring-\\[\\#52FF1A\\]:focus-visible { --tw-ring-color: ${hex} !important; }
+            .hover\\:text-\\[\\#52FF1A\\]:hover { color: ${hex} !important; }
+            .hover\\:bg-\\[\\#52FF1A\\]:hover { background-color: ${hex} !important; }
+            .hover\\:border-\\[\\#52FF1A\\]:hover { border-color: ${hex} !important; }
+            .group:hover .group-hover\\:text-\\[\\#52FF1A\\] { color: ${hex} !important; }
+            .group-hover\\:\\!text-\\[\\#52FF1A\\] { color: ${hex} !important; }
+            .group:hover .group-hover\\:\\!text-\\[\\#52FF1A\\] { color: ${hex} !important; }
+            .group:hover .group-hover\\:bg-\\[\\#52FF1A\\] { background-color: ${hex} !important; }
+            .group:hover .group-hover\\:border-\\[\\#52FF1A\\] { border-color: ${hex} !important; }
+            .group\\/action:hover .group-hover\\/action\\:text-\\[\\#52FF1A\\] { color: ${hex} !important; }
+            .group\\/nav-active:hover .group-hover\\/nav-active\\:text-\\[\\#52FF1A\\] { color: ${hex} !important; }
+            .group\\/maptarget:hover .group-hover\\/maptarget\\:text-\\[\\#52FF1A\\] { color: ${hex} !important; }
+            .group:hover .dark\\:group-hover\\/maptarget\\:text-\\[\\#52FF1A\\] { color: ${hex} !important; }
+            .border-\\[\\#52FF1A\\]\\/50 { border-color: color-mix(in srgb, ${hex} 50%, transparent) !important; }
+            .dark\\:bg-\\[\\#52FF1A\\]\\/\\[0\\.08\\] { background-color: color-mix(in srgb, ${hex} 8%, transparent) !important; }
+            .dark\\:group-hover\\/maptarget\\:bg-\\[\\#52FF1A\\]\\/\\[0\\.15\\] { background-color: color-mix(in srgb, ${hex} 15%, transparent) !important; }
+          `;
+        }
+
+        window.__setPortfolioAccent = function(hex, name) {
+          updateAccentStyle(hex);
+          try {
+            if (hex) localStorage.setItem('portfolio_accent_hex', hex);
+            if (name) localStorage.setItem('portfolio_accent_name', name);
+          } catch(e) {}
+          window.dispatchEvent(new CustomEvent('portfolio:accent-change', { detail: { hex, name } }));
+        };
+
+        try {
+          const savedHex = localStorage.getItem('portfolio_accent_hex');
+          if (savedHex) updateAccentStyle(savedHex);
+        } catch(e) {}
       })();
     </script>
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
@@ -59,7 +135,7 @@ const { title, description, image, canonicalURL, type, keywords, schema, noindex
   <body class="min-h-full flex flex-col relative">
     <a
       href="#main-content"
-      class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2.5 focus:bg-[#52FF1A] focus:text-black focus:font-heading focus:font-bold focus:text-xs focus:uppercase focus:tracking-wider focus:shadow-lg focus:outline-none"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2.5 focus:bg-[var(--color-accent,#52FF1A)] focus:text-black focus:font-heading focus:font-bold focus:text-xs focus:uppercase focus:tracking-wider focus:shadow-lg focus:outline-none"
     >
       Skip to content
     </a>
