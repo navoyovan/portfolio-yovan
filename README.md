@@ -69,6 +69,6 @@ You are free to use, adapt, and remix these components in personal or commercial
 ---
 
 ## to-do
-easter egg swipe to exit gesture
-hamburger menu
-mobile view optimization
+~~hamburger menu~~
+~~mobile view optimization~~
+
