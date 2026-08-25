@@ -44,15 +44,18 @@ const {
       class="w-[110px] sm:w-[150px] lg:w-[190px] h-[75px] sm:h-[100px] lg:h-[125px] bg-neutral-900/[0.08] dark:bg-[color-mix(in_srgb,var(--color-accent,#52FF1A)_8%,transparent)] group-hover/maptarget:bg-neutral-900/[0.15] dark:group-hover/maptarget:bg-[color-mix(in_srgb,var(--color-accent,#52FF1A)_15%,transparent)] transition-colors duration-200 rounded-none"
     ></div>
 
-    <!-- Centered Typography Directly Under Rectangle -->
+    <!-- Centered Typography Directly Under Rectangle (Less Visible Muted Contrast) -->
     <div class="flex flex-col items-center justify-center text-center pt-2 sm:pt-2.5 gap-0.5">
       <span
         id="hero-map-location-title"
-        class="font-heading font-bold text-xs sm:text-sm lg:text-base uppercase tracking-wider text-neutral-950 dark:text-white group-hover/maptarget:text-black dark:group-hover/maptarget:text-[var(--color-accent,#52FF1A)] transition-colors duration-200 leading-tight"
+        class="font-heading font-bold text-xs sm:text-sm lg:text-base uppercase tracking-wider text-neutral-400 dark:text-neutral-500 group-hover/maptarget:text-neutral-950 dark:group-hover/maptarget:text-white transition-colors duration-200 leading-tight"
       >
         BOGOR
       </span>
-      <span class="font-mono text-[9px] sm:text-[10px] lg:text-[11px] font-bold text-neutral-700 dark:text-neutral-400 tracking-wider">
+      <span
+        id="hero-map-timezone"
+        class="font-mono text-[9px] sm:text-[10px] lg:text-[11px] font-medium text-neutral-400/80 dark:text-neutral-600 tracking-wider group-hover/maptarget:text-neutral-600 dark:group-hover/maptarget:text-neutral-400 transition-colors duration-200"
+      >
         UTC+7
       </span>
     </div>
@@ -182,8 +185,30 @@ const {
       // Location Toggle (Bogor <-> Jabodetabek)
       const badgeBtn = document.getElementById('hero-map-badge');
       const locationTitle = document.getElementById('hero-map-location-title');
+      const tzEl = document.getElementById('hero-map-timezone');
       let isJabodetabek = false;
       let isTransitioning = false;
+
+      // Timezone adapter (Asia/Jakarta, UTC+7)
+      const updateLocalClock = () => {
+        if (!tzEl) return;
+        try {
+          const userOffsetMin = -new Date().getTimezoneOffset();
+          const diffHours = (420 - userOffsetMin) / 60;
+
+          if (diffHours === 0) {
+            tzEl.textContent = 'UTC+7';
+          } else {
+            const sign = diffHours > 0 ? '+' : '';
+            const diffFormatted = `${sign}${diffHours % 1 === 0 ? diffHours : diffHours.toFixed(1)}h`;
+            tzEl.textContent = `UTC+7 (${diffFormatted})`;
+          }
+        } catch {
+          tzEl.textContent = 'UTC+7';
+        }
+      };
+
+      updateLocalClock();
 
       if (badgeBtn) {
         badgeBtn.addEventListener('click', () => {
@@ -213,6 +238,7 @@ const {
             if (locationTitle) {
               locationTitle.textContent = isJabodetabek ? 'JABODETABEK' : 'BOGOR';
             }
+            updateLocalClock();
             badgeBtn.setAttribute('title', isJabodetabek ? 'Click to focus on Bogor' : 'Click to expand view to Jabodetabek');
             badgeBtn.setAttribute('aria-label', isJabodetabek ? 'Focus map on Bogor' : 'Expand map view to Jabodetabek');
           }, 250);
