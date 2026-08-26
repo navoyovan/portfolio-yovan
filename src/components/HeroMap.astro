@@ -163,8 +163,10 @@ const {
 
       (mapEl as any)._leaflet_map = map;
 
-      const lightBaseUrl = 'https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png';
-      const darkBaseUrl = 'https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png';
+      const cartoKey = import.meta.env.PUBLIC_CARTO_KEY ?? '';
+      const keyParam = cartoKey ? `?key=${cartoKey}` : '';
+      const lightBaseUrl = `https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png${keyParam}`;
+      const darkBaseUrl = `https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png${keyParam}`;
 
       let currentBaseLayer: any = null;
 
@@ -216,58 +218,57 @@ const {
       updateLocalClock();
       window.addEventListener('portfolio:lang-change', updateLocalClock);
 
-      // TODO: Re-enable badge toggle once Carto API key is in place (watermark fix).
-      // if (badgeBtn) {
-      //   badgeBtn.addEventListener('click', () => {
-      //     if (isTransitioning) return;
-      //     isTransitioning = true;
-      //     isJabodetabek = !isJabodetabek;
+      if (badgeBtn) {
+        badgeBtn.addEventListener('click', () => {
+          if (isTransitioning) return;
+          isTransitioning = true;
+          isJabodetabek = !isJabodetabek;
 
-      //     // 1. Fade out smoothly on click
-      //     badgeBtn.style.opacity = '0';
-      //     badgeBtn.style.pointerEvents = 'none';
+          // 1. Fade out smoothly on click
+          badgeBtn.style.opacity = '0';
+          badgeBtn.style.pointerEvents = 'none';
 
-      //     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      //     const target = isJabodetabek ? getJabodetabekTarget() : getBogorTarget();
-      //     const duration = prefersReducedMotion ? 0 : 1.4;
+          const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+          const target = isJabodetabek ? getJabodetabekTarget() : getBogorTarget();
+          const duration = prefersReducedMotion ? 0 : 1.4;
 
-      //     // 2. Fly map to target
-      //     if (prefersReducedMotion) {
-      //       map.setView(target.center, target.zoom);
-      //     } else {
-      //       map.flyTo(target.center, target.zoom, { duration });
-      //     }
+          // 2. Fly map to target
+          if (prefersReducedMotion) {
+            map.setView(target.center, target.zoom);
+          } else {
+            map.flyTo(target.center, target.zoom, { duration });
+          }
 
-      //     // 3. Update text & position while invisible
-      //     setTimeout(() => {
-      //       badgeBtn.setAttribute('data-view', isJabodetabek ? 'jabodetabek' : 'bogor');
-      //       badgeBtn.setAttribute('aria-pressed', String(isJabodetabek));
-      //       if (locationTitle) {
-      //         locationTitle.textContent = isJabodetabek ? 'JABODETABEK' : 'BOGOR';
-      //       }
-      //       updateLocalClock();
-      //       badgeBtn.setAttribute('title', isJabodetabek ? 'Click to focus on Bogor' : 'Click to expand view to Jabodetabek');
-      //       badgeBtn.setAttribute('aria-label', isJabodetabek ? 'Focus map on Bogor' : 'Expand map view to Jabodetabek');
-      //     }, 250);
+          // 3. Update text & position while invisible
+          setTimeout(() => {
+            badgeBtn.setAttribute('data-view', isJabodetabek ? 'jabodetabek' : 'bogor');
+            badgeBtn.setAttribute('aria-pressed', String(isJabodetabek));
+            if (locationTitle) {
+              locationTitle.textContent = isJabodetabek ? 'JABODETABEK' : 'BOGOR';
+            }
+            updateLocalClock();
+            badgeBtn.setAttribute('title', isJabodetabek ? 'Click to focus on Bogor' : 'Click to expand view to Jabodetabek');
+            badgeBtn.setAttribute('aria-label', isJabodetabek ? 'Focus map on Bogor' : 'Expand map view to Jabodetabek');
+          }, 250);
 
-      //     // 4. Reintroduce smoothly once map finishes moving
-      //     let reintroduced = false;
-      //     const reintroduce = () => {
-      //       if (reintroduced) return;
-      //       reintroduced = true;
-      //       badgeBtn.style.opacity = '1';
-      //       badgeBtn.style.pointerEvents = 'auto';
-      //       isTransitioning = false;
-      //     };
+          // 4. Reintroduce smoothly once map finishes moving
+          let reintroduced = false;
+          const reintroduce = () => {
+            if (reintroduced) return;
+            reintroduced = true;
+            badgeBtn.style.opacity = '1';
+            badgeBtn.style.pointerEvents = 'auto';
+            isTransitioning = false;
+          };
 
-      //     map.once('moveend', () => {
-      //       setTimeout(reintroduce, 120);
-      //     });
+          map.once('moveend', () => {
+            setTimeout(reintroduce, 120);
+          });
 
-      //     // Safety fallback timeout
-      //     setTimeout(reintroduce, (duration * 1000) + 300);
-      //   });
-      // }
+          // Safety fallback timeout
+          setTimeout(reintroduce, (duration * 1000) + 300);
+        });
+      }
 
       // Recalculate size on window resize & adapt center
       let lastIsMobile = window.innerWidth < 768;
