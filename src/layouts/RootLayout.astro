@@ -123,6 +123,22 @@ const { title, description, image, canonicalURL, type, keywords, schema, noindex
             }
           });
 
+          // Dynamic A11y ARIA Labels Engine
+          document.querySelectorAll('[data-aria-en]').forEach(function(el) {
+            const ariaVal = lang === 'id' ? el.getAttribute('data-aria-id') : el.getAttribute('data-aria-en');
+            if (ariaVal !== null && ariaVal !== undefined) {
+              el.setAttribute('aria-label', ariaVal);
+            }
+          });
+
+          // Dynamic A11y Titles Engine
+          document.querySelectorAll('[data-title-en]').forEach(function(el) {
+            const titleVal = lang === 'id' ? el.getAttribute('data-title-id') : el.getAttribute('data-title-en');
+            if (titleVal !== null && titleVal !== undefined) {
+              el.setAttribute('title', titleVal);
+            }
+          });
+
           // Update language dropdowns / switchers across page
           document.querySelectorAll('.lang-current-label').forEach(function(lbl) {
             lbl.textContent = lang.toUpperCase();

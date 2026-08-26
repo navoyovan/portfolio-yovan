@@ -35,8 +35,12 @@ const {
     type="button"
     id="hero-map-badge"
     data-view="bogor"
-    aria-label="Toggle Jabodetabek Map View"
+    aria-label="Expand map view to Jabodetabek"
+    data-aria-en="Expand map view to Jabodetabek"
+    data-aria-id="Perluas tampilan peta ke Jabodetabek"
     title="Click to expand view to Jabodetabek"
+    data-title-en="Click to expand view to Jabodetabek"
+    data-title-id="Klik untuk memperluas tampilan ke Jabodetabek"
     class="absolute right-[8%] sm:right-[12%] lg:right-[16%] top-[5%] sm:top-[20%] lg:top-[22%] flex flex-col items-center pointer-events-auto cursor-pointer z-30 select-none group/maptarget focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent,#52FF1A)] p-1 bg-transparent border-0 data-[view=jabodetabek]:translate-x-0 data-[view=jabodetabek]:translate-y-0 sm:data-[view=jabodetabek]:-translate-x-44 sm:data-[view=jabodetabek]:translate-y-40 lg:data-[view=jabodetabek]:-translate-x-64 lg:data-[view=jabodetabek]:translate-y-52 transition-[opacity,transform] duration-300 ease-out"
   >
     <!-- Sharp Borderless Rectangle with hover feedback -->
@@ -247,8 +251,19 @@ const {
               locationTitle.textContent = isJabodetabek ? 'JABODETABEK' : 'BOGOR';
             }
             updateLocalClock();
-            badgeBtn.setAttribute('title', isJabodetabek ? 'Click to focus on Bogor' : 'Click to expand view to Jabodetabek');
-            badgeBtn.setAttribute('aria-label', isJabodetabek ? 'Focus map on Bogor' : 'Expand map view to Jabodetabek');
+
+            const isId = document.documentElement.lang === 'id';
+            const ariaEn = isJabodetabek ? 'Focus map on Bogor' : 'Expand map view to Jabodetabek';
+            const ariaId = isJabodetabek ? 'Fokuskan peta ke Bogor' : 'Perluas tampilan peta ke Jabodetabek';
+            const titleEn = isJabodetabek ? 'Click to focus on Bogor' : 'Click to expand view to Jabodetabek';
+            const titleId = isJabodetabek ? 'Klik untuk memfokuskan ke Bogor' : 'Klik untuk memperluas tampilan ke Jabodetabek';
+
+            badgeBtn.setAttribute('data-aria-en', ariaEn);
+            badgeBtn.setAttribute('data-aria-id', ariaId);
+            badgeBtn.setAttribute('data-title-en', titleEn);
+            badgeBtn.setAttribute('data-title-id', titleId);
+            badgeBtn.setAttribute('aria-label', isId ? ariaId : ariaEn);
+            badgeBtn.setAttribute('title', isId ? titleId : titleEn);
           }, 250);
 
           // 4. Reintroduce smoothly once map finishes moving

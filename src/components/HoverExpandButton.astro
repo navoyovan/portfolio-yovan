@@ -2,6 +2,8 @@
 // HoverExpandButton.astro - Kinetic Expand-on-Hover Micro Action Trigger ported to Portfolio v5
 interface Props {
   label?: string;
+  labelEn?: string;
+  labelId?: string;
   variant?: 'dashed' | 'solid' | 'cta' | 'danger';
   size?: 'md' | 'micro';
   expandDirection?: 'left' | 'right';
@@ -18,6 +20,8 @@ interface Props {
 
 const {
   label = 'ACTIO',
+  labelEn,
+  labelId,
   variant = 'dashed',
   size = 'md',
   expandDirection = 'left',
@@ -94,6 +98,8 @@ const iconAnimClasses = rotateIcon
             'expand-label max-w-0 opacity-0 overflow-hidden whitespace-nowrap transition-[max-width,opacity,margin] duration-300 ease-out group-hover/expand:max-w-[200px] group-hover/expand:opacity-100 group-focus-visible/expand:max-w-[200px] group-focus-visible/expand:opacity-100 group-[.is-expanded]/expand:max-w-[200px] group-[.is-expanded]/expand:opacity-100',
             textMarginClasses
           ]}
+          data-en={labelEn}
+          data-id={labelId}
         >
           {label}
         </span>
@@ -105,6 +111,8 @@ const iconAnimClasses = rotateIcon
             'expand-label max-w-0 opacity-0 overflow-hidden whitespace-nowrap transition-[max-width,opacity,margin] duration-300 ease-out group-hover/expand:max-w-[200px] group-hover/expand:opacity-100 group-focus-visible/expand:max-w-[200px] group-focus-visible/expand:opacity-100 group-[.is-expanded]/expand:max-w-[200px] group-[.is-expanded]/expand:opacity-100',
             textMarginClasses
           ]}
+          data-en={labelEn}
+          data-id={labelId}
         >
           {label}
         </span>

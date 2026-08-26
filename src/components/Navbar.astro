@@ -298,6 +298,8 @@ if (isComponentLibrary) {
             rel="noopener noreferrer"
             class="hover:text-neutral-950 dark:hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent,#52FF1A)] rounded py-0.5"
             aria-label="GitHub Profile (opens in new tab)"
+            data-aria-en="GitHub Profile (opens in new tab)"
+            data-aria-id="Profil GitHub (buka di tab baru)"
           >
             GitHub
           </a>
@@ -307,6 +309,8 @@ if (isComponentLibrary) {
             rel="noopener noreferrer"
             class="hover:text-neutral-950 dark:hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent,#52FF1A)] rounded py-0.5"
             aria-label="LinkedIn Profile (opens in new tab)"
+            data-aria-en="LinkedIn Profile (opens in new tab)"
+            data-aria-id="Profil LinkedIn (buka di tab baru)"
           >
             LinkedIn
           </a>
@@ -318,10 +322,12 @@ if (isComponentLibrary) {
             id="mobile-fullscreen-toggle"
             type="button"
             aria-label="Toggle Fullscreen Mode"
+            data-aria-en="Toggle Fullscreen Mode"
+            data-aria-id="Mode Layar Penuh"
             aria-pressed="false"
             class="px-2 py-1 -mr-1 rounded hover:text-neutral-950 dark:hover:text-white hover:bg-neutral-200/50 dark:hover:bg-neutral-800/50 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent,#52FF1A)]"
           >
-            <span id="fullscreen-text" class="text-xs uppercase tracking-wider">Fullscreen</span>
+            <span id="fullscreen-text" data-en="Fullscreen" data-id="Layar Penuh" class="text-xs uppercase tracking-wider">Fullscreen</span>
           </button>
         </div>
       </div>
@@ -361,11 +367,18 @@ if (isComponentLibrary) {
 
     const updateAria = () => {
       const isDark = document.documentElement.classList.contains('dark');
+      const isId = document.documentElement.lang === 'id';
       toggleBtn.setAttribute('aria-pressed', String(isDark));
-      toggleBtn.setAttribute('aria-label', isDark ? 'Switch to light theme' : 'Switch to dark theme');
+      
+      const ariaEn = isDark ? 'Switch to light theme' : 'Switch to dark theme';
+      const ariaId = isDark ? 'Beralih ke mode terang' : 'Beralih ke mode gelap';
+      toggleBtn.setAttribute('data-aria-en', ariaEn);
+      toggleBtn.setAttribute('data-aria-id', ariaId);
+      toggleBtn.setAttribute('aria-label', isId ? ariaId : ariaEn);
     };
 
     updateAria();
+    window.addEventListener('portfolio:lang-change', updateAria);
 
     toggleBtn.onclick = () => {
       const isDark = document.documentElement.classList.contains('dark');
@@ -397,6 +410,15 @@ if (isComponentLibrary) {
 
     let isOpen = false;
 
+    const updateToggleAria = () => {
+      const isId = document.documentElement.lang === 'id';
+      const ariaEn = isOpen ? 'Close Navigation Menu' : 'Open Navigation Menu';
+      const ariaId = isOpen ? 'Tutup Menu Navigasi' : 'Buka Menu Navigasi';
+      toggleBtn.setAttribute('data-aria-en', ariaEn);
+      toggleBtn.setAttribute('data-aria-id', ariaId);
+      toggleBtn.setAttribute('aria-label', isId ? ariaId : ariaEn);
+    };
+
     const getFocusableInDrawer = (): HTMLElement[] => {
       return Array.from(
         drawer.querySelectorAll<HTMLElement>('a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])')
@@ -420,7 +442,7 @@ if (isComponentLibrary) {
     const setMenuState = (open: boolean) => {
       isOpen = open;
       toggleBtn.setAttribute('aria-expanded', open.toString());
-      toggleBtn.setAttribute('aria-label', open ? 'Close Navigation Menu' : 'Open Navigation Menu');
+      updateToggleAria();
       drawer.setAttribute('aria-hidden', (!open).toString());
       updateDrawerTabIndex(open);
 
@@ -665,14 +687,26 @@ if (isComponentLibrary) {
 
     const updateUI = () => {
       const active = isFullscreen();
+      const isId = document.documentElement.lang === 'id';
       toggleBtn.setAttribute('aria-pressed', String(active));
-      toggleBtn.setAttribute('aria-label', active ? 'Exit Fullscreen Mode' : 'Toggle Fullscreen Mode');
+      
+      const ariaEn = active ? 'Exit Fullscreen Mode' : 'Toggle Fullscreen Mode';
+      const ariaId = active ? 'Keluar Mode Layar Penuh' : 'Mode Layar Penuh';
+      toggleBtn.setAttribute('data-aria-en', ariaEn);
+      toggleBtn.setAttribute('data-aria-id', ariaId);
+      toggleBtn.setAttribute('aria-label', isId ? ariaId : ariaEn);
+      
       if (textSpan) {
-        textSpan.textContent = active ? 'Exit' : 'Fullscreen';
+        if (active) {
+          textSpan.textContent = isId ? 'Keluar' : 'Exit';
+        } else {
+          textSpan.textContent = isId ? 'Layar Penuh' : 'Fullscreen';
+        }
       }
     };
 
     updateUI();
+    window.addEventListener('portfolio:lang-change', updateUI);
 
     toggleBtn.onclick = async (e) => {
       e.stopPropagation();

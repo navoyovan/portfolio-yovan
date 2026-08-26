@@ -4,6 +4,7 @@ import Hero from "../components/Hero.astro";
 import StatusBadge from "../components/StatusBadge.astro";
 import ActionButton from "../components/ActionButton.astro";
 import ProjectTile from "../components/ProjectTile.astro";
+import HoverExpandButton from "../components/HoverExpandButton.astro";
 import EasterEggs from "../components/EasterEggs.astro";
 
 const rawBase = import.meta.env.BASE_URL;
@@ -444,12 +445,14 @@ const capabilities = [
                 target="_blank"
                 rel="noopener noreferrer"
                 ariaLabel="Launch Kiosk Demo (opens in new tab)"
+                data-aria-en="Launch Kiosk Demo (opens in new tab)"
+                data-aria-id="Buka Demo Kiosk (buka di tab baru)"
                 class="group/btn overflow-hidden w-full sm:w-auto max-sm:!py-[11px]"
               >
                 <div
                   class="inline-flex items-center translate-x-[10px] group-hover/btn:translate-x-0 transition-transform duration-200 ease-out"
                 >
-                  <span>Launch Kiosk Demo</span>
+                  <span data-en="Launch Kiosk Demo" data-id="Buka Demo Kiosk">Launch Kiosk Demo</span>
                   <span
                     class="inline-flex items-center justify-center w-3.5 ml-1.5 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-200 ease-out"
                     aria-hidden="true"
@@ -465,12 +468,14 @@ const capabilities = [
                 target="_blank"
                 rel="noopener noreferrer"
                 ariaLabel="Visit Hypebox Site (opens in new tab)"
+                data-aria-en="Visit Hypebox Site (opens in new tab)"
+                data-aria-id="Kunjungi Situs Hypebox (buka di tab baru)"
                 class="group/btn overflow-hidden w-full sm:w-auto max-sm:!py-[11px]"
               >
                 <div
                   class="inline-flex items-center translate-x-[10px] group-hover/btn:translate-x-0 transition-transform duration-200 ease-out"
                 >
-                  <span>Visit Hypebox Site</span>
+                  <span data-en="Visit Hypebox Site" data-id="Kunjungi Situs Hypebox">Visit Hypebox Site</span>
                   <span
                     class="inline-flex items-center justify-center w-3.5 ml-1.5 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-200 ease-out"
                     aria-hidden="true"
@@ -806,27 +811,43 @@ const capabilities = [
                 </div>
               </div>
               <div
-                class="p-3.5 sm:p-4 bg-neutral-100/60 dark:bg-neutral-900/60 border-t border-neutral-200/80 dark:border-neutral-800 flex items-center justify-between"
+                class="p-3.5 sm:p-4 bg-neutral-100/60 dark:bg-neutral-900/60 border-t border-neutral-200/80 dark:border-neutral-800 flex items-center justify-between gap-3 min-w-0"
               >
                 <span
-                  class="font-mono text-[10px] sm:text-[11px] text-neutral-400 dark:text-neutral-500"
+                  class="font-mono text-[10px] sm:text-[11px] text-neutral-400 dark:text-neutral-500 truncate"
                   >Electron</span
                 >
-                <a
+                <HoverExpandButton
                   href="https://navoyovan.github.io/photobooth-kiosk-demo/"
+                  label="LAUNCH DEMO"
+                  labelEn="LAUNCH DEMO"
+                  labelId="BUKA DEMO"
+                  size="micro"
+                  variant="solid"
+                  expandDirection="left"
+                  rotateIcon={false}
+                  ariaLabel="Launch Kiosk Demo (opens in new tab)"
+                  data-aria-en="Launch Kiosk Demo (opens in new tab)"
+                  data-aria-id="Buka Demo Kiosk (buka di tab baru)"
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="group/action inline-flex items-center gap-1 font-heading font-bold text-xs uppercase tracking-wider text-neutral-500 dark:text-neutral-400 hover:text-[var(--color-accent,#52FF1A)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent,#52FF1A)] rounded px-1"
+                  class="shrink-0 ml-auto z-10"
                 >
-                  <span
-                    class="group-hover/action:underline underline-offset-4 decoration-[var(--color-accent,#52FF1A)]"
-                    >Launch Demo</span
+                  <svg
+                    slot="icon"
+                    class="w-3.5 h-3.5"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
                   >
-                  <span
-                    class="inline-block opacity-40 transition-all duration-200 group-hover/action:opacity-100 group-hover/action:translate-x-0.5"
-                    >↗</span
-                  >
-                </a>
+                    <line x1="7" y1="17" x2="17" y2="7"></line>
+                    <polyline points="7 7 17 7 17 17"></polyline>
+                  </svg>
+                </HoverExpandButton>
               </div>
             </div>
 
@@ -887,27 +908,43 @@ const capabilities = [
                 </div>
               </div>
               <div
-                class="p-3.5 sm:p-4 bg-neutral-100/60 dark:bg-neutral-900/60 border-t border-neutral-200/80 dark:border-neutral-800 flex items-center justify-between"
+                class="p-3.5 sm:p-4 bg-neutral-100/60 dark:bg-neutral-900/60 border-t border-neutral-200/80 dark:border-neutral-800 flex items-center justify-between gap-3 min-w-0"
               >
                 <span
-                  class="font-mono text-[10px] sm:text-[11px] text-neutral-400 dark:text-neutral-500"
+                  class="font-mono text-[10px] sm:text-[11px] text-neutral-400 dark:text-neutral-500 truncate"
                   >React • Laravel • Reverb</span
                 >
-                <a
+                <HoverExpandButton
                   href="https://navoyovan.github.io/hypebox/"
+                  label="EXPLORE ECOSYSTEM"
+                  labelEn="EXPLORE ECOSYSTEM"
+                  labelId="JELAJAHI EKOSISTEM"
+                  size="micro"
+                  variant="solid"
+                  expandDirection="left"
+                  rotateIcon={false}
+                  ariaLabel="Explore Hypebox Ecosystem (opens in new tab)"
+                  data-aria-en="Explore Hypebox Ecosystem (opens in new tab)"
+                  data-aria-id="Jelajahi Ekosistem Hypebox (buka di tab baru)"
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="group/action inline-flex items-center gap-1 font-heading font-bold text-xs uppercase tracking-wider text-neutral-500 dark:text-neutral-400 hover:text-[var(--color-accent,#52FF1A)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent,#52FF1A)] rounded px-1"
+                  class="shrink-0 ml-auto z-10"
                 >
-                  <span
-                    class="group-hover/action:underline underline-offset-4 decoration-[var(--color-accent,#52FF1A)]"
-                    >Explore Ecosystem</span
+                  <svg
+                    slot="icon"
+                    class="w-3.5 h-3.5"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
                   >
-                  <span
-                    class="inline-block opacity-40 transition-all duration-200 group-hover/action:opacity-100 group-hover/action:translate-x-0.5"
-                    >↗</span
-                  >
-                </a>
+                    <line x1="7" y1="17" x2="17" y2="7"></line>
+                    <polyline points="7 7 17 7 17 17"></polyline>
+                  </svg>
+                </HoverExpandButton>
               </div>
             </div>
           </div>
@@ -1249,7 +1286,7 @@ const capabilities = [
               A little bit about myself.
             </h2>
             <div
-              class="hidden lg:block font-mono text-[11px] sm:text-xs text-neutral-400 dark:text-neutral-500 italic leading-relaxed pt-1"
+              class="hidden lg:block font-mono text-[10px] sm:text-[11px] text-neutral-400/50 dark:text-neutral-600/60 italic leading-relaxed pt-1 select-none"
             >
               <p
                 data-en="// You can find these labels throughout the page, some are interactable and would show some of my secret cool projects."
@@ -1259,7 +1296,7 @@ const capabilities = [
                 // You can find these labels throughout the page, some are
                 interactable and would show some of my secret cool projects.
               </p>
-              <div class="flex items-center gap-1.5 pt-1">
+              <div class="flex items-center gap-1.5 pt-1 text-neutral-400/40 dark:text-neutral-600/50">
                 <span
                   data-en="Try clicking this label"
                   data-id="Coba klik label ini"
@@ -1273,11 +1310,11 @@ const capabilities = [
                   aria-hidden="true"
                 >
                   <div
-                    class="flex-1 border-b border-dashed border-neutral-400/40 dark:border-neutral-600/40"
+                    class="flex-1 border-b border-dashed border-neutral-300/30 dark:border-neutral-700/40"
                   >
                   </div>
                   <span
-                    class="not-italic text-[10px] text-neutral-400/70 dark:text-neutral-500/70 font-mono -ml-0.5 leading-none"
+                    class="not-italic text-[9px] text-neutral-400/40 dark:text-neutral-600/50 font-mono -ml-0.5 leading-none"
                     >›</span
                   >
                 </div>
@@ -1292,8 +1329,10 @@ const capabilities = [
             <button
               type="button"
               data-easter="modpe"
-              class="font-mono text-[10px] text-neutral-600 dark:text-neutral-300 opacity-[0.08] hover:opacity-75 hover:underline underline-offset-4 cursor-pointer select-none transition-[opacity,text-decoration] duration-200 [writing-mode:vertical-rl] rotate-180 pointer-events-auto p-1 bg-transparent border-0 tracking-wider"
+              class="font-mono text-[10px] text-neutral-600 dark:text-neutral-300 opacity-[0.08] hover:opacity-75 hover:underline underline-offset-4 cursor-pointer select-none transition-[opacity,text-decoration] duration-200 [writing-mode:vertical-rl] rotate-180 pointer-events-auto p-1 bg-transparent border-0 tracking-wider focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent,#52FF1A)] rounded"
               aria-label="Unlock ModPE Scripting Easter Egg"
+              data-aria-en="Unlock ModPE Scripting Easter Egg"
+              data-aria-id="Buka Easter Egg Skrip ModPE"
             >
               Entity.setRenderType(mob, 3);
             </button>
@@ -1324,7 +1363,7 @@ const capabilities = [
 
             <!-- Mobile Easter Egg inline fallback & hint -->
             <div
-              class="block lg:hidden pt-4 space-y-1.5 font-mono text-[11px] text-neutral-400 dark:text-neutral-500 italic"
+              class="block lg:hidden pt-4 space-y-1.5 font-mono text-[10px] text-neutral-400/50 dark:text-neutral-600/60 italic select-none"
             >
               <p
                 data-en="// You can find these labels throughout the page, some are interactable and would show some of my secret cool projects."
@@ -1337,7 +1376,7 @@ const capabilities = [
               <p
                 data-en="Try tapping this label ↓"
                 data-id="Coba sentuh label ini ↓"
-                class="m-0 leading-relaxed"
+                class="m-0 leading-relaxed text-neutral-400/40 dark:text-neutral-600/50"
               >
                 Try tapping this label ↓
               </p>
@@ -1345,8 +1384,10 @@ const capabilities = [
                 <button
                   type="button"
                   data-easter="modpe"
-                  class="font-mono text-[10px] text-neutral-600 dark:text-neutral-300 opacity-[0.08] hover:opacity-75 hover:underline underline-offset-4 cursor-pointer select-none transition-[opacity,text-decoration] duration-200 text-left p-0 bg-transparent border-0 inline-block not-italic"
+                  class="font-mono text-[10px] text-neutral-600 dark:text-neutral-300 opacity-[0.08] hover:opacity-75 hover:underline underline-offset-4 cursor-pointer select-none transition-[opacity,text-decoration] duration-200 text-left p-0 bg-transparent border-0 inline-block not-italic focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent,#52FF1A)] rounded"
                   aria-label="Unlock ModPE Scripting Easter Egg"
+                  data-aria-en="Unlock ModPE Scripting Easter Egg"
+                  data-aria-id="Buka Easter Egg Skrip ModPE"
                 >
                   Entity.setRenderType(mob, 3);
                 </button>
@@ -1401,9 +1442,11 @@ const capabilities = [
                 size="sm"
                 href="mailto:yovangunardio@gmail.com"
                 ariaLabel="Send an email to Yovan"
+                data-aria-en="Send an email to Yovan"
+                data-aria-id="Kirim email ke Yovan"
                 class="w-full sm:w-auto max-sm:!py-[11px]"
               >
-                Send an Email ↗
+                <span data-en="Send an Email ↗" data-id="Kirim Email ↗">Send an Email ↗</span>
               </ActionButton>
               <ActionButton
                 variant="secondary"
@@ -1412,9 +1455,11 @@ const capabilities = [
                 target="_blank"
                 rel="noopener noreferrer"
                 ariaLabel="GitHub Profile (opens in new tab)"
+                data-aria-en="GitHub Profile (opens in new tab)"
+                data-aria-id="Profil GitHub (buka di tab baru)"
                 class="w-full sm:w-auto max-sm:!py-[11px]"
               >
-                GitHub ↗
+                <span data-en="GitHub ↗" data-id="GitHub ↗">GitHub ↗</span>
               </ActionButton>
               <ActionButton
                 variant="secondary"
@@ -1423,9 +1468,11 @@ const capabilities = [
                 target="_blank"
                 rel="noopener noreferrer"
                 ariaLabel="LinkedIn Profile (opens in new tab)"
+                data-aria-en="LinkedIn Profile (opens in new tab)"
+                data-aria-id="Profil LinkedIn (buka di tab baru)"
                 class="w-full sm:w-auto max-sm:!py-[11px]"
               >
-                LinkedIn ↗
+                <span data-en="LinkedIn ↗" data-id="LinkedIn ↗">LinkedIn ↗</span>
               </ActionButton>
             </div>
           </div>

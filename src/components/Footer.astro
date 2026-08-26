@@ -16,11 +16,15 @@ const currentYear = new Date().getFullYear();
         <a
           href={`${base}/`}
           aria-label="Home"
+          data-aria-en="Home"
+          data-aria-id="Beranda"
           class="text-xl font-black tracking-tight text-neutral-950 dark:text-white font-heading hover:opacity-80 transition-opacity inline-block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent,#52FF1A)] rounded"
         >
           &lt;&nbsp;yovan&nbsp;/&gt;
         </a>
         <p
+          data-en="Software engineer & systems builder turning ideas into production web apps, touchscreen kiosk platforms, and hardware integrations."
+          data-id="Software engineer & pembuat sistem yang mengubah ide menjadi aplikasi web produksi, platform kios layar sentuh, dan integrasi perangkat keras."
           class="text-xs sm:text-sm text-neutral-500 dark:text-neutral-400 max-w-sm leading-relaxed font-normal"
         >
           Software engineer & systems builder turning ideas into production web
@@ -30,16 +34,18 @@ const currentYear = new Date().getFullYear();
           class="flex items-center gap-2 pt-1 text-xs text-neutral-500 dark:text-neutral-400"
         >
           <span class="w-2 h-2 rounded-full bg-[var(--color-accent,#52FF1A)] animate-pulse"></span>
-          <span class="font-mono text-[11px]">AVAILABLE FOR NEW PROJECTS</span>
+          <span class="font-mono text-[11px]" data-en="AVAILABLE FOR NEW PROJECTS" data-id="TERSEDIA UNTUK PROYEK BARU">AVAILABLE FOR NEW PROJECTS</span>
         </div>
       </div>
 
       <!-- Right Columns: Navigation & Connect -->
       <div class="md:col-span-7 grid grid-cols-2 gap-8 sm:gap-12">
         <!-- Navigation -->
-        <nav aria-label="Footer Navigation">
+        <nav aria-label="Footer Navigation" data-aria-en="Footer Navigation" data-aria-id="Navigasi Footer">
           <h3
             class="font-heading font-bold text-xs uppercase tracking-wider text-neutral-950 dark:text-white block m-0 mb-5 sm:mb-6"
+            data-en="Navigation"
+            data-id="Navigasi"
           >
             Navigation
           </h3>
@@ -47,6 +53,8 @@ const currentYear = new Date().getFullYear();
             <li>
               <a
                 href={`${base}/`}
+                data-en="Home"
+                data-id="Beranda"
                 class="hover:text-neutral-950 dark:hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent,#52FF1A)] rounded"
               >
                 Home
@@ -55,6 +63,8 @@ const currentYear = new Date().getFullYear();
             <li>
               <a
                 href={`${base}/#about`}
+                data-en="About"
+                data-id="Tentang"
                 class="hover:text-neutral-950 dark:hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent,#52FF1A)] rounded"
               >
                 About
@@ -63,6 +73,8 @@ const currentYear = new Date().getFullYear();
             <li>
               <a
                 href={`${base}/#projects`}
+                data-en="Featured Work"
+                data-id="Karya Pilihan"
                 class="hover:text-neutral-950 dark:hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent,#52FF1A)] rounded"
               >
                 Featured Work
@@ -73,7 +85,7 @@ const currentYear = new Date().getFullYear();
                 href={`${base}/portfolio-index`}
                 class="hover:text-neutral-950 dark:hover:text-white transition-colors flex items-center gap-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent,#52FF1A)] rounded"
               >
-                <span>Portfolio Index</span>
+                <span data-en="Portfolio Index" data-id="Indeks Portofolio">Portfolio Index</span>
                 <span
                   class="text-[10px] font-mono text-neutral-400 dark:text-neutral-500"
                   aria-hidden="true">↗</span
@@ -85,7 +97,7 @@ const currentYear = new Date().getFullYear();
                 href={`${base}/component-library`}
                 class="hover:text-neutral-950 dark:hover:text-white transition-colors flex items-center gap-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent,#52FF1A)] rounded"
               >
-                <span>Component Library</span>
+                <span data-en="Component Library" data-id="Pustaka Komponen">Component Library</span>
                 <span
                   class="text-[10px] font-mono text-neutral-400 dark:text-neutral-500"
                   aria-hidden="true">↗</span
@@ -96,9 +108,11 @@ const currentYear = new Date().getFullYear();
         </nav>
 
         <!-- Connect -->
-        <nav aria-label="Connect Links">
+        <nav aria-label="Connect Links" data-aria-en="Connect Links" data-aria-id="Tautan Kontak">
           <h3
             class="font-heading font-bold text-xs uppercase tracking-wider text-neutral-950 dark:text-white block m-0 mb-5 sm:mb-6"
+            data-en="Connect"
+            data-id="Kontak"
           >
             Connect
           </h3>
@@ -109,6 +123,8 @@ const currentYear = new Date().getFullYear();
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="GitHub Profile (opens in new tab)"
+                data-aria-en="GitHub Profile (opens in new tab)"
+                data-aria-id="Profil GitHub (buka di tab baru)"
                 class="hover:text-neutral-950 dark:hover:text-white transition-colors flex items-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent,#52FF1A)] rounded"
               >
                 <i class="ti ti-brand-github text-sm" aria-hidden="true"></i>
@@ -121,6 +137,8 @@ const currentYear = new Date().getFullYear();
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="LinkedIn Profile (opens in new tab)"
+                data-aria-en="LinkedIn Profile (opens in new tab)"
+                data-aria-id="Profil LinkedIn (buka di tab baru)"
                 class="hover:text-neutral-950 dark:hover:text-white transition-colors flex items-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent,#52FF1A)] rounded"
               >
                 <i class="ti ti-brand-linkedin text-sm" aria-hidden="true"></i>
@@ -131,6 +149,8 @@ const currentYear = new Date().getFullYear();
               <a
                 href="mailto:yovangunardio@gmail.com"
                 aria-label="Send email to Yovan"
+                data-aria-en="Send email to Yovan"
+                data-aria-id="Kirim email ke Yovan"
                 class="hover:text-neutral-950 dark:hover:text-white transition-colors flex items-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent,#52FF1A)] rounded"
               >
                 <i class="ti ti-mail text-sm" aria-hidden="true"></i>
@@ -161,6 +181,8 @@ const currentYear = new Date().getFullYear();
             target="_blank"
             rel="noopener noreferrer"
             aria-label="CARTO map tile attribution (opens in new tab)"
+            data-aria-en="CARTO map tile attribution (opens in new tab)"
+            data-aria-id="Atribusi ubin peta CARTO (buka di tab baru)"
             class="hover:underline hover:text-neutral-600 dark:hover:text-neutral-300"
             >CARTO</a
           > &copy; <a
@@ -168,6 +190,8 @@ const currentYear = new Date().getFullYear();
             target="_blank"
             rel="noopener noreferrer"
             aria-label="OpenStreetMap copyright notice (opens in new tab)"
+            data-aria-en="OpenStreetMap copyright notice (opens in new tab)"
+            data-aria-id="Pemberitahuan hak cipta OpenStreetMap (buka di tab baru)"
             class="hover:underline hover:text-neutral-600 dark:hover:text-neutral-300"
             >OpenStreetMap</a
           > contributors
