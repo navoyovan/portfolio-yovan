@@ -76,7 +76,7 @@ const collectionSchema = {
   '@context': 'https://schema.org',
   '@type': 'CollectionPage',
   name: 'Portfolio Index | Systems & Project Directory',
-  description: 'A structured directory of production software architectures, standalone kiosk operating systems, real-time WebSocket backends, and full-stack systems.',
+  description: 'A structured index and directory of projects, systems, and engineering work.',
   url: `${siteUrl}/portfolio-index`,
   author: {
     '@type': 'Person',
@@ -87,7 +87,7 @@ const collectionSchema = {
 
 <RootLayout
   title="Portfolio Index | Systems & Project Directory"
-  description="A structured directory of production software architectures, standalone kiosk operating systems, real-time WebSocket backends, and full-stack systems."
+  description="A structured index and directory of projects, systems, and engineering work."
   keywords={[
     'Portfolio Index',
     'Software Architecture Directory',
@@ -106,8 +106,12 @@ const collectionSchema = {
       <h1 class="text-3xl sm:text-4xl font-bold tracking-tight text-neutral-950 dark:text-white">
         Portfolio Index
       </h1>
-      <p class="text-sm sm:text-base text-neutral-600 dark:text-neutral-400 mt-2 max-w-2xl font-normal">
-        A structured catalog of production software architectures, standalone kiosk operating systems, and performance-first web platforms.
+      <p
+        data-en="A structured index and directory of projects, systems, and engineering work across the portfolio."
+        data-id="Indeks terstruktur dari berbagai proyek, sistem, dan hasil kerja di portofolio ini."
+        class="text-sm sm:text-base text-neutral-600 dark:text-neutral-400 mt-2 max-w-2xl font-normal"
+      >
+        A structured index and directory of projects, systems, and engineering work across the portfolio.
       </p>
     </div>
 

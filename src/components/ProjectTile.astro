@@ -3,6 +3,7 @@ interface Props {
   title: string;
   category?: string;
   description?: string;
+  descriptionId?: string;
   href?: string;
   imageSrc?: string;
   imageAlt?: string;
@@ -30,6 +31,7 @@ const {
   title,
   category = 'FEATURED SYSTEM',
   description,
+  descriptionId,
   href = '#',
   imageSrc,
   imageAlt = title,
@@ -122,7 +124,11 @@ const titleId = `tile-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
 
     <!-- Outfit Description -->
     {description && (
-      <p class="font-sans text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed font-normal m-0 line-clamp-5 h-[calc(1.625em*5)]">
+      <p
+        data-en={description}
+        data-id={descriptionId || description}
+        class="font-sans text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed font-normal m-0 line-clamp-5 h-[calc(1.625em*5)]"
+      >
         {description}
       </p>
     )}

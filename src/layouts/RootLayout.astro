@@ -103,10 +103,82 @@ const { title, description, image, canonicalURL, type, keywords, schema, noindex
           window.dispatchEvent(new CustomEvent('portfolio:accent-change', { detail: { hex, name } }));
         };
 
+        // Global Language Engine
+        function updatePortfolioLang(lang) {
+          if (!lang) lang = 'en';
+          document.documentElement.lang = lang;
+          try {
+            localStorage.setItem('portfolio_lang', lang);
+          } catch(e) {}
+
+          const elements = document.querySelectorAll('[data-en]');
+          elements.forEach(function(el) {
+            const val = lang === 'id' ? el.getAttribute('data-id') : el.getAttribute('data-en');
+            if (val !== null && val !== undefined) {
+              if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+                el.placeholder = val;
+              } else {
+                el.textContent = val;
+              }
+            }
+          });
+
+          // Update language dropdowns / switchers across page
+          document.querySelectorAll('.lang-current-label').forEach(function(lbl) {
+            lbl.textContent = lang.toUpperCase();
+          });
+
+          document.querySelectorAll('[data-lang-option]').forEach(function(opt) {
+            const optLang = opt.getAttribute('data-lang-option');
+            const isSelected = optLang === lang;
+            opt.setAttribute('aria-selected', String(isSelected));
+            const meta = opt.querySelector('.lang-meta');
+            if (isSelected) {
+              opt.classList.add('text-neutral-950', 'dark:text-white', '!font-black', 'bg-neutral-100', 'dark:bg-neutral-900/80');
+              opt.classList.remove('text-neutral-700', 'dark:text-neutral-300');
+              if (meta) {
+                meta.classList.add('!text-[var(--color-accent,#52FF1A)]', 'font-bold');
+              }
+            } else {
+              opt.classList.remove('text-neutral-950', 'dark:text-white', '!font-black', 'bg-neutral-100', 'dark:bg-neutral-900/80');
+              opt.classList.add('text-neutral-700', 'dark:text-neutral-300');
+              if (meta) {
+                meta.classList.remove('!text-[var(--color-accent,#52FF1A)]', 'font-bold');
+              }
+            }
+          });
+
+          window.dispatchEvent(new CustomEvent('portfolio:lang-change', { detail: { lang: lang } }));
+        }
+
+        window.__setPortfolioLang = function(lang) {
+          updatePortfolioLang(lang);
+        };
+
         try {
           const savedHex = localStorage.getItem('portfolio_accent_hex');
           if (savedHex) updateAccentStyle(savedHex);
+          const savedLang = localStorage.getItem('portfolio_lang');
+          if (savedLang === 'id' || savedLang === 'en') {
+            document.documentElement.lang = savedLang;
+          }
         } catch(e) {}
+      })();
+    </script>
+    <script is:inline>
+      (function() {
+        const applySavedLang = function() {
+          const savedLang = localStorage.getItem('portfolio_lang') || 'en';
+          if (window.__setPortfolioLang) {
+            window.__setPortfolioLang(savedLang);
+          }
+        };
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', applySavedLang);
+        } else {
+          applySavedLang();
+        }
+        document.addEventListener('astro:page-load', applySavedLang);
       })();
     </script>
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />

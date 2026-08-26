@@ -54,6 +54,8 @@ const {
       </span>
       <span
         id="hero-map-timezone"
+        data-en="UTC+7"
+        data-id="WIB"
         class="font-mono text-[9px] sm:text-[10px] lg:text-[11px] font-medium text-neutral-400/80 dark:text-neutral-600 tracking-wider group-hover/maptarget:text-neutral-600 dark:group-hover/maptarget:text-neutral-400 transition-colors duration-200"
       >
         UTC+7
@@ -189,78 +191,83 @@ const {
       let isJabodetabek = false;
       let isTransitioning = false;
 
-      // Timezone adapter (Asia/Jakarta, UTC+7)
+      // Timezone adapter (Asia/Jakarta, UTC+7 / WIB)
       const updateLocalClock = () => {
         if (!tzEl) return;
         try {
+          const isId = document.documentElement.lang === 'id';
+          const tzLabel = isId ? 'WIB' : 'UTC+7';
           const userOffsetMin = -new Date().getTimezoneOffset();
           const diffHours = (420 - userOffsetMin) / 60;
 
           if (diffHours === 0) {
-            tzEl.textContent = 'UTC+7';
+            tzEl.textContent = tzLabel;
           } else {
             const sign = diffHours > 0 ? '+' : '';
             const diffFormatted = `${sign}${diffHours % 1 === 0 ? diffHours : diffHours.toFixed(1)}h`;
-            tzEl.textContent = `UTC+7 (${diffFormatted})`;
+            tzEl.textContent = `${tzLabel} (${diffFormatted})`;
           }
         } catch {
-          tzEl.textContent = 'UTC+7';
+          const isId = document.documentElement.lang === 'id';
+          tzEl.textContent = isId ? 'WIB' : 'UTC+7';
         }
       };
 
       updateLocalClock();
+      window.addEventListener('portfolio:lang-change', updateLocalClock);
 
-      if (badgeBtn) {
-        badgeBtn.addEventListener('click', () => {
-          if (isTransitioning) return;
-          isTransitioning = true;
-          isJabodetabek = !isJabodetabek;
+      // TODO: Re-enable badge toggle once Carto API key is in place (watermark fix).
+      // if (badgeBtn) {
+      //   badgeBtn.addEventListener('click', () => {
+      //     if (isTransitioning) return;
+      //     isTransitioning = true;
+      //     isJabodetabek = !isJabodetabek;
 
-          // 1. Fade out smoothly on click
-          badgeBtn.style.opacity = '0';
-          badgeBtn.style.pointerEvents = 'none';
+      //     // 1. Fade out smoothly on click
+      //     badgeBtn.style.opacity = '0';
+      //     badgeBtn.style.pointerEvents = 'none';
 
-          const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-          const target = isJabodetabek ? getJabodetabekTarget() : getBogorTarget();
-          const duration = prefersReducedMotion ? 0 : 1.4;
+      //     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      //     const target = isJabodetabek ? getJabodetabekTarget() : getBogorTarget();
+      //     const duration = prefersReducedMotion ? 0 : 1.4;
 
-          // 2. Fly map to target
-          if (prefersReducedMotion) {
-            map.setView(target.center, target.zoom);
-          } else {
-            map.flyTo(target.center, target.zoom, { duration });
-          }
+      //     // 2. Fly map to target
+      //     if (prefersReducedMotion) {
+      //       map.setView(target.center, target.zoom);
+      //     } else {
+      //       map.flyTo(target.center, target.zoom, { duration });
+      //     }
 
-          // 3. Update text & position while invisible
-          setTimeout(() => {
-            badgeBtn.setAttribute('data-view', isJabodetabek ? 'jabodetabek' : 'bogor');
-            badgeBtn.setAttribute('aria-pressed', String(isJabodetabek));
-            if (locationTitle) {
-              locationTitle.textContent = isJabodetabek ? 'JABODETABEK' : 'BOGOR';
-            }
-            updateLocalClock();
-            badgeBtn.setAttribute('title', isJabodetabek ? 'Click to focus on Bogor' : 'Click to expand view to Jabodetabek');
-            badgeBtn.setAttribute('aria-label', isJabodetabek ? 'Focus map on Bogor' : 'Expand map view to Jabodetabek');
-          }, 250);
+      //     // 3. Update text & position while invisible
+      //     setTimeout(() => {
+      //       badgeBtn.setAttribute('data-view', isJabodetabek ? 'jabodetabek' : 'bogor');
+      //       badgeBtn.setAttribute('aria-pressed', String(isJabodetabek));
+      //       if (locationTitle) {
+      //         locationTitle.textContent = isJabodetabek ? 'JABODETABEK' : 'BOGOR';
+      //       }
+      //       updateLocalClock();
+      //       badgeBtn.setAttribute('title', isJabodetabek ? 'Click to focus on Bogor' : 'Click to expand view to Jabodetabek');
+      //       badgeBtn.setAttribute('aria-label', isJabodetabek ? 'Focus map on Bogor' : 'Expand map view to Jabodetabek');
+      //     }, 250);
 
-          // 4. Reintroduce smoothly once map finishes moving
-          let reintroduced = false;
-          const reintroduce = () => {
-            if (reintroduced) return;
-            reintroduced = true;
-            badgeBtn.style.opacity = '1';
-            badgeBtn.style.pointerEvents = 'auto';
-            isTransitioning = false;
-          };
+      //     // 4. Reintroduce smoothly once map finishes moving
+      //     let reintroduced = false;
+      //     const reintroduce = () => {
+      //       if (reintroduced) return;
+      //       reintroduced = true;
+      //       badgeBtn.style.opacity = '1';
+      //       badgeBtn.style.pointerEvents = 'auto';
+      //       isTransitioning = false;
+      //     };
 
-          map.once('moveend', () => {
-            setTimeout(reintroduce, 120);
-          });
+      //     map.once('moveend', () => {
+      //       setTimeout(reintroduce, 120);
+      //     });
 
-          // Safety fallback timeout
-          setTimeout(reintroduce, (duration * 1000) + 300);
-        });
-      }
+      //     // Safety fallback timeout
+      //     setTimeout(reintroduce, (duration * 1000) + 300);
+      //   });
+      // }
 
       // Recalculate size on window resize & adapt center
       let lastIsMobile = window.innerWidth < 768;

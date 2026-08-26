@@ -59,22 +59,31 @@ const capabilities = [
   {
     number: "01",
     title: "Landing Pages & Websites",
+    titleId: "Landing Page & Website",
     description:
       "Fast, accessible, and search-optimized websites for products, businesses, campaigns, and personal brands. Built with structured SEO, semantic markup, and responsive UI.",
+    descriptionId:
+      "Website yang cepat, aksesibel, dan ramah SEO untuk produk, bisnis, kampanye, atau personal brand. Dibangun dengan struktur SEO rapi, markup semantik, dan UI responsif.",
     tags: ["Astro", "Tailwind", "SEO", "Accessibility (a11y)", "Responsive UI"],
   },
   {
     number: "02",
     title: "Web Applications",
+    titleId: "Aplikasi Web",
     description:
       "Dashboards, internal tools, SaaS products, MVP projects, authentication, APIs, and the logic behind them.",
+    descriptionId:
+      "Dashboard, internal tools, produk SaaS, proyek MVP, autentikasi, API, dan logika di balik layarnya.",
     tags: ["React / Vue", "Full-Stack", "Auth & RBAC", "REST APIs"],
   },
   {
     number: "03",
     title: "Interfaces & User Experience",
+    titleId: "Antarmuka & Pengalaman Pengguna",
     description:
       "Designing and building user experiences across different platforms, from web interfaces to mobile apps, touchscreen kiosks, and interactive environments.",
+    descriptionId:
+      "Merancang dan ngebangun pengalaman pengguna di berbagai platform, dari web, aplikasi mobile, touchscreen kiosk, sampai instalasi interaktif.",
     tags: [
       "Web Interfaces",
       "Mobile Experiences",
@@ -85,8 +94,11 @@ const capabilities = [
   {
     number: "04",
     title: "Connected Systems",
+    titleId: "Sistem Terintegrasi",
     description:
       "Realtime communication, payment integrations, cloud services, and software that needs to talk to hardware.",
+    descriptionId:
+      "Komunikasi realtime, integrasi pembayaran, layanan cloud, dan software yang perlu terhubung langsung ke hardware.",
     tags: [
       "WebSockets",
       "Payment Gateways",
@@ -143,6 +155,8 @@ const capabilities = [
         <!-- Section Headline Header (Header 2 Full Width) -->
         <h2
           id="heading-intro"
+          data-en="I build software that makes ideas real."
+          data-id="Aku bikin software yang ngubah ide jadi nyata."
           class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-neutral-950 dark:text-white leading-[1.12] font-heading w-full"
         >
           I build software that makes ideas real.
@@ -192,6 +206,8 @@ const capabilities = [
           <!-- 65% Right Column: Narrative, Tech Stack & CTA -->
           <div class="lg:col-span-7 xl:col-span-7 space-y-6">
             <p
+              data-en="Hello, I'm Yovan. I build things for the world wide web and occasionally things that talk to machines."
+              data-id="Halo, aku Yovan. Aku bikin berbagai hal untuk web, dan sesekali bikin sesuatu yang ngobrol sama mesin."
               class="text-base sm:text-lg text-neutral-700 dark:text-neutral-300 leading-relaxed font-normal"
             >
               Hello, I'm Yovan. I build things for the world wide web and
@@ -261,6 +277,8 @@ const capabilities = [
             </ul>
 
             <p
+              data-en="I enjoy building things across the stack, from the interface people see to the systems making everything run behind the scenes."
+              data-id="Aku suka ngebangun sistem dari ujung ke ujung, dari tampilan yang dilihat orang sampai sistem yang jalan di balik layar."
               class="text-sm sm:text-base text-neutral-600 dark:text-neutral-400 leading-relaxed font-normal pt-3 sm:pt-4"
             >
               I enjoy building things across the stack, from the interface
@@ -375,11 +393,15 @@ const capabilities = [
         <div class="space-y-3 max-w-3xl">
           <h2
             id="heading-projects"
+            data-en="Things I've built"
+            data-id="Hal-hal yang udah aku bikin"
             class="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-neutral-950 dark:text-white leading-tight font-heading"
           >
             Things I've built
           </h2>
           <p
+            data-en="A collection of projects, and products where I tried to solve a problem, learn something new, or just see &quot;what if?&quot;"
+            data-id="Kumpulan proyek dan produk tempat aku nyoba nyelesaiin masalah, belajar hal baru, atau sekadar penasaran &quot;gimana kalau...&quot;"
             class="text-base sm:text-lg text-neutral-600 dark:text-neutral-400 leading-relaxed font-normal"
           >
             A collection of projects, and products where I tried to solve a
@@ -404,6 +426,8 @@ const capabilities = [
                 HYPE-BOX
               </h3>
               <p
+                data-en="A connected photo booth platform, built from kiosk to backend."
+                data-id="Platform photo booth terintegrasi, dibangun dari software kiosk sampai backend."
                 class="text-sm font-medium text-neutral-600 dark:text-neutral-400 m-0 pt-0.5"
               >
                 A connected photo booth platform, built from kiosk to backend.
@@ -460,6 +484,8 @@ const capabilities = [
 
           <!-- Architecture Summary -->
           <p
+            data-en="An integrated hardware-software pipeline orchestrating physical thermal printers, camera hardware, a touchscreen Electron client, real-time WebSocket telemetry, and cloud fleet management."
+            data-id="Pipeline hardware-software terintegrasi yang ngehubungin printer thermal fisik, kamera, aplikasi touchscreen berbasis Electron, telemetri real-time WebSocket, dan manajemen cloud."
             class="text-sm sm:text-base text-neutral-700 dark:text-neutral-300 leading-relaxed max-w-3xl font-normal m-0"
           >
             An integrated hardware-software pipeline orchestrating physical
@@ -487,6 +513,8 @@ const capabilities = [
                   Touch &amp; QRIS Payment
                 </h4>
                 <p
+                  data-en="Kiosk generates order. Laravel REST API generates dynamic QRIS via SNAP API with webhook confirmation."
+                  data-id="Kiosk bikin order. Laravel REST API nge-generate QRIS dinamis via SNAP API dengan konfirmasi webhook."
                   class="font-sans text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed font-normal m-0"
                 >
                   Kiosk generates order. Laravel REST API generates dynamic QRIS
@@ -547,6 +575,8 @@ const capabilities = [
                   Viewfinder &amp; FX
                 </h4>
                 <p
+                  data-en="Camera via USB, captures images with countdown burst. Canvas compositor renders multi-frame layouts and color grading."
+                  data-id="Kamera via USB, jepret foto dengan countdown burst. Canvas compositor ngerender layout multi-frame dan color grading."
                   class="font-sans text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed font-normal m-0"
                 >
                   Camera via USB, captures images with countdown burst. Canvas
@@ -607,6 +637,8 @@ const capabilities = [
                   WebSocket Push &amp; GCS
                 </h4>
                 <p
+                  data-en="Composited strips sync to Google Cloud Storage while Laravel Reverb broadcasts real-time telemetry to connected operator dashboards."
+                  data-id="Hasil strip foto sinkron ke Google Cloud Storage, sementara Laravel Reverb nge-broadcast telemetri real-time ke dashboard operator."
                   class="font-sans text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed font-normal m-0"
                 >
                   Composited strips sync to Google Cloud Storage while Laravel
@@ -734,6 +766,8 @@ const capabilities = [
                   Touchscreen Kiosk Client
                 </h4>
                 <p
+                  data-en="Electron-based self-service UI for event guests. Offline-tolerant state machine, thermal printer spooler, and countdown capture loop."
+                  data-id="UI self-service berbasis Electron untuk tamu event. State machine tahan-offline, spooler printer thermal, dan alur foto otomatis."
                   class="font-sans text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed font-normal m-0"
                 >
                   Electron-based self-service UI for event guests.
@@ -812,6 +846,8 @@ const capabilities = [
                   Vendor Portal &amp; Telemetry
                 </h4>
                 <p
+                  data-en="Operator web portal for real-time kiosk fleet telemetry, custom print frame asset designers, coupon engines, and sales analytics."
+                  data-id="Portal web operator untuk telemetri armada kiosk real-time, desainer frame cetak custom, sistem kupon, dan analitik penjualan."
                   class="font-sans text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed font-normal m-0"
                 >
                   Operator web portal for real-time kiosk fleet telemetry,
@@ -892,6 +928,7 @@ const capabilities = [
                 title="Component Library"
                 category="DESIGN SYSTEM"
                 description="Design system, typography specimens, color tokens, and interactive UI primitives architected for Portfolio v5."
+                descriptionId="Design system, spesimen tipografi, token warna, dan komponen UI interaktif yang dirancang untuk Portfolio v5."
                 status="LIVE_DOCS"
                 statusVariant="accent"
                 tags={["Astro v5", "Tailwind v4", "UI Tokens", "Components"]}
@@ -905,6 +942,7 @@ const capabilities = [
                 title="Interactive Map Engine"
                 category="GIS & SPATIAL"
                 description="Geospatial visualization and tracking platform with custom boundary polygons and telemetry."
+                descriptionId="Platform visualisasi dan pelacakan geospasial dengan poligon batas wilayah kustom dan telemetri."
                 status="PROTOTYPE"
                 statusVariant="neutral"
                 tags={["Laravel", "Leaflet.js", "AJAX", "Tailwind"]}
@@ -936,6 +974,8 @@ const capabilities = [
         <div class="space-y-3">
           <h2
             id="heading-capabilities"
+            data-en="From simple pages to systems that do stuff."
+            data-id="Dari halaman sederhana sampai sistem yang beneran kerja."
             class="text-3xl sm:text-4xl font-heading font-bold tracking-tight text-neutral-900 dark:text-neutral-100"
           >
             From simple pages to systems that do stuff.
@@ -955,10 +995,18 @@ const capabilities = [
                       {item.number}
                     </span>
                     <div class="space-y-1.5 flex-1">
-                      <h3 class="text-lg sm:text-xl font-heading font-bold text-neutral-950 dark:text-white group-hover:text-[var(--color-accent,#52FF1A)] transition-colors m-0">
+                      <h3
+                        data-en={item.title}
+                        data-id={item.titleId || item.title}
+                        class="text-lg sm:text-xl font-heading font-bold text-neutral-950 dark:text-white group-hover:text-[var(--color-accent,#52FF1A)] transition-colors m-0"
+                      >
                         {item.title}
                       </h3>
-                      <p class="text-sm leading-relaxed text-neutral-600 dark:text-neutral-400 max-w-3xl m-0">
+                      <p
+                        data-en={item.description}
+                        data-id={item.descriptionId || item.description}
+                        class="text-sm leading-relaxed text-neutral-600 dark:text-neutral-400 max-w-3xl m-0"
+                      >
                         {item.description}
                       </p>
                     </div>
@@ -1005,11 +1053,15 @@ const capabilities = [
             <div class="space-y-4">
               <h2
                 id="heading-philosophy"
+                data-en="I build for the thing, not the stack."
+                data-id="Aku bikin buat produknya, bukan sekadar stacknya."
                 class="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-neutral-950 dark:text-white leading-tight font-heading"
               >
                 I build for the thing, not the stack.
               </h2>
               <p
+                data-en="Understanding the whole problem before deciding how to solve it. The interface, the backend, the hardware, the weird edge cases; they're all part of the same product."
+                data-id="Pahami dulu masalahnya secara menyeluruh sebelum milih solusinya. Antarmuka, backend, hardware, sampai kasus-kasus unik yang jarang dipikirkan, semuanya bagian dari satu produk utuh."
                 class="text-base sm:text-lg text-neutral-700 dark:text-neutral-300 leading-relaxed font-normal"
               >
                 Understanding the whole problem before deciding how to solve it.
@@ -1028,11 +1080,15 @@ const capabilities = [
                 </span>
                 <div class="space-y-1.5 flex-1">
                   <h3
+                    data-en="Start with the actual use case."
+                    data-id="Mulai dari kebutuhan nyatanya."
                     class="text-lg sm:text-xl font-bold text-neutral-950 dark:text-white tracking-tight group-hover:text-[var(--color-accent,#52FF1A)] transition-colors font-heading m-0"
                   >
                     Start with the actual use case.
                   </h3>
                   <p
+                    data-en="Technology is just the tool. I care about what the product needs to accomplish, who is using it, and what could get in their way."
+                    data-id="Teknologi cuma alat. Yang paling penting adalah apa tujuan produknya, siapa penggunanya, dan kendala apa yang mungkin mereka hadapi."
                     class="text-sm sm:text-base text-neutral-600 dark:text-neutral-400 leading-relaxed m-0"
                   >
                     Technology is just the tool. I care about what the product
@@ -1051,11 +1107,15 @@ const capabilities = [
                 </span>
                 <div class="space-y-1.5 flex-1">
                   <h3
+                    data-en="Keep complexity earned."
+                    data-id="Kompleksitas seperlunya aja."
                     class="text-lg sm:text-xl font-bold text-neutral-950 dark:text-white tracking-tight group-hover:text-[var(--color-accent,#52FF1A)] transition-colors font-heading m-0"
                   >
                     Keep complexity earned.
                   </h3>
                   <p
+                    data-en="Not every project needs a giant architecture. I use what the problem calls for, it doesnt have to be over-engineered but still hitting the spot."
+                    data-id="Nggak semua project butuh arsitektur raksasa. Aku pilih solusi yang pas sesuai masalahnya, nggak perlu over-engineered yang penting tepat sasaran."
                     class="text-sm sm:text-base text-neutral-600 dark:text-neutral-400 leading-relaxed m-0"
                   >
                     Not every project needs a giant architecture. I use what the
@@ -1074,11 +1134,15 @@ const capabilities = [
                 </span>
                 <div class="space-y-1.5 flex-1">
                   <h3
+                    data-en="Make the pieces work together."
+                    data-id="Bikin tiap bagian nyambung dengan mulus."
                     class="text-lg sm:text-xl font-bold text-neutral-950 dark:text-white tracking-tight group-hover:text-[var(--color-accent,#52FF1A)] transition-colors font-heading m-0"
                   >
                     Make the pieces work together.
                   </h3>
                   <p
+                    data-en="A good interface is only one part of a good product. I like connecting the things behind it: databases, realtime systems, devices, payments, and everything in between; see them in broad, see them in granular level, all of 'em are part of the same product."
+                    data-id="Antarmuka yang bagus baru sebagian dari produk yang baik. Aku suka ngehubungin hal-hal di baliknya: database, sistem realtime, perangkat fisik, pembayaran, dan semuanya, baik dari gambaran besar sampai detail terkecil."
                     class="text-sm sm:text-base text-neutral-600 dark:text-neutral-400 leading-relaxed m-0"
                   >
                     A good interface is only one part of a good product. I like
@@ -1099,11 +1163,15 @@ const capabilities = [
                 </span>
                 <div class="space-y-1.5 flex-1">
                   <h3
+                    data-en="Sweat the details that matter."
+                    data-id="Perhatikan detail-detail krusial."
                     class="text-lg sm:text-xl font-bold text-neutral-950 dark:text-white tracking-tight group-hover:text-[var(--color-accent,#52FF1A)] transition-colors font-heading m-0"
                   >
                     Sweat the details that matter.
                   </h3>
                   <p
+                    data-en="Loading states, feedback, transitions, edge cases, awkward workflows; the little things are often what separate something that technically works from something that actually feels good to use."
+                    data-id="Loading state, feedback, transisi, penanganan error, alur yang canggung; hal-hal kecil inilah yang membedakan software yang sekadar &quot;bisa jalan&quot; dengan software yang beneran enak dipakai."
                     class="text-sm sm:text-base text-neutral-600 dark:text-neutral-400 leading-relaxed"
                   >
                     Loading states, feedback, transitions, edge cases, awkward
@@ -1116,7 +1184,11 @@ const capabilities = [
             </div>
 
             <div class="pt-4 space-y-4">
-              <p class="text-neutral-600 dark:text-neutral-400 text-base">
+              <p
+                data-en="And the final product should make someone say:"
+                data-id="Dan hasil akhirnya idealnya bikin orang bilang:"
+                class="text-neutral-600 dark:text-neutral-400 text-base"
+              >
                 And the final product should make someone say:
               </p>
 
@@ -1130,6 +1202,8 @@ const capabilities = [
                   "_"
                 </blockquote>
                 <p
+                  data-en="Nothing. That's how I know I built it for the actual use case: when the software gets out of the way, and does what it's supposed to do, it leaves nothing for the user to complain about."
+                  data-id="Nggak ada. Di situlah aku tahu software ini dibuat tepat guna: saat aplikasinya bekerja mulus tanpa kendala, pengguna nggak punya alasan buat ngeluh."
                   class="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed"
                 >
                   Nothing. That's how I know I built it for the actual use case:
@@ -1168,6 +1242,8 @@ const capabilities = [
           <div class="lg:col-span-5 space-y-3">
             <h2
               id="heading-about"
+              data-en="A little bit about myself."
+              data-id="Sedikit cerita tentang aku."
               class="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-neutral-950 dark:text-white leading-tight font-heading"
             >
               A little bit about myself.
@@ -1175,12 +1251,22 @@ const capabilities = [
             <div
               class="hidden lg:block font-mono text-[11px] sm:text-xs text-neutral-400 dark:text-neutral-500 italic leading-relaxed pt-1"
             >
-              <p class="m-0">
+              <p
+                data-en="// You can find these labels throughout the page, some are interactable and would show some of my secret cool projects."
+                data-id="// Label-label seperti ini tersebar di seluruh halaman, beberapa bisa diklik buat liat proyek rahasia yang seru."
+                class="m-0"
+              >
                 // You can find these labels throughout the page, some are
                 interactable and would show some of my secret cool projects.
               </p>
               <div class="flex items-center gap-1.5 pt-1">
-                <span class="shrink-0">Try clicking this label</span>
+                <span
+                  data-en="Try clicking this label"
+                  data-id="Coba klik label ini"
+                  class="shrink-0"
+                >
+                  Try clicking this label
+                </span>
                 <!-- Long hairline dashed connector line extending all the way to the divider -->
                 <div
                   class="flex flex-1 items-center min-w-[60px]"
@@ -1216,7 +1302,10 @@ const capabilities = [
           <div
             class="lg:col-span-7 space-y-6 text-base sm:text-lg text-neutral-700 dark:text-neutral-300 leading-relaxed font-normal"
           >
-            <p>
+            <p
+              data-en="My journey started with modding Java games back when I was in elementary school and Android games in high school, but curiosity pulled me into everything around it, like- designing interfaces, building backend, connecting hardware, and creating intuitive experiences for users."
+              data-id="Perjalananku berawal dari ngoprek mod game Java waktu SD dan game Android pas SMA. Rasa penasaran nuntun aku ke hal-hal seru lainnya, mulai dari desain antarmuka, bikin backend, nyambungin hardware, sampai ngebangun pengalaman yang intuitif buat pengguna."
+            >
               My journey started with modding Java games back when I was in
               elementary school and Android games in high school, but curiosity
               pulled me into everything around it, like- designing interfaces,
@@ -1224,6 +1313,8 @@ const capabilities = [
               experiences for users.
             </p>
             <p
+              data-en="I enjoy working on projects where software isn't just sitting on a screen, but where it interacts with people, devices, and the real world."
+              data-id="Aku paling antusias sama proyek di mana software nggak cuma diam di layar, tapi beneran berinteraksi dengan manusia, perangkat fisik, dan dunia nyata."
               class="text-neutral-600 dark:text-neutral-400 text-sm sm:text-base"
             >
               I enjoy working on projects where software isn't just sitting on a
@@ -1235,11 +1326,21 @@ const capabilities = [
             <div
               class="block lg:hidden pt-4 space-y-1.5 font-mono text-[11px] text-neutral-400 dark:text-neutral-500 italic"
             >
-              <p class="m-0 leading-relaxed">
+              <p
+                data-en="// You can find these labels throughout the page, some are interactable and would show some of my secret cool projects."
+                data-id="// Label-label seperti ini tersebar di seluruh halaman, beberapa bisa diklik buat liat proyek rahasia yang seru."
+                class="m-0 leading-relaxed"
+              >
                 // You can find these labels throughout the page, some are
                 interactable and would show some of my secret cool projects.
               </p>
-              <p class="m-0 leading-relaxed">Try tapping this label ↓</p>
+              <p
+                data-en="Try tapping this label ↓"
+                data-id="Coba sentuh label ini ↓"
+                class="m-0 leading-relaxed"
+              >
+                Try tapping this label ↓
+              </p>
               <div class="pt-0.5">
                 <button
                   type="button"
@@ -1278,6 +1379,8 @@ const capabilities = [
           >
             <div class="space-y-1.5">
               <span
+                data-en="Direct Contact"
+                data-id="Kontak Langsung"
                 class="font-sans text-[11px] uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-bold block"
               >
                 Direct Contact
@@ -1331,11 +1434,15 @@ const capabilities = [
           <div class="lg:col-span-6 space-y-4">
             <h2
               id="heading-contact"
+              data-en="Have an idea or a project in mind? Let's build it."
+              data-id="Punya ide atau proyek yang mau diwujudkan? Yuk kita bangun bareng."
               class="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-neutral-950 dark:text-white leading-tight font-heading"
             >
               Have an idea or a project in mind? Let's build it.
             </h2>
             <p
+              data-en="Whether you want to build a custom web platform, a touchscreen kiosk, or explore a hardware experiment, I'm always open to discussing new engineering challenges."
+              data-id="Mau bikin platform web kustom, touchscreen kiosk, atau eksplorasi eksperimen hardware, aku selalu terbuka buat ngobrol dan mendiskusikan tantangan engineering baru."
               class="text-base sm:text-lg text-neutral-600 dark:text-neutral-400 leading-relaxed font-normal"
             >
               Whether you want to build a custom web platform, a touchscreen

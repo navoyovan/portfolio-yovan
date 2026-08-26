@@ -1,0 +1,227 @@
+---
+// LangSwitcher.astro - Navbar-matched Language Switcher Dropdown (EN / ID)
+// Matches the exact typography (Syne font-heading) & backdrop structure of the Navbar dropdown.
+interface Props {
+  id?: string;
+  dropDirection?: 'down' | 'up';
+  class?: string;
+}
+
+const {
+  id = `ls-${Math.random().toString(36).substring(2, 9)}`,
+  dropDirection = 'down',
+  class: className = '',
+} = Astro.props;
+
+const isUp = dropDirection === 'up';
+---
+
+<div
+  id={id}
+  class:list={['lang-switcher-wrapper relative inline-block text-left select-none', className]}
+  data-lang-switcher-wrapper
+  data-direction={dropDirection}
+>
+  <!-- Trigger Button: matches desktop active nav button style -->
+  <button
+    type="button"
+    id={`${id}-trigger`}
+    aria-haspopup="menu"
+    aria-expanded="false"
+    aria-label="Select language"
+    class="lang-trigger group/nav-lang relative inline-flex items-center justify-center text-xs sm:text-sm font-heading font-bold px-3.5 py-2 rounded-md transition-[background-color,color,border-color] duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent,#52FF1A)] text-neutral-950 dark:text-white bg-neutral-100 dark:bg-neutral-900 cursor-pointer select-none gap-1.5"
+  >
+    <!-- Globe Icon -->
+    <svg
+      class="w-3.5 h-3.5 text-neutral-500 dark:text-neutral-400 shrink-0"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      aria-hidden="true"
+    >
+      <circle cx="12" cy="12" r="10"></circle>
+      <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path>
+      <path d="M2 12h20"></path>
+    </svg>
+
+    <!-- Current Code in Syne -->
+    <span class="lang-current-label font-heading font-bold tracking-tight uppercase">EN</span>
+
+    <!-- Arrow Indicator -->
+    <span
+      class:list={[
+        'lang-arrow inline-flex items-center justify-center w-3.5 text-neutral-500 dark:text-neutral-400 group-hover/nav-lang:text-neutral-950 dark:group-hover/nav-lang:text-white transition-[opacity,transform] duration-200 ease-out',
+        isUp ? 'rotate-180' : ''
+      ]}
+      aria-hidden="true"
+    >
+      ↓
+    </span>
+  </button>
+
+  <!-- Desktop Sections-styled Dropdown Menu -->
+  <div
+    id={`${id}-menu`}
+    role="menu"
+    aria-label="Language Options"
+    class:list={[
+      'lang-menu absolute right-0 min-w-[200px] bg-[#fcfbf9]/95 dark:bg-[#0e0e0e]/95 backdrop-blur-xl border border-neutral-200/90 dark:border-neutral-800/90 rounded-lg shadow-xl dark:shadow-2xl p-1.5 z-50 opacity-0 scale-95 pointer-events-none transition-[opacity,transform] duration-200 ease-out origin-top flex flex-col gap-1',
+      isUp
+        ? 'bottom-full mb-2 origin-bottom translate-y-2'
+        : 'top-full mt-2 origin-top -translate-y-2'
+    ]}
+    style="-webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px);"
+  >
+    <div class="px-3 pt-2 pb-1 text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-neutral-500 font-semibold border-b border-neutral-200/60 dark:border-neutral-800/60 select-none">
+      // LANGUAGE
+    </div>
+
+    <ul class="flex flex-col gap-0.5 list-none m-0 p-0" role="none">
+      <!-- English Option -->
+      <li role="none">
+        <button
+          type="button"
+          role="menuitem"
+          data-lang-option="en"
+          class="lang-item group flex items-center justify-between px-3 py-2 text-xs font-heading font-bold uppercase tracking-tight text-neutral-700 dark:text-neutral-300 hover:text-neutral-950 dark:hover:text-white hover:bg-neutral-100 dark:hover:bg-neutral-900/80 rounded transition-colors text-left w-full cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent,#52FF1A)] border-0 bg-transparent"
+        >
+          <span class="font-heading font-bold uppercase tracking-tight">ENGLISH</span>
+          <span class="lang-meta text-[10px] font-mono text-neutral-400 dark:text-neutral-600 group-hover:text-[var(--color-accent,#52FF1A)] transition-colors">
+            EN
+          </span>
+        </button>
+      </li>
+
+      <!-- Indonesian Option -->
+      <li role="none">
+        <button
+          type="button"
+          role="menuitem"
+          data-lang-option="id"
+          class="lang-item group flex items-center justify-between px-3 py-2 text-xs font-heading font-bold uppercase tracking-tight text-neutral-700 dark:text-neutral-300 hover:text-neutral-950 dark:hover:text-white hover:bg-neutral-100 dark:hover:bg-neutral-900/80 rounded transition-colors text-left w-full cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent,#52FF1A)] border-0 bg-transparent"
+        >
+          <span class="font-heading font-bold uppercase tracking-tight">INDONESIA</span>
+          <span class="lang-meta text-[10px] font-mono text-neutral-400 dark:text-neutral-600 group-hover:text-[var(--color-accent,#52FF1A)] transition-colors">
+            ID
+          </span>
+        </button>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<script>
+  function setupLangDropdowns() {
+    document.querySelectorAll<HTMLElement>('[data-lang-switcher-wrapper]').forEach((wrapper) => {
+      if (wrapper.dataset.initialized === 'true') return;
+      wrapper.dataset.initialized = 'true';
+
+      const isUp = wrapper.dataset.direction === 'up';
+      const trigger = wrapper.querySelector<HTMLButtonElement>('.lang-trigger');
+      const menu = wrapper.querySelector<HTMLElement>('.lang-menu');
+      const arrow = wrapper.querySelector<HTMLElement>('.lang-arrow');
+      const items = wrapper.querySelectorAll<HTMLButtonElement>('.lang-item');
+
+      if (!trigger || !menu) return;
+
+      const setOpen = (open: boolean) => {
+        if (open) {
+          // Close other open menus
+          document.querySelectorAll('.lang-menu.is-open').forEach((m) => {
+            if (m !== menu) {
+              m.classList.remove('is-open', 'opacity-100', 'translate-y-0', 'scale-100', 'pointer-events-auto');
+              m.classList.add('opacity-0', 'scale-95', 'pointer-events-none', isUp ? 'translate-y-2' : '-translate-y-2');
+              const otherTrigger = m.closest('.lang-switcher-wrapper')?.querySelector<HTMLButtonElement>('.lang-trigger');
+              if (otherTrigger) otherTrigger.setAttribute('aria-expanded', 'false');
+            }
+          });
+
+          menu.classList.remove('opacity-0', 'scale-95', 'pointer-events-none', isUp ? 'translate-y-2' : '-translate-y-2');
+          menu.classList.add('is-open', 'opacity-100', 'translate-y-0', 'scale-100', 'pointer-events-auto');
+          trigger.setAttribute('aria-expanded', 'true');
+          if (arrow) {
+            arrow.classList.add(isUp ? 'rotate-0' : 'rotate-180');
+          }
+          items.forEach((item) => item.removeAttribute('tabindex'));
+        } else {
+          menu.classList.remove('is-open', 'opacity-100', 'translate-y-0', 'scale-100', 'pointer-events-auto');
+          menu.classList.add('opacity-0', 'scale-95', 'pointer-events-none', isUp ? 'translate-y-2' : '-translate-y-2');
+          trigger.setAttribute('aria-expanded', 'false');
+          if (arrow) {
+            arrow.classList.remove(isUp ? 'rotate-0' : 'rotate-180');
+          }
+          items.forEach((item) => item.setAttribute('tabindex', '-1'));
+        }
+      };
+
+      // Initial state
+      setOpen(false);
+
+      trigger.onclick = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        const isOpen = menu.classList.contains('is-open');
+        setOpen(!isOpen);
+      };
+
+      items.forEach((item) => {
+        item.onclick = (e) => {
+          e.stopPropagation();
+          const targetLang = item.getAttribute('data-lang-option');
+          if (targetLang && (window as any).__setPortfolioLang) {
+            (window as any).__setPortfolioLang(targetLang);
+          }
+          setOpen(false);
+          trigger.focus();
+        };
+      });
+    });
+
+    document.addEventListener('click', () => {
+      document.querySelectorAll<HTMLElement>('.lang-menu.is-open').forEach((menu) => {
+        const wrapper = menu.closest<HTMLElement>('.lang-switcher-wrapper');
+        const isUp = wrapper?.dataset.direction === 'up';
+        menu.classList.remove('is-open', 'opacity-100', 'translate-y-0', 'scale-100', 'pointer-events-auto');
+        menu.classList.add('opacity-0', 'scale-95', 'pointer-events-none', isUp ? 'translate-y-2' : '-translate-y-2');
+        const trigger = wrapper?.querySelector<HTMLButtonElement>('.lang-trigger');
+        const arrow = wrapper?.querySelector<HTMLElement>('.lang-arrow');
+        if (trigger) trigger.setAttribute('aria-expanded', 'false');
+        if (arrow) arrow.classList.remove(isUp ? 'rotate-0' : 'rotate-180');
+      });
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        document.querySelectorAll<HTMLElement>('.lang-menu.is-open').forEach((menu) => {
+          const wrapper = menu.closest<HTMLElement>('.lang-switcher-wrapper');
+          const isUp = wrapper?.dataset.direction === 'up';
+          menu.classList.remove('is-open', 'opacity-100', 'translate-y-0', 'scale-100', 'pointer-events-auto');
+          menu.classList.add('opacity-0', 'scale-95', 'pointer-events-none', isUp ? 'translate-y-2' : '-translate-y-2');
+          const trigger = wrapper?.querySelector<HTMLButtonElement>('.lang-trigger');
+          const arrow = wrapper?.querySelector<HTMLElement>('.lang-arrow');
+          if (trigger) {
+            trigger.setAttribute('aria-expanded', 'false');
+            trigger.focus();
+          }
+          if (arrow) arrow.classList.remove(isUp ? 'rotate-0' : 'rotate-180');
+        });
+      }
+    });
+
+    // Sync initial state
+    const currentLang = document.documentElement.lang || 'en';
+    if ((window as any).__setPortfolioLang) {
+      (window as any).__setPortfolioLang(currentLang);
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupLangDropdowns);
+  } else {
+    setupLangDropdowns();
+  }
+  document.addEventListener('astro:page-load', setupLangDropdowns);
+</script>
