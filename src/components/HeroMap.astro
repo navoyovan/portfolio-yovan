@@ -13,6 +13,16 @@ const {
   lng = 106.7640,
   zoom = 14,
 } = Astro.props;
+
+// Compute server-rendered time for initial paint (Asia/Jakarta, UTC+7)
+const jktTimeFormatter = new Intl.DateTimeFormat('en-GB', {
+  timeZone: 'Asia/Jakarta',
+  hour: '2-digit',
+  minute: '2-digit',
+  second: '2-digit',
+  hour12: false,
+});
+const initialTime = jktTimeFormatter.format(new Date());
 ---
 
 <div
@@ -62,7 +72,7 @@ const {
         data-id="WIB"
         class="font-mono text-[9px] sm:text-[10px] lg:text-[11px] font-medium text-neutral-400/80 dark:text-neutral-600 tracking-wider group-hover/maptarget:text-neutral-600 dark:group-hover/maptarget:text-neutral-400 transition-colors duration-200"
       >
-        UTC+7
+        {initialTime} UTC+7
       </span>
     </div>
   </button>
@@ -197,21 +207,41 @@ const {
       let isJabodetabek = false;
       let isTransitioning = false;
 
-      // Timezone adapter (Asia/Jakarta, UTC+7 / WIB)
+      // Timezone adapter (Asia/Jakarta, UTC+7 / WIB) with live clock
       const updateLocalClock = () => {
         if (!tzEl) return;
         try {
           const isId = document.documentElement.lang === 'id';
           const tzLabel = isId ? 'WIB' : 'UTC+7';
-          const userOffsetMin = -new Date().getTimezoneOffset();
+          const now = new Date();
+
+          let timeString = '';
+          try {
+            const formatter = new Intl.DateTimeFormat('en-GB', {
+              timeZone: 'Asia/Jakarta',
+              hour: '2-digit',
+              minute: '2-digit',
+              second: '2-digit',
+              hour12: false,
+            });
+            timeString = formatter.format(now);
+          } catch {
+            const utcHours = now.getUTCHours();
+            const utcMinutes = now.getUTCMinutes();
+            const utcSeconds = now.getUTCSeconds();
+            const jktHours = (utcHours + 7) % 24;
+            timeString = `${String(jktHours).padStart(2, '0')}:${String(utcMinutes).padStart(2, '0')}:${String(utcSeconds).padStart(2, '0')}`;
+          }
+
+          const userOffsetMin = -now.getTimezoneOffset();
           const diffHours = (420 - userOffsetMin) / 60;
 
           if (diffHours === 0) {
-            tzEl.textContent = tzLabel;
+            tzEl.textContent = `${timeString} ${tzLabel}`;
           } else {
             const sign = diffHours > 0 ? '+' : '';
             const diffFormatted = `${sign}${diffHours % 1 === 0 ? diffHours : diffHours.toFixed(1)}h`;
-            tzEl.textContent = `${tzLabel} (${diffFormatted})`;
+            tzEl.textContent = `${timeString} ${tzLabel} (${diffFormatted})`;
           }
         } catch {
           const isId = document.documentElement.lang === 'id';
@@ -220,6 +250,7 @@ const {
       };
 
       updateLocalClock();
+      window.removeEventListener('portfolio:lang-change', updateLocalClock);
       window.addEventListener('portfolio:lang-change', updateLocalClock);
 
       if (badgeBtn) {
@@ -307,7 +338,59 @@ const {
     });
   };
 
+  let heroClockTimer: number | null = null;
+  const startHeroClock = () => {
+    const update = () => {
+      const tzEl = document.getElementById('hero-map-timezone');
+      if (!tzEl) return;
+      try {
+        const isId = document.documentElement.lang === 'id';
+        const tzLabel = isId ? 'WIB' : 'UTC+7';
+        const now = new Date();
+
+        let timeString = '';
+        try {
+          const formatter = new Intl.DateTimeFormat('en-GB', {
+            timeZone: 'Asia/Jakarta',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+            hour12: false,
+          });
+          timeString = formatter.format(now);
+        } catch {
+          const utcHours = now.getUTCHours();
+          const utcMinutes = now.getUTCMinutes();
+          const utcSeconds = now.getUTCSeconds();
+          const jktHours = (utcHours + 7) % 24;
+          timeString = `${String(jktHours).padStart(2, '0')}:${String(utcMinutes).padStart(2, '0')}:${String(utcSeconds).padStart(2, '0')}`;
+        }
+
+        const userOffsetMin = -now.getTimezoneOffset();
+        const diffHours = (420 - userOffsetMin) / 60;
+
+        if (diffHours === 0) {
+          tzEl.textContent = `${timeString} ${tzLabel}`;
+        } else {
+          const sign = diffHours > 0 ? '+' : '';
+          const diffFormatted = `${sign}${diffHours % 1 === 0 ? diffHours : diffHours.toFixed(1)}h`;
+          tzEl.textContent = `${timeString} ${tzLabel} (${diffFormatted})`;
+        }
+      } catch {
+        const isId = document.documentElement.lang === 'id';
+        tzEl.textContent = isId ? 'WIB' : 'UTC+7';
+      }
+    };
+
+    update();
+    if (heroClockTimer) clearInterval(heroClockTimer);
+    heroClockTimer = window.setInterval(update, 1000);
+    window.removeEventListener('portfolio:lang-change', update);
+    window.addEventListener('portfolio:lang-change', update);
+  };
+
   const scheduleInit = () => {
+    startHeroClock();
     if ('requestIdleCallback' in window) {
       (window as any).requestIdleCallback(() => initLeafletMap(), { timeout: 1500 });
     } else {

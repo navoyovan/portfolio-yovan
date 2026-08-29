@@ -56,7 +56,7 @@ const systemsNav = [
 
 <RootLayout
   title="Component Library | UI Primitives & Design Tokens"
-  description="Design system, typography specimens, color tokens, and UI primitives architected for Portfolio v5."
+  description="Design system, typography specimens, color tokens, and UI primitives architected for this Portfolio."
   noindex={true}
 >
   <div class="w-full flex min-h-[calc(100vh-4rem)]">
@@ -324,7 +324,10 @@ const systemsNav = [
           <!-- 01.0 / Core Brand & Surface Tokens -->
           <div class="grid grid-cols-2 sm:grid-cols-4 gap-6">
             <!-- Neon Green Accent (Secret Interactive Swatch) -->
-            <div class="relative flex flex-col gap-2" id="accent-swatch-container">
+            <div
+              class="relative flex flex-col gap-2"
+              id="accent-swatch-container"
+            >
               <div
                 id="accent-swatch-chip"
                 class="w-full aspect-video bg-[#52FF1A] border border-black/10 shadow-[0_0_20px_rgba(82,255,26,0.3)] transition-colors duration-200"
@@ -353,7 +356,9 @@ const systemsNav = [
                     ↓
                   </span>
                 </button>
-                <span id="accent-swatch-hex" class="font-mono text-[11px] text-neutral-500"
+                <span
+                  id="accent-swatch-hex"
+                  class="font-mono text-[11px] text-neutral-500"
                   >--color-accent • #52FF1A</span
                 >
 
@@ -364,11 +369,18 @@ const systemsNav = [
                   aria-label="Select Accent Color"
                   class="absolute top-full left-0 mt-2 min-w-[220px] bg-[#fcfbf9]/95 dark:bg-[#0e0e0e]/95 backdrop-blur-xl border border-neutral-200/90 dark:border-neutral-800/90 rounded-lg shadow-xl dark:shadow-2xl p-1.5 z-50 opacity-0 -translate-y-2 scale-95 pointer-events-none transition-[opacity,transform] duration-200 ease-out origin-top flex flex-col gap-1"
                 >
-                  <div class="px-3 pt-2 pb-1 text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-neutral-500 font-semibold border-b border-neutral-200/60 dark:border-neutral-800/60 select-none flex items-center justify-between">
+                  <div
+                    class="px-3 pt-2 pb-1 text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-neutral-500 font-semibold border-b border-neutral-200/60 dark:border-neutral-800/60 select-none flex items-center justify-between"
+                  >
                     <span>ACCENT PALETTE</span>
-                    <span class="text-[9px] text-neutral-400 font-normal">7 TOKENS</span>
+                    <span class="text-[9px] text-neutral-400 font-normal"
+                      >7 TOKENS</span
+                    >
                   </div>
-                  <ul class="flex flex-col gap-0.5 list-none m-0 p-0" role="none">
+                  <ul
+                    class="flex flex-col gap-0.5 list-none m-0 p-0"
+                    role="none"
+                  >
                     {
                       [
                         { name: "Neon Green", hex: "#52FF1A" },
@@ -1762,7 +1774,11 @@ const systemsNav = [
             <!-- Accent Neon Loader -->
             <div class="flex flex-col gap-4">
               <div class="h-28 flex items-center justify-start">
-                <SquareWaveLoader color="var(--color-accent, #52FF1A)" size={14} gap={8} />
+                <SquareWaveLoader
+                  color="var(--color-accent, #52FF1A)"
+                  size={14}
+                  gap={8}
+                />
               </div>
               <div class="flex flex-col">
                 <span
@@ -2052,12 +2068,24 @@ const systemsNav = [
               <!-- Item 1 -->
               <div class="space-y-2 group min-w-0">
                 <div class="flex items-center gap-2.5 sm:gap-3 min-w-0">
-                  <span class="text-neutral-400 dark:text-neutral-600 select-none font-sans font-medium text-sm shrink-0" aria-hidden="true">├──</span>
-                  <span class="text-xs text-neutral-500 font-semibold font-sans shrink-0">2026</span>
-                  <div class="index-marquee-wrapper relative overflow-hidden min-w-0 flex-1">
+                  <span
+                    class="text-neutral-400 dark:text-neutral-600 select-none font-sans font-medium text-sm shrink-0"
+                    aria-hidden="true">├──</span
+                  >
+                  <span
+                    class="text-xs text-neutral-500 font-semibold font-sans shrink-0"
+                    >2026</span
+                  >
+                  <div
+                    class="index-marquee-wrapper relative overflow-hidden min-w-0 flex-1"
+                  >
                     <div class="index-marquee-track inline-flex items-center">
-                      <div class="index-marquee-content inline-flex items-center shrink-0">
-                        <h3 class="text-sm sm:text-base text-neutral-950 dark:text-white group-hover:text-[var(--color-accent,#52FF1A)] transition-colors font-sans font-heading font-bold whitespace-nowrap m-0 inline-flex items-center">
+                      <div
+                        class="index-marquee-content inline-flex items-center shrink-0"
+                      >
+                        <h3
+                          class="text-sm sm:text-base text-neutral-950 dark:text-white group-hover:text-[var(--color-accent,#52FF1A)] transition-colors font-sans font-heading font-bold whitespace-nowrap m-0 inline-flex items-center"
+                        >
                           <a
                             href="https://navoyovan.github.io/hypebox/"
                             target="_blank"
@@ -2066,29 +2094,74 @@ const systemsNav = [
                             class="hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent,#52FF1A)] rounded px-0.5 inline-flex items-center gap-1.5"
                           >
                             <span>HYPE-BOX Pagina Prima</span>
-                            <span class="opacity-30 group-hover:opacity-100 transition-all duration-150 text-neutral-500 dark:text-neutral-400 group-hover:!text-[var(--color-accent,#52FF1A)]">
-                              <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 sm:w-4 sm:h-4" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                            <span
+                              class="opacity-30 group-hover:opacity-100 transition-all duration-150 text-neutral-500 dark:text-neutral-400 group-hover:!text-[var(--color-accent,#52FF1A)]"
+                            >
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                class="w-3.5 h-3.5 sm:w-4 sm:h-4"
+                                viewBox="0 0 24 24"
+                                stroke-width="2.5"
+                                stroke="currentColor"
+                                fill="none"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                aria-hidden="true"
+                              >
+                                <path
+                                  stroke="none"
+                                  d="M0 0h24v24H0z"
+                                  fill="none"></path>
                                 <path d="M17 7l-10 10"></path>
                                 <path d="M8 7l9 0l0 9"></path>
                               </svg>
                             </span>
                           </a>
                         </h3>
-                        <span class="title-dot-trailing text-neutral-400 dark:text-neutral-600 select-none text-xs mx-3" aria-hidden="true">•</span>
+                        <span
+                          class="title-dot-trailing text-neutral-400 dark:text-neutral-600 select-none text-xs mx-3"
+                          aria-hidden="true">•</span
+                        >
                       </div>
                     </div>
                   </div>
                 </div>
-                <div class="pl-7 sm:pl-8 text-[11px] text-neutral-400 dark:text-neutral-500 flex items-center min-w-0 font-sans">
-                  <span class="text-neutral-300 dark:text-neutral-700 select-none shrink-0 mr-2" aria-hidden="true">└──</span>
-                  <span class="text-neutral-400 dark:text-neutral-600 font-medium shrink-0 mr-1.5">stack:</span>
-                  <div class="index-marquee-wrapper relative overflow-hidden min-w-0 flex-1">
+                <div
+                  class="pl-7 sm:pl-8 text-[11px] text-neutral-400 dark:text-neutral-500 flex items-center min-w-0 font-sans"
+                >
+                  <span
+                    class="text-neutral-300 dark:text-neutral-700 select-none shrink-0 mr-2"
+                    aria-hidden="true">└──</span
+                  >
+                  <span
+                    class="text-neutral-400 dark:text-neutral-600 font-medium shrink-0 mr-1.5"
+                    >stack:</span
+                  >
+                  <div
+                    class="index-marquee-wrapper relative overflow-hidden min-w-0 flex-1"
+                  >
                     <div class="index-marquee-track inline-flex items-center">
-                      <div class="index-marquee-content inline-flex items-center text-neutral-500 dark:text-neutral-400 whitespace-nowrap shrink-0">
-                        <span class="inline-flex items-center"><span>Astro v5.3</span><span class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2" aria-hidden="true">•</span></span>
-                        <span class="inline-flex items-center"><span>Tailwind CSS v4.0</span><span class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2" aria-hidden="true">•</span></span>
-                        <span class="inline-flex items-center"><span>TypeScript 5.7</span><span class="stack-dot-trailing text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2" aria-hidden="true">•</span></span>
+                      <div
+                        class="index-marquee-content inline-flex items-center text-neutral-500 dark:text-neutral-400 whitespace-nowrap shrink-0"
+                      >
+                        <span class="inline-flex items-center"
+                          ><span>Astro v5.3</span><span
+                            class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2"
+                            aria-hidden="true">•</span
+                          ></span
+                        >
+                        <span class="inline-flex items-center"
+                          ><span>Tailwind CSS v4.0</span><span
+                            class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2"
+                            aria-hidden="true">•</span
+                          ></span
+                        >
+                        <span class="inline-flex items-center"
+                          ><span>TypeScript 5.7</span><span
+                            class="stack-dot-trailing text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2"
+                            aria-hidden="true">•</span
+                          ></span
+                        >
                       </div>
                     </div>
                   </div>
@@ -2098,39 +2171,143 @@ const systemsNav = [
               <!-- Item 2 (Long Title & Long Stack to showcase Marquee) -->
               <div class="space-y-2 group min-w-0">
                 <div class="flex items-center gap-2.5 sm:gap-3 min-w-0">
-                  <span class="text-neutral-400 dark:text-neutral-600 select-none font-sans font-medium text-sm shrink-0" aria-hidden="true">├──</span>
-                  <span class="text-xs text-neutral-500 font-semibold font-sans shrink-0">2026</span>
-                  <div class="index-marquee-wrapper relative overflow-hidden min-w-0 flex-1">
+                  <span
+                    class="text-neutral-400 dark:text-neutral-600 select-none font-sans font-medium text-sm shrink-0"
+                    aria-hidden="true">├──</span
+                  >
+                  <span
+                    class="text-xs text-neutral-500 font-semibold font-sans shrink-0"
+                    >2026</span
+                  >
+                  <div
+                    class="index-marquee-wrapper relative overflow-hidden min-w-0 flex-1"
+                  >
                     <div class="index-marquee-track inline-flex items-center">
-                      <div class="index-marquee-content inline-flex items-center shrink-0">
-                        <h3 class="text-sm sm:text-base text-neutral-950 dark:text-white group-hover:text-[var(--color-accent,#52FF1A)] transition-colors font-sans font-heading font-bold whitespace-nowrap m-0 inline-flex items-center">
-                          <span>Taberna Photographica: Machina Tactilis, Orchestratio Hardware Universalis, Telemetria Directa et Gubernatio Periphericorum Kiosk in Tempore Reali</span>
+                      <div
+                        class="index-marquee-content inline-flex items-center shrink-0"
+                      >
+                        <h3
+                          class="text-sm sm:text-base text-neutral-950 dark:text-white group-hover:text-[var(--color-accent,#52FF1A)] transition-colors font-sans font-heading font-bold whitespace-nowrap m-0 inline-flex items-center"
+                        >
+                          <span
+                            >Taberna Photographica: Machina Tactilis,
+                            Orchestratio Hardware Universalis, Telemetria
+                            Directa et Gubernatio Periphericorum Kiosk in
+                            Tempore Reali</span
+                          >
                         </h3>
-                        <span class="title-dot-trailing text-neutral-400 dark:text-neutral-600 select-none text-xs mx-3" aria-hidden="true">•</span>
+                        <span
+                          class="title-dot-trailing text-neutral-400 dark:text-neutral-600 select-none text-xs mx-3"
+                          aria-hidden="true">•</span
+                        >
                       </div>
                     </div>
                   </div>
                 </div>
-                <div class="pl-7 sm:pl-8 text-[11px] text-neutral-400 dark:text-neutral-500 flex items-center min-w-0 font-sans">
-                  <span class="text-neutral-300 dark:text-neutral-700 select-none shrink-0 mr-2" aria-hidden="true">└──</span>
-                  <span class="text-neutral-400 dark:text-neutral-600 font-medium shrink-0 mr-1.5">stack:</span>
-                  <div class="index-marquee-wrapper relative overflow-hidden min-w-0 flex-1">
+                <div
+                  class="pl-7 sm:pl-8 text-[11px] text-neutral-400 dark:text-neutral-500 flex items-center min-w-0 font-sans"
+                >
+                  <span
+                    class="text-neutral-300 dark:text-neutral-700 select-none shrink-0 mr-2"
+                    aria-hidden="true">└──</span
+                  >
+                  <span
+                    class="text-neutral-400 dark:text-neutral-600 font-medium shrink-0 mr-1.5"
+                    >stack:</span
+                  >
+                  <div
+                    class="index-marquee-wrapper relative overflow-hidden min-w-0 flex-1"
+                  >
                     <div class="index-marquee-track inline-flex items-center">
-                      <div class="index-marquee-content inline-flex items-center text-neutral-500 dark:text-neutral-400 whitespace-nowrap shrink-0">
-                        <span class="inline-flex items-center"><span>Electron 34</span><span class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2" aria-hidden="true">•</span></span>
-                        <span class="inline-flex items-center"><span>React 19.1</span><span class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2" aria-hidden="true">•</span></span>
-                        <span class="inline-flex items-center"><span>Anime.js Engine</span><span class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2" aria-hidden="true">•</span></span>
-                        <span class="inline-flex items-center"><span>Vite 6 Bundler</span><span class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2" aria-hidden="true">•</span></span>
-                        <span class="inline-flex items-center"><span>SQLite Embedded DB</span><span class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2" aria-hidden="true">•</span></span>
-                        <span class="inline-flex items-center"><span>Tailwind CSS v4</span><span class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2" aria-hidden="true">•</span></span>
-                        <span class="inline-flex items-center"><span>Native Node-IPC Pipeline</span><span class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2" aria-hidden="true">•</span></span>
-                        <span class="inline-flex items-center"><span>Direct CUPS / USB Thermal Printer Driver Protocol</span><span class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2" aria-hidden="true">•</span></span>
-                        <span class="inline-flex items-center"><span>GStreamer Video Buffer Stream</span><span class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2" aria-hidden="true">•</span></span>
-                        <span class="inline-flex items-center"><span>WebRTC Camera Feed Pipeline</span><span class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2" aria-hidden="true">•</span></span>
-                        <span class="inline-flex items-center"><span>Hardware Watchdog Service</span><span class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2" aria-hidden="true">•</span></span>
-                        <span class="inline-flex items-center"><span>Offline First Local Cache Engine</span><span class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2" aria-hidden="true">•</span></span>
-                        <span class="inline-flex items-center"><span>Multi-Touch Gesture Recognizer</span><span class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2" aria-hidden="true">•</span></span>
-                        <span class="inline-flex items-center"><span>Low-Latency State Machine</span><span class="stack-dot-trailing text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2" aria-hidden="true">•</span></span>
+                      <div
+                        class="index-marquee-content inline-flex items-center text-neutral-500 dark:text-neutral-400 whitespace-nowrap shrink-0"
+                      >
+                        <span class="inline-flex items-center"
+                          ><span>Electron 34</span><span
+                            class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2"
+                            aria-hidden="true">•</span
+                          ></span
+                        >
+                        <span class="inline-flex items-center"
+                          ><span>React 19.1</span><span
+                            class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2"
+                            aria-hidden="true">•</span
+                          ></span
+                        >
+                        <span class="inline-flex items-center"
+                          ><span>Anime.js Engine</span><span
+                            class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2"
+                            aria-hidden="true">•</span
+                          ></span
+                        >
+                        <span class="inline-flex items-center"
+                          ><span>Vite 6 Bundler</span><span
+                            class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2"
+                            aria-hidden="true">•</span
+                          ></span
+                        >
+                        <span class="inline-flex items-center"
+                          ><span>SQLite Embedded DB</span><span
+                            class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2"
+                            aria-hidden="true">•</span
+                          ></span
+                        >
+                        <span class="inline-flex items-center"
+                          ><span>Tailwind CSS v4</span><span
+                            class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2"
+                            aria-hidden="true">•</span
+                          ></span
+                        >
+                        <span class="inline-flex items-center"
+                          ><span>Native Node-IPC Pipeline</span><span
+                            class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2"
+                            aria-hidden="true">•</span
+                          ></span
+                        >
+                        <span class="inline-flex items-center"
+                          ><span
+                            >Direct CUPS / USB Thermal Printer Driver Protocol</span
+                          ><span
+                            class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2"
+                            aria-hidden="true">•</span
+                          ></span
+                        >
+                        <span class="inline-flex items-center"
+                          ><span>GStreamer Video Buffer Stream</span><span
+                            class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2"
+                            aria-hidden="true">•</span
+                          ></span
+                        >
+                        <span class="inline-flex items-center"
+                          ><span>WebRTC Camera Feed Pipeline</span><span
+                            class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2"
+                            aria-hidden="true">•</span
+                          ></span
+                        >
+                        <span class="inline-flex items-center"
+                          ><span>Hardware Watchdog Service</span><span
+                            class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2"
+                            aria-hidden="true">•</span
+                          ></span
+                        >
+                        <span class="inline-flex items-center"
+                          ><span>Offline First Local Cache Engine</span><span
+                            class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2"
+                            aria-hidden="true">•</span
+                          ></span
+                        >
+                        <span class="inline-flex items-center"
+                          ><span>Multi-Touch Gesture Recognizer</span><span
+                            class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2"
+                            aria-hidden="true">•</span
+                          ></span
+                        >
+                        <span class="inline-flex items-center"
+                          ><span>Low-Latency State Machine</span><span
+                            class="stack-dot-trailing text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2"
+                            aria-hidden="true">•</span
+                          ></span
+                        >
                       </div>
                     </div>
                   </div>
@@ -2140,29 +2317,76 @@ const systemsNav = [
               <!-- Item 3 -->
               <div class="space-y-2 group min-w-0">
                 <div class="flex items-center gap-2.5 sm:gap-3 min-w-0">
-                  <span class="text-neutral-400 dark:text-neutral-600 select-none font-sans font-medium text-sm shrink-0" aria-hidden="true">├──</span>
-                  <span class="text-xs text-neutral-500 font-semibold font-sans shrink-0">2026</span>
-                  <div class="index-marquee-wrapper relative overflow-hidden min-w-0 flex-1">
+                  <span
+                    class="text-neutral-400 dark:text-neutral-600 select-none font-sans font-medium text-sm shrink-0"
+                    aria-hidden="true">├──</span
+                  >
+                  <span
+                    class="text-xs text-neutral-500 font-semibold font-sans shrink-0"
+                    >2026</span
+                  >
+                  <div
+                    class="index-marquee-wrapper relative overflow-hidden min-w-0 flex-1"
+                  >
                     <div class="index-marquee-track inline-flex items-center">
-                      <div class="index-marquee-content inline-flex items-center shrink-0">
-                        <h3 class="text-sm sm:text-base text-neutral-950 dark:text-white group-hover:text-[var(--color-accent,#52FF1A)] transition-colors font-sans font-heading font-bold whitespace-nowrap m-0 inline-flex items-center">
+                      <div
+                        class="index-marquee-content inline-flex items-center shrink-0"
+                      >
+                        <h3
+                          class="text-sm sm:text-base text-neutral-950 dark:text-white group-hover:text-[var(--color-accent,#52FF1A)] transition-colors font-sans font-heading font-bold whitespace-nowrap m-0 inline-flex items-center"
+                        >
                           <span>Porta Curatoris Tabernae</span>
                         </h3>
-                        <span class="title-dot-trailing text-neutral-400 dark:text-neutral-600 select-none text-xs mx-3" aria-hidden="true">•</span>
+                        <span
+                          class="title-dot-trailing text-neutral-400 dark:text-neutral-600 select-none text-xs mx-3"
+                          aria-hidden="true">•</span
+                        >
                       </div>
                     </div>
                   </div>
                 </div>
-                <div class="pl-7 sm:pl-8 text-[11px] text-neutral-400 dark:text-neutral-500 flex items-center min-w-0 font-sans">
-                  <span class="text-neutral-300 dark:text-neutral-700 select-none shrink-0 mr-2" aria-hidden="true">└──</span>
-                  <span class="text-neutral-400 dark:text-neutral-600 font-medium shrink-0 mr-1.5">stack:</span>
-                  <div class="index-marquee-wrapper relative overflow-hidden min-w-0 flex-1">
+                <div
+                  class="pl-7 sm:pl-8 text-[11px] text-neutral-400 dark:text-neutral-500 flex items-center min-w-0 font-sans"
+                >
+                  <span
+                    class="text-neutral-300 dark:text-neutral-700 select-none shrink-0 mr-2"
+                    aria-hidden="true">└──</span
+                  >
+                  <span
+                    class="text-neutral-400 dark:text-neutral-600 font-medium shrink-0 mr-1.5"
+                    >stack:</span
+                  >
+                  <div
+                    class="index-marquee-wrapper relative overflow-hidden min-w-0 flex-1"
+                  >
                     <div class="index-marquee-track inline-flex items-center">
-                      <div class="index-marquee-content inline-flex items-center text-neutral-500 dark:text-neutral-400 whitespace-nowrap shrink-0">
-                        <span class="inline-flex items-center"><span>React 19.1</span><span class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2" aria-hidden="true">•</span></span>
-                        <span class="inline-flex items-center"><span>Vite 6 SPA</span><span class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2" aria-hidden="true">•</span></span>
-                        <span class="inline-flex items-center"><span>CSS Modules Architecture</span><span class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2" aria-hidden="true">•</span></span>
-                        <span class="inline-flex items-center"><span>Anime.js</span><span class="stack-dot-trailing text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2" aria-hidden="true">•</span></span>
+                      <div
+                        class="index-marquee-content inline-flex items-center text-neutral-500 dark:text-neutral-400 whitespace-nowrap shrink-0"
+                      >
+                        <span class="inline-flex items-center"
+                          ><span>React 19.1</span><span
+                            class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2"
+                            aria-hidden="true">•</span
+                          ></span
+                        >
+                        <span class="inline-flex items-center"
+                          ><span>Vite 6 SPA</span><span
+                            class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2"
+                            aria-hidden="true">•</span
+                          ></span
+                        >
+                        <span class="inline-flex items-center"
+                          ><span>CSS Modules Architecture</span><span
+                            class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2"
+                            aria-hidden="true">•</span
+                          ></span
+                        >
+                        <span class="inline-flex items-center"
+                          ><span>Anime.js</span><span
+                            class="stack-dot-trailing text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2"
+                            aria-hidden="true">•</span
+                          ></span
+                        >
                       </div>
                     </div>
                   </div>
@@ -2172,12 +2396,24 @@ const systemsNav = [
               <!-- Item 4 -->
               <div class="space-y-2 group min-w-0">
                 <div class="flex items-center gap-2.5 sm:gap-3 min-w-0">
-                  <span class="text-neutral-400 dark:text-neutral-600 select-none font-sans font-medium text-sm shrink-0" aria-hidden="true">├──</span>
-                  <span class="text-xs text-neutral-500 font-semibold font-sans shrink-0">2026</span>
-                  <div class="index-marquee-wrapper relative overflow-hidden min-w-0 flex-1">
+                  <span
+                    class="text-neutral-400 dark:text-neutral-600 select-none font-sans font-medium text-sm shrink-0"
+                    aria-hidden="true">├──</span
+                  >
+                  <span
+                    class="text-xs text-neutral-500 font-semibold font-sans shrink-0"
+                    >2026</span
+                  >
+                  <div
+                    class="index-marquee-wrapper relative overflow-hidden min-w-0 flex-1"
+                  >
                     <div class="index-marquee-track inline-flex items-center">
-                      <div class="index-marquee-content inline-flex items-center shrink-0">
-                        <h3 class="text-sm sm:text-base text-neutral-950 dark:text-white group-hover:text-[var(--color-accent,#52FF1A)] transition-colors font-sans font-heading font-bold whitespace-nowrap m-0 inline-flex items-center">
+                      <div
+                        class="index-marquee-content inline-flex items-center shrink-0"
+                      >
+                        <h3
+                          class="text-sm sm:text-base text-neutral-950 dark:text-white group-hover:text-[var(--color-accent,#52FF1A)] transition-colors font-sans font-heading font-bold whitespace-nowrap m-0 inline-flex items-center"
+                        >
                           <a
                             href="https://navoyovan.github.io/photobooth-kiosk-demo/"
                             target="_blank"
@@ -2186,30 +2422,80 @@ const systemsNav = [
                             class="hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent,#52FF1A)] rounded px-0.5 inline-flex items-center gap-1.5"
                           >
                             <span>Exemplum Tabernae Photographicae</span>
-                            <span class="opacity-30 group-hover:opacity-100 transition-all duration-150 text-neutral-500 dark:text-neutral-400 group-hover:!text-[var(--color-accent,#52FF1A)]">
-                              <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 sm:w-4 sm:h-4" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                            <span
+                              class="opacity-30 group-hover:opacity-100 transition-all duration-150 text-neutral-500 dark:text-neutral-400 group-hover:!text-[var(--color-accent,#52FF1A)]"
+                            >
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                class="w-3.5 h-3.5 sm:w-4 sm:h-4"
+                                viewBox="0 0 24 24"
+                                stroke-width="2.5"
+                                stroke="currentColor"
+                                fill="none"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                aria-hidden="true"
+                              >
+                                <path
+                                  stroke="none"
+                                  d="M0 0h24v24H0z"
+                                  fill="none"></path>
                                 <path d="M17 7l-10 10"></path>
                                 <path d="M8 7l9 0l0 9"></path>
                               </svg>
                             </span>
                           </a>
                         </h3>
-                        <span class="title-dot-trailing text-neutral-400 dark:text-neutral-600 select-none text-xs mx-3" aria-hidden="true">•</span>
+                        <span
+                          class="title-dot-trailing text-neutral-400 dark:text-neutral-600 select-none text-xs mx-3"
+                          aria-hidden="true">•</span
+                        >
                       </div>
                     </div>
                   </div>
                 </div>
-                <div class="pl-7 sm:pl-8 text-[11px] text-neutral-400 dark:text-neutral-500 flex items-center min-w-0 font-sans">
-                  <span class="text-neutral-300 dark:text-neutral-700 select-none shrink-0 mr-2" aria-hidden="true">└──</span>
-                  <span class="text-neutral-400 dark:text-neutral-600 font-medium shrink-0 mr-1.5">stack:</span>
-                  <div class="index-marquee-wrapper relative overflow-hidden min-w-0 flex-1">
+                <div
+                  class="pl-7 sm:pl-8 text-[11px] text-neutral-400 dark:text-neutral-500 flex items-center min-w-0 font-sans"
+                >
+                  <span
+                    class="text-neutral-300 dark:text-neutral-700 select-none shrink-0 mr-2"
+                    aria-hidden="true">└──</span
+                  >
+                  <span
+                    class="text-neutral-400 dark:text-neutral-600 font-medium shrink-0 mr-1.5"
+                    >stack:</span
+                  >
+                  <div
+                    class="index-marquee-wrapper relative overflow-hidden min-w-0 flex-1"
+                  >
                     <div class="index-marquee-track inline-flex items-center">
-                      <div class="index-marquee-content inline-flex items-center text-neutral-500 dark:text-neutral-400 whitespace-nowrap shrink-0">
-                        <span class="inline-flex items-center"><span>React 19.1</span><span class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2" aria-hidden="true">•</span></span>
-                        <span class="inline-flex items-center"><span>Anime.js</span><span class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2" aria-hidden="true">•</span></span>
-                        <span class="inline-flex items-center"><span>Vite 6</span><span class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2" aria-hidden="true">•</span></span>
-                        <span class="inline-flex items-center"><span>Canvas Engine</span><span class="stack-dot-trailing text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2" aria-hidden="true">•</span></span>
+                      <div
+                        class="index-marquee-content inline-flex items-center text-neutral-500 dark:text-neutral-400 whitespace-nowrap shrink-0"
+                      >
+                        <span class="inline-flex items-center"
+                          ><span>React 19.1</span><span
+                            class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2"
+                            aria-hidden="true">•</span
+                          ></span
+                        >
+                        <span class="inline-flex items-center"
+                          ><span>Anime.js</span><span
+                            class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2"
+                            aria-hidden="true">•</span
+                          ></span
+                        >
+                        <span class="inline-flex items-center"
+                          ><span>Vite 6</span><span
+                            class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2"
+                            aria-hidden="true">•</span
+                          ></span
+                        >
+                        <span class="inline-flex items-center"
+                          ><span>Canvas Engine</span><span
+                            class="stack-dot-trailing text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2"
+                            aria-hidden="true">•</span
+                          ></span
+                        >
                       </div>
                     </div>
                   </div>
@@ -2219,29 +2505,76 @@ const systemsNav = [
               <!-- Item 5 -->
               <div class="space-y-2 group min-w-0">
                 <div class="flex items-center gap-2.5 sm:gap-3 min-w-0">
-                  <span class="text-neutral-400 dark:text-neutral-600 select-none font-sans font-medium text-sm shrink-0" aria-hidden="true">└──</span>
-                  <span class="text-xs text-neutral-500 font-semibold font-sans shrink-0">2026</span>
-                  <div class="index-marquee-wrapper relative overflow-hidden min-w-0 flex-1">
+                  <span
+                    class="text-neutral-400 dark:text-neutral-600 select-none font-sans font-medium text-sm shrink-0"
+                    aria-hidden="true">└──</span
+                  >
+                  <span
+                    class="text-xs text-neutral-500 font-semibold font-sans shrink-0"
+                    >2026</span
+                  >
+                  <div
+                    class="index-marquee-wrapper relative overflow-hidden min-w-0 flex-1"
+                  >
                     <div class="index-marquee-track inline-flex items-center">
-                      <div class="index-marquee-content inline-flex items-center shrink-0">
-                        <h3 class="text-sm sm:text-base text-neutral-950 dark:text-white group-hover:text-[var(--color-accent,#52FF1A)] transition-colors font-sans font-heading font-bold whitespace-nowrap m-0 inline-flex items-center">
+                      <div
+                        class="index-marquee-content inline-flex items-center shrink-0"
+                      >
+                        <h3
+                          class="text-sm sm:text-base text-neutral-950 dark:text-white group-hover:text-[var(--color-accent,#52FF1A)] transition-colors font-sans font-heading font-bold whitespace-nowrap m-0 inline-flex items-center"
+                        >
                           <span>API REST et WebSocket Tabernae</span>
                         </h3>
-                        <span class="title-dot-trailing text-neutral-400 dark:text-neutral-600 select-none text-xs mx-3" aria-hidden="true">•</span>
+                        <span
+                          class="title-dot-trailing text-neutral-400 dark:text-neutral-600 select-none text-xs mx-3"
+                          aria-hidden="true">•</span
+                        >
                       </div>
                     </div>
                   </div>
                 </div>
-                <div class="pl-7 sm:pl-8 text-[11px] text-neutral-400 dark:text-neutral-500 flex items-center min-w-0 font-sans">
-                  <span class="text-neutral-300 dark:text-neutral-700 select-none shrink-0 mr-2" aria-hidden="true">└──</span>
-                  <span class="text-neutral-400 dark:text-neutral-600 font-medium shrink-0 mr-1.5">stack:</span>
-                  <div class="index-marquee-wrapper relative overflow-hidden min-w-0 flex-1">
+                <div
+                  class="pl-7 sm:pl-8 text-[11px] text-neutral-400 dark:text-neutral-500 flex items-center min-w-0 font-sans"
+                >
+                  <span
+                    class="text-neutral-300 dark:text-neutral-700 select-none shrink-0 mr-2"
+                    aria-hidden="true">└──</span
+                  >
+                  <span
+                    class="text-neutral-400 dark:text-neutral-600 font-medium shrink-0 mr-1.5"
+                    >stack:</span
+                  >
+                  <div
+                    class="index-marquee-wrapper relative overflow-hidden min-w-0 flex-1"
+                  >
                     <div class="index-marquee-track inline-flex items-center">
-                      <div class="index-marquee-content inline-flex items-center text-neutral-500 dark:text-neutral-400 whitespace-nowrap shrink-0">
-                        <span class="inline-flex items-center"><span>Laravel 13</span><span class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2" aria-hidden="true">•</span></span>
-                        <span class="inline-flex items-center"><span>Reverb</span><span class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2" aria-hidden="true">•</span></span>
-                        <span class="inline-flex items-center"><span>Google Cloud Storage</span><span class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2" aria-hidden="true">•</span></span>
-                        <span class="inline-flex items-center"><span>SQLite</span><span class="stack-dot-trailing text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2" aria-hidden="true">•</span></span>
+                      <div
+                        class="index-marquee-content inline-flex items-center text-neutral-500 dark:text-neutral-400 whitespace-nowrap shrink-0"
+                      >
+                        <span class="inline-flex items-center"
+                          ><span>Laravel 13</span><span
+                            class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2"
+                            aria-hidden="true">•</span
+                          ></span
+                        >
+                        <span class="inline-flex items-center"
+                          ><span>Reverb</span><span
+                            class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2"
+                            aria-hidden="true">•</span
+                          ></span
+                        >
+                        <span class="inline-flex items-center"
+                          ><span>Google Cloud Storage</span><span
+                            class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2"
+                            aria-hidden="true">•</span
+                          ></span
+                        >
+                        <span class="inline-flex items-center"
+                          ><span>SQLite</span><span
+                            class="stack-dot-trailing text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2"
+                            aria-hidden="true">•</span
+                          ></span
+                        >
                       </div>
                     </div>
                   </div>
@@ -2307,12 +2640,24 @@ const systemsNav = [
               <!-- Item 1 (Long Title & Long Stack to showcase Marquee) -->
               <div class="space-y-2 group min-w-0">
                 <div class="flex items-center gap-2.5 sm:gap-3 min-w-0">
-                  <span class="text-neutral-400 dark:text-neutral-600 select-none font-sans font-medium text-sm shrink-0" aria-hidden="true">├──</span>
-                  <span class="text-xs text-neutral-500 font-semibold font-sans shrink-0">2025</span>
-                  <div class="index-marquee-wrapper relative overflow-hidden min-w-0 flex-1">
+                  <span
+                    class="text-neutral-400 dark:text-neutral-600 select-none font-sans font-medium text-sm shrink-0"
+                    aria-hidden="true">├──</span
+                  >
+                  <span
+                    class="text-xs text-neutral-500 font-semibold font-sans shrink-0"
+                    >2025</span
+                  >
+                  <div
+                    class="index-marquee-wrapper relative overflow-hidden min-w-0 flex-1"
+                  >
                     <div class="index-marquee-track inline-flex items-center">
-                      <div class="index-marquee-content inline-flex items-center shrink-0">
-                        <h3 class="text-sm sm:text-base text-neutral-950 dark:text-white group-hover:text-[var(--color-accent,#52FF1A)] transition-colors font-sans font-heading font-bold whitespace-nowrap m-0 inline-flex items-center">
+                      <div
+                        class="index-marquee-content inline-flex items-center shrink-0"
+                      >
+                        <h3
+                          class="text-sm sm:text-base text-neutral-950 dark:text-white group-hover:text-[var(--color-accent,#52FF1A)] transition-colors font-sans font-heading font-bold whitespace-nowrap m-0 inline-flex items-center"
+                        >
                           <a
                             href="https://github.com/navoyovan/interactive-map"
                             target="_blank"
@@ -2320,38 +2665,132 @@ const systemsNav = [
                             aria-label="Systema Cartographicum Interactivum: Computatio Spatialis, Polygonorum Vectorialium Flumen, Clustered Markers et Telemetria Geospatialis Directa in Tempore Reali (opens in new tab)"
                             class="hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent,#52FF1A)] rounded px-0.5 inline-flex items-center gap-1.5"
                           >
-                            <span>Systema Cartographicum Interactivum: Computatio Spatialis, Polygonorum Vectorialium Flumen, Clustered Markers et Telemetria Geospatialis Directa in Tempore Reali</span>
-                            <span class="opacity-30 group-hover:opacity-100 transition-all duration-150 text-neutral-500 dark:text-neutral-400 group-hover:!text-[var(--color-accent,#52FF1A)]">
-                              <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 sm:w-4 sm:h-4" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                            <span
+                              >Systema Cartographicum Interactivum: Computatio
+                              Spatialis, Polygonorum Vectorialium Flumen,
+                              Clustered Markers et Telemetria Geospatialis
+                              Directa in Tempore Reali</span
+                            >
+                            <span
+                              class="opacity-30 group-hover:opacity-100 transition-all duration-150 text-neutral-500 dark:text-neutral-400 group-hover:!text-[var(--color-accent,#52FF1A)]"
+                            >
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                class="w-3.5 h-3.5 sm:w-4 sm:h-4"
+                                viewBox="0 0 24 24"
+                                stroke-width="2.5"
+                                stroke="currentColor"
+                                fill="none"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                aria-hidden="true"
+                              >
+                                <path
+                                  stroke="none"
+                                  d="M0 0h24v24H0z"
+                                  fill="none"></path>
                                 <path d="M17 7l-10 10"></path>
                                 <path d="M8 7l9 0l0 9"></path>
                               </svg>
                             </span>
                           </a>
                         </h3>
-                        <span class="title-dot-trailing text-neutral-400 dark:text-neutral-600 select-none text-xs mx-3" aria-hidden="true">•</span>
+                        <span
+                          class="title-dot-trailing text-neutral-400 dark:text-neutral-600 select-none text-xs mx-3"
+                          aria-hidden="true">•</span
+                        >
                       </div>
                     </div>
                   </div>
                 </div>
-                <div class="pl-7 sm:pl-8 text-[11px] text-neutral-400 dark:text-neutral-500 flex items-center min-w-0 font-sans">
-                  <span class="text-neutral-300 dark:text-neutral-700 select-none shrink-0 mr-2" aria-hidden="true">└──</span>
-                  <span class="text-neutral-400 dark:text-neutral-600 font-medium shrink-0 mr-1.5">stack:</span>
-                  <div class="index-marquee-wrapper relative overflow-hidden min-w-0 flex-1">
+                <div
+                  class="pl-7 sm:pl-8 text-[11px] text-neutral-400 dark:text-neutral-500 flex items-center min-w-0 font-sans"
+                >
+                  <span
+                    class="text-neutral-300 dark:text-neutral-700 select-none shrink-0 mr-2"
+                    aria-hidden="true">└──</span
+                  >
+                  <span
+                    class="text-neutral-400 dark:text-neutral-600 font-medium shrink-0 mr-1.5"
+                    >stack:</span
+                  >
+                  <div
+                    class="index-marquee-wrapper relative overflow-hidden min-w-0 flex-1"
+                  >
                     <div class="index-marquee-track inline-flex items-center">
-                      <div class="index-marquee-content inline-flex items-center text-neutral-500 dark:text-neutral-400 whitespace-nowrap shrink-0">
-                        <span class="inline-flex items-center"><span>Laravel 13</span><span class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2" aria-hidden="true">•</span></span>
-                        <span class="inline-flex items-center"><span>Leaflet.js 1.9</span><span class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2" aria-hidden="true">•</span></span>
-                        <span class="inline-flex items-center"><span>GeoJSON Polygon Vector Stream</span><span class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2" aria-hidden="true">•</span></span>
-                        <span class="inline-flex items-center"><span>AJAX Vector Layer Tiling</span><span class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2" aria-hidden="true">•</span></span>
-                        <span class="inline-flex items-center"><span>Redis PubSub Spatial Event Queue</span><span class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2" aria-hidden="true">•</span></span>
-                        <span class="inline-flex items-center"><span>Haversine Coordinate Mathematical Engine</span><span class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2" aria-hidden="true">•</span></span>
-                        <span class="inline-flex items-center"><span>Tailwind CSS v4</span><span class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2" aria-hidden="true">•</span></span>
-                        <span class="inline-flex items-center"><span>Clustered Marker QuadTree Index</span><span class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2" aria-hidden="true">•</span></span>
-                        <span class="inline-flex items-center"><span>High-Throughput GPS Coordinate Ingestion API</span><span class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2" aria-hidden="true">•</span></span>
-                        <span class="inline-flex items-center"><span>PostGIS Geospatial Geometry Pipeline</span><span class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2" aria-hidden="true">•</span></span>
-                        <span class="inline-flex items-center"><span>Interactive Heatmap Renderer</span><span class="stack-dot-trailing text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2" aria-hidden="true">•</span></span>
+                      <div
+                        class="index-marquee-content inline-flex items-center text-neutral-500 dark:text-neutral-400 whitespace-nowrap shrink-0"
+                      >
+                        <span class="inline-flex items-center"
+                          ><span>Laravel 13</span><span
+                            class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2"
+                            aria-hidden="true">•</span
+                          ></span
+                        >
+                        <span class="inline-flex items-center"
+                          ><span>Leaflet.js 1.9</span><span
+                            class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2"
+                            aria-hidden="true">•</span
+                          ></span
+                        >
+                        <span class="inline-flex items-center"
+                          ><span>GeoJSON Polygon Vector Stream</span><span
+                            class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2"
+                            aria-hidden="true">•</span
+                          ></span
+                        >
+                        <span class="inline-flex items-center"
+                          ><span>AJAX Vector Layer Tiling</span><span
+                            class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2"
+                            aria-hidden="true">•</span
+                          ></span
+                        >
+                        <span class="inline-flex items-center"
+                          ><span>Redis PubSub Spatial Event Queue</span><span
+                            class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2"
+                            aria-hidden="true">•</span
+                          ></span
+                        >
+                        <span class="inline-flex items-center"
+                          ><span>Haversine Coordinate Mathematical Engine</span
+                          ><span
+                            class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2"
+                            aria-hidden="true">•</span
+                          ></span
+                        >
+                        <span class="inline-flex items-center"
+                          ><span>Tailwind CSS v4</span><span
+                            class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2"
+                            aria-hidden="true">•</span
+                          ></span
+                        >
+                        <span class="inline-flex items-center"
+                          ><span>Clustered Marker QuadTree Index</span><span
+                            class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2"
+                            aria-hidden="true">•</span
+                          ></span
+                        >
+                        <span class="inline-flex items-center"
+                          ><span
+                            >High-Throughput GPS Coordinate Ingestion API</span
+                          ><span
+                            class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2"
+                            aria-hidden="true">•</span
+                          ></span
+                        >
+                        <span class="inline-flex items-center"
+                          ><span>PostGIS Geospatial Geometry Pipeline</span
+                          ><span
+                            class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2"
+                            aria-hidden="true">•</span
+                          ></span
+                        >
+                        <span class="inline-flex items-center"
+                          ><span>Interactive Heatmap Renderer</span><span
+                            class="stack-dot-trailing text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2"
+                            aria-hidden="true">•</span
+                          ></span
+                        >
                       </div>
                     </div>
                   </div>
@@ -2361,28 +2800,70 @@ const systemsNav = [
               <!-- Item 2 -->
               <div class="space-y-2 group min-w-0">
                 <div class="flex items-center gap-2.5 sm:gap-3 min-w-0">
-                  <span class="text-neutral-400 dark:text-neutral-600 select-none font-sans font-medium text-sm shrink-0" aria-hidden="true">├──</span>
-                  <span class="text-xs text-neutral-500 font-semibold font-sans shrink-0">2026</span>
-                  <div class="index-marquee-wrapper relative overflow-hidden min-w-0 flex-1">
+                  <span
+                    class="text-neutral-400 dark:text-neutral-600 select-none font-sans font-medium text-sm shrink-0"
+                    aria-hidden="true">├──</span
+                  >
+                  <span
+                    class="text-xs text-neutral-500 font-semibold font-sans shrink-0"
+                    >2026</span
+                  >
+                  <div
+                    class="index-marquee-wrapper relative overflow-hidden min-w-0 flex-1"
+                  >
                     <div class="index-marquee-track inline-flex items-center">
-                      <div class="index-marquee-content inline-flex items-center shrink-0">
-                        <h3 class="text-sm sm:text-base text-neutral-950 dark:text-white group-hover:text-[var(--color-accent,#52FF1A)] transition-colors font-sans font-heading font-bold whitespace-nowrap m-0 inline-flex items-center">
+                      <div
+                        class="index-marquee-content inline-flex items-center shrink-0"
+                      >
+                        <h3
+                          class="text-sm sm:text-base text-neutral-950 dark:text-white group-hover:text-[var(--color-accent,#52FF1A)] transition-colors font-sans font-heading font-bold whitespace-nowrap m-0 inline-flex items-center"
+                        >
                           <span>Director Fluminis Telemetriae</span>
                         </h3>
-                        <span class="title-dot-trailing text-neutral-400 dark:text-neutral-600 select-none text-xs mx-3" aria-hidden="true">•</span>
+                        <span
+                          class="title-dot-trailing text-neutral-400 dark:text-neutral-600 select-none text-xs mx-3"
+                          aria-hidden="true">•</span
+                        >
                       </div>
                     </div>
                   </div>
                 </div>
-                <div class="pl-7 sm:pl-8 text-[11px] text-neutral-400 dark:text-neutral-500 flex items-center min-w-0 font-sans">
-                  <span class="text-neutral-300 dark:text-neutral-700 select-none shrink-0 mr-2" aria-hidden="true">└──</span>
-                  <span class="text-neutral-400 dark:text-neutral-600 font-medium shrink-0 mr-1.5">stack:</span>
-                  <div class="index-marquee-wrapper relative overflow-hidden min-w-0 flex-1">
+                <div
+                  class="pl-7 sm:pl-8 text-[11px] text-neutral-400 dark:text-neutral-500 flex items-center min-w-0 font-sans"
+                >
+                  <span
+                    class="text-neutral-300 dark:text-neutral-700 select-none shrink-0 mr-2"
+                    aria-hidden="true">└──</span
+                  >
+                  <span
+                    class="text-neutral-400 dark:text-neutral-600 font-medium shrink-0 mr-1.5"
+                    >stack:</span
+                  >
+                  <div
+                    class="index-marquee-wrapper relative overflow-hidden min-w-0 flex-1"
+                  >
                     <div class="index-marquee-track inline-flex items-center">
-                      <div class="index-marquee-content inline-flex items-center text-neutral-500 dark:text-neutral-400 whitespace-nowrap shrink-0">
-                        <span class="inline-flex items-center"><span>Node.js 22 LTS</span><span class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2" aria-hidden="true">•</span></span>
-                        <span class="inline-flex items-center"><span>Redis PubSub</span><span class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2" aria-hidden="true">•</span></span>
-                        <span class="inline-flex items-center"><span>WebSocket Server Engine</span><span class="stack-dot-trailing text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2" aria-hidden="true">•</span></span>
+                      <div
+                        class="index-marquee-content inline-flex items-center text-neutral-500 dark:text-neutral-400 whitespace-nowrap shrink-0"
+                      >
+                        <span class="inline-flex items-center"
+                          ><span>Node.js 22 LTS</span><span
+                            class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2"
+                            aria-hidden="true">•</span
+                          ></span
+                        >
+                        <span class="inline-flex items-center"
+                          ><span>Redis PubSub</span><span
+                            class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2"
+                            aria-hidden="true">•</span
+                          ></span
+                        >
+                        <span class="inline-flex items-center"
+                          ><span>WebSocket Server Engine</span><span
+                            class="stack-dot-trailing text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2"
+                            aria-hidden="true">•</span
+                          ></span
+                        >
                       </div>
                     </div>
                   </div>
@@ -2392,28 +2873,70 @@ const systemsNav = [
               <!-- Item 3 -->
               <div class="space-y-2 group min-w-0">
                 <div class="flex items-center gap-2.5 sm:gap-3 min-w-0">
-                  <span class="text-neutral-400 dark:text-neutral-600 select-none font-sans font-medium text-sm shrink-0" aria-hidden="true">└──</span>
-                  <span class="text-xs text-neutral-500 font-semibold font-sans shrink-0">2026</span>
-                  <div class="index-marquee-wrapper relative overflow-hidden min-w-0 flex-1">
+                  <span
+                    class="text-neutral-400 dark:text-neutral-600 select-none font-sans font-medium text-sm shrink-0"
+                    aria-hidden="true">└──</span
+                  >
+                  <span
+                    class="text-xs text-neutral-500 font-semibold font-sans shrink-0"
+                    >2026</span
+                  >
+                  <div
+                    class="index-marquee-wrapper relative overflow-hidden min-w-0 flex-1"
+                  >
                     <div class="index-marquee-track inline-flex items-center">
-                      <div class="index-marquee-content inline-flex items-center shrink-0">
-                        <h3 class="text-sm sm:text-base text-neutral-950 dark:text-white group-hover:text-[var(--color-accent,#52FF1A)] transition-colors font-sans font-heading font-bold whitespace-nowrap m-0 inline-flex items-center">
+                      <div
+                        class="index-marquee-content inline-flex items-center shrink-0"
+                      >
+                        <h3
+                          class="text-sm sm:text-base text-neutral-950 dark:text-white group-hover:text-[var(--color-accent,#52FF1A)] transition-colors font-sans font-heading font-bold whitespace-nowrap m-0 inline-flex items-center"
+                        >
                           <span>Series Libellorum Securitatis OWASP</span>
                         </h3>
-                        <span class="title-dot-trailing text-neutral-400 dark:text-neutral-600 select-none text-xs mx-3" aria-hidden="true">•</span>
+                        <span
+                          class="title-dot-trailing text-neutral-400 dark:text-neutral-600 select-none text-xs mx-3"
+                          aria-hidden="true">•</span
+                        >
                       </div>
                     </div>
                   </div>
                 </div>
-                <div class="pl-7 sm:pl-8 text-[11px] text-neutral-400 dark:text-neutral-500 flex items-center min-w-0 font-sans">
-                  <span class="text-neutral-300 dark:text-neutral-700 select-none shrink-0 mr-2" aria-hidden="true">└──</span>
-                  <span class="text-neutral-400 dark:text-neutral-600 font-medium shrink-0 mr-1.5">stack:</span>
-                  <div class="index-marquee-wrapper relative overflow-hidden min-w-0 flex-1">
+                <div
+                  class="pl-7 sm:pl-8 text-[11px] text-neutral-400 dark:text-neutral-500 flex items-center min-w-0 font-sans"
+                >
+                  <span
+                    class="text-neutral-300 dark:text-neutral-700 select-none shrink-0 mr-2"
+                    aria-hidden="true">└──</span
+                  >
+                  <span
+                    class="text-neutral-400 dark:text-neutral-600 font-medium shrink-0 mr-1.5"
+                    >stack:</span
+                  >
+                  <div
+                    class="index-marquee-wrapper relative overflow-hidden min-w-0 flex-1"
+                  >
                     <div class="index-marquee-track inline-flex items-center">
-                      <div class="index-marquee-content inline-flex items-center text-neutral-500 dark:text-neutral-400 whitespace-nowrap shrink-0">
-                        <span class="inline-flex items-center"><span>Threat Modeling</span><span class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2" aria-hidden="true">•</span></span>
-                        <span class="inline-flex items-center"><span>OWASP Guidelines</span><span class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2" aria-hidden="true">•</span></span>
-                        <span class="inline-flex items-center"><span>SAST Engine</span><span class="stack-dot-trailing text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2" aria-hidden="true">•</span></span>
+                      <div
+                        class="index-marquee-content inline-flex items-center text-neutral-500 dark:text-neutral-400 whitespace-nowrap shrink-0"
+                      >
+                        <span class="inline-flex items-center"
+                          ><span>Threat Modeling</span><span
+                            class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2"
+                            aria-hidden="true">•</span
+                          ></span
+                        >
+                        <span class="inline-flex items-center"
+                          ><span>OWASP Guidelines</span><span
+                            class="text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2"
+                            aria-hidden="true">•</span
+                          ></span
+                        >
+                        <span class="inline-flex items-center"
+                          ><span>SAST Engine</span><span
+                            class="stack-dot-trailing text-neutral-300 dark:text-neutral-700 select-none text-[8px] mx-2"
+                            aria-hidden="true">•</span
+                          ></span
+                        >
                       </div>
                     </div>
                   </div>
@@ -2476,13 +2999,13 @@ const systemsNav = [
 
             <TrendChart
               data={[
-                { label: 'Lun', value: 34, pastValue: 24 },
-                { label: 'Mar', value: 48, pastValue: 32 },
-                { label: 'Mer', value: 42, pastValue: 38 },
-                { label: 'Iov', value: 65, pastValue: 46 },
-                { label: 'Ven', value: 88, pastValue: 58 },
-                { label: 'Sat', value: 96, pastValue: 72 },
-                { label: 'Sol', value: 74, pastValue: 52 },
+                { label: "Lun", value: 34, pastValue: 24 },
+                { label: "Mar", value: 48, pastValue: 32 },
+                { label: "Mer", value: 42, pastValue: 38 },
+                { label: "Iov", value: 65, pastValue: 46 },
+                { label: "Ven", value: 88, pastValue: 58 },
+                { label: "Sat", value: 96, pastValue: 72 },
+                { label: "Sol", value: 74, pastValue: 52 },
               ]}
               pastAvg={46}
             />
@@ -2493,7 +3016,8 @@ const systemsNav = [
                 >Weekly Telemetry Trend Spline</span
               >
               <span class="font-mono text-[11px] text-neutral-500"
-                >data=&#123;...&#125; • 7-day comparative spline • past week benchmark • interactive delta tooltip</span
+                >data=&#123;...&#125; • 7-day comparative spline • past week
+                benchmark • interactive delta tooltip</span
               >
             </div>
           </div>
@@ -2528,7 +3052,8 @@ const systemsNav = [
                 >Multi-Track Gantt Schedule</span
               >
               <span class="font-mono text-[11px] text-neutral-500"
-                >campaigns=&#123;...&#125; • 44px/day dynamic grid • smooth today scroll</span
+                >campaigns=&#123;...&#125; • 44px/day dynamic grid • smooth
+                today scroll</span
               >
             </div>
           </div>
@@ -2563,50 +3088,51 @@ const systemsNav = [
                 >Filmstrip Popularity Rank Bar</span
               >
               <span class="font-mono text-[11px] text-neutral-500"
-                >frames=&#123;...&#125; • 12-slot proportional filmstrip • rank index badges</span
+                >frames=&#123;...&#125; • 12-slot proportional filmstrip • rank
+                index badges</span
               >
             </div>
           </div>
         </section>
       </div>
 
-        <!-- License & Attribution Section -->
-        <section
-          id="library-license"
-          class="pt-8 border-t border-neutral-200 dark:border-neutral-800 pb-4"
+      <!-- License & Attribution Section -->
+      <section
+        id="library-license"
+        class="pt-8 border-t border-neutral-200 dark:border-neutral-800 pb-4"
+      >
+        <div
+          class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-5 bg-neutral-100/60 dark:bg-neutral-900/60 border border-neutral-200/80 dark:border-neutral-800"
         >
-          <div
-            class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-5 bg-neutral-100/60 dark:bg-neutral-900/60 border border-neutral-200/80 dark:border-neutral-800"
-          >
-            <div class="space-y-1">
-              <span
-                class="font-mono text-xs font-bold uppercase tracking-wider text-neutral-950 dark:text-white block"
-              >
-                CC BY 4.0 / Creative Commons Attribution
-              </span>
-              <p
-                class="text-xs text-neutral-600 dark:text-neutral-400 font-normal"
-              >
-                Free to use and adapt in personal & commercial projects with a
-                backlink credit to <span
-                  class="font-medium text-neutral-900 dark:text-neutral-100"
-                  >Yovan</span
-                >.
-              </p>
-            </div>
-            <a
-              href="https://creativecommons.org/licenses/by/4.0/"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="font-mono text-[11px] text-neutral-500 hover:text-neutral-900 dark:hover:text-white underline underline-offset-4 shrink-0 transition-colors"
+          <div class="space-y-1">
+            <span
+              class="font-mono text-xs font-bold uppercase tracking-wider text-neutral-950 dark:text-white block"
             >
-              View Terms ↗
-            </a>
+              CC BY 4.0 / Creative Commons Attribution
+            </span>
+            <p
+              class="text-xs text-neutral-600 dark:text-neutral-400 font-normal"
+            >
+              Free to use and adapt in personal & commercial projects with a
+              backlink credit to <span
+                class="font-medium text-neutral-900 dark:text-neutral-100"
+                >Yovan</span
+              >.
+            </p>
           </div>
-        </section>
-      </main>
-    </div>
-  </RootLayout>
+          <a
+            href="https://creativecommons.org/licenses/by/4.0/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="font-mono text-[11px] text-neutral-500 hover:text-neutral-900 dark:hover:text-white underline underline-offset-4 shrink-0 transition-colors"
+          >
+            View Terms ↗
+          </a>
+        </div>
+      </section>
+    </main>
+  </div>
+</RootLayout>
 
 <script>
   const setupComponentLibraryNav = () => {
@@ -2740,7 +3266,8 @@ const systemsNav = [
     const hexEl = document.getElementById("accent-swatch-hex");
     const nameEl = document.getElementById("accent-swatch-name");
     const arrow = document.getElementById("accent-picker-arrow");
-    const optionBtns = document.querySelectorAll<HTMLButtonElement>(".accent-option-btn");
+    const optionBtns =
+      document.querySelectorAll<HTMLButtonElement>(".accent-option-btn");
 
     if (!trigger || !menu) return;
 
@@ -2752,13 +3279,33 @@ const systemsNav = [
       menu.setAttribute("aria-hidden", (!open).toString());
 
       if (open) {
-        menu.classList.remove("opacity-0", "-translate-y-2", "scale-95", "pointer-events-none");
-        menu.classList.add("opacity-100", "translate-y-0", "scale-100", "pointer-events-auto");
+        menu.classList.remove(
+          "opacity-0",
+          "-translate-y-2",
+          "scale-95",
+          "pointer-events-none",
+        );
+        menu.classList.add(
+          "opacity-100",
+          "translate-y-0",
+          "scale-100",
+          "pointer-events-auto",
+        );
         arrow?.classList.add("rotate-180");
         optionBtns.forEach((btn) => btn.removeAttribute("tabindex"));
       } else {
-        menu.classList.remove("opacity-100", "translate-y-0", "scale-100", "pointer-events-auto");
-        menu.classList.add("opacity-0", "-translate-y-2", "scale-95", "pointer-events-none");
+        menu.classList.remove(
+          "opacity-100",
+          "translate-y-0",
+          "scale-100",
+          "pointer-events-auto",
+        );
+        menu.classList.add(
+          "opacity-0",
+          "-translate-y-2",
+          "scale-95",
+          "pointer-events-none",
+        );
         arrow?.classList.remove("rotate-180");
         optionBtns.forEach((btn) => btn.setAttribute("tabindex", "-1"));
       }
@@ -2817,7 +3364,11 @@ const systemsNav = [
     });
 
     const onDocClick = (e: MouseEvent) => {
-      if (isOpen && !menu.contains(e.target as Node) && !trigger.contains(e.target as Node)) {
+      if (
+        isOpen &&
+        !menu.contains(e.target as Node) &&
+        !trigger.contains(e.target as Node)
+      ) {
         setDropdownState(false);
       }
     };
@@ -2833,14 +3384,19 @@ const systemsNav = [
       } else if (e.key === "ArrowDown") {
         e.preventDefault();
         const focusables = Array.from(optionBtns);
-        const currentIndex = focusables.indexOf(document.activeElement as HTMLButtonElement);
+        const currentIndex = focusables.indexOf(
+          document.activeElement as HTMLButtonElement,
+        );
         const nextIndex = (currentIndex + 1) % focusables.length;
         focusables[nextIndex]?.focus();
       } else if (e.key === "ArrowUp") {
         e.preventDefault();
         const focusables = Array.from(optionBtns);
-        const currentIndex = focusables.indexOf(document.activeElement as HTMLButtonElement);
-        const nextIndex = (currentIndex - 1 + focusables.length) % focusables.length;
+        const currentIndex = focusables.indexOf(
+          document.activeElement as HTMLButtonElement,
+        );
+        const nextIndex =
+          (currentIndex - 1 + focusables.length) % focusables.length;
         focusables[nextIndex]?.focus();
       }
     };
@@ -2849,60 +3405,141 @@ const systemsNav = [
   };
 
   const initIndexMarquees = () => {
-    const wrappers = document.querySelectorAll<HTMLElement>('.index-marquee-wrapper');
+    const wrappers = document.querySelectorAll<HTMLElement>(
+      ".index-marquee-wrapper",
+    );
     wrappers.forEach((wrapper) => {
-      const track = wrapper.querySelector<HTMLElement>('.index-marquee-track');
-      const content = wrapper.querySelector<HTMLElement>('.index-marquee-content');
+      const track = wrapper.querySelector<HTMLElement>(".index-marquee-track");
+      const content = wrapper.querySelector<HTMLElement>(
+        ".index-marquee-content",
+      );
       if (!track || !content) return;
 
       const wrapperWidth = wrapper.clientWidth;
       if (wrapperWidth === 0) return;
 
-      const existingClone = track.querySelector('.index-marquee-clone');
+      const existingClone = track.querySelector(".index-marquee-clone");
       if (existingClone) {
         existingClone.remove();
       }
-      wrapper.classList.remove('is-overflowing');
-      track.style.animation = 'none';
+      wrapper.classList.remove("is-overflowing");
+      track.style.animation = "none";
 
       const naturalWidth = content.scrollWidth;
 
       if (naturalWidth > wrapperWidth + 2) {
-        wrapper.classList.add('is-overflowing');
+        wrapper.classList.add("is-overflowing");
 
         const clone = content.cloneNode(true) as HTMLElement;
-        clone.classList.add('index-marquee-clone');
-        clone.setAttribute('aria-hidden', 'true');
+        clone.classList.add("index-marquee-clone");
+        clone.setAttribute("aria-hidden", "true");
         track.appendChild(clone);
 
         const unitWidth = content.scrollWidth;
         const duration = Math.max(12, unitWidth / 26);
 
-        track.style.animationName = 'marquee-scroll';
+        track.style.animationName = "marquee-scroll";
         track.style.animationDuration = `${duration}s`;
-        track.style.animationTimingFunction = 'linear';
-        track.style.animationIterationCount = 'infinite';
+        track.style.animationTimingFunction = "linear";
+        track.style.animationIterationCount = "infinite";
       }
     });
+  };
+
+  let autoScrollInterval: number | null = null;
+
+  const setupAutoTabScroll = () => {
+    const defaultInput = document.getElementById(
+      "ti-default",
+    ) as HTMLInputElement | null;
+    if (!defaultInput) return;
+
+    const autoScrollTargets = [
+      "colors",
+      "typography",
+      "depth-cards",
+      "buttons",
+      "kinetic-triggers",
+      "forms",
+      "text-inputs",
+      "dropdowns",
+      "loaders",
+    ];
+
+    const triggerTab = (targetId: string) => {
+      const sidebarBtn = document.querySelector<HTMLButtonElement>(
+        `.sidebar-nav-btn[data-target="${targetId}"]`,
+      );
+      const mobileBtn = document.querySelector<HTMLButtonElement>(
+        `.tab-nav-btn[data-target="${targetId}"]`,
+      );
+
+      if (sidebarBtn) {
+        sidebarBtn.click();
+      } else if (mobileBtn) {
+        mobileBtn.click();
+      } else {
+        const targetEl = document.getElementById(targetId);
+        if (targetEl) {
+          targetEl.scrollIntoView({ behavior: "smooth" });
+          history.replaceState(null, "", `#${targetId}`);
+        }
+      }
+    };
+
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Enter") {
+        const val = defaultInput.value.trim().toLowerCase();
+        if (val === "autoscroll") {
+          e.preventDefault();
+          defaultInput.blur();
+
+          // Clear any active auto-scroll loop
+          if (autoScrollInterval) {
+            clearInterval(autoScrollInterval);
+            autoScrollInterval = null;
+          }
+
+          let currentIndex = 0;
+          // Trigger first tab immediately
+          triggerTab(autoScrollTargets[currentIndex]);
+
+          // Loop infinitely every 2 seconds
+          autoScrollInterval = window.setInterval(() => {
+            currentIndex = (currentIndex + 1) % autoScrollTargets.length;
+            triggerTab(autoScrollTargets[currentIndex]);
+          }, 2000);
+        }
+      }
+    };
+
+    defaultInput.removeEventListener("keydown", onKeyDown);
+    defaultInput.addEventListener("keydown", onKeyDown);
   };
 
   setupComponentLibraryNav();
   setupAccentColorPicker();
   initIndexMarquees();
+  setupAutoTabScroll();
 
-  let lastMarqueeWidth = typeof window !== 'undefined' ? window.innerWidth : 0;
+  let lastMarqueeWidth = typeof window !== "undefined" ? window.innerWidth : 0;
   let marqueeResizeTimer: number | null = null;
-  window.addEventListener('resize', () => {
-    if (window.innerWidth === lastMarqueeWidth) return;
-    lastMarqueeWidth = window.innerWidth;
-    if (marqueeResizeTimer) clearTimeout(marqueeResizeTimer);
-    marqueeResizeTimer = window.setTimeout(initIndexMarquees, 150);
-  }, { passive: true });
+  window.addEventListener(
+    "resize",
+    () => {
+      if (window.innerWidth === lastMarqueeWidth) return;
+      lastMarqueeWidth = window.innerWidth;
+      if (marqueeResizeTimer) clearTimeout(marqueeResizeTimer);
+      marqueeResizeTimer = window.setTimeout(initIndexMarquees, 150);
+    },
+    { passive: true },
+  );
 
   document.addEventListener("astro:page-load", () => {
     setupComponentLibraryNav();
     setupAccentColorPicker();
     initIndexMarquees();
+    setupAutoTabScroll();
   });
 </script>
 
@@ -2922,8 +3559,16 @@ const systemsNav = [
   }
 
   .index-marquee-wrapper.is-overflowing {
-    -webkit-mask-image: linear-gradient(to right, black calc(100% - 36px), transparent 100%);
-    mask-image: linear-gradient(to right, black calc(100% - 36px), transparent 100%);
+    -webkit-mask-image: linear-gradient(
+      to right,
+      black calc(100% - 36px),
+      transparent 100%
+    );
+    mask-image: linear-gradient(
+      to right,
+      black calc(100% - 36px),
+      transparent 100%
+    );
   }
 
   .index-marquee-track {

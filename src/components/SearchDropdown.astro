@@ -1,6 +1,6 @@
 ---
 // SearchDropdown.astro - Dropdown Search with live search filter & multi-select checkboxes
-// Ported from SearchDropdown.jsx + SearchDropdown.module.css for Portfolio v5
+// Ported from SearchDropdown.jsx + SearchDropdown.module.css for this Portfolio
 interface Item {
   id: string;
   label: string;
@@ -24,12 +24,12 @@ const {
   id = `sd-${Math.random().toString(36).substring(2, 9)}`,
   name,
   label,
-  placeholder = 'Elige elementa...',
-  allLabel = 'Omnia elementa',
+  placeholder = "Elige elementa...",
+  allLabel = "Omnia elementa",
   items = [],
   selectedItems = [],
   tips,
-  class: className = '',
+  class: className = "",
   ...rest
 } = Astro.props;
 
@@ -39,23 +39,33 @@ const hasSelections = selectedItems.length > 0;
 const initialTriggerLabel = isAllSelected
   ? allLabel
   : selectedItems.length === 1
-    ? (items.find((k) => k.id === selectedItems[0])?.label || placeholder)
+    ? items.find((k) => k.id === selectedItems[0])?.label || placeholder
     : selectedItems.length > 1
-      ? 'Selecta'
+      ? "Selecta"
       : placeholder;
 
 // Parse label for optional (subtext) pattern, e.g. "Colum (optionale)"
-const labelMatch = typeof label === 'string' ? label.match(/^(.*?)\s*(\(.*?\))$/) : null;
+const labelMatch =
+  typeof label === "string" ? label.match(/^(.*?)\s*(\(.*?\))$/) : null;
 const mainLabel = labelMatch ? labelMatch[1] : label;
 const subText = labelMatch ? labelMatch[2] : null;
 ---
 
-<div class:list={["sd-wrapper", className]} data-search-dropdown-wrapper id={`${id}-wrapper`}>
-  {label && (
-    <div class="sd-label-row">
-      <label class="sd-label">{mainLabel}{subText && <span class="sd-label-subtext"> {subText}</span>}</label>
-    </div>
-  )}
+<div
+  class:list={["sd-wrapper", className]}
+  data-search-dropdown-wrapper
+  id={`${id}-wrapper`}
+>
+  {
+    label && (
+      <div class="sd-label-row">
+        <label class="sd-label">
+          {mainLabel}
+          {subText && <span class="sd-label-subtext"> {subText}</span>}
+        </label>
+      </div>
+    )
+  }
 
   {tips && <div class="sd-tips">{tips}</div>}
 
@@ -128,7 +138,11 @@ const subText = labelMatch ? labelMatch[2] : null;
             autocomplete="off"
             spellcheck="false"
           />
-          <button type="button" class="sd-search-clear sd-hidden" aria-label="Clear search">
+          <button
+            type="button"
+            class="sd-search-clear sd-hidden"
+            aria-label="Clear search"
+          >
             ✕
           </button>
         </div>
@@ -137,10 +151,16 @@ const subText = labelMatch ? labelMatch[2] : null;
       <!-- Select All Row -->
       <div class="sd-list-container">
         <div
-          class:list={["sd-checkbox-row", "sd-row-select-all", isAllSelected ? "is-checked" : ""]}
+          class:list={[
+            "sd-checkbox-row",
+            "sd-row-select-all",
+            isAllSelected ? "is-checked" : "",
+          ]}
           data-action="toggle-all"
         >
-          <div class:list={["sd-checkbox-box", isAllSelected ? "is-checked" : ""]}>
+          <div
+            class:list={["sd-checkbox-box", isAllSelected ? "is-checked" : ""]}
+          >
             <svg
               class="sd-check-icon"
               width="10"
@@ -164,43 +184,54 @@ const subText = labelMatch ? labelMatch[2] : null;
         <!-- Filterable Items Scroll Area -->
         <div class="sd-items-scroll">
           <div class="sd-empty sd-hidden">Nullum elementum inventum</div>
-          {items.map((item) => {
-            const isChecked = selectedItems.includes(item.id);
-            return (
-              <div
-                class:list={["sd-checkbox-row", "sd-item-row", isChecked ? "is-checked" : ""]}
-                data-item-id={item.id}
-                data-item-label={item.label}
-                data-item-sublabel={item.subLabel || ''}
-              >
-                <div class:list={["sd-checkbox-box", isChecked ? "is-checked" : ""]}>
-                  <svg
-                    class="sd-check-icon"
-                    width="10"
-                    height="10"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="3.5"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
+          {
+            items.map((item) => {
+              const isChecked = selectedItems.includes(item.id);
+              return (
+                <div
+                  class:list={[
+                    "sd-checkbox-row",
+                    "sd-item-row",
+                    isChecked ? "is-checked" : "",
+                  ]}
+                  data-item-id={item.id}
+                  data-item-label={item.label}
+                  data-item-sublabel={item.subLabel || ""}
+                >
+                  <div
+                    class:list={[
+                      "sd-checkbox-box",
+                      isChecked ? "is-checked" : "",
+                    ]}
                   >
-                    <polyline points="20 6 9 17 4 12"></polyline>
-                  </svg>
+                    <svg
+                      class="sd-check-icon"
+                      width="10"
+                      height="10"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="3.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                  </div>
+                  <span class="sd-checkbox-label">{item.label}</span>
+                  {item.subLabel && (
+                    <span class="sd-checkbox-meta">{item.subLabel}</span>
+                  )}
                 </div>
-                <span class="sd-checkbox-label">{item.label}</span>
-                {item.subLabel && <span class="sd-checkbox-meta">{item.subLabel}</span>}
-              </div>
-            );
-          })}
+              );
+            })
+          }
         </div>
       </div>
 
       <!-- Footer Action -->
       <div class:list={["sd-footer", hasSelections ? "" : "sd-hidden"]}>
-        <button type="button" class="sd-clear-btn">
-          Purga colum
-        </button>
+        <button type="button" class="sd-clear-btn"> Purga colum </button>
       </div>
     </div>
   </div>
@@ -225,7 +256,7 @@ const subText = labelMatch ? labelMatch[2] : null;
   }
 
   .sd-label {
-    font-family: 'Syne', sans-serif;
+    font-family: "Syne", sans-serif;
     font-size: 0.8rem;
     font-weight: 700;
     text-transform: uppercase;
@@ -252,7 +283,7 @@ const subText = labelMatch ? labelMatch[2] : null;
   }
 
   .sd-tips {
-    font-family: 'Outfit', sans-serif;
+    font-family: "Outfit", sans-serif;
     font-size: 0.78rem;
     color: #8a857b;
     line-height: 1.35;
@@ -272,7 +303,7 @@ const subText = labelMatch ? labelMatch[2] : null;
   .sd-trigger {
     width: 100%;
     padding: 0.75rem 1rem;
-    font-family: 'Outfit', sans-serif;
+    font-family: "Outfit", sans-serif;
     font-size: 0.95rem;
     font-weight: 500;
     color: #111111;
@@ -285,7 +316,10 @@ const subText = labelMatch ? labelMatch[2] : null;
     cursor: pointer;
     outline: none;
     text-align: left;
-    transition: border-color 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+    transition:
+      border-color 0.15s ease,
+      box-shadow 0.15s ease,
+      background-color 0.15s ease;
     box-sizing: border-box;
   }
 
@@ -297,14 +331,16 @@ const subText = labelMatch ? labelMatch[2] : null;
 
   .sd-trigger:focus,
   .sd-trigger.is-active {
-    border-color: var(--color-accent, #52FF1A);
-    box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-accent, #52FF1A) 20%, transparent);
+    border-color: var(--color-accent, #52ff1a);
+    box-shadow: 0 0 0 3px
+      color-mix(in srgb, var(--color-accent, #52ff1a) 20%, transparent);
   }
 
   :global(.dark) .sd-trigger:focus,
   :global(.dark) .sd-trigger.is-active {
-    border-color: var(--color-accent, #52FF1A);
-    box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-accent, #52FF1A) 25%, transparent);
+    border-color: var(--color-accent, #52ff1a);
+    box-shadow: 0 0 0 3px
+      color-mix(in srgb, var(--color-accent, #52ff1a) 25%, transparent);
   }
 
   .sd-trigger-content {
@@ -318,10 +354,10 @@ const subText = labelMatch ? labelMatch[2] : null;
   }
 
   .sd-badge {
-    font-family: 'Space Grotesk', monospace;
+    font-family: "Space Grotesk", monospace;
     font-size: 10px;
     font-weight: 700;
-    background: var(--color-accent, #52FF1A);
+    background: var(--color-accent, #52ff1a);
     color: #000000;
     padding: 1px 6px;
     border-radius: 4px;
@@ -353,7 +389,9 @@ const subText = labelMatch ? labelMatch[2] : null;
     background: #ffffff;
     border: 1px solid #e5e7eb;
     border-radius: 0;
-    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.12), 0 8px 16px -6px rgba(0, 0, 0, 0.08);
+    box-shadow:
+      0 10px 25px -5px rgba(0, 0, 0, 0.12),
+      0 8px 16px -6px rgba(0, 0, 0, 0.08);
     padding: 0.5rem 0 0.25rem 0;
     z-index: 60;
     box-sizing: border-box;
@@ -364,13 +402,17 @@ const subText = labelMatch ? labelMatch[2] : null;
     transform: translateY(-8px) scale(0.97);
     pointer-events: none;
     transform-origin: top center;
-    transition: opacity 0.2s cubic-bezier(0.16, 1, 0.3, 1), transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    transition:
+      opacity 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   :global(.dark) .sd-menu {
     background: #161616;
     border-color: #262626;
-    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.6), 0 8px 16px -6px rgba(0, 0, 0, 0.4);
+    box-shadow:
+      0 10px 25px -5px rgba(0, 0, 0, 0.6),
+      0 8px 16px -6px rgba(0, 0, 0, 0.4);
   }
 
   .sd-menu.is-open {
@@ -398,7 +440,7 @@ const subText = labelMatch ? labelMatch[2] : null;
   }
 
   .sd-search-input-wrapper:focus-within {
-    border-bottom-color: var(--color-accent, #52FF1A);
+    border-bottom-color: var(--color-accent, #52ff1a);
   }
 
   .sd-search-icon {
@@ -411,7 +453,7 @@ const subText = labelMatch ? labelMatch[2] : null;
     border: none;
     outline: none;
     background: transparent;
-    font-family: 'Outfit', sans-serif;
+    font-family: "Outfit", sans-serif;
     font-size: 0.85rem;
     font-weight: 500;
     color: #111111;
@@ -471,19 +513,35 @@ const subText = labelMatch ? labelMatch[2] : null;
   }
 
   .sd-checkbox-row:hover {
-    background: color-mix(in srgb, var(--color-accent, #52FF1A) 8%, transparent);
+    background: color-mix(
+      in srgb,
+      var(--color-accent, #52ff1a) 8%,
+      transparent
+    );
   }
 
   :global(.dark) .sd-checkbox-row:hover {
-    background: color-mix(in srgb, var(--color-accent, #52FF1A) 12%, transparent);
+    background: color-mix(
+      in srgb,
+      var(--color-accent, #52ff1a) 12%,
+      transparent
+    );
   }
 
   .sd-checkbox-row.is-checked {
-    background: color-mix(in srgb, var(--color-accent, #52FF1A) 6%, transparent);
+    background: color-mix(
+      in srgb,
+      var(--color-accent, #52ff1a) 6%,
+      transparent
+    );
   }
 
   :global(.dark) .sd-checkbox-row.is-checked {
-    background: color-mix(in srgb, var(--color-accent, #52FF1A) 9%, transparent);
+    background: color-mix(
+      in srgb,
+      var(--color-accent, #52ff1a) 9%,
+      transparent
+    );
   }
 
   .sd-checkbox-box {
@@ -505,8 +563,8 @@ const subText = labelMatch ? labelMatch[2] : null;
   }
 
   .sd-checkbox-box.is-checked {
-    background: var(--color-accent, #52FF1A);
-    border: 1px solid var(--color-accent, #52FF1A);
+    background: var(--color-accent, #52ff1a);
+    border: 1px solid var(--color-accent, #52ff1a);
   }
 
   .sd-check-icon {
@@ -519,7 +577,7 @@ const subText = labelMatch ? labelMatch[2] : null;
   }
 
   .sd-checkbox-label {
-    font-family: 'Outfit', sans-serif;
+    font-family: "Outfit", sans-serif;
     font-size: 0.88rem;
     font-weight: 500;
     color: #374151;
@@ -539,7 +597,7 @@ const subText = labelMatch ? labelMatch[2] : null;
   }
 
   .sd-checkbox-meta {
-    font-family: 'Space Grotesk', monospace;
+    font-family: "Space Grotesk", monospace;
     font-size: 0.75rem;
     color: #9ca3af;
     margin-left: auto;
@@ -560,7 +618,7 @@ const subText = labelMatch ? labelMatch[2] : null;
   }
 
   .sd-empty {
-    font-family: 'Outfit', sans-serif;
+    font-family: "Outfit", sans-serif;
     font-size: 0.82rem;
     color: #9ca3af;
     text-align: center;
@@ -581,7 +639,7 @@ const subText = labelMatch ? labelMatch[2] : null;
   }
 
   .sd-clear-btn {
-    font-family: 'Space Grotesk', monospace;
+    font-family: "Space Grotesk", monospace;
     font-size: 0.75rem;
     font-weight: 600;
     color: #ef4444;
@@ -602,218 +660,244 @@ const subText = labelMatch ? labelMatch[2] : null;
 
 <script>
   function initSearchDropdowns() {
-    document.querySelectorAll<HTMLElement>('[data-search-dropdown-wrapper]').forEach((wrapper) => {
-      if (wrapper.dataset.initialized === 'true') return;
-      wrapper.dataset.initialized = 'true';
+    document
+      .querySelectorAll<HTMLElement>("[data-search-dropdown-wrapper]")
+      .forEach((wrapper) => {
+        if (wrapper.dataset.initialized === "true") return;
+        wrapper.dataset.initialized = "true";
 
-      const trigger = wrapper.querySelector<HTMLButtonElement>('.sd-trigger');
-      const menu = wrapper.querySelector<HTMLElement>('.sd-menu');
-      const triggerText = wrapper.querySelector<HTMLElement>('.sd-trigger-text');
-      const badge = wrapper.querySelector<HTMLElement>('.sd-badge');
-      const searchInput = wrapper.querySelector<HTMLInputElement>('.sd-search-input');
-      const searchClear = wrapper.querySelector<HTMLButtonElement>('.sd-search-clear');
-      const selectAllRow = wrapper.querySelector<HTMLElement>('.sd-row-select-all');
-      const selectAllBox = selectAllRow?.querySelector<HTMLElement>('.sd-checkbox-box');
-      const itemRows = wrapper.querySelectorAll<HTMLElement>('.sd-item-row');
-      const hiddenInput = wrapper.querySelector<HTMLInputElement>('.sd-hidden-input');
-      const footer = wrapper.querySelector<HTMLElement>('.sd-footer');
-      const clearBtn = wrapper.querySelector<HTMLButtonElement>('.sd-clear-btn');
-      const emptyState = wrapper.querySelector<HTMLElement>('.sd-empty');
+        const trigger = wrapper.querySelector<HTMLButtonElement>(".sd-trigger");
+        const menu = wrapper.querySelector<HTMLElement>(".sd-menu");
+        const triggerText =
+          wrapper.querySelector<HTMLElement>(".sd-trigger-text");
+        const badge = wrapper.querySelector<HTMLElement>(".sd-badge");
+        const searchInput =
+          wrapper.querySelector<HTMLInputElement>(".sd-search-input");
+        const searchClear =
+          wrapper.querySelector<HTMLButtonElement>(".sd-search-clear");
+        const selectAllRow =
+          wrapper.querySelector<HTMLElement>(".sd-row-select-all");
+        const selectAllBox =
+          selectAllRow?.querySelector<HTMLElement>(".sd-checkbox-box");
+        const itemRows = wrapper.querySelectorAll<HTMLElement>(".sd-item-row");
+        const hiddenInput =
+          wrapper.querySelector<HTMLInputElement>(".sd-hidden-input");
+        const footer = wrapper.querySelector<HTMLElement>(".sd-footer");
+        const clearBtn =
+          wrapper.querySelector<HTMLButtonElement>(".sd-clear-btn");
+        const emptyState = wrapper.querySelector<HTMLElement>(".sd-empty");
 
-      if (!trigger || !menu) return;
+        if (!trigger || !menu) return;
 
-      let selectedIds: string[] = [];
-      try {
-        selectedIds = JSON.parse(hiddenInput?.value || '[]');
-      } catch {
-        selectedIds = [];
-      }
-
-      const totalItems = itemRows.length;
-
-      const updateUI = () => {
-        const isAll = selectedIds.length === totalItems && totalItems > 0;
-        const count = selectedIds.length;
-
-        // Update select all row
-        if (selectAllRow && selectAllBox) {
-          if (isAll) {
-            selectAllRow.classList.add('is-checked');
-            selectAllBox.classList.add('is-checked');
-          } else {
-            selectAllRow.classList.remove('is-checked');
-            selectAllBox.classList.remove('is-checked');
-          }
+        let selectedIds: string[] = [];
+        try {
+          selectedIds = JSON.parse(hiddenInput?.value || "[]");
+        } catch {
+          selectedIds = [];
         }
 
-        // Update each item row
-        itemRows.forEach((row) => {
-          const id = row.dataset.itemId || '';
-          const isChecked = selectedIds.includes(id);
-          const box = row.querySelector('.sd-checkbox-box');
-          if (isChecked) {
-            row.classList.add('is-checked');
-            box?.classList.add('is-checked');
-          } else {
-            row.classList.remove('is-checked');
-            box?.classList.remove('is-checked');
+        const totalItems = itemRows.length;
+
+        const updateUI = () => {
+          const isAll = selectedIds.length === totalItems && totalItems > 0;
+          const count = selectedIds.length;
+
+          // Update select all row
+          if (selectAllRow && selectAllBox) {
+            if (isAll) {
+              selectAllRow.classList.add("is-checked");
+              selectAllBox.classList.add("is-checked");
+            } else {
+              selectAllRow.classList.remove("is-checked");
+              selectAllBox.classList.remove("is-checked");
+            }
           }
-        });
 
-        // Update trigger text & badge
-        if (triggerText) {
-          if (isAll) {
-            triggerText.textContent = selectAllRow?.querySelector('.sd-checkbox-label')?.textContent || 'Omnia elementa';
-          } else if (count === 1) {
-            const singleRow = Array.from(itemRows).find((r) => r.dataset.itemId === selectedIds[0]);
-            triggerText.textContent = singleRow?.dataset.itemLabel || '1 Selectum';
-          } else if (count > 1) {
-            triggerText.textContent = 'Selecta';
-          } else {
-            triggerText.textContent = 'Elige elementa...';
-          }
-        }
-
-        if (badge) {
-          if (count > 0 && !isAll) {
-            badge.textContent = count.toString();
-            badge.classList.remove('sd-hidden');
-          } else {
-            badge.classList.add('sd-hidden');
-          }
-        }
-
-        // Update footer
-        if (footer) {
-          if (count > 0) {
-            footer.classList.remove('sd-hidden');
-          } else {
-            footer.classList.add('sd-hidden');
-          }
-        }
-
-        // Update hidden input
-        if (hiddenInput) {
-          hiddenInput.value = JSON.stringify(selectedIds);
-          hiddenInput.dispatchEvent(new Event('change', { bubbles: true }));
-        }
-      };
-
-      const setOpen = (open: boolean) => {
-        if (open) {
-          document.querySelectorAll('.sd-menu.is-open').forEach((m) => {
-            if (m !== menu) {
-              m.classList.remove('is-open');
-              m.closest('.sd-dropdown-container')?.querySelector('.sd-trigger')?.classList.remove('is-active');
-              m.closest('.sd-dropdown-container')?.querySelector('.sd-trigger')?.setAttribute('aria-expanded', 'false');
+          // Update each item row
+          itemRows.forEach((row) => {
+            const id = row.dataset.itemId || "";
+            const isChecked = selectedIds.includes(id);
+            const box = row.querySelector(".sd-checkbox-box");
+            if (isChecked) {
+              row.classList.add("is-checked");
+              box?.classList.add("is-checked");
+            } else {
+              row.classList.remove("is-checked");
+              box?.classList.remove("is-checked");
             }
           });
-          menu.classList.add('is-open');
-          trigger.classList.add('is-active');
-          trigger.setAttribute('aria-expanded', 'true');
-          setTimeout(() => searchInput?.focus(), 50);
-        } else {
-          menu.classList.remove('is-open');
-          trigger.classList.remove('is-active');
-          trigger.setAttribute('aria-expanded', 'false');
-        }
-      };
 
-      trigger.addEventListener('click', (e) => {
-        e.stopPropagation();
-        const isOpen = menu.classList.contains('is-open');
-        setOpen(!isOpen);
-      });
+          // Update trigger text & badge
+          if (triggerText) {
+            if (isAll) {
+              triggerText.textContent =
+                selectAllRow?.querySelector(".sd-checkbox-label")
+                  ?.textContent || "Omnia elementa";
+            } else if (count === 1) {
+              const singleRow = Array.from(itemRows).find(
+                (r) => r.dataset.itemId === selectedIds[0],
+              );
+              triggerText.textContent =
+                singleRow?.dataset.itemLabel || "1 Selectum";
+            } else if (count > 1) {
+              triggerText.textContent = "Selecta";
+            } else {
+              triggerText.textContent = "Elige elementa...";
+            }
+          }
 
-      // Item row clicks
-      itemRows.forEach((row) => {
-        row.addEventListener('click', (e) => {
-          e.stopPropagation();
-          const id = row.dataset.itemId || '';
-          if (selectedIds.includes(id)) {
-            selectedIds = selectedIds.filter((x) => x !== id);
+          if (badge) {
+            if (count > 0 && !isAll) {
+              badge.textContent = count.toString();
+              badge.classList.remove("sd-hidden");
+            } else {
+              badge.classList.add("sd-hidden");
+            }
+          }
+
+          // Update footer
+          if (footer) {
+            if (count > 0) {
+              footer.classList.remove("sd-hidden");
+            } else {
+              footer.classList.add("sd-hidden");
+            }
+          }
+
+          // Update hidden input
+          if (hiddenInput) {
+            hiddenInput.value = JSON.stringify(selectedIds);
+            hiddenInput.dispatchEvent(new Event("change", { bubbles: true }));
+          }
+        };
+
+        const setOpen = (open: boolean) => {
+          if (open) {
+            document.querySelectorAll(".sd-menu.is-open").forEach((m) => {
+              if (m !== menu) {
+                m.classList.remove("is-open");
+                m.closest(".sd-dropdown-container")
+                  ?.querySelector(".sd-trigger")
+                  ?.classList.remove("is-active");
+                m.closest(".sd-dropdown-container")
+                  ?.querySelector(".sd-trigger")
+                  ?.setAttribute("aria-expanded", "false");
+              }
+            });
+            menu.classList.add("is-open");
+            trigger.classList.add("is-active");
+            trigger.setAttribute("aria-expanded", "true");
+            setTimeout(() => searchInput?.focus(), 50);
           } else {
-            selectedIds.push(id);
+            menu.classList.remove("is-open");
+            trigger.classList.remove("is-active");
+            trigger.setAttribute("aria-expanded", "false");
+          }
+        };
+
+        trigger.addEventListener("click", (e) => {
+          e.stopPropagation();
+          const isOpen = menu.classList.contains("is-open");
+          setOpen(!isOpen);
+        });
+
+        // Item row clicks
+        itemRows.forEach((row) => {
+          row.addEventListener("click", (e) => {
+            e.stopPropagation();
+            const id = row.dataset.itemId || "";
+            if (selectedIds.includes(id)) {
+              selectedIds = selectedIds.filter((x) => x !== id);
+            } else {
+              selectedIds.push(id);
+            }
+            updateUI();
+          });
+        });
+
+        // Select all toggle
+        selectAllRow?.addEventListener("click", (e) => {
+          e.stopPropagation();
+          if (selectedIds.length === totalItems) {
+            selectedIds = [];
+          } else {
+            selectedIds = Array.from(itemRows)
+              .map((r) => r.dataset.itemId || "")
+              .filter(Boolean);
           }
           updateUI();
         });
-      });
 
-      // Select all toggle
-      selectAllRow?.addEventListener('click', (e) => {
-        e.stopPropagation();
-        if (selectedIds.length === totalItems) {
+        // Clear filter footer button
+        clearBtn?.addEventListener("click", (e) => {
+          e.stopPropagation();
           selectedIds = [];
-        } else {
-          selectedIds = Array.from(itemRows).map((r) => r.dataset.itemId || '').filter(Boolean);
-        }
-        updateUI();
-      });
-
-      // Clear filter footer button
-      clearBtn?.addEventListener('click', (e) => {
-        e.stopPropagation();
-        selectedIds = [];
-        updateUI();
-      });
-
-      // Search filter live typing
-      const handleSearch = () => {
-        const query = (searchInput?.value || '').trim().toLowerCase();
-        if (searchClear) {
-          if (query.length > 0) searchClear.classList.remove('sd-hidden');
-          else searchClear.classList.add('sd-hidden');
-        }
-
-        let visibleCount = 0;
-        itemRows.forEach((row) => {
-          const label = (row.dataset.itemLabel || '').toLowerCase();
-          const sub = (row.dataset.itemSublabel || '').toLowerCase();
-          if (label.includes(query) || sub.includes(query)) {
-            row.style.display = 'flex';
-            visibleCount++;
-          } else {
-            row.style.display = 'none';
-          }
+          updateUI();
         });
 
-        if (emptyState) {
-          if (visibleCount === 0) emptyState.classList.remove('sd-hidden');
-          else emptyState.classList.add('sd-hidden');
-        }
-      };
+        // Search filter live typing
+        const handleSearch = () => {
+          const query = (searchInput?.value || "").trim().toLowerCase();
+          if (searchClear) {
+            if (query.length > 0) searchClear.classList.remove("sd-hidden");
+            else searchClear.classList.add("sd-hidden");
+          }
 
-      searchInput?.addEventListener('input', handleSearch);
+          let visibleCount = 0;
+          itemRows.forEach((row) => {
+            const label = (row.dataset.itemLabel || "").toLowerCase();
+            const sub = (row.dataset.itemSublabel || "").toLowerCase();
+            if (label.includes(query) || sub.includes(query)) {
+              row.style.display = "flex";
+              visibleCount++;
+            } else {
+              row.style.display = "none";
+            }
+          });
 
-      searchClear?.addEventListener('click', (e) => {
-        e.stopPropagation();
-        if (searchInput) searchInput.value = '';
-        handleSearch();
-        searchInput?.focus();
+          if (emptyState) {
+            if (visibleCount === 0) emptyState.classList.remove("sd-hidden");
+            else emptyState.classList.add("sd-hidden");
+          }
+        };
+
+        searchInput?.addEventListener("input", handleSearch);
+
+        searchClear?.addEventListener("click", (e) => {
+          e.stopPropagation();
+          if (searchInput) searchInput.value = "";
+          handleSearch();
+          searchInput?.focus();
+        });
+
+        // Keyboard Esc
+        wrapper.addEventListener("keydown", (e) => {
+          if (e.key === "Escape") {
+            setOpen(false);
+            trigger.focus();
+          }
+        });
       });
 
-      // Keyboard Esc
-      wrapper.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') {
-          setOpen(false);
-          trigger.focus();
-        }
-      });
-    });
-
-    document.addEventListener('click', () => {
-      document.querySelectorAll('.sd-menu.is-open').forEach((menu) => {
-        menu.classList.remove('is-open');
-        menu.closest('.sd-dropdown-container')?.querySelector('.sd-trigger')?.classList.remove('is-active');
-        menu.closest('.sd-dropdown-container')?.querySelector('.sd-trigger')?.setAttribute('aria-expanded', 'false');
+    document.addEventListener("click", () => {
+      document.querySelectorAll(".sd-menu.is-open").forEach((menu) => {
+        menu.classList.remove("is-open");
+        menu
+          .closest(".sd-dropdown-container")
+          ?.querySelector(".sd-trigger")
+          ?.classList.remove("is-active");
+        menu
+          .closest(".sd-dropdown-container")
+          ?.querySelector(".sd-trigger")
+          ?.setAttribute("aria-expanded", "false");
       });
     });
   }
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initSearchDropdowns);
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initSearchDropdowns);
   } else {
     initSearchDropdowns();
   }
-  document.addEventListener('astro:page-load', initSearchDropdowns);
+  document.addEventListener("astro:page-load", initSearchDropdowns);
 </script>

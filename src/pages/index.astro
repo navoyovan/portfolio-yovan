@@ -401,8 +401,8 @@ const capabilities = [
             Things I've built
           </h2>
           <p
-            data-en="A collection of projects, and products where I tried to solve a problem, learn something new, or just see &quot;what if?&quot;"
-            data-id="Kumpulan proyek dan produk tempat aku nyoba nyelesaiin masalah, belajar hal baru, atau sekadar penasaran &quot;gimana kalau...&quot;"
+            data-en='A collection of projects, and products where I tried to solve a problem, learn something new, or just see "what if?"'
+            data-id='Kumpulan proyek dan produk tempat aku nyoba nyelesaiin masalah, belajar hal baru, atau sekadar penasaran "gimana kalau..."'
             class="text-base sm:text-lg text-neutral-600 dark:text-neutral-400 leading-relaxed font-normal"
           >
             A collection of projects, and products where I tried to solve a
@@ -452,7 +452,9 @@ const capabilities = [
                 <div
                   class="inline-flex items-center translate-x-[10px] group-hover/btn:translate-x-0 transition-transform duration-200 ease-out"
                 >
-                  <span data-en="Launch Kiosk Demo" data-id="Buka Demo Kiosk">Launch Kiosk Demo</span>
+                  <span data-en="Launch Kiosk Demo" data-id="Buka Demo Kiosk"
+                    >Launch Kiosk Demo</span
+                  >
                   <span
                     class="inline-flex items-center justify-center w-3.5 ml-1.5 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-200 ease-out"
                     aria-hidden="true"
@@ -475,7 +477,10 @@ const capabilities = [
                 <div
                   class="inline-flex items-center translate-x-[10px] group-hover/btn:translate-x-0 transition-transform duration-200 ease-out"
                 >
-                  <span data-en="Visit Hypebox Site" data-id="Kunjungi Situs Hypebox">Visit Hypebox Site</span>
+                  <span
+                    data-en="Visit Hypebox Site"
+                    data-id="Kunjungi Situs Hypebox">Visit Hypebox Site</span
+                  >
                   <span
                     class="inline-flex items-center justify-center w-3.5 ml-1.5 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-200 ease-out"
                     aria-hidden="true"
@@ -811,43 +816,131 @@ const capabilities = [
                 </div>
               </div>
               <div
-                class="p-3.5 sm:p-4 bg-neutral-100/60 dark:bg-neutral-900/60 border-t border-neutral-200/80 dark:border-neutral-800 flex items-center justify-between gap-3 min-w-0"
+                class="p-3.5 sm:p-4 bg-neutral-100/60 dark:bg-neutral-900/60 border-t border-neutral-200/80 dark:border-neutral-800 flex items-center justify-between gap-2.5 min-w-0"
               >
                 <span
                   class="font-mono text-[10px] sm:text-[11px] text-neutral-400 dark:text-neutral-500 truncate"
                   >Electron</span
                 >
-                <HoverExpandButton
-                  href="https://navoyovan.github.io/photobooth-kiosk-demo/"
-                  label="LAUNCH DEMO"
-                  labelEn="LAUNCH DEMO"
-                  labelId="BUKA DEMO"
-                  size="micro"
-                  variant="solid"
-                  expandDirection="left"
-                  rotateIcon={false}
-                  ariaLabel="Launch Kiosk Demo (opens in new tab)"
-                  data-aria-en="Launch Kiosk Demo (opens in new tab)"
-                  data-aria-id="Buka Demo Kiosk (buka di tab baru)"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="shrink-0 ml-auto z-10"
-                >
-                  <svg
-                    slot="icon"
-                    class="w-3.5 h-3.5"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2.5"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    aria-hidden="true"
+                <div class="flex items-center gap-2 ml-auto shrink-0">
+                  <!-- Webcam & Public Server Upload Notice Tooltip Pill -->
+                  <div class="relative group/warning flex items-center">
+                    <button
+                      type="button"
+                      class="inline-flex items-center gap-1.5 px-2 py-1 rounded bg-amber-500/10 dark:bg-amber-400/10 text-amber-800 dark:text-amber-300 border border-amber-500/20 dark:border-amber-400/20 text-[11px] font-sans font-medium transition-colors hover:bg-amber-500/20 dark:hover:bg-amber-400/20 focus:outline-none focus-visible:ring-1 focus-visible:ring-amber-500 cursor-help"
+                      aria-label="Webcam and upload consent warning"
+                      data-aria-en="Webcam and upload consent warning"
+                      data-aria-id="Peringatan izin webcam dan persetujuan unggahan"
+                    >
+                      <svg
+                        class="w-3.5 h-3.5 shrink-0 text-amber-600 dark:text-amber-400"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true"
+                      >
+                        <path d="M12 9v4"></path>
+                        <path d="M12 17h.01"></path>
+                        <path
+                          d="M5.07 19H19a2 2 0 0 0 1.75 -2.96L13.75 4a2 2 0 0 0 -3.5 0L3.32 16.04a2 2 0 0 0 1.75 2.96z"
+                        ></path>
+                      </svg>
+                      <span
+                        class="hidden sm:inline"
+                        data-en="Webcam & Upload Consent"
+                        data-id="Izin Kamera & Unggah"
+                        >Webcam &amp; Upload Consent</span
+                      >
+                      <span class="sm:hidden" data-en="Notice" data-id="Info"
+                        >Notice</span
+                      >
+                    </button>
+
+                    <!-- Interactive Tooltip Popover -->
+                    <div
+                      role="tooltip"
+                      class="pointer-events-none absolute bottom-full right-0 mb-2 w-64 sm:w-72 p-3 rounded-lg bg-neutral-950 dark:bg-neutral-900 text-white border border-neutral-800 dark:border-neutral-700 shadow-xl opacity-0 translate-y-1 group-hover/warning:opacity-100 group-hover/warning:translate-y-0 group-focus-within/warning:opacity-100 group-focus-within/warning:translate-y-0 transition-all duration-150 z-30 text-left"
+                    >
+                      <div class="flex items-start gap-2.5">
+                        <svg
+                          class="w-4 h-4 shrink-0 text-amber-400 mt-0.5"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          aria-hidden="true"
+                        >
+                          <path d="M12 9v4"></path>
+                          <path d="M12 17h.01"></path>
+                          <path
+                            d="M5.07 19H19a2 2 0 0 0 1.75 -2.96L13.75 4a2 2 0 0 0 -3.5 0L3.32 16.04a2 2 0 0 0 1.75 2.96z"
+                          ></path>
+                        </svg>
+                        <div class="flex-1 space-y-1">
+                          <p
+                            class="font-heading font-bold text-xs text-white leading-tight m-0"
+                            data-en="Webcam & Upload Notice"
+                            data-id="Pemberitahuan Kamera & Unggahan"
+                          >
+                            Webcam &amp; Upload Notice
+                          </p>
+                          <p
+                            class="font-sans text-[11px] text-neutral-300 leading-relaxed m-0"
+                            data-en="The demo asks for webcam access for live photo capture and asks for consent before optionally uploading snapshots to the public demo gallery."
+                            data-id="Demo akan meminta akses webcam untuk foto langsung dan meminta persetujuan sebelum mengunggah foto ke galeri demo publik secara opsional."
+                          >
+                            The demo asks for webcam access for live photo
+                            capture and asks for consent before optionally
+                            uploading snapshots to the public demo gallery.
+                          </p>
+                        </div>
+                      </div>
+                      <!-- Popover Arrow Pointer -->
+                      <div
+                        class="absolute -bottom-1 right-6 w-2 h-2 bg-neutral-950 dark:bg-neutral-900 border-r border-b border-neutral-800 dark:border-neutral-700 rotate-45"
+                        aria-hidden="true"
+                      >
+                      </div>
+                    </div>
+                  </div>
+
+                  <HoverExpandButton
+                    href="https://navoyovan.github.io/photobooth-kiosk-demo/"
+                    label="LAUNCH DEMO"
+                    labelEn="LAUNCH DEMO"
+                    labelId="BUKA DEMO"
+                    size="micro"
+                    variant="solid"
+                    expandDirection="left"
+                    rotateIcon={false}
+                    ariaLabel="Launch Kiosk Demo (opens in new tab)"
+                    data-aria-en="Launch Kiosk Demo (opens in new tab)"
+                    data-aria-id="Buka Demo Kiosk (buka di tab baru)"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="shrink-0 z-10"
                   >
-                    <line x1="7" y1="17" x2="17" y2="7"></line>
-                    <polyline points="7 7 17 7 17 17"></polyline>
-                  </svg>
-                </HoverExpandButton>
+                    <svg
+                      slot="icon"
+                      class="w-3.5 h-3.5"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                    >
+                      <line x1="7" y1="17" x2="17" y2="7"></line>
+                      <polyline points="7 7 17 7 17 17"></polyline>
+                    </svg>
+                  </HoverExpandButton>
+                </div>
               </div>
             </div>
 
@@ -964,14 +1057,13 @@ const capabilities = [
               <ProjectTile
                 title="Component Library"
                 category="DESIGN SYSTEM"
-                description="Design system, typography specimens, color tokens, and interactive UI primitives architected for Portfolio v5."
+                description="Design system, typography specimens, color tokens, and interactive UI primitives architected for this Portfolio."
                 descriptionId="Design system, spesimen tipografi, token warna, dan komponen UI interaktif yang dirancang untuk Portfolio v5."
-                status="LIVE_DOCS"
-                statusVariant="accent"
                 tags={["Astro v5", "Tailwind v4", "UI Tokens", "Components"]}
                 metaText="component-library"
                 actionText="EXPLORE SYSTEM"
                 href={`${base}/component-library`}
+                videoSrc={`${base}/images/component-library.webm`}
               />
             </div>
             <div class="w-[280px] sm:w-auto shrink-0 sm:shrink flex flex-col">
@@ -1208,7 +1300,7 @@ const capabilities = [
                   </h3>
                   <p
                     data-en="Loading states, feedback, transitions, edge cases, awkward workflows; the little things are often what separate something that technically works from something that actually feels good to use."
-                    data-id="Loading state, feedback, transisi, penanganan error, alur yang canggung; hal-hal kecil inilah yang membedakan software yang sekadar &quot;bisa jalan&quot; dengan software yang beneran enak dipakai."
+                    data-id='Loading state, feedback, transisi, penanganan error, alur yang canggung; hal-hal kecil inilah yang membedakan software yang sekadar "bisa jalan" dengan software yang beneran enak dipakai.'
                     class="text-sm sm:text-base text-neutral-600 dark:text-neutral-400 leading-relaxed"
                   >
                     Loading states, feedback, transitions, edge cases, awkward
@@ -1296,7 +1388,9 @@ const capabilities = [
                 // You can find these labels throughout the page, some are
                 interactable and would show some of my secret cool projects.
               </p>
-              <div class="flex items-center gap-1.5 pt-1 text-neutral-400/40 dark:text-neutral-600/50">
+              <div
+                class="flex items-center gap-1.5 pt-1 text-neutral-400/40 dark:text-neutral-600/50"
+              >
                 <span
                   data-en="Try clicking this label"
                   data-id="Coba klik label ini"
@@ -1446,7 +1540,9 @@ const capabilities = [
                 data-aria-id="Kirim email ke Yovan"
                 class="w-full sm:w-auto max-sm:!py-[11px]"
               >
-                <span data-en="Send an Email ↗" data-id="Kirim Email ↗">Send an Email ↗</span>
+                <span data-en="Send an Email ↗" data-id="Kirim Email ↗"
+                  >Send an Email ↗</span
+                >
               </ActionButton>
               <ActionButton
                 variant="secondary"
@@ -1472,7 +1568,8 @@ const capabilities = [
                 data-aria-id="Profil LinkedIn (buka di tab baru)"
                 class="w-full sm:w-auto max-sm:!py-[11px]"
               >
-                <span data-en="LinkedIn ↗" data-id="LinkedIn ↗">LinkedIn ↗</span>
+                <span data-en="LinkedIn ↗" data-id="LinkedIn ↗">LinkedIn ↗</span
+                >
               </ActionButton>
             </div>
           </div>

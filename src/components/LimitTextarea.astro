@@ -1,6 +1,6 @@
 ---
 // LimitTextarea.astro - Soft-Limit Textarea with Real-time Overflow Highlighter
-// Ported and normalized from Kiosk Electron Playground for Portfolio v5
+// Ported and normalized from Kiosk Electron Playground for this Portfolio
 interface Props {
   id?: string;
   name?: string;
@@ -18,27 +18,27 @@ interface Props {
 const {
   id = `lta-${Math.random().toString(36).substring(2, 9)}`,
   name,
-  value = '',
+  value = "",
   label,
-  placeholder = 'Inscribe textum...',
+  placeholder = "Inscribe textum...",
   maxLength = 40,
   disabled = false,
   tips,
   rows = 4,
-  class: className = '',
+  class: className = "",
   ...rest
 } = Astro.props;
 
 const charCount = value.length;
-let initialStatus = 'neutral';
-let initialStatusText = 'BREVE SIT';
+let initialStatus = "neutral";
+let initialStatusText = "BREVE SIT";
 
 if (charCount > maxLength) {
-  initialStatus = 'danger';
-  initialStatusText = 'EXTRA LIMITEM';
+  initialStatus = "danger";
+  initialStatusText = "EXTRA LIMITEM";
 } else if (charCount > maxLength * 0.65) {
-  initialStatus = 'warning';
-  initialStatusText = 'PROPE PLENUM';
+  initialStatus = "warning";
+  initialStatusText = "PROPE PLENUM";
 }
 
 const safeText = value.slice(0, maxLength);
@@ -47,21 +47,33 @@ const excessText = value.slice(maxLength);
 
 <div class:list={["limit-ta-wrapper", className]} data-max-length={maxLength}>
   <div class="limit-ta-label-row">
-    {label && (
-      <label for={id} class="limit-ta-label">
-        {label}
-      </label>
-    )}
+    {
+      label && (
+        <label for={id} class="limit-ta-label">
+          {label}
+        </label>
+      )
+    }
     <span class:list={["limit-ta-indicator", `status-${initialStatus}`]}>
-      <span class="indicator-status-text">{initialStatusText}</span> | <span class="indicator-count">{charCount}</span>/{maxLength}
+      <span class="indicator-status-text">{initialStatusText}</span> | <span
+        class="indicator-count">{charCount}</span
+      >/{maxLength}
     </span>
   </div>
 
   {tips && <div class="limit-ta-tips">{tips}</div>}
 
   <div class="limit-ta-slot">
-    <div class:list={["limit-ta-container", disabled ? "limit-ta--disabled" : ""]}>
-      <div class="limit-ta-backdrop" aria-hidden="true">{safeText}{excessText && <span class="textarea-excess-highlight">{excessText}</span>}</div>
+    <div
+      class:list={["limit-ta-container", disabled ? "limit-ta--disabled" : ""]}
+    >
+      <div class="limit-ta-backdrop" aria-hidden="true">
+        {safeText}{
+          excessText && (
+            <span class="textarea-excess-highlight">{excessText}</span>
+          )
+        }
+      </div>
       <textarea
         id={id}
         name={name}
@@ -69,8 +81,8 @@ const excessText = value.slice(maxLength);
         placeholder={placeholder}
         disabled={disabled ? true : undefined}
         rows={rows}
-        {...rest}
-      >{value}</textarea>
+        {...rest}>{value}</textarea
+      >
     </div>
   </div>
 </div>
@@ -94,7 +106,7 @@ const excessText = value.slice(maxLength);
   }
 
   .limit-ta-label {
-    font-family: 'Syne', sans-serif;
+    font-family: "Syne", sans-serif;
     font-size: 0.8rem;
     font-weight: 700;
     text-transform: uppercase;
@@ -109,7 +121,7 @@ const excessText = value.slice(maxLength);
 
   /* ── Indicator ────────────────────────────────────────────── */
   .limit-ta-indicator {
-    font-family: 'Outfit', sans-serif;
+    font-family: "Outfit", sans-serif;
     font-size: 0.75rem;
     font-weight: 700;
     text-transform: uppercase;
@@ -135,7 +147,7 @@ const excessText = value.slice(maxLength);
 
   /* ── Helper Tips ──────────────────────────────────── */
   .limit-ta-tips {
-    font-family: 'Outfit', sans-serif;
+    font-family: "Outfit", sans-serif;
     font-size: 0.8125rem;
     font-weight: 400;
     color: var(--text-muted, #6b7280);
@@ -170,10 +182,11 @@ const excessText = value.slice(maxLength);
     background: #ffffff;
     border: 1px solid #e5e7eb;
     border-radius: 0;
-    transition: height 0.26s cubic-bezier(0.16, 1, 0.3, 1),
-                border-color 0.2s cubic-bezier(0.4, 0, 0.2, 1),
-                box-shadow 0.26s cubic-bezier(0.16, 1, 0.3, 1),
-                background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    transition:
+      height 0.26s cubic-bezier(0.16, 1, 0.3, 1),
+      border-color 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+      box-shadow 0.26s cubic-bezier(0.16, 1, 0.3, 1),
+      background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     box-sizing: border-box;
     overflow: hidden;
   }
@@ -188,15 +201,19 @@ const excessText = value.slice(maxLength);
     height: var(--expanded-h, 140px);
     min-height: 140px;
     max-height: 380px;
-    border-color: var(--color-accent, #52FF1A);
-    box-shadow: 0 16px 36px -4px rgba(0, 0, 0, 0.16),
-                0 0 0 4px color-mix(in srgb, var(--color-accent, #52FF1A) 15%, transparent);
+    border-color: var(--color-accent, #52ff1a);
+    box-shadow:
+      0 16px 36px -4px rgba(0, 0, 0, 0.16),
+      0 0 0 4px
+        color-mix(in srgb, var(--color-accent, #52ff1a) 15%, transparent);
   }
 
   :global(.dark) .limit-ta-container:focus-within {
-    border-color: var(--color-accent, #52FF1A);
-    box-shadow: 0 20px 42px -4px rgba(0, 0, 0, 0.65),
-                0 0 0 3px color-mix(in srgb, var(--color-accent, #52FF1A) 15%, transparent);
+    border-color: var(--color-accent, #52ff1a);
+    box-shadow:
+      0 20px 42px -4px rgba(0, 0, 0, 0.65),
+      0 0 0 3px
+        color-mix(in srgb, var(--color-accent, #52ff1a) 15%, transparent);
   }
 
   .limit-ta--disabled {
@@ -219,7 +236,7 @@ const excessText = value.slice(maxLength);
     width: 100%;
     height: 100%;
     padding: 0.75rem 1rem;
-    font-family: 'Outfit', sans-serif;
+    font-family: "Outfit", sans-serif;
     font-size: 1rem;
     font-weight: 500;
     line-height: 1.5;
@@ -276,7 +293,11 @@ const excessText = value.slice(maxLength);
 
   /* ── Excess Text Highlight ────────────────────────────────── */
   .textarea-excess-highlight {
-    background-color: color-mix(in srgb, var(--color-danger, #EF4444) 15%, transparent);
+    background-color: color-mix(
+      in srgb,
+      var(--color-danger, #ef4444) 15%,
+      transparent
+    );
     color: var(--color-danger, #ef4444);
     border-bottom: 2px dashed var(--color-danger, #ef4444);
     padding: 1px 0;
@@ -284,7 +305,11 @@ const excessText = value.slice(maxLength);
   }
 
   :global(.dark) .textarea-excess-highlight {
-    background-color: color-mix(in srgb, var(--color-danger, #EF4444) 28%, transparent);
+    background-color: color-mix(
+      in srgb,
+      var(--color-danger, #ef4444) 28%,
+      transparent
+    );
     color: var(--color-danger, #ef4444);
     border-bottom-color: var(--color-danger, #ef4444);
   }
@@ -292,98 +317,123 @@ const excessText = value.slice(maxLength);
 
 <script>
   function setupLimitTextareas() {
-    document.querySelectorAll<HTMLElement>('.limit-ta-wrapper').forEach((wrapper) => {
-      if (wrapper.dataset.initialized) return;
-      wrapper.dataset.initialized = 'true';
+    document
+      .querySelectorAll<HTMLElement>(".limit-ta-wrapper")
+      .forEach((wrapper) => {
+        if (wrapper.dataset.initialized) return;
+        wrapper.dataset.initialized = "true";
 
-      const maxLen = parseInt(wrapper.dataset.maxLength || '40', 10);
-      const container = wrapper.querySelector<HTMLElement>('.limit-ta-container');
-      const input = wrapper.querySelector<HTMLTextAreaElement>('.limit-ta-input');
-      const backdrop = wrapper.querySelector<HTMLElement>('.limit-ta-backdrop');
-      const indicator = wrapper.querySelector<HTMLElement>('.limit-ta-indicator');
-      const countEl = wrapper.querySelector<HTMLElement>('.indicator-count');
-      const statusTextEl = wrapper.querySelector<HTMLElement>('.indicator-status-text');
+        const maxLen = parseInt(wrapper.dataset.maxLength || "40", 10);
+        const container = wrapper.querySelector<HTMLElement>(
+          ".limit-ta-container",
+        );
+        const input =
+          wrapper.querySelector<HTMLTextAreaElement>(".limit-ta-input");
+        const backdrop =
+          wrapper.querySelector<HTMLElement>(".limit-ta-backdrop");
+        const indicator = wrapper.querySelector<HTMLElement>(
+          ".limit-ta-indicator",
+        );
+        const countEl = wrapper.querySelector<HTMLElement>(".indicator-count");
+        const statusTextEl = wrapper.querySelector<HTMLElement>(
+          ".indicator-status-text",
+        );
 
-      if (!input || !backdrop || !indicator || !countEl || !statusTextEl || !container) return;
-
-      const BASE_EXPANDED_H = 140;
-      const MAX_EXPANDED_H = 340;
-
-      const updateHeight = () => {
-        if (!wrapper.matches(':focus-within')) {
-          container.style.removeProperty('--expanded-h');
+        if (
+          !input ||
+          !backdrop ||
+          !indicator ||
+          !countEl ||
+          !statusTextEl ||
+          !container
+        )
           return;
-        }
 
-        // Only expand beyond the 140px base if content actually fills and overflows the box
-        const scrollH = backdrop.scrollHeight;
-        if (scrollH > BASE_EXPANDED_H) {
-          const targetH = Math.min(scrollH + 16, MAX_EXPANDED_H);
-          container.style.setProperty('--expanded-h', `${targetH}px`);
-        } else {
-          container.style.removeProperty('--expanded-h');
-        }
-      };
+        const BASE_EXPANDED_H = 140;
+        const MAX_EXPANDED_H = 340;
 
-      const update = () => {
-        const val = input.value;
-        const count = val.length;
+        const updateHeight = () => {
+          if (!wrapper.matches(":focus-within")) {
+            container.style.removeProperty("--expanded-h");
+            return;
+          }
 
-        // Synchronize count
-        countEl.textContent = String(count);
+          // Only expand beyond the 140px base if content actually fills and overflows the box
+          const scrollH = backdrop.scrollHeight;
+          if (scrollH > BASE_EXPANDED_H) {
+            const targetH = Math.min(scrollH + 16, MAX_EXPANDED_H);
+            container.style.setProperty("--expanded-h", `${targetH}px`);
+          } else {
+            container.style.removeProperty("--expanded-h");
+          }
+        };
 
-        // Update status class & text
-        indicator.classList.remove('status-neutral', 'status-warning', 'status-danger');
-        if (count > maxLen) {
-          indicator.classList.add('status-danger');
-          statusTextEl.textContent = 'EXTRA LIMITEM';
-        } else if (count > maxLen * 0.65) {
-          indicator.classList.add('status-warning');
-          statusTextEl.textContent = 'PROPE PLENUM';
-        } else {
-          indicator.classList.add('status-neutral');
-          statusTextEl.textContent = 'BREVE SIT';
-        }
+        const update = () => {
+          const val = input.value;
+          const count = val.length;
 
-        // Render highlighted backdrop text
-        const safe = val.slice(0, maxLen);
-        const excess = val.slice(maxLen);
+          // Synchronize count
+          countEl.textContent = String(count);
 
-        // Safely escape HTML characters in backdrop
-        const escapeHtml = (str: string) =>
-          str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+          // Update status class & text
+          indicator.classList.remove(
+            "status-neutral",
+            "status-warning",
+            "status-danger",
+          );
+          if (count > maxLen) {
+            indicator.classList.add("status-danger");
+            statusTextEl.textContent = "EXTRA LIMITEM";
+          } else if (count > maxLen * 0.65) {
+            indicator.classList.add("status-warning");
+            statusTextEl.textContent = "PROPE PLENUM";
+          } else {
+            indicator.classList.add("status-neutral");
+            statusTextEl.textContent = "BREVE SIT";
+          }
 
-        if (excess) {
-          backdrop.innerHTML = `${escapeHtml(safe)}<span class="textarea-excess-highlight">${escapeHtml(excess)}</span>`;
-        } else {
-          backdrop.textContent = safe;
-        }
+          // Render highlighted backdrop text
+          const safe = val.slice(0, maxLen);
+          const excess = val.slice(maxLen);
 
-        // Sync scroll & dynamic height
-        backdrop.scrollTop = input.scrollTop;
-        updateHeight();
-      };
+          // Safely escape HTML characters in backdrop
+          const escapeHtml = (str: string) =>
+            str
+              .replace(/&/g, "&amp;")
+              .replace(/</g, "&lt;")
+              .replace(/>/g, "&gt;");
 
-      input.addEventListener('input', update);
-      input.addEventListener('scroll', () => {
-        backdrop.scrollTop = input.scrollTop;
+          if (excess) {
+            backdrop.innerHTML = `${escapeHtml(safe)}<span class="textarea-excess-highlight">${escapeHtml(excess)}</span>`;
+          } else {
+            backdrop.textContent = safe;
+          }
+
+          // Sync scroll & dynamic height
+          backdrop.scrollTop = input.scrollTop;
+          updateHeight();
+        };
+
+        input.addEventListener("input", update);
+        input.addEventListener("scroll", () => {
+          backdrop.scrollTop = input.scrollTop;
+        });
+
+        input.addEventListener("focus", () => {
+          setTimeout(updateHeight, 20);
+        });
+
+        input.addEventListener("blur", () => {
+          container.style.removeProperty("--expanded-h");
+        });
+
+        // Initial run
+        update();
       });
-
-      input.addEventListener('focus', () => {
-        setTimeout(updateHeight, 20);
-      });
-
-      input.addEventListener('blur', () => {
-        container.style.removeProperty('--expanded-h');
-      });
-
-      // Initial run
-      update();
-    });
   }
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', setupLimitTextareas);
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", setupLimitTextareas);
   } else {
     setupLimitTextareas();
   }
