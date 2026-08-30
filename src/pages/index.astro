@@ -58,7 +58,7 @@ const supportingStack = [
 
 const capabilities = [
   {
-    number: "01",
+    icon: "ti-browser",
     title: "Landing Pages & Websites",
     titleId: "Landing Page & Website",
     description:
@@ -68,7 +68,7 @@ const capabilities = [
     tags: ["Astro", "Tailwind", "SEO", "Accessibility (a11y)", "Responsive UI"],
   },
   {
-    number: "02",
+    icon: "ti-apps",
     title: "Web Applications",
     titleId: "Aplikasi Web",
     description:
@@ -78,7 +78,7 @@ const capabilities = [
     tags: ["React / Vue", "Full-Stack", "Auth & RBAC", "REST APIs"],
   },
   {
-    number: "03",
+    icon: "ti-hand-click",
     title: "Interfaces & User Experience",
     titleId: "Antarmuka & Pengalaman Pengguna",
     description:
@@ -93,7 +93,7 @@ const capabilities = [
     ],
   },
   {
-    number: "04",
+    icon: "ti-plug-connected",
     title: "Connected Systems",
     titleId: "Sistem Terintegrasi",
     description:
@@ -141,7 +141,7 @@ const capabilities = [
       <section
         id="intro"
         aria-labelledby="heading-intro"
-        class="pt-16 space-y-8"
+        class="scroll-mt-24 pt-16 space-y-8"
       >
         <div
           class="flex items-center justify-between pb-2 border-b border-neutral-200 dark:border-neutral-800"
@@ -363,7 +363,7 @@ const capabilities = [
       <section
         id="projects"
         aria-labelledby="heading-projects"
-        class="pt-16 space-y-10"
+        class="scroll-mt-24 pt-16 space-y-10"
       >
         <div
           class="flex items-center justify-between pb-2 border-b border-neutral-200 dark:border-neutral-800"
@@ -413,7 +413,7 @@ const capabilities = [
         <!-- Featured Spotlight: Hypebox Pipeline & Connected Ecosystem -->
         <article
           aria-labelledby="heading-hypebox"
-          class="border border-neutral-300/80 dark:border-neutral-800 bg-[#f6f4ee] dark:bg-[#141414] p-6 sm:p-8 space-y-8"
+          class="border-[1.5px] border-dashed border-neutral-300 dark:border-neutral-700 bg-transparent p-6 sm:p-8 space-y-8"
         >
           <!-- Hypebox Header & Actions -->
           <div
@@ -509,7 +509,7 @@ const capabilities = [
           >
             <!-- STAGE 01: Initiation & Payment -->
             <div
-              class="w-[280px] sm:w-[320px] lg:w-auto shrink-0 lg:shrink flex flex-col justify-between p-4 sm:p-5 bg-white/90 dark:bg-neutral-900/60 border border-neutral-300/80 dark:border-neutral-800 transition-all duration-200 hover:border-neutral-400 dark:hover:border-neutral-600 shadow-sm relative group"
+              class="w-[280px] sm:w-[320px] lg:w-auto shrink-0 lg:shrink flex flex-col justify-between p-4 sm:p-5 bg-[#f6f4ee] dark:bg-[#141414] border border-neutral-300/80 dark:border-neutral-800 transition-all duration-200 hover:border-neutral-400 dark:hover:border-neutral-600 shadow-sm relative group"
             >
               <div class="flex flex-col flex-1 gap-3">
                 <p
@@ -571,7 +571,7 @@ const capabilities = [
 
             <!-- STAGE 02: Real-time Capture -->
             <div
-              class="w-[280px] sm:w-[320px] lg:w-auto shrink-0 lg:shrink flex flex-col justify-between p-4 sm:p-5 bg-white/90 dark:bg-neutral-900/60 border border-neutral-300/80 dark:border-neutral-800 transition-all duration-200 hover:border-neutral-400 dark:hover:border-neutral-600 shadow-sm relative group"
+              class="w-[280px] sm:w-[320px] lg:w-auto shrink-0 lg:shrink flex flex-col justify-between p-4 sm:p-5 bg-[#f6f4ee] dark:bg-[#141414] border border-neutral-300/80 dark:border-neutral-800 transition-all duration-200 hover:border-neutral-400 dark:hover:border-neutral-600 shadow-sm relative group"
             >
               <div class="flex flex-col flex-1 gap-3">
                 <p
@@ -633,7 +633,7 @@ const capabilities = [
 
             <!-- STAGE 03: Cloud Sync & WebSockets -->
             <div
-              class="w-[280px] sm:w-[320px] lg:w-auto shrink-0 lg:shrink flex flex-col justify-between p-4 sm:p-5 bg-white/90 dark:bg-neutral-900/60 border border-neutral-300/80 dark:border-neutral-800 transition-all duration-200 hover:border-neutral-400 dark:hover:border-neutral-600 shadow-sm relative group"
+              class="w-[280px] sm:w-[320px] lg:w-auto shrink-0 lg:shrink flex flex-col justify-between p-4 sm:p-5 bg-[#f6f4ee] dark:bg-[#141414] border border-neutral-300/80 dark:border-neutral-800 transition-all duration-200 hover:border-neutral-400 dark:hover:border-neutral-600 shadow-sm relative group"
             >
               <div class="flex flex-col flex-1 gap-3">
                 <p
@@ -695,9 +695,9 @@ const capabilities = [
             </div>
 
             <!-- STAGE 04: Hardware Print & Fleet -->
-            <!-- <div
-              class="w-[280px] sm:w-[320px] lg:w-auto shrink-0 lg:shrink flex flex-col justify-between p-4 sm:p-5 bg-white/90 dark:bg-neutral-900/60 border border-neutral-300/80 dark:border-neutral-800 transition-all duration-200 hover:border-neutral-400 dark:hover:border-neutral-600 shadow-sm relative group"
-             >
+            <div
+              class="w-[280px] sm:w-[320px] lg:w-auto shrink-0 lg:shrink flex flex-col justify-between p-4 sm:p-5 bg-[#f6f4ee] dark:bg-[#141414] border border-neutral-300/80 dark:border-neutral-800 transition-all duration-200 hover:border-neutral-400 dark:hover:border-neutral-600 shadow-sm relative group"
+            >
               <div class="flex flex-col flex-1 gap-3">
                 <p
                   class="font-sans text-[11px] uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-semibold m-0"
@@ -753,7 +753,7 @@ const capabilities = [
                   </li>
                 </ul>
               </div>
-            </div> -->
+            </div>
           </div>
 
           <!-- Dual Visual Specimen Viewports: Kiosk Client & Vendor Portal -->
@@ -762,7 +762,7 @@ const capabilities = [
           >
             <!-- Specimen 1: Kiosk Touchscreen -->
             <div
-              class="group relative border border-neutral-300/80 dark:border-neutral-800 bg-white/60 dark:bg-neutral-900/40 flex flex-col justify-between overflow-hidden shadow-sm transition-all duration-200 hover:border-neutral-400 dark:hover:border-neutral-600"
+              class="group relative border border-neutral-300/80 dark:border-neutral-800 bg-[#f6f4ee] dark:bg-[#141414] flex flex-col justify-between overflow-hidden shadow-sm transition-all duration-200 hover:border-neutral-400 dark:hover:border-neutral-600"
             >
               <div class="p-4 sm:p-5 flex flex-col flex-1 gap-3">
                 <p
@@ -946,7 +946,7 @@ const capabilities = [
 
             <!-- Specimen 2: Vendor Portal & Cloud Telemetry -->
             <div
-              class="group relative border border-neutral-300/80 dark:border-neutral-800 bg-white/60 dark:bg-neutral-900/40 flex flex-col justify-between overflow-hidden shadow-sm transition-all duration-200 hover:border-neutral-400 dark:hover:border-neutral-600"
+              class="group relative border border-neutral-300/80 dark:border-neutral-800 bg-[#f6f4ee] dark:bg-[#141414] flex flex-col justify-between overflow-hidden shadow-sm transition-all duration-200 hover:border-neutral-400 dark:hover:border-neutral-600"
             >
               <div class="p-4 sm:p-5 flex flex-col flex-1 gap-3">
                 <p
@@ -1068,7 +1068,7 @@ const capabilities = [
             </div>
             <div class="w-[280px] sm:w-auto shrink-0 sm:shrink flex flex-col">
               <ProjectTile
-                title="Interactive Map Engine"
+                title="Interactive Map "
                 category="GIS & SPATIAL"
                 description="Geospatial visualization and tracking platform with custom boundary polygons and telemetry."
                 descriptionId="Platform visualisasi dan pelacakan geospasial dengan poligon batas wilayah kustom dan telemetri."
@@ -1088,7 +1088,7 @@ const capabilities = [
       <section
         id="capabilities"
         aria-labelledby="heading-capabilities"
-        class="pt-16 space-y-8"
+        class="scroll-mt-24 pt-16 space-y-8"
       >
         <div
           class="flex items-center justify-between pb-2 border-b border-neutral-200 dark:border-neutral-800"
@@ -1117,12 +1117,12 @@ const capabilities = [
               <div class="group relative p-6 sm:p-7 border border-neutral-300/80 dark:border-neutral-800 bg-[#f6f4ee] dark:bg-[#141414] transition-all duration-200 hover:border-neutral-400 dark:hover:border-neutral-600">
                 <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 lg:gap-8">
                   <div class="flex items-start gap-4 sm:gap-6 flex-1">
-                    <span
-                      class="text-xs sm:text-sm font-sans font-bold text-neutral-400 dark:text-neutral-500 group-hover:text-[var(--color-accent,#52FF1A)] transition-colors pt-0.5 shrink-0"
+                    <div
+                      class="text-xl sm:text-2xl text-neutral-400 dark:text-neutral-500 group-hover:text-[var(--color-accent,#52FF1A)] transition-colors pt-0.5 shrink-0 flex items-center justify-center"
                       aria-hidden="true"
                     >
-                      {item.number}
-                    </span>
+                      <i class={`ti ${item.icon}`}></i>
+                    </div>
                     <div class="space-y-1.5 flex-1">
                       <h3
                         data-en={item.title}
@@ -1164,7 +1164,7 @@ const capabilities = [
       <section
         id="philosophy"
         aria-labelledby="heading-philosophy"
-        class="pt-16 space-y-8"
+        class="scroll-mt-24 pt-16 space-y-8"
       >
         <div
           class="flex items-center justify-between pb-2 border-b border-neutral-200 dark:border-neutral-800"
@@ -1353,7 +1353,7 @@ const capabilities = [
       <section
         id="about"
         aria-labelledby="heading-about"
-        class="pt-16 space-y-8"
+        class="scroll-mt-24 pt-16 space-y-8"
       >
         <div
           class="flex items-center justify-between pb-2 border-b border-neutral-200 dark:border-neutral-800"
@@ -1457,28 +1457,28 @@ const capabilities = [
 
             <!-- Mobile Easter Egg inline fallback & hint -->
             <div
-              class="block lg:hidden pt-4 space-y-1.5 font-mono text-[10px] text-neutral-400/50 dark:text-neutral-600/60 italic select-none"
+              class="block lg:hidden !mt-3 -mb-12 space-y-1 font-mono text-[9px] sm:text-[10px] text-neutral-400/45 dark:text-neutral-600/50 italic select-none"
             >
               <p
                 data-en="// You can find these labels throughout the page, some are interactable and would show some of my secret cool projects."
                 data-id="// Label-label seperti ini tersebar di seluruh halaman, beberapa bisa diklik buat liat proyek rahasia yang seru."
-                class="m-0 leading-relaxed"
+                class="m-0 leading-relaxed max-w-[95%]"
               >
                 // You can find these labels throughout the page, some are
                 interactable and would show some of my secret cool projects.
               </p>
-              <p
-                data-en="Try tapping this label ↓"
-                data-id="Coba sentuh label ini ↓"
-                class="m-0 leading-relaxed text-neutral-400/40 dark:text-neutral-600/50"
-              >
-                Try tapping this label ↓
-              </p>
-              <div class="pt-0.5">
+              <div class="flex flex-wrap items-center gap-1.5 pt-1">
+                <span
+                  data-en="Try tapping this label &rarr;"
+                  data-id="Coba sentuh label ini &rarr;"
+                  class="m-0 leading-relaxed text-neutral-400/40 dark:text-neutral-600/50"
+                >
+                  Try tapping this label &rarr;
+                </span>
                 <button
                   type="button"
                   data-easter="modpe"
-                  class="font-mono text-[10px] text-neutral-600 dark:text-neutral-300 opacity-[0.08] hover:opacity-75 hover:underline underline-offset-4 cursor-pointer select-none transition-[opacity,text-decoration] duration-200 text-left p-0 bg-transparent border-0 inline-block not-italic focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent,#52FF1A)] rounded"
+                  class="font-mono text-[10px] text-neutral-600 dark:text-neutral-300 opacity-[0.12] hover:opacity-75 hover:underline underline-offset-4 cursor-pointer select-none transition-[opacity,text-decoration] duration-200 text-left p-0 bg-transparent border-0 inline-block not-italic focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent,#52FF1A)] rounded"
                   aria-label="Unlock ModPE Scripting Easter Egg"
                   data-aria-en="Unlock ModPE Scripting Easter Egg"
                   data-aria-id="Buka Easter Egg Skrip ModPE"
@@ -1495,7 +1495,7 @@ const capabilities = [
       <section
         id="contact"
         aria-labelledby="heading-contact"
-        class="pt-16 space-y-8"
+        class="scroll-mt-24 pt-16 space-y-8"
       >
         <div
           class="flex items-center justify-between pb-2 border-b border-neutral-200 dark:border-neutral-800"

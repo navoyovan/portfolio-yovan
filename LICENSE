@@ -17,18 +17,18 @@ You are free to:
 * **Adapt** — remix, transform, and build upon the material for any purpose, even commercially.
 
 ### Attribution Requirements
-Under the following terms:
-* **Attribution** — You must give appropriate credit, provide a link to the original creator/portfolio, and indicate if changes were made. You may do so in any reasonable manner, but not in any way that suggests the licensor endorses you or your use.
+Free to use and adapt for personal and commercial projects with credit to Yovan.
+A backlink attribution is preferred but not required for private client work, internal company projects, or cases where attribution conflicts with business requirements.
 
-#### Required Attribution Snippet
-When using these components in your projects or website, include the following credit in your footer, documentation, or project README:
+#### Optional Attribution Snippet
+When attribution is appropriate for your project, you may include the following credit in your footer, documentation, or project README:
 
 ```html
 <!-- Web Footer / Page Attribution -->
-<span>UI Components by <a href="https://navoyovan.github.io/portfolio-yovan" target="_blank" rel="noopener noreferrer">Yovan Gunardio Darmawan</a></span>
+<span>UI Components by <a href="https://navoyovan.github.io/portfolio-yovan" target="_blank" rel="noopener noreferrer">Yovan</a></span>
 ```
 
 Markdown format (for READMEs):
 ```markdown
-UI Components by [Yovan Gunardio Darmawan](https://navoyovan.github.io/portfolio-yovan) (Licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)).
+UI Components by [Yovan](https://navoyovan.github.io/portfolio-yovan) (Licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)).
 ```

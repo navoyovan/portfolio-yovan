@@ -58,12 +58,13 @@ export default defineConfig({
 
 ## Component Library & Licensing
 
-The UI primitives in `src/components/` and showcased in the [Component Library](https://navoyovan.github.io/portfolio-yovan/component-library) are licensed under **Creative Commons Attribution 4.0 International ([CC BY 4.0](https://creativecommons.org/licenses/by/4.0/))**.
+The UI primitives in `src/components/` and showcased in the [Component Library](https://navoyovan.github.io/portfolio-yovan/component-library) are licensed under **CC BY 4.0 / Creative Commons Attribution**.
 
-You are free to use, adapt, and remix these components in personal or commercial projects. In return, please include an attribution backlink:
+Free to use and adapt for personal and commercial projects with credit to Yovan.
+A backlink attribution is preferred but not required for private client work, internal company projects, or cases where attribution conflicts with business requirements.
 
 ```html
-<span>UI Components by <a href="https://navoyovan.github.io/portfolio-yovan" target="_blank" rel="noopener noreferrer">Yovan Gunardio Darmawan</a></span>
+<span>UI Components by <a href="https://navoyovan.github.io/portfolio-yovan" target="_blank" rel="noopener noreferrer">Yovan</a></span>
 ```
 
 ---
