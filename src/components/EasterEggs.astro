@@ -17,6 +17,7 @@ const base = rawBase.endsWith("/") ? rawBase.slice(0, -1) : rawBase;
   id="egg-popup-clock"
   role="dialog"
   aria-modal="true"
+  aria-hidden="true"
   aria-labelledby="egg-clock-title"
   class="egg-popup-modal popup-hidden fixed bottom-4 inset-x-0 mx-auto sm:inset-x-auto sm:right-6 sm:mx-0 sm:bottom-6 z-50 w-[92vw] max-w-[390px] sm:max-w-[420px] flex flex-col font-sans"
 >
@@ -128,6 +129,7 @@ const base = rawBase.endsWith("/") ? rawBase.slice(0, -1) : rawBase;
   id="egg-popup-modpe"
   role="dialog"
   aria-modal="true"
+  aria-hidden="true"
   aria-labelledby="egg-modpe-title"
   class="egg-popup-modal popup-hidden fixed bottom-4 inset-x-0 mx-auto sm:inset-x-auto sm:right-6 sm:mx-0 sm:bottom-6 z-50 w-[92vw] max-w-[340px] sm:max-w-[370px] flex flex-col font-sans"
 >
@@ -239,6 +241,7 @@ const base = rawBase.endsWith("/") ? rawBase.slice(0, -1) : rawBase;
   id="egg-popup-ws2812b"
   role="dialog"
   aria-modal="true"
+  aria-hidden="true"
   aria-labelledby="egg-ws2812b-title"
   class="egg-popup-modal popup-hidden fixed bottom-4 inset-x-0 mx-auto sm:inset-x-auto sm:right-6 sm:mx-0 sm:bottom-6 z-50 w-[92vw] max-w-[340px] sm:max-w-[370px] flex flex-col font-sans"
 >
@@ -355,7 +358,10 @@ const base = rawBase.endsWith("/") ? rawBase.slice(0, -1) : rawBase;
 </div>
 
 <!-- ░░ EASTER EGGS - Scattered Background Labels & Interactive Triggers ░░ -->
-<div class="absolute inset-0 pointer-events-none overflow-hidden z-20">
+<div
+  aria-hidden="true"
+  class="absolute inset-0 pointer-events-none overflow-hidden z-20"
+>
   <!-- 01: setTimeout(showTime, 1000); (Hero Top Left) -->
   <span
     class="egg-static absolute font-mono text-xs text-neutral-600 dark:text-neutral-300 select-none rotate-[-5deg]"
@@ -574,6 +580,7 @@ const base = rawBase.endsWith("/") ? rawBase.slice(0, -1) : rawBase;
         el.style.transition = "";
         el.classList.remove("popup-visible");
         el.classList.add("popup-hidden");
+        el.setAttribute("aria-hidden", "true");
       });
       document.querySelectorAll(".egg-popup-modal video").forEach((v) => {
         const video = v as HTMLVideoElement;
@@ -599,6 +606,7 @@ const base = rawBase.endsWith("/") ? rawBase.slice(0, -1) : rawBase;
       closeAllPopups();
       const popup = document.getElementById(id);
       if (!popup) return;
+      popup.setAttribute("aria-hidden", "false");
       const iframe = popup.querySelector(
         "iframe[data-src]",
       ) as HTMLIFrameElement | null;
