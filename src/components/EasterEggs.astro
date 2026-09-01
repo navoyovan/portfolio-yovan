@@ -1,5 +1,7 @@
 ---
 // EasterEggs.astro - Standalone Easter Egg Overlay, Popups, and Background Visual Markers
+import HoverExpandButton from './HoverExpandButton.astro';
+
 const rawBase = import.meta.env.BASE_URL;
 const base = rawBase.endsWith("/") ? rawBase.slice(0, -1) : rawBase;
 ---
@@ -18,6 +20,7 @@ const base = rawBase.endsWith("/") ? rawBase.slice(0, -1) : rawBase;
   role="dialog"
   aria-modal="true"
   aria-hidden="true"
+  inert
   aria-labelledby="egg-clock-title"
   class="egg-popup-modal popup-hidden fixed bottom-4 inset-x-0 mx-auto sm:inset-x-auto sm:right-6 sm:mx-0 sm:bottom-6 z-50 w-[92vw] max-w-[390px] sm:max-w-[420px] flex flex-col font-sans"
 >
@@ -57,7 +60,7 @@ const base = rawBase.endsWith("/") ? rawBase.slice(0, -1) : rawBase;
       <span
         class="font-sans text-[11px] uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-semibold"
       >
-        00 // EASTER EGG &bull; WEB EXPERIMENT
+        00 // COOL STUFF &bull; WEB EXPERIMENT
       </span>
 
       <!-- Title -->
@@ -130,6 +133,7 @@ const base = rawBase.endsWith("/") ? rawBase.slice(0, -1) : rawBase;
   role="dialog"
   aria-modal="true"
   aria-hidden="true"
+  inert
   aria-labelledby="egg-modpe-title"
   class="egg-popup-modal popup-hidden fixed bottom-4 inset-x-0 mx-auto sm:inset-x-auto sm:right-6 sm:mx-0 sm:bottom-6 z-50 w-[92vw] max-w-[340px] sm:max-w-[370px] flex flex-col font-sans"
 >
@@ -172,7 +176,7 @@ const base = rawBase.endsWith("/") ? rawBase.slice(0, -1) : rawBase;
       <span
         class="font-sans text-[11px] uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-semibold"
       >
-        04 // EASTER EGG
+        04 // COOL STUFF
       </span>
 
       <!-- Title -->
@@ -242,6 +246,7 @@ const base = rawBase.endsWith("/") ? rawBase.slice(0, -1) : rawBase;
   role="dialog"
   aria-modal="true"
   aria-hidden="true"
+  inert
   aria-labelledby="egg-ws2812b-title"
   class="egg-popup-modal popup-hidden fixed bottom-4 inset-x-0 mx-auto sm:inset-x-auto sm:right-6 sm:mx-0 sm:bottom-6 z-50 w-[92vw] max-w-[340px] sm:max-w-[370px] flex flex-col font-sans"
 >
@@ -284,7 +289,7 @@ const base = rawBase.endsWith("/") ? rawBase.slice(0, -1) : rawBase;
       <span
         class="font-sans text-[11px] uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-semibold"
       >
-        02 // EASTER EGG &bull; HARDWARE LAB
+        02 // COOL STUFF &bull; HARDWARE LAB
       </span>
 
       <!-- Title -->
@@ -357,6 +362,161 @@ const base = rawBase.endsWith("/") ? rawBase.slice(0, -1) : rawBase;
   </div>
 </div>
 
+<!-- 05: BRGHT Cognitive Metrics Floating Popup -->
+<div
+  id="egg-popup-brght"
+  role="dialog"
+  aria-modal="true"
+  aria-hidden="true"
+  inert
+  aria-labelledby="egg-brght-title"
+  class="egg-popup-modal popup-hidden fixed bottom-4 inset-x-0 mx-auto sm:inset-x-auto sm:right-6 sm:mx-0 sm:bottom-6 z-50 w-[92vw] max-w-[340px] sm:max-w-[370px] flex flex-col font-sans"
+>
+  <!-- Floating Dismiss Text Above Popup (Centered on mobile) -->
+  <div class="flex items-center justify-center sm:justify-end mb-1 px-1">
+    <button
+      type="button"
+      aria-label="Dismiss Cognitive Metrics popup"
+      data-aria-en="Dismiss Cognitive Metrics popup"
+      data-aria-id="Tutup pop-up Metrik Kognitif"
+      class="egg-popup-close font-mono text-xs text-red-500 hover:text-red-600 dark:text-red-400 dark:hover:text-red-300 hover:underline cursor-pointer select-none transition-colors p-0 bg-transparent border-0 flex items-center justify-center gap-1 w-full sm:w-auto text-center"
+    >
+      <span class="sm:hidden" data-en="↓ Swipe down to dismiss" data-id="↓ Usap ke bawah untuk menutup">↓ Swipe down to dismiss</span>
+      <span class="hidden sm:inline" data-en="Dismiss x [esc]" data-id="Tutup x [esc]">Dismiss x [esc]</span>
+    </button>
+  </div>
+
+  <!-- Popup Card -->
+  <div
+    class="w-full bg-[#f6f4ee] dark:bg-[#141414] border border-neutral-300/80 dark:border-neutral-800 shadow-2xl shadow-black/40 overflow-hidden flex flex-col"
+  >
+    <!-- Media / Viewfinder Container (CSS Visualizer due to X-Frame-Options) -->
+    <div
+      class="relative w-full aspect-[16/12] bg-neutral-950 overflow-hidden border-b border-neutral-300/80 dark:border-neutral-800/80 select-none flex flex-col items-center justify-center p-6 text-center"
+    >
+      <!-- Atmospheric Glow -->
+      <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(82,255,26,0.15)_0%,transparent_70%)] pointer-events-none"></div>
+      
+      <span class="relative z-10 font-mono text-[10px] sm:text-xs text-[#52FF1A] uppercase tracking-[0.2em] mb-2 opacity-80">
+        BRGHT Assessment
+      </span>
+      
+      <div class="relative z-10 font-heading font-black text-6xl sm:text-7xl text-white tracking-tighter leading-none mb-1 shadow-sm">
+        137
+      </div>
+      
+      <span class="relative z-10 font-sans text-xs sm:text-sm text-neutral-400 font-medium uppercase tracking-widest mt-1">
+        Cognitive Score
+      </span>
+
+      <div class="relative z-10 mt-6 flex items-center justify-center gap-4">
+        <div class="flex flex-col items-center">
+          <span class="font-heading font-bold text-lg text-white">99<span class="text-[10px] text-neutral-400 ml-0.5">%</span></span>
+          <span class="font-mono text-[8px] text-neutral-500 uppercase tracking-wider">Overall</span>
+        </div>
+        <div class="w-px h-6 bg-neutral-800"></div>
+        <div class="flex flex-col items-center">
+          <span class="font-heading font-bold text-lg text-[#52FF1A]">100<span class="text-[10px] text-neutral-400 ml-0.5">%</span></span>
+          <span class="font-mono text-[8px] text-[#52FF1A]/70 uppercase tracking-wider">Spatial</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Content Section (Project Tile Format) -->
+    <div class="p-4 sm:p-5 flex flex-col flex-1 gap-3">
+      <!-- Category Tag -->
+      <span
+        class="font-sans text-[11px] uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-semibold"
+      >
+        03 // COOL STUFF &bull; METRICS
+      </span>
+
+      <!-- Title -->
+      <h3
+        id="egg-brght-title"
+        class="text-lg sm:text-xl font-bold text-neutral-950 dark:text-white tracking-tight leading-tight font-heading"
+      >
+        Cognitive Metrics
+      </h3>
+
+      <!-- Description -->
+      <p
+        class="font-sans text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed font-normal"
+      >
+        Scored an IQ of 137 on the BRGHT cognitive assessment, performing in the 99th percentile globally. The test results highlighted a perfect 100% score in the Spatial Reasoning section.
+      </p>
+
+      <!-- Tags Row -->
+      <ul
+        class="flex flex-wrap gap-1.5 sm:gap-2 pt-1 list-none p-0 m-0"
+        aria-label="Tags"
+      >
+        <li>
+          <span
+            class="font-sans text-[9px] sm:text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2 sm:px-2.5 py-0.5 sm:py-1 rounded inline-block"
+          >
+            SPATIAL 100%
+          </span>
+        </li>
+        <li>
+          <span
+            class="font-sans text-[9px] sm:text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2 sm:px-2.5 py-0.5 sm:py-1 rounded inline-block"
+          >
+            NUMERICAL 99%
+          </span>
+        </li>
+        <li>
+          <span
+            class="font-sans text-[9px] sm:text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2 sm:px-2.5 py-0.5 sm:py-1 rounded inline-block"
+          >
+            LOGIC 97%
+          </span>
+        </li>
+      </ul>
+
+      <!-- Metadata Footer -->
+      <div
+        class="mt-auto pt-3 border-t border-neutral-200/80 dark:border-neutral-800/80 flex items-center justify-between gap-3 min-w-0"
+      >
+        <div class="flex-1"></div>
+        <span
+          class="font-mono text-[10px] sm:text-[11px] text-neutral-400 dark:text-neutral-500 whitespace-nowrap shrink-0"
+        >
+          AUG 15, 2025
+        </span>
+        <HoverExpandButton
+          href="https://brght.org/profile/yovan-gunardio-darmawan-1/"
+          label="VIEW PROFILE"
+          size="micro"
+          variant="solid"
+          expandDirection="left"
+          rotateIcon={false}
+          ariaLabel="View BRGHT profile in new tab"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="shrink-0 z-10"
+        >
+          <svg
+            slot="icon"
+            class="w-3.5 h-3.5"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M17 7l-10 10" />
+            <path d="M8 7l9 0l0 9" />
+          </svg>
+        </HoverExpandButton>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- ░░ EASTER EGGS - Scattered Background Labels & Interactive Triggers ░░ -->
 <div
   aria-hidden="true"
@@ -374,9 +534,9 @@ const base = rawBase.endsWith("/") ? rawBase.slice(0, -1) : rawBase;
     data-easter="ws2812b"
     class="egg-static absolute font-mono text-xs text-neutral-600 dark:text-neutral-300 opacity-[0.08] hover:opacity-75 hover:underline underline-offset-4 cursor-pointer select-none transition-[opacity,text-decoration] duration-200 pointer-events-auto p-1 bg-transparent border-0 tracking-wider focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent,#52FF1A)] rounded rotate-[4deg]"
     style="top:11%;right:2%;"
-    aria-label="Unlock WS2812B LED Easter Egg"
-    data-aria-en="Unlock WS2812B LED Easter Egg"
-    data-aria-id="Buka Easter Egg LED WS2812B"
+    aria-label="Unlock WS2812B LED Cool Stuff"
+    data-aria-en="Unlock WS2812B LED Cool Stuff"
+    data-aria-id="Buka Cool Stuff LED WS2812B"
   >
     WS2812B
   </button>
@@ -387,9 +547,9 @@ const base = rawBase.endsWith("/") ? rawBase.slice(0, -1) : rawBase;
     data-easter="gpio"
     class="egg-static absolute font-mono text-xs text-neutral-600 dark:text-neutral-300 opacity-[0.08] hover:opacity-75 hover:underline underline-offset-4 cursor-pointer select-none transition-[opacity,text-decoration] duration-200 pointer-events-auto p-1 bg-transparent border-0 tracking-wider focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent,#52FF1A)] rounded rotate-[-3deg]"
     style="top:21%;left:1.5%;"
-    aria-label="Unlock GPIO16 Easter Egg"
-    data-aria-en="Unlock GPIO16 Easter Egg"
-    data-aria-id="Buka Easter Egg GPIO16"
+    aria-label="Unlock GPIO16 Cool Stuff"
+    data-aria-en="Unlock GPIO16 Cool Stuff"
+    data-aria-id="Buka Cool Stuff GPIO16"
   >
     GPIO16
   </button>
@@ -400,9 +560,9 @@ const base = rawBase.endsWith("/") ? rawBase.slice(0, -1) : rawBase;
     data-easter="jam-clock"
     class="egg-static absolute font-mono text-xs text-neutral-600 dark:text-neutral-300 opacity-[0.08] hover:opacity-75 hover:underline underline-offset-4 cursor-pointer select-none transition-[opacity,text-decoration] duration-200 pointer-events-auto p-1 bg-transparent border-0 tracking-wider focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent,#52FF1A)] rounded rotate-[4deg]"
     style="top:31%;right:2%;"
-    aria-label="Unlock Jam Digital Easter Egg"
-    data-aria-en="Unlock Jam Digital Easter Egg"
-    data-aria-id="Buka Easter Egg Jam Digital"
+    aria-label="Unlock Jam Digital Cool Stuff"
+    data-aria-en="Unlock Jam Digital Cool Stuff"
+    data-aria-id="Buka Cool Stuff Jam Digital"
   >
     DateTime.Now
   </button>
@@ -438,11 +598,18 @@ const base = rawBase.endsWith("/") ? rawBase.slice(0, -1) : rawBase;
     >struct Pixel &#123; r: u8, g: u8, b: u8 &#125;</span
   >
 
-  <!-- 10: 0x7F454C46 (Footer Area) -->
-  <span
-    class="egg-static absolute font-mono text-xs text-neutral-600 dark:text-neutral-300 select-none rotate-[-3deg]"
-    style="top:98%;right:2%;">0x7F454C46</span
+  <!-- 10: 0x89 (Footer Area - ACTIVE EASTER EGG) -->
+  <button
+    type="button"
+    data-easter="brght"
+    class="egg-static absolute font-mono text-xs text-neutral-600 dark:text-neutral-300 opacity-[0.08] hover:opacity-75 hover:underline underline-offset-4 cursor-pointer select-none transition-[opacity,text-decoration] duration-200 pointer-events-auto p-1 bg-transparent border-0 tracking-wider focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent,#52FF1A)] rounded rotate-[-3deg]"
+    style="top:98%;right:2%;"
+    aria-label="Unlock Cognitive Metrics Cool Stuff"
+    data-aria-en="Unlock Cognitive Metrics Cool Stuff"
+    data-aria-id="Buka Cool Stuff Metrik Kognitif"
   >
+    0x89
+  </button>
 </div>
 
 <style>
@@ -461,6 +628,9 @@ const base = rawBase.endsWith("/") ? rawBase.slice(0, -1) : rawBase;
     opacity: 1;
     transform: translateY(0) scale(1);
     pointer-events: auto;
+  }
+  .egg-popup-modal.is-dragging {
+    transition: none !important;
   }
 
   /* Easter egg fragments on the back */
@@ -573,14 +743,24 @@ const base = rawBase.endsWith("/") ? rawBase.slice(0, -1) : rawBase;
     }
 
     function closeAllPopups() {
+      // 1. Move or blur focus out of any active popup BEFORE setting aria-hidden/inert
+      if (document.activeElement && document.activeElement.closest(".egg-popup-modal")) {
+        if (lastFocusedElement && document.contains(lastFocusedElement)) {
+          lastFocusedElement.focus();
+        } else {
+          (document.activeElement as HTMLElement).blur();
+        }
+      }
+
       document.querySelectorAll(".egg-popup-modal").forEach((p) => {
         const el = p as HTMLElement;
         el.style.transform = "";
         el.style.opacity = "";
         el.style.transition = "";
-        el.classList.remove("popup-visible");
+        el.classList.remove("popup-visible", "is-dragging");
         el.classList.add("popup-hidden");
         el.setAttribute("aria-hidden", "true");
+        el.setAttribute("inert", "");
       });
       document.querySelectorAll(".egg-popup-modal video").forEach((v) => {
         const video = v as HTMLVideoElement;
@@ -589,23 +769,26 @@ const base = rawBase.endsWith("/") ? rawBase.slice(0, -1) : rawBase;
       });
       const backdrop = document.getElementById("egg-backdrop");
       if (backdrop) {
+        backdrop.style.opacity = "";
+        backdrop.style.transition = "";
         backdrop.classList.remove("opacity-100", "pointer-events-auto");
         backdrop.classList.add("opacity-0", "pointer-events-none");
       }
       document.documentElement.style.overflow = "";
       document.body.style.overflow = "";
 
-      if (lastFocusedElement && document.contains(lastFocusedElement)) {
-        lastFocusedElement.focus();
-      }
       lastFocusedElement = null;
     }
 
     function openPopup(id: string) {
-      lastFocusedElement = document.activeElement as HTMLElement | null;
+      const currentActive = document.activeElement as HTMLElement | null;
+      if (currentActive && !currentActive.closest(".egg-popup-modal")) {
+        lastFocusedElement = currentActive;
+      }
       closeAllPopups();
       const popup = document.getElementById(id);
       if (!popup) return;
+      popup.removeAttribute("inert");
       popup.setAttribute("aria-hidden", "false");
       const iframe = popup.querySelector(
         "iframe[data-src]",
@@ -696,64 +879,94 @@ const base = rawBase.endsWith("/") ? rawBase.slice(0, -1) : rawBase;
     // Touch swipe-down to dismiss on mobile
     document.querySelectorAll(".egg-popup-modal").forEach((popupEl) => {
       const popup = popupEl as HTMLElement;
-      let startY = 0;
+      let touchStartY = 0;
       let currentY = 0;
-      let isDragging = false;
-      let startTime = 0;
 
       popup.addEventListener(
         "touchstart",
         (e) => {
           if (!popup.classList.contains("popup-visible")) return;
           if ((e.target as HTMLElement)?.closest(".egg-popup-close")) return;
-          startY = e.touches[0].clientY;
-          currentY = startY;
-          startTime = Date.now();
-          isDragging = true;
-          popup.style.transition = "none";
+          touchStartY = e.touches[0].clientY;
+          currentY = touchStartY;
         },
-        { passive: true },
+        { passive: false },
       );
 
       popup.addEventListener(
         "touchmove",
         (e) => {
-          if (!isDragging) return;
+          if (touchStartY === 0) return;
+          if (!popup.classList.contains("popup-visible")) return;
           currentY = e.touches[0].clientY;
-          const deltaY = currentY - startY;
-          if (deltaY > 0) {
-            if (e.cancelable) e.preventDefault();
-            popup.style.transform = `translateY(${deltaY}px)`;
-            popup.style.opacity = `${Math.max(0.1, 1 - deltaY / 280)}`;
+          const diff = currentY - touchStartY;
+          if (diff > 0) {
+            e.preventDefault(); // Stop page scrolling / pull-to-refresh
+            popup.classList.add("is-dragging");
+            popup.style.transition = "none";
+            popup.style.transform = `translateY(${diff}px) scale(1)`;
+
+            // Progress scales down from 1 (at 0px) to 0 (at 220px drag)
+            const maxDrag = Math.min(window.innerHeight * 0.4, 220);
+            const progress = Math.max(0, Math.min(1, 1 - (diff / maxDrag)));
+            popup.style.opacity = Math.max(0.1, progress).toFixed(3);
+
+            const backdrop = document.getElementById("egg-backdrop");
+            if (backdrop) {
+              backdrop.style.transition = "none";
+              backdrop.style.opacity = progress.toFixed(3);
+            }
           }
         },
         { passive: false },
       );
 
-      const endDrag = () => {
-        if (!isDragging) return;
-        isDragging = false;
-        const deltaY = currentY - startY;
-        const duration = Date.now() - startTime;
-        const velocity = deltaY / (duration || 1);
+      const handleTouchEnd = () => {
+        if (touchStartY === 0) return;
+        const diff = currentY - touchStartY;
+        popup.classList.remove("is-dragging");
 
-        popup.style.transition = "";
+        const backdrop = document.getElementById("egg-backdrop");
 
-        // If dragged down > 60px or fast flick downward (> 0.4px/ms)
-        if (deltaY > 60 || (velocity > 0.4 && deltaY > 20)) {
-          popup.style.transform = "translateY(120px)";
+        if (diff > 80) {
+          popup.style.transition = "transform 0.2s ease-out, opacity 0.2s ease-out";
+          popup.style.transform = "translateY(100vh) scale(0.95)";
           popup.style.opacity = "0";
+          if (backdrop) {
+            backdrop.style.transition = "opacity 0.2s ease-out";
+            backdrop.style.opacity = "0";
+          }
           setTimeout(() => {
             closeAllPopups();
-          }, 180);
+            popup.style.transition = "";
+            popup.style.transform = "";
+            popup.style.opacity = "";
+            if (backdrop) {
+              backdrop.style.transition = "";
+              backdrop.style.opacity = "";
+            }
+          }, 200);
         } else {
-          popup.style.transform = "";
-          popup.style.opacity = "";
+          popup.style.transition = "transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s cubic-bezier(0.16, 1, 0.3, 1)";
+          popup.style.transform = "translateY(0) scale(1)";
+          popup.style.opacity = "1";
+          if (backdrop) {
+            backdrop.style.transition = "opacity 0.2s cubic-bezier(0.16, 1, 0.3, 1)";
+            backdrop.style.opacity = "1";
+          }
+          setTimeout(() => {
+            popup.style.transition = "";
+            if (backdrop) {
+              backdrop.style.transition = "";
+            }
+          }, 200);
         }
+        touchStartY = 0;
+        currentY = 0;
       };
 
-      popup.addEventListener("touchend", endDrag, { passive: true });
-      popup.addEventListener("touchcancel", endDrag, { passive: true });
+      popup.addEventListener("touchend", handleTouchEnd, { passive: true });
+      popup.addEventListener("touchcancel", handleTouchEnd, { passive: true });
     });
 
     // Event delegation on document to guarantee clicks are captured
@@ -772,6 +985,8 @@ const base = rawBase.endsWith("/") ? rawBase.slice(0, -1) : rawBase;
           togglePopup("egg-popup-modpe");
         } else if (easterType === "ws2812b" || easterType === "gpio") {
           togglePopup("egg-popup-ws2812b");
+        } else if (easterType === "brght") {
+          togglePopup("egg-popup-brght");
         }
         return;
       }
