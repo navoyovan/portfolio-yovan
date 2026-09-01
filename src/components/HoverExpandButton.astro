@@ -98,8 +98,8 @@ const iconAnimClasses = rotateIcon
             'expand-label max-w-0 opacity-0 overflow-hidden whitespace-nowrap transition-[max-width,opacity,margin] duration-300 ease-out group-hover/expand:max-w-[200px] group-hover/expand:opacity-100 group-focus-visible/expand:max-w-[200px] group-focus-visible/expand:opacity-100 group-[.is-expanded]/expand:max-w-[200px] group-[.is-expanded]/expand:opacity-100',
             textMarginClasses
           ]}
-          data-en={labelEn}
-          data-id={labelId}
+          data-en={labelEn || label}
+          data-id={labelId || labelEn || label}
         >
           {label}
         </span>
@@ -111,8 +111,8 @@ const iconAnimClasses = rotateIcon
             'expand-label max-w-0 opacity-0 overflow-hidden whitespace-nowrap transition-[max-width,opacity,margin] duration-300 ease-out group-hover/expand:max-w-[200px] group-hover/expand:opacity-100 group-focus-visible/expand:max-w-[200px] group-focus-visible/expand:opacity-100 group-[.is-expanded]/expand:max-w-[200px] group-[.is-expanded]/expand:opacity-100',
             textMarginClasses
           ]}
-          data-en={labelEn}
-          data-id={labelId}
+          data-en={labelEn || label}
+          data-id={labelId || labelEn || label}
         >
           {label}
         </span>
