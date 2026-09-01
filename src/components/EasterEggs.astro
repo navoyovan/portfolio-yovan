@@ -1,6 +1,6 @@
 ---
 // EasterEggs.astro - Standalone Easter Egg Overlay, Popups, and Background Visual Markers
-import HoverExpandButton from './HoverExpandButton.astro';
+import HoverExpandButton from "./HoverExpandButton.astro";
 
 const rawBase = import.meta.env.BASE_URL;
 const base = rawBase.endsWith("/") ? rawBase.slice(0, -1) : rawBase;
@@ -33,8 +33,16 @@ const base = rawBase.endsWith("/") ? rawBase.slice(0, -1) : rawBase;
       data-aria-id="Tutup pop-up Jam Digital"
       class="egg-popup-close font-mono text-xs text-red-500 hover:text-red-600 dark:text-red-400 dark:hover:text-red-300 hover:underline cursor-pointer select-none transition-colors p-0 bg-transparent border-0 flex items-center justify-center gap-1 w-full sm:w-auto text-center"
     >
-      <span class="sm:hidden" data-en="↓ Swipe down to dismiss" data-id="↓ Usap ke bawah untuk menutup">↓ Swipe down to dismiss</span>
-      <span class="hidden sm:inline" data-en="Dismiss x [esc]" data-id="Tutup x [esc]">Dismiss x [esc]</span>
+      <span
+        class="sm:hidden"
+        data-en="↓ Swipe down to dismiss"
+        data-id="↓ Usap ke bawah untuk menutup">↓ Swipe down to dismiss</span
+      >
+      <span
+        class="hidden sm:inline"
+        data-en="Dismiss x [esc]"
+        data-id="Tutup x [esc]">Dismiss x [esc]</span
+      >
     </button>
   </div>
 
@@ -75,8 +83,8 @@ const base = rawBase.endsWith("/") ? rawBase.slice(0, -1) : rawBase;
       <p
         class="font-sans text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed font-normal"
       >
-        An early standalone digital clock project built with vanilla
-        JavaScript, CSS text-shadow layering, and DOM timer manipulation.
+        An early standalone digital clock project built with vanilla JavaScript,
+        CSS text-shadow layering, and DOM timer manipulation.
       </p>
 
       <!-- Tags Row -->
@@ -112,11 +120,18 @@ const base = rawBase.endsWith("/") ? rawBase.slice(0, -1) : rawBase;
         class="mt-auto pt-3 border-t border-neutral-200/80 dark:border-neutral-800/80 flex items-center justify-between gap-3 min-w-0"
       >
         <!-- File Name Marquee Container (Loops on Overflow) -->
-        <div class="egg-marquee-wrapper relative overflow-hidden min-w-0 flex-1">
+        <div
+          class="egg-marquee-wrapper relative overflow-hidden min-w-0 flex-1"
+        >
           <div class="egg-marquee-track inline-flex items-center">
-            <div class="egg-marquee-content inline-flex items-center text-neutral-400 dark:text-neutral-500 whitespace-nowrap shrink-0 font-mono text-[11px]">
+            <div
+              class="egg-marquee-content inline-flex items-center text-neutral-400 dark:text-neutral-500 whitespace-nowrap shrink-0 font-mono text-[11px]"
+            >
               <span>JAM_jAvaSCriPt.html</span>
-              <span class="egg-dot-trailing text-neutral-400 dark:text-neutral-600 select-none text-[8px] mx-2.5" aria-hidden="true">
+              <span
+                class="egg-dot-trailing text-neutral-400 dark:text-neutral-600 select-none text-[8px] mx-2.5"
+                aria-hidden="true"
+              >
                 •
               </span>
             </div>
@@ -146,8 +161,16 @@ const base = rawBase.endsWith("/") ? rawBase.slice(0, -1) : rawBase;
       data-aria-id="Tutup pop-up ModPE Scripting"
       class="egg-popup-close font-mono text-xs text-red-500 hover:text-red-600 dark:text-red-400 dark:hover:text-red-300 hover:underline cursor-pointer select-none transition-colors p-0 bg-transparent border-0 flex items-center justify-center gap-1 w-full sm:w-auto text-center"
     >
-      <span class="sm:hidden" data-en="↓ Swipe down to dismiss" data-id="↓ Usap ke bawah untuk menutup">↓ Swipe down to dismiss</span>
-      <span class="hidden sm:inline" data-en="Dismiss x [esc]" data-id="Tutup x [esc]">Dismiss x [esc]</span>
+      <span
+        class="sm:hidden"
+        data-en="↓ Swipe down to dismiss"
+        data-id="↓ Usap ke bawah untuk menutup">↓ Swipe down to dismiss</span
+      >
+      <span
+        class="hidden sm:inline"
+        data-en="Dismiss x [esc]"
+        data-id="Tutup x [esc]">Dismiss x [esc]</span
+      >
     </button>
   </div>
 
@@ -220,11 +243,18 @@ const base = rawBase.endsWith("/") ? rawBase.slice(0, -1) : rawBase;
         class="mt-auto pt-3 border-t border-neutral-200/80 dark:border-neutral-800/80 flex items-center justify-between gap-3 min-w-0"
       >
         <!-- File Name Marquee Container (Loops on Overflow) -->
-        <div class="egg-marquee-wrapper relative overflow-hidden min-w-0 flex-1">
+        <div
+          class="egg-marquee-wrapper relative overflow-hidden min-w-0 flex-1"
+        >
           <div class="egg-marquee-track inline-flex items-center">
-            <div class="egg-marquee-content inline-flex items-center text-neutral-400 dark:text-neutral-500 whitespace-nowrap shrink-0 font-mono text-[11px]">
+            <div
+              class="egg-marquee-content inline-flex items-center text-neutral-400 dark:text-neutral-500 whitespace-nowrap shrink-0 font-mono text-[11px]"
+            >
               <span>Screenshot_20140507-0830.png</span>
-              <span class="egg-dot-trailing text-neutral-400 dark:text-neutral-600 select-none text-[8px] mx-2.5" aria-hidden="true">
+              <span
+                class="egg-dot-trailing text-neutral-400 dark:text-neutral-600 select-none text-[8px] mx-2.5"
+                aria-hidden="true"
+              >
                 •
               </span>
             </div>
@@ -259,8 +289,16 @@ const base = rawBase.endsWith("/") ? rawBase.slice(0, -1) : rawBase;
       data-aria-id="Tutup pop-up WS2812B Hardware"
       class="egg-popup-close font-mono text-xs text-red-500 hover:text-red-600 dark:text-red-400 dark:hover:text-red-300 hover:underline cursor-pointer select-none transition-colors p-0 bg-transparent border-0 flex items-center justify-center gap-1 w-full sm:w-auto text-center"
     >
-      <span class="sm:hidden" data-en="↓ Swipe down to dismiss" data-id="↓ Usap ke bawah untuk menutup">↓ Swipe down to dismiss</span>
-      <span class="hidden sm:inline" data-en="Dismiss x [esc]" data-id="Tutup x [esc]">Dismiss x [esc]</span>
+      <span
+        class="sm:hidden"
+        data-en="↓ Swipe down to dismiss"
+        data-id="↓ Usap ke bawah untuk menutup">↓ Swipe down to dismiss</span
+      >
+      <span
+        class="hidden sm:inline"
+        data-en="Dismiss x [esc]"
+        data-id="Tutup x [esc]">Dismiss x [esc]</span
+      >
     </button>
   </div>
 
@@ -304,9 +342,8 @@ const base = rawBase.endsWith("/") ? rawBase.slice(0, -1) : rawBase;
       <p
         class="font-sans text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed font-normal"
       >
-        Microcontroller firmware experimenting with single-wire addressable
-        RGB LED timing signals, custom color chases, and hardware pulse
-        generation.
+        Microcontroller firmware experimenting with single-wire addressable RGB
+        LED timing signals, custom color chases, and hardware pulse generation.
       </p>
 
       <!-- Tags Row -->
@@ -342,11 +379,18 @@ const base = rawBase.endsWith("/") ? rawBase.slice(0, -1) : rawBase;
         class="mt-auto pt-3 border-t border-neutral-200/80 dark:border-neutral-800/80 flex items-center justify-between gap-3 min-w-0"
       >
         <!-- File Name Marquee Container (Loops on Overflow) -->
-        <div class="egg-marquee-wrapper relative overflow-hidden min-w-0 flex-1">
+        <div
+          class="egg-marquee-wrapper relative overflow-hidden min-w-0 flex-1"
+        >
           <div class="egg-marquee-track inline-flex items-center">
-            <div class="egg-marquee-content inline-flex items-center text-neutral-400 dark:text-neutral-500 whitespace-nowrap shrink-0 font-mono text-[11px]">
+            <div
+              class="egg-marquee-content inline-flex items-center text-neutral-400 dark:text-neutral-500 whitespace-nowrap shrink-0 font-mono text-[11px]"
+            >
               <span>PXL_20230410_134215282.CINEMATIC.webm</span>
-              <span class="egg-dot-trailing text-neutral-400 dark:text-neutral-600 select-none text-[8px] mx-2.5" aria-hidden="true">
+              <span
+                class="egg-dot-trailing text-neutral-400 dark:text-neutral-600 select-none text-[8px] mx-2.5"
+                aria-hidden="true"
+              >
                 •
               </span>
             </div>
@@ -381,8 +425,16 @@ const base = rawBase.endsWith("/") ? rawBase.slice(0, -1) : rawBase;
       data-aria-id="Tutup pop-up Metrik Kognitif"
       class="egg-popup-close font-mono text-xs text-red-500 hover:text-red-600 dark:text-red-400 dark:hover:text-red-300 hover:underline cursor-pointer select-none transition-colors p-0 bg-transparent border-0 flex items-center justify-center gap-1 w-full sm:w-auto text-center"
     >
-      <span class="sm:hidden" data-en="↓ Swipe down to dismiss" data-id="↓ Usap ke bawah untuk menutup">↓ Swipe down to dismiss</span>
-      <span class="hidden sm:inline" data-en="Dismiss x [esc]" data-id="Tutup x [esc]">Dismiss x [esc]</span>
+      <span
+        class="sm:hidden"
+        data-en="↓ Swipe down to dismiss"
+        data-id="↓ Usap ke bawah untuk menutup">↓ Swipe down to dismiss</span
+      >
+      <span
+        class="hidden sm:inline"
+        data-en="Dismiss x [esc]"
+        data-id="Tutup x [esc]">Dismiss x [esc]</span
+      >
     </button>
   </div>
 
@@ -395,31 +447,29 @@ const base = rawBase.endsWith("/") ? rawBase.slice(0, -1) : rawBase;
       class="relative w-full aspect-[16/12] bg-neutral-950 overflow-hidden border-b border-neutral-300/80 dark:border-neutral-800/80 select-none flex flex-col items-center justify-center p-6 text-center"
     >
       <!-- Atmospheric Glow -->
-      <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(82,255,26,0.15)_0%,transparent_70%)] pointer-events-none"></div>
-      
-      <span class="relative z-10 font-mono text-[10px] sm:text-xs text-[#52FF1A] uppercase tracking-[0.2em] mb-2 opacity-80">
+      <div
+        class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,color-mix(in_srgb,var(--color-accent,#52FF1A)_15%,transparent)_0%,transparent_70%)] pointer-events-none"
+      >
+      </div>
+
+      <span
+        class="relative z-10 font-mono text-[10px] sm:text-xs text-[var(--color-accent,#52FF1A)] uppercase tracking-[0.2em] mb-2 opacity-80"
+      >
         BRGHT Assessment
       </span>
-      
-      <div class="relative z-10 font-heading font-black text-6xl sm:text-7xl text-white tracking-tighter leading-none mb-1 shadow-sm">
+
+      <div
+        class="relative z-10 font-heading font-black text-6xl sm:text-7xl text-white tracking-tighter leading-none mb-1 shadow-sm"
+      >
         137
       </div>
-      
-      <span class="relative z-10 font-sans text-xs sm:text-sm text-neutral-400 font-medium uppercase tracking-widest mt-1">
+
+      <span
+        class="relative z-10 font-sans text-xs sm:text-sm text-neutral-400 font-medium uppercase tracking-widest mt-1"
+      >
         Cognitive Score
       </span>
 
-      <div class="relative z-10 mt-6 flex items-center justify-center gap-4">
-        <div class="flex flex-col items-center">
-          <span class="font-heading font-bold text-lg text-white">99<span class="text-[10px] text-neutral-400 ml-0.5">%</span></span>
-          <span class="font-mono text-[8px] text-neutral-500 uppercase tracking-wider">Overall</span>
-        </div>
-        <div class="w-px h-6 bg-neutral-800"></div>
-        <div class="flex flex-col items-center">
-          <span class="font-heading font-bold text-lg text-[#52FF1A]">100<span class="text-[10px] text-neutral-400 ml-0.5">%</span></span>
-          <span class="font-mono text-[8px] text-[#52FF1A]/70 uppercase tracking-wider">Spatial</span>
-        </div>
-      </div>
     </div>
 
     <!-- Content Section (Project Tile Format) -->
@@ -443,7 +493,9 @@ const base = rawBase.endsWith("/") ? rawBase.slice(0, -1) : rawBase;
       <p
         class="font-sans text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed font-normal"
       >
-        Scored an IQ of 137 on the BRGHT cognitive assessment, performing in the 99th percentile globally. The test results highlighted a perfect 100% score in the Spatial Reasoning section.
+        Scored an IQ of 137 on the BRGHT cognitive assessment, placed in the Top
+        1% globally. The test results highlighted a perfect 100% score in the
+        Spatial Reasoning section.
       </p>
 
       <!-- Tags Row -->
@@ -507,9 +559,9 @@ const base = rawBase.endsWith("/") ? rawBase.slice(0, -1) : rawBase;
             stroke-linejoin="round"
             aria-hidden="true"
           >
-            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-            <path d="M17 7l-10 10" />
-            <path d="M8 7l9 0l0 9" />
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+            <path d="M17 7l-10 10"></path>
+            <path d="M8 7l9 0l0 9"></path>
           </svg>
         </HoverExpandButton>
       </div>
@@ -663,8 +715,16 @@ const base = rawBase.endsWith("/") ? rawBase.slice(0, -1) : rawBase;
   }
 
   .egg-marquee-wrapper.is-overflowing {
-    -webkit-mask-image: linear-gradient(to right, black calc(100% - 24px), transparent 100%);
-    mask-image: linear-gradient(to right, black calc(100% - 24px), transparent 100%);
+    -webkit-mask-image: linear-gradient(
+      to right,
+      black calc(100% - 24px),
+      transparent 100%
+    );
+    mask-image: linear-gradient(
+      to right,
+      black calc(100% - 24px),
+      transparent 100%
+    );
   }
 
   .egg-marquee-track {
@@ -699,10 +759,14 @@ const base = rawBase.endsWith("/") ? rawBase.slice(0, -1) : rawBase;
 
     function initEggMarquees(targetContainer?: HTMLElement | Document) {
       const root = targetContainer || document;
-      const wrappers = root.querySelectorAll<HTMLElement>(".egg-marquee-wrapper");
+      const wrappers = root.querySelectorAll<HTMLElement>(
+        ".egg-marquee-wrapper",
+      );
       wrappers.forEach((wrapper) => {
         const track = wrapper.querySelector<HTMLElement>(".egg-marquee-track");
-        const content = wrapper.querySelector<HTMLElement>(".egg-marquee-content");
+        const content = wrapper.querySelector<HTMLElement>(
+          ".egg-marquee-content",
+        );
         if (!track || !content) return;
 
         const wrapperWidth = wrapper.clientWidth;
@@ -744,7 +808,10 @@ const base = rawBase.endsWith("/") ? rawBase.slice(0, -1) : rawBase;
 
     function closeAllPopups() {
       // 1. Move or blur focus out of any active popup BEFORE setting aria-hidden/inert
-      if (document.activeElement && document.activeElement.closest(".egg-popup-modal")) {
+      if (
+        document.activeElement &&
+        document.activeElement.closest(".egg-popup-modal")
+      ) {
         if (lastFocusedElement && document.contains(lastFocusedElement)) {
           lastFocusedElement.focus();
         } else {
@@ -908,7 +975,7 @@ const base = rawBase.endsWith("/") ? rawBase.slice(0, -1) : rawBase;
 
             // Progress scales down from 1 (at 0px) to 0 (at 220px drag)
             const maxDrag = Math.min(window.innerHeight * 0.4, 220);
-            const progress = Math.max(0, Math.min(1, 1 - (diff / maxDrag)));
+            const progress = Math.max(0, Math.min(1, 1 - diff / maxDrag));
             popup.style.opacity = Math.max(0.1, progress).toFixed(3);
 
             const backdrop = document.getElementById("egg-backdrop");
@@ -929,7 +996,8 @@ const base = rawBase.endsWith("/") ? rawBase.slice(0, -1) : rawBase;
         const backdrop = document.getElementById("egg-backdrop");
 
         if (diff > 80) {
-          popup.style.transition = "transform 0.2s ease-out, opacity 0.2s ease-out";
+          popup.style.transition =
+            "transform 0.2s ease-out, opacity 0.2s ease-out";
           popup.style.transform = "translateY(100vh) scale(0.95)";
           popup.style.opacity = "0";
           if (backdrop) {
@@ -947,11 +1015,13 @@ const base = rawBase.endsWith("/") ? rawBase.slice(0, -1) : rawBase;
             }
           }, 200);
         } else {
-          popup.style.transition = "transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s cubic-bezier(0.16, 1, 0.3, 1)";
+          popup.style.transition =
+            "transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s cubic-bezier(0.16, 1, 0.3, 1)";
           popup.style.transform = "translateY(0) scale(1)";
           popup.style.opacity = "1";
           if (backdrop) {
-            backdrop.style.transition = "opacity 0.2s cubic-bezier(0.16, 1, 0.3, 1)";
+            backdrop.style.transition =
+              "opacity 0.2s cubic-bezier(0.16, 1, 0.3, 1)";
             backdrop.style.opacity = "1";
           }
           setTimeout(() => {

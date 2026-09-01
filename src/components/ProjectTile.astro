@@ -2,6 +2,7 @@
 interface Props {
   title: string;
   category?: string;
+  categoryId?: string;
   description?: string;
   descriptionId?: string;
   href?: string;
@@ -12,9 +13,11 @@ interface Props {
   iframeScale?: number;
   previewBg?: string;
   status?: string;
+  statusId?: string;
   statusVariant?: 'accent' | 'neutral' | 'warning' | 'danger' | 'info';
   tags?: string[];
   actionText?: string;
+  actionTextId?: string;
   actionVariant?: 'dashed' | 'solid' | 'cta' | 'danger';
   metaText?: string;
   fileName?: string;
@@ -31,9 +34,10 @@ import HoverExpandButton from './HoverExpandButton.astro';
 const {
   title,
   category = 'FEATURED SYSTEM',
+  categoryId,
   description,
   descriptionId,
-  href = '#',
+  href,
   imageSrc,
   imageAlt = title,
   videoSrc,
@@ -41,9 +45,11 @@ const {
   iframeScale = 0.28,
   previewBg,
   status,
+  statusId,
   statusVariant = 'accent',
   tags = [],
-  actionText = 'VIEW CASE STUDY',
+  actionText,
+  actionTextId,
   actionVariant = 'solid',
   metaText,
   fileName,
@@ -128,7 +134,7 @@ const titleId = `tile-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
     {status && (
       <div class="absolute top-2.5 left-2.5 z-10">
         <StatusBadge variant={statusVariant} size="sm">
-          {status}
+          <span data-en={status} data-id={statusId || status}>{status}</span>
         </StatusBadge>
       </div>
     )}
@@ -137,7 +143,11 @@ const titleId = `tile-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
   <!-- Content Section (Compact Easter Egg Card Format) -->
   <div class="p-4 sm:p-5 flex flex-col flex-1 gap-3">
     <!-- Category Tag -->
-    <p class="font-sans text-[11px] uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-semibold m-0">
+    <p
+      data-en={category}
+      data-id={categoryId || category}
+      class="font-sans text-[11px] uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-semibold m-0"
+    >
       {category}
     </p>
 
@@ -205,11 +215,15 @@ const titleId = `tile-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
         <HoverExpandButton
           href={href}
           label={actionText}
+          labelEn={actionText}
+          labelId={actionTextId || (actionText === 'VIEW CASE STUDY' ? 'LIHAT STUDI KASUS' : actionText === 'VISIT SITE' ? 'KUNJUNGI SITUS' : actionText === 'LAUNCH DEMO' ? 'BUKA DEMO' : actionText === 'VIEW REPO' ? 'LIHAT REPO' : actionText)}
           size="micro"
           variant={actionVariant}
           expandDirection="left"
           rotateIcon={false}
           ariaLabel={`${actionText}: ${title}${isExternal ? ' (opens in new tab)' : ''}`}
+          data-aria-en={`${actionText}: ${title}${isExternal ? ' (opens in new tab)' : ''}`}
+          data-aria-id={`${actionTextId || actionText}: ${title}${isExternal ? ' (buka di tab baru)' : ''}`}
           target={isExternal ? '_blank' : undefined}
           rel={isExternal ? 'noopener noreferrer' : undefined}
           class="shrink-0 ml-auto z-10"
