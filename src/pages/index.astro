@@ -494,12 +494,12 @@ const capabilities = [
 
           <!-- Architecture Summary -->
           <p
-            data-en="An integrated hardware-software pipeline orchestrating physical thermal printers, camera hardware, a touchscreen Electron client, real-time WebSocket telemetry, and cloud fleet management."
-            data-id="Pipeline hardware-software terintegrasi yang ngehubungin printer thermal fisik, kamera, aplikasi touchscreen berbasis Electron, telemetri real-time WebSocket, dan manajemen cloud."
+            data-en="An integrated hardware-software pipeline orchestrating physical printers, camera hardware, a touchscreen Electron client, real-time WebSocket telemetry, and cloud fleet management."
+            data-id="Pipeline hardware-software terintegrasi yang ngehubungin printer fisik, kamera, aplikasi touchscreen berbasis Electron, telemetri real-time WebSocket, dan manajemen cloud."
             class="text-sm sm:text-base text-neutral-700 dark:text-neutral-300 leading-relaxed max-w-3xl font-normal m-0"
           >
             An integrated hardware-software pipeline orchestrating physical
-            thermal printers, camera hardware, a touchscreen Electron client,
+            printers, camera hardware, a touchscreen Electron client,
             real-time WebSocket telemetry, and cloud fleet management.
           </p>
 
@@ -730,7 +730,7 @@ const capabilities = [
                   <li>
                     <span
                       class="font-sans text-[9px] sm:text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2 sm:px-2.5 py-0.5 rounded inline-block"
-                      >THERMAL USB</span
+                      >USB PRINTER</span
                     >
                   </li>
                   <li>
@@ -770,12 +770,12 @@ const capabilities = [
                   Touchscreen Kiosk Client
                 </h4>
                 <p
-                  data-en="Electron-based self-service UI for event guests. Offline-tolerant state machine, thermal printer spooler, and countdown capture loop."
-                  data-id="UI self-service berbasis Electron untuk tamu event. State machine tahan-offline, spooler printer thermal, dan alur foto otomatis."
+                  data-en="Electron-based self-service UI for event guests. Offline-tolerant state machine, print spooler, and countdown capture loop."
+                  data-id="UI self-service berbasis Electron untuk tamu event. State machine tahan-offline, spooler printer, dan alur foto otomatis."
                   class="font-sans text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed font-normal m-0"
                 >
                   Electron-based self-service UI for event guests.
-                  Offline-tolerant state machine, thermal printer spooler, and
+                  Offline-tolerant state machine, print spooler, and
                   countdown capture loop.
                 </p>
               </div>
@@ -1072,6 +1072,32 @@ const capabilities = [
                 metaText="interactive-map.git"
                 actionText="VIEW REPO"
                 href="https://github.com/navoyovan/interactive-map"
+              />
+            </div>
+            <div class="w-[280px] sm:w-auto shrink-0 sm:shrink flex flex-col">
+              <ProjectTile
+                title="Frame & Cutout Studio"
+                category="PHOTOBOOTH ASSETS"
+                videoSrc={`${base}/images/frame-editor-showcase_converted.webm`}
+                description="Interactive photobooth frame cutout layout editor with drag-and-drop slot positioning, aspect ratio constraints, and alpha mask detection."
+                descriptionId="Editor tata letak bingkai photobooth interaktif dengan pemosisian slot drag-and-drop, batasan rasio aspek, dan deteksi alpha mask."
+                tags={["React 19", "Canvas API", "Layout Telemetry", "Vector Masks"]}
+                metaText="frame-cutout-studio"
+                actionText="EXPLORE STUDIO"
+                href="https://navoyovan.github.io/photobooth-kiosk-demo/?step=2&tab=upload"
+              />
+            </div>
+            <div class="w-[280px] sm:w-auto shrink-0 sm:shrink flex flex-col">
+              <ProjectTile
+                title="Color Grading & Textures"
+                category="IMAGE PROCESSING"
+                videoSrc={`${base}/images/color-grading-showcase_converted.webm`}
+                description="Realtime CSS filter color grading studio with grain, scratches, and light leak procedural texture blend mode layering."
+                descriptionId="Studio gradasi warna filter CSS real-time dengan lapisan modulasi tekstur prosedural grain, goresan, dan kebocoran cahaya."
+                tags={["CSS Filters", "SVG Noise", "Blend Modes", "Color Lab"]}
+                metaText="color-grading-engine"
+                actionText="EXPLORE ENGINE"
+                href="https://navoyovan.github.io/photobooth-vendor-portal/"
               />
             </div>
           </div>
@@ -1371,6 +1397,41 @@ const capabilities = [
             >
               A little bit about myself.
             </h2>
+            <div
+              aria-hidden="true"
+              class="hidden lg:block font-mono text-[10px] sm:text-[11px] text-neutral-400/50 dark:text-neutral-600/60 italic leading-relaxed pt-1 select-none"
+            >
+              <p
+                data-en="// You can find these labels throughout the page, some are interactable and would show some of my secret cool projects."
+                data-id="// Label-label seperti ini tersebar di seluruh halaman, beberapa bisa diklik buat liat proyek rahasia yang seru."
+                class="m-0"
+              >
+                // You can find these labels throughout the page, some are
+                interactable and would show some of my secret cool projects.
+              </p>
+              <div
+                class="flex items-center gap-1.5 pt-1 text-neutral-400/40 dark:text-neutral-600/50"
+              >
+                <span
+                  data-en="Try clicking this label"
+                  data-id="Coba klik label ini"
+                  class="shrink-0"
+                >
+                  Try clicking this label
+                </span>
+                <!-- Long hairline dashed connector line extending all the way to the divider -->
+                <div class="flex flex-1 items-center min-w-[60px]">
+                  <div
+                    class="flex-1 border-b border-dashed border-neutral-300/30 dark:border-neutral-700/40"
+                  >
+                  </div>
+                  <span
+                    class="not-italic text-[9px] text-neutral-400/40 dark:text-neutral-600/50 font-mono -ml-0.5 leading-none"
+                    >›</span
+                  >
+                </div>
+              </div>
+            </div>
           </div>
 
           <!-- Vertical Easter Egg Divider between the 2 About Columns (Desktop) -->
@@ -1381,9 +1442,9 @@ const capabilities = [
               type="button"
               data-easter="modpe"
               class="font-mono text-[10px] text-neutral-600 dark:text-neutral-300 opacity-[0.08] hover:opacity-75 hover:underline underline-offset-4 cursor-pointer select-none transition-[opacity,text-decoration] duration-200 [writing-mode:vertical-rl] rotate-180 pointer-events-auto p-1 bg-transparent border-0 tracking-wider focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent,#52FF1A)] rounded"
-              aria-label="Unlock ModPE Scripting Easter Egg"
-              data-aria-en="Unlock ModPE Scripting Easter Egg"
-              data-aria-id="Buka Easter Egg Skrip ModPE"
+              aria-label="Unlock ModPE Scripting Cool Stuff"
+              data-aria-en="Unlock ModPE Scripting Cool Stuff"
+              data-aria-id="Buka Cool Stuff Skrip ModPE"
             >
               Entity.setRenderType(mob, 3);
             </button>
@@ -1412,18 +1473,38 @@ const capabilities = [
               world.
             </p>
 
-            <!-- Mobile Easter Egg inline fallback -->
-            <div class="block lg:hidden !mt-3 -mb-12 select-none">
-              <button
-                type="button"
-                data-easter="modpe"
-                class="font-mono text-[10px] text-neutral-600 dark:text-neutral-300 opacity-[0.12] hover:opacity-75 hover:underline underline-offset-4 cursor-pointer select-none transition-[opacity,text-decoration] duration-200 text-left p-0 bg-transparent border-0 inline-block not-italic focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent,#52FF1A)] rounded"
-                aria-label="Unlock ModPE Scripting Easter Egg"
-                data-aria-en="Unlock ModPE Scripting Easter Egg"
-                data-aria-id="Buka Easter Egg Skrip ModPE"
+            <!-- Mobile Easter Egg inline fallback & hint -->
+            <div
+              aria-hidden="true"
+              class="block lg:hidden !mt-3 -mb-12 space-y-1 font-mono text-[9px] sm:text-[10px] text-neutral-400/45 dark:text-neutral-600/50 italic select-none"
+            >
+              <p
+                data-en="// You can find these labels throughout the page, some are interactable and would show some of my secret fool stuff."
+                data-id="// Label-label seperti ini tersebar di seluruh halaman, beberapa bisa diklik buat liat proyek rahasia yang seru."
+                class="m-0 leading-relaxed max-w-[95%]"
               >
-                Entity.setRenderType(mob, 3);
-              </button>
+                // You can find these labels throughout the page, some are
+                interactable and would show some of my secret fool stuff.
+              </p>
+              <div class="flex flex-wrap items-center gap-1.5 pt-1">
+                <span
+                  data-en="Try tapping this label &rarr;"
+                  data-id="Coba sentuh label ini &rarr;"
+                  class="m-0 leading-relaxed text-neutral-400/40 dark:text-neutral-600/50"
+                >
+                  Try tapping this label &rarr;
+                </span>
+                <button
+                  type="button"
+                  data-easter="modpe"
+                  class="font-mono text-[10px] text-neutral-600 dark:text-neutral-300 opacity-[0.12] hover:opacity-75 hover:underline underline-offset-4 cursor-pointer select-none transition-[opacity,text-decoration] duration-200 text-left p-0 bg-transparent border-0 inline-block not-italic focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent,#52FF1A)] rounded"
+                  aria-label="Unlock ModPE Scripting Cool Stuff"
+                  data-aria-en="Unlock ModPE Scripting Cool Stuff"
+                  data-aria-id="Buka Cool Stuff Skrip ModPE"
+                >
+                  Entity.setRenderType(mob, 3);
+                </button>
+              </div>
             </div>
           </div>
         </div>
