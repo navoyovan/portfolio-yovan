@@ -1,14 +1,10 @@
 # portfolio-yovan
 
-Personal portfolio site for Yovan Gunardio Darmawan. Fifth major version. Static, fast, no backend.
-
-Live at [navoyovan.github.io/portfolio-yovan](https://navoyovan.github.io/portfolio-yovan)
-
----
-
 ## Overview
 
 This is a personal portfolio built to show the kind of work I do like web apps, touchscreen kiosk systems, and hardware-adjacent software.
+
+Live at [navoyovan.github.io/portfolio-yovan](https://navoyovan.github.io/portfolio-yovan)
 
 ---
 
@@ -68,8 +64,3 @@ A backlink attribution is preferred but not required for private client work, in
 ```
 
 ---
-
-## to-do
-~~hamburger menu~~
-~~mobile view optimization~~
-
