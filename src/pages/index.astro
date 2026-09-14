@@ -1066,8 +1066,8 @@ const capabilities = [
                   category="DESKTOP & GAMEDEV"
                   categoryId="DESKTOP & GAMEDEV"
                   imageSrc={`${base}/images/mctextureghost-preview.png`}
-                  description="Minecraft Bedrock texture workspace & ghost asset scanner with live reload and 4-tier hierarchy inspector."
-                  descriptionId="Workspace tekstur Minecraft Bedrock dan ghost asset scanner dengan live reload dan inspektor hierarki 4-tier."
+                  description="minecraft texture workspace & ghost entries asset scanner with multi-tier hierarchy inspector."
+                  descriptionId="Workspace tekstur minecraft dan ghost entries asset scanner dengan inspektor hierarki multi-tier."
                   status="BETA"
                   statusId="BETA"
                   statusVariant="accent"
@@ -1147,8 +1147,8 @@ const capabilities = [
               </div>
             </div>
 
-            <!-- Custom Horizontal Scrollbar Matching Page Scrollbar -->
-            <div class="w-[92%] sm:w-[86%] lg:w-[80%] mx-auto pt-3 pb-2 flex items-center justify-center">
+            <!-- Custom Horizontal Scrollbar Matching Page Scrollbar (Zero layout shift reserved height) -->
+            <div class="w-[92%] sm:w-[86%] lg:w-[80%] mx-auto h-4 my-2 flex items-center justify-center">
               <div
                 id="others-scrollbar-track"
                 class="w-48 sm:w-64 h-1.5 hover:h-3.5 active:h-3.5 bg-neutral-200/80 dark:bg-neutral-800/80 rounded-full cursor-pointer relative overflow-hidden group transition-[height,background-color] duration-200 flex items-center"
