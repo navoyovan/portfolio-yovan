@@ -8,6 +8,15 @@
 
 @import "@fontsource/syne/700.css";
 @import "@fontsource/syne/800.css";
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+@font-face {
+  font-family: 'Press Start 2P';
+  src: url('/PressStart2P.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
 
 @custom-variant dark (&:where(.dark, .dark *));
 
@@ -15,6 +24,7 @@
   --font-sans: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-heading: 'Syne', sans-serif;
   --font-hero: 'Syne', sans-serif;
+  --font-pixel: 'Press Start 2P', monospace;
 
   --color-accent: var(--accent-color, #52FF1A);
   --color-accent-hover: var(--accent-hover, #42e012);
@@ -163,12 +173,14 @@ html.dark {
 
 /* Hide native OS/browser scrollbar completely across all browsers */
 html,
-body {
+body,
+.no-scrollbar {
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
 
-::-webkit-scrollbar {
+::-webkit-scrollbar,
+.no-scrollbar::-webkit-scrollbar {
   display: none;
   width: 0px;
   height: 0px;

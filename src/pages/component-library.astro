@@ -52,6 +52,8 @@ const systemsNav = [
   { id: "kiosk-timeline", label: "Activity Schedule Timeline" },
   { id: "frame-rank-chart", label: "Filmstrip Asset Ranking" },
 ];
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 ---
 
 <RootLayout
@@ -692,6 +694,121 @@ const systemsNav = [
                     >
                     <span class="font-mono text-[11px] text-neutral-500"
                       >Outfit 400 • text-xs sm:text-sm</span
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Brand Logotypes & Specimen Marks (mcTextureGhost & HYPE-BOX) -->
+            <div class="space-y-6">
+              <div class="flex items-center gap-2">
+                <span
+                  class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100 uppercase tracking-wider"
+                  >02.3 / Brand Logotypes &amp; Specimen Marks</span
+                >
+              </div>
+
+              <div
+                class="space-y-8 border-l-2 border-neutral-200 dark:border-neutral-800 pl-6"
+              >
+                <!-- Portfolio Hero Developer Logotype -->
+                <div class="flex flex-col gap-2">
+                  <div class="select-none py-1 pl-6 font-heading flex flex-col leading-none">
+                    <!-- Row 1: < yovan -->
+                    <div
+                      class="relative inline-flex items-baseline whitespace-nowrap leading-[0.9] text-neutral-950/95 dark:text-white/95 font-black text-3xl sm:text-4xl"
+                      style="letter-spacing: -0.04em;"
+                    >
+                      <span
+                        class="absolute right-full mr-1.5 text-neutral-950/50 dark:text-white/50 select-none text-sm sm:text-base font-black"
+                        style="bottom: 0.15em;"
+                      >&lt;</span>
+                      <span>yovan</span>
+                    </div>
+
+                    <!-- Row 2: gunardio; -->
+                    <div
+                      class="inline-flex items-baseline whitespace-nowrap leading-[0.95] text-neutral-950/90 dark:text-white/90 font-black text-2xl sm:text-3xl"
+                      style="letter-spacing: -0.03em; margin-top: -0.15rem;"
+                    >
+                      <span>gunardio</span>
+                      <span
+                        class="text-neutral-950/50 dark:text-white/50 text-base sm:text-lg font-black ml-0.5"
+                      >;</span>
+                    </div>
+
+                    <!-- Row 3: // darmawan /> -->
+                    <div
+                      class="relative inline-flex items-baseline whitespace-nowrap leading-none font-normal text-sm sm:text-base mt-1.5"
+                      style="letter-spacing: 0.06em;"
+                    >
+                      <span
+                        class="text-[var(--color-accent,#52FF1A)] opacity-75 mr-1.5 text-xs sm:text-sm font-normal"
+                      >//</span>
+                      <span class="text-neutral-700/80 dark:text-neutral-300/80">darmawan</span>
+                      <span
+                        class="text-neutral-950/50 dark:text-white/50 text-sm sm:text-base font-black ml-1.5 select-none"
+                      >/&gt;</span>
+                    </div>
+                  </div>
+                  <div class="flex flex-col">
+                    <span
+                      class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100"
+                      >Portfolio Developer Logotype</span
+                    >
+                    <span class="font-mono text-[11px] text-neutral-500"
+                      >Syne 900 + 400 • Scaled-Down Syntax Accents (&lt;, ;, //, /&gt;) • Exact Hero Proportions</span
+                    >
+                  </div>
+                </div>
+
+                <!-- mcTextureGhost Logo -->
+                <div class="flex flex-col gap-2">
+                  <div class="inline-flex items-center select-none py-1">
+                    <div class="w-6 h-6 sm:w-7 sm:h-7 relative shrink-0">
+                      <img
+                        src={`${base}/mctextureghost-icon.png`}
+                        alt="mcTextureGhost icon"
+                        class="absolute -top-1.5 -left-1 w-12 h-12 sm:w-14 sm:h-14 max-w-none object-contain pixelated [image-rendering:pixelated] drop-shadow-[0_0_8px_color-mix(in_srgb,var(--color-accent,#52FF1A)_70%,transparent)] drop-shadow-[0_0_20px_color-mix(in_srgb,var(--color-accent,#52FF1A)_40%,transparent)] pointer-events-none z-10"
+                      />
+                    </div>
+                    <div
+                      class="text-xl sm:text-2xl font-bold tracking-[-0.02em] text-neutral-950 dark:text-white leading-none font-heading inline-flex items-center pl-4 sm:pl-5"
+                    >
+                      <span>mc</span>
+                      <span
+                        class="text-[var(--color-accent,#8ceb1f)] dark:drop-shadow-[0_0_12px_rgba(140,235,31,0.45)]"
+                        style="font-family: 'Press Start 2P', monospace; font-size: 0.74em; font-weight: 400; letter-spacing: -0.03em; margin: 0 3px; transform: translateY(1px); display: inline-block;"
+                      >Texture</span>
+                      <span>Ghost</span>
+                    </div>
+                  </div>
+                  <div class="flex flex-col">
+                    <span
+                      class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100"
+                      >mcTextureGhost Logotype</span
+                    >
+                    <span class="font-mono text-[11px] text-neutral-500"
+                      >Syne 700 + Press Start 2P 400 • Dual Accent Glow • Pixelated Mascot</span
+                    >
+                  </div>
+                </div>
+
+                <!-- HYPE-BOX Logo -->
+                <div class="flex flex-col gap-2">
+                  <div
+                    class="text-xl sm:text-2xl font-black tracking-tight text-neutral-950 dark:text-white leading-none font-heading select-none py-1"
+                  >
+                    HYPE-BOX
+                  </div>
+                  <div class="flex flex-col">
+                    <span
+                      class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100"
+                      >HYPE-BOX Display Logotype</span
+                    >
+                    <span class="font-mono text-[11px] text-neutral-500"
+                      >Syne 900 • text-xl sm:text-2xl • tracking-tight • uppercase</span
                     >
                   </div>
                 </div>
@@ -1963,6 +2080,7 @@ const systemsNav = [
             >
               <ProjectTile
                 title="HYPE-BOX SYSTEMA TABERNAE"
+                brand="hypebox"
                 category="01 // SYSTEMA INTERACTIVUM"
                 description="Programma tabernae photographicae tactu directum, cum motu sexaginta imaginum per secundum et ordine sine interrete firmo."
                 status="STATUS_VIVUS"
@@ -1979,6 +2097,7 @@ const systemsNav = [
             >
               <ProjectTile
                 title="PORTA CURATORIS TABERNAE"
+                brand="hypebox"
                 category="02 // PLATFORMA CURATIONIS"
                 description="Analytica summae praestantiae, gubernatio telemetriae tabernae, designator formarum, et ordinatio solutionum."
                 status="VERSIO_STABILIS"
@@ -2011,6 +2130,7 @@ const systemsNav = [
             >
               <ProjectTile
                 title="BIBLIOTHECA COMPONENTIUM ET TYPOGRAPHIAE"
+                brand="portfolio"
                 category="04 // ARCHITECTURA DESIGNATIONIS ET SYSTEMA"
                 description="Systema designationis rigorosum cum signis typographicis Syne, formis experimentalibus, et coloribus accentus dynamicis."
                 status="DOCUMENTATIO"
