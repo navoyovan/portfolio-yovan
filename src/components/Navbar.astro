@@ -31,7 +31,8 @@ const componentLibraryNavItems = [
 
 const portfolioIndexNavItems = [
   { label: 'HYPE-BOX Ecosystem', href: `${base}/portfolio-index#hypebox-ecosystem`, number: '01' },
-  { label: 'Other Systems', href: `${base}/portfolio-index#other-systems`, number: '02' },
+  { label: 'mcTextureGhost Suite', href: `${base}/portfolio-index#mctextureghost-suite`, number: '02' },
+  { label: 'Other Systems', href: `${base}/portfolio-index#other-systems`, number: '03' },
 ];
 
 const secondaryNavItems = [
@@ -114,7 +115,7 @@ if (isComponentLibrary) {
                       id="desktop-sections-dropdown"
                       role="menu"
                       aria-label={`${item.label} Sections`}
-                      class="absolute top-full left-0 mt-2 min-w-[210px] bg-[#fcfbf9]/95 dark:bg-[#0e0e0e]/95 backdrop-blur-xl border border-neutral-200/90 dark:border-neutral-800/90 rounded-lg shadow-xl dark:shadow-2xl p-1.5 z-50 opacity-0 -translate-y-2 scale-95 pointer-events-none transition-[opacity,transform] duration-200 ease-out origin-top flex flex-col gap-1"
+                      class="absolute top-full left-0 mt-2 min-w-[270px] sm:min-w-[290px] bg-[#fcfbf9]/95 dark:bg-[#0e0e0e]/95 backdrop-blur-xl border border-neutral-200/90 dark:border-neutral-800/90 rounded-lg shadow-xl dark:shadow-2xl p-1.5 z-50 opacity-0 -translate-y-2 scale-95 pointer-events-none transition-[opacity,transform] duration-200 ease-out origin-top flex flex-col gap-1"
                     >
                       <div class="px-3 pt-2 pb-1 text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-neutral-500 font-semibold border-b border-neutral-200/60 dark:border-neutral-800/60 select-none">
                         {currentPageTitle}
@@ -125,7 +126,7 @@ if (isComponentLibrary) {
                             <a
                               href={section.href}
                               role="menuitem"
-                              class="desktop-section-link group flex items-center justify-between px-3 py-2 text-xs font-heading font-bold uppercase tracking-tight text-neutral-700 dark:text-neutral-300 hover:text-neutral-950 dark:hover:text-white hover:bg-neutral-100 dark:hover:bg-neutral-900/80 rounded transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent,#52FF1A)]"
+                              class="desktop-section-link group flex items-center justify-between px-3 py-2 text-xs font-heading font-bold uppercase tracking-tight text-neutral-700 dark:text-neutral-300 hover:text-neutral-950 dark:hover:text-white hover:bg-neutral-100 dark:hover:bg-neutral-900/80 rounded transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent,#52FF1A)] whitespace-nowrap gap-4"
                             >
                               <span>{section.label}</span>
                               <span class="text-[10px] font-mono text-neutral-400 dark:text-neutral-600 group-hover:text-[var(--color-accent,#52FF1A)] transition-colors">
