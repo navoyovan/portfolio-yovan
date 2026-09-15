@@ -14,7 +14,7 @@ interface Props {
   previewBg?: string;
   status?: string;
   statusId?: string;
-  statusVariant?: 'accent' | 'neutral' | 'warning' | 'danger' | 'info';
+  statusVariant?: 'accent' | 'neon' | 'neutral' | 'warning' | 'danger' | 'info';
   tags?: string[];
   actionText?: string;
   actionTextId?: string;
@@ -232,7 +232,12 @@ const titleId = `tile-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
     <!-- Syne Title -->
     <h3
       id={titleId}
-      class="text-lg sm:text-xl font-bold text-neutral-950 dark:text-white tracking-tight leading-tight group-hover:text-[var(--color-accent,#52FF1A)] transition-colors font-heading m-0 flex items-center gap-1.5"
+      class:list={[
+        "text-lg sm:text-xl font-bold text-neutral-950 dark:text-white tracking-tight leading-tight transition-colors font-heading m-0 flex items-center gap-1.5",
+        (brand === 'mctextureghost' || title.toLowerCase().includes('mctextureghost'))
+          ? "group-hover:text-[#52FF1A]"
+          : "group-hover:text-[var(--color-accent,#52FF1A)]"
+      ]}
     >
       <slot name="title">
         {title}

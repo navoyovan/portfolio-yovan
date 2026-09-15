@@ -1,6 +1,6 @@
 ---
 interface Props {
-  variant?: 'accent' | 'neutral' | 'warning' | 'danger' | 'info' | 'live' | 'success' | 'syncing' | 'error';
+  variant?: 'accent' | 'neon' | 'neutral' | 'warning' | 'danger' | 'info' | 'live' | 'success' | 'syncing' | 'error';
   size?: 'sm' | 'md';
   class?: string;
   [key: string]: any;
@@ -15,6 +15,7 @@ const {
 
 // Normalize aliases
 const normalizedVariant = (() => {
+  if (variant === 'neon') return 'neon';
   if (['accent', 'live', 'success'].includes(variant)) return 'accent';
   if (['warning', 'syncing', 'pending'].includes(variant)) return 'warning';
   if (['danger', 'error'].includes(variant)) return 'danger';
@@ -29,6 +30,7 @@ const sizeStyles = {
 
 const variantStyles = {
   accent: 'bg-[var(--color-accent,#52FF1A)] text-black font-bold shadow-[0_0_14px_color-mix(in_srgb,var(--color-accent,#52FF1A)_35%,transparent)] border border-transparent',
+  neon: 'bg-[#52FF1A] text-black font-bold shadow-[0_0_14px_rgba(82,255,26,0.5)] border border-transparent',
   neutral: 'bg-neutral-950 text-white dark:bg-white dark:text-neutral-950 border border-transparent font-medium',
   warning: 'bg-amber-400 text-neutral-950 font-bold border border-transparent',
   danger: 'bg-rose-600 text-white font-bold border border-transparent',
