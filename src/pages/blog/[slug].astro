@@ -54,6 +54,148 @@ const articleSchema = {
   keywords={post.data.tags}
   schema={articleSchema}
 >
+  <!-- Temporary Live UI Tuner Bar (Per /live-ui-tuner skill) -->
+  <div
+    id="ui-tuner-bar"
+    class="sticky top-0 z-50 w-full bg-[#fcfbf9]/95 dark:bg-[#0e0e0e]/95 backdrop-blur border-b border-neutral-300 dark:border-neutral-800 px-4 py-2.5 flex flex-wrap items-center gap-3 text-xs font-mono select-none transition-colors shadow-sm"
+  >
+    <span class="font-bold text-[11px] text-[var(--color-accent,#52FF1A)] flex items-center gap-1.5 shrink-0">
+      <span class="w-2 h-2 rounded-full bg-[var(--color-accent,#52FF1A)] animate-pulse"></span>
+      // LIVE BLOG TUNER:
+    </span>
+
+    <!-- Preset Select -->
+    <label class="flex items-center gap-1.5 text-neutral-700 dark:text-neutral-300">
+      <span class="text-neutral-400">Preset:</span>
+      <select
+        id="tune-preset"
+        class="bg-neutral-100 dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700 rounded px-2 py-1 text-xs cursor-pointer text-neutral-900 dark:text-white font-mono"
+      >
+        <option value="default" selected>Default (Syne Editorial)</option>
+        <option value="tech-inktrap">Tech Inktrap (Neue Machina v2)</option>
+        <option value="plain-machina">Plain Machina</option>
+        <option value="brutal-clash">Brutal (Clash Display)</option>
+        <option value="swiss-modern">Swiss (Plus Jakarta)</option>
+        <option value="tech-mono">Tech Grotesk (Space)</option>
+        <option value="custom">Custom...</option>
+      </select>
+    </label>
+
+    <!-- Headings Font Select -->
+    <label class="flex items-center gap-1.5 text-neutral-700 dark:text-neutral-300">
+      <span class="text-neutral-400">Headings Font:</span>
+      <select
+        id="tune-font"
+        class="bg-neutral-100 dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700 rounded px-2 py-1 text-xs cursor-pointer text-neutral-900 dark:text-white font-mono max-w-[190px]"
+      >
+        <option value="'Syne', sans-serif" selected>Syne (Default Heading)</option>
+        <option value="'Neue Machina v2 Inktrap', 'Neue Machina', sans-serif">Neue Machina v2 (Inktrap)</option>
+        <option value="'Neue Machina v2 Plain', sans-serif">Neue Machina v2 (Plain)</option>
+        <option value="'Neue Machina v1', sans-serif">Neue Machina v1 (Original)</option>
+        <option value="'Clash Display', sans-serif">Clash Display</option>
+        <option value="'General Sans', sans-serif">General Sans</option>
+        <option value="'Space Grotesk', sans-serif">Space Grotesk</option>
+        <option value="'Plus Jakarta Sans', sans-serif">Plus Jakarta Sans</option>
+        <option value="'Inter', sans-serif">Inter</option>
+        <option value="'Outfit', sans-serif">Outfit</option>
+      </select>
+    </label>
+
+    <!-- H2 Controls -->
+    <div class="flex items-center gap-2 pl-2 border-l border-neutral-300 dark:border-neutral-700">
+      <span class="font-bold text-neutral-900 dark:text-white text-[11px]">H2:</span>
+      <label class="flex items-center gap-1 text-neutral-700 dark:text-neutral-300">
+        <span class="text-neutral-400">Size:</span>
+        <input id="tune-h2-size" type="range" min="18" max="44" step="1" value="26" class="cursor-pointer accent-[var(--color-accent,#52FF1A)] w-16" />
+        <span id="val-h2-size" class="font-bold text-neutral-900 dark:text-neutral-100 w-9">26px</span>
+      </label>
+      <label class="flex items-center gap-1 text-neutral-700 dark:text-neutral-300">
+        <span class="text-neutral-400">Weight:</span>
+        <select id="tune-h2-weight" class="bg-neutral-100 dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700 rounded px-1.5 py-0.5 text-xs font-mono cursor-pointer text-neutral-900 dark:text-white">
+          <option value="600">600</option>
+          <option value="700">700</option>
+          <option value="800" selected>800</option>
+          <option value="900">900</option>
+        </select>
+      </label>
+      <label class="flex items-center gap-1 text-neutral-700 dark:text-neutral-300">
+        <span class="text-neutral-400">Track:</span>
+        <input id="tune-h2-tracking" type="range" min="-3" max="4" step="0.5" value="-0.5" class="cursor-pointer accent-[var(--color-accent,#52FF1A)] w-14" />
+        <span id="val-h2-tracking" class="font-bold text-neutral-900 dark:text-neutral-100 w-11">-0.5px</span>
+      </label>
+      <label class="flex items-center gap-1 text-neutral-700 dark:text-neutral-300 cursor-pointer">
+        <input id="tune-h2-border" type="checkbox" class="w-3.5 h-3.5 accent-[var(--color-accent,#52FF1A)] cursor-pointer" />
+        <span class="text-neutral-400">Line</span>
+      </label>
+    </div>
+
+    <!-- H3 Controls -->
+    <div class="flex items-center gap-2 pl-2 border-l border-neutral-300 dark:border-neutral-700">
+      <span class="font-bold text-neutral-900 dark:text-white text-[11px]">H3:</span>
+      <label class="flex items-center gap-1 text-neutral-700 dark:text-neutral-300">
+        <span class="text-neutral-400">Size:</span>
+        <input id="tune-h3-size" type="range" min="15" max="32" step="1" value="21" class="cursor-pointer accent-[var(--color-accent,#52FF1A)] w-16" />
+        <span id="val-h3-size" class="font-bold text-neutral-900 dark:text-neutral-100 w-9">21px</span>
+      </label>
+      <label class="flex items-center gap-1 text-neutral-700 dark:text-neutral-300">
+        <span class="text-neutral-400">Weight:</span>
+        <select id="tune-h3-weight" class="bg-neutral-100 dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700 rounded px-1.5 py-0.5 text-xs font-mono cursor-pointer text-neutral-900 dark:text-white">
+          <option value="600">600</option>
+          <option value="700" selected>700</option>
+          <option value="800">800</option>
+          <option value="900">900</option>
+        </select>
+      </label>
+      <label class="flex items-center gap-1 text-neutral-700 dark:text-neutral-300">
+        <span class="text-neutral-400">Track:</span>
+        <input id="tune-h3-tracking" type="range" min="-3" max="4" step="0.5" value="-0.3" class="cursor-pointer accent-[var(--color-accent,#52FF1A)] w-14" />
+        <span id="val-h3-tracking" class="font-bold text-neutral-900 dark:text-neutral-100 w-11">-0.3px</span>
+      </label>
+      <label class="flex items-center gap-1 text-neutral-700 dark:text-neutral-300">
+        <span class="text-neutral-400">Prefix:</span>
+        <select id="tune-h3-prefix" class="bg-neutral-100 dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700 rounded px-1.5 py-0.5 text-xs font-mono cursor-pointer text-neutral-900 dark:text-white">
+          <option value="" selected>None</option>
+          <option value="//">// Slash</option>
+          <option value="›">› Arrow</option>
+          <option value="§">§ Section</option>
+          <option value="#"># Hash</option>
+        </select>
+      </label>
+    </div>
+
+    <!-- Body Paragraph Controls -->
+    <div class="flex items-center gap-2 pl-2 border-l border-neutral-300 dark:border-neutral-700">
+      <span class="font-bold text-neutral-900 dark:text-white text-[11px]">Body:</span>
+      <label class="flex items-center gap-1 text-neutral-700 dark:text-neutral-300">
+        <span class="text-neutral-400">Size:</span>
+        <input id="tune-p-size" type="range" min="14" max="20" step="0.5" value="16" class="cursor-pointer accent-[var(--color-accent,#52FF1A)] w-14" />
+        <span id="val-p-size" class="font-bold text-neutral-900 dark:text-neutral-100 w-10">16px</span>
+      </label>
+      <label class="flex items-center gap-1 text-neutral-700 dark:text-neutral-300">
+        <span class="text-neutral-400">Leading:</span>
+        <input id="tune-p-leading" type="range" min="1.4" max="2.2" step="0.05" value="1.75" class="cursor-pointer accent-[var(--color-accent,#52FF1A)] w-14" />
+        <span id="val-p-leading" class="font-bold text-neutral-900 dark:text-neutral-100 w-8">1.75</span>
+      </label>
+    </div>
+
+    <!-- Output & Copy Button -->
+    <div class="flex items-center gap-2 ml-auto shrink-0">
+      <input
+        id="tune-output"
+        type="text"
+        readonly
+        class="bg-neutral-100 dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700 px-2 py-1 text-xs font-mono text-neutral-800 dark:text-neutral-200 rounded w-48 sm:w-60 select-all"
+      />
+      <button
+        id="tune-copy-btn"
+        type="button"
+        class="px-3 py-1 font-bold rounded bg-neutral-900 text-white dark:bg-white dark:text-neutral-950 hover:opacity-90 transition-opacity cursor-pointer text-xs"
+      >
+        Copy CSS
+      </button>
+    </div>
+  </div>
+
   <div class="relative z-10 w-[92%] sm:w-[86%] lg:w-[80%] max-w-4xl mx-auto pt-10 sm:pt-14 pb-24">
     <!-- Breadcrumb / Back link -->
     <div class="mb-8">
@@ -285,3 +427,223 @@ const articleSchema = {
     border: 1px solid rgba(150, 150, 160, 0.2);
   }
 </style>
+
+<script is:inline>
+  (function () {
+    function setupBlogTuner() {
+      const tunerBar = document.getElementById('ui-tuner-bar');
+      if (!tunerBar) return;
+
+      const presetSel = document.getElementById('tune-preset');
+      const fontSel = document.getElementById('tune-font');
+
+      const h2SizeInput = document.getElementById('tune-h2-size');
+      const h2SizeVal = document.getElementById('val-h2-size');
+      const h2WeightSel = document.getElementById('tune-h2-weight');
+      const h2TrackInput = document.getElementById('tune-h2-tracking');
+      const h2TrackVal = document.getElementById('val-h2-tracking');
+      const h2BorderCheck = document.getElementById('tune-h2-border');
+
+      const h3SizeInput = document.getElementById('tune-h3-size');
+      const h3SizeVal = document.getElementById('val-h3-size');
+      const h3WeightSel = document.getElementById('tune-h3-weight');
+      const h3TrackInput = document.getElementById('tune-h3-tracking');
+      const h3TrackVal = document.getElementById('val-h3-tracking');
+      const h3PrefixSel = document.getElementById('tune-h3-prefix');
+
+      const pSizeInput = document.getElementById('tune-p-size');
+      const pSizeVal = document.getElementById('val-p-size');
+      const pLeadingInput = document.getElementById('tune-p-leading');
+      const pLeadingVal = document.getElementById('val-p-leading');
+
+      const output = document.getElementById('tune-output');
+      const copyBtn = document.getElementById('tune-copy-btn');
+
+      const FONT_STYLESHEETS = {
+        "'Plus Jakarta Sans', sans-serif": 'https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;700;800&display=swap',
+        "'Inter', sans-serif": 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap',
+        "'Clash Display', sans-serif": 'https://api.fontshare.com/v2/css?f[]=clash-display@700,600&display=swap',
+        "'General Sans', sans-serif": 'https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600&display=swap',
+        "'Space Grotesk', sans-serif": 'https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&display=swap',
+        "'Space Mono', monospace": 'https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap',
+        "'Outfit', sans-serif": 'https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&display=swap',
+      };
+
+      const PRESETS = {
+        'default': {
+          font: "'Syne', sans-serif",
+          h2Size: 26, h2Weight: '800', h2Track: -0.5, h2Border: false,
+          h3Size: 21, h3Weight: '700', h3Track: -0.3, h3Prefix: '',
+          pSize: 16, pLeading: 1.75
+        },
+        'tech-inktrap': {
+          font: "'Neue Machina v2 Inktrap', 'Neue Machina', sans-serif",
+          h2Size: 28, h2Weight: '800', h2Track: -1.0, h2Border: true,
+          h3Size: 20, h3Weight: '700', h3Track: -0.5, h3Prefix: '//',
+          pSize: 15.5, pLeading: 1.7
+        },
+        'plain-machina': {
+          font: "'Neue Machina v2 Plain', sans-serif",
+          h2Size: 27, h2Weight: '800', h2Track: -0.8, h2Border: false,
+          h3Size: 20, h3Weight: '700', h3Track: -0.4, h3Prefix: '//',
+          pSize: 15.5, pLeading: 1.7
+        },
+        'brutal-clash': {
+          font: "'Clash Display', sans-serif",
+          h2Size: 32, h2Weight: '700', h2Track: -0.8, h2Border: true,
+          h3Size: 22, h3Weight: '600', h3Track: -0.4, h3Prefix: '›',
+          pSize: 16, pLeading: 1.75
+        },
+        'swiss-modern': {
+          font: "'Plus Jakarta Sans', sans-serif",
+          h2Size: 26, h2Weight: '800', h2Track: -0.5, h2Border: false,
+          h3Size: 19, h3Weight: '700', h3Track: -0.2, h3Prefix: '',
+          pSize: 16, pLeading: 1.8
+        },
+        'tech-mono': {
+          font: "'Space Grotesk', sans-serif",
+          h2Size: 27, h2Weight: '700', h2Track: -0.5, h2Border: false,
+          h3Size: 20, h3Weight: '700', h3Track: 0.0, h3Prefix: '§',
+          pSize: 15, pLeading: 1.7
+        }
+      };
+
+      let liveStyle = document.getElementById('live-blog-tuner-style');
+      if (!liveStyle) {
+        liveStyle = document.createElement('style');
+        liveStyle.id = 'live-blog-tuner-style';
+        document.head.appendChild(liveStyle);
+      }
+
+      function update(presetChange = false) {
+        if (presetChange && presetSel && PRESETS[presetSel.value]) {
+          const p = PRESETS[presetSel.value];
+          fontSel.value = p.font;
+          h2SizeInput.value = p.h2Size;
+          h2WeightSel.value = p.h2Weight;
+          h2TrackInput.value = p.h2Track;
+          h2BorderCheck.checked = p.h2Border;
+
+          h3SizeInput.value = p.h3Size;
+          h3WeightSel.value = p.h3Weight;
+          h3TrackInput.value = p.h3Track;
+          h3PrefixSel.value = p.h3Prefix;
+
+          pSizeInput.value = p.pSize;
+          pLeadingInput.value = p.pLeading;
+        }
+
+        const font = fontSel.value;
+        const h2Size = parseFloat(h2SizeInput.value);
+        const h2Weight = h2WeightSel.value;
+        const h2Track = parseFloat(h2TrackInput.value);
+        const h2Border = h2BorderCheck.checked;
+
+        const h3Size = parseFloat(h3SizeInput.value);
+        const h3Weight = h3WeightSel.value;
+        const h3Track = parseFloat(h3TrackInput.value);
+        const h3Prefix = h3PrefixSel.value;
+
+        const pSize = parseFloat(pSizeInput.value);
+        const pLeading = parseFloat(pLeadingInput.value);
+
+        // Load external font stylesheet if needed
+        if (FONT_STYLESHEETS[font] && !document.querySelector(`link[href="${FONT_STYLESHEETS[font]}"]`)) {
+          const link = document.createElement('link');
+          link.rel = 'stylesheet';
+          link.href = FONT_STYLESHEETS[font];
+          document.head.appendChild(link);
+        }
+
+        // Update value labels
+        h2SizeVal.textContent = `${h2Size}px`;
+        h2TrackVal.textContent = `${h2Track}px`;
+        h3SizeVal.textContent = `${h3Size}px`;
+        h3TrackVal.textContent = `${h3Track}px`;
+        pSizeVal.textContent = `${pSize}px`;
+        pLeadingVal.textContent = `${pLeading}`;
+
+        // Inject dynamic CSS
+        liveStyle.textContent = `
+          .blog-prose h2 {
+            font-family: ${font} !important;
+            font-size: ${h2Size}px !important;
+            font-weight: ${h2Weight} !important;
+            letter-spacing: ${h2Track}px !important;
+            ${h2Border ? 'padding-bottom: 0.35rem !important; border-bottom: 1px solid rgba(150, 150, 160, 0.25) !important;' : ''}
+          }
+          .blog-prose h3 {
+            font-family: ${font} !important;
+            font-size: ${h3Size}px !important;
+            font-weight: ${h3Weight} !important;
+            letter-spacing: ${h3Track}px !important;
+          }
+          .blog-prose h3::before {
+            ${h3Prefix ? `content: '${h3Prefix} ' !important; color: var(--color-accent, #52FF1A) !important; margin-right: 0.25rem !important;` : `content: none !important;`}
+          }
+          .blog-prose p {
+            font-size: ${pSize}px !important;
+            line-height: ${pLeading} !important;
+          }
+        `;
+
+        const fontLabel = fontSel.options[fontSel.selectedIndex].text;
+        output.value = `font: "${fontLabel}"; h2: ${h2Size}px / ${h2Weight} / ${h2Track}px; h3: ${h3Size}px / ${h3Weight} / ${h3Track}px${h3Prefix ? ` ("${h3Prefix}")` : ''}; p: ${pSize}px / ${pLeading};`;
+      }
+
+      presetSel.onchange = () => update(true);
+      fontSel.onchange = () => update(false);
+
+      h2SizeInput.oninput = () => update(false);
+      h2WeightSel.onchange = () => update(false);
+      h2TrackInput.oninput = () => update(false);
+      h2BorderCheck.onchange = () => update(false);
+
+      h3SizeInput.oninput = () => update(false);
+      h3WeightSel.onchange = () => update(false);
+      h3TrackInput.oninput = () => update(false);
+      h3PrefixSel.onchange = () => update(false);
+
+      pSizeInput.oninput = () => update(false);
+      pLeadingInput.oninput = () => update(false);
+
+      // Scrollwheel cycling for all dropdown selects
+      tunerBar.querySelectorAll('select').forEach((sel) => {
+        sel.addEventListener(
+          'wheel',
+          function (e) {
+            e.preventDefault();
+            const delta = Math.sign(e.deltaY);
+            if (delta > 0 && sel.selectedIndex < sel.options.length - 1) {
+              sel.selectedIndex++;
+              sel.dispatchEvent(new Event('change'));
+            } else if (delta < 0 && sel.selectedIndex > 0) {
+              sel.selectedIndex--;
+              sel.dispatchEvent(new Event('change'));
+            }
+          },
+          { passive: false }
+        );
+      });
+
+      // Copy full CSS rules on click
+      copyBtn.onclick = () => {
+        const fullCss = liveStyle.textContent.trim().replace(/\s*!important/g, '');
+        navigator.clipboard.writeText(fullCss);
+        copyBtn.textContent = 'Copied!';
+        setTimeout(() => {
+          copyBtn.textContent = 'Copy CSS';
+        }, 1500);
+      };
+
+      update(false);
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', setupBlogTuner);
+    } else {
+      setupBlogTuner();
+    }
+    document.addEventListener('astro:page-load', setupBlogTuner);
+  })();
+</script>
