@@ -20,6 +20,13 @@ const postsWithProjects = await Promise.all(
   })
 );
 
+function getReadingTime(body?: string): string {
+  if (!body) return '1 min read';
+  const words = body.trim().split(/\s+/).filter(Boolean).length;
+  const minutes = Math.max(1, Math.ceil(words / 200));
+  return `${minutes} min read`;
+}
+
 const siteUrl = Astro.site?.toString() || 'https://navoyovan.github.io/portfolio-yovan';
 
 const blogSchema = {
@@ -89,6 +96,10 @@ const blogSchema = {
                   <time datetime={post.data.publishDate.toISOString()} class="text-xs text-neutral-500 dark:text-neutral-400 font-sans">
                     {formattedDate}
                   </time>
+                  <span class="text-neutral-300 dark:text-neutral-700 font-sans">•</span>
+                  <span class="text-xs text-neutral-500 dark:text-neutral-400 font-sans">
+                    {getReadingTime(post.body)}
+                  </span>
                 </div>
 
                 {project && (
@@ -151,6 +162,10 @@ const blogSchema = {
                         <time datetime={post.data.publishDate.toISOString()} class="text-xs text-neutral-500 font-sans">
                           {formattedDate}
                         </time>
+                        <span class="text-neutral-300 dark:text-neutral-700 font-sans">•</span>
+                        <span class="text-xs text-neutral-500 font-sans">
+                          {getReadingTime(post.body)}
+                        </span>
                       </div>
                       {project && (
                         <span class="text-xs px-2 py-0.5 rounded-full bg-neutral-100 dark:bg-neutral-900 text-neutral-600 dark:text-neutral-400 border border-neutral-200 dark:border-neutral-800 font-sans">
