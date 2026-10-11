@@ -1,0 +1,362 @@
+---
+import RootLayout from '../../layouts/RootLayout.astro';
+import DevMenu from '../../components/DevMenu.astro';
+import BlogOutline from '../../components/BlogOutline.astro';
+import { getCollection, getEntry, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', ({ data }) => !data.draft);
+  return posts.map((post) => ({
+    params: { slug: post.id.replace(/\.[^/.]+$/, '') },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content, headings } = await render(post);
+
+// Pre-resolve related project if declared
+let relatedProject: any = null;
+if (post.data.project) {
+  relatedProject = await getEntry(post.data.project);
+}
+
+const rawBase = import.meta.env.BASE_URL;
+const base = rawBase.endsWith('/') ? rawBase.slice(0, -1) : rawBase;
+
+const formattedDate = post.data.publishDate.toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+
+const readingTime = (() => {
+  const words = (post.body || '').trim().split(/\s+/).filter(Boolean).length;
+  const minutes = Math.max(1, Math.ceil(words / 200));
+  return `${minutes} min read`;
+})();
+
+const siteUrl = Astro.site?.toString() || 'https://navoyovan.github.io/portfolio-yovan';
+const postSlug = post.id.replace(/\.[^/.]+$/, '');
+const articleUrl = `${siteUrl}/blog/${postSlug}`;
+
+const authorName = post.data.author || 'Yovan Gunardio Darmawan';
+const authorRole = post.data.authorRole || 'Software Engineer & Systems Architecture Enthusiast based in Bogor, Indonesia.';
+const isAiAuthor = Boolean(post.data.author && post.data.author !== 'Yovan Gunardio Darmawan');
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'TechArticle',
+  headline: post.data.title,
+  description: post.data.description,
+  datePublished: post.data.publishDate.toISOString(),
+  url: articleUrl,
+  author: {
+    '@type': isAiAuthor ? 'SoftwareApplication' : 'Person',
+    name: authorName,
+  },
+};
+---
+
+<RootLayout
+  title={`${post.data.title} | Yovan Gunardio Darmawan`}
+  description={post.data.description}
+  type="article"
+  keywords={post.data.tags}
+  schema={articleSchema}
+>
+  <!-- Reading Progress Bar -->
+  <div
+    id="reading-progress"
+    class="fixed top-0 left-0 w-0 h-[2px] bg-neutral-950 dark:bg-white z-50 transition-[width] duration-75"
+    aria-hidden="true"
+  ></div>
+
+  <div class="relative z-10 w-full min-h-screen flex items-start">
+    <!-- Document Outline & Scrollbar Markers (Component Library & ChatGPT style) -->
+    <BlogOutline headings={headings} />
+
+    <main class="flex-1 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-10 min-w-0 transition-all duration-300">
+    <!-- Navigation -->
+    <nav aria-label="Breadcrumb" class="pb-2">
+      <a
+        href={`${base}/blog`}
+        class="inline-flex items-center gap-1.5 font-sans text-xs text-neutral-500 hover:text-neutral-900 dark:hover:text-white transition-colors"
+      >
+        <span aria-hidden="true">←</span>
+        <span>Back to Blog</span>
+      </a>
+    </nav>
+
+    <!-- Article Header -->
+    <header class="space-y-4 pb-8 border-b border-neutral-200 dark:border-neutral-800">
+      <div class="flex items-center gap-2.5 text-xs text-neutral-500 dark:text-neutral-400 font-sans flex-wrap">
+        <span>By {authorName}</span>
+        {isAiAuthor && (
+          <span class="text-[10.5px] px-1.5 py-0.5 rounded bg-neutral-200/80 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 font-mono">
+            AI Author
+          </span>
+        )}
+        <span>•</span>
+        <time datetime={post.data.publishDate.toISOString()}>
+          {formattedDate}
+        </time>
+        <span>•</span>
+        <span>{readingTime}</span>
+      </div>
+
+      <h1 class="text-3xl sm:text-4xl lg:text-5xl font-sans font-bold tracking-tight text-neutral-950 dark:text-white leading-tight">
+        {post.data.title}
+      </h1>
+
+      <p class="font-sans text-base sm:text-lg text-neutral-600 dark:text-neutral-400 leading-relaxed max-w-3xl">
+        {post.data.description}
+      </p>
+
+      <div class="flex items-center gap-1.5 flex-wrap pt-2">
+        {post.data.tags.map((tag: string) => (
+          <span class="font-sans text-xs px-2.5 py-0.5 rounded-full bg-neutral-100 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 text-neutral-600 dark:text-neutral-400">
+            {tag}
+          </span>
+        ))}
+      </div>
+
+      <!-- RELATED PROJECT SYSTEM HERO CARD -->
+      {relatedProject && (
+        <aside class="mt-8 p-5 sm:p-6 rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50/70 dark:bg-neutral-900/60 shadow-sm">
+          <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
+            <div class="space-y-2 min-w-0">
+              <div class="flex items-center gap-2 flex-wrap">
+                <span class="font-sans text-xs font-semibold px-2.5 py-0.5 rounded-full bg-neutral-950 text-white dark:bg-white dark:text-neutral-950">
+                  Related Project
+                </span>
+                <span class="font-sans text-xs text-neutral-500">
+                  {relatedProject.data.category}
+                </span>
+              </div>
+              <h3 class="text-lg sm:text-xl font-sans font-bold text-neutral-950 dark:text-white">
+                {relatedProject.data.title}
+              </h3>
+              <p class="font-sans text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
+                {relatedProject.data.description}
+              </p>
+              <div class="flex items-center gap-1.5 flex-wrap pt-1">
+                {relatedProject.data.tech.map((t: string) => (
+                  <span class="font-sans text-xs px-2 py-0.5 rounded-full bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 text-neutral-600 dark:text-neutral-400">
+                    {t}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <div class="flex sm:flex-col items-center sm:items-end gap-2 shrink-0 pt-1">
+              {relatedProject.data.href && (
+                <a
+                  href={relatedProject.data.href}
+                  target={relatedProject.data.href.startsWith('http') ? '_blank' : undefined}
+                  rel={relatedProject.data.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                  class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-neutral-950 text-white dark:bg-white dark:text-neutral-950 font-sans font-semibold text-xs hover:opacity-90 transition-opacity"
+                >
+                  <span>Explore Project</span>
+                  <span aria-hidden="true">→</span>
+                </a>
+              )}
+              {relatedProject.data.github && (
+                <a
+                  href={relatedProject.data.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="inline-flex items-center gap-1 font-sans text-xs text-neutral-500 hover:text-neutral-900 dark:hover:text-white transition-colors"
+                >
+                  <span>GitHub Repository</span>
+                </a>
+              )}
+            </div>
+          </div>
+        </aside>
+      )}
+    </header>
+
+    <!-- Post Body / Markdown Content -->
+    <article class="blog-prose font-sans text-neutral-800 dark:text-neutral-200 leading-relaxed space-y-6 max-w-none">
+      <Content />
+    </article>
+
+    <!-- Article Footer / Author Card & Navigation -->
+    <footer class="mt-16 pt-8 border-t border-neutral-200 dark:border-neutral-800 space-y-8">
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 p-5 sm:p-6 rounded-xl border border-neutral-200/80 dark:border-neutral-800/80 bg-white/60 dark:bg-neutral-950/60 shadow-sm">
+        <div class="space-y-1">
+          <div class="flex items-center gap-2">
+            <span class="font-sans font-semibold text-sm text-neutral-950 dark:text-white">
+              {authorName}
+            </span>
+            {isAiAuthor && (
+              <span class="text-[10px] px-1.5 py-0.5 rounded bg-neutral-200/80 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 font-mono">
+                AI Author
+              </span>
+            )}
+          </div>
+          <p class="font-sans text-xs text-neutral-500 dark:text-neutral-400">
+            {authorRole}
+          </p>
+        </div>
+
+        <a
+          href={`${base}/blog`}
+          class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 font-sans text-xs font-semibold text-neutral-900 dark:text-neutral-100 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors shrink-0"
+        >
+          <span>←</span>
+          <span data-en="Back to all articles" data-id="Kembali ke semua artikel">Back to all articles</span>
+        </a>
+      </div>
+    </footer>
+    </main>
+  </div>
+
+  <!-- Developer Command & Quick File Access Menu (triggered by `) -->
+  <DevMenu currentPost={post} relatedProject={relatedProject} />
+</RootLayout>
+
+<style is:global>
+  /* Clean Editorial Typography & Layout */
+  .blog-prose {
+    font-size: 1.0625rem;
+    line-height: 1.8;
+  }
+
+  .blog-prose h2 {
+    font-family: var(--font-sans, -apple-system, BlinkMacSystemFont, sans-serif);
+    font-weight: 700;
+    font-size: 1.625rem;
+    line-height: 1.3;
+    letter-spacing: -0.015em;
+    margin-top: 2.5rem;
+    margin-bottom: 0.75rem;
+    color: var(--tw-prose-headings, inherit);
+  }
+
+  .blog-prose h3 {
+    font-family: var(--font-sans, -apple-system, BlinkMacSystemFont, sans-serif);
+    font-weight: 600;
+    font-size: 1.25rem;
+    line-height: 1.4;
+    letter-spacing: -0.01em;
+    margin-top: 1.75rem;
+    margin-bottom: 0.5rem;
+    color: var(--tw-prose-headings, inherit);
+  }
+
+  .blog-prose h4 {
+    font-family: var(--font-sans, -apple-system, BlinkMacSystemFont, sans-serif);
+    font-weight: 600;
+    font-size: 1.1rem;
+    line-height: 1.4;
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .blog-prose p {
+    margin-top: 1.15rem;
+    margin-bottom: 1.15rem;
+    line-height: 1.8;
+  }
+
+  .blog-prose ul, .blog-prose ol {
+    margin-top: 1.15rem;
+    margin-bottom: 1.15rem;
+    padding-left: 1.5rem;
+  }
+
+  .blog-prose ul {
+    list-style-type: disc;
+  }
+
+  .blog-prose ol {
+    list-style-type: decimal;
+  }
+
+  .blog-prose li {
+    margin-top: 0.35rem;
+    margin-bottom: 0.35rem;
+    line-height: 1.7;
+  }
+
+  .blog-prose pre {
+    border-radius: 0.5rem;
+    padding: 1.15rem 1.25rem;
+    font-family: Consolas, "Courier New", monospace;
+    font-size: 0.825rem;
+    line-height: 1.6;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+    overflow-x: auto;
+    border: 1px solid rgba(120, 120, 130, 0.2);
+    background-color: #121214 !important;
+  }
+
+  .blog-prose code:not(pre code) {
+    font-family: Consolas, "Courier New", monospace;
+    font-size: 0.85em;
+    padding: 0.15em 0.35em;
+    border-radius: 0.25rem;
+    background-color: rgba(150, 150, 160, 0.15);
+  }
+
+  .blog-prose blockquote {
+    border-left: 3px solid currentColor;
+    padding-left: 1rem;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+    font-style: italic;
+    opacity: 0.9;
+  }
+
+  .blog-prose table {
+    width: 100%;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+  }
+
+  .blog-prose th, .blog-prose td {
+    padding: 0.65rem 0.85rem;
+    border: 1px solid rgba(150, 150, 160, 0.2);
+    text-align: left;
+  }
+
+  .blog-prose th {
+    font-family: var(--font-sans, -apple-system, BlinkMacSystemFont, sans-serif);
+    font-weight: 600;
+    background-color: rgba(150, 150, 160, 0.08);
+  }
+
+  .blog-prose hr {
+    margin-top: 2.5rem;
+    margin-bottom: 2.5rem;
+    border: 0;
+    border-top: 1px solid rgba(150, 150, 160, 0.2);
+  }
+
+  .blog-prose img {
+    border-radius: 0.5rem;
+    margin-top: 1.75rem;
+    margin-bottom: 1rem;
+    border: 1px solid rgba(150, 150, 160, 0.2);
+  }
+</style>
+
+<script is:inline>
+  function updateReadingProgress() {
+    const bar = document.getElementById('reading-progress');
+    if (!bar) return;
+    const scrollTop = window.scrollY || document.documentElement.scrollTop;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    bar.style.width = Math.min(100, Math.max(0, progress)) + '%';
+  }
+
+  window.addEventListener('scroll', updateReadingProgress, { passive: true });
+  document.addEventListener('astro:page-load', updateReadingProgress);
+  updateReadingProgress();
+</script>

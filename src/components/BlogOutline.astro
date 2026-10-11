@@ -1,0 +1,309 @@
+---
+// BlogOutline.astro - Component Library inspired collapsible sidebar & scrollbar markers
+import ActionButton from './ActionButton.astro';
+
+interface Heading {
+  depth: number;
+  slug: string;
+  text: string;
+}
+
+interface Props {
+  headings: Heading[];
+}
+
+const { headings = [] } = Astro.props;
+const filteredHeadings = headings.filter((h) => h.depth === 2 || h.depth === 3);
+---
+
+{filteredHeadings.length > 0 && (
+  <>
+    <!-- 1. Component Library Style Collapsible Left Sidebar (Desktop xl+) -->
+    <aside
+      id="blog-outline-sidebar"
+      class="hidden xl:block sticky top-16 h-[calc(100vh-4rem)] shrink-0 transition-[width] duration-300 ease-in-out w-0 z-30 select-none"
+      data-collapsed="true"
+      aria-label="Table of Contents"
+    >
+      <!-- Floating Micro Toggle Button anchored directly to the side of the sidebar -->
+      <div
+        id="sidebar-toggle-container"
+        class="absolute top-6 left-3 translate-x-0 z-40 transition-all duration-300 ease-in-out"
+      >
+        <ActionButton
+          id="sidebar-toggle-btn"
+          size="micro"
+          variant="secondary"
+          ariaLabel="Expand Table of Contents"
+          class="bg-[#fcfbf9] dark:bg-[#0e0e0e] shadow-md hover:scale-105 border border-neutral-300 dark:border-neutral-700"
+        >
+          <svg
+            id="sidebar-toggle-icon"
+            xmlns="http://www.w3.org/2000/svg"
+            class="w-4 h-4 transition-transform duration-200"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <line x1="8" y1="6" x2="21" y2="6"></line>
+            <line x1="8" y1="12" x2="21" y2="12"></line>
+            <line x1="8" y1="18" x2="21" y2="18"></line>
+            <line x1="3" y1="6" x2="3.01" y2="6"></line>
+            <line x1="3" y1="12" x2="3.01" y2="12"></line>
+            <line x1="3" y1="18" x2="3.01" y2="18"></line>
+          </svg>
+        </ActionButton>
+      </div>
+
+      <!-- Scrollable Navigation Rail -->
+      <div
+        id="sidebar-nav-content"
+        class="w-72 2xl:w-80 h-full border-r border-neutral-200/80 dark:border-neutral-800/80 py-8 px-0 overflow-y-auto no-scrollbar transition-[opacity,transform] duration-300 ease-in-out opacity-0 -translate-x-full pointer-events-none"
+      >
+        <nav class="space-y-4">
+          <div class="px-5 pb-2.5 border-b border-neutral-200/80 dark:border-neutral-800/80 flex items-center justify-between">
+            <span class="text-xs uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-bold font-sans">
+              Table of Contents
+            </span>
+            <span class="text-xs text-neutral-400 font-sans">
+              {filteredHeadings.length} {filteredHeadings.length === 1 ? 'section' : 'sections'}
+            </span>
+          </div>
+
+          <ul class="space-y-1 list-none p-0 m-0">
+            {filteredHeadings.map((item) => (
+              <li>
+                <button
+                  type="button"
+                  data-target={item.slug}
+                  class:list={[
+                    'sidebar-nav-btn group w-full text-left rounded-none transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-neutral-950 dark:focus-visible:ring-white',
+                    item.depth === 2
+                      ? 'py-2.5 px-5 text-[13.5px] sm:text-sm font-sans font-medium text-neutral-700 dark:text-neutral-300 hover:text-neutral-950 dark:hover:text-white hover:bg-neutral-100 dark:hover:bg-neutral-900'
+                      : 'py-2 pl-8 pr-5 text-xs font-sans text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-200 hover:bg-neutral-50 dark:hover:bg-neutral-900/50',
+                  ]}
+                >
+                  <span class="block truncate group-hover:whitespace-normal group-hover:overflow-visible leading-snug transition-all">
+                    {item.text}
+                  </span>
+                </button>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </div>
+    </aside>
+
+    <!-- 2. Mobile / Tablet Sticky Horizontal Tab Bar (Below Header) -->
+    <div
+      id="mobile-tab-switcher"
+      class="xl:hidden sticky top-14 z-20 bg-[#fcfbf9]/95 dark:bg-[#0e0e0e]/95 backdrop-blur-md border-b border-neutral-200 dark:border-neutral-800 py-2.5 -mx-4 sm:-mx-6 px-4 sm:px-6 mb-6 overflow-x-auto flex items-center gap-2 no-scrollbar select-none"
+    >
+      <span class="text-[11px] font-sans uppercase font-bold text-neutral-400 dark:text-neutral-500 shrink-0 select-none mr-1">
+        Sections:
+      </span>
+      {filteredHeadings.map((item) => (
+        <button
+          type="button"
+          data-target={item.slug}
+          class="mobile-tab-btn shrink-0 px-3.5 py-1.5 text-xs sm:text-sm font-sans font-medium rounded-md bg-neutral-100 dark:bg-neutral-900 text-neutral-700 dark:text-neutral-300 hover:text-neutral-950 dark:hover:text-white transition-colors cursor-pointer border border-transparent whitespace-nowrap active:scale-95"
+        >
+          {item.text}
+        </button>
+      ))}
+    </div>
+
+    <!-- 3. ChatGPT-Style Right Scrollbar Section Notch Markers -->
+    <div
+      id="scrollbar-section-ticks"
+      class="hidden md:flex fixed right-0 top-20 bottom-3 w-5 z-40 flex-col pointer-events-none"
+      aria-hidden="true"
+    >
+      <!-- Generated dynamically based on heading offsets -->
+    </div>
+  </>
+)}
+
+<script is:inline>
+  function setupBlogOutline() {
+    const sidebar = document.getElementById('blog-outline-sidebar');
+    const navContent = document.getElementById('sidebar-nav-content');
+    const toggleContainer = document.getElementById('sidebar-toggle-container');
+    const toggleBtn = document.getElementById('sidebar-toggle-btn');
+    const icon = document.getElementById('sidebar-toggle-icon');
+    const ticksContainer = document.getElementById('scrollbar-section-ticks');
+    const mobileTabs = document.querySelectorAll('.mobile-tab-btn');
+    const sidebarBtns = document.querySelectorAll('.sidebar-nav-btn');
+
+    // 1. Sidebar Collapse State Management (Like Component Library)
+    if (sidebar && navContent && toggleBtn) {
+      let isCollapsed = false; // Default expanded on desktop for quick context
+      try {
+        const saved = localStorage.getItem('blog_sidebar_collapsed');
+        if (saved !== null) {
+          isCollapsed = saved === 'true';
+        }
+      } catch (e) {}
+
+      const applyState = (collapsed) => {
+        isCollapsed = collapsed;
+        sidebar.setAttribute('data-collapsed', collapsed.toString());
+        if (collapsed) {
+          sidebar.classList.remove('w-72', '2xl:w-80');
+          sidebar.classList.add('w-0');
+          navContent.classList.add('opacity-0', '-translate-x-full', 'pointer-events-none');
+          if (toggleContainer) {
+            toggleContainer.classList.remove('left-full', '-translate-x-1/2');
+            toggleContainer.classList.add('left-3', 'translate-x-0');
+          }
+          if (icon) {
+            icon.classList.remove('text-neutral-950', 'dark:text-white');
+            icon.classList.add('opacity-70');
+          }
+          toggleBtn.setAttribute('aria-label', 'Expand Table of Contents');
+          toggleBtn.setAttribute('title', 'Expand Table of Contents');
+        } else {
+          sidebar.classList.remove('w-0');
+          sidebar.classList.add('w-72', '2xl:w-80');
+          navContent.classList.remove('opacity-0', '-translate-x-full', 'pointer-events-none');
+          if (toggleContainer) {
+            toggleContainer.classList.remove('left-3', 'translate-x-0');
+            toggleContainer.classList.add('left-full', '-translate-x-1/2');
+          }
+          if (icon) {
+            icon.classList.remove('opacity-70');
+            icon.classList.add('text-neutral-950', 'dark:text-white');
+          }
+          toggleBtn.setAttribute('aria-label', 'Collapse Table of Contents');
+          toggleBtn.setAttribute('title', 'Collapse Table of Contents');
+        }
+      };
+
+      applyState(isCollapsed);
+
+      toggleBtn.onclick = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        const next = !isCollapsed;
+        applyState(next);
+        try {
+          localStorage.setItem('blog_sidebar_collapsed', next.toString());
+        } catch (e) {}
+      };
+    }
+
+    // 2. Heading Targets & Smooth Scrolling
+    const targets = [];
+    const allButtons = [...sidebarBtns, ...mobileTabs];
+
+    allButtons.forEach((btn) => {
+      const slug = btn.getAttribute('data-target');
+      if (slug) {
+        const el = document.getElementById(slug);
+        if (el && !targets.some((t) => t.slug === slug)) {
+          targets.push({ slug, el });
+        }
+      }
+
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const slug = btn.getAttribute('data-target');
+        const el = slug ? document.getElementById(slug) : null;
+        if (el) {
+          const targetY = el.getBoundingClientRect().top + window.scrollY - 80;
+          window.scrollTo({ top: targetY, behavior: 'smooth' });
+          history.replaceState(null, '', `#${slug}`);
+        }
+      });
+    });
+
+    if (targets.length === 0) return;
+
+    // 3. Active Section Scroll Tracking
+    function updateActiveSection() {
+      const scrollPos = window.scrollY + 100;
+      let activeSlug = targets[0]?.slug;
+
+      for (let i = 0; i < targets.length; i++) {
+        if (targets[i].el.offsetTop <= scrollPos) {
+          activeSlug = targets[i].slug;
+        } else {
+          break;
+        }
+      }
+
+      sidebarBtns.forEach((btn) => {
+        const isCurrent = btn.getAttribute('data-target') === activeSlug;
+        if (isCurrent) {
+          btn.classList.add('bg-neutral-100', 'dark:bg-neutral-900', 'text-neutral-950', 'dark:text-white', 'font-semibold');
+          btn.classList.remove('text-neutral-600', 'dark:text-neutral-400', 'text-neutral-500');
+        } else {
+          btn.classList.remove('bg-neutral-100', 'dark:bg-neutral-900', 'text-neutral-950', 'dark:text-white', 'font-semibold');
+        }
+      });
+
+      mobileTabs.forEach((btn) => {
+        const isCurrent = btn.getAttribute('data-target') === activeSlug;
+        if (isCurrent) {
+          btn.classList.add('bg-neutral-950', 'text-white', 'dark:bg-white', 'dark:text-neutral-950', 'font-semibold');
+          btn.classList.remove('bg-neutral-100', 'dark:bg-neutral-900', 'text-neutral-600', 'dark:text-neutral-400');
+        } else {
+          btn.classList.remove('bg-neutral-950', 'text-white', 'dark:bg-white', 'dark:text-neutral-950', 'font-semibold');
+          btn.classList.add('bg-neutral-100', 'dark:bg-neutral-900', 'text-neutral-600', 'dark:text-neutral-400');
+        }
+      });
+    }
+
+    // 4. Build ChatGPT-Style Scrollbar Notch Ticks
+    function buildScrollbarTicks() {
+      if (!ticksContainer) return;
+      ticksContainer.innerHTML = '';
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      if (docHeight <= 0) return;
+
+      targets.forEach(({ slug, el }) => {
+        const topY = el.getBoundingClientRect().top + window.scrollY;
+        const pct = Math.min(98, Math.max(2, (topY / docHeight) * 100));
+
+        const tick = document.createElement('a');
+        tick.href = `#${slug}`;
+        tick.className = 'absolute right-0 w-4 h-1.5 flex items-center justify-end pointer-events-auto group/tick cursor-pointer';
+        tick.style.top = `${pct}%`;
+
+        const mark = document.createElement('span');
+        mark.className = 'w-1.5 h-[2px] bg-neutral-300 dark:bg-neutral-700 group-hover/tick:w-3 group-hover/tick:bg-neutral-950 dark:group-hover/tick:bg-white rounded-full transition-all duration-150';
+
+        const tooltip = document.createElement('span');
+        tooltip.className = 'absolute right-4 px-2.5 py-1 rounded-md text-xs font-sans whitespace-nowrap bg-neutral-900 text-white dark:bg-white dark:text-neutral-950 shadow-lg opacity-0 pointer-events-none group-hover/tick:opacity-100 transition-opacity duration-150';
+        tooltip.textContent = el.textContent || slug;
+
+        tick.appendChild(tooltip);
+        tick.appendChild(mark);
+
+        tick.addEventListener('click', (e) => {
+          e.preventDefault();
+          const targetY = el.getBoundingClientRect().top + window.scrollY - 80;
+          window.scrollTo({ top: targetY, behavior: 'smooth' });
+          history.replaceState(null, '', `#${slug}`);
+        });
+
+        ticksContainer.appendChild(tick);
+      });
+    }
+
+    window.addEventListener('scroll', updateActiveSection, { passive: true });
+    window.addEventListener('resize', buildScrollbarTicks, { passive: true });
+    updateActiveSection();
+    setTimeout(buildScrollbarTicks, 300);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupBlogOutline);
+  } else {
+    setupBlogOutline();
+  }
+  document.addEventListener('astro:page-load', setupBlogOutline);
+</script>

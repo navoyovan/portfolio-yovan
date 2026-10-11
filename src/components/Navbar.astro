@@ -11,6 +11,7 @@ const navItems = [
   { label: 'Home', href: homeHref },
   { label: 'Component Library', href: `${base}/component-library` },
   { label: 'Portfolio Index', href: `${base}/portfolio-index` },
+  { label: 'Blog', href: `${base}/blog` },
 ];
 
 const homeNavItems = [
@@ -34,14 +35,20 @@ const portfolioIndexNavItems = [
   { label: 'Other Systems', href: `${base}/portfolio-index#other-systems`, number: '03' },
 ];
 
+const blogNavItems = [
+  { label: 'All Articles', href: `${base}/blog`, number: '01' },
+];
+
 const secondaryNavItems = [
   { label: 'Home', href: homeHref },
   { label: 'Component Library', href: `${base}/component-library` },
   { label: 'Portfolio Index', href: `${base}/portfolio-index` },
+  { label: 'Blog', href: `${base}/blog` },
 ];
 
 const isComponentLibrary = pathname.includes('/component-library');
 const isPortfolioIndex = pathname.includes('/portfolio-index');
+const isBlog = pathname.includes('/blog');
 
 let currentSectionItems = homeNavItems;
 
@@ -49,6 +56,8 @@ if (isComponentLibrary) {
   currentSectionItems = componentLibraryNavItems;
 } else if (isPortfolioIndex) {
   currentSectionItems = portfolioIndexNavItems;
+} else if (isBlog) {
+  currentSectionItems = blogNavItems;
 }
 ---
 
