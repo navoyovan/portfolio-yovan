@@ -4,6 +4,7 @@ publishDate: 2026-10-07
 description: "A deep-dive post-mortem on NTFS timestamps, WPF thread affinity, FileSystemWatcher event storms, and how an optimization turned a 4s freeze into an 8s freeze before eliminating both."
 tags: ["mcTextureGhost", "Performance", "WPF", "React", "C#", "WebView2", "Post-Mortem"]
 project: "mctextureghost"
+draft: true
 ---
 
 *A story about NTFS timestamps, WPF thread affinity, and why "it looked fine" was a lie.*

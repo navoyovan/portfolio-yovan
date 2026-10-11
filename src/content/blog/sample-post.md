@@ -4,6 +4,7 @@ publishDate: 2026-10-07
 description: "A quick look into decoupling monolithic page data into Content Collections and wiring bidirectional project relationships."
 tags: ["Astro", "Web Architecture", "Portfolio"]
 project: "mctextureghost"
+draft: true
 ---
 
 ## Overview
