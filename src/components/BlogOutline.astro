@@ -40,7 +40,7 @@ const filteredHeadings = headings.filter((h) => h.depth === 2 || h.depth === 3);
           <svg
             id="sidebar-toggle-icon"
             xmlns="http://www.w3.org/2000/svg"
-            class="w-3.5 h-3.5 transition-transform duration-300 ease-in-out rotate-180"
+            class="w-4 h-4 transition-transform duration-200"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
@@ -48,7 +48,12 @@ const filteredHeadings = headings.filter((h) => h.depth === 2 || h.depth === 3);
             stroke-linecap="round"
             stroke-linejoin="round"
           >
-            <polyline points="15 18 9 12 15 6"></polyline>
+            <line x1="8" y1="6" x2="21" y2="6"></line>
+            <line x1="8" y1="12" x2="21" y2="12"></line>
+            <line x1="8" y1="18" x2="21" y2="18"></line>
+            <line x1="3" y1="6" x2="3.01" y2="6"></line>
+            <line x1="3" y1="12" x2="3.01" y2="12"></line>
+            <line x1="3" y1="18" x2="3.01" y2="18"></line>
           </svg>
         </ActionButton>
       </div>
@@ -70,22 +75,25 @@ const filteredHeadings = headings.filter((h) => h.depth === 2 || h.depth === 3);
 
           <ul class="space-y-1 list-none p-0 m-0">
             {filteredHeadings.map((item) => (
-              <li>
+              <li class="relative group/item">
                 <button
                   type="button"
                   data-target={item.slug}
                   class:list={[
-                    'sidebar-nav-btn group w-full flex items-center justify-between px-5 text-left rounded-none transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-neutral-950 dark:focus-visible:ring-white',
+                    'sidebar-nav-btn w-full text-left rounded-none transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-neutral-950 dark:focus-visible:ring-white',
                     item.depth === 2
-                      ? 'py-2.5 text-[13.5px] sm:text-sm font-sans font-medium text-neutral-700 dark:text-neutral-300 hover:text-neutral-950 dark:hover:text-white hover:bg-neutral-100 dark:hover:bg-neutral-900'
+                      ? 'py-2.5 px-5 text-[13.5px] sm:text-sm font-sans font-medium text-neutral-700 dark:text-neutral-300 hover:text-neutral-950 dark:hover:text-white hover:bg-neutral-100 dark:hover:bg-neutral-900'
                       : 'py-2 pl-8 pr-5 text-xs font-sans text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-200 hover:bg-neutral-50 dark:hover:bg-neutral-900/50',
                   ]}
                 >
-                  <span class="inline-block truncate transition-transform duration-150 ease-out group-hover:translate-x-1">
+                  <!-- Truncated line in sidebar view -->
+                  <span class="block truncate group-hover/item:opacity-0 transition-opacity">
                     {item.text}
                   </span>
-                  <span class="text-xs text-neutral-400 dark:text-neutral-600 opacity-0 group-hover:opacity-100 transition-opacity shrink-0 ml-2">
-                    →
+
+                  <!-- Full unclipped header expanding to the right on hover -->
+                  <span class="hidden group-hover/item:flex items-center absolute left-0 top-0 min-w-full w-max max-w-sm sm:max-w-md z-50 bg-[#fcfbf9] dark:bg-[#141414] py-2.5 px-5 text-[13.5px] sm:text-sm font-sans font-medium text-neutral-950 dark:text-white shadow-xl border border-neutral-200 dark:border-neutral-800 rounded-r-lg whitespace-normal leading-snug">
+                    {item.text}
                   </span>
                 </button>
               </li>
@@ -157,7 +165,10 @@ const filteredHeadings = headings.filter((h) => h.depth === 2 || h.depth === 3);
             toggleContainer.classList.remove('left-full', '-translate-x-1/2');
             toggleContainer.classList.add('left-3', 'translate-x-0');
           }
-          if (icon) icon.classList.add('rotate-180');
+          if (icon) {
+            icon.classList.remove('text-neutral-950', 'dark:text-white');
+            icon.classList.add('opacity-70');
+          }
           toggleBtn.setAttribute('aria-label', 'Expand Table of Contents');
           toggleBtn.setAttribute('title', 'Expand Table of Contents');
         } else {
@@ -168,7 +179,10 @@ const filteredHeadings = headings.filter((h) => h.depth === 2 || h.depth === 3);
             toggleContainer.classList.remove('left-3', 'translate-x-0');
             toggleContainer.classList.add('left-full', '-translate-x-1/2');
           }
-          if (icon) icon.classList.remove('rotate-180');
+          if (icon) {
+            icon.classList.remove('opacity-70');
+            icon.classList.add('text-neutral-950', 'dark:text-white');
+          }
           toggleBtn.setAttribute('aria-label', 'Collapse Table of Contents');
           toggleBtn.setAttribute('title', 'Collapse Table of Contents');
         }
