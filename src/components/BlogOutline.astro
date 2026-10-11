@@ -75,24 +75,18 @@ const filteredHeadings = headings.filter((h) => h.depth === 2 || h.depth === 3);
 
           <ul class="space-y-1 list-none p-0 m-0">
             {filteredHeadings.map((item) => (
-              <li class="relative group/item">
+              <li>
                 <button
                   type="button"
                   data-target={item.slug}
                   class:list={[
-                    'sidebar-nav-btn w-full text-left rounded-none transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-neutral-950 dark:focus-visible:ring-white',
+                    'sidebar-nav-btn group w-full text-left rounded-none transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-neutral-950 dark:focus-visible:ring-white',
                     item.depth === 2
                       ? 'py-2.5 px-5 text-[13.5px] sm:text-sm font-sans font-medium text-neutral-700 dark:text-neutral-300 hover:text-neutral-950 dark:hover:text-white hover:bg-neutral-100 dark:hover:bg-neutral-900'
                       : 'py-2 pl-8 pr-5 text-xs font-sans text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-200 hover:bg-neutral-50 dark:hover:bg-neutral-900/50',
                   ]}
                 >
-                  <!-- Truncated line in sidebar view -->
-                  <span class="block truncate group-hover/item:opacity-0 transition-opacity">
-                    {item.text}
-                  </span>
-
-                  <!-- Full unclipped header expanding to the right on hover -->
-                  <span class="hidden group-hover/item:flex items-center absolute left-0 top-0 min-w-full w-max max-w-sm sm:max-w-md z-50 bg-[#fcfbf9] dark:bg-[#141414] py-2.5 px-5 text-[13.5px] sm:text-sm font-sans font-medium text-neutral-950 dark:text-white shadow-xl border border-neutral-200 dark:border-neutral-800 rounded-r-lg whitespace-normal leading-snug">
+                  <span class="block truncate group-hover:whitespace-normal group-hover:overflow-visible leading-snug transition-all">
                     {item.text}
                   </span>
                 </button>
