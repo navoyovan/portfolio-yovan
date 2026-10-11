@@ -92,7 +92,7 @@ const librariesTechniques = [
           </div>
         </div>
         <span class="text-neutral-400 dark:text-neutral-600 select-none">•</span>
-        <span id="hero-header-coords" class="text-neutral-500 font-mono text-[11px] whitespace-nowrap select-none font-medium">6°35′ S, 106°47′ E</span>
+        <span id="hero-header-coords" class="text-neutral-500 font-mono text-[11px] whitespace-nowrap select-none font-medium">6°36′ S, 106°48′ E</span>
       </div>
     </header>
 
@@ -508,8 +508,8 @@ const librariesTechniques = [
 
     if (mapEl && ruler && midLabel && maxLabel && ratioLabel) {
       let currentView = 'bogor';
-      let currentLat = -6.6271;
-      let currentLng = 106.7607;
+      let currentLat = -6.5983;
+      let currentLng = 106.7994;
       let coordAnimation: any = null;
       let carouselWidthAnim: any = null;
       let trackTransformAnim: any = null;
@@ -671,7 +671,7 @@ const librariesTechniques = [
                 const targetCenter = isMobile ? { lat: -6.44, lng: 106.8270 } : { lat: -6.22, lng: 106.5270 };
                 animateCoordsTo(targetCenter.lat, targetCenter.lng, 1.4);
               } else {
-                animateCoordsTo(-6.6271, 106.7607, 1.4);
+                animateCoordsTo(-6.5983, 106.7994, 1.4);
               }
             }
             updateScale();
@@ -820,6 +820,11 @@ const librariesTechniques = [
           const isRevealed = progress > 0.35;
           if (bioEl.dataset.revealed !== String(isRevealed)) {
             bioEl.dataset.revealed = String(isRevealed);
+            window.dispatchEvent(
+              new CustomEvent('portfolio:bio-reveal-change', {
+                detail: { revealed: isRevealed },
+              })
+            );
           }
         }
 
