@@ -28,6 +28,8 @@ const blog = defineCollection({
     tags: z.array(z.string()).default([]),
     project: reference('projects').optional(),
     image: z.string().optional(),
+    author: z.string().optional(),
+    authorRole: z.string().optional(),
   }),
 });
 

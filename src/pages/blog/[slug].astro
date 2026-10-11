@@ -33,6 +33,10 @@ const siteUrl = Astro.site?.toString() || 'https://navoyovan.github.io/portfolio
 const postSlug = post.id.replace(/\.[^/.]+$/, '');
 const articleUrl = `${siteUrl}/blog/${postSlug}`;
 
+const authorName = post.data.author || 'Yovan Gunardio Darmawan';
+const authorRole = post.data.authorRole || 'Software Engineer & Systems Architecture Enthusiast based in Bogor, Indonesia.';
+const isAiAuthor = Boolean(post.data.author && post.data.author !== 'Yovan Gunardio Darmawan');
+
 const articleSchema = {
   '@context': 'https://schema.org',
   '@type': 'TechArticle',
@@ -41,8 +45,8 @@ const articleSchema = {
   datePublished: post.data.publishDate.toISOString(),
   url: articleUrl,
   author: {
-    '@type': 'Person',
-    name: 'Yovan Gunardio Darmawan',
+    '@type': isAiAuthor ? 'SoftwareApplication' : 'Person',
+    name: authorName,
   },
 };
 ---
@@ -54,198 +58,70 @@ const articleSchema = {
   keywords={post.data.tags}
   schema={articleSchema}
 >
-  <!-- Temporary Live UI Tuner Bar (Per /live-ui-tuner skill) -->
+  <!-- Reading Progress Bar -->
   <div
-    id="ui-tuner-bar"
-    class="sticky top-0 z-50 w-full bg-[#fcfbf9]/95 dark:bg-[#0e0e0e]/95 backdrop-blur border-b border-neutral-300 dark:border-neutral-800 px-4 py-2.5 flex flex-wrap items-center gap-3 text-xs font-mono select-none transition-colors shadow-sm"
-  >
-    <span class="font-bold text-[11px] text-[var(--color-accent,#52FF1A)] flex items-center gap-1.5 shrink-0">
-      <span class="w-2 h-2 rounded-full bg-[var(--color-accent,#52FF1A)] animate-pulse"></span>
-      // LIVE BLOG TUNER:
-    </span>
+    id="reading-progress"
+    class="fixed top-0 left-0 w-0 h-[2px] bg-neutral-950 dark:bg-white z-50 transition-[width] duration-75"
+    aria-hidden="true"
+  ></div>
 
-    <!-- Preset Select -->
-    <label class="flex items-center gap-1.5 text-neutral-700 dark:text-neutral-300">
-      <span class="text-neutral-400">Preset:</span>
-      <select
-        id="tune-preset"
-        class="bg-neutral-100 dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700 rounded px-2 py-1 text-xs cursor-pointer text-neutral-900 dark:text-white font-mono"
-      >
-        <option value="default" selected>Default (Syne Editorial)</option>
-        <option value="tech-inktrap">Tech Inktrap (Neue Machina v2)</option>
-        <option value="plain-machina">Plain Machina</option>
-        <option value="brutal-clash">Brutal (Clash Display)</option>
-        <option value="swiss-modern">Swiss (Plus Jakarta)</option>
-        <option value="tech-mono">Tech Grotesk (Space)</option>
-        <option value="custom">Custom...</option>
-      </select>
-    </label>
-
-    <!-- Headings Font Select -->
-    <label class="flex items-center gap-1.5 text-neutral-700 dark:text-neutral-300">
-      <span class="text-neutral-400">Headings Font:</span>
-      <select
-        id="tune-font"
-        class="bg-neutral-100 dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700 rounded px-2 py-1 text-xs cursor-pointer text-neutral-900 dark:text-white font-mono max-w-[190px]"
-      >
-        <option value="'Syne', sans-serif" selected>Syne (Default Heading)</option>
-        <option value="'Neue Machina v2 Inktrap', 'Neue Machina', sans-serif">Neue Machina v2 (Inktrap)</option>
-        <option value="'Neue Machina v2 Plain', sans-serif">Neue Machina v2 (Plain)</option>
-        <option value="'Neue Machina v1', sans-serif">Neue Machina v1 (Original)</option>
-        <option value="'Clash Display', sans-serif">Clash Display</option>
-        <option value="'General Sans', sans-serif">General Sans</option>
-        <option value="'Space Grotesk', sans-serif">Space Grotesk</option>
-        <option value="'Plus Jakarta Sans', sans-serif">Plus Jakarta Sans</option>
-        <option value="'Inter', sans-serif">Inter</option>
-        <option value="'Outfit', sans-serif">Outfit</option>
-      </select>
-    </label>
-
-    <!-- H2 Controls -->
-    <div class="flex items-center gap-2 pl-2 border-l border-neutral-300 dark:border-neutral-700">
-      <span class="font-bold text-neutral-900 dark:text-white text-[11px]">H2:</span>
-      <label class="flex items-center gap-1 text-neutral-700 dark:text-neutral-300">
-        <span class="text-neutral-400">Size:</span>
-        <input id="tune-h2-size" type="range" min="18" max="44" step="1" value="26" class="cursor-pointer accent-[var(--color-accent,#52FF1A)] w-16" />
-        <span id="val-h2-size" class="font-bold text-neutral-900 dark:text-neutral-100 w-9">26px</span>
-      </label>
-      <label class="flex items-center gap-1 text-neutral-700 dark:text-neutral-300">
-        <span class="text-neutral-400">Weight:</span>
-        <select id="tune-h2-weight" class="bg-neutral-100 dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700 rounded px-1.5 py-0.5 text-xs font-mono cursor-pointer text-neutral-900 dark:text-white">
-          <option value="600">600</option>
-          <option value="700">700</option>
-          <option value="800" selected>800</option>
-          <option value="900">900</option>
-        </select>
-      </label>
-      <label class="flex items-center gap-1 text-neutral-700 dark:text-neutral-300">
-        <span class="text-neutral-400">Track:</span>
-        <input id="tune-h2-tracking" type="range" min="-3" max="4" step="0.5" value="-0.5" class="cursor-pointer accent-[var(--color-accent,#52FF1A)] w-14" />
-        <span id="val-h2-tracking" class="font-bold text-neutral-900 dark:text-neutral-100 w-11">-0.5px</span>
-      </label>
-      <label class="flex items-center gap-1 text-neutral-700 dark:text-neutral-300 cursor-pointer">
-        <input id="tune-h2-border" type="checkbox" class="w-3.5 h-3.5 accent-[var(--color-accent,#52FF1A)] cursor-pointer" />
-        <span class="text-neutral-400">Line</span>
-      </label>
-    </div>
-
-    <!-- H3 Controls -->
-    <div class="flex items-center gap-2 pl-2 border-l border-neutral-300 dark:border-neutral-700">
-      <span class="font-bold text-neutral-900 dark:text-white text-[11px]">H3:</span>
-      <label class="flex items-center gap-1 text-neutral-700 dark:text-neutral-300">
-        <span class="text-neutral-400">Size:</span>
-        <input id="tune-h3-size" type="range" min="15" max="32" step="1" value="21" class="cursor-pointer accent-[var(--color-accent,#52FF1A)] w-16" />
-        <span id="val-h3-size" class="font-bold text-neutral-900 dark:text-neutral-100 w-9">21px</span>
-      </label>
-      <label class="flex items-center gap-1 text-neutral-700 dark:text-neutral-300">
-        <span class="text-neutral-400">Weight:</span>
-        <select id="tune-h3-weight" class="bg-neutral-100 dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700 rounded px-1.5 py-0.5 text-xs font-mono cursor-pointer text-neutral-900 dark:text-white">
-          <option value="600">600</option>
-          <option value="700" selected>700</option>
-          <option value="800">800</option>
-          <option value="900">900</option>
-        </select>
-      </label>
-      <label class="flex items-center gap-1 text-neutral-700 dark:text-neutral-300">
-        <span class="text-neutral-400">Track:</span>
-        <input id="tune-h3-tracking" type="range" min="-3" max="4" step="0.5" value="-0.3" class="cursor-pointer accent-[var(--color-accent,#52FF1A)] w-14" />
-        <span id="val-h3-tracking" class="font-bold text-neutral-900 dark:text-neutral-100 w-11">-0.3px</span>
-      </label>
-      <label class="flex items-center gap-1 text-neutral-700 dark:text-neutral-300">
-        <span class="text-neutral-400">Prefix:</span>
-        <select id="tune-h3-prefix" class="bg-neutral-100 dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700 rounded px-1.5 py-0.5 text-xs font-mono cursor-pointer text-neutral-900 dark:text-white">
-          <option value="" selected>None</option>
-          <option value="//">// Slash</option>
-          <option value="›">› Arrow</option>
-          <option value="§">§ Section</option>
-          <option value="#"># Hash</option>
-        </select>
-      </label>
-    </div>
-
-    <!-- Body Paragraph Controls -->
-    <div class="flex items-center gap-2 pl-2 border-l border-neutral-300 dark:border-neutral-700">
-      <span class="font-bold text-neutral-900 dark:text-white text-[11px]">Body:</span>
-      <label class="flex items-center gap-1 text-neutral-700 dark:text-neutral-300">
-        <span class="text-neutral-400">Size:</span>
-        <input id="tune-p-size" type="range" min="14" max="20" step="0.5" value="16" class="cursor-pointer accent-[var(--color-accent,#52FF1A)] w-14" />
-        <span id="val-p-size" class="font-bold text-neutral-900 dark:text-neutral-100 w-10">16px</span>
-      </label>
-      <label class="flex items-center gap-1 text-neutral-700 dark:text-neutral-300">
-        <span class="text-neutral-400">Leading:</span>
-        <input id="tune-p-leading" type="range" min="1.4" max="2.2" step="0.05" value="1.75" class="cursor-pointer accent-[var(--color-accent,#52FF1A)] w-14" />
-        <span id="val-p-leading" class="font-bold text-neutral-900 dark:text-neutral-100 w-8">1.75</span>
-      </label>
-    </div>
-
-    <!-- Output & Copy Button -->
-    <div class="flex items-center gap-2 ml-auto shrink-0">
-      <input
-        id="tune-output"
-        type="text"
-        readonly
-        class="bg-neutral-100 dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700 px-2 py-1 text-xs font-mono text-neutral-800 dark:text-neutral-200 rounded w-48 sm:w-60 select-all"
-      />
-      <button
-        id="tune-copy-btn"
-        type="button"
-        class="px-3 py-1 font-bold rounded bg-neutral-900 text-white dark:bg-white dark:text-neutral-950 hover:opacity-90 transition-opacity cursor-pointer text-xs"
-      >
-        Copy CSS
-      </button>
-    </div>
-  </div>
-
-  <div class="relative z-10 w-[92%] sm:w-[86%] lg:w-[80%] max-w-4xl mx-auto pt-10 sm:pt-14 pb-24">
-    <!-- Breadcrumb / Back link -->
-    <div class="mb-8">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-10">
+    <!-- Navigation -->
+    <nav aria-label="Breadcrumb" class="pb-2">
       <a
         href={`${base}/blog`}
-        class="inline-flex items-center gap-2 font-mono text-xs text-neutral-500 hover:text-neutral-900 dark:hover:text-white transition-colors"
+        class="inline-flex items-center gap-1.5 font-sans text-xs text-neutral-500 hover:text-neutral-900 dark:hover:text-white transition-colors"
       >
         <span aria-hidden="true">←</span>
-        <span>All Articles & Post-Mortems</span>
+        <span>Back to Blog</span>
       </a>
-    </div>
+    </nav>
 
     <!-- Article Header -->
-    <header class="space-y-5 mb-10 pb-8 border-b border-neutral-200/80 dark:border-neutral-800/80">
-      <div class="flex items-center gap-3 flex-wrap">
-        <time datetime={post.data.publishDate.toISOString()} class="font-mono text-xs text-neutral-500">
+    <header class="space-y-4 pb-8 border-b border-neutral-200 dark:border-neutral-800">
+      <div class="flex items-center gap-2.5 text-xs text-neutral-500 dark:text-neutral-400 font-sans flex-wrap">
+        <span>By {authorName}</span>
+        {isAiAuthor && (
+          <span class="text-[10.5px] px-1.5 py-0.5 rounded bg-neutral-200/80 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 font-mono">
+            AI Author
+          </span>
+        )}
+        <span>•</span>
+        <time datetime={post.data.publishDate.toISOString()}>
           {formattedDate}
         </time>
-        <span class="text-neutral-300 dark:text-neutral-700">•</span>
-        <div class="flex items-center gap-1.5 flex-wrap">
-          {post.data.tags.map((tag: string) => (
-            <span class="font-mono text-[11px] px-2 py-0.5 rounded bg-neutral-100 dark:bg-neutral-900 border border-neutral-200/80 dark:border-neutral-800 text-neutral-600 dark:text-neutral-400">
-              #{tag}
-            </span>
-          ))}
-        </div>
       </div>
 
-      <h1 class="text-3xl sm:text-4xl lg:text-5xl font-heading font-black tracking-tight text-neutral-950 dark:text-white leading-[1.15]">
+      <h1 class="text-3xl sm:text-4xl lg:text-5xl font-sans font-bold tracking-tight text-neutral-950 dark:text-white leading-tight">
         {post.data.title}
       </h1>
 
-      <p class="font-sans text-base sm:text-lg text-neutral-600 dark:text-neutral-400 leading-relaxed">
+      <p class="font-sans text-base sm:text-lg text-neutral-600 dark:text-neutral-400 leading-relaxed max-w-3xl">
         {post.data.description}
       </p>
 
+      <div class="flex items-center gap-1.5 flex-wrap pt-2">
+        {post.data.tags.map((tag: string) => (
+          <span class="font-sans text-xs px-2.5 py-0.5 rounded-full bg-neutral-100 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 text-neutral-600 dark:text-neutral-400">
+            {tag}
+          </span>
+        ))}
+      </div>
+
       <!-- RELATED PROJECT SYSTEM HERO CARD -->
       {relatedProject && (
-        <aside class="mt-8 p-5 sm:p-6 rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50/80 dark:bg-neutral-900/60 shadow-sm">
+        <aside class="mt-8 p-5 sm:p-6 rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50/70 dark:bg-neutral-900/60 shadow-sm">
           <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
             <div class="space-y-2 min-w-0">
               <div class="flex items-center gap-2 flex-wrap">
-                <span class="font-mono text-[10px] uppercase tracking-wider px-2 py-0.5 rounded bg-neutral-200/70 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 font-semibold">
-                  RELATED PROJECT
+                <span class="font-sans text-xs font-semibold px-2.5 py-0.5 rounded-full bg-neutral-950 text-white dark:bg-white dark:text-neutral-950">
+                  Related Project
                 </span>
-                <span class="font-mono text-xs text-neutral-500">
+                <span class="font-sans text-xs text-neutral-500">
                   {relatedProject.data.category}
                 </span>
               </div>
-              <h3 class="text-lg sm:text-xl font-heading font-bold text-neutral-950 dark:text-white">
+              <h3 class="text-lg sm:text-xl font-sans font-bold text-neutral-950 dark:text-white">
                 {relatedProject.data.title}
               </h3>
               <p class="font-sans text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
@@ -253,7 +129,7 @@ const articleSchema = {
               </p>
               <div class="flex items-center gap-1.5 flex-wrap pt-1">
                 {relatedProject.data.tech.map((t: string) => (
-                  <span class="font-mono text-[10px] px-1.5 py-0.5 rounded bg-neutral-200/60 dark:bg-neutral-800/80 text-neutral-600 dark:text-neutral-400">
+                  <span class="font-sans text-xs px-2 py-0.5 rounded-full bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 text-neutral-600 dark:text-neutral-400">
                     {t}
                   </span>
                 ))}
@@ -266,10 +142,10 @@ const articleSchema = {
                   href={relatedProject.data.href}
                   target={relatedProject.data.href.startsWith('http') ? '_blank' : undefined}
                   rel={relatedProject.data.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                  class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-neutral-950 text-white dark:bg-white dark:text-neutral-950 font-heading font-bold text-xs hover:opacity-90 transition-opacity"
+                  class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-neutral-950 text-white dark:bg-white dark:text-neutral-950 font-sans font-semibold text-xs hover:opacity-90 transition-opacity"
                 >
                   <span>Explore Project</span>
-                  <span aria-hidden="true">↗</span>
+                  <span aria-hidden="true">→</span>
                 </a>
               )}
               {relatedProject.data.github && (
@@ -277,7 +153,7 @@ const articleSchema = {
                   href={relatedProject.data.github}
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="inline-flex items-center gap-1 font-mono text-xs text-neutral-500 hover:text-neutral-900 dark:hover:text-white transition-colors"
+                  class="inline-flex items-center gap-1 font-sans text-xs text-neutral-500 hover:text-neutral-900 dark:hover:text-white transition-colors"
                 >
                   <span>GitHub Repository</span>
                 </a>
@@ -289,22 +165,37 @@ const articleSchema = {
     </header>
 
     <!-- Post Body / Markdown Content -->
-    <div class="blog-prose font-sans text-neutral-800 dark:text-neutral-200 leading-relaxed space-y-6">
+    <article class="blog-prose font-sans text-neutral-800 dark:text-neutral-200 leading-relaxed space-y-6 max-w-none">
       <Content />
-    </div>
+    </article>
 
-    <!-- Article Footer / Navigation -->
-    <footer class="mt-16 pt-8 border-t border-neutral-200/80 dark:border-neutral-800/80 flex flex-col sm:flex-row items-center justify-between gap-4">
-      <a
-        href={`${base}/blog`}
-        class="inline-flex items-center gap-2 font-mono text-xs font-semibold px-4 py-2 rounded-lg border border-neutral-300 dark:border-neutral-700 hover:bg-neutral-100 dark:hover:bg-neutral-900 transition-colors"
-      >
-        <span>← Back to all articles</span>
-      </a>
+    <!-- Article Footer / Author Card & Navigation -->
+    <footer class="mt-16 pt-8 border-t border-neutral-200 dark:border-neutral-800 space-y-8">
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 p-5 sm:p-6 rounded-xl border border-neutral-200/80 dark:border-neutral-800/80 bg-white/60 dark:bg-neutral-950/60 shadow-sm">
+        <div class="space-y-1">
+          <div class="flex items-center gap-2">
+            <span class="font-sans font-semibold text-sm text-neutral-950 dark:text-white">
+              {authorName}
+            </span>
+            {isAiAuthor && (
+              <span class="text-[10px] px-1.5 py-0.5 rounded bg-neutral-200/80 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 font-mono">
+                AI Author
+              </span>
+            )}
+          </div>
+          <p class="font-sans text-xs text-neutral-500 dark:text-neutral-400">
+            {authorRole}
+          </p>
+        </div>
 
-      <span class="font-mono text-xs text-neutral-400">
-        Written by Yovan Gunardio Darmawan
-      </span>
+        <a
+          href={`${base}/blog`}
+          class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 font-sans text-xs font-semibold text-neutral-900 dark:text-neutral-100 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors shrink-0"
+        >
+          <span>←</span>
+          <span data-en="Back to all articles" data-id="Kembali ke semua artikel">Back to all articles</span>
+        </a>
+      </div>
     </footer>
   </div>
 
@@ -313,38 +204,52 @@ const articleSchema = {
 </RootLayout>
 
 <style is:global>
-  /* Blog Prose Typography & Elements */
+  /* Clean Editorial Typography & Layout */
+  .blog-prose {
+    font-size: 1.0625rem;
+    line-height: 1.8;
+  }
+
   .blog-prose h2 {
-    font-family: var(--font-heading, 'Syne', sans-serif);
-    font-weight: 800;
-    font-size: 1.65rem;
-    line-height: 1.25;
-    letter-spacing: -0.02em;
-    margin-top: 2.25rem;
+    font-family: var(--font-sans, -apple-system, BlinkMacSystemFont, sans-serif);
+    font-weight: 700;
+    font-size: 1.625rem;
+    line-height: 1.3;
+    letter-spacing: -0.015em;
+    margin-top: 2.5rem;
     margin-bottom: 0.75rem;
     color: var(--tw-prose-headings, inherit);
   }
 
   .blog-prose h3 {
-    font-family: var(--font-heading, 'Syne', sans-serif);
-    font-weight: 700;
-    font-size: 1.3rem;
-    line-height: 1.35;
-    letter-spacing: -0.015em;
+    font-family: var(--font-sans, -apple-system, BlinkMacSystemFont, sans-serif);
+    font-weight: 600;
+    font-size: 1.25rem;
+    line-height: 1.4;
+    letter-spacing: -0.01em;
     margin-top: 1.75rem;
     margin-bottom: 0.5rem;
     color: var(--tw-prose-headings, inherit);
   }
 
+  .blog-prose h4 {
+    font-family: var(--font-sans, -apple-system, BlinkMacSystemFont, sans-serif);
+    font-weight: 600;
+    font-size: 1.1rem;
+    line-height: 1.4;
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+
   .blog-prose p {
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-    line-height: 1.75;
+    margin-top: 1.15rem;
+    margin-bottom: 1.15rem;
+    line-height: 1.8;
   }
 
   .blog-prose ul, .blog-prose ol {
-    margin-top: 1rem;
-    margin-bottom: 1rem;
+    margin-top: 1.15rem;
+    margin-bottom: 1.15rem;
     padding-left: 1.5rem;
   }
 
@@ -359,17 +264,17 @@ const articleSchema = {
   .blog-prose li {
     margin-top: 0.35rem;
     margin-bottom: 0.35rem;
-    line-height: 1.65;
+    line-height: 1.7;
   }
 
   .blog-prose pre {
-    border-radius: 0.75rem;
+    border-radius: 0.5rem;
     padding: 1.15rem 1.25rem;
     font-family: Consolas, "Courier New", monospace;
     font-size: 0.825rem;
     line-height: 1.6;
-    margin-top: 1.25rem;
-    margin-bottom: 1.25rem;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
     overflow-x: auto;
     border: 1px solid rgba(120, 120, 130, 0.2);
     background-color: #121214 !important;
@@ -384,13 +289,12 @@ const articleSchema = {
   }
 
   .blog-prose blockquote {
-    border-left: 3px solid var(--color-accent, #52FF1A);
+    border-left: 3px solid currentColor;
     padding-left: 1rem;
-    margin-top: 1.25rem;
-    margin-bottom: 1.25rem;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
     font-style: italic;
-    color: inherit;
-    opacity: 0.85;
+    opacity: 0.9;
   }
 
   .blog-prose table {
@@ -408,242 +312,37 @@ const articleSchema = {
   }
 
   .blog-prose th {
-    font-family: var(--font-heading, 'Syne', sans-serif);
-    font-weight: 700;
+    font-family: var(--font-sans, -apple-system, BlinkMacSystemFont, sans-serif);
+    font-weight: 600;
     background-color: rgba(150, 150, 160, 0.08);
   }
 
   .blog-prose hr {
-    margin-top: 2rem;
-    margin-bottom: 2rem;
+    margin-top: 2.5rem;
+    margin-bottom: 2.5rem;
     border: 0;
     border-top: 1px solid rgba(150, 150, 160, 0.2);
   }
 
   .blog-prose img {
     border-radius: 0.5rem;
-    margin-top: 1.5rem;
-    margin-bottom: 0.75rem;
+    margin-top: 1.75rem;
+    margin-bottom: 1rem;
     border: 1px solid rgba(150, 150, 160, 0.2);
   }
 </style>
 
 <script is:inline>
-  (function () {
-    function setupBlogTuner() {
-      const tunerBar = document.getElementById('ui-tuner-bar');
-      if (!tunerBar) return;
+  function updateReadingProgress() {
+    const bar = document.getElementById('reading-progress');
+    if (!bar) return;
+    const scrollTop = window.scrollY || document.documentElement.scrollTop;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    bar.style.width = Math.min(100, Math.max(0, progress)) + '%';
+  }
 
-      const presetSel = document.getElementById('tune-preset');
-      const fontSel = document.getElementById('tune-font');
-
-      const h2SizeInput = document.getElementById('tune-h2-size');
-      const h2SizeVal = document.getElementById('val-h2-size');
-      const h2WeightSel = document.getElementById('tune-h2-weight');
-      const h2TrackInput = document.getElementById('tune-h2-tracking');
-      const h2TrackVal = document.getElementById('val-h2-tracking');
-      const h2BorderCheck = document.getElementById('tune-h2-border');
-
-      const h3SizeInput = document.getElementById('tune-h3-size');
-      const h3SizeVal = document.getElementById('val-h3-size');
-      const h3WeightSel = document.getElementById('tune-h3-weight');
-      const h3TrackInput = document.getElementById('tune-h3-tracking');
-      const h3TrackVal = document.getElementById('val-h3-tracking');
-      const h3PrefixSel = document.getElementById('tune-h3-prefix');
-
-      const pSizeInput = document.getElementById('tune-p-size');
-      const pSizeVal = document.getElementById('val-p-size');
-      const pLeadingInput = document.getElementById('tune-p-leading');
-      const pLeadingVal = document.getElementById('val-p-leading');
-
-      const output = document.getElementById('tune-output');
-      const copyBtn = document.getElementById('tune-copy-btn');
-
-      const FONT_STYLESHEETS = {
-        "'Plus Jakarta Sans', sans-serif": 'https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;700;800&display=swap',
-        "'Inter', sans-serif": 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap',
-        "'Clash Display', sans-serif": 'https://api.fontshare.com/v2/css?f[]=clash-display@700,600&display=swap',
-        "'General Sans', sans-serif": 'https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600&display=swap',
-        "'Space Grotesk', sans-serif": 'https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&display=swap',
-        "'Space Mono', monospace": 'https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap',
-        "'Outfit', sans-serif": 'https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&display=swap',
-      };
-
-      const PRESETS = {
-        'default': {
-          font: "'Syne', sans-serif",
-          h2Size: 26, h2Weight: '800', h2Track: -0.5, h2Border: false,
-          h3Size: 21, h3Weight: '700', h3Track: -0.3, h3Prefix: '',
-          pSize: 16, pLeading: 1.75
-        },
-        'tech-inktrap': {
-          font: "'Neue Machina v2 Inktrap', 'Neue Machina', sans-serif",
-          h2Size: 28, h2Weight: '800', h2Track: -1.0, h2Border: true,
-          h3Size: 20, h3Weight: '700', h3Track: -0.5, h3Prefix: '//',
-          pSize: 15.5, pLeading: 1.7
-        },
-        'plain-machina': {
-          font: "'Neue Machina v2 Plain', sans-serif",
-          h2Size: 27, h2Weight: '800', h2Track: -0.8, h2Border: false,
-          h3Size: 20, h3Weight: '700', h3Track: -0.4, h3Prefix: '//',
-          pSize: 15.5, pLeading: 1.7
-        },
-        'brutal-clash': {
-          font: "'Clash Display', sans-serif",
-          h2Size: 32, h2Weight: '700', h2Track: -0.8, h2Border: true,
-          h3Size: 22, h3Weight: '600', h3Track: -0.4, h3Prefix: '›',
-          pSize: 16, pLeading: 1.75
-        },
-        'swiss-modern': {
-          font: "'Plus Jakarta Sans', sans-serif",
-          h2Size: 26, h2Weight: '800', h2Track: -0.5, h2Border: false,
-          h3Size: 19, h3Weight: '700', h3Track: -0.2, h3Prefix: '',
-          pSize: 16, pLeading: 1.8
-        },
-        'tech-mono': {
-          font: "'Space Grotesk', sans-serif",
-          h2Size: 27, h2Weight: '700', h2Track: -0.5, h2Border: false,
-          h3Size: 20, h3Weight: '700', h3Track: 0.0, h3Prefix: '§',
-          pSize: 15, pLeading: 1.7
-        }
-      };
-
-      let liveStyle = document.getElementById('live-blog-tuner-style');
-      if (!liveStyle) {
-        liveStyle = document.createElement('style');
-        liveStyle.id = 'live-blog-tuner-style';
-        document.head.appendChild(liveStyle);
-      }
-
-      function update(presetChange = false) {
-        if (presetChange && presetSel && PRESETS[presetSel.value]) {
-          const p = PRESETS[presetSel.value];
-          fontSel.value = p.font;
-          h2SizeInput.value = p.h2Size;
-          h2WeightSel.value = p.h2Weight;
-          h2TrackInput.value = p.h2Track;
-          h2BorderCheck.checked = p.h2Border;
-
-          h3SizeInput.value = p.h3Size;
-          h3WeightSel.value = p.h3Weight;
-          h3TrackInput.value = p.h3Track;
-          h3PrefixSel.value = p.h3Prefix;
-
-          pSizeInput.value = p.pSize;
-          pLeadingInput.value = p.pLeading;
-        }
-
-        const font = fontSel.value;
-        const h2Size = parseFloat(h2SizeInput.value);
-        const h2Weight = h2WeightSel.value;
-        const h2Track = parseFloat(h2TrackInput.value);
-        const h2Border = h2BorderCheck.checked;
-
-        const h3Size = parseFloat(h3SizeInput.value);
-        const h3Weight = h3WeightSel.value;
-        const h3Track = parseFloat(h3TrackInput.value);
-        const h3Prefix = h3PrefixSel.value;
-
-        const pSize = parseFloat(pSizeInput.value);
-        const pLeading = parseFloat(pLeadingInput.value);
-
-        // Load external font stylesheet if needed
-        if (FONT_STYLESHEETS[font] && !document.querySelector(`link[href="${FONT_STYLESHEETS[font]}"]`)) {
-          const link = document.createElement('link');
-          link.rel = 'stylesheet';
-          link.href = FONT_STYLESHEETS[font];
-          document.head.appendChild(link);
-        }
-
-        // Update value labels
-        h2SizeVal.textContent = `${h2Size}px`;
-        h2TrackVal.textContent = `${h2Track}px`;
-        h3SizeVal.textContent = `${h3Size}px`;
-        h3TrackVal.textContent = `${h3Track}px`;
-        pSizeVal.textContent = `${pSize}px`;
-        pLeadingVal.textContent = `${pLeading}`;
-
-        // Inject dynamic CSS
-        liveStyle.textContent = `
-          .blog-prose h2 {
-            font-family: ${font} !important;
-            font-size: ${h2Size}px !important;
-            font-weight: ${h2Weight} !important;
-            letter-spacing: ${h2Track}px !important;
-            ${h2Border ? 'padding-bottom: 0.35rem !important; border-bottom: 1px solid rgba(150, 150, 160, 0.25) !important;' : ''}
-          }
-          .blog-prose h3 {
-            font-family: ${font} !important;
-            font-size: ${h3Size}px !important;
-            font-weight: ${h3Weight} !important;
-            letter-spacing: ${h3Track}px !important;
-          }
-          .blog-prose h3::before {
-            ${h3Prefix ? `content: '${h3Prefix} ' !important; color: var(--color-accent, #52FF1A) !important; margin-right: 0.25rem !important;` : `content: none !important;`}
-          }
-          .blog-prose p {
-            font-size: ${pSize}px !important;
-            line-height: ${pLeading} !important;
-          }
-        `;
-
-        const fontLabel = fontSel.options[fontSel.selectedIndex].text;
-        output.value = `font: "${fontLabel}"; h2: ${h2Size}px / ${h2Weight} / ${h2Track}px; h3: ${h3Size}px / ${h3Weight} / ${h3Track}px${h3Prefix ? ` ("${h3Prefix}")` : ''}; p: ${pSize}px / ${pLeading};`;
-      }
-
-      presetSel.onchange = () => update(true);
-      fontSel.onchange = () => update(false);
-
-      h2SizeInput.oninput = () => update(false);
-      h2WeightSel.onchange = () => update(false);
-      h2TrackInput.oninput = () => update(false);
-      h2BorderCheck.onchange = () => update(false);
-
-      h3SizeInput.oninput = () => update(false);
-      h3WeightSel.onchange = () => update(false);
-      h3TrackInput.oninput = () => update(false);
-      h3PrefixSel.onchange = () => update(false);
-
-      pSizeInput.oninput = () => update(false);
-      pLeadingInput.oninput = () => update(false);
-
-      // Scrollwheel cycling for all dropdown selects
-      tunerBar.querySelectorAll('select').forEach((sel) => {
-        sel.addEventListener(
-          'wheel',
-          function (e) {
-            e.preventDefault();
-            const delta = Math.sign(e.deltaY);
-            if (delta > 0 && sel.selectedIndex < sel.options.length - 1) {
-              sel.selectedIndex++;
-              sel.dispatchEvent(new Event('change'));
-            } else if (delta < 0 && sel.selectedIndex > 0) {
-              sel.selectedIndex--;
-              sel.dispatchEvent(new Event('change'));
-            }
-          },
-          { passive: false }
-        );
-      });
-
-      // Copy full CSS rules on click
-      copyBtn.onclick = () => {
-        const fullCss = liveStyle.textContent.trim().replace(/\s*!important/g, '');
-        navigator.clipboard.writeText(fullCss);
-        copyBtn.textContent = 'Copied!';
-        setTimeout(() => {
-          copyBtn.textContent = 'Copy CSS';
-        }, 1500);
-      };
-
-      update(false);
-    }
-
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', setupBlogTuner);
-    } else {
-      setupBlogTuner();
-    }
-    document.addEventListener('astro:page-load', setupBlogTuner);
-  })();
+  window.addEventListener('scroll', updateReadingProgress, { passive: true });
+  document.addEventListener('astro:page-load', updateReadingProgress);
+  updateReadingProgress();
 </script>

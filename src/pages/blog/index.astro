@@ -36,35 +36,37 @@ const blogSchema = {
 ---
 
 <RootLayout
-  title="Blog & Architecture Deep Dives | Yovan Gunardio Darmawan"
+  title="Blog | Yovan Gunardio Darmawan"
   description="Technical post-mortems, software architecture deep dives, and performance engineering case studies."
   keywords={['Software Engineering Blog', 'Performance Optimization', 'Architecture Post-Mortem', 'Astro', 'TypeScript']}
   schema={blogSchema}
 >
-  <div class="relative z-10 w-[92%] sm:w-[86%] lg:w-[80%] max-w-5xl mx-auto pt-12 sm:pt-16 pb-24">
-    <!-- Header -->
-    <header class="space-y-4 mb-12 border-b border-neutral-200/80 dark:border-neutral-800/80 pb-8">
-      <div class="flex items-center gap-2">
-        <span class="font-mono text-xs font-semibold px-2 py-0.5 rounded bg-neutral-100 dark:bg-neutral-900 border border-neutral-200/80 dark:border-neutral-800 text-neutral-600 dark:text-neutral-400">
-          // 04 WRITING & CASE STUDIES
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-12">
+    <!-- Header Matching Portfolio Index -->
+    <div id="blog-header" class="border-b border-neutral-200 dark:border-neutral-800 pb-8">
+      <h1 class="text-3xl sm:text-4xl font-bold tracking-tight text-neutral-950 dark:text-white">
+        Blog
+      </h1>
+      <p
+        data-en="Technical post-mortems, software architecture deep dives, and performance engineering case studies."
+        data-id="Analisis teknis, investigasi performa, dan catatan arsitektur sistem."
+        class="text-sm sm:text-base text-neutral-600 dark:text-neutral-400 mt-2 max-w-2xl font-normal"
+      >
+        Technical post-mortems, software architecture deep dives, and performance engineering case studies.
+      </p>
+    </div>
+
+    <!-- Post Grid / Feed -->
+    {postsWithProjects.length === 0 ? (
+      <div class="p-12 text-center border border-dashed border-neutral-300 dark:border-neutral-800 rounded-lg text-neutral-500 font-sans text-sm">
+        <span data-en="No articles published yet. Check back soon!" data-id="Belum ada artikel yang diterbitkan. Silakan kembali lagi nanti!">
+          No articles published yet. Check back soon!
         </span>
       </div>
-      <h1 class="text-3xl sm:text-4xl lg:text-5xl font-heading font-black tracking-tight text-neutral-950 dark:text-white">
-        Engineering Post-Mortems & Deep Dives
-      </h1>
-      <p class="text-base sm:text-lg font-sans text-neutral-600 dark:text-neutral-400 max-w-2xl leading-relaxed">
-        Forensic analyses, performance bottleneck investigations, and architectural decision records from real-world production systems.
-      </p>
-    </header>
-
-    <!-- Post List -->
-    {postsWithProjects.length === 0 ? (
-      <div class="p-8 text-center border border-dashed border-neutral-300 dark:border-neutral-800 rounded-lg text-neutral-500 font-sans text-sm">
-        No articles published yet. Check back soon!
-      </div>
     ) : (
-      <div class="space-y-6">
-        {postsWithProjects.map(({ post, project }) => {
+      <div class="space-y-8">
+        <!-- Featured Card (Latest Article) -->
+        {postsWithProjects.slice(0, 1).map(({ post, project }) => {
           const postSlug = post.id.replace(/\.[^/.]+$/, '');
           const formattedDate = post.data.publishDate.toLocaleDateString('en-US', {
             year: 'numeric',
@@ -73,42 +75,121 @@ const blogSchema = {
           });
 
           return (
-            <article class="group relative p-6 sm:p-7 rounded-xl border border-neutral-200/80 dark:border-neutral-800/80 bg-white/70 dark:bg-neutral-950/70 hover:border-neutral-400 dark:hover:border-neutral-700 transition-[border-color,background-color] duration-200 shadow-sm hover:shadow-md">
-              <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 mb-3">
-                <div class="flex items-center gap-3 flex-wrap">
-                  <time datetime={post.data.publishDate.toISOString()} class="font-mono text-xs text-neutral-500">
-                    {formattedDate}
-                  </time>
-                  {project && (
-                    <span class="inline-flex items-center gap-1.5 font-mono text-[11px] px-2 py-0.5 rounded bg-neutral-100 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 text-neutral-700 dark:text-neutral-300">
-                      <span class="w-1.5 h-1.5 rounded-full bg-[var(--color-accent,#52FF1A)]"></span>
-                      <span>{project.data.title}</span>
+            <article class="group relative p-6 sm:p-8 rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-950/70 hover:border-neutral-400 dark:hover:border-neutral-700 transition-[border-color,box-shadow] duration-200 shadow-sm hover:shadow-md">
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
+                <div class="flex items-center gap-2 flex-wrap">
+                  <span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-neutral-950 text-white dark:bg-white dark:text-neutral-950 font-sans">
+                    Latest
+                  </span>
+                  {post.data.author && post.data.author !== 'Yovan Gunardio Darmawan' && (
+                    <span class="text-xs px-2 py-0.5 rounded-full bg-neutral-200/80 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 font-sans font-medium">
+                      By {post.data.author}
                     </span>
                   )}
+                  <time datetime={post.data.publishDate.toISOString()} class="text-xs text-neutral-500 dark:text-neutral-400 font-sans">
+                    {formattedDate}
+                  </time>
                 </div>
+
+                {project && (
+                  <span class="inline-flex items-center gap-1.5 text-xs px-2.5 py-0.5 rounded-full bg-neutral-100 dark:bg-neutral-900 text-neutral-700 dark:text-neutral-300 border border-neutral-200 dark:border-neutral-800 font-sans">
+                    <span class="w-1.5 h-1.5 rounded-full bg-neutral-950 dark:bg-white"></span>
+                    <span>{project.data.title}</span>
+                  </span>
+                )}
               </div>
 
-              <h2 class="text-xl sm:text-2xl font-heading font-bold text-neutral-950 dark:text-white group-hover:text-[var(--color-accent,#52FF1A)] transition-colors mb-2">
-                <a href={`${base}/blog/${postSlug}`} class="focus:outline-none focus-visible:underline">
+              <h2 class="text-2xl sm:text-3xl font-sans font-bold text-neutral-950 dark:text-white mb-3 leading-snug">
+                <a href={`${base}/blog/${postSlug}`} class="focus:outline-none focus-visible:underline group-hover:text-neutral-700 dark:group-hover:text-neutral-200 transition-colors">
                   <span class="absolute inset-0" aria-hidden="true"></span>
                   {post.data.title}
                 </a>
               </h2>
 
-              <p class="font-sans text-sm sm:text-base text-neutral-600 dark:text-neutral-400 leading-relaxed mb-4">
+              <p class="font-sans text-sm sm:text-base text-neutral-600 dark:text-neutral-400 leading-relaxed mb-6 max-w-3xl">
                 {post.data.description}
               </p>
 
-              <div class="flex items-center gap-2 flex-wrap">
-                {post.data.tags.map((tag: string) => (
-                  <span class="font-mono text-[11px] px-2 py-0.5 rounded bg-neutral-100 dark:bg-neutral-900/80 text-neutral-500 border border-neutral-200/60 dark:border-neutral-800/60">
-                    #{tag}
-                  </span>
-                ))}
+              <div class="flex items-center justify-between gap-4 flex-wrap pt-3 border-t border-neutral-200/80 dark:border-neutral-800/80">
+                <div class="flex items-center gap-1.5 flex-wrap">
+                  {post.data.tags.map((tag: string) => (
+                    <span class="text-xs px-2.5 py-0.5 rounded-full bg-neutral-100 dark:bg-neutral-900 border border-neutral-200/80 dark:border-neutral-800 text-neutral-600 dark:text-neutral-400 font-sans">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+
+                <span class="inline-flex items-center gap-1.5 font-sans font-semibold text-xs text-neutral-950 dark:text-white group-hover:translate-x-1 transition-transform">
+                  <span data-en="Read article" data-id="Baca artikel">Read article</span>
+                  <span aria-hidden="true">→</span>
+                </span>
               </div>
             </article>
           );
         })}
+
+        <!-- Remaining Posts Grid -->
+        {postsWithProjects.length > 1 && (
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
+            {postsWithProjects.slice(1).map(({ post, project }) => {
+              const postSlug = post.id.replace(/\.[^/.]+$/, '');
+              const formattedDate = post.data.publishDate.toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric',
+              });
+
+              return (
+                <article class="group relative p-6 rounded-xl border border-neutral-200/80 dark:border-neutral-800/80 bg-white/70 dark:bg-neutral-950/70 hover:border-neutral-400 dark:hover:border-neutral-700 transition-[border-color,background-color] duration-200 flex flex-col justify-between shadow-sm">
+                  <div>
+                    <div class="flex items-center justify-between gap-2 mb-3">
+                      <div class="flex items-center gap-2 flex-wrap">
+                        {post.data.author && post.data.author !== 'Yovan Gunardio Darmawan' && (
+                          <span class="text-[11px] px-1.5 py-0.5 rounded-full bg-neutral-100 dark:bg-neutral-900 text-neutral-600 dark:text-neutral-300 font-sans">
+                            {post.data.author}
+                          </span>
+                        )}
+                        <time datetime={post.data.publishDate.toISOString()} class="text-xs text-neutral-500 font-sans">
+                          {formattedDate}
+                        </time>
+                      </div>
+                      {project && (
+                        <span class="text-xs px-2 py-0.5 rounded-full bg-neutral-100 dark:bg-neutral-900 text-neutral-600 dark:text-neutral-400 border border-neutral-200 dark:border-neutral-800 font-sans">
+                          {project.data.title}
+                        </span>
+                      )}
+                    </div>
+
+                    <h3 class="text-xl font-sans font-bold text-neutral-950 dark:text-white mb-2 leading-snug">
+                      <a href={`${base}/blog/${postSlug}`} class="focus:outline-none focus-visible:underline group-hover:text-neutral-700 dark:group-hover:text-neutral-200 transition-colors">
+                        <span class="absolute inset-0" aria-hidden="true"></span>
+                        {post.data.title}
+                      </a>
+                    </h3>
+
+                    <p class="font-sans text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed mb-4">
+                      {post.data.description}
+                    </p>
+                  </div>
+
+                  <div class="flex items-center justify-between gap-2 pt-3 border-t border-neutral-200/60 dark:border-neutral-800/60 flex-wrap">
+                    <div class="flex items-center gap-1 flex-wrap">
+                      {post.data.tags.map((tag: string) => (
+                        <span class="text-xs px-2 py-0.5 rounded-full bg-neutral-100 dark:bg-neutral-900 text-neutral-500 font-sans">
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+
+                    <span class="text-xs font-sans font-semibold text-neutral-500 group-hover:text-neutral-950 dark:group-hover:text-white transition-colors">
+                      Read →
+                    </span>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+        )}
       </div>
     )}
   </div>
