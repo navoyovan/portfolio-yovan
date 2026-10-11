@@ -1,10 +1,10 @@
 ---
 title: "How I Made a 4-Second Freeze Into an 8-Second Freeze (And Then Fixed Both)"
-publishDate: 2026-10-07
+publishDate: 2026-10-12
 description: "A deep-dive post-mortem on NTFS timestamps, WPF thread affinity, FileSystemWatcher event storms, and how an optimization turned a 4s freeze into an 8s freeze before eliminating both."
 tags: ["mcTextureGhost", "Performance", "WPF", "React", "C#", "WebView2", "Post-Mortem"]
 project: "mctextureghost"
-draft: true
+
 ---
 
 *A story about NTFS timestamps, WPF thread affinity, and why "it looked fine" was a lie.*
@@ -120,9 +120,9 @@ User clicks delete
 
 Not once. Twice. Back to back.
 
-I opened Chrome DevTools Performance, reproduced the freeze, and looked at the trace.
+I opened Chromium DevTools Performance, reproduced the freeze, and looked at the trace.
 
-![Chrome DevTools Performance trace showing a 1,666ms dead frame during rescan](./media/devtools-rescan-dead-frame-1666ms.png) *DevTools trace showing a 1,666ms dead frame; the browser event loop receives zero updates while the host is scanning.*
+![Chromium DevTools Performance trace showing a 1,666ms dead frame during rescan](./media/devtools-rescan-dead-frame-1666ms.png) *DevTools trace showing a 1,666ms dead frame; the browser event loop receives zero updates while the host is scanning.*
 
 The renderer was completely idle during the freeze. Zero scripting. No layout. No network. The JS thread wasn't stuck in a loop, it was receiving nothing. No frames, no events, no input.
 
@@ -393,4 +393,4 @@ Fix: conditional JSX rendering (`{isExpanded && (...)}`) so nodes only mount whe
 
 The fix wasn't one clever idea. It was finding where three separate systems were failing at the same intersection, unbatched mutations, a suppression journal with a blind spot, and state diffing on the wrong thread, and fixing each one. Once all three were addressed, the 8-second freeze became practically unnoticable.
 
-v1.1.2 tagged October 7th.
+v1.1.2 tagged October 12th.

@@ -79,14 +79,16 @@ const filteredHeadings = headings.filter((h) => h.depth === 2 || h.depth === 3);
                 <button
                   type="button"
                   data-target={item.slug}
+                  data-title={item.text}
+                  data-depth={item.depth}
                   class:list={[
-                    'sidebar-nav-btn group w-full text-left rounded-none transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-neutral-950 dark:focus-visible:ring-white',
+                    'sidebar-nav-btn group w-full text-left rounded-none transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-neutral-950 dark:focus-visible:ring-white overflow-hidden',
                     item.depth === 2
                       ? 'py-2.5 px-5 text-[13.5px] sm:text-sm font-sans font-medium text-neutral-700 dark:text-neutral-300 hover:text-neutral-950 dark:hover:text-white hover:bg-neutral-100 dark:hover:bg-neutral-900'
                       : 'py-2 pl-8 pr-5 text-xs font-sans text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-200 hover:bg-neutral-50 dark:hover:bg-neutral-900/50',
                   ]}
                 >
-                  <span class="block truncate group-hover:whitespace-normal group-hover:overflow-visible leading-snug transition-all">
+                  <span class="block truncate whitespace-nowrap leading-snug">
                     {item.text}
                   </span>
                 </button>
@@ -97,12 +99,21 @@ const filteredHeadings = headings.filter((h) => h.depth === 2 || h.depth === 3);
       </div>
     </aside>
 
+    <!-- Clean Floating Tooltip for Sidebar Headings -->
+    <div
+      id="sidebar-heading-tooltip"
+      class="hidden xl:flex fixed pointer-events-none opacity-0 transition-opacity duration-150 z-50 whitespace-nowrap shadow-xl border border-neutral-800 dark:border-neutral-200 bg-neutral-950/95 text-white dark:bg-white/95 dark:text-neutral-950 backdrop-blur-md rounded-lg py-1.5 px-3 text-xs font-sans font-medium items-center select-none"
+      style="display: none;"
+      aria-hidden="true"
+    >
+    </div>
+
     <!-- 2. Mobile / Tablet Sticky Horizontal Tab Bar (Below Header) -->
     <div
       id="mobile-tab-switcher"
-      class="xl:hidden w-full sticky top-14 z-20 bg-[#fcfbf9]/80 dark:bg-[#090909]/80 backdrop-blur-md border-b border-neutral-200/80 dark:border-neutral-800/80 py-2.5 px-4 sm:px-6 overflow-x-auto flex items-center gap-2 no-scrollbar select-none transition-colors duration-200"
+      class="xl:hidden w-full sticky top-14 z-20 py-2.5 px-4 sm:px-6 overflow-x-auto flex items-center gap-2 no-scrollbar select-none transition-colors duration-200"
     >
-      <span class="text-[11px] font-sans uppercase font-bold text-neutral-400 dark:text-neutral-500 shrink-0 select-none mr-1">
+      <span class="shrink-0 px-2.5 py-1.5 text-xs font-sans uppercase font-bold text-neutral-700 dark:text-neutral-200 rounded-md bg-neutral-950/10 dark:bg-white/10 border border-neutral-950/15 dark:border-white/15 backdrop-blur-xs select-none tracking-wider shadow-xs">
         Sections:
       </span>
       {filteredHeadings.map((item) => (
@@ -117,10 +128,10 @@ const filteredHeadings = headings.filter((h) => h.depth === 2 || h.depth === 3);
       ))}
     </div>
 
-    <!-- 3. ChatGPT-Style Right Scrollbar Section Notch Markers -->
+    <!-- Right Scrollbar Section Notch Markers -->
     <div
       id="scrollbar-section-ticks"
-      class="hidden xl:flex fixed right-0 top-20 bottom-3 w-5 z-40 flex-col pointer-events-none"
+      class="hidden xl:flex fixed right-0 top-20 bottom-3 w-6 z-40 flex-col pointer-events-none"
       aria-hidden="true"
     >
       <!-- Generated dynamically based on heading offsets -->
@@ -141,7 +152,7 @@ const filteredHeadings = headings.filter((h) => h.depth === 2 || h.depth === 3);
 
     // 1. Sidebar Collapse State Management (Like Component Library)
     if (sidebar && navContent && toggleBtn) {
-      let isCollapsed = false; // Default expanded on desktop for quick context
+      let isCollapsed = false;
       try {
         const saved = localStorage.getItem('blog_sidebar_collapsed');
         if (saved !== null) {
@@ -205,7 +216,7 @@ const filteredHeadings = headings.filter((h) => h.depth === 2 || h.depth === 3);
       if (slug) {
         const el = document.getElementById(slug);
         if (el && !targets.some((t) => t.slug === slug)) {
-          targets.push({ slug, el });
+          targets.push({ slug, el, text: el.textContent || slug });
         }
       }
 
@@ -223,21 +234,61 @@ const filteredHeadings = headings.filter((h) => h.depth === 2 || h.depth === 3);
       });
     });
 
+    // Clean Floating Tooltip for Sidebar Headings
+    const tooltipEl = document.getElementById('sidebar-heading-tooltip');
+    let tooltipHideTimer = null;
+
+    function hideTooltip() {
+      if (!tooltipEl) return;
+      tooltipEl.classList.add('opacity-0');
+      clearTimeout(tooltipHideTimer);
+      tooltipHideTimer = setTimeout(() => {
+        if (tooltipEl.classList.contains('opacity-0')) {
+          tooltipEl.style.display = 'none';
+        }
+      }, 150);
+    }
+
+    sidebarBtns.forEach((btn) => {
+      btn.addEventListener('mouseenter', () => {
+        if (!tooltipEl || sidebar.getAttribute('data-collapsed') === 'true') return;
+        clearTimeout(tooltipHideTimer);
+        const rect = btn.getBoundingClientRect();
+        const text = btn.getAttribute('data-title') || btn.textContent.trim();
+
+        tooltipEl.textContent = text;
+        tooltipEl.style.display = 'flex';
+        const topY = rect.top + (rect.height / 2) - 14;
+        tooltipEl.style.top = `${topY}px`;
+        tooltipEl.style.left = `${rect.right + 12}px`;
+
+        requestAnimationFrame(() => {
+          tooltipEl.classList.remove('opacity-0');
+        });
+      });
+
+      btn.addEventListener('mouseleave', hideTooltip);
+    });
+
+    window.addEventListener('scroll', hideTooltip, { passive: true });
+
     if (targets.length === 0) return;
 
     // 3. Active Section Scroll Tracking
-    function updateActiveSection() {
+    function updateActiveSection(isUserScroll = false) {
       const isMobile = window.innerWidth < 1280;
       const scrollPos = window.scrollY + (isMobile ? 130 : 90);
-      let activeSlug = targets[0]?.slug;
+      let activeItem = targets[0];
 
       for (let i = 0; i < targets.length; i++) {
         if (targets[i].el.offsetTop <= scrollPos) {
-          activeSlug = targets[i].slug;
+          activeItem = targets[i];
         } else {
           break;
         }
       }
+
+      const activeSlug = activeItem?.slug;
 
       sidebarBtns.forEach((btn) => {
         const isCurrent = btn.getAttribute('data-target') === activeSlug;
@@ -251,34 +302,52 @@ const filteredHeadings = headings.filter((h) => h.depth === 2 || h.depth === 3);
 
       mobileTabs.forEach((btn) => {
         const isCurrent = btn.getAttribute('data-target') === activeSlug;
+        const wasActive = btn.getAttribute('data-active') === 'true';
         btn.setAttribute('data-active', isCurrent ? 'true' : 'false');
+        if (isCurrent && !wasActive) {
+          btn.scrollIntoView({
+            behavior: 'smooth',
+            inline: 'center',
+            block: 'nearest',
+          });
+        }
       });
+
+      // Update active indicator tick
+      if (activeItem) {
+        document.querySelectorAll('.scrollbar-tick-mark').forEach((mark) => {
+          if (mark.getAttribute('data-slug') === activeSlug) {
+            mark.classList.add('w-3.5', 'bg-neutral-950', 'dark:bg-white');
+            mark.classList.remove('w-2', 'bg-neutral-300', 'dark:bg-neutral-700');
+          } else {
+            mark.classList.remove('w-3.5', 'bg-neutral-950', 'dark:bg-white');
+            mark.classList.add('w-2', 'bg-neutral-300', 'dark:bg-neutral-700');
+          }
+        });
+      }
     }
 
-    // 4. Build ChatGPT-Style Scrollbar Notch Ticks
+    // 4. Build Dynamic Notch Ticks
     function buildScrollbarTicks() {
       if (!ticksContainer) return;
       ticksContainer.innerHTML = '';
       const docHeight = document.documentElement.scrollHeight - window.innerHeight;
       if (docHeight <= 0) return;
 
-      targets.forEach(({ slug, el }) => {
+      targets.forEach(({ slug, el, text }) => {
         const topY = el.getBoundingClientRect().top + window.scrollY;
-        const pct = Math.min(98, Math.max(2, (topY / docHeight) * 100));
+        const pct = Math.min(97, Math.max(3, (topY / docHeight) * 100));
 
         const tick = document.createElement('a');
         tick.href = `#${slug}`;
-        tick.className = 'absolute right-0 w-4 h-1.5 flex items-center justify-end pointer-events-auto group/tick cursor-pointer';
+        tick.title = text;
+        tick.className = 'absolute right-0 w-6 h-3 flex items-center justify-end pr-1 pointer-events-auto cursor-pointer group/tick';
         tick.style.top = `${pct}%`;
 
         const mark = document.createElement('span');
-        mark.className = 'w-1.5 h-[2px] bg-neutral-300 dark:bg-neutral-700 group-hover/tick:w-3 group-hover/tick:bg-neutral-950 dark:group-hover/tick:bg-white rounded-full transition-all duration-150';
+        mark.setAttribute('data-slug', slug);
+        mark.className = 'scrollbar-tick-mark w-2 h-[2px] bg-neutral-300 dark:bg-neutral-700 group-hover/tick:w-4 group-hover/tick:bg-neutral-950 dark:group-hover/tick:bg-white rounded-full transition-all duration-150';
 
-        const tooltip = document.createElement('span');
-        tooltip.className = 'absolute right-4 px-2.5 py-1 rounded-md text-xs font-sans whitespace-nowrap bg-neutral-900 text-white dark:bg-white dark:text-neutral-950 shadow-lg opacity-0 pointer-events-none group-hover/tick:opacity-100 transition-opacity duration-150';
-        tooltip.textContent = el.textContent || slug;
-
-        tick.appendChild(tooltip);
         tick.appendChild(mark);
 
         tick.addEventListener('click', (e) => {
@@ -292,9 +361,9 @@ const filteredHeadings = headings.filter((h) => h.depth === 2 || h.depth === 3);
       });
     }
 
-    window.addEventListener('scroll', updateActiveSection, { passive: true });
+    window.addEventListener('scroll', () => updateActiveSection(true), { passive: true });
     window.addEventListener('resize', buildScrollbarTicks, { passive: true });
-    updateActiveSection();
+    updateActiveSection(false);
     setTimeout(buildScrollbarTicks, 300);
   }
 
