@@ -1,181 +1,200 @@
 ---
 // Footer.astro - Global Systems Footer
-const rawBase = import.meta.env.BASE_URL;
-const base = rawBase.endsWith("/") ? rawBase.slice(0, -1) : rawBase;
+import ActionButton from './ActionButton.astro';
+import GithubContributionDivider from './GithubContributionDivider.astro';
+
 const currentYear = new Date().getFullYear();
 ---
 
+<GithubContributionDivider />
 <footer
-  class="w-full border-t border-neutral-200 dark:border-neutral-800 bg-[#fcfbf9] dark:bg-[#0e0e0e] text-neutral-600 dark:text-neutral-400 font-sans transition-colors duration-200"
+  class="w-full bg-[#fcfbf9] dark:bg-[#0e0e0e] text-neutral-600 dark:text-neutral-400 font-sans transition-colors duration-200"
+  style="--cell: 28px;"
 >
-  <div class="w-[92%] sm:w-[86%] lg:w-[80%] mx-auto py-12 sm:py-16 space-y-12">
-    <!-- Top Grid: Brand & Link Groups -->
-    <div class="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12">
-      <!-- Left Column: Identity -->
-      <div class="md:col-span-5 space-y-4">
-        <a
-          href={`${base}/`}
-          aria-label="Home"
-          data-aria-en="Home"
-          data-aria-id="Beranda"
-          class="text-xl font-black tracking-[0.5px] text-neutral-950 dark:text-white font-heading hover:opacity-80 transition-opacity inline-flex items-baseline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent,#52FF1A)] rounded"
-        >
-          <span>yovan</span><span class="text-[var(--color-accent,#52FF1A)] ml-[2px]">;</span>
-        </a>
-        <p
-          data-en="Software engineer & systems builder turning ideas into production web apps, touchscreen kiosk platforms, and hardware integrations."
-          data-id="Software engineer & pembuat sistem yang mengubah ide menjadi aplikasi web produksi, platform kios layar sentuh, dan integrasi perangkat keras."
-          class="text-xs sm:text-sm text-neutral-500 dark:text-neutral-400 max-w-sm leading-relaxed font-normal"
-        >
-          Software engineer & systems builder turning ideas into production web
-          apps, touchscreen kiosk platforms, and hardware integrations.
-        </p>
+  <div class="w-[92%] sm:w-[86%] lg:w-[80%] mx-auto">
+    <!-- Layer 2: Section 06 Sliced Numeral Header Bar + Contact Actions -->
+    <div
+      id="contact"
+      class="scroll-mt-24 pt-[calc(2*var(--cell,28px))] pb-10 sm:pb-12 border-b border-neutral-200/60 dark:border-neutral-800/60"
+    >
+      <div class="flex items-stretch gap-0 pb-1">
+        <!-- Section Indicator: Tuned LiveChat Icon -->
         <div
-          class="flex items-center gap-2 pt-1 text-xs text-neutral-500 dark:text-neutral-400"
+          id="contact-numeral-crop"
+          class="relative overflow-hidden flex items-start justify-end select-none shrink-0 w-[60px] sm:w-[85px] pt-1 sm:pt-2 pr-1 sm:pr-2"
+          style="contain: paint;"
         >
-          <span class="w-2 h-2 rounded-full bg-[var(--color-accent,#52FF1A)] animate-pulse"></span>
-          <span class="font-mono text-[11px]" data-en="AVAILABLE FOR NEW PROJECTS" data-id="TERSEDIA UNTUK PROYEK BARU">AVAILABLE FOR NEW PROJECTS</span>
+          <svg
+            id="contact-icon"
+            role="img"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="currentColor"
+            class="text-neutral-950/40 dark:text-white/40 shrink-0 select-none"
+            style="width: 75px; height: 75px; transform: translate(24px, 4px) rotate(-13deg);"
+            aria-hidden="true"
+          >
+            <title>LiveChat</title>
+            <path d="M23.849 14.91c-.24 2.94-2.73 5.22-5.7 5.19h-3.15l-6 3.9v-3.9l6-3.9h3.15c.93.03 1.71-.66 1.83-1.59.18-3 .18-6-.06-9-.06-.84-.75-1.47-1.56-1.53-2.04-.09-4.2-.18-6.36-.18s-4.32.06-6.36.21c-.84.06-1.5.69-1.56 1.53-.21 3-.24 6-.06 9 .09.93.9 1.59 1.83 1.56h3.15v3.9h-3.15a5.644 5.644 0 01-5.7-5.19c-.21-3.21-.18-6.39.06-9.6a5.57 5.57 0 015.19-5.1c2.1-.15 4.35-.21 6.6-.21s4.5.06 6.63.24a5.57 5.57 0 015.19 5.1c.21 3.18.24 6.39.03 9.57z"/>
+          </svg>
         </div>
-      </div>
 
-      <!-- Right Columns: Navigation & Connect -->
-      <div class="md:col-span-7 grid grid-cols-2 gap-8 sm:gap-12">
-        <!-- Navigation -->
-        <nav aria-label="Footer Navigation" data-aria-en="Footer Navigation" data-aria-id="Navigasi Footer">
-          <h3
-            class="font-heading font-bold text-xs uppercase tracking-wider text-neutral-950 dark:text-white block m-0 mb-5 sm:mb-6"
-            data-en="Navigation"
-            data-id="Navigasi"
-          >
-            Navigation
-          </h3>
-          <ul class="space-y-2 text-xs list-none p-0 m-0">
-            <li>
-              <a
-                href={`${base}/`}
-                data-en="Home"
-                data-id="Beranda"
-                class="hover:text-neutral-950 dark:hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent,#52FF1A)] rounded"
-              >
-                Home
-              </a>
-            </li>
-            <li>
-              <a
-                href={`${base}/#about`}
-                data-en="About"
-                data-id="Tentang"
-                class="hover:text-neutral-950 dark:hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent,#52FF1A)] rounded"
-              >
-                About
-              </a>
-            </li>
-            <li>
-              <a
-                href={`${base}/#projects`}
-                data-en="Featured Work"
-                data-id="Karya Pilihan"
-                class="hover:text-neutral-950 dark:hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent,#52FF1A)] rounded"
-              >
-                Featured Work
-              </a>
-            </li>
-            <li>
-              <a
-                href={`${base}/portfolio-index`}
-                class="hover:text-neutral-950 dark:hover:text-white transition-colors flex items-center gap-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent,#52FF1A)] rounded"
-              >
-                <span data-en="Portfolio Index" data-id="Indeks Portofolio">Portfolio Index</span>
-                <span
-                  class="text-[10px] font-mono text-neutral-400 dark:text-neutral-500"
-                  aria-hidden="true">↗</span
-                >
-              </a>
-            </li>
-            <li>
-              <a
-                href={`${base}/component-library`}
-                class="hover:text-neutral-950 dark:hover:text-white transition-colors flex items-center gap-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent,#52FF1A)] rounded"
-              >
-                <span data-en="Component Library" data-id="Pustaka Komponen">Component Library</span>
-                <span
-                  class="text-[10px] font-mono text-neutral-400 dark:text-neutral-500"
-                  aria-hidden="true">↗</span
-                >
-              </a>
-            </li>
-          </ul>
-        </nav>
+        <!-- Vertical Divider Line (Exact Slice Axis) -->
+        <div class="w-px bg-neutral-300 dark:bg-neutral-800 shrink-0 self-stretch my-0.5" aria-hidden="true"></div>
 
-        <!-- Connect -->
-        <nav aria-label="Connect Links" data-aria-en="Connect Links" data-aria-id="Tautan Kontak">
-          <h3
-            class="font-heading font-bold text-xs uppercase tracking-wider text-neutral-950 dark:text-white block m-0 mb-5 sm:mb-6"
-            data-en="Connect"
-            data-id="Kontak"
-          >
-            Connect
-          </h3>
-          <ul class="space-y-2 text-xs list-none p-0 m-0">
-            <li>
-              <a
-                href="https://github.com/navoyovan"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="GitHub Profile (opens in new tab)"
-                data-aria-en="GitHub Profile (opens in new tab)"
-                data-aria-id="Profil GitHub (buka di tab baru)"
-                class="hover:text-neutral-950 dark:hover:text-white transition-colors flex items-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent,#52FF1A)] rounded"
-              >
-                <i class="ti ti-brand-github text-sm" aria-hidden="true"></i>
+        <!-- Right Side: Headline & Actions -->
+        <div class="flex-1 flex flex-col justify-center min-w-0 pl-3 sm:pl-5 lg:pl-6 py-0.5 space-y-6 sm:space-y-8">
+          <!-- Headline & Subtext -->
+          <div class="space-y-2 max-w-2xl">
+            <h2
+              id="heading-contact"
+              class="text-3xl sm:text-4xl lg:text-[42px] font-medium tracking-tight text-neutral-950 dark:text-white leading-[1.12] font-montreal m-0"
+              data-en="Have an idea? Let's build it."
+              data-id="Punya ide? Mari kita bangun."
+            >
+              <span class="text-neutral-400 dark:text-neutral-500 font-normal">Have an idea?</span><br />
+              <span class="text-neutral-950 dark:text-white font-medium">Let's build <span class="text-[var(--color-accent,#1b7f3b)] dark:text-[var(--color-accent,#52FF1A)]">it.</span></span>
+            </h2>
+            <p
+              class="font-sans text-[13px] sm:text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed max-w-md m-0"
+              data-en="Available for select freelance contracts & full-time engineering roles."
+              data-id="Tersedia untuk kontrak lepas pilihan & posisi engineering full-time."
+            >
+              Available for select freelance contracts &amp; full-time engineering roles.
+            </p>
+          </div>
+
+          <!-- Contact Action Buttons: Responsive & Wrap-Safe -->
+          <div class="flex flex-wrap items-center gap-2 sm:gap-2.5">
+            <!-- Email -->
+            <ActionButton
+              href="mailto:yovangunardio@gmail.com"
+              variant="cta-white"
+              size="sm"
+              font="sans"
+              uppercase={false}
+              rounded="rounded-md"
+              class="group overflow-hidden text-[13px]"
+              aria-label="Send email to Yovan"
+              data-aria-en="Send email to Yovan"
+              data-aria-id="Kirim email ke Yovan"
+            >
+              <div class="inline-flex items-center translate-x-[10px] group-hover:translate-x-0 transition-transform duration-200 ease-out">
+                <i class="ti ti-mail text-sm mr-2" aria-hidden="true"></i>
+                <span>yovangunardio@gmail.com</span>
+                <span class="inline-flex items-center justify-center w-3.5 ml-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-200 ease-out text-neutral-400 group-hover:text-white dark:group-hover:text-neutral-950" aria-hidden="true">↗</span>
+              </div>
+            </ActionButton>
+
+            <!-- GitHub -->
+            <ActionButton
+              href="https://github.com/navoyovan"
+              target="_blank"
+              rel="noopener noreferrer"
+              variant="secondary"
+              borderStyle="solid"
+              size="sm"
+              font="sans"
+              uppercase={false}
+              rounded="rounded-md"
+              class="group overflow-hidden text-[13px] text-neutral-700 dark:text-neutral-300"
+              aria-label="GitHub Profile (opens in new tab)"
+              data-aria-en="GitHub Profile (opens in new tab)"
+              data-aria-id="Profil GitHub (buka di tab baru)"
+            >
+              <div class="inline-flex items-center translate-x-[10px] group-hover:translate-x-0 transition-transform duration-200 ease-out">
+                <i class="ti ti-brand-github text-sm mr-1.5 text-neutral-400 group-hover:text-neutral-950 dark:group-hover:text-white transition-colors" aria-hidden="true"></i>
                 <span>GitHub</span>
-              </a>
-            </li>
-            <li>
-              <a
-                href="https://linkedin.com/in/yovan-g-d-22379ba7/"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="LinkedIn Profile (opens in new tab)"
-                data-aria-en="LinkedIn Profile (opens in new tab)"
-                data-aria-id="Profil LinkedIn (buka di tab baru)"
-                class="hover:text-neutral-950 dark:hover:text-white transition-colors flex items-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent,#52FF1A)] rounded"
-              >
-                <i class="ti ti-brand-linkedin text-sm" aria-hidden="true"></i>
+                <span class="inline-flex items-center justify-center w-3.5 ml-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-200 ease-out text-neutral-400 group-hover:text-neutral-950 dark:group-hover:text-white" aria-hidden="true">↗</span>
+              </div>
+            </ActionButton>
+
+            <!-- LinkedIn -->
+            <ActionButton
+              href="https://linkedin.com/in/yovan-g-d-22379ba7/"
+              target="_blank"
+              rel="noopener noreferrer"
+              variant="secondary"
+              borderStyle="solid"
+              size="sm"
+              font="sans"
+              uppercase={false}
+              rounded="rounded-md"
+              class="group overflow-hidden text-[13px] text-neutral-700 dark:text-neutral-300"
+              aria-label="LinkedIn Profile (opens in new tab)"
+              data-aria-en="LinkedIn Profile (opens in new tab)"
+              data-aria-id="Profil LinkedIn (buka di tab baru)"
+            >
+              <div class="inline-flex items-center translate-x-[10px] group-hover:translate-x-0 transition-transform duration-200 ease-out">
+                <i class="ti ti-brand-linkedin text-sm mr-1.5 text-neutral-400 group-hover:text-neutral-950 dark:group-hover:text-white transition-colors" aria-hidden="true"></i>
                 <span>LinkedIn</span>
-              </a>
-            </li>
-            <li>
-              <a
-                href="mailto:yovangunardio@gmail.com"
-                aria-label="Send email to Yovan"
-                data-aria-en="Send email to Yovan"
-                data-aria-id="Kirim email ke Yovan"
-                class="hover:text-neutral-950 dark:hover:text-white transition-colors flex items-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent,#52FF1A)] rounded"
-              >
-                <i class="ti ti-mail text-sm" aria-hidden="true"></i>
-                <span>Email</span>
-              </a>
-            </li>
-          </ul>
-        </nav>
+                <span class="inline-flex items-center justify-center w-3.5 ml-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-200 ease-out text-neutral-400 group-hover:text-neutral-950 dark:group-hover:text-white" aria-hidden="true">↗</span>
+              </div>
+            </ActionButton>
+
+            <!-- 21st.dev -->
+            <ActionButton
+              href="https://21st.dev/@yovan"
+              target="_blank"
+              rel="noopener noreferrer"
+              variant="secondary"
+              borderStyle="solid"
+              size="sm"
+              font="sans"
+              uppercase={false}
+              rounded="rounded-md"
+              class="group overflow-hidden text-[13px] text-neutral-700 dark:text-neutral-300"
+              aria-label="21st.dev Profile (opens in new tab)"
+              data-aria-en="21st.dev Profile (opens in new tab)"
+              data-aria-id="Profil 21st.dev (buka di tab baru)"
+            >
+              <div class="inline-flex items-center translate-x-[10px] group-hover:translate-x-0 transition-transform duration-200 ease-out">
+                <i class="ti ti-cube text-sm mr-1.5 text-neutral-400 group-hover:text-neutral-950 dark:group-hover:text-white transition-colors" aria-hidden="true"></i>
+                <span>21st.dev</span>
+                <span class="inline-flex items-center justify-center w-3.5 ml-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-200 ease-out text-neutral-400 group-hover:text-neutral-950 dark:group-hover:text-white" aria-hidden="true">↗</span>
+              </div>
+            </ActionButton>
+
+            <!-- Resume / CV -->
+            <ActionButton
+              href="https://docs.google.com/document/d/1dlUKA5EGLI3qPxEOfJ3acjt4tA39oxKy_Fs1Z_JM0Pk/export?format=pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              variant="secondary"
+              borderStyle="solid"
+              size="sm"
+              font="sans"
+              uppercase={false}
+              rounded="rounded-md"
+              class="group overflow-hidden text-[13px] text-neutral-700 dark:text-neutral-300"
+              aria-label="Download Resume / CV as PDF (opens in new tab)"
+              data-aria-en="Download Resume / CV as PDF (opens in new tab)"
+              data-aria-id="Unduh Resume / CV (buka di tab baru)"
+            >
+              <div class="inline-flex items-center translate-x-[10px] group-hover:translate-x-0 transition-transform duration-200 ease-out">
+                <i class="ti ti-file-text text-sm mr-1.5 text-neutral-400 group-hover:text-neutral-950 dark:group-hover:text-white transition-colors" aria-hidden="true"></i>
+                <span data-en="Resume / CV" data-id="Resume / CV">Resume / CV</span>
+                <span class="inline-flex items-center justify-center w-3.5 ml-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-200 ease-out text-neutral-400 group-hover:text-neutral-950 dark:group-hover:text-white" aria-hidden="true">↗</span>
+              </div>
+            </ActionButton>
+          </div>
+        </div>
       </div>
     </div>
 
-    <!-- Bottom Strip: Copyright & Platform Stack -->
+    <!-- Layer 3: Footer Utility Strip -->
     <div
-      class="pt-8 border-t border-neutral-200/80 dark:border-neutral-800/80 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-neutral-500 dark:text-neutral-500"
+      class="py-6 sm:py-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 text-[12px] text-neutral-600 dark:text-neutral-400"
     >
+      <!-- Left: Copyright & Attribution -->
       <div
-        class="flex flex-wrap items-center justify-center md:justify-start gap-x-2 gap-y-1"
+        class="flex flex-wrap items-center gap-x-2 gap-y-1 text-[12px]"
       >
-        <span class="font-heading font-bold text-neutral-950 dark:text-white">
-          Yovan Gunardio Darmawan
+        <span class="font-heading font-bold text-neutral-950 dark:text-white whitespace-nowrap">
+          &copy; {currentYear} Yovan Gunardio Darmawan
         </span>
-        <span class="select-none" aria-hidden="true">•</span>
-        <span>&copy; {currentYear}</span>
-        <span class="hidden sm:inline select-none" aria-hidden="true">•</span>
-        <span class="text-[11px] text-neutral-400 dark:text-neutral-600">
+        <span class="hidden sm:inline select-none text-neutral-400 dark:text-neutral-500" aria-hidden="true">•</span>
+        <span class="text-[12px] text-neutral-600 dark:text-neutral-400">
           Map tiles by <a
             href="https://carto.com/attributions"
             target="_blank"
@@ -183,7 +202,7 @@ const currentYear = new Date().getFullYear();
             aria-label="CARTO map tile attribution (opens in new tab)"
             data-aria-en="CARTO map tile attribution (opens in new tab)"
             data-aria-id="Atribusi ubin peta CARTO (buka di tab baru)"
-            class="hover:underline hover:text-neutral-600 dark:hover:text-neutral-300"
+            class="hover:underline hover:text-neutral-950 dark:hover:text-neutral-200"
             >CARTO</a
           > &copy; <a
             href="https://www.openstreetmap.org/copyright"
@@ -192,19 +211,68 @@ const currentYear = new Date().getFullYear();
             aria-label="OpenStreetMap copyright notice (opens in new tab)"
             data-aria-en="OpenStreetMap copyright notice (opens in new tab)"
             data-aria-id="Pemberitahuan hak cipta OpenStreetMap (buka di tab baru)"
-            class="hover:underline hover:text-neutral-600 dark:hover:text-neutral-300"
+            class="hover:underline hover:text-neutral-950 dark:hover:text-neutral-200"
             >OpenStreetMap</a
           > contributors
         </span>
       </div>
 
-      <div class="flex items-center gap-2 font-mono text-[11px]">
-        <span>ASTRO v5</span>
-        <span class="select-none">•</span>
-        <span>TAILWIND v4</span>
-        <span class="select-none">•</span>
-        <span>GITHUB PAGES</span>
+      <!-- Right: Back-to-Top & Subdued Metadata -->
+      <div class="flex flex-wrap items-center gap-3 font-mono text-[12px] shrink-0">
+        <!-- Back to Top -->
+        <button
+          type="button"
+          id="footer-back-to-top"
+          aria-label="Back to top"
+          class="group inline-flex items-center gap-1.5 text-[12px] text-neutral-700 hover:text-neutral-950 dark:text-neutral-300 dark:hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent,#52FF1A)] rounded px-1.5 py-0.5 cursor-pointer whitespace-nowrap"
+        >
+          <span data-en="Top" data-id="Atas">Top</span>
+          <svg
+            class="w-3.5 h-3.5 text-neutral-500 group-hover:text-neutral-950 dark:text-neutral-400 dark:group-hover:text-white group-hover:-translate-y-0.5 transition-transform"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M12 19V5M5 12l7-7 7 7"></path>
+          </svg>
+        </button>
+
+        <span class="select-none text-neutral-400 dark:text-neutral-600" aria-hidden="true">|</span>
+
+        <!-- Subdued Secondary Metadata (with whitespace-nowrap so tokens never break across lines) -->
+        <div class="flex items-center gap-2 text-[12px] text-neutral-600 dark:text-neutral-400 font-medium">
+          <span class="whitespace-nowrap">ASTRO v5</span>
+          <span class="select-none text-neutral-400 dark:text-neutral-600" aria-hidden="true">•</span>
+          <span class="whitespace-nowrap">TAILWIND v4</span>
+          <span class="select-none text-neutral-400 dark:text-neutral-600" aria-hidden="true">•</span>
+          <span class="whitespace-nowrap">GITHUB PAGES</span>
+        </div>
       </div>
     </div>
   </div>
 </footer>
+
+<script is:inline>
+  (() => {
+    const initBackToTop = () => {
+      const btn = document.getElementById('footer-back-to-top');
+      if (!btn || btn.dataset.bound === 'true') return;
+      btn.dataset.bound = 'true';
+      btn.addEventListener('click', () => {
+        const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        window.scrollTo({ top: 0, behavior: prefersReduced ? 'auto' : 'smooth' });
+      });
+    };
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initBackToTop);
+    } else {
+      initBackToTop();
+    }
+    document.addEventListener('astro:page-load', initBackToTop);
+  })();
+</script>

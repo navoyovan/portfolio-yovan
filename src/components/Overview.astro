@@ -1,0 +1,589 @@
+---
+// Overview.astro - Curated 01 // Overview Section
+import simpleIcons from "../data/simpleIcons.json";
+import { DitheringShader } from "./ui/dithering-shader";
+
+interface Props {
+  base?: string;
+}
+
+const rawBase = Astro.props.base ?? import.meta.env.BASE_URL;
+const base = rawBase.endsWith("/") ? rawBase.slice(0, -1) : rawBase;
+
+const coreStack = [
+  {
+    name: "Laravel",
+    category: "Backend Architecture",
+    iconKey: "laravel" as const,
+  },
+  {
+    name: "React",
+    category: "UI Engineering",
+    iconKey: "react" as const,
+  },
+  {
+    name: "Electron",
+    category: "Desktop & Kiosk OS",
+    iconKey: "electron" as const,
+  },
+  {
+    name: "Astro",
+    category: "Static & Content Web",
+    iconKey: "astro" as const,
+  },
+  {
+    name: "Google Cloud",
+    category: "Cloud Infrastructure",
+    iconKey: "googlecloud" as const,
+  },
+  {
+    name: "Docker",
+    category: "Containerization",
+    iconKey: "docker" as const,
+  },
+];
+
+const supportingStack = [
+  { name: "TypeScript", icon: "ti-brand-typescript" },
+  { name: "JavaScript", icon: "ti-brand-javascript" },
+  { name: "PHP", icon: "ti-brand-php" },
+  { name: "C# / .NET", icon: "ti-brand-c-sharp" },
+  { name: "Node.js", icon: "ti-brand-nodejs" },
+  { name: "Vite", icon: "ti-brand-vite" },
+  { name: "WPF & WebView2", icon: "ti-app-window" },
+  { name: "Tailwind CSS", icon: "ti-brand-tailwind" },
+  { name: "CSS Modules", icon: "ti-brand-css3" },
+  { name: "Zustand", icon: "ti-database-cog" },
+  { name: "WebSockets", icon: "ti-broadcast" },
+  { name: "RESTful APIs", icon: "ti-api" },
+  { name: "IPC Architecture", icon: "ti-arrows-exchange" },
+  { name: "ESP32 & IoT", icon: "ti-cpu" },
+  { name: "Filament", icon: "ti-layout-dashboard" },
+  { name: "SQLite", icon: "ti-database" },
+  { name: "MySQL", icon: "ti-brand-mysql" },
+  { name: "Google Cloud Storage", icon: "ti-cloud-upload" },
+  { name: "SNAP API", icon: "ti-credit-card" },
+  { name: "Three.js", icon: "ti-brand-threejs" },
+  { name: "Framer Motion", icon: "ti-brand-framer-motion" },
+  { name: "GSAP", icon: "ti-keyframes" },
+  { name: "Anime.js", icon: "ti-sparkles" },
+  { name: "Leaflet.js", icon: "ti-map-2" },
+  { name: "Chart.js", icon: "ti-chart-line" },
+  { name: "Git & GitHub", icon: "ti-brand-github" },
+  { name: "GitHub Pages", icon: "ti-brand-git" },
+  { name: "OWASP Guidelines", icon: "ti-shield-check" },
+  { name: "SEO & Metadata", icon: "ti-search" },
+  { name: "Accessibility (a11y)", icon: "ti-accessible" },
+];
+---
+
+<!-- 01 // OVERVIEW SECTION (Magazine Spread with Side Core Stack) -->
+<section
+  id="intro"
+  aria-labelledby="heading-intro"
+  class="scroll-mt-24 pt-0 space-y-12 overview-section"
+>
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start pt-0">
+    <!-- Left Column: Portrait Photo with Studio Frame -->
+    <div
+      class="lg:col-span-5 xl:col-span-5 lg:sticky lg:top-24 flex flex-col items-center justify-center pt-0"
+      style="transform: translateZ(0);"
+    >
+      <div
+        class="relative w-full max-w-md sm:max-w-lg flex flex-col items-center justify-center border-b border-neutral-300/80 dark:border-neutral-800 overflow-hidden"
+        style="transform: translateZ(0);"
+      >
+        <!-- Dithering Shader Wave Backdrop -->
+        <div
+          class="absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden"
+          style="transform: translateZ(0); will-change: transform; backface-visibility: hidden;"
+        >
+          <DitheringShader
+            client:load
+            shape="wave"
+            type="8x8"
+            pxSize={1}
+            speed={0.6}
+          />
+        </div>
+
+        <img
+          src={`${base}/images/v.png`}
+          alt="Portrait of Yovan Gunardio Darmawan"
+          width="540"
+          height="540"
+          class="relative z-10 w-full max-h-[500px] sm:max-h-[540px] object-contain object-bottom select-none pt-4"
+          loading="eager"
+          decoding="async"
+          fetchpriority="high"
+        />
+      </div>
+      <div class="w-full pt-3 flex items-center justify-between text-xs text-neutral-400 dark:text-neutral-500 font-sans px-1">
+        <button
+          type="button"
+          data-easter="modpe"
+          class="font-mono text-[11px] cursor-pointer hover:underline underline-offset-2 hover:text-neutral-700 dark:hover:text-neutral-300 transition-colors bg-transparent border-0 p-0 text-inherit"
+          aria-label="Unlock ModPE Scripting Cool Stuff"
+          data-aria-en="Unlock ModPE Scripting Cool Stuff"
+          data-aria-id="Buka Cool Stuff Skrip ModPE"
+        >Entity.setRenderType(mob, 3);</button>
+        <button
+          type="button"
+          data-easter="brght"
+          class="font-mono text-[11px] cursor-pointer hover:underline underline-offset-2 hover:text-neutral-700 dark:hover:text-neutral-300 transition-colors bg-transparent border-0 p-0 text-inherit"
+          aria-label="Unlock Cognitive Metrics Cool Stuff"
+        >x89</button>
+      </div>
+    </div>
+
+    <!-- Right Column: Editorial Narrative & Stack -->
+    <div class="lg:col-span-7 xl:col-span-7 space-y-7">
+      <!-- Headline: Satoshi, 36px, line-height: 1.25, normal weight with thin 'world wide web' -->
+      <h2
+        class="font-sans font-normal text-2xl sm:text-3xl lg:text-[36px] text-neutral-950 dark:text-white leading-[1.25] tracking-tight m-0"
+      >
+        <span data-en="Hello, I'm Yovan. I build things for the " data-id="Halo, aku Yovan. Aku bikin ini dan itu buat di ">Hello, I'm Yovan. I build things for the </span><span class="font-light text-neutral-500 dark:text-neutral-400" data-en="world wide web" data-id="internet">world wide web</span><span data-en=" and occasionally things that " data-id=" dan sesekali yang "> and occasionally things that </span><span data-en="talk to machines" data-id="nyambung ke hardware">talk to machines</span>.
+      </h2>
+
+      <!-- Anchor alias for #about -->
+      <div id="about" class="scroll-mt-28 pointer-events-none" aria-hidden="true"></div>
+
+      <!-- About Narrative (Integrated from Section 05) -->
+      <div class="space-y-4 pt-1 text-base sm:text-[17px] text-neutral-700 dark:text-neutral-300 leading-relaxed font-normal">
+        <p
+          data-en="My journey started with modding Java games back when I was in elementary school and Android games in high school, but curiosity pulled me into everything around it, like- designing interfaces, building backend, connecting hardware, and creating intuitive experiences for users."
+          data-id="Perjalananku berawal dari ngoprek game Java ketika SD dan game Android pas SMA. Rasa penasaran menuntunku dari sana sampe ke sini, desain UI/UX, bikin backend, jadi tukang kabel (nyambungin hardware), sampai membangun pengalaman yang intuitif buat pengguna."
+          class="m-0"
+        >
+          My journey started with modding Java games back when I was in
+          elementary school and Android games in high school, but curiosity
+          pulled me into everything around it, like- designing interfaces,
+          building backend, connecting hardware, and creating intuitive
+          experiences for users.
+        </p>
+      </div>
+
+      <!-- Unboxed Two Columns -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-12 lg:gap-16 pt-8 sm:pt-10 pb-4">
+        <div class="flex flex-col gap-3 sm:gap-3.5">
+          <h3 class="flex items-center gap-3 font-sans font-normal text-base sm:text-lg text-neutral-900 dark:text-white tracking-normal leading-tight m-0">
+            <svg
+              class="w-[18px] h-[18px] shrink-0 text-neutral-400 dark:text-neutral-400"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <circle cx="12" cy="12" r="10"></circle>
+              <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path>
+              <path d="M2 12h20"></path>
+            </svg>
+            <span
+              data-en="The Digital Realm"
+              data-id="Dunia Digital"
+            >
+              The Digital Realm
+            </span>
+          </h3>
+          <p
+            class="font-sans text-[14px] sm:text-[14.5px] leading-relaxed text-neutral-600 dark:text-neutral-400 m-0"
+            data-en="Full-stack web applications, interactive dashboards, accessible client portals, and performance-first landing pages built with clean semantic structure."
+            data-id="Aplikasi web full-stack, dashboard interaktif, portal klien yang aksesibel, dan landing page berkinerja tinggi dengan struktur semantik rapi."
+          >
+            Full-stack web applications, interactive dashboards, accessible client portals, and performance-first landing pages built with clean semantic structure.
+          </p>
+        </div>
+        <div class="flex flex-col gap-3 sm:gap-3.5">
+          <h3 class="flex items-center gap-3 font-sans font-normal text-base sm:text-lg text-neutral-900 dark:text-white tracking-normal leading-tight m-0">
+            <svg
+              class="w-[18px] h-[18px] shrink-0 text-neutral-400 dark:text-neutral-400"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <rect width="16" height="16" x="4" y="4" rx="2"></rect>
+              <rect width="6" height="6" x="9" y="9" rx="1"></rect>
+              <path d="M15 2v2"></path>
+              <path d="M15 20v2"></path>
+              <path d="M2 15h2"></path>
+              <path d="M2 9h2"></path>
+              <path d="M20 15h2"></path>
+              <path d="M20 9h2"></path>
+              <path d="M9 2v2"></path>
+              <path d="M9 20v2"></path>
+            </svg>
+            <span
+              data-en="The Physical Layer"
+              data-id="Lapisan Fisik"
+            >
+              The Physical Layer
+            </span>
+          </h3>
+          <p
+            class="font-sans text-[14px] sm:text-[14.5px] leading-relaxed text-neutral-600 dark:text-neutral-400 m-0"
+            data-en="Touchscreen kiosks, connected hardware, microcontrollers (ESP32), payment gateway integrations, and direct serial/IPC protocols."
+            data-id="Touchscreen kiosk, hardware terhubung, mikrokontroler (ESP32), integrasi payment gateway, dan protokol serial/IPC."
+          >
+            Touchscreen kiosks, connected hardware, microcontrollers (ESP32), payment gateway integrations, and direct serial/IPC protocols.
+          </p>
+        </div>
+      </div>
+
+      <!-- Lyrical Footnote: 3-line cycling rotator -->
+      <div class="pt-5 border-t border-neutral-200/80 dark:border-neutral-800/80">
+        <div>
+          <div
+            id="lyrics-rotator-container"
+            class="overflow-hidden relative"
+            aria-live="polite"
+          >
+            <div
+              id="lyrics-rotator-track"
+              class="relative space-y-2 font-serif italic text-neutral-600 dark:text-neutral-300 leading-relaxed transition-transform duration-600 ease-out"
+            >
+              <p class="lyrics-line lyrics-line-edge m-0">A little bit of webapp in my life,</p>
+              <p class="lyrics-line lyrics-line-active m-0">a little bit of vscode by my side,</p>
+              <p class="lyrics-line lyrics-line-edge m-0">a little bit of dashboard all I need,</p>
+              <p class="lyrics-line lyrics-line-hidden m-0">a little bit of touchscreen kiosk what I see,</p>
+              <p class="lyrics-line lyrics-line-hidden m-0">a little bit of 12v in the sun,</p>
+              <p class="lyrics-line lyrics-line-hidden m-0">a little bit of solder all night long,</p>
+              <p class="lyrics-line lyrics-line-hidden m-0">a little bit of LED, here I am,</p>
+              <p class="lyrics-line lyrics-line-hidden m-0">a little bit of git makes me your guy...</p>
+              <!-- Seamless wrap clones -->
+              <p class="lyrics-line lyrics-line-hidden m-0" aria-hidden="true">A little bit of webapp in my life,</p>
+              <p class="lyrics-line lyrics-line-hidden m-0" aria-hidden="true">a little bit of vscode by my side,</p>
+              <p class="lyrics-line lyrics-line-hidden m-0" aria-hidden="true">a little bit of dashboard all I need,</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tech Stack Layout (Original unboxed breathing grid down below) -->
+      <div
+        class="pt-6 border-t border-neutral-200/80 dark:border-neutral-800/80"
+      >
+        <!-- Core Stack Header -->
+        <div class="flex items-center justify-between pb-4">
+          <h3
+            class="font-sans font-medium text-[10.5px] sm:text-xs uppercase tracking-[0.5px] text-neutral-400 dark:text-neutral-300 m-0"
+          >
+            Core Stack
+          </h3>
+          <span
+            class="font-sans text-[11px] text-neutral-400 dark:text-neutral-400 font-medium"
+          >
+            {coreStack.length} core • {supportingStack.length} supporting
+          </span>
+        </div>
+
+        <!-- Core Stack (Icon-as-Object: Unboxed, Breathing Grid) -->
+        <ul
+          class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-y-6 gap-x-4 sm:gap-x-6 list-none m-0 p-0"
+          aria-label="Core Technologies"
+        >
+          {
+            coreStack.map((tech) => (
+              <li class="flex flex-col space-y-2.5 group cursor-default">
+                <div class="h-10 sm:h-11 flex items-end">
+                  <div class="w-8 h-8 sm:w-9 sm:h-9 text-neutral-400 dark:text-neutral-400 group-hover:text-neutral-950 dark:group-hover:text-white transition-colors duration-200 flex items-center justify-center">
+                    <svg
+                      role="img"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                      class="w-full h-full"
+                      aria-hidden="true"
+                    >
+                      <path d={simpleIcons[tech.iconKey as keyof typeof simpleIcons]} />
+                    </svg>
+                  </div>
+                </div>
+                <div class="space-y-0.5">
+                  <div class="font-sans font-medium text-sm sm:text-base text-neutral-950 dark:text-white tracking-tight m-0">
+                    {tech.name}
+                  </div>
+                  <div class="font-sans text-[11px] sm:text-xs text-neutral-400 dark:text-neutral-500 group-hover:text-neutral-600 dark:group-hover:text-neutral-300 transition-colors duration-200 leading-tight m-0">
+                    {tech.category}
+                  </div>
+                </div>
+              </li>
+            ))
+          }
+        </ul>
+
+        <!-- Ecosystem & Supporting Tools (Magazine Layout) -->
+        <div class="pt-6 space-y-3">
+          <div class="flex items-center justify-between">
+            <h3
+              class="font-sans font-medium text-[10.5px] sm:text-xs uppercase tracking-[0.5px] text-neutral-400 dark:text-neutral-300 m-0"
+            >
+              Ecosystem & Supporting Tools
+            </h3>
+            <span class="font-sans text-[11px] text-neutral-400 dark:text-neutral-400 font-medium">
+              {supportingStack.length} tools
+            </span>
+          </div>
+          <ul
+            class="flex flex-wrap items-center gap-x-4 gap-y-2 list-none m-0 p-0"
+            aria-label="Ecosystem and Supporting Technologies"
+          >
+            {
+              supportingStack.map((tech) => {
+                const isEsp = tech.name === "ESP32 & IoT";
+                return (
+                  <li class="inline-flex items-center gap-1.5 text-xs text-neutral-600 dark:text-neutral-400 hover:text-neutral-950 dark:hover:text-white transition-colors group">
+                    {isEsp ? (
+                      <button
+                        type="button"
+                        data-easter="ws2812b"
+                        class="inline-flex items-center gap-1.5 text-xs text-inherit bg-transparent border-0 p-0 cursor-pointer hover:underline underline-offset-2 transition-colors focus-visible:outline-none"
+                        aria-label="Unlock ESP8266 LED Controller Cool Stuff"
+                      >
+                        <i
+                          class={`ti ${tech.icon} text-sm text-neutral-400 dark:text-neutral-500 group-hover:text-neutral-900 dark:group-hover:text-white transition-colors`}
+                          aria-hidden="true"
+                        />
+                        <span class="font-sans font-medium">{tech.name}</span>
+                      </button>
+                    ) : (
+                      <>
+                        <i
+                          class={`ti ${tech.icon} text-sm text-neutral-400 dark:text-neutral-500 group-hover:text-neutral-900 dark:group-hover:text-white transition-colors`}
+                          aria-hidden="true"
+                        />
+                        <span class="font-sans font-medium">{tech.name}</span>
+                      </>
+                    )}
+                  </li>
+                );
+              })
+            }
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style is:global>
+  #lyrics-rotator-container {
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%);
+    mask-image: linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%);
+  }
+
+  #lyrics-rotator-track.no-transition,
+  #lyrics-rotator-track.no-transition .lyrics-line {
+    transition: none !important;
+  }
+
+  #lyrics-rotator-track .lyrics-line {
+    font-size: 14.5px;
+    line-height: 1.6;
+    letter-spacing: normal;
+    transition: transform 500ms cubic-bezier(0.25, 1, 0.5, 1),
+                opacity 500ms cubic-bezier(0.25, 1, 0.5, 1),
+                filter 500ms cubic-bezier(0.25, 1, 0.5, 1),
+                color 350ms ease;
+    transform-origin: left center;
+    cursor: pointer;
+    user-select: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  @media (min-width: 640px) {
+    #lyrics-rotator-track .lyrics-line {
+      font-size: 15.5px;
+    }
+  }
+
+  /* Active Focal Lyric (Apple Music current line) */
+  #lyrics-rotator-track .lyrics-line-active {
+    opacity: 1 !important;
+    transform: scale(1.05) translateZ(0) !important;
+    filter: blur(0px) !important;
+    color: #0a0a0a !important;
+    cursor: default;
+  }
+
+  .dark #lyrics-rotator-track .lyrics-line-active {
+    color: #ffffff !important;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.18);
+  }
+
+  /* Inactive Defocused Lyrics (Apple Music background lines) */
+  #lyrics-rotator-track .lyrics-line-edge {
+    opacity: 0.32 !important;
+    transform: scale(0.95) translateZ(0) !important;
+    filter: blur(1.2px) !important;
+    color: #737373 !important;
+  }
+
+  .dark #lyrics-rotator-track .lyrics-line-edge {
+    color: #888888 !important;
+  }
+
+  /* Hover Peek: Apple Music allows previewing inactive lines */
+  #lyrics-rotator-track .lyrics-line-edge:hover {
+    opacity: 0.75 !important;
+    filter: blur(0px) !important;
+    transform: scale(0.98) translateZ(0) !important;
+    color: #262626 !important;
+  }
+
+  .dark #lyrics-rotator-track .lyrics-line-edge:hover {
+    color: #e5e5e5 !important;
+  }
+
+  /* Completely hidden lines outside the 3-line viewing portal */
+  #lyrics-rotator-track .lyrics-line-hidden {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+    filter: blur(2px) !important;
+    transform: scale(0.9) translateZ(0) !important;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #lyrics-rotator-track,
+    #lyrics-rotator-track .lyrics-line {
+      transition: none !important;
+      filter: none !important;
+      transform: none !important;
+    }
+  }
+</style>
+
+<script>
+  function setupLyricsRotator() {
+    const container = document.getElementById("lyrics-rotator-container");
+    const track = document.getElementById("lyrics-rotator-track");
+    if (!container || !track) return;
+
+    const items = track.children as HTMLCollectionOf<HTMLElement>;
+    if (items.length < 4) return;
+
+    let currentIndex = 0;
+    const totalLines = 8;
+    let isPaused = false;
+    let intervalId: any = null;
+
+    function updateFocus(idx: number) {
+      for (let i = 0; i < items.length; i++) {
+        const item = items[i];
+        if (i === idx + 1) {
+          item.classList.add("lyrics-line-active");
+          item.classList.remove("lyrics-line-edge", "lyrics-line-hidden");
+        } else if (i === idx || i === idx + 2) {
+          item.classList.add("lyrics-line-edge");
+          item.classList.remove("lyrics-line-active", "lyrics-line-hidden");
+        } else {
+          item.classList.add("lyrics-line-hidden");
+          item.classList.remove("lyrics-line-active", "lyrics-line-edge");
+        }
+      }
+    }
+
+    function updateHeight() {
+      if (items.length >= 3) {
+        const h = (items[2].offsetTop + items[2].offsetHeight) - items[0].offsetTop;
+        if (h > 0) {
+          container.style.height = `${h}px`;
+        }
+      }
+    }
+
+    function goToIndex(idx: number) {
+      currentIndex = idx;
+      track.style.transition = "transform 550ms cubic-bezier(0.25, 1, 0.5, 1)";
+      const targetOffset = items[currentIndex]?.offsetTop || 0;
+      track.style.transform = `translateY(-${targetOffset}px)`;
+      updateFocus(currentIndex);
+    }
+
+    function step() {
+      if (isPaused) return;
+      currentIndex++;
+      track.style.transition = "transform 600ms cubic-bezier(0.25, 1, 0.5, 1)";
+      const targetOffset = items[currentIndex]?.offsetTop || 0;
+      track.style.transform = `translateY(-${targetOffset}px)`;
+      updateFocus(currentIndex);
+
+      if (currentIndex >= totalLines) {
+        setTimeout(() => {
+          track.classList.add("no-transition");
+          currentIndex = 0;
+          track.style.transform = "translateY(0)";
+          updateFocus(0);
+          void track.offsetHeight;
+          requestAnimationFrame(() => {
+            track.classList.remove("no-transition");
+          });
+        }, 620);
+      }
+    }
+
+    // Interactive Apple Music Seek: click any line to make it active
+    for (let i = 0; i < totalLines; i++) {
+      items[i].addEventListener("click", () => {
+        const targetIdx = (i - 1 + totalLines) % totalLines;
+        goToIndex(targetIdx);
+      });
+    }
+
+    updateFocus(0);
+    updateHeight();
+    if ("fonts" in document) {
+      document.fonts.ready.then(updateHeight);
+    }
+
+    const onResize = () => updateHeight();
+    window.addEventListener("resize", onResize, { passive: true });
+
+    container.addEventListener("mouseenter", () => {
+      isPaused = true;
+    });
+    container.addEventListener("mouseleave", () => {
+      isPaused = false;
+    });
+
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (!prefersReducedMotion) {
+      intervalId = setInterval(step, 3200);
+    }
+
+    const onVisibilityChange = () => {
+      if (document.hidden) {
+        if (intervalId) clearInterval(intervalId);
+        intervalId = null;
+      } else if (!prefersReducedMotion && !intervalId) {
+        intervalId = setInterval(step, 3200);
+        updateHeight();
+      }
+    };
+    document.addEventListener("visibilitychange", onVisibilityChange);
+
+    document.addEventListener(
+      "astro:before-swap",
+      () => {
+        if (intervalId) clearInterval(intervalId);
+        window.removeEventListener("resize", onResize);
+        document.removeEventListener("visibilitychange", onVisibilityChange);
+      },
+      { once: true }
+    );
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", setupLyricsRotator);
+  } else {
+    setupLyricsRotator();
+  }
+  document.addEventListener("astro:page-load", setupLyricsRotator);
+</script>

@@ -1,18 +1,11 @@
 @import "tailwindcss";
 
-@import "@fontsource/outfit/300.css";
-@import "@fontsource/outfit/400.css";
-@import "@fontsource/outfit/500.css";
-@import "@fontsource/outfit/600.css";
-@import "@fontsource/outfit/700.css";
-
 @import "@fontsource/syne/700.css";
 @import "@fontsource/syne/800.css";
-@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
 @font-face {
   font-family: 'Neue Machina';
-  src: url('./fonts/neuemachina-light.otf') format('opentype');
+  src: url('./fonts/PPNeueMachina-InktrapLight.woff2') format('woff2');
   font-weight: 300;
   font-style: normal;
   font-display: swap;
@@ -20,7 +13,7 @@
 
 @font-face {
   font-family: 'Neue Machina';
-  src: url('./fonts/neuemachina-regular.otf') format('opentype');
+  src: url('./fonts/PPNeueMachina-InktrapRegular.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -28,7 +21,127 @@
 
 @font-face {
   font-family: 'Neue Machina';
-  src: url('./fonts/neuemachina-ultrabold.otf') format('opentype');
+  src: url('./fonts/PPNeueMachina-InktrapUltrabold.woff2') format('woff2');
+  font-weight: 700 800 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'PP Neue Machina';
+  src: url('./fonts/PPNeueMachina-InktrapLight.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'PP Neue Machina';
+  src: url('./fonts/PPNeueMachina-InktrapRegular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'PP Neue Machina';
+  src: url('./fonts/PPNeueMachina-InktrapUltrabold.woff2') format('woff2');
+  font-weight: 700 800 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Neue Machina Plain';
+  src: url('./fonts/PPNeueMachina-PlainLight.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Neue Machina Plain';
+  src: url('./fonts/PPNeueMachina-PlainRegular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Neue Machina Plain';
+  src: url('./fonts/PPNeueMachina-PlainUltrabold.woff2') format('woff2');
+  font-weight: 700 800 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Neue Machina v1';
+  src: url('./fonts/NeueMachina-Light.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Neue Machina v1';
+  src: url('./fonts/NeueMachina-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Neue Machina v1';
+  src: url('./fonts/NeueMachina-Ultrabold.woff2') format('woff2');
+  font-weight: 700 800 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Neue Machina v2 Inktrap';
+  src: url('./fonts/PPNeueMachina-InktrapLight.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Neue Machina v2 Inktrap';
+  src: url('./fonts/PPNeueMachina-InktrapRegular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Neue Machina v2 Inktrap';
+  src: url('./fonts/PPNeueMachina-InktrapUltrabold.woff2') format('woff2');
+  font-weight: 700 800 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Neue Machina v2 Plain';
+  src: url('./fonts/PPNeueMachina-PlainLight.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Neue Machina v2 Plain';
+  src: url('./fonts/PPNeueMachina-PlainRegular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Neue Machina v2 Plain';
+  src: url('./fonts/PPNeueMachina-PlainUltrabold.woff2') format('woff2');
   font-weight: 700 800 900;
   font-style: normal;
   font-display: swap;
@@ -37,9 +150,13 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  --font-sans: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-sans: 'Satoshi', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-heading: 'Syne', sans-serif;
+  --font-subheading: 'Newsreader', Georgia, Cambria, serif;
+  --font-serif: 'Newsreader', Georgia, Cambria, serif;
+  --font-montreal: 'PP Neue Montreal', 'Neue Montreal', sans-serif;
   --font-hero: 'Syne', sans-serif;
+  --font-machina: 'Neue Machina', sans-serif;
   --font-pixel: 'Press Start 2P', monospace;
 
   --color-accent: var(--accent-color, #52FF1A);
@@ -55,6 +172,7 @@
   --color-danger-hover: #DC2626;
 
   --animate-kiosk-pulse: kiosk-pulse-accent-glow 2.4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  --animate-cta-pulse-white: cta-pulse-white-glow 2.4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
   --animate-blob-morph: blob-morph 14s ease-in-out infinite;
   --animate-marquee-scroll: marquee-scroll 24s linear infinite;
 
@@ -78,6 +196,20 @@
 
     100% {
       box-shadow: 0 0 12px color-mix(in srgb, var(--color-accent, var(--accent-color, #52FF1A)) 35%, transparent), 0 0 0 0 color-mix(in srgb, var(--color-accent, var(--accent-color, #52FF1A)) 0%, transparent);
+    }
+  }
+
+  @keyframes cta-pulse-white-glow {
+    0% {
+      box-shadow: 0 0 12px var(--color-cta-white-glow, rgba(255, 255, 255, 0.35)), 0 0 0 0 var(--color-cta-white-ring, rgba(255, 255, 255, 0.45));
+    }
+
+    50% {
+      box-shadow: 0 0 20px var(--color-cta-white-glow, rgba(255, 255, 255, 0.45)), 0 0 0 6px transparent;
+    }
+
+    100% {
+      box-shadow: 0 0 12px var(--color-cta-white-glow, rgba(255, 255, 255, 0.35)), 0 0 0 0 transparent;
     }
   }
 
@@ -123,6 +255,9 @@
   --transition-normal: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   --transition-fast: 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 
+  --color-cta-white-glow: rgba(0, 0, 0, 0.12);
+  --color-cta-white-ring: rgba(0, 0, 0, 0.2);
+
   /* Fluid Hero Dimensions */
   --hero-size-h1: clamp(2.4rem, 11vw, 8rem);
   --hero-size-h2: clamp(2.0rem, 9vw, 6rem);
@@ -137,11 +272,14 @@
 .dark,
 :root.dark,
 html.dark {
-  --bg-primary: #0e0e0e;
-  --bg-secondary: #141414;
-  --bg-card: #0e0e0e;
+  --bg-primary: #090909;
+  --bg-secondary: #121212;
+  --bg-card: #090909;
   --border-color: #262626;
   --border-dark: #e5e5e5;
+
+  --color-cta-white-glow: rgba(255, 255, 255, 0.35);
+  --color-cta-white-ring: rgba(255, 255, 255, 0.5);
 
   --text-primary: #e5e5e5;
   --text-secondary: #a3a3a3;
@@ -212,11 +350,11 @@ body,
 }
 
 .hero-h1 {
-  font-size: var(--hero-size-h1, clamp(2.4rem, 11vw, 8rem));
+  font-size: var(--hero-size-h1, clamp(2.4rem, 9.5vw, 6.4rem));
 }
 
 .hero-h2 {
-  font-size: var(--hero-size-h2, clamp(2.0rem, 9vw, 6rem));
+  font-size: var(--hero-size-h2, clamp(2.4rem, 9.5vw, 6.4rem));
 }
 
 .hero-h3 {
@@ -318,6 +456,7 @@ body,
 
   .animate-blob-morph,
   .animate-kiosk-pulse,
+  .animate-cta-pulse-white,
   .animate-ping,
   .animate-pulse {
     animation: none !important;
