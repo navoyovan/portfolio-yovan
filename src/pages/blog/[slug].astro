@@ -1,6 +1,7 @@
 ---
 import RootLayout from '../../layouts/RootLayout.astro';
 import DevMenu from '../../components/DevMenu.astro';
+import BlogOutline from '../../components/BlogOutline.astro';
 import { getCollection, getEntry, render } from 'astro:content';
 
 export async function getStaticPaths() {
@@ -12,7 +13,7 @@ export async function getStaticPaths() {
 }
 
 const { post } = Astro.props;
-const { Content } = await render(post);
+const { Content, headings } = await render(post);
 
 // Pre-resolve related project if declared
 let relatedProject: any = null;
@@ -64,6 +65,9 @@ const articleSchema = {
     class="fixed top-0 left-0 w-0 h-[2px] bg-neutral-950 dark:bg-white z-50 transition-[width] duration-75"
     aria-hidden="true"
   ></div>
+
+  <!-- Document Outline & Scrollbar Markers (Google Docs & ChatGPT style) -->
+  <BlogOutline headings={headings} />
 
   <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-10">
     <!-- Navigation -->

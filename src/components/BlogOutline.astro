@@ -1,0 +1,286 @@
+---
+// BlogOutline.astro - Google Docs style outline & ChatGPT scrollbar section markers
+interface Heading {
+  depth: number;
+  slug: string;
+  text: string;
+}
+
+interface Props {
+  headings: Heading[];
+}
+
+const { headings = [] } = Astro.props;
+const filteredHeadings = headings.filter((h) => h.depth === 2 || h.depth === 3);
+---
+
+{filteredHeadings.length > 0 && (
+  <aside aria-label="Table of Contents">
+    <!-- 1. Google Docs Style Left Outline (Visible on Wide Desktop) -->
+    <div
+      id="doc-outline-sidebar"
+      class="hidden xl:flex fixed left-4 2xl:left-8 top-24 w-52 2xl:w-60 max-h-[calc(100vh-8rem)] flex-col gap-2 z-30 select-none group/outline"
+    >
+      <div class="flex items-center justify-between pb-1.5 px-2">
+        <span class="text-[11px] font-semibold uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-sans">
+          Outline
+        </span>
+        <button
+          id="outline-toggle-btn"
+          type="button"
+          aria-label="Toggle Outline"
+          class="text-neutral-400 hover:text-neutral-900 dark:hover:text-white transition-colors p-0.5 rounded cursor-pointer"
+          title="Collapse outline"
+        >
+          <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="15 18 9 12 15 6"></polyline>
+          </svg>
+        </button>
+      </div>
+
+      <nav
+        id="doc-outline-nav"
+        class="overflow-y-auto no-scrollbar space-y-0.5 border-l border-neutral-200 dark:border-neutral-800 pr-2 transition-opacity duration-200"
+      >
+        {filteredHeadings.map((h) => (
+          <a
+            href={`#${h.slug}`}
+            data-target={h.slug}
+            class:list={[
+              'outline-link block transition-colors leading-snug rounded-r truncate',
+              h.depth === 2
+                ? 'pl-3 py-1 text-xs font-sans text-neutral-600 dark:text-neutral-400 hover:text-neutral-950 dark:hover:text-white'
+                : 'pl-5 py-0.5 text-[11px] font-sans text-neutral-500 dark:text-neutral-500 hover:text-neutral-900 dark:hover:text-neutral-300',
+            ]}
+          >
+            {h.text}
+          </a>
+        ))}
+      </nav>
+    </div>
+
+    <!-- Collapsed Outline Icon Tab (when sidebar is toggled closed) -->
+    <button
+      id="outline-collapsed-tab"
+      type="button"
+      aria-label="Open Outline"
+      class="hidden fixed left-2 top-24 z-30 p-2 rounded-lg bg-white/80 dark:bg-neutral-900/80 backdrop-blur border border-neutral-200 dark:border-neutral-800 shadow-sm text-neutral-500 hover:text-neutral-950 dark:hover:text-white transition-colors cursor-pointer"
+      title="Show document outline"
+    >
+      <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="8" y1="6" x2="21" y2="6"></line>
+        <line x1="8" y1="12" x2="21" y2="12"></line>
+        <line x1="8" y1="18" x2="21" y2="18"></line>
+        <line x1="3" y1="6" x2="3.01" y2="6"></line>
+        <line x1="3" y1="12" x2="3.01" y2="12"></line>
+        <line x1="3" y1="18" x2="3.01" y2="18"></line>
+      </svg>
+    </button>
+
+    <!-- 2. Mobile / Tablet Floating Outline Button & Popover -->
+    <div class="xl:hidden fixed bottom-6 right-6 z-40">
+      <button
+        id="outline-mobile-trigger"
+        type="button"
+        aria-label="Table of Contents"
+        class="flex items-center gap-2 px-3 py-2 rounded-full bg-neutral-950 text-white dark:bg-white dark:text-neutral-950 shadow-lg text-xs font-sans font-semibold cursor-pointer active:scale-95 transition-transform"
+      >
+        <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="8" y1="6" x2="21" y2="6"></line>
+          <line x1="8" y1="12" x2="21" y2="12"></line>
+          <line x1="8" y1="18" x2="21" y2="18"></line>
+        </svg>
+        <span>Outline</span>
+      </button>
+
+      <!-- Floating Popover Modal -->
+      <div
+        id="outline-mobile-popover"
+        class="hidden fixed inset-x-4 bottom-20 max-w-sm mx-auto p-4 rounded-xl bg-white/95 dark:bg-neutral-900/95 backdrop-blur-md border border-neutral-200 dark:border-neutral-800 shadow-2xl space-y-3 z-50 max-h-[70vh] overflow-y-auto font-sans"
+      >
+        <div class="flex items-center justify-between pb-2 border-b border-neutral-200 dark:border-neutral-800">
+          <span class="text-xs font-semibold text-neutral-900 dark:text-white">
+            Table of Contents
+          </span>
+          <button
+            id="outline-mobile-close"
+            type="button"
+            class="text-neutral-400 hover:text-neutral-900 dark:hover:text-white p-1"
+          >
+            ✕
+          </button>
+        </div>
+        <div class="space-y-1">
+          {filteredHeadings.map((h) => (
+            <a
+              href={`#${h.slug}`}
+              data-target={h.slug}
+              class:list={[
+                'mobile-outline-link block py-1.5 rounded transition-colors',
+                h.depth === 2
+                  ? 'text-xs font-medium text-neutral-800 dark:text-neutral-200 pl-2'
+                  : 'text-[11px] text-neutral-500 pl-5',
+              ]}
+            >
+              {h.text}
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. ChatGPT-Style Scrollbar Section Markers (Right Rail Ticks) -->
+    <div
+      id="scrollbar-section-ticks"
+      class="hidden md:flex fixed right-0 top-20 bottom-3 w-5 z-40 flex-col pointer-events-none"
+      aria-hidden="true"
+    >
+      <!-- Generated dynamically based on element scroll percentages -->
+    </div>
+  </aside>
+)}
+
+<script is:inline>
+  function initTableOfContents() {
+    const outlineNav = document.getElementById('doc-outline-nav');
+    const outlineSidebar = document.getElementById('doc-outline-sidebar');
+    const collapsedTab = document.getElementById('outline-collapsed-tab');
+    const toggleBtn = document.getElementById('outline-toggle-btn');
+    const mobileTrigger = document.getElementById('outline-mobile-trigger');
+    const mobilePopover = document.getElementById('outline-mobile-popover');
+    const mobileClose = document.getElementById('outline-mobile-close');
+    const ticksContainer = document.getElementById('scrollbar-section-ticks');
+
+    const links = document.querySelectorAll('.outline-link, .mobile-outline-link');
+    const headingEls = [];
+
+    links.forEach((link) => {
+      const slug = link.getAttribute('data-target');
+      if (slug) {
+        const el = document.getElementById(slug);
+        if (el && !headingEls.some((item) => item.el === el)) {
+          headingEls.push({ slug, el, link });
+        }
+      }
+    });
+
+    if (headingEls.length === 0) return;
+
+    // Toggle Sidebar Collapse
+    if (toggleBtn && outlineSidebar && collapsedTab) {
+      toggleBtn.onclick = () => {
+        outlineSidebar.classList.add('hidden');
+        collapsedTab.classList.remove('hidden');
+        collapsedTab.classList.add('xl:flex');
+      };
+      collapsedTab.onclick = () => {
+        outlineSidebar.classList.remove('hidden');
+        collapsedTab.classList.add('hidden');
+        collapsedTab.classList.remove('xl:flex');
+      };
+    }
+
+    // Mobile popover toggle
+    if (mobileTrigger && mobilePopover && mobileClose) {
+      mobileTrigger.onclick = () => {
+        mobilePopover.classList.toggle('hidden');
+      };
+      mobileClose.onclick = () => {
+        mobilePopover.classList.add('hidden');
+      };
+      mobilePopover.querySelectorAll('a').forEach((a) => {
+        a.addEventListener('click', () => {
+          mobilePopover.classList.add('hidden');
+        });
+      });
+    }
+
+    // Smooth Scroll on Click
+    links.forEach((link) => {
+      link.addEventListener('click', (e) => {
+        const slug = link.getAttribute('data-target');
+        const target = slug ? document.getElementById(slug) : null;
+        if (target) {
+          e.preventDefault();
+          const targetY = target.getBoundingClientRect().top + window.scrollY - 80;
+          window.scrollTo({ top: targetY, behavior: 'smooth' });
+          history.replaceState(null, '', `#${slug}`);
+        }
+      });
+    });
+
+    // Active Section Observer
+    function updateActiveHeading() {
+      const scrollPos = window.scrollY + 100;
+      let activeItem = headingEls[0];
+
+      for (let i = 0; i < headingEls.length; i++) {
+        if (headingEls[i].el.offsetTop <= scrollPos) {
+          activeItem = headingEls[i];
+        } else {
+          break;
+        }
+      }
+
+      document.querySelectorAll('.outline-link').forEach((link) => {
+        const isCurrent = link.getAttribute('data-target') === activeItem?.slug;
+        if (isCurrent) {
+          link.classList.add('text-neutral-950', 'dark:text-white', 'font-semibold', 'border-l-2', 'border-neutral-950', 'dark:border-white', '-ml-[1px]');
+          link.classList.remove('text-neutral-600', 'dark:text-neutral-400', 'text-neutral-500');
+        } else {
+          link.classList.remove('text-neutral-950', 'dark:text-white', 'font-semibold', 'border-l-2', 'border-neutral-950', 'dark:border-white', '-ml-[1px]');
+        }
+      });
+    }
+
+    // Build ChatGPT-style Scrollbar Ticks
+    function buildScrollbarTicks() {
+      if (!ticksContainer) return;
+      ticksContainer.innerHTML = '';
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      if (docHeight <= 0) return;
+
+      headingEls.forEach(({ slug, el }) => {
+        if (!el) return;
+        const topY = el.getBoundingClientRect().top + window.scrollY;
+        const pct = Math.min(98, Math.max(2, (topY / docHeight) * 100));
+
+        const tick = document.createElement('a');
+        tick.href = `#${slug}`;
+        tick.className = 'absolute right-0 w-3 h-1.5 flex items-center justify-end pointer-events-auto group/tick cursor-pointer';
+        tick.style.top = `${pct}%`;
+
+        const mark = document.createElement('span');
+        mark.className = 'w-1.5 h-[2px] bg-neutral-300 dark:bg-neutral-700 group-hover/tick:w-2.5 group-hover/tick:bg-neutral-900 dark:group-hover/tick:bg-white rounded-full transition-all duration-150';
+
+        const tooltip = document.createElement('span');
+        tooltip.className = 'absolute right-4 px-2 py-0.5 rounded text-[10px] font-sans whitespace-nowrap bg-neutral-900 text-white dark:bg-white dark:text-neutral-950 shadow-md opacity-0 pointer-events-none group-hover/tick:opacity-100 transition-opacity duration-150';
+        tooltip.textContent = el.textContent || slug;
+
+        tick.appendChild(tooltip);
+        tick.appendChild(mark);
+
+        tick.addEventListener('click', (e) => {
+          e.preventDefault();
+          const targetY = el.getBoundingClientRect().top + window.scrollY - 80;
+          window.scrollTo({ top: targetY, behavior: 'smooth' });
+          history.replaceState(null, '', `#${slug}`);
+        });
+
+        ticksContainer.appendChild(tick);
+      });
+    }
+
+    window.addEventListener('scroll', updateActiveHeading, { passive: true });
+    window.addEventListener('resize', buildScrollbarTicks, { passive: true });
+    updateActiveHeading();
+    setTimeout(buildScrollbarTicks, 300);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initTableOfContents);
+  } else {
+    initTableOfContents();
+  }
+  document.addEventListener('astro:page-load', initTableOfContents);
+</script>
