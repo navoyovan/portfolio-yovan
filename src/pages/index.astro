@@ -237,11 +237,9 @@ const capabilities = [
             <div class="space-y-1.5 pt-0.5">
               <h2
                 id="heading-philosophy"
-                data-en="I build for the thing, not the stack."
-                data-id="Aku bikin produk, bukan sekedar stacknya doang."
                 class="text-[25px] sm:text-4xl md:text-5xl lg:text-6xl font-medium tracking-[0.5px] text-neutral-950 dark:text-white leading-[1.08] font-montreal w-full m-0"
               >
-                I build for the thing, not the stack.
+                <span data-en="I build for the " data-id="Aku bikin untuk ">I build for the </span><span class="font-normal text-neutral-700 dark:text-neutral-300" data-en="thing" data-id="produknya">thing</span><span data-en=", not the stack." data-id=", bukan sekadar stacknya.">, not the stack.</span>
               </h2>
               <p
                 data-en="Understanding the whole problem before deciding how to solve it. The interface, the backend, the hardware, the weird edge cases; they're all part of the same product."
@@ -256,158 +254,270 @@ const capabilities = [
           </div>
         </div>
 
-        <div class="flex flex-col lg:flex-row items-start gap-8 lg:gap-12 pt-2">
-          <!-- 65% Left Column: Principles, Strategy & Quote -->
-          <div class="w-full lg:w-[65%] space-y-8">
-
-            <div class="space-y-8 sm:space-y-10 pt-2">
-              <div class="group flex items-start gap-4 sm:gap-6">
-                <span
-                  class="text-xs sm:text-sm font-sans font-bold text-neutral-400 dark:text-neutral-500 group-hover:text-[var(--color-accent,#52FF1A)] transition-colors pt-1 shrink-0 select-none"
-                  aria-hidden="true"
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 xl:gap-12 pt-6 sm:pt-8 items-start">
+          <!-- Left Column: Principles with Expand/Collapse (Expanded by Default) -->
+          <div class="lg:col-span-7 space-y-4">
+            <!-- Core Principles List with Expand/Collapse -->
+            <div class="space-y-4">
+              <!-- Item 1 -->
+              <div class="philosophy-item">
+                <button
+                  type="button"
+                  class="philosophy-trigger inline-flex items-center gap-2.5 text-left cursor-pointer bg-transparent border-0 p-0 select-none group focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-accent,#52FF1A)] rounded"
+                  aria-expanded="true"
+                  aria-controls="philosophy-content-1"
                 >
-                  01
-                </span>
-                <div class="space-y-1.5 flex-1">
-                  <h3
-                    data-en="Start with the actual use case."
-                    data-id="Mulai dari studi kasusnya."
-                    class="text-lg sm:text-xl font-bold text-neutral-950 dark:text-white tracking-tight group-hover:text-[var(--color-accent,#52FF1A)] transition-colors font-heading m-0"
+                  <svg
+                    class="w-[18px] h-[18px] shrink-0 text-neutral-400 dark:text-neutral-400 group-hover:text-neutral-950 dark:group-hover:text-white transition-colors"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
                   >
-                    Start with the actual use case.
-                  </h3>
-                  <p
-                    data-en="Technology is just the tool. I care about what the product needs to accomplish, who is using it, and what could get in their way."
-                    data-id="Teknologi adalah alat. Yang terpenting adalah apa tujuan produknya, siapa penggunanya, dan kendala apa yang mungkin mereka hadapi."
-                    class="text-sm sm:text-base text-neutral-600 dark:text-neutral-400 leading-relaxed m-0"
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <circle cx="12" cy="12" r="6"></circle>
+                    <circle cx="12" cy="12" r="2"></circle>
+                  </svg>
+                  <span
+                    class="font-sans font-normal text-base sm:text-lg text-neutral-900 dark:text-white tracking-normal leading-none group-hover:text-[var(--color-accent,#52FF1A)] transition-colors"
+                    data-en="Purpose before technology"
+                    data-id="Tujuan mendahului teknologi"
                   >
-                    Technology is just the tool. I care about what the product
-                    needs to accomplish, who is using it, and what could get in
-                    their way.
-                  </p>
+                    Purpose before technology
+                  </span>
+                  <svg
+                    class="chevron-icon w-3.5 h-3.5 shrink-0 text-neutral-400 dark:text-neutral-500 group-hover:text-neutral-950 dark:group-hover:text-white transition-transform duration-200 rotate-180"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </button>
+                <div
+                  id="philosophy-content-1"
+                  class="philosophy-panel grid grid-rows-[1fr] transition-[grid-template-rows,opacity] duration-200 ease-out opacity-100"
+                >
+                  <div class="overflow-hidden">
+                    <p
+                      class="pt-2 pl-7 text-sm sm:text-[15px] text-neutral-600 dark:text-neutral-400 leading-relaxed font-normal m-0 max-w-xl"
+                      data-en="Technology is just the tool. I care about what the product needs to accomplish, who is using it, and what could get in their way."
+                      data-id="Teknologi adalah alat. Yang terpenting adalah apa tujuan produknya, siapa penggunanya, dan kendala apa yang mungkin mereka hadapi."
+                    >
+                      Technology is just the tool. I care about what the product
+                      needs to accomplish, who is using it, and what could get in
+                      their way.
+                    </p>
+                  </div>
                 </div>
               </div>
 
-              <div class="group flex items-start gap-4 sm:gap-6">
-                <span
-                  class="text-xs sm:text-sm font-sans font-bold text-neutral-400 dark:text-neutral-500 group-hover:text-[var(--color-accent,#52FF1A)] transition-colors pt-1 shrink-0 select-none"
-                  aria-hidden="true"
+              <!-- Item 2 -->
+              <div class="philosophy-item">
+                <button
+                  type="button"
+                  class="philosophy-trigger inline-flex items-center gap-2.5 text-left cursor-pointer bg-transparent border-0 p-0 select-none group focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-accent,#52FF1A)] rounded"
+                  aria-expanded="true"
+                  aria-controls="philosophy-content-2"
                 >
-                  02
-                </span>
-                <div class="space-y-1.5 flex-1">
-                  <h3
-                    data-en="Keep complexity earned."
-                    data-id="Kompleksitas seperlunya saja."
-                    class="text-lg sm:text-xl font-bold text-neutral-950 dark:text-white tracking-tight group-hover:text-[var(--color-accent,#52FF1A)] transition-colors font-heading m-0"
+                  <svg
+                    class="w-[18px] h-[18px] shrink-0 text-neutral-400 dark:text-neutral-400 group-hover:text-neutral-950 dark:group-hover:text-white transition-colors"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
                   >
-                    Keep complexity earned.
-                  </h3>
-                  <p
-                    data-en="Not every project needs a giant architecture. I use what the problem calls for, it doesnt have to be over-engineered but still hitting the spot."
-                    data-id="Tidak semua project butuh arsitektur besar-besaran. Aku pilih solusi yang pas sesuai masalahnya, nggak perlu over-engineered yang penting tetap tepat sasaran."
-                    class="text-sm sm:text-base text-neutral-600 dark:text-neutral-400 leading-relaxed m-0"
+                    <line x1="21" x2="14" y1="4" y2="4"></line>
+                    <line x1="10" x2="3" y1="4" y2="4"></line>
+                    <line x1="21" x2="12" y1="12" y2="12"></line>
+                    <line x1="8" x2="3" y1="12" y2="12"></line>
+                    <line x1="21" x2="16" y1="20" y2="20"></line>
+                    <line x1="12" x2="3" y1="20" y2="20"></line>
+                    <line x1="14" x2="14" y1="2" y2="6"></line>
+                    <line x1="8" x2="8" y1="10" y2="14"></line>
+                    <line x1="16" x2="16" y1="18" y2="22"></line>
+                  </svg>
+                  <span
+                    class="font-sans font-normal text-base sm:text-lg text-neutral-900 dark:text-white tracking-normal leading-none group-hover:text-[var(--color-accent,#52FF1A)] transition-colors"
+                    data-en="Complexity by necessity"
+                    data-id="Kompleksitas seperlunya saja"
                   >
-                    Not every project needs a giant architecture. I use what the
-                    problem calls for, it doesnt have to be over-engineered but
-                    still hitting the spot.
-                  </p>
+                    Complexity by necessity
+                  </span>
+                  <svg
+                    class="chevron-icon w-3.5 h-3.5 shrink-0 text-neutral-400 dark:text-neutral-500 group-hover:text-neutral-950 dark:group-hover:text-white transition-transform duration-200 rotate-180"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </button>
+                <div
+                  id="philosophy-content-2"
+                  class="philosophy-panel grid grid-rows-[1fr] transition-[grid-template-rows,opacity] duration-200 ease-out opacity-100"
+                >
+                  <div class="overflow-hidden">
+                    <p
+                      class="pt-2 pl-7 text-sm sm:text-[15px] text-neutral-600 dark:text-neutral-400 leading-relaxed font-normal m-0 max-w-xl"
+                      data-en="Not every project needs a giant architecture. I use what the problem calls for, it doesnt have to be over-engineered but still hitting the spot."
+                      data-id="Tidak semua project butuh arsitektur besar-besaran. Aku pilih solusi yang pas sesuai masalahnya, nggak perlu over-engineered yang penting tetap tepat sasaran."
+                    >
+                      Not every project needs a giant architecture. I use what the
+                      problem calls for, it doesnt have to be over-engineered but
+                      still hitting the spot.
+                    </p>
+                  </div>
                 </div>
               </div>
 
-              <div class="group flex items-start gap-4 sm:gap-6">
-                <span
-                  class="text-xs sm:text-sm font-sans font-bold text-neutral-400 dark:text-neutral-500 group-hover:text-[var(--color-accent,#52FF1A)] transition-colors pt-1 shrink-0 select-none"
-                  aria-hidden="true"
+              <!-- Item 3 -->
+              <div class="philosophy-item">
+                <button
+                  type="button"
+                  class="philosophy-trigger inline-flex items-center gap-2.5 text-left cursor-pointer bg-transparent border-0 p-0 select-none group focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-accent,#52FF1A)] rounded"
+                  aria-expanded="true"
+                  aria-controls="philosophy-content-3"
                 >
-                  03
-                </span>
-                <div class="space-y-1.5 flex-1">
-                  <h3
-                    data-en="Make the pieces work together."
-                    data-id="Bikin tiap bagian nyambung dengan mulus."
-                    class="text-lg sm:text-xl font-bold text-neutral-950 dark:text-white tracking-tight group-hover:text-[var(--color-accent,#52FF1A)] transition-colors font-heading m-0"
+                  <svg
+                    class="w-[18px] h-[18px] shrink-0 text-neutral-400 dark:text-neutral-400 group-hover:text-neutral-950 dark:group-hover:text-white transition-colors"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
                   >
-                    Make the pieces work together.
-                  </h3>
-                  <p
-                    data-en="A good interface is only one part of a good product. I like connecting the things behind it: databases, realtime systems, devices, payments, and everything in between; see them in broad, see them in granular level, all of 'em are part of the same product."
-                    data-id="Antarmuka yang bagus baru sebagian dari produk yang baik dan benar. Aku biasa ngehubungin hal-hal di baliknya seperti: database, sistem realtime, perangkat fisik, pembayaran, dan semuanya, baik dari gambaran besar sampai detail terkecil."
-                    class="text-sm sm:text-base text-neutral-600 dark:text-neutral-400 leading-relaxed m-0"
+                    <rect width="8" height="8" x="3" y="3" rx="2"></rect>
+                    <path d="M7 11v4a2 2 0 0 0 2 2h4"></path>
+                    <rect width="8" height="8" x="13" y="13" rx="2"></rect>
+                  </svg>
+                  <span
+                    class="font-sans font-normal text-base sm:text-lg text-neutral-900 dark:text-white tracking-normal leading-none group-hover:text-[var(--color-accent,#52FF1A)] transition-colors"
+                    data-en="Everything works together"
+                    data-id="Semua bagian saling terhubung"
                   >
-                    A good interface is only one part of a good product. I like
-                    connecting the things behind it: databases, realtime
-                    systems, devices, payments, and everything in between; see
-                    them in broad, see them in granular level, all of 'em are
-                    part of the same product.
-                  </p>
+                    Everything works together
+                  </span>
+                  <svg
+                    class="chevron-icon w-3.5 h-3.5 shrink-0 text-neutral-400 dark:text-neutral-500 group-hover:text-neutral-950 dark:group-hover:text-white transition-transform duration-200 rotate-180"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </button>
+                <div
+                  id="philosophy-content-3"
+                  class="philosophy-panel grid grid-rows-[1fr] transition-[grid-template-rows,opacity] duration-200 ease-out opacity-100"
+                >
+                  <div class="overflow-hidden">
+                    <p
+                      class="pt-2 pl-7 text-sm sm:text-[15px] text-neutral-600 dark:text-neutral-400 leading-relaxed font-normal m-0 max-w-xl"
+                      data-en="A good interface is only one part of a good product. I like connecting the things behind it: databases, realtime systems, devices, payments, and everything in between; see them in broad, see them in granular level, all of 'em are part of the same product."
+                      data-id="Antarmuka yang bagus baru sebagian dari produk yang baik dan benar. Aku biasa ngehubungin hal-hal di baliknya seperti: database, sistem realtime, perangkat fisik, pembayaran, dan semuanya, baik dari gambaran besar sampai detail terkecil."
+                    >
+                      A good interface is only one part of a good product. I like
+                      connecting the things behind it: databases, realtime
+                      systems, devices, payments, and everything in between; see
+                      them in broad, see them in granular level, all of 'em are
+                      part of the same product.
+                    </p>
+                  </div>
                 </div>
-              </div>
-
-              <div class="group flex items-start gap-4 sm:gap-6">
-                <span
-                  class="text-xs sm:text-sm font-sans font-bold text-neutral-400 dark:text-neutral-500 group-hover:text-[var(--color-accent,#52FF1A)] transition-colors pt-1 shrink-0 select-none"
-                  aria-hidden="true"
-                >
-                  04
-                </span>
-                <div class="space-y-1.5 flex-1">
-                  <h3
-                    data-en="Sweat the details that matter."
-                    data-id="Teliti pada detail-detail yang penting."
-                    class="text-lg sm:text-xl font-bold text-neutral-950 dark:text-white tracking-tight group-hover:text-[var(--color-accent,#52FF1A)] transition-colors font-heading m-0"
-                  >
-                    Sweat the details that matter.
-                  </h3>
-                  <p
-                    data-en="Loading states, feedback, transitions, edge cases, awkward workflows; the little things are often what separate something that technically works from something that actually feels good to use."
-                    data-id='Loading state, feedback, transisi, penanganan error, alur yang canggung dan bikin kesel; hal-hal kecil inilah yang membedakan software yang sekadar "bisa jalan" dengan software yang beneran enak dipakai.'
-                    class="text-sm sm:text-base text-neutral-600 dark:text-neutral-400 leading-relaxed"
-                  >
-                    Loading states, feedback, transitions, edge cases, awkward
-                    workflows; the little things are often what separate
-                    something that technically works from something that
-                    actually feels good to use.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div class="pt-4 space-y-4">
-              <p
-                data-en="And the final product should make someone say:"
-                data-id="Dan hasil akhir yang ideal bikin orang bilang:"
-                class="text-neutral-600 dark:text-neutral-400 text-base"
-              >
-                And the final product should make someone say:
-              </p>
-
-              <!-- Quote Highlight -->
-              <div
-                class="p-6 sm:p-7 border-l-4 border-[var(--color-accent,#52FF1A)] bg-[#f6f4ee] dark:bg-[#141414] border-y border-r border-neutral-300/60 dark:border-neutral-800 space-y-3"
-              >
-                <blockquote
-                  class="text-2xl sm:text-3xl md:text-4xl font-normal italic tracking-tight text-neutral-950 dark:text-white font-subheading"
-                >
-                  "_"
-                </blockquote>
-                <p
-                  data-en="Nothing. That's how I know I built it for the actual use case: when the software gets out of the way, and does what it's supposed to do, it leaves nothing for the user to complain about."
-                  data-id="Nggak ada. Di situlah kita tahu software ini dibuat dengan bagus: ketika aplikasinya bekerja mulus tanpa kendala, pengguna nggak punya alasan buat mengeluh."
-                  class="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed"
-                >
-                  Nothing. That's how I know I built it for the actual use case:
-                  when the software gets out of the way, and does what it's
-                  supposed to do, it leaves nothing for the user to complain
-                  about.
-                </p>
               </div>
             </div>
           </div>
 
-          <!-- 35% Right Column (Empty for now) -->
-          <div class="hidden lg:block lg:w-[35%]"></div>
+          <!-- Right Column: Final Product Quote Card -->
+          <div class="lg:col-span-5 space-y-3 pt-2 lg:pt-0">
+            <p
+              data-en="And the final product should make someone say:"
+              data-id="Dan hasil akhir yang ideal bikin orang bilang:"
+              class="text-neutral-600 dark:text-neutral-400 text-sm sm:text-base m-0"
+            >
+              And the final product should make someone say:
+            </p>
+
+            <!-- Quote Highlight -->
+            <div
+              class="p-5 sm:p-6 border-l-4 border-[var(--color-accent,#52FF1A)] bg-[#f6f4ee] dark:bg-[#141414] border-y border-r border-neutral-300/60 dark:border-neutral-800 space-y-3"
+            >
+              <blockquote
+                class="text-2xl sm:text-3xl md:text-4xl font-normal italic tracking-tight text-neutral-950 dark:text-white font-subheading m-0"
+              >
+                "_"
+              </blockquote>
+              <p
+                data-en="Nothing. That's how I know I built it for the actual use case: when the software gets out of the way, and does what it's supposed to do, it leaves nothing for the user to complain about."
+                data-id="Nggak ada. Di situlah kita tahu software ini dibuat dengan bagus: ketika aplikasinya bekerja mulus tanpa kendala, pengguna nggak punya alasan buat mengeluh."
+                class="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed m-0"
+              >
+                Nothing. That's how I know I built it for the actual use case:
+                when the software gets out of the way, and does what it's
+                supposed to do, it leaves nothing for the user to complain
+                about.
+              </p>
+            </div>
+          </div>
         </div>
+
+        <script>
+          function setupPhilosophyAccordions() {
+            const items = document.querySelectorAll('.philosophy-item');
+            items.forEach((item) => {
+              const trigger = item.querySelector('.philosophy-trigger');
+              const panel = item.querySelector('.philosophy-panel');
+              const chevron = item.querySelector('.chevron-icon');
+
+              if (!trigger || !panel) return;
+              if ((trigger as any).__accordionBound) return;
+              (trigger as any).__accordionBound = true;
+
+              trigger.addEventListener('click', () => {
+                const isExpanded = trigger.getAttribute('aria-expanded') === 'true';
+                trigger.setAttribute('aria-expanded', String(!isExpanded));
+
+                if (!isExpanded) {
+                  panel.classList.remove('grid-rows-[0fr]', 'opacity-0');
+                  panel.classList.add('grid-rows-[1fr]', 'opacity-100');
+                  chevron?.classList.add('rotate-180');
+                } else {
+                  panel.classList.remove('grid-rows-[1fr]', 'opacity-100');
+                  panel.classList.add('grid-rows-[0fr]', 'opacity-0');
+                  chevron?.classList.remove('rotate-180');
+                }
+              });
+            });
+          }
+
+          if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', setupPhilosophyAccordions);
+          } else {
+            setupPhilosophyAccordions();
+          }
+          document.addEventListener('astro:page-load', setupPhilosophyAccordions);
+        </script>
       </section>
     </div>
   </div>{/* end page wrapper */}
