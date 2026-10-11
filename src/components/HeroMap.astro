@@ -10,8 +10,8 @@ interface Props {
 }
 
 const {
-  lat = -6.6271,
-  lng = 106.7607,
+  lat = -6.5983,
+  lng = 106.7994,
   zoom = 13,
   interactive = false,
 } = Astro.props;
@@ -79,7 +79,7 @@ const scrimPresets = [
   >
     <!-- Stepped Archival Wireframe (286 x 297 Reference Proportion) -->
     <div
-      class="relative w-[280px] sm:w-[380px] lg:w-[460px] h-[291px] sm:h-[395px] lg:h-[478px] pointer-events-none opacity-60 sm:opacity-100 transition-opacity duration-200"
+      class="relative w-[280px] sm:w-[380px] lg:w-[460px] h-[291px] sm:h-[395px] lg:h-[478px] pointer-events-none opacity-60 transition-opacity duration-200"
     >
       <!-- Frame 1 (Vertical / Portrait Rectangle: Upper-Right) -->
       <div
@@ -101,7 +101,7 @@ const scrimPresets = [
         title="Click to toggle map view (Bogor / Greater Jakarta)"
         data-title-en="Click to toggle map view (Bogor / Greater Jakarta)"
         data-title-id="Klik untuk beralih tampilan peta (Bogor / Jabodetabek)"
-        class="absolute top-[73.1%] left-[45.1%] w-[18.5%] min-w-[55px] sm:min-w-[65px] lg:min-w-[75px] -translate-y-1/2 z-20 flex items-center justify-center bg-neutral-950 text-white dark:bg-white dark:text-neutral-950 hover:bg-neutral-800 dark:hover:bg-neutral-200 active:scale-95 transition-[transform,background-color,color] duration-150 px-2 py-0.5 sm:py-1 font-mono font-medium text-[8px] sm:text-[9px] lg:text-[10px] tracking-wider uppercase leading-none pointer-events-auto cursor-pointer select-none rounded-none border-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent,#52FF1A)]"
+        class="absolute top-[73.1%] left-[45.1%] min-w-[65px] sm:min-w-[80px] -translate-y-1/2 z-20 flex items-center justify-center bg-neutral-950 text-white dark:bg-white dark:text-neutral-950 hover:bg-neutral-800 dark:hover:bg-neutral-200 active:scale-95 transition-[transform,background-color,color] duration-150 px-2.5 py-1 sm:py-1.5 font-mono font-medium text-[10px] sm:text-[11px] tracking-wider uppercase leading-none pointer-events-auto cursor-pointer select-none rounded-none border-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent,#52FF1A)]"
       >
         <span id="hero-map-location-title">BOGOR</span>
       </button>
@@ -117,7 +117,7 @@ const scrimPresets = [
         title="00 // COOL STUFF • Jam Digital (Click to view)"
         data-title-en="00 // COOL STUFF • Jam Digital (Click to view)"
         data-title-id="00 // COOL STUFF • Jam Digital (Klik untuk melihat)"
-        class="absolute bottom-0 left-0 w-[25.2%] min-w-[85px] sm:min-w-[95px] lg:min-w-[105px] -translate-y-1/2 z-20 flex items-center justify-center bg-neutral-950 text-white dark:bg-white dark:text-neutral-950 hover:bg-neutral-800 dark:hover:bg-neutral-200 hover:text-[var(--color-accent,#52FF1A)] dark:hover:text-emerald-950 active:scale-95 transition-[transform,background-color,color] duration-150 px-2 py-0.5 sm:py-1 font-mono font-medium text-[7.5px] sm:text-[8.5px] lg:text-[9px] tracking-wider leading-none pointer-events-auto cursor-pointer select-none rounded-none border-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent,#52FF1A)]"
+        class="absolute bottom-0 left-0 min-w-[95px] sm:min-w-[115px] -translate-y-1/2 z-20 flex items-center justify-center bg-neutral-950 text-white dark:bg-white dark:text-neutral-950 hover:bg-neutral-800 dark:hover:bg-neutral-200 hover:text-[var(--color-accent,#52FF1A)] dark:hover:text-emerald-950 active:scale-95 transition-[transform,background-color,color] duration-150 px-2.5 sm:px-3 py-1 sm:py-1.5 font-mono font-medium text-[10px] sm:text-[11px] tracking-wider leading-none pointer-events-auto cursor-pointer select-none rounded-none border-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent,#52FF1A)]"
       >
         <span
           id="hero-map-timezone"
@@ -526,12 +526,42 @@ const scrimPresets = [
         (mapEl as any)._leaflet_map.remove();
       }
 
-      const getBogorTarget = () => {
-        const isMobile = window.innerWidth < 768;
+      const getRectCenterOffset = () => {
+        const badge = document.getElementById('hero-map-badge');
+        if (!badge || !mapEl) return null;
+        const badgeRect = badge.getBoundingClientRect();
+        const mapRect = mapEl.getBoundingClientRect();
+        if (badgeRect.width === 0 || badgeRect.height === 0) return null;
+        return L.point(
+          (badgeRect.left + badgeRect.width / 2) - mapRect.left,
+          (badgeRect.top + badgeRect.height / 2) - mapRect.top
+        );
+      };
+
+      const calculateMapCenterForTarget = (targetLatLng: [number, number], zoom: number): [number, number] => {
+        const targetContainerPoint = getRectCenterOffset();
+        if (!targetContainerPoint || !map) {
+          return targetLatLng;
+        }
+        const mapSize = map.getSize();
+        if (mapSize.x === 0 || mapSize.y === 0) return targetLatLng;
+
+        const screenCenter = L.point(mapSize.x / 2, mapSize.y / 2);
+        const offset = screenCenter.subtract(targetContainerPoint);
+        const targetWorldPoint = map.project(L.latLng(targetLatLng[0], targetLatLng[1]), zoom);
+        const centerWorldPoint = targetWorldPoint.add(offset);
+        const unprojected = map.unproject(centerWorldPoint, zoom);
+        return [unprojected.lat, unprojected.lng];
+      };
+
+      const getBogorTarget = (customZoom?: number) => {
+        const zoom = customZoom ?? 13;
+        const rawCoords: [number, number] = [-6.5983, 106.7994];
+        const center = calculateMapCenterForTarget(rawCoords, zoom);
         return {
-          // Locked-in coordinates: [-6.6271, 106.7607] at zoom 13
-          center: [-6.6271, 106.7607] as [number, number],
-          zoom: 13,
+          center,
+          zoom,
+          rawCoords,
         };
       };
 
@@ -544,12 +574,11 @@ const scrimPresets = [
         };
       };
 
-      const initialBogor = getBogorTarget();
       const isInteractive = widget.dataset.interactive === 'true';
 
       const map = L.map(mapEl, {
-        center: initialBogor.center,
-        zoom: initialBogor.zoom,
+        center: [-6.5983, 106.7994],
+        zoom: 13,
         zoomControl: false,
         attributionControl: false,
         dragging: isInteractive,
@@ -560,6 +589,10 @@ const scrimPresets = [
         keyboard: isInteractive,
         fadeAnimation: false,
       });
+
+      // Align initial camera position so Bogor center point sits in the middle of the rectangle section
+      const initialBogor = getBogorTarget();
+      map.setView(initialBogor.center, initialBogor.zoom);
 
       if (isInteractive) {
         mapEl.style.cursor = 'grab';
@@ -726,7 +759,7 @@ const scrimPresets = [
           detail: {
             view: isJabodetabek ? 'jabodetabek' : 'bogor',
             location: isJabodetabek ? (isId ? 'Jabodetabek, Indonesia' : 'Greater Jakarta, Indonesia') : (isId ? 'Bogor, Jawa Barat' : 'Bogor, West Java'),
-            coords: isJabodetabek ? '6°12′ S, 106°50′ E' : '6°35′ S, 106°47′ E',
+            coords: isJabodetabek ? '6°12′ S, 106°50′ E' : '6°36′ S, 106°48′ E',
           }
         }));
       };
@@ -783,17 +816,55 @@ const scrimPresets = [
         });
       }
 
+      // Bio Reveal Camera Trigger: When the bio statement reveals on scroll, move map to Bogor zoom lv 14
+      let isBioRevealed = false;
+      const onBioRevealChange = (e: any) => {
+        const revealed = Boolean(e?.detail?.revealed);
+        if (revealed === isBioRevealed) return;
+        isBioRevealed = revealed;
+
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const duration = prefersReducedMotion ? 0 : 1.2;
+
+        if (revealed) {
+          // If viewing Jabodetabek, switch state back to Bogor
+          if (isJabodetabek && badgeBox && cityBtn) {
+            isJabodetabek = false;
+            badgeBox.setAttribute('data-view', 'bogor');
+            cityBtn.setAttribute('aria-pressed', 'false');
+            updateMapLabels();
+          }
+
+          const target = getBogorTarget(14);
+          if (prefersReducedMotion) {
+            map.setView(target.center, 14);
+          } else {
+            map.flyTo(target.center, 14, { duration });
+          }
+        } else {
+          // Scrolled back to initial top position: return to default Bogor zoom 13
+          if (!isJabodetabek) {
+            const target = getBogorTarget(13);
+            if (prefersReducedMotion) {
+              map.setView(target.center, target.zoom);
+            } else {
+              map.flyTo(target.center, target.zoom, { duration });
+            }
+          }
+        }
+      };
+
+      window.addEventListener('portfolio:bio-reveal-change', onBioRevealChange);
+
       // Recalculate size on window resize & adapt center
       let lastIsMobile = window.innerWidth < 768;
       const handleResize = () => {
         if (map) {
           map.invalidateSize();
           const isMobileNow = window.innerWidth < 768;
-          if (isMobileNow !== lastIsMobile) {
-            lastIsMobile = isMobileNow;
-            const target = isJabodetabek ? getJabodetabekTarget() : getBogorTarget();
-            map.setView(target.center, target.zoom);
-          }
+          lastIsMobile = isMobileNow;
+          const target = isJabodetabek ? getJabodetabekTarget() : getBogorTarget(isBioRevealed ? 14 : 13);
+          map.setView(target.center, target.zoom);
         }
       };
       window.addEventListener('resize', handleResize, { passive: true });
