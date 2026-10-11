@@ -111,7 +111,7 @@ const filteredHeadings = headings.filter((h) => h.depth === 2 || h.depth === 3);
     <!-- 2. Mobile / Tablet Sticky Horizontal Tab Bar (Below Header) -->
     <div
       id="mobile-tab-switcher"
-      class="xl:hidden w-full sticky top-14 z-20 py-2.5 px-4 sm:px-6 overflow-x-auto flex items-center gap-2 no-scrollbar select-none transition-colors duration-200"
+      class="xl:hidden w-full sticky top-14 z-20 py-2.5 px-4 sm:px-6 overflow-x-auto flex items-center gap-2 no-scrollbar select-none bg-[#fcfbf9]/95 dark:bg-[#090909]/95 backdrop-blur-md border-b border-neutral-200/60 dark:border-neutral-800/60 transition-colors duration-200"
     >
       <span class="shrink-0 px-2.5 py-1.5 text-xs font-sans uppercase font-bold text-neutral-700 dark:text-neutral-200 rounded-md bg-neutral-950/10 dark:bg-white/10 border border-neutral-950/15 dark:border-white/15 backdrop-blur-xs select-none tracking-wider shadow-xs">
         Sections:
@@ -300,16 +300,14 @@ const filteredHeadings = headings.filter((h) => h.depth === 2 || h.depth === 3);
         }
       });
 
+      const switcher = document.getElementById('mobile-tab-switcher');
       mobileTabs.forEach((btn) => {
         const isCurrent = btn.getAttribute('data-target') === activeSlug;
         const wasActive = btn.getAttribute('data-active') === 'true';
         btn.setAttribute('data-active', isCurrent ? 'true' : 'false');
-        if (isCurrent && !wasActive) {
-          btn.scrollIntoView({
-            behavior: 'smooth',
-            inline: 'center',
-            block: 'nearest',
-          });
+        if (isCurrent && !wasActive && switcher) {
+          const scrollTarget = btn.offsetLeft - (switcher.clientWidth / 2) + (btn.clientWidth / 2);
+          switcher.scrollTo({ left: Math.max(0, scrollTarget), behavior: 'smooth' });
         }
       });
 
