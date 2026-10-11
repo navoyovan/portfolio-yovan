@@ -35,7 +35,7 @@ const filteredHeadings = headings.filter((h) => h.depth === 2 || h.depth === 3);
           size="micro"
           variant="secondary"
           ariaLabel="Expand Table of Contents"
-          class="bg-[#fcfbf9] dark:bg-[#0e0e0e] shadow-md hover:scale-105 border border-neutral-300 dark:border-neutral-700"
+          class="bg-[#fcfbf9] dark:bg-[#090909] shadow-md hover:scale-105 border border-neutral-300 dark:border-neutral-700"
         >
           <svg
             id="sidebar-toggle-icon"
@@ -100,7 +100,7 @@ const filteredHeadings = headings.filter((h) => h.depth === 2 || h.depth === 3);
     <!-- 2. Mobile / Tablet Sticky Horizontal Tab Bar (Below Header) -->
     <div
       id="mobile-tab-switcher"
-      class="xl:hidden w-full sticky top-14 z-20 bg-[#fcfbf9]/95 dark:bg-[#0e0e0e]/95 backdrop-blur-md border-b border-neutral-200 dark:border-neutral-800 py-2.5 px-4 sm:px-6 overflow-x-auto flex items-center gap-2 no-scrollbar select-none"
+      class="xl:hidden w-full sticky top-14 z-20 bg-[#fcfbf9]/80 dark:bg-[#090909]/80 backdrop-blur-md border-b border-neutral-200/80 dark:border-neutral-800/80 py-2.5 px-4 sm:px-6 overflow-x-auto flex items-center gap-2 no-scrollbar select-none transition-colors duration-200"
     >
       <span class="text-[11px] font-sans uppercase font-bold text-neutral-400 dark:text-neutral-500 shrink-0 select-none mr-1">
         Sections:
@@ -109,7 +109,8 @@ const filteredHeadings = headings.filter((h) => h.depth === 2 || h.depth === 3);
         <button
           type="button"
           data-target={item.slug}
-          class="mobile-tab-btn shrink-0 px-3.5 py-1.5 text-xs sm:text-sm font-sans font-medium rounded-md bg-neutral-100 dark:bg-neutral-900 text-neutral-700 dark:text-neutral-300 hover:text-neutral-950 dark:hover:text-white transition-colors cursor-pointer border border-transparent whitespace-nowrap active:scale-95"
+          data-active="false"
+          class="mobile-tab-btn shrink-0 px-3.5 py-1.5 text-xs sm:text-sm font-sans font-medium rounded-md transition-colors cursor-pointer border border-transparent whitespace-nowrap active:scale-95 bg-neutral-100 dark:bg-neutral-900 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-800 hover:text-neutral-950 dark:hover:text-white data-[active=true]:bg-neutral-950 data-[active=true]:text-white data-[active=true]:hover:text-white dark:data-[active=true]:bg-white dark:data-[active=true]:text-neutral-950 dark:data-[active=true]:hover:text-neutral-950 dark:data-[active=true]:hover:bg-neutral-100"
         >
           {item.text}
         </button>
@@ -213,8 +214,10 @@ const filteredHeadings = headings.filter((h) => h.depth === 2 || h.depth === 3);
         const slug = btn.getAttribute('data-target');
         const el = slug ? document.getElementById(slug) : null;
         if (el) {
-          const targetY = el.getBoundingClientRect().top + window.scrollY - 80;
-          window.scrollTo({ top: targetY, behavior: 'smooth' });
+          const isMobile = window.innerWidth < 1280;
+          const offset = isMobile ? 120 : 80;
+          const targetY = el.getBoundingClientRect().top + window.scrollY - offset;
+          window.scrollTo({ top: Math.max(0, targetY), behavior: 'smooth' });
           history.replaceState(null, '', `#${slug}`);
         }
       });
@@ -224,7 +227,8 @@ const filteredHeadings = headings.filter((h) => h.depth === 2 || h.depth === 3);
 
     // 3. Active Section Scroll Tracking
     function updateActiveSection() {
-      const scrollPos = window.scrollY + 100;
+      const isMobile = window.innerWidth < 1280;
+      const scrollPos = window.scrollY + (isMobile ? 130 : 90);
       let activeSlug = targets[0]?.slug;
 
       for (let i = 0; i < targets.length; i++) {
@@ -247,13 +251,7 @@ const filteredHeadings = headings.filter((h) => h.depth === 2 || h.depth === 3);
 
       mobileTabs.forEach((btn) => {
         const isCurrent = btn.getAttribute('data-target') === activeSlug;
-        if (isCurrent) {
-          btn.classList.add('bg-neutral-950', 'text-white', 'dark:bg-white', 'dark:text-neutral-950', 'font-semibold');
-          btn.classList.remove('bg-neutral-100', 'dark:bg-neutral-900', 'text-neutral-600', 'dark:text-neutral-400');
-        } else {
-          btn.classList.remove('bg-neutral-950', 'text-white', 'dark:bg-white', 'dark:text-neutral-950', 'font-semibold');
-          btn.classList.add('bg-neutral-100', 'dark:bg-neutral-900', 'text-neutral-600', 'dark:text-neutral-400');
-        }
+        btn.setAttribute('data-active', isCurrent ? 'true' : 'false');
       });
     }
 

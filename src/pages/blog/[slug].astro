@@ -224,6 +224,20 @@ const articleSchema = {
     line-height: 1.8;
   }
 
+  .blog-prose h2,
+  .blog-prose h3,
+  .blog-prose h4 {
+    scroll-margin-top: 7.5rem;
+  }
+
+  @media (min-width: 1280px) {
+    .blog-prose h2,
+    .blog-prose h3,
+    .blog-prose h4 {
+      scroll-margin-top: 5rem;
+    }
+  }
+
   .blog-prose h2 {
     font-family: var(--font-sans, -apple-system, BlinkMacSystemFont, sans-serif);
     font-weight: 700;
