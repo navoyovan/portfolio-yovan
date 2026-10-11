@@ -329,7 +329,7 @@ const filteredHeadings = headings.filter((h) => h.depth === 2 || h.depth === 3);
 
     // 4. Build Dynamic Notch Ticks
     function buildScrollbarTicks() {
-      if (!ticksContainer) return;
+      if (!ticksContainer || window.innerWidth < 1280) return;
       ticksContainer.innerHTML = '';
       const docHeight = document.documentElement.scrollHeight - window.innerHeight;
       if (docHeight <= 0) return;

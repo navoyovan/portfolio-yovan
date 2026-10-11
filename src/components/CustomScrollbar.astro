@@ -4,7 +4,7 @@
 
 <div
   id="custom-scrollbar-track"
-  class="fixed right-1 top-20 sm:top-22 bottom-3 w-4 z-40 pointer-events-none md:pointer-events-auto flex justify-end transition-opacity duration-300 opacity-0 md:opacity-100 group cursor-pointer"
+  class="hidden md:flex fixed right-1 top-20 sm:top-22 bottom-3 w-4 z-40 justify-end transition-opacity duration-300 opacity-100 group cursor-pointer"
   aria-hidden="true"
 >
   <div
@@ -28,6 +28,10 @@
 
     const updateThumb = () => {
       if (isDragging) return;
+      if (window.innerWidth < 768) {
+        track.style.display = 'none';
+        return;
+      }
       const docHeight = document.documentElement.scrollHeight - window.innerHeight;
       if (docHeight <= 0) {
         track.style.display = 'none';
