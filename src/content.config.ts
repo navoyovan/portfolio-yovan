@@ -19,6 +19,14 @@ const projects = defineCollection({
   }),
 });
 
+const authorObjSchema = z.object({
+  name: z.string(),
+  role: z.string().optional(),
+  avatar: z.string().optional(),
+  bio: z.string().optional(),
+  url: z.string().optional(),
+});
+
 const blog = defineCollection({
   loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/blog' }),
   schema: z.object({
@@ -30,6 +38,8 @@ const blog = defineCollection({
     image: z.string().optional(),
     author: z.string().optional(),
     authorRole: z.string().optional(),
+    authorAvatar: z.string().optional(),
+    authors: z.array(z.union([z.string(), authorObjSchema])).optional(),
     draft: z.boolean().default(false),
   }),
 });

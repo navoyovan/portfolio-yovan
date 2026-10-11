@@ -33,12 +33,14 @@ const sorted = allContributions.slice().sort((a, b) => a.date.localeCompare(b.da
 // Filter up to today
 const filtered = sorted.filter((c) => c.date <= todayStr);
 
-// Take ~2 years (730 days) and align to previous Sunday
-const approx = filtered.slice(-730);
-const firstDate = new Date(approx[0].date);
-const dayOfWeek = firstDate.getDay();
-const startIndex = filtered.length - 730 - dayOfWeek;
-const days: ContributionDay[] = filtered.slice(startIndex);
+// Align first date to previous Sunday so every column starts on Sunday
+const [startYear, startMonth, startDay] = filtered[0].date.split('-').map(Number);
+const firstDayOfWeek = new Date(startYear, startMonth - 1, startDay).getDay();
+const days: ContributionDay[] = [];
+for (let i = 0; i < firstDayOfWeek; i++) {
+  days.push({ date: '', count: 0, level: 0, placeholder: true });
+}
+days.push(...filtered);
 
 // Pad end of last week to Saturday so every column has exactly 7 rows
 const remainder = days.length % 7;
@@ -49,42 +51,35 @@ for (let i = 0; i < padCount; i++) {
 
 const availableWeeks = Math.ceil(days.length / 7);
 
-// Build all 2 full years of 7-day columns (~105 weeks)
+// Build all full multi-year 7-day columns (~314 weeks / 5,000+ px)
 const weeks: ContributionDay[][] = [];
 for (let w = 0; w < availableWeeks; w++) {
   const sliceStart = w * 7;
   weeks.push(days.slice(sliceStart, sliceStart + 7));
 }
 
-// Compute threshold for top ~3% active days to receive fully lit lime accent
-const activeCounts = days
-  .filter((d) => !d.placeholder && d.count > 0)
-  .map((d) => d.count)
-  .sort((a, b) => b - a);
-const topThreePctThreshold =
-  activeCounts.length > 0
-    ? activeCounts[Math.max(0, Math.floor(activeCounts.length * 0.03))] || 6
-    : 6;
-
 ---
 
 <section
   id="github-contrib-section"
   aria-label="GitHub Contributions Telemetry"
-  class="w-full bg-[#fcfbf9] dark:bg-[#0e0e0e] transition-colors duration-200 p-0 m-0 overflow-hidden select-none"
+  class="relative w-full max-w-full bg-gradient-to-b from-transparent via-transparent to-[#fcfbf9] dark:to-[#0e0e0e] p-0 mt-6 sm:mt-8 mb-0 overflow-hidden select-none"
   style="
-    --cell: 28px;
-    --gap: 3px;
-    --pad: 8px;
-    --cell-inner: calc((7 * var(--cell) - 6 * var(--gap)) / 7);
-    height: calc(7 * var(--cell) + 2 * var(--pad));
-    margin-top: calc(3 * var(--cell));
-    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 25%, black 100%);
-    mask-image: linear-gradient(to bottom, transparent 0%, black 25%, black 100%);
+    --cell: 14px;
+    --gap: 2px;
+    --pad: 6px;
+    --cell-inner: 14px;
+    height: calc(7 * var(--cell-inner) + 6 * var(--gap) + 2 * var(--pad));
   "
 >
-  <!-- Heatmap: Borderless grid with seamless edge mask and right-anchored latest view -->
-  <div class="relative w-full h-full overflow-hidden">
+  <!-- Heatmap: Borderless grid with top mask fade and right-anchored latest view -->
+  <div
+    class="relative w-full h-full overflow-hidden"
+    style="
+      -webkit-mask-image: linear-gradient(to bottom, transparent, black 35%, black 100%);
+      mask-image: linear-gradient(to bottom, transparent, black 35%, black 100%);
+    "
+  >
     <div
       id="github-contrib-scroll"
       class="w-full h-full overflow-x-auto scrollbar-none flex justify-end items-center"
@@ -94,7 +89,7 @@ const topThreePctThreshold =
         id="github-contrib-grid"
         role="img"
         aria-label="GitHub contribution activity over the last two years"
-        class="flex flex-row h-full select-none gap-[var(--gap)] shrink-0 w-max opacity-45 hover:opacity-90 transition-opacity duration-300"
+        class="flex flex-row h-full select-none gap-[var(--gap)] shrink-0 w-max opacity-70 dark:opacity-45 hover:opacity-100 dark:hover:opacity-90 transition-opacity duration-300"
       >
         {
           weeks.map((weekDays) => (
@@ -140,10 +135,35 @@ const topThreePctThreshold =
         <div class="text-neutral-500 dark:text-neutral-400">Gunardio.</div>
       </div>
     </div>
+
+    <!-- Bottom Edge Gradient Overlay: Blends grid cells seamlessly into the footer background color -->
+    <div
+      class="absolute bottom-0 inset-x-0 h-14 bg-gradient-to-b from-transparent to-[#fcfbf9] dark:to-[#0e0e0e] pointer-events-none z-10"
+      aria-hidden="true"
+    ></div>
   </div>
 </section>
 
 <style is:global>
+  #github-contrib-grid {
+    --gcd-empty: #ebedf0;
+    --gcd-l1: #9be9a8;
+    --gcd-l2: #40c463;
+    --gcd-l3: #30a14e;
+    --gcd-l4: #216e39;
+    --gcd-glow-l4: none;
+  }
+
+  .dark #github-contrib-grid,
+  :root.dark #github-contrib-grid {
+    --gcd-empty: #1c1c1c;
+    --gcd-l1: rgba(16, 185, 129, 0.20);
+    --gcd-l2: rgba(16, 185, 129, 0.45);
+    --gcd-l3: rgba(16, 185, 129, 0.70);
+    --gcd-l4: #10b981;
+    --gcd-glow-l4: 0 0 6px rgba(16, 185, 129, 0.35);
+  }
+
   #github-contrib-grid .gcd-col {
     display: flex;
     flex-direction: column;
@@ -175,34 +195,24 @@ const topThreePctThreshold =
   }
 
   #github-contrib-grid .gcd-cell:not([data-l]) {
-    background-color: rgba(229, 231, 235, 0.5);
-  }
-
-  .dark #github-contrib-grid .gcd-cell:not([data-l]) {
-    background-color: #1c1c1c;
-  }
-
-  @media (prefers-color-scheme: dark) {
-    :root:not(.light) #github-contrib-grid .gcd-cell:not([data-l]) {
-      background-color: #1c1c1c;
-    }
+    background-color: var(--gcd-empty);
   }
 
   #github-contrib-grid .gcd-cell[data-l="1"] {
-    background-color: rgba(16, 185, 129, 0.20);
+    background-color: var(--gcd-l1);
   }
 
   #github-contrib-grid .gcd-cell[data-l="2"] {
-    background-color: rgba(16, 185, 129, 0.45);
+    background-color: var(--gcd-l2);
   }
 
   #github-contrib-grid .gcd-cell[data-l="3"] {
-    background-color: rgba(16, 185, 129, 0.70);
+    background-color: var(--gcd-l3);
   }
 
   #github-contrib-grid .gcd-cell[data-l="4"] {
-    background-color: #10b981;
-    box-shadow: 0 0 6px rgba(16, 185, 129, 0.35);
+    background-color: var(--gcd-l4);
+    box-shadow: var(--gcd-glow-l4);
   }
 
   #github-contrib-grid .gcd-cell:hover {

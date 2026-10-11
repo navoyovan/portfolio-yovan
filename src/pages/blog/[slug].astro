@@ -2,6 +2,7 @@
 import RootLayout from '../../layouts/RootLayout.astro';
 import DevMenu from '../../components/DevMenu.astro';
 import BlogOutline from '../../components/BlogOutline.astro';
+import AuthorAvatar from '../../components/AuthorAvatar.astro';
 import { getCollection, getEntry, render } from 'astro:content';
 
 export async function getStaticPaths() {
@@ -40,9 +41,45 @@ const siteUrl = Astro.site?.toString() || 'https://navoyovan.github.io/portfolio
 const postSlug = post.id.replace(/\.[^/.]+$/, '');
 const articleUrl = `${siteUrl}/blog/${postSlug}`;
 
-const authorName = post.data.author || 'Yovan Gunardio Darmawan';
-const authorRole = post.data.authorRole || 'Software Engineer & Systems Architecture Enthusiast based in Bogor, Indonesia.';
-const isAiAuthor = Boolean(post.data.author && post.data.author !== 'Yovan Gunardio Darmawan');
+interface NormalizedAuthor {
+  name: string;
+  role: string;
+  avatar?: string;
+  isAi: boolean;
+}
+
+const authors: NormalizedAuthor[] = (() => {
+  if (post.data.authors && post.data.authors.length > 0) {
+    return post.data.authors.map((a: any) => {
+      if (typeof a === 'string') {
+        const isAi = a.toLowerCase().includes('antigravity');
+        return {
+          name: a,
+          role: isAi ? 'Autonomous Coding Agent at Google DeepMind' : 'Software Engineer & Systems Architect',
+          isAi,
+          avatar: isAi ? '/images/agy.png' : (a.toLowerCase().includes('yovan') ? '/images/yg.png' : undefined),
+        };
+      }
+      const isAi = a.name.toLowerCase().includes('antigravity') || Boolean(a.avatar?.includes('agy'));
+      return {
+        name: a.name,
+        role: a.role || (isAi ? 'Autonomous Coding Agent at Google DeepMind' : 'Software Engineer & Systems Architect'),
+        avatar: a.avatar || (isAi ? '/images/agy.png' : (a.name.toLowerCase().includes('yovan') ? '/images/yg.png' : undefined)),
+        isAi,
+      };
+    });
+  }
+
+  const name = post.data.author || 'Yovan Gunardio Darmawan';
+  const isAi = Boolean(post.data.author && post.data.author !== 'Yovan Gunardio Darmawan');
+  const role = post.data.authorRole || (isAi ? 'Autonomous Coding Agent & Language Model at Google DeepMind' : 'Software Engineer & Systems Architecture Enthusiast based in Bogor, Indonesia.');
+  const avatar = post.data.authorAvatar || (isAi ? '/images/agy.png' : '/images/yg.png');
+
+  return [{ name, role, avatar, isAi }];
+})();
+
+const authorNames = authors.map((a) => a.name).join(' & ');
+const hasAiAuthor = authors.some((a) => a.isAi);
 
 const articleSchema = {
   '@context': 'https://schema.org',
@@ -51,10 +88,10 @@ const articleSchema = {
   description: post.data.description,
   datePublished: post.data.publishDate.toISOString(),
   url: articleUrl,
-  author: {
-    '@type': isAiAuthor ? 'SoftwareApplication' : 'Person',
-    name: authorName,
-  },
+  author: authors.map((a) => ({
+    '@type': a.isAi ? 'SoftwareApplication' : 'Person',
+    name: a.name,
+  })),
 };
 ---
 
@@ -90,11 +127,28 @@ const articleSchema = {
 
     <!-- Article Header -->
     <header class="space-y-4 pb-8 border-b border-neutral-200 dark:border-neutral-800">
-      <div class="flex items-center gap-2.5 text-xs text-neutral-500 dark:text-neutral-400 font-sans flex-wrap">
-        <span>By {authorName}</span>
-        {isAiAuthor && (
+      <div class="flex items-center gap-3 text-xs text-neutral-500 dark:text-neutral-400 font-sans flex-wrap">
+        <div class="flex items-center gap-2">
+          <div class="flex items-center -space-x-1.5">
+            {authors.map((author, index) => (
+              <AuthorAvatar
+                name={author.name}
+                avatar={author.avatar}
+                isAi={author.isAi}
+                size="sm"
+                class="ring-2 ring-white dark:ring-neutral-950"
+                zIndex={authors.length - index}
+              />
+            ))}
+          </div>
+          <span class="font-medium text-neutral-800 dark:text-neutral-200">
+            By {authorNames}
+          </span>
+        </div>
+
+        {hasAiAuthor && (
           <span class="text-[10.5px] px-1.5 py-0.5 rounded bg-neutral-200/80 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 font-mono">
-            AI Author
+            {authors.length > 1 ? 'AI Co-Author' : 'AI Author'}
           </span>
         )}
         <span>•</span>
@@ -114,6 +168,14 @@ const articleSchema = {
       </p>
 
       <div class="flex items-center gap-1.5 flex-wrap pt-2">
+        {relatedProject && (
+          <a
+            href={`${base}/portfolio-index#${relatedProject.id}`}
+            class="inline-flex items-center font-sans text-xs font-medium px-2.5 py-0.5 rounded-full bg-neutral-800 text-neutral-200 dark:bg-neutral-200 dark:text-neutral-900 hover:bg-neutral-700 dark:hover:bg-neutral-300 transition-colors"
+          >
+            <span>{relatedProject.data.title}</span>
+          </a>
+        )}
         {post.data.tags.map((tag: string) => (
           <span class="font-sans text-xs px-2.5 py-0.5 rounded-full bg-neutral-100 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 text-neutral-600 dark:text-neutral-400">
             {tag}
@@ -184,30 +246,48 @@ const articleSchema = {
 
     <!-- Article Footer / Author Card & Navigation -->
     <footer class="mt-16 pt-8 border-t border-neutral-200 dark:border-neutral-800 space-y-8">
-      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 p-5 sm:p-6 rounded-xl border border-neutral-200/80 dark:border-neutral-800/80 bg-white/60 dark:bg-neutral-950/60 shadow-sm">
-        <div class="space-y-1">
-          <div class="flex items-center gap-2">
-            <span class="font-sans font-semibold text-sm text-neutral-950 dark:text-white">
-              {authorName}
-            </span>
-            {isAiAuthor && (
-              <span class="text-[10px] px-1.5 py-0.5 rounded bg-neutral-200/80 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 font-mono">
-                AI Author
-              </span>
-            )}
-          </div>
-          <p class="font-sans text-xs text-neutral-500 dark:text-neutral-400">
-            {authorRole}
-          </p>
+      <div class="p-5 sm:p-6 rounded-xl border border-neutral-200/80 dark:border-neutral-800/80 bg-white/60 dark:bg-neutral-950/60 shadow-sm space-y-6">
+        <div class="flex items-center justify-between gap-4 border-b border-neutral-200/60 dark:border-neutral-800/60 pb-4">
+          <span class="text-xs font-mono uppercase font-semibold text-neutral-500 dark:text-neutral-400 tracking-wider">
+            {authors.length > 1 ? 'Article Contributors' : 'Article Author'}
+          </span>
+          <a
+            href={`${base}/blog`}
+            class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 font-sans text-xs font-medium text-neutral-900 dark:text-neutral-100 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors shrink-0"
+          >
+            <span>←</span>
+            <span data-en="Back to all articles" data-id="Kembali ke semua artikel">Back to all articles</span>
+          </a>
         </div>
 
-        <a
-          href={`${base}/blog`}
-          class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 font-sans text-xs font-semibold text-neutral-900 dark:text-neutral-100 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors shrink-0"
-        >
-          <span>←</span>
-          <span data-en="Back to all articles" data-id="Kembali ke semua artikel">Back to all articles</span>
-        </a>
+        <div class={`grid gap-6 ${authors.length > 1 ? 'grid-cols-1 md:grid-cols-2' : 'grid-cols-1'}`}>
+          {authors.map((author) => (
+            <div class="flex items-start gap-3.5">
+              <AuthorAvatar
+                name={author.name}
+                avatar={author.avatar}
+                isAi={author.isAi}
+                size="lg"
+                class="shrink-0 mt-0.5"
+              />
+              <div class="space-y-1 min-w-0">
+                <div class="flex items-center gap-2 flex-wrap">
+                  <span class="font-sans font-bold text-sm text-neutral-950 dark:text-white truncate">
+                    {author.name}
+                  </span>
+                  {author.isAi && (
+                    <span class="text-[10px] px-1.5 py-0.5 rounded bg-neutral-200/80 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 font-mono">
+                      AI Agent
+                    </span>
+                  )}
+                </div>
+                <p class="font-sans text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed">
+                  {author.role}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </footer>
     </main>

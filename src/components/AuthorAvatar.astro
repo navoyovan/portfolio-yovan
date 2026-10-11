@@ -1,0 +1,86 @@
+---
+interface Props {
+  name?: string;
+  avatar?: string;
+  isAi?: boolean;
+  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+  class?: string;
+  style?: string;
+  zIndex?: number;
+}
+
+const {
+  name = 'Yovan Gunardio Darmawan',
+  avatar,
+  isAi = false,
+  size = 'md',
+  class: className = '',
+  style = '',
+  zIndex,
+} = Astro.props;
+
+const rawBase = import.meta.env.BASE_URL;
+const base = rawBase.endsWith('/') ? rawBase.slice(0, -1) : rawBase;
+
+const isAntigravity = isAi || name.toLowerCase().includes('antigravity');
+const isYovan = name.toLowerCase().includes('yovan') && !isAntigravity;
+
+// Compute dimensions
+const sizeClasses = {
+  xs: 'w-7 h-7 text-[10px]',
+  sm: 'w-9 h-9 text-xs',
+  md: 'w-11 h-11 text-sm',
+  lg: 'w-14 h-14 sm:w-16 sm:h-16 text-base',
+  xl: 'w-20 h-20 text-lg',
+}[size];
+
+// Resolve image URL
+let resolvedSrc: string | undefined;
+
+if (avatar) {
+  if (avatar.startsWith('http')) {
+    resolvedSrc = avatar;
+  } else if (avatar.startsWith('/')) {
+    resolvedSrc = `${base}${avatar}`;
+  } else {
+    resolvedSrc = `${base}/${avatar}`;
+  }
+} else if (isAntigravity) {
+  resolvedSrc = `${base}/images/agy.png`;
+} else if (isYovan) {
+  resolvedSrc = `${base}/images/yg.png`;
+}
+
+const computedStyle = [
+  zIndex !== undefined ? `z-index: ${zIndex};` : '',
+  style,
+].filter(Boolean).join(' ');
+---
+
+<div
+  class:list={[
+    'relative inline-flex items-center justify-center shrink-0 rounded-full select-none overflow-hidden border transition-transform duration-150',
+    sizeClasses,
+    isAntigravity
+      ? 'border-violet-500/30 bg-neutral-900 text-white shadow-xs'
+      : 'border-neutral-200 dark:border-neutral-800 bg-neutral-100 dark:bg-neutral-900 text-neutral-800 dark:text-neutral-200',
+    className,
+  ]}
+  style={computedStyle || undefined}
+  title={name}
+  aria-label={`Avatar of ${name}`}
+>
+  {resolvedSrc ? (
+    <img
+      src={resolvedSrc}
+      alt={name}
+      class="w-full h-full object-cover object-center"
+      loading="lazy"
+      decoding="async"
+    />
+  ) : (
+    <span class="font-sans font-bold uppercase tracking-wider">
+      {name.slice(0, 2)}
+    </span>
+  )}
+</div>
