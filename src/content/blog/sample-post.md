@@ -680,7 +680,17 @@ Praesent blandit laoreet nibh. Fusce convallis metus id felis luctus adipiscing.
 
 ## 12. Author Profile Specimen
 
-<div class="my-8 p-6 sm:p-8 rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50/60 dark:bg-neutral-900/50 shadow-xs [&>h1:first-child]:!mt-0">
+<div class="relative my-8 pt-7 sm:pt-9 p-6 sm:p-8 rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50/60 dark:bg-neutral-900/50 shadow-xs [&>h1:first-child]:!mt-0">
+  <div class="absolute top-0 left-4 sm:left-6 -translate-y-1/2 flex items-center gap-2 flex-wrap not-prose z-10">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://shieldcn.dev/views/user/navoyovan.svg?variant=outline&font=geist" />
+      <img alt="profile views" src="https://shieldcn.dev/views/user/navoyovan.svg?variant=outline&mode=light&font=geist" class="!my-0 inline-block h-5" />
+    </picture>
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://shieldcn.dev/views/user/navoyovan/repos.svg?variant=outline&font=geist" />
+      <img alt="repo views" src="https://shieldcn.dev/views/user/navoyovan/repos.svg?variant=outline&mode=light&font=geist" class="!my-0 inline-block h-5" />
+    </picture>
+  </div>
 
 # Yovan Gunardio Darmawan
 
@@ -688,17 +698,6 @@ Praesent blandit laoreet nibh. Fusce convallis metus id felis luctus adipiscing.
   <source media="(prefers-color-scheme: dark)" srcset="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&size=16&duration=2800&pause=1000&color=52FF1A&width=550&lines=I+build+software+that+makes+ideas+real.;Web+%E2%80%A2+Desktop+%E2%80%A2+IoT+%E2%80%A2+Tools;Turning+complex+problems+into+working+systems.;optimizations+freak+%E2%86%91" />
   <img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&size=16&duration=2800&pause=1000&color=0969da&width=550&lines=I+build+software+that+makes+ideas+real.;Web+%E2%80%A2+Desktop+%E2%80%A2+IoT+%E2%80%A2+DevTools;Turning+complex+problems+into+working+systems.;optimizations+freak+%E2%86%91" alt="Typing animation" class="!my-2" />
 </picture>
-
-<div class="flex items-center gap-2 flex-wrap my-3 not-prose">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://shieldcn.dev/views/user/navoyovan.svg?variant=outline&font=geist" />
-    <img alt="profile views" src="https://shieldcn.dev/views/user/navoyovan.svg?variant=outline&mode=light&font=geist" class="!my-0 inline-block h-5" />
-  </picture>
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://shieldcn.dev/views/user/navoyovan/repos.svg?variant=outline&font=geist" />
-    <img alt="repo views" src="https://shieldcn.dev/views/user/navoyovan/repos.svg?variant=outline&mode=light&font=geist" class="!my-0 inline-block h-5" />
-  </picture>
-</div>
 
 Hey, I'm **Yovan** (or **van** for 1 syllable). Software engineer, likes building stuff from the idea all the way to something people enjoy.
 
