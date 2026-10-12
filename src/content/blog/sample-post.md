@@ -3,7 +3,7 @@ title: "Hello World;"
 publishDate: 1969-02-31
 description: "A deliberately hostile showcase post: every heading depth, every callout, ten-plus languages, wide tables, overflow bait, unicode edge cases, footnotes, nested lists, and slug collisions, all in one page."
 tags: ["Architecture", "AI Collaboration", "Astro 5", "TypeScript", "Performance", "Systems", "Stress Test", "Typography", "Edge Cases"]
-project: "editorial-engine"
+project: "component-library"
 draft: false
 authors:
   - name: "Yovan Gunardio Darmawan"
