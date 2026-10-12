@@ -53,6 +53,13 @@ function getReadingTime(body?: string): string {
   return `${minutes} min read`;
 }
 
+function resolveImageUrl(img?: string) {
+  if (!img) return null;
+  if (img.startsWith('http://') || img.startsWith('https://')) return img;
+  const clean = img.startsWith('/') ? img : `/${img}`;
+  return `${base}${clean}`;
+}
+
 const siteUrl = Astro.site?.toString() || 'https://navoyovan.github.io/portfolio-yovan';
 
 const blogSchema = {
@@ -98,7 +105,7 @@ const blogSchema = {
       </div>
     ) : (
       <div class="space-y-8">
-        <!-- Featured Card (Latest Article) -->
+        <!-- Featured Card (Latest Article - Wide) -->
         {postsWithProjects.slice(0, 1).map(({ post, project }) => {
           const postSlug = post.id.replace(/\.[^/.]+$/, '');
           const formattedDate = post.data.publishDate.toLocaleDateString('en-US', {
@@ -108,83 +115,101 @@ const blogSchema = {
           });
 
           const postAuthors = getPostAuthors(post);
+          const thumbSrc = resolveImageUrl(post.data.thumbnail || post.data.image);
 
           return (
             <article class="group relative p-6 sm:p-8 rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-950/70 hover:border-neutral-400 dark:hover:border-neutral-700 transition-[border-color,box-shadow] duration-200 shadow-sm hover:shadow-md">
-              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
-                <div class="flex items-center gap-2.5 flex-wrap">
-                  <span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-neutral-950 text-white dark:bg-white dark:text-neutral-950 font-sans">
-                    Latest
-                  </span>
-                  <div class="flex items-center gap-1.5">
-                    <div class="flex items-center -space-x-1.5">
-                      {postAuthors.map((author, index) => (
-                        <AuthorAvatar
-                          name={author.name}
-                          avatar={author.avatar}
-                          isAi={author.isAi}
-                          size="xs"
-                          class="ring-1 ring-white dark:ring-neutral-950"
-                          zIndex={postAuthors.length - index}
-                        />
+              <div class={thumbSrc ? "grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center" : ""}>
+                <div class={thumbSrc ? "lg:col-span-7 flex flex-col justify-between" : ""}>
+                  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
+                    <div class="flex items-center gap-2.5 flex-wrap">
+                      <span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-neutral-950 text-white dark:bg-white dark:text-neutral-950 font-sans">
+                        Latest
+                      </span>
+                      <div class="flex items-center gap-1.5">
+                        <div class="flex items-center -space-x-1.5">
+                          {postAuthors.map((author, index) => (
+                            <AuthorAvatar
+                              name={author.name}
+                              avatar={author.avatar}
+                              isAi={author.isAi}
+                              size="xs"
+                              class="ring-1 ring-white dark:ring-neutral-950"
+                              zIndex={postAuthors.length - index}
+                            />
+                          ))}
+                        </div>
+                        <span class="text-xs text-neutral-700 dark:text-neutral-300 font-sans font-medium">
+                          By {postAuthors.map((a) => a.name).join(' & ')}
+                        </span>
+                      </div>
+                      <span class="text-neutral-300 dark:text-neutral-700 font-sans">•</span>
+                      <time datetime={post.data.publishDate.toISOString()} class="text-xs text-neutral-500 dark:text-neutral-400 font-sans">
+                        {formattedDate}
+                      </time>
+                      <span class="text-neutral-300 dark:text-neutral-700 font-sans">•</span>
+                      <span class="text-xs text-neutral-500 dark:text-neutral-400 font-sans">
+                        {getReadingTime(post.body)}
+                      </span>
+                    </div>
+                  </div>
+
+                  <h2 class="text-2xl sm:text-3xl font-sans font-bold text-neutral-950 dark:text-white mb-3 leading-snug">
+                    <a href={`${base}/blog/${postSlug}`} class="focus:outline-none focus-visible:underline group-hover:text-neutral-700 dark:group-hover:text-neutral-200 transition-colors">
+                      <span class="absolute inset-0" aria-hidden="true"></span>
+                      {post.data.title}
+                    </a>
+                  </h2>
+
+                  <p class="font-sans text-sm sm:text-base text-neutral-600 dark:text-neutral-400 leading-relaxed mb-6 max-w-3xl">
+                    {post.data.description}
+                  </p>
+
+                  <div class="flex items-end justify-between gap-4 pt-3 border-t border-neutral-200/80 dark:border-neutral-800/80">
+                    <div class="flex items-center gap-1.5 flex-wrap min-w-0">
+                      {project && (
+                        <span class="inline-flex items-center text-xs px-2.5 py-0.5 rounded-full bg-neutral-800 text-neutral-200 dark:bg-neutral-200 dark:text-neutral-900 font-sans font-medium">
+                          {project.data.title}
+                        </span>
+                      )}
+                      {post.data.tags.map((tag: string) => (
+                        <span class="text-xs px-2.5 py-0.5 rounded-full bg-neutral-100 dark:bg-neutral-900 border border-neutral-200/80 dark:border-neutral-800 text-neutral-600 dark:text-neutral-400 font-sans">
+                          {tag}
+                        </span>
                       ))}
                     </div>
-                    <span class="text-xs text-neutral-700 dark:text-neutral-300 font-sans font-medium">
-                      By {postAuthors.map((a) => a.name).join(' & ')}
+
+                    <span class="inline-flex items-center font-sans font-semibold text-xs text-neutral-950 dark:text-white shrink-0 whitespace-nowrap overflow-hidden">
+                      <span class="inline-flex items-center translate-x-[10px] group-hover:translate-x-0 transition-transform duration-200 ease-out">
+                        <span data-en="Read article" data-id="Baca artikel">Read article</span>
+                        <span class="inline-flex items-center justify-center w-3.5 ml-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200 ease-out" aria-hidden="true">
+                          →
+                        </span>
+                      </span>
                     </span>
                   </div>
-                  <span class="text-neutral-300 dark:text-neutral-700 font-sans">•</span>
-                  <time datetime={post.data.publishDate.toISOString()} class="text-xs text-neutral-500 dark:text-neutral-400 font-sans">
-                    {formattedDate}
-                  </time>
-                  <span class="text-neutral-300 dark:text-neutral-700 font-sans">•</span>
-                  <span class="text-xs text-neutral-500 dark:text-neutral-400 font-sans">
-                    {getReadingTime(post.body)}
-                  </span>
-                </div>
-              </div>
-
-              <h2 class="text-2xl sm:text-3xl font-sans font-bold text-neutral-950 dark:text-white mb-3 leading-snug">
-                <a href={`${base}/blog/${postSlug}`} class="focus:outline-none focus-visible:underline group-hover:text-neutral-700 dark:group-hover:text-neutral-200 transition-colors">
-                  <span class="absolute inset-0" aria-hidden="true"></span>
-                  {post.data.title}
-                </a>
-              </h2>
-
-              <p class="font-sans text-sm sm:text-base text-neutral-600 dark:text-neutral-400 leading-relaxed mb-6 max-w-3xl">
-                {post.data.description}
-              </p>
-
-              <div class="flex items-end justify-between gap-4 pt-3 border-t border-neutral-200/80 dark:border-neutral-800/80">
-                <div class="flex items-center gap-1.5 flex-wrap min-w-0">
-                  {project && (
-                    <span class="inline-flex items-center text-xs px-2.5 py-0.5 rounded-full bg-neutral-800 text-neutral-200 dark:bg-neutral-200 dark:text-neutral-900 font-sans font-medium">
-                      {project.data.title}
-                    </span>
-                  )}
-                  {post.data.tags.map((tag: string) => (
-                    <span class="text-xs px-2.5 py-0.5 rounded-full bg-neutral-100 dark:bg-neutral-900 border border-neutral-200/80 dark:border-neutral-800 text-neutral-600 dark:text-neutral-400 font-sans">
-                      {tag}
-                    </span>
-                  ))}
                 </div>
 
-                <span class="inline-flex items-center font-sans font-semibold text-xs text-neutral-950 dark:text-white shrink-0 whitespace-nowrap overflow-hidden">
-                  <span class="inline-flex items-center translate-x-[10px] group-hover:translate-x-0 transition-transform duration-200 ease-out">
-                    <span data-en="Read article" data-id="Baca artikel">Read article</span>
-                    <span class="inline-flex items-center justify-center w-3.5 ml-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200 ease-out" aria-hidden="true">
-                      →
-                    </span>
-                  </span>
-                </span>
+                {thumbSrc && (
+                  <div class="lg:col-span-5 w-full order-first lg:order-last">
+                    <div class="relative aspect-[16/10] sm:aspect-[16/9] lg:aspect-[4/3] rounded-lg overflow-hidden border border-neutral-200/80 dark:border-neutral-800/80 bg-neutral-100 dark:bg-neutral-900 shadow-inner">
+                      <img
+                        src={thumbSrc}
+                        alt={post.data.imageAlt || post.data.title}
+                        class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]"
+                        loading="eager"
+                      />
+                    </div>
+                  </div>
+                )}
               </div>
             </article>
           );
         })}
 
-        <!-- Remaining Posts Grid -->
+        <!-- Organic Masonry / Bento for Remaining Articles -->
         {postsWithProjects.length > 1 && (
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
+          <div class="columns-1 md:columns-2 gap-6 pt-2">
             {postsWithProjects.slice(1).map(({ post, project }) => {
               const postSlug = post.id.replace(/\.[^/.]+$/, '');
               const formattedDate = post.data.publishDate.toLocaleDateString('en-US', {
@@ -193,10 +218,22 @@ const blogSchema = {
                 day: 'numeric',
               });
               const postAuthors = getPostAuthors(post);
+              const thumbSrc = resolveImageUrl(post.data.thumbnail || post.data.image);
 
               return (
-                <article class="group relative p-6 rounded-xl border border-neutral-200/80 dark:border-neutral-800/80 bg-white/70 dark:bg-neutral-950/70 hover:border-neutral-400 dark:hover:border-neutral-700 transition-[border-color,background-color] duration-200 flex flex-col justify-between shadow-sm">
-                  <div>
+                <article class="break-inside-avoid mb-6 group relative rounded-xl border border-neutral-200/80 dark:border-neutral-800/80 bg-white/70 dark:bg-neutral-950/70 hover:border-neutral-400 dark:hover:border-neutral-700 transition-[border-color,box-shadow] duration-200 shadow-sm hover:shadow-md flex flex-col overflow-hidden">
+                  {thumbSrc && (
+                    <div class="relative aspect-[16/10] sm:aspect-[16/9] w-full overflow-hidden bg-neutral-100 dark:bg-neutral-900 border-b border-neutral-200/80 dark:border-neutral-800/80">
+                      <img
+                        src={thumbSrc}
+                        alt={post.data.imageAlt || post.data.title}
+                        class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]"
+                        loading="lazy"
+                      />
+                    </div>
+                  )}
+
+                  <div class="p-6 sm:p-7 flex flex-col flex-1">
                     <div class="flex items-center justify-between gap-2 mb-3">
                       <div class="flex items-center gap-2 flex-wrap">
                         <div class="flex items-center gap-1.5">
@@ -212,22 +249,22 @@ const blogSchema = {
                               />
                             ))}
                           </div>
-                          <span class="text-[11px] text-neutral-700 dark:text-neutral-300 font-sans font-medium">
-                            {postAuthors.map((a) => a.name).join(' & ')}
+                          <span class="text-[11px] sm:text-xs text-neutral-700 dark:text-neutral-300 font-sans font-medium">
+                            By {postAuthors.map((a) => a.name).join(' & ')}
                           </span>
                         </div>
                         <span class="text-neutral-300 dark:text-neutral-700 font-sans">•</span>
-                        <time datetime={post.data.publishDate.toISOString()} class="text-xs text-neutral-500 font-sans">
+                        <time datetime={post.data.publishDate.toISOString()} class="text-xs text-neutral-500 dark:text-neutral-400 font-sans">
                           {formattedDate}
                         </time>
                         <span class="text-neutral-300 dark:text-neutral-700 font-sans">•</span>
-                        <span class="text-xs text-neutral-500 font-sans">
+                        <span class="text-xs text-neutral-500 dark:text-neutral-400 font-sans">
                           {getReadingTime(post.body)}
                         </span>
                       </div>
                     </div>
 
-                    <h3 class="text-xl font-sans font-bold text-neutral-950 dark:text-white mb-2 leading-snug">
+                    <h3 class="text-xl sm:text-2xl font-sans font-bold text-neutral-950 dark:text-white mb-2 leading-snug">
                       <a href={`${base}/blog/${postSlug}`} class="focus:outline-none focus-visible:underline group-hover:text-neutral-700 dark:group-hover:text-neutral-200 transition-colors">
                         <span class="absolute inset-0" aria-hidden="true"></span>
                         {post.data.title}
@@ -237,30 +274,30 @@ const blogSchema = {
                     <p class="font-sans text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed mb-4">
                       {post.data.description}
                     </p>
-                  </div>
 
-                  <div class="flex items-end justify-between gap-3 pt-3 border-t border-neutral-200/60 dark:border-neutral-800/60">
-                    <div class="flex items-center gap-1.5 flex-wrap min-w-0">
-                      {project && (
-                        <span class="inline-flex items-center text-xs px-2 py-0.5 rounded-full bg-neutral-800 text-neutral-200 dark:bg-neutral-200 dark:text-neutral-900 font-sans font-medium">
-                          {project.data.title}
-                        </span>
-                      )}
-                      {post.data.tags.map((tag: string) => (
-                        <span class="text-xs px-2 py-0.5 rounded-full bg-neutral-100 dark:bg-neutral-900 text-neutral-500 font-sans">
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
+                    <div class="flex items-end justify-between gap-3 pt-3 border-t border-neutral-200/60 dark:border-neutral-800/60 mt-auto">
+                      <div class="flex items-center gap-1.5 flex-wrap min-w-0">
+                        {project && (
+                          <span class="inline-flex items-center text-xs px-2.5 py-0.5 rounded-full bg-neutral-800 text-neutral-200 dark:bg-neutral-200 dark:text-neutral-900 font-sans font-medium">
+                            {project.data.title}
+                          </span>
+                        )}
+                        {post.data.tags.map((tag: string) => (
+                          <span class="text-xs px-2.5 py-0.5 rounded-full bg-neutral-100 dark:bg-neutral-900 border border-neutral-200/80 dark:border-neutral-800 text-neutral-600 dark:text-neutral-400 font-sans">
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
 
-                    <span class="inline-flex items-center font-sans font-semibold text-xs text-neutral-950 dark:text-white shrink-0 whitespace-nowrap overflow-hidden">
-                      <span class="inline-flex items-center translate-x-[10px] group-hover:translate-x-0 transition-transform duration-200 ease-out">
-                        <span data-en="Read article" data-id="Baca artikel">Read article</span>
-                        <span class="inline-flex items-center justify-center w-3.5 ml-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200 ease-out" aria-hidden="true">
-                          →
+                      <span class="inline-flex items-center font-sans font-semibold text-xs text-neutral-950 dark:text-white shrink-0 whitespace-nowrap overflow-hidden">
+                        <span class="inline-flex items-center translate-x-[10px] group-hover:translate-x-0 transition-transform duration-200 ease-out">
+                          <span data-en="Read article" data-id="Baca artikel">Read article</span>
+                          <span class="inline-flex items-center justify-center w-3.5 ml-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200 ease-out" aria-hidden="true">
+                            →
+                          </span>
                         </span>
                       </span>
-                    </span>
+                    </div>
                   </div>
                 </article>
               );

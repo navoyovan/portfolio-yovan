@@ -81,11 +81,22 @@ const authors: NormalizedAuthor[] = (() => {
 const authorNames = authors.map((a) => a.name).join(' & ');
 const hasAiAuthor = authors.some((a) => a.isAi);
 
+function resolveImageUrl(img?: string) {
+  if (!img) return undefined;
+  if (img.startsWith('http://') || img.startsWith('https://')) return img;
+  const clean = img.startsWith('/') ? img : `/${img}`;
+  return `${base}${clean}`;
+}
+
+const articleImage = post.data.image || post.data.thumbnail;
+const articleImageUrl = resolveImageUrl(articleImage);
+
 const articleSchema = {
   '@context': 'https://schema.org',
   '@type': 'TechArticle',
   headline: post.data.title,
   description: post.data.description,
+  image: articleImage ? (articleImageUrl?.startsWith('http') ? articleImageUrl : `${siteUrl}${articleImage.startsWith('/') ? articleImage : `/${articleImage}`}`) : undefined,
   datePublished: post.data.publishDate.toISOString(),
   url: articleUrl,
   author: authors.map((a) => ({
@@ -98,6 +109,7 @@ const articleSchema = {
 <RootLayout
   title={`${post.data.title} | Yovan Gunardio Darmawan`}
   description={post.data.description}
+  image={articleImage}
   type="article"
   keywords={post.data.tags}
   schema={articleSchema}
@@ -108,6 +120,139 @@ const articleSchema = {
     class="fixed top-0 left-0 w-0 h-[2px] bg-neutral-950 dark:bg-white z-50 transition-[width] duration-75"
     aria-hidden="true"
   ></div>
+
+  <!-- Client-side Markdown Content Enhancers (GFM Callouts & Base-aware Images) -->
+  <script is:inline define:vars={{ base }}>
+    function enhanceArticleContent() {
+      const prose = document.querySelector('.blog-prose');
+      if (!prose) return;
+
+      // 1. GitHub Alert / Callout Transformer
+      const calloutConfigs = {
+        NOTE: {
+          title: 'Note',
+          borderColor: 'border-blue-200 dark:border-blue-800/60',
+          bgColor: 'bg-blue-50/70 dark:bg-blue-950/25',
+          textColor: 'text-blue-950 dark:text-blue-200',
+          titleColor: 'text-blue-700 dark:text-blue-400',
+          icon: `<svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>`
+        },
+        TIP: {
+          title: 'Tip',
+          borderColor: 'border-emerald-200 dark:border-emerald-800/60',
+          bgColor: 'bg-emerald-50/70 dark:bg-emerald-950/25',
+          textColor: 'text-emerald-950 dark:text-emerald-200',
+          titleColor: 'text-emerald-700 dark:text-emerald-400',
+          icon: `<svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2"><path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" /></svg>`
+        },
+        IMPORTANT: {
+          title: 'Important',
+          borderColor: 'border-purple-200 dark:border-purple-800/60',
+          bgColor: 'bg-purple-50/70 dark:bg-purple-950/25',
+          textColor: 'text-purple-950 dark:text-purple-200',
+          titleColor: 'text-purple-700 dark:text-purple-400',
+          icon: `<svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>`
+        },
+        WARNING: {
+          title: 'Warning',
+          borderColor: 'border-amber-200 dark:border-amber-800/60',
+          bgColor: 'bg-amber-50/70 dark:bg-amber-950/25',
+          textColor: 'text-amber-950 dark:text-amber-200',
+          titleColor: 'text-amber-700 dark:text-amber-400',
+          icon: `<svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>`
+        },
+        CAUTION: {
+          title: 'Caution',
+          borderColor: 'border-rose-200 dark:border-rose-800/60',
+          bgColor: 'bg-rose-50/70 dark:bg-rose-950/25',
+          textColor: 'text-rose-950 dark:text-rose-200',
+          titleColor: 'text-rose-700 dark:text-rose-400',
+          icon: `<svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2"><path stroke-linecap="round" stroke-linejoin="round" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" /></svg>`
+        }
+      };
+
+      const blockquotes = prose.querySelectorAll('blockquote');
+      blockquotes.forEach((bq) => {
+        if (bq.dataset.calloutEnhanced) return;
+        const firstP = bq.querySelector('p');
+        if (!firstP) return;
+
+        const match = firstP.innerHTML.trim().match(/^\[\!(NOTE|TIP|IMPORTANT|WARNING|CAUTION)\]/i);
+        if (!match) return;
+
+        const type = match[1].toUpperCase();
+        const config = calloutConfigs[type];
+        if (!config) return;
+
+        bq.dataset.calloutEnhanced = 'true';
+
+        // Strip the marker from the paragraph
+        firstP.innerHTML = firstP.innerHTML
+          .replace(/^\[\!(NOTE|TIP|IMPORTANT|WARNING|CAUTION)\](<br\s*\/?>)?\s*/i, '')
+          .trim();
+        if (!firstP.innerHTML) {
+          firstP.remove();
+        }
+
+        // Style the blockquote container as a rounded card with uniform border (NO white left border)
+        bq.className = `not-italic my-6 p-4 sm:p-5 rounded-xl shadow-xs font-sans text-sm sm:text-base leading-relaxed callout-${type.toLowerCase()} ${config.textColor}`;
+
+        // Prepend callout header
+        const header = document.createElement('div');
+        header.className = `flex items-center gap-2 font-sans font-bold text-xs uppercase tracking-wider mb-2 select-none ${config.titleColor}`;
+        header.innerHTML = `${config.icon}<span>${config.title}</span>`;
+        bq.insertBefore(header, bq.firstChild);
+      });
+
+      // 2. Base-aware Images and Broken Image Fallback
+      const images = prose.querySelectorAll('img');
+      const cleanBase = (base || '').replace(/\/$/, '');
+
+      images.forEach((img) => {
+        // Base URL rewrite for root-relative images
+        const rawSrc = img.getAttribute('src');
+        if (rawSrc && rawSrc.startsWith('/') && !rawSrc.startsWith('//') && cleanBase && !rawSrc.startsWith(cleanBase)) {
+          img.src = `${cleanBase}${rawSrc}`;
+        }
+
+        // Apply clean media presentation styles
+        if (!img.classList.contains('no-style')) {
+          img.classList.add('rounded-lg', 'border', 'border-neutral-200/80', 'dark:border-neutral-800/80', 'shadow-xs', 'max-w-full', 'h-auto', 'transition-all');
+        }
+
+        const applyFallback = () => {
+          if (img.dataset.fallbackApplied) return;
+          img.dataset.fallbackApplied = 'true';
+          
+          const fallback = document.createElement('div');
+          fallback.className = 'w-full my-6 p-6 rounded-xl border border-dashed border-neutral-300 dark:border-neutral-700 bg-neutral-100/70 dark:bg-neutral-900/70 flex flex-col items-center justify-center text-center gap-2 text-neutral-500 select-none';
+          fallback.innerHTML = `
+            <div class="p-2.5 rounded-full bg-neutral-200/60 dark:bg-neutral-800/60 text-neutral-500 dark:text-neutral-400">
+              <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+            </div>
+            <span class="text-xs font-mono font-medium text-neutral-700 dark:text-neutral-300">Media asset preview unavailable</span>
+            <span class="text-[11px] font-mono text-neutral-400 dark:text-neutral-500 max-w-sm truncate">${img.getAttribute('alt') || img.getAttribute('src') || 'Asset placeholder'}</span>
+          `;
+          img.replaceWith(fallback);
+        };
+
+        img.addEventListener('error', applyFallback);
+
+        // Check if image already errored before listener was attached
+        if (img.complete && img.naturalWidth === 0) {
+          applyFallback();
+        }
+      });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', enhanceArticleContent);
+    } else {
+      enhanceArticleContent();
+    }
+  </script>
 
   <div class="relative z-10 w-full min-h-screen flex flex-col xl:flex-row items-start">
     <!-- Document Outline & Scrollbar Markers (Component Library & ChatGPT style) -->
@@ -239,6 +384,23 @@ const articleSchema = {
       )}
     </header>
 
+    <!-- Article Picture / Cover Media -->
+    {articleImageUrl && (
+      <figure class="my-6 overflow-hidden border border-neutral-200/80 dark:border-neutral-800/80 bg-neutral-100 dark:bg-neutral-900 shadow-sm">
+        <img
+          src={articleImageUrl}
+          alt={post.data.imageAlt || post.data.title}
+          class="w-full max-h-[560px] object-cover"
+          loading="eager"
+        />
+        {post.data.imageAlt && (
+          <figcaption class="px-4 py-2.5 text-xs text-neutral-500 dark:text-neutral-400 font-sans border-t border-neutral-200/60 dark:border-neutral-800/60 bg-neutral-50/50 dark:bg-neutral-950/40">
+            {post.data.imageAlt}
+          </figcaption>
+        )}
+      </figure>
+    )}
+
     <!-- Post Body / Markdown Content -->
     <article class="blog-prose font-sans text-neutral-800 dark:text-neutral-200 leading-relaxed space-y-6 max-w-none">
       <Content />
@@ -304,6 +466,107 @@ const articleSchema = {
     line-height: 1.8;
     overflow-wrap: break-word;
     word-break: break-word;
+  }
+
+  /* Standard plain blockquotes: thinner left border (1.5px instead of 4px) */
+  .blog-prose blockquote:not([data-callout-enhanced="true"]) {
+    border-left-width: 1.5px;
+    border-left-color: rgb(212 212 216 / 0.9);
+    padding-left: 1.15rem;
+  }
+  @media (prefers-color-scheme: dark) {
+    .blog-prose blockquote:not([data-callout-enhanced="true"]) {
+      border-left-color: rgb(63 63 70 / 0.9);
+    }
+  }
+  .dark .blog-prose blockquote:not([data-callout-enhanced="true"]) {
+    border-left-color: rgb(63 63 70 / 0.9);
+  }
+
+  /* Enhanced GFM Callouts: clean rounded card with uniform 1px border and no leftover blockquote white left border */
+  .blog-prose blockquote[data-callout-enhanced="true"] {
+    font-style: normal;
+    border-width: 1px !important;
+    border-style: solid !important;
+  }
+  .blog-prose blockquote[data-callout-enhanced="true"].callout-note {
+    border-color: rgb(191 219 254 / 0.8) !important;
+    background-color: rgb(239 246 255 / 0.7) !important;
+  }
+  .blog-prose blockquote[data-callout-enhanced="true"].callout-tip {
+    border-color: rgb(167 243 208 / 0.8) !important;
+    background-color: rgb(236 253 245 / 0.7) !important;
+  }
+  .blog-prose blockquote[data-callout-enhanced="true"].callout-important {
+    border-color: rgb(233 213 255 / 0.8) !important;
+    background-color: rgb(250 245 255 / 0.7) !important;
+  }
+  .blog-prose blockquote[data-callout-enhanced="true"].callout-warning {
+    border-color: rgb(253 230 138 / 0.8) !important;
+    background-color: rgb(254 252 232 / 0.7) !important;
+  }
+  .blog-prose blockquote[data-callout-enhanced="true"].callout-caution {
+    border-color: rgb(254 205 211 / 0.8) !important;
+    background-color: rgb(255 241 242 / 0.7) !important;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .blog-prose blockquote[data-callout-enhanced="true"].callout-note {
+      border-color: rgb(30 58 138 / 0.6) !important;
+      background-color: rgb(23 37 84 / 0.25) !important;
+    }
+    .blog-prose blockquote[data-callout-enhanced="true"].callout-tip {
+      border-color: rgb(6 78 59 / 0.6) !important;
+      background-color: rgb(2 44 34 / 0.25) !important;
+    }
+    .blog-prose blockquote[data-callout-enhanced="true"].callout-important {
+      border-color: rgb(88 28 135 / 0.6) !important;
+      background-color: rgb(59 7 100 / 0.25) !important;
+    }
+    .blog-prose blockquote[data-callout-enhanced="true"].callout-warning {
+      border-color: rgb(120 53 15 / 0.6) !important;
+      background-color: rgb(69 26 3 / 0.25) !important;
+    }
+    .blog-prose blockquote[data-callout-enhanced="true"].callout-caution {
+      border-color: rgb(136 19 55 / 0.6) !important;
+      background-color: rgb(76 5 25 / 0.25) !important;
+    }
+  }
+
+  .dark .blog-prose blockquote[data-callout-enhanced="true"].callout-note {
+    border-color: rgb(30 58 138 / 0.6) !important;
+    background-color: rgb(23 37 84 / 0.25) !important;
+  }
+  .dark .blog-prose blockquote[data-callout-enhanced="true"].callout-tip {
+    border-color: rgb(6 78 59 / 0.6) !important;
+    background-color: rgb(2 44 34 / 0.25) !important;
+  }
+  .dark .blog-prose blockquote[data-callout-enhanced="true"].callout-important {
+    border-color: rgb(88 28 135 / 0.6) !important;
+    background-color: rgb(59 7 100 / 0.25) !important;
+  }
+  .dark .blog-prose blockquote[data-callout-enhanced="true"].callout-warning {
+    border-color: rgb(120 53 15 / 0.6) !important;
+    background-color: rgb(69 26 3 / 0.25) !important;
+  }
+  .dark .blog-prose blockquote[data-callout-enhanced="true"].callout-caution {
+    border-color: rgb(136 19 55 / 0.6) !important;
+    background-color: rgb(76 5 25 / 0.25) !important;
+  }
+
+  .blog-prose blockquote[data-callout-enhanced="true"]::before,
+  .blog-prose blockquote[data-callout-enhanced="true"]::after {
+    content: none !important;
+  }
+  .blog-prose blockquote[data-callout-enhanced="true"] p {
+    margin-top: 0.375rem;
+    margin-bottom: 0.375rem;
+  }
+  .blog-prose blockquote[data-callout-enhanced="true"] p:first-of-type {
+    margin-top: 0;
+  }
+  .blog-prose blockquote[data-callout-enhanced="true"] p:last-of-type {
+    margin-bottom: 0;
   }
 
   .blog-prose h2,
