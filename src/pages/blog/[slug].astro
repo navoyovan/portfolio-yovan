@@ -33,6 +33,13 @@ const formattedDate = post.data.publishDate.toLocaleDateString('en-US', {
   timeZone: 'UTC',
 });
 
+const formattedUpdatedDate = post.data.updatedDate?.toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+  timeZone: 'UTC',
+});
+
 const readingTime = (() => {
   const words = (post.body || '').trim().split(/\s+/).filter(Boolean).length;
   const minutes = Math.max(1, Math.ceil(words / 200));
@@ -170,9 +177,17 @@ const articleSchema = {
   title={`${post.data.title} | Yovan Gunardio Darmawan`}
   description={post.data.description}
   image={articleImage}
+  imageAlt={post.data.imageAlt}
   type="article"
   keywords={post.data.tags}
   schema={articleSchema}
+  noindex={post.data.noindex}
+  article={{
+    publishedTime: post.data.publishDate,
+    modifiedTime: post.data.updatedDate,
+    author: isAiOnly ? authors[0].name : AUTHOR_NAME,
+    tags: post.data.tags,
+  }}
 >
   <!-- Reading Progress Bar -->
   <div
@@ -379,6 +394,12 @@ const articleSchema = {
           <time datetime={post.data.publishDate.toISOString()}>
             {formattedDate}
           </time>
+          {post.data.updatedDate && (
+            <>
+              <span class="text-neutral-300 dark:text-neutral-700" aria-hidden="true">•</span>
+              <span>Updated <time datetime={post.data.updatedDate.toISOString()}>{formattedUpdatedDate}</time></span>
+            </>
+          )}
           <span class="text-neutral-300 dark:text-neutral-700" aria-hidden="true">•</span>
           <span>{readingTime}</span>
         </div>
