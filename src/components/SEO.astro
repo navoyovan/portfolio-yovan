@@ -1,33 +1,43 @@
----
+import { absoluteUrl, pageUrl, AUTHOR_NAME } from '../lib/seo';
+
 interface Props {
   title?: string;
   description?: string;
   image?: string;
+  imageAlt?: string;
   canonicalURL?: string | URL;
   type?: 'website' | 'article';
   keywords?: string[];
   schema?: Record<string, any>;
   noindex?: boolean;
+  article?: {
+    publishedTime: Date;
+    modifiedTime?: Date;
+    author?: string;
+    tags?: string[];
+  };
 }
 
 const rawBase = import.meta.env.BASE_URL;
 const base = rawBase.endsWith('/') ? rawBase.slice(0, -1) : rawBase;
 
 const {
-  title = 'Yovan Gunardio Darmawan | Software Engineer & Builder',
+  title = `${AUTHOR_NAME} | Software Engineer & Builder`,
   description = 'High-performance web platforms, touchscreen kiosks, and full-stack systems built with Astro, Tailwind CSS, and React.',
   image = '/og-default.png',
-  canonicalURL = new URL(Astro.url.pathname, Astro.site || Astro.url),
+  imageAlt,
+  canonicalURL = pageUrl(Astro.url.pathname),
   type = 'website',
   keywords = ['Astro', 'SEO', 'Web Performance', 'Tailwind CSS', 'Portfolio', 'Full-Stack', 'Systems Engineering', 'Laravel', 'Electron'],
   schema,
   noindex = false,
+  article,
 } = Astro.props;
 
 const siteTitle = title.includes('Yovan') ? title : `${title} | Yovan`;
-const resolvedImagePath = image.startsWith('/') ? `${base}${image}` : image;
-const formattedImageURL = new URL(resolvedImagePath, Astro.site || Astro.url).toString();
-const siteUrl = Astro.site?.toString() || Astro.url.origin;
+const formattedImageURL = absoluteUrl(image);
+const isDefaultOgImage = image.includes('og-default.png');
+const resolvedImageAlt = imageAlt ?? siteTitle;
 
 const defaultSchema = {
   '@context': 'https://schema.org',
@@ -86,7 +96,7 @@ const finalSchema = schema || defaultSchema;
 {noindex ? (
   <meta name="robots" content="noindex, nofollow" />
 ) : (
-  <meta name="robots" content="index, follow" />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
 )}
 
 <!-- Primary Meta Tags -->
@@ -102,11 +112,35 @@ const finalSchema = schema || defaultSchema;
 <meta property="og:title" content={siteTitle} />
 <meta property="og:description" content={description} />
 <meta property="og:image" content={formattedImageURL} />
-<meta property="og:image:width" content="1200" />
-<meta property="og:image:height" content="630" />
-<meta property="og:image:alt" content={siteTitle} />
+{isDefaultOgImage && (
+  <>
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+  </>
+)}
+<meta property="og:image:alt" content={resolvedImageAlt} />
 <meta property="og:locale" content="en_US" />
-<meta property="og:site_name" content="Yovan Gunardio Darmawan" />
+<meta property="og:site_name" content={AUTHOR_NAME} />
+
+<!-- Twitter / X -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={siteTitle} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={formattedImageURL} />
+<meta name="twitter:image:alt" content={resolvedImageAlt} />
+
+<!-- Article Metadata -->
+{article && (
+  <>
+    <meta property="article:published_time" content={article.publishedTime.toISOString()} />
+    {article.modifiedTime && <meta property="article:modified_time" content={article.modifiedTime.toISOString()} />}
+    <meta property="article:author" content={article.author ?? AUTHOR_NAME} />
+    {article.tags?.map((tag) => <meta property="article:tag" content={tag} />)}
+  </>
+)}
+
+<!-- RSS Autodiscovery -->
+<link rel="alternate" type="application/rss+xml" title={`${AUTHOR_NAME} — Blog`} href={`${base}/blog/rss.xml`} />
 
 <!-- Schema.org JSON-LD -->
 <script type="application/ld+json" is:inline set:html={JSON.stringify(finalSchema)} />
