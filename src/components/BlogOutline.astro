@@ -13,7 +13,7 @@ interface Props {
 }
 
 const { headings = [] } = Astro.props;
-const filteredHeadings = headings.filter((h) => h.depth === 2 || h.depth === 3);
+const filteredHeadings = headings.filter((h) => h.depth >= 2 && h.depth <= 4);
 ---
 
 {filteredHeadings.length > 0 && (
@@ -83,11 +83,15 @@ const filteredHeadings = headings.filter((h) => h.depth === 2 || h.depth === 3);
                   data-target={item.slug}
                   data-title={item.text}
                   data-depth={item.depth}
+                  data-active="false"
                   class:list={[
                     'sidebar-nav-btn group w-full text-left rounded-none transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-neutral-950 dark:focus-visible:ring-white overflow-hidden',
+                    'data-[active=true]:bg-neutral-100 dark:data-[active=true]:bg-neutral-900 data-[active=true]:text-neutral-950 dark:data-[active=true]:text-white data-[active=true]:font-semibold',
                     item.depth === 2
-                      ? 'py-2.5 px-5 text-[13.5px] sm:text-sm font-sans font-medium text-neutral-700 dark:text-neutral-300 hover:text-neutral-950 dark:hover:text-white hover:bg-neutral-100 dark:hover:bg-neutral-900'
-                      : 'py-2 pl-8 pr-5 text-xs font-sans text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-200 hover:bg-neutral-50 dark:hover:bg-neutral-900/50',
+                      ? 'py-2.5 px-5 text-[13.5px] sm:text-sm font-sans font-medium text-neutral-800 dark:text-neutral-200 hover:text-neutral-950 dark:hover:text-white hover:bg-neutral-100 dark:hover:bg-neutral-900'
+                      : item.depth === 3
+                        ? 'py-2 pl-8 pr-5 text-xs font-sans font-normal text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-200 hover:bg-neutral-50 dark:hover:bg-neutral-900/50'
+                        : 'py-1.5 pl-11 pr-5 text-[11px] font-sans font-normal text-neutral-400 dark:text-neutral-500 hover:text-neutral-700 dark:hover:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-neutral-900/40',
                   ]}
                 >
                   <span class="block truncate whitespace-nowrap leading-snug">
@@ -124,7 +128,14 @@ const filteredHeadings = headings.filter((h) => h.depth === 2 || h.depth === 3);
           type="button"
           data-target={item.slug}
           data-active="false"
-          class="mobile-tab-btn shrink-0 px-3.5 py-1.5 text-xs sm:text-sm font-sans font-medium rounded-md transition-colors cursor-pointer border border-transparent whitespace-nowrap active:scale-95 bg-neutral-100 dark:bg-neutral-900 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-800 hover:text-neutral-950 dark:hover:text-white data-[active=true]:bg-neutral-950 data-[active=true]:text-white data-[active=true]:hover:text-white dark:data-[active=true]:bg-white dark:data-[active=true]:text-neutral-950 dark:data-[active=true]:hover:text-neutral-950 dark:data-[active=true]:hover:bg-neutral-100"
+          class:list={[
+            'mobile-tab-btn shrink-0 py-1.5 font-sans rounded-md transition-colors cursor-pointer border border-transparent whitespace-nowrap active:scale-95 bg-neutral-100 dark:bg-neutral-900 hover:bg-neutral-200 dark:hover:bg-neutral-800 hover:text-neutral-950 dark:hover:text-white data-[active=true]:bg-neutral-950 data-[active=true]:text-white data-[active=true]:hover:text-white dark:data-[active=true]:bg-white dark:data-[active=true]:text-neutral-950 dark:data-[active=true]:hover:text-neutral-950 dark:data-[active=true]:hover:bg-neutral-100',
+            item.depth === 2
+              ? 'px-3.5 text-xs sm:text-sm font-medium text-neutral-800 dark:text-neutral-200'
+              : item.depth === 3
+                ? 'px-2.5 text-xs font-normal text-neutral-500 dark:text-neutral-400'
+                : 'px-2 text-[11px] font-normal text-neutral-400 dark:text-neutral-500',
+          ]}
         >
           {item.text}
         </button>
@@ -295,12 +306,7 @@ const filteredHeadings = headings.filter((h) => h.depth === 2 || h.depth === 3);
 
       sidebarBtns.forEach((btn) => {
         const isCurrent = btn.getAttribute('data-target') === activeSlug;
-        if (isCurrent) {
-          btn.classList.add('bg-neutral-100', 'dark:bg-neutral-900', 'text-neutral-950', 'dark:text-white', 'font-semibold');
-          btn.classList.remove('text-neutral-600', 'dark:text-neutral-400', 'text-neutral-500');
-        } else {
-          btn.classList.remove('bg-neutral-100', 'dark:bg-neutral-900', 'text-neutral-950', 'dark:text-white', 'font-semibold');
-        }
+        btn.setAttribute('data-active', isCurrent ? 'true' : 'false');
       });
 
       const switcher = document.getElementById('mobile-tab-switcher');
