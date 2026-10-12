@@ -7,7 +7,10 @@ export const AUTHOR_NAME = 'Yovan Gunardio Darmawan';
 /** Absolute URL for a site path, e.g. absoluteUrl('/blog/foo/') */
 export function absoluteUrl(path = '/'): string {
   if (/^https?:\/\//.test(path)) return path;
-  const clean = path.startsWith('/') ? path : `/${path}`;
+  let clean = path.startsWith('/') ? path : `/${path}`;
+  if (BASE && (clean === BASE || clean.startsWith(`${BASE}/`))) {
+    clean = clean.slice(BASE.length) || '/';
+  }
   return `${SITE}${BASE}${clean}`;
 }
 
