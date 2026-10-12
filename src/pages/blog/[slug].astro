@@ -29,6 +29,7 @@ const formattedDate = post.data.publishDate.toLocaleDateString('en-US', {
   year: 'numeric',
   month: 'long',
   day: 'numeric',
+  timeZone: 'UTC',
 });
 
 const readingTime = (() => {
@@ -48,22 +49,45 @@ interface NormalizedAuthor {
   isAi: boolean;
 }
 
+function detectIsAi(name = '', avatar = '', role = '', explicitIsAi?: boolean): boolean {
+  if (typeof explicitIsAi === 'boolean') return explicitIsAi;
+  const n = name.toLowerCase();
+  const a = (avatar || '').toLowerCase();
+  const r = (role || '').toLowerCase();
+  if (n.includes('yovan')) return false;
+  return (
+    n.includes('antigravity') ||
+    n.includes('claude') ||
+    n.includes('gemini') ||
+    n.includes('gpt') ||
+    n.includes('openai') ||
+    n.includes('anthropic') ||
+    n.includes('deepmind') ||
+    a.includes('agy') ||
+    a.includes('cld') ||
+    r.includes('language model') ||
+    r.includes('coding agent') ||
+    r.includes('text generation') ||
+    r.includes('generation')
+  );
+}
+
 const authors: NormalizedAuthor[] = (() => {
   if (post.data.authors && post.data.authors.length > 0) {
     return post.data.authors.map((a: any) => {
       if (typeof a === 'string') {
-        const isAi = a.toLowerCase().includes('antigravity');
+        const isAi = detectIsAi(a);
         return {
           name: a,
-          role: isAi ? 'Autonomous Coding Agent at Google DeepMind' : 'Software Engineer & Systems Architect',
+          role: isAi ? 'Autonomous AI Collaborator & Systems Audit' : 'Software Engineer & Systems Architect',
           isAi,
           avatar: isAi ? '/images/agy.png' : (a.toLowerCase().includes('yovan') ? '/images/yg.png' : undefined),
         };
       }
-      const isAi = a.name.toLowerCase().includes('antigravity') || Boolean(a.avatar?.includes('agy'));
+      const isAi = detectIsAi(a.name, a.avatar, a.role, a.isAi);
       return {
         name: a.name,
-        role: a.role || (isAi ? 'Autonomous Coding Agent at Google DeepMind' : 'Software Engineer & Systems Architect'),
+        role: a.role || (isAi ? 'Autonomous AI Collaborator & Systems Audit' : 'Software Engineer & Systems Architect'),
         avatar: a.avatar || (isAi ? '/images/agy.png' : (a.name.toLowerCase().includes('yovan') ? '/images/yg.png' : undefined)),
         isAi,
       };
@@ -71,15 +95,14 @@ const authors: NormalizedAuthor[] = (() => {
   }
 
   const name = post.data.author || 'Yovan Gunardio Darmawan';
-  const isAi = Boolean(post.data.author && post.data.author !== 'Yovan Gunardio Darmawan');
+  const isAi = detectIsAi(name, post.data.authorAvatar, post.data.authorRole);
   const role = post.data.authorRole || (isAi ? 'Autonomous Coding Agent & Language Model at Google DeepMind' : 'Software Engineer & Systems Architecture Enthusiast based in Bogor, Indonesia.');
   const avatar = post.data.authorAvatar || (isAi ? '/images/agy.png' : '/images/yg.png');
 
   return [{ name, role, avatar, isAi }];
 })();
 
-const authorNames = authors.map((a) => a.name).join(' & ');
-const hasAiAuthor = authors.some((a) => a.isAi);
+  const hasAiAuthor = authors.some((a) => a.isAi);
 
 function resolveImageUrl(img?: string) {
   if (!img) return undefined;
@@ -245,6 +268,16 @@ const articleSchema = {
           applyFallback();
         }
       });
+
+      // 3. Responsive Table Wrapper
+      const tables = prose.querySelectorAll('table');
+      tables.forEach((table) => {
+        if (table.parentElement?.classList.contains('table-scroll-wrapper')) return;
+        const wrapper = document.createElement('div');
+        wrapper.className = 'table-scroll-wrapper my-6 w-full max-w-full overflow-x-auto rounded-lg border border-neutral-200/80 dark:border-neutral-800/80 shadow-xs';
+        table.parentNode?.insertBefore(wrapper, table);
+        wrapper.appendChild(table);
+      });
     }
 
     if (document.readyState === 'loading') {
@@ -287,7 +320,16 @@ const articleSchema = {
             ))}
           </div>
           <span class="font-medium text-neutral-800 dark:text-neutral-200">
-            By {authorNames}
+            By {authors.map((author, index) => (
+              <>
+                {index > 0 && index === authors.length - 1 ? (
+                  <span class="text-neutral-400 dark:text-neutral-500 font-normal px-1 select-none">&</span>
+                ) : index > 0 ? (
+                  <span class="text-neutral-400 dark:text-neutral-500 font-normal mr-1 select-none">,</span>
+                ) : null}
+                <span>{author.name}</span>
+              </>
+            ))}
           </span>
         </div>
 
@@ -296,12 +338,13 @@ const articleSchema = {
             {authors.length > 1 ? 'AI Co-Author' : 'AI Author'}
           </span>
         )}
-        <span>•</span>
-        <time datetime={post.data.publishDate.toISOString()}>
-          {formattedDate}
-        </time>
-        <span>•</span>
-        <span>{readingTime}</span>
+        <div class="inline-flex items-center gap-1.5 text-xs text-neutral-500 dark:text-neutral-400 font-sans whitespace-nowrap px-2 py-0.5 rounded-full bg-neutral-100 dark:bg-neutral-900 border border-neutral-200/80 dark:border-neutral-800 shrink-0">
+          <time datetime={post.data.publishDate.toISOString()}>
+            {formattedDate}
+          </time>
+          <span class="text-neutral-300 dark:text-neutral-700" aria-hidden="true">•</span>
+          <span>{readingTime}</span>
+        </div>
       </div>
 
       <h1 class="text-3xl sm:text-4xl lg:text-5xl font-sans font-bold tracking-tight text-neutral-950 dark:text-white leading-tight">
@@ -571,47 +614,67 @@ const articleSchema = {
 
   .blog-prose h2,
   .blog-prose h3,
-  .blog-prose h4 {
+  .blog-prose h4,
+  .blog-prose h5,
+  .blog-prose h6 {
     scroll-margin-top: 7.5rem;
+    font-family: var(--font-sans, -apple-system, BlinkMacSystemFont, sans-serif);
+    color: var(--tw-prose-headings, inherit);
   }
 
   @media (min-width: 1280px) {
     .blog-prose h2,
     .blog-prose h3,
-    .blog-prose h4 {
+    .blog-prose h4,
+    .blog-prose h5,
+    .blog-prose h6 {
       scroll-margin-top: 5rem;
     }
   }
 
   .blog-prose h2 {
-    font-family: var(--font-sans, -apple-system, BlinkMacSystemFont, sans-serif);
     font-weight: 700;
     font-size: 1.625rem;
     line-height: 1.3;
     letter-spacing: -0.015em;
     margin-top: 2.5rem;
     margin-bottom: 0.75rem;
-    color: var(--tw-prose-headings, inherit);
   }
 
   .blog-prose h3 {
-    font-family: var(--font-sans, -apple-system, BlinkMacSystemFont, sans-serif);
     font-weight: 600;
     font-size: 1.25rem;
     line-height: 1.4;
     letter-spacing: -0.01em;
     margin-top: 1.75rem;
     margin-bottom: 0.5rem;
-    color: var(--tw-prose-headings, inherit);
   }
 
   .blog-prose h4 {
-    font-family: var(--font-sans, -apple-system, BlinkMacSystemFont, sans-serif);
     font-weight: 600;
     font-size: 1.1rem;
     line-height: 1.4;
+    letter-spacing: -0.005em;
     margin-top: 1.5rem;
     margin-bottom: 0.5rem;
+  }
+
+  .blog-prose h5 {
+    font-weight: 600;
+    font-size: 0.975rem;
+    line-height: 1.45;
+    margin-top: 1.25rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .blog-prose h6 {
+    font-weight: 600;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 1.25rem;
+    margin-bottom: 0.4rem;
   }
 
   .blog-prose p {
@@ -672,28 +735,68 @@ const articleSchema = {
     opacity: 0.9;
   }
 
-  .blog-prose table {
-    display: block;
+  .table-scroll-wrapper {
     width: 100%;
     max-width: 100%;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     margin-top: 1.5rem;
     margin-bottom: 1.5rem;
-    border-collapse: collapse;
+  }
+
+  .blog-prose table {
+    display: block;
+    width: 100%;
+    min-width: max-content;
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+    border-collapse: separate;
+    border-spacing: 0;
     font-size: 0.875rem;
   }
 
+  .table-scroll-wrapper table,
+  .blog-prose .table-scroll-wrapper table {
+    display: table;
+    width: 100%;
+    min-width: max-content;
+    margin-top: 0;
+    margin-bottom: 0;
+    border-collapse: separate;
+    border-spacing: 0;
+    border: none;
+  }
+
   .blog-prose th, .blog-prose td {
-    padding: 0.65rem 0.85rem;
-    border: 1px solid rgba(150, 150, 160, 0.2);
+    padding: 0.65rem 1rem;
+    border-bottom: 1px solid rgba(150, 150, 160, 0.15);
+    border-right: 1px solid rgba(150, 150, 160, 0.15);
+    border-top: none;
+    border-left: none;
     text-align: left;
+    white-space: nowrap;
+  }
+
+  /* Remove outer perimeter borders inside the rounded scroll wrapper */
+  .table-scroll-wrapper tr > *:last-child {
+    border-right: none;
+  }
+
+  .table-scroll-wrapper tbody tr:last-child > * {
+    border-bottom: none;
   }
 
   .blog-prose th {
     font-family: var(--font-sans, -apple-system, BlinkMacSystemFont, sans-serif);
     font-weight: 600;
     background-color: rgba(150, 150, 160, 0.08);
+  }
+
+  .blog-prose tbody tr:hover {
+    background-color: rgba(150, 150, 160, 0.04);
   }
 
   .blog-prose hr {
@@ -708,6 +811,72 @@ const articleSchema = {
     margin-top: 1.75rem;
     margin-bottom: 1rem;
     border: 1px solid rgba(150, 150, 160, 0.2);
+  }
+
+  /* Modern Collapsible / Disclosure (<details> & <summary>) */
+  .blog-prose details {
+    margin-top: 1.25rem;
+    margin-bottom: 1.25rem;
+    padding: 0.85rem 1.15rem;
+    border-radius: 0.625rem;
+    border: 1px solid rgba(150, 150, 160, 0.2);
+    background-color: rgba(150, 150, 160, 0.04);
+    transition: background-color 0.15s ease, border-color 0.15s ease;
+  }
+
+  .blog-prose details[open] {
+    background-color: rgba(150, 150, 160, 0.06);
+  }
+
+  .blog-prose summary {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    font-family: var(--font-sans, -apple-system, BlinkMacSystemFont, sans-serif);
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--tw-prose-headings, inherit);
+    list-style: none;
+    user-select: none;
+  }
+
+  .blog-prose summary::-webkit-details-marker,
+  .blog-prose summary::marker {
+    display: none;
+  }
+
+  /* Modern chevron line icon > */
+  .blog-prose summary::before {
+    content: '';
+    display: inline-block;
+    width: 0.45rem;
+    height: 0.45rem;
+    border-right: 2px solid currentColor;
+    border-top: 2px solid currentColor;
+    transform: rotate(45deg);
+    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    opacity: 0.7;
+    flex-shrink: 0;
+    margin-right: 0.25rem;
+  }
+
+  .blog-prose details[open] > summary::before {
+    transform: rotate(135deg);
+  }
+
+  .blog-prose summary:hover::before {
+    opacity: 1;
+  }
+
+  .blog-prose summary:focus-visible {
+    outline: 2px solid rgba(150, 150, 160, 0.4);
+    outline-offset: 2px;
+    border-radius: 0.25rem;
+  }
+
+  .blog-prose details > :not(summary) {
+    margin-top: 0.75rem;
   }
 </style>
 
