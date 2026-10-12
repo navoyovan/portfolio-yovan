@@ -25,6 +25,7 @@ const authorObjSchema = z.object({
   avatar: z.string().optional(),
   bio: z.string().optional(),
   url: z.string().optional(),
+  isAi: z.boolean().optional(),
 });
 
 const blog = defineCollection({

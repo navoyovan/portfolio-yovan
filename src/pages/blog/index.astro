@@ -10,18 +10,40 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
   (a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime()
 );
 
+function detectIsAi(name = '', avatar = '', role = '', explicitIsAi?: boolean): boolean {
+  if (typeof explicitIsAi === 'boolean') return explicitIsAi;
+  const n = name.toLowerCase();
+  const a = (avatar || '').toLowerCase();
+  const r = (role || '').toLowerCase();
+  if (n.includes('yovan')) return false;
+  return (
+    n.includes('antigravity') ||
+    n.includes('claude') ||
+    n.includes('gemini') ||
+    n.includes('gpt') ||
+    n.includes('openai') ||
+    n.includes('anthropic') ||
+    n.includes('deepmind') ||
+    a.includes('agy') ||
+    a.includes('cld') ||
+    r.includes('language model') ||
+    r.includes('coding agent') ||
+    r.includes('generation')
+  );
+}
+
 function getPostAuthors(post: any) {
   if (post.data.authors && post.data.authors.length > 0) {
     return post.data.authors.map((a: any) => {
       if (typeof a === 'string') {
-        const isAi = a.toLowerCase().includes('antigravity');
+        const isAi = detectIsAi(a);
         return {
           name: a,
           isAi,
           avatar: isAi ? '/images/agy.png' : (a.toLowerCase().includes('yovan') ? '/images/yg.png' : undefined),
         };
       }
-      const isAi = a.name.toLowerCase().includes('antigravity') || Boolean(a.avatar?.includes('agy'));
+      const isAi = detectIsAi(a.name, a.avatar, a.role, a.isAi);
       return {
         name: a.name,
         isAi,
@@ -30,7 +52,7 @@ function getPostAuthors(post: any) {
     });
   }
   const name = post.data.author || 'Yovan Gunardio Darmawan';
-  const isAi = Boolean(post.data.author && post.data.author !== 'Yovan Gunardio Darmawan');
+  const isAi = detectIsAi(name, post.data.authorAvatar, post.data.authorRole);
   const avatar = post.data.authorAvatar || (isAi ? '/images/agy.png' : '/images/yg.png');
   return [{ name, isAi, avatar }];
 }
@@ -84,7 +106,7 @@ const blogSchema = {
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-12">
     <!-- Header Matching Portfolio Index -->
     <div id="blog-header" class="border-b border-neutral-200 dark:border-neutral-800 pb-8">
-      <h1 class="text-3xl sm:text-4xl font-bold tracking-tight text-neutral-950 dark:text-white">
+      <h1 class="text-3xl sm:text-4xl font-sans font-bold tracking-tight text-neutral-950 dark:text-white">
         Blog
       </h1>
       <p
@@ -112,6 +134,7 @@ const blogSchema = {
             year: 'numeric',
             month: 'short',
             day: 'numeric',
+            timeZone: 'UTC',
           });
 
           const postAuthors = getPostAuthors(post);
@@ -140,17 +163,27 @@ const blogSchema = {
                           ))}
                         </div>
                         <span class="text-xs text-neutral-700 dark:text-neutral-300 font-sans font-medium">
-                          By {postAuthors.map((a) => a.name).join(' & ')}
+                          By {postAuthors.map((a, i) => (
+                            <>
+                              {i > 0 && i === postAuthors.length - 1 ? (
+                                <span class="text-neutral-400 dark:text-neutral-500 font-normal px-1 select-none">&</span>
+                              ) : i > 0 ? (
+                                <span class="text-neutral-400 dark:text-neutral-500 font-normal mr-1 select-none">,</span>
+                              ) : null}
+                              <span>{a.name}</span>
+                            </>
+                          ))}
                         </span>
                       </div>
-                      <span class="text-neutral-300 dark:text-neutral-700 font-sans">•</span>
-                      <time datetime={post.data.publishDate.toISOString()} class="text-xs text-neutral-500 dark:text-neutral-400 font-sans">
-                        {formattedDate}
-                      </time>
-                      <span class="text-neutral-300 dark:text-neutral-700 font-sans">•</span>
-                      <span class="text-xs text-neutral-500 dark:text-neutral-400 font-sans">
-                        {getReadingTime(post.body)}
-                      </span>
+                      <div class="inline-flex items-center gap-1.5 text-xs text-neutral-500 dark:text-neutral-400 font-sans whitespace-nowrap px-2 py-0.5 rounded-full bg-neutral-100 dark:bg-neutral-900 border border-neutral-200/80 dark:border-neutral-800 shrink-0">
+                        <time datetime={post.data.publishDate.toISOString()}>
+                          {formattedDate}
+                        </time>
+                        <span class="text-neutral-300 dark:text-neutral-700" aria-hidden="true">•</span>
+                        <span>
+                          {getReadingTime(post.body)}
+                        </span>
+                      </div>
                     </div>
                   </div>
 
@@ -216,6 +249,7 @@ const blogSchema = {
                 year: 'numeric',
                 month: 'short',
                 day: 'numeric',
+                timeZone: 'UTC',
               });
               const postAuthors = getPostAuthors(post);
               const thumbSrc = resolveImageUrl(post.data.thumbnail || post.data.image);
@@ -250,17 +284,27 @@ const blogSchema = {
                             ))}
                           </div>
                           <span class="text-[11px] sm:text-xs text-neutral-700 dark:text-neutral-300 font-sans font-medium">
-                            By {postAuthors.map((a) => a.name).join(' & ')}
+                            By {postAuthors.map((a, i) => (
+                              <>
+                                {i > 0 && i === postAuthors.length - 1 ? (
+                                  <span class="text-neutral-400 dark:text-neutral-500 font-normal px-1 select-none">&</span>
+                                ) : i > 0 ? (
+                                  <span class="text-neutral-400 dark:text-neutral-500 font-normal mr-1 select-none">,</span>
+                                ) : null}
+                                <span>{a.name}</span>
+                              </>
+                            ))}
                           </span>
                         </div>
-                        <span class="text-neutral-300 dark:text-neutral-700 font-sans">•</span>
-                        <time datetime={post.data.publishDate.toISOString()} class="text-xs text-neutral-500 dark:text-neutral-400 font-sans">
-                          {formattedDate}
-                        </time>
-                        <span class="text-neutral-300 dark:text-neutral-700 font-sans">•</span>
-                        <span class="text-xs text-neutral-500 dark:text-neutral-400 font-sans">
-                          {getReadingTime(post.body)}
-                        </span>
+                        <div class="inline-flex items-center gap-1.5 text-[11px] sm:text-xs text-neutral-500 dark:text-neutral-400 font-sans whitespace-nowrap px-2 py-0.5 rounded-full bg-neutral-100 dark:bg-neutral-900 border border-neutral-200/80 dark:border-neutral-800 shrink-0">
+                          <time datetime={post.data.publishDate.toISOString()}>
+                            {formattedDate}
+                          </time>
+                          <span class="text-neutral-300 dark:text-neutral-700" aria-hidden="true">•</span>
+                          <span>
+                            {getReadingTime(post.body)}
+                          </span>
+                        </div>
                       </div>
                     </div>
 
