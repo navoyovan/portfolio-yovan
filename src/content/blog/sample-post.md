@@ -553,7 +553,7 @@ An inline path that refuses to break: `C:\Users\Yovan\AppData\Local\Programs\hyp
 - Thai: สวัสดีชาวโลก
 - Javanese: ꦲꦭꦺꦴ​ꦢꦸꦤꦶꦪ
 - Emoji: 🚀 🔥 ✨ 🧪 🐛 👩🏽‍💻 🫪 (ZWJ sequences included)
-- Weird Unicodes: ⊛ ￼ ​
+- Weird Unicodes: ⊛ ￼ ​꩜
 
 - Weird Fonts: H̵̨̛̛̫͈̟̝͙͉̘̭̖̾̐̓͗͌͘͠͝ę̵̩̥͉͎͒̓̒̈́͛͆͌̋͝ľ̵͖̩̫̱̱͈̐̎͒͗̉l̵̢͚̳͉͖̆̿ǒ̵͚̼̰̱̲͕̬̅͐͜ ̶̨͔̫͈̹͓͋̈́̈́͝Ẅ̷̨͍̥̜͎̠̀̋̔̽̂͌͒̀̏o̸̰̩̱̼̪̰̣̦̘̳̾̆̈́̈r̸̡̥͎̖̲̪̎̉̾̽l̴͉̪̪̩̳̘̲̞̝̓̍͝d̴̻͍͍̟͔̱̣̘̍͂̀̀̉̚;̵̱͖̤̮̖̹͚͂͆͜
 
