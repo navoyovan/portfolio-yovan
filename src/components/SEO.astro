@@ -1,4 +1,5 @@
-import { absoluteUrl, pageUrl, AUTHOR_NAME } from '../lib/seo';
+---
+import { absoluteUrl, pageUrl, AUTHOR_NAME, SITE_ROOT } from '../lib/seo';
 
 interface Props {
   title?: string;
@@ -49,7 +50,7 @@ const defaultSchema = {
     jobTitle: 'Software Engineer & Systems Builder',
     description: description,
     email: 'mailto:yovangunardio@gmail.com',
-    url: siteUrl,
+    url: SITE_ROOT,
     image: formattedImageURL,
     address: {
       '@type': 'PostalAddress',
