@@ -131,19 +131,50 @@ const collectionSchema = {
   ]}
   schema={collectionSchema}
 >
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-14">
-    <!-- Header -->
-    <div id="portfolio-header" class="border-b border-neutral-200 dark:border-neutral-800 pb-8">
-      <h1 class="text-3xl sm:text-4xl font-bold tracking-tight text-neutral-950 dark:text-white">
-        Portfolio Index
-      </h1>
-      <p
-        data-en="A structured index and directory of projects, systems, and engineering work across the portfolio."
-        data-id="Indeks terstruktur dari berbagai proyek, sistem, dan hasil kerja di portofolio ini."
-        class="text-sm sm:text-base text-neutral-600 dark:text-neutral-400 mt-2 max-w-2xl font-normal"
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20 space-y-14">
+    <!-- Page Header: Sliced Numeral Bar -->
+    <div id="portfolio-header" class="flex items-stretch gap-0 pb-1">
+      <!-- Big Numeral (sliced by container edge) -->
+      <div
+        class="relative overflow-hidden flex items-start justify-end select-none shrink-0 w-[60px] sm:w-[85px]"
+        style="contain: paint;"
+        aria-hidden="true"
       >
-        A structured index and directory of projects, systems, and engineering work across the portfolio.
-      </p>
+        <span
+          class="relative font-sans font-black leading-none text-neutral-950/40 dark:text-white/40 tracking-[0.5px] shrink-0 select-none"
+          style="font-size: 92px; left: 9px; top: -6px; display: inline-block;"
+        >
+          *
+        </span>
+      </div>
+
+      <!-- Vertical Divider -->
+      <div class="w-px bg-neutral-300 dark:bg-neutral-800 shrink-0 self-stretch my-0.5" aria-hidden="true"></div>
+
+      <!-- Right Side: label + headline + subdeck -->
+      <div class="flex-1 flex flex-col justify-center min-w-0 pl-2.5 sm:pl-4 lg:pl-5 py-0.5 gap-1.5">
+        <!-- Category label bar -->
+        <div class="flex items-center justify-between pb-1 border-b border-neutral-200 dark:border-neutral-800 w-full">
+          <span class="font-sans font-medium text-[10.5px] sm:text-xs uppercase tracking-[0.5px] text-neutral-500 dark:text-neutral-400">
+            SYSTEMS &amp; PROJECT DIRECTORY
+          </span>
+        </div>
+        <!-- Headline + subdeck -->
+        <div class="space-y-1.5 pt-0.5">
+          <h1
+            class="text-[25px] sm:text-4xl md:text-5xl lg:text-6xl font-medium tracking-[0.5px] text-neutral-950 dark:text-white leading-[1.08] font-montreal w-full m-0"
+          >
+            Portfolio Index.
+          </h1>
+          <p
+            data-en="A structured index and directory of projects, systems, and engineering work across the portfolio."
+            data-id="Indeks terstruktur dari berbagai proyek, sistem, dan hasil kerja di portofolio ini."
+            class="font-sans text-sm sm:text-base text-neutral-600 dark:text-neutral-400 leading-relaxed font-normal tracking-[0.5px] max-w-3xl m-0"
+          >
+            A structured index and directory of projects, systems, and engineering work across the portfolio.
+          </p>
+        </div>
+      </div>
     </div>
 
     <!-- Tree Index by Category -->
@@ -154,17 +185,37 @@ const collectionSchema = {
           aria-labelledby={`cat-heading-${category.number}`}
           class="space-y-4 scroll-mt-24"
         >
-          <!-- Parent Category Header -->
-          <div class="pb-2 border-b border-neutral-200 dark:border-neutral-800 flex items-center justify-between">
-            <h2
-              id={`cat-heading-${category.number}`}
-              class="text-xs uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-bold font-heading"
+          <!-- Parent Category Header: Mini Sliced Numeral Row -->
+          <div class="flex items-stretch gap-0">
+            <!-- Mini section numeral (half-cropped) -->
+            <div
+              class="relative overflow-hidden flex items-start justify-end select-none shrink-0 w-[32px] sm:w-[44px]"
+              style="contain: paint;"
+              aria-hidden="true"
             >
-              {category.number} // {category.title}
-            </h2>
-            <span class="text-xs font-medium text-neutral-400 dark:text-neutral-500 font-sans">
-              {category.items.length} {category.items.length === 1 ? 'entry' : 'entries'}
-            </span>
+              <span
+                class="relative font-sans font-black leading-none text-neutral-950/30 dark:text-white/25 shrink-0 select-none"
+                style="font-size: 46px; left: 5px; top: -3px; display: inline-block;"
+              >
+                {category.number}
+              </span>
+            </div>
+
+            <!-- Vertical rule -->
+            <div class="w-px bg-neutral-300 dark:bg-neutral-800 shrink-0 self-stretch my-0.5" aria-hidden="true"></div>
+
+            <!-- Label + entry count -->
+            <div class="flex-1 flex items-center justify-between min-w-0 pl-2.5 sm:pl-3 border-b border-neutral-200 dark:border-neutral-800 pb-2">
+              <h2
+                id={`cat-heading-${category.number}`}
+                class="text-xs uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-bold font-heading"
+              >
+                {category.title}
+              </h2>
+              <span class="text-xs font-medium text-neutral-400 dark:text-neutral-500 font-sans">
+                {category.items.length} {category.items.length === 1 ? 'entry' : 'entries'}
+              </span>
+            </div>
           </div>
 
           <!-- Terminal Tree Feed Container -->
