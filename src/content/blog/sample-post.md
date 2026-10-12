@@ -680,6 +680,8 @@ Praesent blandit laoreet nibh. Fusce convallis metus id felis luctus adipiscing.
 
 ## 12. Author Profile Specimen
 
+<div class="my-8 p-6 sm:p-8 rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50/60 dark:bg-neutral-900/50 shadow-xs [&>h1:first-child]:!mt-0">
+
 # Yovan Gunardio Darmawan
 
 <picture>
@@ -710,6 +712,8 @@ Visit my portfolio website: [yovangunard.io](https://navoyovan.github.io/portfol
   <source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=ts,js,php,html,css,cs,react,laravel,astro,dotnet,nodejs,tailwind,vite,electron,sqlite,mysql,docker,gcp,git,github&perline=10&theme=dark" />
   <img src="https://skillicons.dev/icons?i=ts,js,php,html,css,cs,react,laravel,astro,dotnet,nodejs,tailwind,vite,electron,sqlite,mysql,docker,gcp,git,github&perline=10&theme=light" alt="Tech stack" class="!my-2" />
 </picture>
+
+</div>
 
 ---
 
