@@ -704,7 +704,7 @@ Hey, I'm **Yovan** (or **van** for 1 syllable). Software engineer, likes buildin
 
 I work across web applications, desktop IPC software, IoT systems, and internal tools.
 
-Visit my portfolio website: [yovangunard.io](https://navoyovan.github.io/portfolio-yovan?utm_source=github&utm_medium=readme)
+Visit my GitHub: [github.com/navoyovan](https://github.com/navoyovan)
 
 ### Stacks & Technologies
 
