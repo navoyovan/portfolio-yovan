@@ -179,42 +179,12 @@ const titleId = `tile-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
       </div>
     ) : (brand === 'hero' || brand === 'portfolio' || brand === 'yovan') ? (
       <div class="tile-hologram-overlay absolute inset-0 z-20 flex items-center justify-center bg-black/55 backdrop-blur-[2px] opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none select-none">
-        <div class="hologram-content hologram-hero select-none flex flex-col leading-none font-heading transform scale-90 group-hover:scale-100 -translate-x-3 sm:-translate-x-4 transition-transform duration-300 pl-4">
-          <!-- Row 1: < yovan -->
-          <div
-            class="relative inline-flex items-baseline whitespace-nowrap leading-[0.9] text-white/95 font-black text-2xl sm:text-3xl"
-            style="letter-spacing: -0.04em;"
-          >
-            <span
-              class="absolute right-full mr-1 text-white/50 select-none text-xs sm:text-sm font-black"
-              style="bottom: 0.15em;"
-            >&lt;</span>
-            <span>yovan</span>
+        <div class="hologram-content hologram-hero select-none flex flex-col leading-[0.88] font-machina text-2xl sm:text-3xl lg:text-4xl text-white transform scale-90 group-hover:scale-100 transition-transform duration-300 drop-shadow-[0_0_24px_rgba(0,0,0,0.9)]" style="letter-spacing: -0.02em; font-weight: 300;">
+          <div class="relative inline-flex items-baseline whitespace-nowrap">
+            <span>Yovan</span><span class="inline-block transition-colors text-[var(--color-accent,#52FF1A)]">;</span>
           </div>
-
-          <!-- Row 2: gunardio; -->
-          <div
-            class="inline-flex items-baseline whitespace-nowrap leading-[0.95] text-white/90 font-black text-xl sm:text-2xl"
-            style="letter-spacing: -0.03em; margin-top: -0.1rem;"
-          >
-            <span>gunardio</span>
-            <span
-              class="text-white/50 text-sm sm:text-base font-black ml-0.5"
-            >;</span>
-          </div>
-
-          <!-- Row 3: // darmawan /> -->
-          <div
-            class="relative inline-flex items-baseline whitespace-nowrap leading-none font-normal text-xs sm:text-sm mt-1"
-            style="letter-spacing: 0.06em;"
-          >
-            <span
-              class="text-[var(--color-accent,#52FF1A)] opacity-75 mr-1 text-[10px] sm:text-xs font-normal"
-            >//</span>
-            <span class="text-neutral-300">darmawan</span>
-            <span
-              class="text-white/50 text-xs sm:text-sm font-black ml-1 select-none"
-            >/&gt;</span>
+          <div class="inline-flex items-baseline whitespace-nowrap" style="margin-top: -0.25rem;">
+            <span>Gunardio</span><span class="inline-block transition-colors text-[var(--color-accent,#52FF1A)]">.</span>
           </div>
         </div>
       </div>
