@@ -35,7 +35,7 @@ const {
   article,
 } = Astro.props;
 
-const siteTitle = title.includes('Yovan') ? title : `${title} | Yovan`;
+const siteTitle = title;
 const formattedImageURL = absoluteUrl(image);
 const isDefaultOgImage = image.includes('og-default.png');
 const resolvedImageAlt = imageAlt ?? siteTitle;
