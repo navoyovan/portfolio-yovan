@@ -13,7 +13,7 @@ interface Props {
 }
 
 const { headings = [] } = Astro.props;
-const filteredHeadings = headings.filter((h) => h.depth >= 2 && h.depth <= 4);
+const filteredHeadings = headings.filter((h) => h.depth >= 1 && h.depth <= 4);
 ---
 
 {filteredHeadings.length > 0 && (
@@ -87,7 +87,7 @@ const filteredHeadings = headings.filter((h) => h.depth >= 2 && h.depth <= 4);
                   class:list={[
                     'sidebar-nav-btn group w-full text-left rounded-none transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-neutral-950 dark:focus-visible:ring-white overflow-hidden',
                     'data-[active=true]:bg-neutral-100 dark:data-[active=true]:bg-neutral-900 data-[active=true]:text-neutral-950 dark:data-[active=true]:text-white data-[active=true]:font-semibold',
-                    item.depth === 2
+                    item.depth <= 2
                       ? 'py-2.5 px-5 text-[13.5px] sm:text-sm font-sans font-medium text-neutral-800 dark:text-neutral-200 hover:text-neutral-950 dark:hover:text-white hover:bg-neutral-100 dark:hover:bg-neutral-900'
                       : item.depth === 3
                         ? 'py-2 pl-8 pr-5 text-xs font-sans font-normal text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-200 hover:bg-neutral-50 dark:hover:bg-neutral-900/50'
@@ -130,7 +130,7 @@ const filteredHeadings = headings.filter((h) => h.depth >= 2 && h.depth <= 4);
           data-active="false"
           class:list={[
             'mobile-tab-btn shrink-0 py-1.5 font-sans rounded-md transition-colors cursor-pointer border border-transparent whitespace-nowrap active:scale-95 bg-neutral-100 dark:bg-neutral-900 hover:bg-neutral-200 dark:hover:bg-neutral-800 hover:text-neutral-950 dark:hover:text-white data-[active=true]:bg-neutral-950 data-[active=true]:text-white data-[active=true]:hover:text-white dark:data-[active=true]:bg-white dark:data-[active=true]:text-neutral-950 dark:data-[active=true]:hover:text-neutral-950 dark:data-[active=true]:hover:bg-neutral-100',
-            item.depth === 2
+            item.depth <= 2
               ? 'px-3.5 text-xs sm:text-sm font-medium text-neutral-800 dark:text-neutral-200'
               : item.depth === 3
                 ? 'px-2.5 text-xs font-normal text-neutral-500 dark:text-neutral-400'

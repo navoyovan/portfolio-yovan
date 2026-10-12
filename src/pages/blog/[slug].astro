@@ -612,6 +612,7 @@ const articleSchema = {
     margin-bottom: 0;
   }
 
+  .blog-prose h1,
   .blog-prose h2,
   .blog-prose h3,
   .blog-prose h4,
@@ -623,6 +624,7 @@ const articleSchema = {
   }
 
   @media (min-width: 1280px) {
+    .blog-prose h1,
     .blog-prose h2,
     .blog-prose h3,
     .blog-prose h4,
@@ -630,6 +632,15 @@ const articleSchema = {
     .blog-prose h6 {
       scroll-margin-top: 5rem;
     }
+  }
+
+  .blog-prose h1 {
+    font-weight: 700;
+    font-size: 2rem;
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+    margin-top: 3rem;
+    margin-bottom: 1rem;
   }
 
   .blog-prose h2 {
@@ -807,10 +818,51 @@ const articleSchema = {
   }
 
   .blog-prose img {
-    border-radius: 0.5rem;
+    border-radius: 0;
     margin-top: 1.75rem;
     margin-bottom: 1rem;
-    border: 1px solid rgba(150, 150, 160, 0.2);
+    border: none;
+  }
+
+  .blog-prose picture,
+  .blog-prose picture img,
+  .blog-prose figure,
+  .blog-prose figure img,
+  .blog-prose video {
+    border-radius: 0 !important;
+    border: none;
+  }
+
+  /* Hyperlinks: high-contrast text with subtle, clean underline & hover accent */
+  .blog-prose a {
+    color: var(--tw-prose-headings, #171717);
+    text-decoration: underline;
+    text-decoration-color: rgba(150, 150, 160, 0.45);
+    text-decoration-thickness: 1.5px;
+    text-underline-offset: 3.5px;
+    font-weight: 500;
+    transition: color 0.15s ease, text-decoration-color 0.15s ease;
+  }
+
+  .blog-prose a:hover {
+    color: #000000;
+    text-decoration-color: #000000;
+  }
+
+  .dark .blog-prose a {
+    color: #f5f5f5;
+    text-decoration-color: rgba(160, 160, 170, 0.45);
+  }
+
+  .dark .blog-prose a:hover {
+    color: #ffffff;
+    text-decoration-color: #ffffff;
+  }
+
+  .blog-prose a:has(img),
+  .blog-prose a:has(picture),
+  .blog-prose a:has(svg) {
+    text-decoration: none;
   }
 
   /* Modern Collapsible / Disclosure (<details> & <summary>) */
