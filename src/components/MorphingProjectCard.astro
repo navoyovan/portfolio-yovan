@@ -149,14 +149,52 @@ const titleId = `tile-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
             </span>
           </div>
         </div>
+      ) : (brand === 'blog' || brand === 'editorial') ? (
+        <div class="tile-hologram-overlay absolute inset-0 z-20 flex items-center justify-center bg-black/55 backdrop-blur-[2px] opacity-0 group-hover/media:opacity-100 transition-all duration-300 pointer-events-none select-none">
+          <div class="hologram-content hologram-hero select-none flex flex-col leading-[0.96] sm:leading-[0.9] lg:leading-[0.88] font-machina text-2xl sm:text-3xl lg:text-4xl text-white transform scale-90 group-hover/media:scale-100 transition-transform duration-300 drop-shadow-[0_0_24px_rgba(0,0,0,0.9)]" style="letter-spacing: -0.02em; font-weight: 300;">
+            <div class="relative inline-flex items-baseline whitespace-nowrap">
+              <span>Yovan</span><span class="inline-block transition-colors hover:text-[#52FF1A] cursor-default">;</span>
+            </div>
+            <div class="inline-flex items-baseline whitespace-nowrap mt-1 sm:mt-0 lg:-mt-1">
+              <span>Gunardio</span><span class="inline-block transition-colors hover:text-[#52FF1A] cursor-default">.</span>
+            </div>
+          </div>
+        </div>
       ) : (brand === 'hero' || brand === 'portfolio' || brand === 'yovan') ? (
         <div class="tile-hologram-overlay absolute inset-0 z-20 flex items-center justify-center bg-black/55 backdrop-blur-[2px] opacity-0 group-hover/media:opacity-100 transition-all duration-300 pointer-events-none select-none">
-          <div class="hologram-content hologram-hero select-none flex flex-col leading-[0.88] font-machina text-2xl sm:text-3xl lg:text-4xl text-white transform scale-90 group-hover/media:scale-100 transition-transform duration-300 drop-shadow-[0_0_24px_rgba(0,0,0,0.9)]" style="letter-spacing: -0.02em; font-weight: 300;">
-            <div class="relative inline-flex items-baseline whitespace-nowrap">
-              <span>Yovan</span><span class="inline-block transition-colors text-[var(--color-accent,#52FF1A)]">;</span>
+          <div class="hologram-content hologram-hero select-none flex flex-col leading-none font-heading transform scale-90 -translate-x-3 sm:-translate-x-4 group-hover/media:scale-100 transition-transform duration-300 pl-4">
+            <div
+              class="relative inline-flex items-baseline whitespace-nowrap leading-[0.9] text-white/95 font-black text-2xl sm:text-3xl"
+              style="letter-spacing: -0.04em;"
+            >
+              <span
+                class="absolute right-full mr-1 text-white/50 select-none text-xs sm:text-sm font-black"
+                style="bottom: 0.15em;"
+              >&lt;</span>
+              <span>yovan</span>
             </div>
-            <div class="inline-flex items-baseline whitespace-nowrap" style="margin-top: -0.25rem;">
-              <span>Gunardio</span><span class="inline-block transition-colors text-[var(--color-accent,#52FF1A)]">.</span>
+
+            <div
+              class="inline-flex items-baseline whitespace-nowrap leading-[0.95] text-white/90 font-black text-xl sm:text-2xl"
+              style="letter-spacing: -0.03em; margin-top: -0.1rem;"
+            >
+              <span>gunardio</span>
+              <span
+                class="text-white/50 text-sm sm:text-base font-black ml-0.5"
+              >;</span>
+            </div>
+
+            <div
+              class="relative inline-flex items-baseline whitespace-nowrap leading-none font-normal text-xs sm:text-sm mt-1"
+              style="letter-spacing: 0.06em;"
+            >
+              <span
+                class="text-[var(--color-accent,#52FF1A)] opacity-75 mr-1 text-[10px] sm:text-xs font-normal"
+              >//</span>
+              <span class="text-neutral-300">darmawan</span>
+              <span
+                class="text-white/50 text-xs sm:text-sm font-black ml-1 select-none"
+              >/&gt;</span>
             </div>
           </div>
         </div>
