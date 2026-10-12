@@ -10,15 +10,22 @@ interface Props {
   title?: string;
   description?: string;
   image?: string;
+  imageAlt?: string;
   canonicalURL?: string | URL;
   type?: 'website' | 'article';
   keywords?: string[];
   schema?: Record<string, any>;
   noindex?: boolean;
   hideNavbar?: boolean;
+  article?: {
+    publishedTime: Date;
+    modifiedTime?: Date;
+    author?: string;
+    tags?: string[];
+  };
 }
 
-const { title, description, image, canonicalURL, type, keywords, schema, noindex, hideNavbar = false } = Astro.props;
+const { title, description, image, imageAlt, canonicalURL, type, keywords, schema, noindex, hideNavbar = false, article } = Astro.props;
 ---
 
 <!doctype html>
@@ -317,11 +324,13 @@ const { title, description, image, canonicalURL, type, keywords, schema, noindex
       title={title}
       description={description}
       image={image}
+      imageAlt={imageAlt}
       canonicalURL={canonicalURL}
       type={type}
       keywords={keywords}
       schema={schema}
       noindex={noindex}
+      article={article}
     />
   </head>
   <body class="min-h-full flex flex-col relative">

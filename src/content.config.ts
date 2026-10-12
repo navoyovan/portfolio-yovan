@@ -33,6 +33,7 @@ const blog = defineCollection({
   schema: z.object({
     title: z.string(),
     publishDate: z.coerce.date(),
+    updatedDate: z.coerce.date().optional(),
     description: z.string(),
     tags: z.array(z.string()).default([]),
     project: reference('projects').optional(),
@@ -44,6 +45,7 @@ const blog = defineCollection({
     authorAvatar: z.string().optional(),
     authors: z.array(z.union([z.string(), authorObjSchema])).optional(),
     draft: z.boolean().default(false),
+    noindex: z.boolean().default(false),
   }),
 });
 

@@ -5,6 +5,7 @@ description: "A deliberately hostile showcase post: every heading depth, every c
 tags: ["Architecture", "AI Collaboration", "Astro 5", "TypeScript", "Performance", "Systems", "Stress Test", "Typography", "Edge Cases"]
 project: "editorial-engine"
 draft: false
+noindex: true
 authors:
   - name: "Yovan Gunardio Darmawan"
     role: "Lead Software Engineer & Systems Architect"
