@@ -2,6 +2,7 @@
 import RootLayout from '../../layouts/RootLayout.astro';
 import AuthorAvatar from '../../components/AuthorAvatar.astro';
 import { getCollection, getEntry } from 'astro:content';
+import { pageUrl, SITE_ROOT, AUTHOR_NAME } from '../../lib/seo';
 
 const rawBase = import.meta.env.BASE_URL;
 const base = rawBase.endsWith('/') ? rawBase.slice(0, -1) : rawBase;
@@ -82,18 +83,47 @@ function resolveImageUrl(img?: string) {
   return `${base}${clean}`;
 }
 
-const siteUrl = Astro.site?.toString() || 'https://navoyovan.github.io/portfolio-yovan';
+const blogUrl = pageUrl('/blog/');
+const indexablePosts = posts.filter((p) => !p.data.noindex);
 
 const blogSchema = {
   '@context': 'https://schema.org',
-  '@type': 'Blog',
-  name: 'Technical Writing & Architecture Post-Mortems',
-  description: 'Deep dives, post-mortems, and architectural case studies by Yovan Gunardio Darmawan.',
-  url: `${siteUrl}/blog`,
-  author: {
-    '@type': 'Person',
-    name: 'Yovan Gunardio Darmawan',
-  },
+  '@graph': [
+    {
+      '@type': 'Blog',
+      '@id': `${blogUrl}#blog`,
+      name: 'Technical Writing & Architecture Post-Mortems',
+      description: 'Deep dives, post-mortems, and architectural case studies by Yovan Gunardio Darmawan.',
+      url: blogUrl,
+      author: {
+        '@type': 'Person',
+        name: AUTHOR_NAME,
+        url: SITE_ROOT,
+      },
+      publisher: {
+        '@type': 'Person',
+        name: AUTHOR_NAME,
+        url: SITE_ROOT,
+      },
+      blogPost: indexablePosts.map((p) => {
+        const slug = p.id.replace(/\.[^/.]+$/, '');
+        return {
+          '@type': 'BlogPosting',
+          headline: p.data.title,
+          url: pageUrl(`/blog/${slug}/`),
+          datePublished: p.data.publishDate.toISOString(),
+          description: p.data.description,
+        };
+      }),
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: SITE_ROOT },
+        { '@type': 'ListItem', position: 2, name: 'Blog', item: blogUrl },
+      ],
+    },
+  ],
 };
 ---
 
@@ -188,7 +218,7 @@ const blogSchema = {
                   </div>
 
                   <h2 class="text-2xl sm:text-3xl font-sans font-bold text-neutral-950 dark:text-white mb-3 leading-snug">
-                    <a href={`${base}/blog/${postSlug}`} class="focus:outline-none focus-visible:underline group-hover:text-neutral-700 dark:group-hover:text-neutral-200 transition-colors">
+                    <a href={`${base}/blog/${postSlug}/`} class="focus:outline-none focus-visible:underline group-hover:text-neutral-700 dark:group-hover:text-neutral-200 transition-colors">
                       <span class="absolute inset-0" aria-hidden="true"></span>
                       {post.data.title}
                     </a>
@@ -309,7 +339,7 @@ const blogSchema = {
                     </div>
 
                     <h3 class="text-xl sm:text-2xl font-sans font-bold text-neutral-950 dark:text-white mb-2 leading-snug">
-                      <a href={`${base}/blog/${postSlug}`} class="focus:outline-none focus-visible:underline group-hover:text-neutral-700 dark:group-hover:text-neutral-200 transition-colors">
+                      <a href={`${base}/blog/${postSlug}/`} class="focus:outline-none focus-visible:underline group-hover:text-neutral-700 dark:group-hover:text-neutral-200 transition-colors">
                         <span class="absolute inset-0" aria-hidden="true"></span>
                         {post.data.title}
                       </a>
