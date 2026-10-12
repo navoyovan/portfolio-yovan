@@ -1,5 +1,5 @@
 ---
-import fallbackData from '../data/github-contributions-all.json';
+import fallbackData from "../data/github-contributions-all.json";
 
 interface ContributionDay {
   date: string;
@@ -11,10 +11,13 @@ interface ContributionDay {
 let allContributions: ContributionDay[] = fallbackData.contributions;
 
 try {
-  const res = await fetch('https://github-contributions-api.jogruber.de/v4/navoyovan', {
-    signal: AbortSignal.timeout(2500),
-    headers: { 'User-Agent': 'navoyovan-portfolio-build' },
-  });
+  const res = await fetch(
+    "https://github-contributions-api.jogruber.de/v4/navoyovan",
+    {
+      signal: AbortSignal.timeout(2500),
+      headers: { "User-Agent": "navoyovan-portfolio-build" },
+    },
+  );
   if (res.ok) {
     const json = await res.json();
     if (json?.contributions && json.contributions.length > 0) {
@@ -25,20 +28,24 @@ try {
   // Gracefully use local cached fallback
 }
 
-const todayStr = new Date().toISOString().split('T')[0];
+const todayStr = new Date().toISOString().split("T")[0];
 
 // Sort chronologically ascending
-const sorted = allContributions.slice().sort((a, b) => a.date.localeCompare(b.date));
+const sorted = allContributions
+  .slice()
+  .sort((a, b) => a.date.localeCompare(b.date));
 
 // Filter up to today
 const filtered = sorted.filter((c) => c.date <= todayStr);
 
 // Align first date to previous Sunday so every column starts on Sunday
-const [startYear, startMonth, startDay] = filtered[0].date.split('-').map(Number);
+const [startYear, startMonth, startDay] = filtered[0].date
+  .split("-")
+  .map(Number);
 const firstDayOfWeek = new Date(startYear, startMonth - 1, startDay).getDay();
 const days: ContributionDay[] = [];
 for (let i = 0; i < firstDayOfWeek; i++) {
-  days.push({ date: '', count: 0, level: 0, placeholder: true });
+  days.push({ date: "", count: 0, level: 0, placeholder: true });
 }
 days.push(...filtered);
 
@@ -54,7 +61,6 @@ for (let w = 0; w < availableWeeks; w++) {
   const sliceStart = w * 7;
   weeks.push(days.slice(sliceStart, sliceStart + 7));
 }
-
 ---
 
 <section
@@ -115,9 +121,9 @@ for (let w = 0; w < availableWeeks; w++) {
                 {isLastWeek && padCount > 0 && (
                   <span
                     class="gcd-cell-joined"
-                    data-tooltip="Rest of week"
+                    data-tooltip="Rest of the week"
                     style={`height: calc(${padCount} * var(--cell-inner) + ${padCount - 1} * var(--gap));`}
-                    aria-label="Rest of week"
+                    aria-label="Rest of the week"
                   />
                 )}
               </div>
@@ -131,8 +137,7 @@ for (let w = 0; w < availableWeeks; w++) {
             class="gcd-cell-joined"
             data-tooltip="Upcoming week"
             style="height: calc(7 * var(--cell-inner) + 6 * var(--gap));"
-            aria-label="Upcoming week"
-          />
+            aria-label="Upcoming week"></span>
         </div>
       </div>
     </div>
@@ -149,7 +154,11 @@ for (let w = 0; w < availableWeeks; w++) {
           line-height: calc(3 * var(--cell));
         "
       >
-        <div>Yovan<span class="text-[var(--color-accent,#1b7f3b)] dark:text-[var(--color-accent,#52FF1A)]">;</span></div>
+        <div>
+          Yovan<span
+            class="text-[var(--color-accent,#1b7f3b)] dark:text-[var(--color-accent,#52FF1A)]"
+            >;</span>
+        </div>
         <div class="text-neutral-500 dark:text-neutral-400">Gunardio.</div>
       </div>
     </div>
@@ -158,7 +167,8 @@ for (let w = 0; w < availableWeeks; w++) {
     <div
       class="absolute bottom-0 inset-x-0 h-14 bg-gradient-to-b from-transparent to-[#fcfbf9] dark:to-[#0e0e0e] pointer-events-none z-10"
       aria-hidden="true"
-    ></div>
+    >
+    </div>
   </div>
 </section>
 
@@ -175,9 +185,9 @@ for (let w = 0; w < availableWeeks; w++) {
   .dark #github-contrib-grid,
   :root.dark #github-contrib-grid {
     --gcd-empty: #1c1c1c;
-    --gcd-l1: rgba(16, 185, 129, 0.20);
+    --gcd-l1: rgba(16, 185, 129, 0.2);
     --gcd-l2: rgba(16, 185, 129, 0.45);
-    --gcd-l3: rgba(16, 185, 129, 0.70);
+    --gcd-l3: rgba(16, 185, 129, 0.7);
     --gcd-l4: #10b981;
     --gcd-glow-l4: 0 0 6px rgba(16, 185, 129, 0.35);
   }
@@ -257,16 +267,17 @@ for (let w = 0; w < availableWeeks; w++) {
       -45deg,
       transparent,
       transparent 2px,
-      rgba(0, 0, 0, 0.07) 2px,
-      rgba(0, 0, 0, 0.07) 4px
+      rgba(0, 0, 0, 0.08) 2px,
+      rgba(0, 0, 0, 0.08) 4px
     );
     border: none;
     opacity: 0.6;
     cursor: default;
-    transition: transform 100ms ease, opacity 100ms ease;
+    transition:
+      transform 100ms ease,
+      opacity 100ms ease;
     flex-shrink: 0;
     position: relative;
-    z-index: 12;
     box-sizing: border-box;
   }
 
@@ -277,17 +288,17 @@ for (let w = 0; w < availableWeeks; w++) {
       -45deg,
       transparent,
       transparent 2px,
-      rgba(255, 255, 255, 0.06) 2px,
-      rgba(255, 255, 255, 0.06) 4px
+      rgba(0, 0, 0, 0.35) 2px,
+      rgba(0, 0, 0, 0.35) 4px
     );
     border: none;
-    opacity: 0.45;
+    opacity: 0.4;
   }
 
   #github-contrib-grid .gcd-cell-joined:hover,
   .dark #github-contrib-grid .gcd-cell-joined:hover,
   :root.dark #github-contrib-grid .gcd-cell-joined:hover {
-    opacity: 0.95 !important;
+    opacity: 1 !important;
     transform: scale(1.04);
     z-index: 30;
   }
@@ -314,28 +325,42 @@ for (let w = 0; w < availableWeeks; w++) {
   dir="ltr"
   class="pointer-events-none fixed z-[9999] px-2.5 py-1 rounded bg-neutral-950/90 text-white dark:bg-white/95 dark:text-neutral-950 font-mono text-[11px] font-light shadow-md border border-neutral-800/80 dark:border-neutral-200/80 backdrop-blur-xs transition-opacity duration-150 opacity-0 whitespace-nowrap -translate-x-1/2 -translate-y-[calc(100%+28px)]"
   aria-hidden="true"
-></div>
+>
+</div>
 
 <script is:inline>
   (function () {
     function setupTelemetry() {
-      const scrollEl = document.getElementById('github-contrib-scroll');
+      const scrollEl = document.getElementById("github-contrib-scroll");
       if (scrollEl) {
         scrollEl.scrollLeft = scrollEl.scrollWidth;
       }
 
-      const grid = document.getElementById('github-contrib-grid');
-      const tooltip = document.getElementById('github-contrib-tooltip');
+      const grid = document.getElementById("github-contrib-grid");
+      const tooltip = document.getElementById("github-contrib-tooltip");
       if (!grid || !tooltip) return;
 
       if (tooltip.parentElement !== document.body) {
         document.body.appendChild(tooltip);
       }
 
-      const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+      const MONTHS = [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec",
+      ];
       function formatTelemetryDate(dateStr) {
-        if (!dateStr) return '';
-        const parts = dateStr.split('-');
+        if (!dateStr) return "";
+        const parts = dateStr.split("-");
         if (parts.length < 3) return dateStr;
         const month = MONTHS[parseInt(parts[1], 10) - 1] || parts[1];
         const day = parseInt(parts[2], 10);
@@ -344,23 +369,23 @@ for (let w = 0; w < availableWeeks; w++) {
       }
 
       function showTooltip(e) {
-        const target = e.target.closest('.gcd-cell[data-d], .gcd-cell-joined');
+        const target = e.target.closest(".gcd-cell[data-d], .gcd-cell-joined");
         if (target) {
-          let label = '';
-          const tooltipText = target.getAttribute('data-tooltip');
+          let label = "";
+          const tooltipText = target.getAttribute("data-tooltip");
           if (tooltipText) {
             label = tooltipText;
           } else {
-            const count = parseInt(target.getAttribute('data-c') || '0', 10);
-            const dateStr = target.getAttribute('data-d');
+            const count = parseInt(target.getAttribute("data-c") || "0", 10);
+            const dateStr = target.getAttribute("data-d");
             const formattedDate = formatTelemetryDate(dateStr);
-            const countText = `${count} contribution${count === 1 ? '' : 's'}`;
+            const countText = `${count} contribution${count === 1 ? "" : "s"}`;
             label = `${countText} on ${formattedDate}`;
           }
 
           if (tooltip) {
             tooltip.textContent = label;
-            tooltip.style.opacity = '1';
+            tooltip.style.opacity = "1";
 
             const rect = tooltip.getBoundingClientRect();
             const width = rect.width || 160;
@@ -370,16 +395,19 @@ for (let w = 0; w < availableWeeks; w++) {
 
             const cellRect = target.getBoundingClientRect();
             const cellCenterX = cellRect.left + cellRect.width / 2;
-            const clampedX = Math.max(halfW + pad, Math.min(window.innerWidth - halfW - pad, cellCenterX));
+            const clampedX = Math.max(
+              halfW + pad,
+              Math.min(window.innerWidth - halfW - pad, cellCenterX),
+            );
             tooltip.style.left = `${clampedX}px`;
 
             if (cellRect.top < height + 35) {
-              tooltip.classList.remove('-translate-y-[calc(100%+28px)]');
-              tooltip.classList.add('translate-y-[28px]');
+              tooltip.classList.remove("-translate-y-[calc(100%+28px)]");
+              tooltip.classList.add("translate-y-[28px]");
               tooltip.style.top = `${cellRect.bottom}px`;
             } else {
-              tooltip.classList.remove('translate-y-[28px]');
-              tooltip.classList.add('-translate-y-[calc(100%+28px)]');
+              tooltip.classList.remove("translate-y-[28px]");
+              tooltip.classList.add("-translate-y-[calc(100%+28px)]");
               tooltip.style.top = `${cellRect.top}px`;
             }
           }
@@ -389,19 +417,19 @@ for (let w = 0; w < availableWeeks; w++) {
       }
 
       function hideTooltip() {
-        if (tooltip) tooltip.style.opacity = '0';
+        if (tooltip) tooltip.style.opacity = "0";
       }
 
-      grid.addEventListener('mouseover', showTooltip);
-      grid.addEventListener('mousemove', showTooltip);
-      grid.addEventListener('mouseleave', hideTooltip);
+      grid.addEventListener("mouseover", showTooltip);
+      grid.addEventListener("mousemove", showTooltip);
+      grid.addEventListener("mouseleave", hideTooltip);
     }
 
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', setupTelemetry);
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", setupTelemetry);
     } else {
       setupTelemetry();
     }
-    document.addEventListener('astro:page-load', setupTelemetry);
+    document.addEventListener("astro:page-load", setupTelemetry);
   })();
 </script>
