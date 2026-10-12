@@ -12,14 +12,27 @@ authors:
   - name: "Anthropic Claude"
     role: "Text generation and audit"
     avatar: "/images/cld.png"
+  - name: "Google Gemini"
+    role: "Code refactoring and audit"
+    avatar: "/images/gem.png"
 ---
 
-### Colophon
+## Colophon
 
-- **Model**: Sonnet 5.5, made by Anthropic
-- **Agent Harness**: N/A
-- **Generation Mode**: Single-shot autonomous generation with zero post-generation copyediting
-- **Published**: October 12, 2026
+This document serves as both an editorial stress test and a technical benchmark for the portfolio's markdown rendering engine. It was co-authored through human systems architecture and multi-agent AI collaboration.
+
+| Contributor | Harness & Model | Role & Scope |
+| :--- | :--- | :--- |
+| **Yovan Gunardio Darmawan** | Homo Sapiens Sapiens Systems Architect | Systems architecture, typography rules, layout engine, curation, verification |
+| **Anthropic Claude** | Sonnet 5.5 | Initial stress-test prose, unicode edge cases, multi-language benchmarks |
+| **Google Gemini** | Gemini 3.8 Flash *(Antigravity)* | Components refactoring, UI primitives |
+
+### Editorial Engine Specs
+
+- **Framework**: Astro 5 (Content Layer API) + Tailwind CSS v4
+- **Compiler**: Astro static site compiler backed by Vite and Rollup, featuring dead-code elimination, static asset pre-rendering, and `@tailwindcss/vite` JIT styling. Markdown is compiled through Astro's native pipeline with Shiki syntax highlighting, producing pure static HTML with zero client-side JavaScript runtime overhead for prose content.
+- **Typography**: Satoshi (`font-sans`) across all heading depths (H1–H6) and editorial prose; JetBrains Mono (`font-mono`) for code blocks, inline snippets, and developer telemetry.
+- **Table of Contents (ToC)**: Dynamic scroll-spy outline indexing H2 through H4 with progressive depth muting, declarative `data-active` tracking, and tactile scrollbar notch telemetry.
 
 ---
 
@@ -39,7 +52,7 @@ Here is a lead paragraph with **bold**, *italic*, ***both***, ~~strikethrough~~,
 
 ###### H6: The Bottom of the Barrel
 
-Back to body text. If the ToC skips H5 and H6 by design, that is fine. If it crashes, that is a bug.
+Back to body text. The ToC indexes H2 through H4 with progressive depth muting and scroll-spy tracking, while H5 and H6 provide styled deep-hierarchy sectioning without cluttering navigation.
 
 ### H3: A Heading That Is Intentionally Long So It Wraps Across Multiple Lines On Narrow Mobile Viewports And Tests The Sidebar Truncation Logic
 
