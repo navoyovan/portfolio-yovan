@@ -676,7 +676,7 @@ const { base } = Astro.props;
       <div
         id="others-scroll-container"
         class="relative flex flex-nowrap overflow-x-auto gap-4 sm:gap-5 pt-14 pl-6 pr-6 sm:pl-12 sm:pr-12 no-scrollbar items-start"
-        style="margin-top: -24px; padding-bottom: 340px; margin-bottom: -340px;"
+        style="margin-top: -24px; padding-bottom: 420px; margin-bottom: -420px;"
       >
         <MorphingProjectCard
           index="01"
@@ -1143,22 +1143,10 @@ const { base } = Astro.props;
       // Mobile: grow vertically in place (no horizontal bleed — viewport is
       // already ~slot width, so 125% would overshoot both sides). Desktop
       // keeps the 125% / -12.5% horizontal bloom.
-      // Adaptive height: measure the card's natural content height so cards
-      // with longer descriptions, tags, and action buttons never overflow their background.
-      const isMobile = window.innerWidth < 640;
-      const prevHeight = card.style.height;
-      card.style.height = "auto";
-      const naturalH = card.scrollHeight;
-      card.style.height = prevHeight || "";
-      void card.offsetHeight;
-
-      const targetHeight = isMobile
-        ? Math.ceil(Math.min(Math.max(naturalH, 380), 720))
-        : Math.ceil(Math.max(naturalH, 670));
-
       // Edge-aware bloom: middle tiles bloom centered (±12.5%), but the first
       // tile blooms rightward and the last tile leftward so nothing clips off
       // the viewport edge (scroll can't go negative past the flush edge).
+      const isMobile = window.innerWidth < 640;
       const slotIndex = Array.from(slots).indexOf(slot);
       let leftFactor = 0;
       let rightFactor = 0;
@@ -1173,8 +1161,25 @@ const { base } = Astro.props;
           rightFactor = 0;
         }
       }
+      const targetWidth = `${(1 + leftFactor + rightFactor) * 100}%`;
+
+      // Measure true natural height AT targetWidth so the card smoothly animates
+      // directly to its full required height without snapping or popping at the end.
+      const prevWidth = card.style.width;
+      const prevHeight = card.style.height;
+      card.style.width = targetWidth;
+      card.style.height = "auto";
+      const naturalH = card.scrollHeight;
+      card.style.width = prevWidth || "";
+      card.style.height = prevHeight || "";
+      void card.offsetHeight;
+
+      const targetHeight = isMobile
+        ? Math.ceil(Math.min(Math.max(naturalH, 380), 720))
+        : Math.ceil(Math.max(naturalH, 670));
+
       const expandedGeometry = {
-        width: `${(1 + leftFactor + rightFactor) * 100}%`,
+        width: targetWidth,
         left: leftFactor === 0 ? "0px" : `${-leftFactor * 100}%`,
         top: `-${topOffset}px`,
         height: `${targetHeight}px`,
