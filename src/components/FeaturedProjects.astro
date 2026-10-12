@@ -1143,19 +1143,19 @@ const { base } = Astro.props;
       // Mobile: grow vertically in place (no horizontal bleed — viewport is
       // already ~slot width, so 125% would overshoot both sides). Desktop
       // keeps the 125% / -12.5% horizontal bloom.
-      // Mobile height is adaptive: measure the card's natural content height
-      // instead of the fixed 670px desktop height, so short cards don't leave
-      // a long empty bottom.
+      // Adaptive height: measure the card's natural content height so cards
+      // with longer descriptions, tags, and action buttons never overflow their background.
       const isMobile = window.innerWidth < 640;
-      let targetHeight = 670;
-      if (isMobile) {
-        const prevHeight = card.style.height;
-        card.style.height = "auto";
-        const naturalH = card.scrollHeight;
-        card.style.height = prevHeight || "";
-        void card.offsetHeight;
-        targetHeight = Math.ceil(Math.min(Math.max(naturalH, 380), 720));
-      }
+      const prevHeight = card.style.height;
+      card.style.height = "auto";
+      const naturalH = card.scrollHeight;
+      card.style.height = prevHeight || "";
+      void card.offsetHeight;
+
+      const targetHeight = isMobile
+        ? Math.ceil(Math.min(Math.max(naturalH, 380), 720))
+        : Math.ceil(Math.max(naturalH, 670));
+
       // Edge-aware bloom: middle tiles bloom centered (±12.5%), but the first
       // tile blooms rightward and the last tile leftward so nothing clips off
       // the viewport edge (scroll can't go negative past the flush edge).
@@ -1177,7 +1177,7 @@ const { base } = Astro.props;
         width: `${(1 + leftFactor + rightFactor) * 100}%`,
         left: leftFactor === 0 ? "0px" : `${-leftFactor * 100}%`,
         top: `-${topOffset}px`,
-        height: isMobile ? `${targetHeight}px` : "670px",
+        height: `${targetHeight}px`,
         boxShadow: "none",
       };
       const cardAnim = animate(card, expandedGeometry, {
@@ -1190,7 +1190,7 @@ const { base } = Astro.props;
         card.classList.remove("is-morphing");
         // Stay adaptive after the morph (language toggle / font load reflows
         // naturally instead of clipping inside a fixed px height).
-        if (isMobile) card.style.height = "auto";
+        card.style.height = "auto";
       });
 
       const metaLabel = slot.querySelector<HTMLElement>(".morph-meta-label");
