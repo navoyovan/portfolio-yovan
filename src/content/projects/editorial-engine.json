@@ -6,6 +6,6 @@
   "description": "Static editorial engine with Astro 5 Content Layer, human + AI co-author attribution, scroll-spy telemetry, and resilient markdown primitives.",
   "descriptionId": "Engine editorial statis dengan Astro 5 Content Layer, atribusi co-author manusia + AI, telemetri scroll-spy, dan primitif markdown responsif.",
   "tech": ["Astro v5", "Content Layer", "Tailwind CSS v4", "TypeScript", "GFM Markdown"],
-  "href": "/blog",
+  "href": "/#projects",
   "year": "2026"
 }

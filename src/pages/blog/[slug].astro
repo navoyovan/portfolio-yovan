@@ -111,6 +111,13 @@ function resolveImageUrl(img?: string) {
   return `${base}${clean}`;
 }
 
+function formatUrl(url?: string): string {
+  if (!url) return '';
+  if (url.startsWith('http://') || url.startsWith('https://')) return url;
+  const clean = url.startsWith('/') ? url : `/${url}`;
+  return `${base}${clean}`;
+}
+
 const articleImage = post.data.image || post.data.thumbnail;
 const articleImageUrl = resolveImageUrl(articleImage);
 
@@ -402,7 +409,7 @@ const articleSchema = {
             <div class="flex sm:flex-col items-center sm:items-end gap-2 shrink-0 pt-1">
               {relatedProject.data.href && (
                 <a
-                  href={relatedProject.data.href}
+                  href={formatUrl(relatedProject.data.href)}
                   target={relatedProject.data.href.startsWith('http') ? '_blank' : undefined}
                   rel={relatedProject.data.href.startsWith('http') ? 'noopener noreferrer' : undefined}
                   class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-neutral-950 text-white dark:bg-white dark:text-neutral-950 font-sans font-semibold text-xs hover:opacity-90 transition-opacity"
