@@ -2,6 +2,7 @@
 // Overview.astro - Curated 01 // Overview Section
 import simpleIcons from "../data/simpleIcons.json";
 import { DitheringShader } from "./ui/dithering-shader";
+import EggLink from "./EggLink.astro";
 
 interface Props {
   base?: string;
@@ -119,20 +120,19 @@ const supportingStack = [
         />
       </div>
       <div class="w-full pt-3 flex items-center justify-between text-xs text-neutral-400 dark:text-neutral-500 font-sans px-1">
-        <button
-          type="button"
-          data-easter="modpe"
-          class="font-mono text-[11px] cursor-pointer hover:underline underline-offset-2 hover:text-neutral-700 dark:hover:text-neutral-300 transition-colors bg-transparent border-0 p-0 text-inherit"
-          aria-label="Unlock ModPE Scripting Cool Stuff"
-          data-aria-en="Unlock ModPE Scripting Cool Stuff"
-          data-aria-id="Buka Cool Stuff Skrip ModPE"
-        >Entity.setRenderType(mob, 3);</button>
-        <button
-          type="button"
-          data-easter="brght"
-          class="font-mono text-[11px] cursor-pointer hover:underline underline-offset-2 hover:text-neutral-700 dark:hover:text-neutral-300 transition-colors bg-transparent border-0 p-0 text-inherit"
-          aria-label="Unlock Cognitive Metrics Cool Stuff"
-        >x89</button>
+        <EggLink
+          easter="modpe"
+          en="Entity.setRenderType(mob, 3);"
+          ariaEn="Unlock ModPE Scripting Cool Stuff"
+          ariaId="Buka Cool Stuff Skrip ModPE"
+          class="font-mono text-[11px]"
+        />
+        <EggLink
+          easter="brght"
+          en="x89"
+          ariaEn="Unlock Cognitive Metrics Cool Stuff"
+          class="font-mono text-[11px]"
+        />
       </div>
     </div>
 
@@ -225,10 +225,14 @@ const supportingStack = [
           </h3>
           <p
             class="font-sans text-[14px] sm:text-[14.5px] leading-relaxed text-neutral-600 dark:text-neutral-400 m-0"
-            data-en="Touchscreen kiosks, connected microcontrollers (ESP32), payment gateways, and direct serial/IPC protocols."
-            data-id="Touchscreen kiosk, mikrokontroler terhubung (ESP32), payment gateway, dan protokol serial/IPC."
           >
-            Touchscreen kiosks, connected microcontrollers (ESP32), payment gateways, and direct serial/IPC protocols.
+            <span data-en="Touchscreen kiosks, connected " data-id="Touchscreen kiosk, ">Touchscreen kiosks, connected </span><EggLink
+              easter="gpio"
+              en="microcontrollers"
+              id="mikrokontroler"
+              ariaEn="Unlock GPIO16 Cool Stuff"
+              ariaId="Buka Cool Stuff GPIO16"
+            /><span data-en=" (ESP32), payment gateways, and direct serial/IPC protocols." data-id=" terhubung (ESP32), payment gateway, dan protokol serial/IPC."> (ESP32), payment gateways, and direct serial/IPC protocols.</span>
           </p>
         </div>
       </div>
@@ -305,31 +309,13 @@ const supportingStack = [
           >
             {
               supportingStack.map((tech) => {
-                const isEsp = tech.name === "ESP32 & IoT";
                 return (
                   <li class="inline-flex items-center gap-1.5 text-xs text-neutral-600 dark:text-neutral-400 hover:text-neutral-950 dark:hover:text-white transition-colors group">
-                    {isEsp ? (
-                      <button
-                        type="button"
-                        data-easter="ws2812b"
-                        class="inline-flex items-center gap-1.5 text-xs text-inherit bg-transparent border-0 p-0 cursor-pointer hover:underline underline-offset-2 transition-colors focus-visible:outline-none"
-                        aria-label="Unlock ESP8266 LED Controller Cool Stuff"
-                      >
-                        <i
-                          class={`ti ${tech.icon} text-sm text-neutral-400 dark:text-neutral-500 group-hover:text-neutral-900 dark:group-hover:text-white transition-colors`}
-                          aria-hidden="true"
-                        />
-                        <span class="font-sans font-medium">{tech.name}</span>
-                      </button>
-                    ) : (
-                      <>
-                        <i
-                          class={`ti ${tech.icon} text-sm text-neutral-400 dark:text-neutral-500 group-hover:text-neutral-900 dark:group-hover:text-white transition-colors`}
-                          aria-hidden="true"
-                        />
-                        <span class="font-sans font-medium">{tech.name}</span>
-                      </>
-                    )}
+                    <i
+                      class={`ti ${tech.icon} text-sm text-neutral-400 dark:text-neutral-500 group-hover:text-neutral-900 dark:group-hover:text-white transition-colors`}
+                      aria-hidden="true"
+                    />
+                    <span class="font-sans font-medium">{tech.name}</span>
                   </li>
                 );
               })

@@ -855,104 +855,7 @@ const base = rawBase.endsWith("/") ? rawBase.slice(0, -1) : rawBase;
   </div>
 </div>
 
-<!-- ░░ EASTER EGGS - Scattered Background Labels & Interactive Triggers ░░ -->
-<div
-  aria-hidden="true"
-  class="absolute inset-0 pointer-events-none overflow-hidden z-20"
->
-  <!-- 01: setTimeout(showTime, 1000); (Hero Top Left) -->
-  <span
-    class="egg-static absolute font-mono text-xs text-neutral-600 dark:text-neutral-300 select-none rotate-[-5deg]"
-    style="top:2%;left:2.5%;">setTimeout(showTime, 1000);</span
-  >
-
-  <!-- 02: WS2812B (Hero Right - ACTIVE EASTER EGG) -->
-  <button
-    type="button"
-    data-easter="ws2812b"
-    class="egg-static absolute font-mono text-xs text-neutral-600 dark:text-neutral-300 opacity-[0.08] hover:opacity-75 hover:underline underline-offset-4 cursor-pointer select-none transition-[opacity,text-decoration] duration-200 pointer-events-auto p-1 bg-transparent border-0 tracking-wider focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent,#52FF1A)] rounded rotate-[4deg]"
-    style="top:11%;right:2%;"
-    aria-label="Unlock WS2812B LED Cool Stuff"
-    data-aria-en="Unlock WS2812B LED Cool Stuff"
-    data-aria-id="Buka Cool Stuff LED WS2812B"
-  >
-    WS2812B
-  </button>
-
-  <!-- 03: GPIO16 (Between Hero & Sec 01 - ACTIVE EASTER EGG) -->
-  <button
-    type="button"
-    data-easter="gpio"
-    class="egg-static absolute font-mono text-xs text-neutral-600 dark:text-neutral-300 opacity-[0.08] hover:opacity-75 hover:underline underline-offset-4 cursor-pointer select-none transition-[opacity,text-decoration] duration-200 pointer-events-auto p-1 bg-transparent border-0 tracking-wider focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent,#52FF1A)] rounded rotate-[-3deg]"
-    style="top:21%;left:1.5%;"
-    aria-label="Unlock GPIO16 Cool Stuff"
-    data-aria-en="Unlock GPIO16 Cool Stuff"
-    data-aria-id="Buka Cool Stuff GPIO16"
-  >
-    GPIO16
-  </button>
-
-  <!-- 04: DateTime.Now (Sec 01 / Sec 02 Gap - ACTIVE EASTER EGG) -->
-  <button
-    type="button"
-    data-easter="jam-clock"
-    class="egg-static absolute font-mono text-xs text-neutral-600 dark:text-neutral-300 opacity-[0.08] hover:opacity-75 hover:underline underline-offset-4 cursor-pointer select-none transition-[opacity,text-decoration] duration-200 pointer-events-auto p-1 bg-transparent border-0 tracking-wider focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent,#52FF1A)] rounded rotate-[4deg]"
-    style="top:31%;right:2%;"
-    aria-label="Unlock Jam Digital Cool Stuff"
-    data-aria-en="Unlock Jam Digital Cool Stuff"
-    data-aria-id="Buka Cool Stuff Jam Digital"
-  >
-    DateTime.Now
-  </button>
-
-  <!-- 05: Node_12 (Sec 02 / Sec 03 Gap) -->
-  <span
-    class="egg-static absolute font-mono text-xs text-neutral-600 dark:text-neutral-300 select-none rotate-[-4deg]"
-    style="top:44%;left:2%;">Node_12</span
-  >
-
-  <!-- 06: return validasi() relocated inline into the Capabilities prose (src/pages/index.astro) -->
-
-
-  <!-- 07: since(2026); (Sec 04 / Sec 05 Gap) -->
-  <span
-    class="egg-static absolute font-mono text-xs text-neutral-600 dark:text-neutral-300 select-none rotate-[-4deg]"
-    style="top:66%;left:2%;">since(2026);</span
-  >
-
-  <!-- 08: localhost:44342 (Sec 05 / Sec 06 Gap - ACTIVE EASTER EGG) -->
-  <button
-    type="button"
-    data-easter="first-landing"
-    class="egg-static absolute font-mono text-xs text-neutral-600 dark:text-neutral-300 opacity-[0.08] hover:opacity-75 hover:underline underline-offset-4 cursor-pointer select-none transition-[opacity,text-decoration] duration-200 pointer-events-auto p-1 bg-transparent border-0 tracking-wider focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent,#52FF1A)] rounded rotate-[5deg]"
-    style="top:75%;right:3%;"
-    aria-label="Unlock First Landing Page Cool Stuff"
-    data-aria-en="Unlock First Landing Page Cool Stuff"
-    data-aria-id="Buka Cool Stuff Landing Page Pertama"
-  >
-    localhost:44342
-  </button>
-
-  <!-- 09: struct Pixel { r: u8, g: u8, b: u8 } (Sec 06 / Sec 07 Gap) -->
-  <span
-    class="egg-static absolute font-mono text-xs text-neutral-600 dark:text-neutral-300 select-none rotate-[2deg]"
-    style="top:89%;left:1.5%;"
-    >struct Pixel &#123; r: u8, g: u8, b: u8 &#125;</span
-  >
-
-  <!-- 10: 0x89 (Footer Area - ACTIVE EASTER EGG) -->
-  <button
-    type="button"
-    data-easter="brght"
-    class="egg-static absolute font-mono text-xs text-neutral-600 dark:text-neutral-300 opacity-[0.08] hover:opacity-75 hover:underline underline-offset-4 cursor-pointer select-none transition-[opacity,text-decoration] duration-200 pointer-events-auto p-1 bg-transparent border-0 tracking-wider focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent,#52FF1A)] rounded rotate-[-3deg]"
-    style="top:98%;right:2%;"
-    aria-label="Unlock Cognitive Metrics Cool Stuff"
-    data-aria-en="Unlock Cognitive Metrics Cool Stuff"
-    data-aria-id="Buka Cool Stuff Metrik Kognitif"
-  >
-    0x89
-  </button>
-</div>
+<!-- Easter-egg triggers are scattered inline in page prose via EggLink.astro; popups + click delegation below remain here. -->
 
 <style>
   /* Popup slide/fade animation */
@@ -973,21 +876,6 @@ const base = rawBase.endsWith("/") ? rawBase.slice(0, -1) : rawBase;
   }
   .egg-popup-modal.is-dragging {
     transition: none !important;
-  }
-
-  /* Easter egg fragments on the back */
-  .egg-static {
-    opacity: 0.08;
-    user-select: none;
-    transition:
-      opacity 0.2s ease,
-      text-decoration 0.2s ease;
-  }
-  button.egg-static:hover,
-  .egg-static[data-easter]:hover {
-    opacity: 0.75 !important;
-    text-decoration: underline !important;
-    text-underline-offset: 4px;
   }
 
   /* Marquee Footer Animation & Overflow */
@@ -1375,7 +1263,7 @@ const base = rawBase.endsWith("/") ? rawBase.slice(0, -1) : rawBase;
           togglePopup("egg-popup-clock");
         } else if (easterType === "modpe") {
           togglePopup("egg-popup-modpe");
-        } else if (easterType === "ws2812b" || easterType === "gpio") {
+        } else if (easterType === "gpio") {
           togglePopup("egg-popup-ws2812b");
         } else if (easterType === "brght") {
           togglePopup("egg-popup-brght");

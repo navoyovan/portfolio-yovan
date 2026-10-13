@@ -5,6 +5,7 @@ import Overview from "../components/Overview.astro";
 import FeaturedProjects from "../components/FeaturedProjects.astro";
 import StatusBadge from "../components/StatusBadge.astro";
 import ActionButton from "../components/ActionButton.astro";
+import EggLink from "../components/EggLink.astro";
 import EasterEggs from "../components/EasterEggs.astro";
 
 const rawBase = import.meta.env.BASE_URL;
@@ -183,16 +184,13 @@ const capabilities = [
                   <div class="lg:col-span-4 pl-8 sm:pl-9 lg:pl-0">
                     {item.num === "02" ? (
                       <p class="font-sans text-sm sm:text-[14.5px] leading-relaxed text-neutral-700 dark:text-neutral-300 font-normal m-0">
-                        <span data-en="Full-stack platforms, dashboards, internal tools, and SaaS products with " data-id="Platform full-stack, dashboard, internal tools, dan produk SaaS dengan ">Full-stack platforms, dashboards, internal tools, and SaaS products with </span><button
-                          type="button"
-                          data-easter="pertemuan7"
-                          class="cursor-pointer hover:underline underline-offset-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent,#52FF1A)] rounded bg-transparent border-0 p-0 text-inherit font-inherit inline-block"
-                          aria-label="Unlock Pertemuan 7 Form Login Cool Stuff"
-                          data-aria-en="Unlock Pertemuan 7 Form Login Cool Stuff"
-                          data-aria-id="Buka Cool Stuff Form Login Pertemuan 7"
-                          data-en="structured auth"
-                          data-id="autentikasi rapi"
-                        >structured auth</button><span data-en=" and robust APIs." data-id=" dan API tangguh."> and robust APIs.</span>
+                        <span data-en="Full-stack platforms, dashboards, internal tools, and SaaS products with " data-id="Platform full-stack, dashboard, internal tools, dan produk SaaS dengan ">Full-stack platforms, dashboards, internal tools, and SaaS products with </span><EggLink
+                          easter="pertemuan7"
+                          en="structured auth"
+                          id="autentikasi rapi"
+                          ariaEn="Unlock Pertemuan 7 Form Login Cool Stuff"
+                          ariaId="Buka Cool Stuff Form Login Pertemuan 7"
+                        /><span data-en=" and robust APIs." data-id=" dan API tangguh."> and robust APIs.</span>
                       </p>
                     ) : (
                       <p class="font-sans text-sm sm:text-[14.5px] leading-relaxed text-neutral-700 dark:text-neutral-300 font-normal m-0">

@@ -1,5 +1,6 @@
 ---
 import ActionButton from "./ActionButton.astro";
+import EggLink from "./EggLink.astro";
 import MorphingProjectCard from "./MorphingProjectCard.astro";
 import HoverExpandButton from "./HoverExpandButton.astro";
 
@@ -656,16 +657,12 @@ const { base } = Astro.props;
       <h3
         class="text-xl sm:text-2xl font-semibold tracking-tight text-neutral-950 dark:text-white font-sans"
       >
-        <button
-          type="button"
-          data-easter="first-landing"
-          class="cursor-pointer hover:underline underline-offset-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent,#52FF1A)] rounded bg-transparent border-0 p-0 text-inherit font-inherit inline-block"
-          aria-label="Unlock First Landing Page Cool Stuff"
-          data-aria-en="Unlock First Landing Page Cool Stuff"
-          data-aria-id="Buka Cool Stuff Landing Page Pertama"
-        >
-          Other(s)
-        </button>
+        <EggLink
+          easter="first-landing"
+          en="Other(s)"
+          ariaEn="Unlock First Landing Page Cool Stuff"
+          ariaId="Buka Cool Stuff Landing Page Pertama"
+        />
       </h3>
     </div>
 
