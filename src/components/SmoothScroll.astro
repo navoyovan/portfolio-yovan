@@ -24,12 +24,12 @@
     }
 
     lenisInstance = new Lenis({
-      duration: 1.15,
+      duration: 0.8,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: 'vertical',
       gestureOrientation: 'vertical',
       smoothWheel: true,
-      wheelMultiplier: 1.0,
+      wheelMultiplier: 1.15,
       touchMultiplier: 1.8,
     });
 
@@ -53,7 +53,7 @@
               e.preventDefault();
               lenisInstance.scrollTo(targetEl as HTMLElement, {
                 offset: -64,
-                duration: 1.2,
+                duration: 0.9,
               });
               history.pushState(null, '', url.hash);
             }
