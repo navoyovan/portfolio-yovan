@@ -151,15 +151,12 @@ const supportingStack = [
       <!-- About Narrative (Integrated from Section 05) -->
       <div class="space-y-4 pt-1 text-base sm:text-[17px] text-neutral-700 dark:text-neutral-300 leading-relaxed font-normal">
         <p
-          data-en="My journey started with modding Java games back when I was in elementary school and Android games in high school, but curiosity pulled me into everything around it, like- designing interfaces, building backend, connecting hardware, and creating intuitive experiences for users."
-          data-id="Perjalananku berawal dari ngoprek game Java ketika SD dan game Android pas SMA. Rasa penasaran menuntunku dari sana sampe ke sini, desain UI/UX, bikin backend, jadi tukang kabel (nyambungin hardware), sampai membangun pengalaman yang intuitif buat pengguna."
+          data-en="Started out modding Java and Android games; curiosity did the rest. Today I design systems from interface to bare metal."
+          data-id="Berawal dari ngoprek game Java dan Android; rasa penasaran menuntunku dari sana ke sini. Sampai merancang sistem dari antarmuka sampai ke mesin."
           class="m-0"
         >
-          My journey started with modding Java games back when I was in
-          elementary school and Android games in high school, but curiosity
-          pulled me into everything around it, like- designing interfaces,
-          building backend, connecting hardware, and creating intuitive
-          experiences for users.
+          Started out modding Java and Android games; curiosity did the rest.
+          Today I design systems from interface to bare metal.
         </p>
       </div>
 
@@ -190,10 +187,10 @@ const supportingStack = [
           </h3>
           <p
             class="font-sans text-[14px] sm:text-[14.5px] leading-relaxed text-neutral-600 dark:text-neutral-400 m-0"
-            data-en="Full-stack web applications, interactive dashboards, accessible client portals, and performance-first landing pages built with clean semantic structure."
-            data-id="Aplikasi web full-stack, dashboard interaktif, portal klien yang aksesibel, dan landing page berkinerja tinggi dengan struktur semantik rapi."
+            data-en="Full-stack web applications, interactive dashboards, and client portals built with clean semantic structure."
+            data-id="Aplikasi web full-stack, dashboard interaktif, dan portal klien dengan struktur semantik rapi."
           >
-            Full-stack web applications, interactive dashboards, accessible client portals, and performance-first landing pages built with clean semantic structure.
+            Full-stack web applications, interactive dashboards, and client portals built with clean semantic structure.
           </p>
         </div>
         <div class="flex flex-col gap-2 sm:gap-2.5">
@@ -228,42 +225,15 @@ const supportingStack = [
           </h3>
           <p
             class="font-sans text-[14px] sm:text-[14.5px] leading-relaxed text-neutral-600 dark:text-neutral-400 m-0"
-            data-en="Touchscreen kiosks, connected hardware, microcontrollers (ESP32), payment gateway integrations, and direct serial/IPC protocols."
-            data-id="Touchscreen kiosk, hardware terhubung, mikrokontroler (ESP32), integrasi payment gateway, dan protokol serial/IPC."
+            data-en="Touchscreen kiosks, connected microcontrollers (ESP32), payment gateways, and direct serial/IPC protocols."
+            data-id="Touchscreen kiosk, mikrokontroler terhubung (ESP32), payment gateway, dan protokol serial/IPC."
           >
-            Touchscreen kiosks, connected hardware, microcontrollers (ESP32), payment gateway integrations, and direct serial/IPC protocols.
+            Touchscreen kiosks, connected microcontrollers (ESP32), payment gateways, and direct serial/IPC protocols.
           </p>
         </div>
       </div>
 
-      <!-- Lyrical Footnote: 3-line cycling rotator -->
-      <div class="pt-5 border-t border-neutral-200/80 dark:border-neutral-800/80">
-        <div>
-          <div
-            id="lyrics-rotator-container"
-            class="overflow-hidden relative"
-            aria-live="polite"
-          >
-            <div
-              id="lyrics-rotator-track"
-              class="relative space-y-2 font-serif italic text-neutral-600 dark:text-neutral-300 leading-relaxed transition-transform duration-600 ease-out"
-            >
-              <p class="lyrics-line lyrics-line-edge m-0">A little bit of webapp in my life,</p>
-              <p class="lyrics-line lyrics-line-active m-0">a little bit of vscode by my side,</p>
-              <p class="lyrics-line lyrics-line-edge m-0">a little bit of dashboard all I need,</p>
-              <p class="lyrics-line lyrics-line-hidden m-0">a little bit of touchscreen kiosk what I see,</p>
-              <p class="lyrics-line lyrics-line-hidden m-0">a little bit of 12v in the sun,</p>
-              <p class="lyrics-line lyrics-line-hidden m-0">a little bit of solder all night long,</p>
-              <p class="lyrics-line lyrics-line-hidden m-0">a little bit of LED, here I am,</p>
-              <p class="lyrics-line lyrics-line-hidden m-0">a little bit of git makes me your guy...</p>
-              <!-- Seamless wrap clones -->
-              <p class="lyrics-line lyrics-line-hidden m-0" aria-hidden="true">A little bit of webapp in my life,</p>
-              <p class="lyrics-line lyrics-line-hidden m-0" aria-hidden="true">a little bit of vscode by my side,</p>
-              <p class="lyrics-line lyrics-line-hidden m-0" aria-hidden="true">a little bit of dashboard all I need,</p>
-            </div>
-          </div>
-        </div>
-      </div>
+
 
       <!-- Tech Stack Layout (Original unboxed breathing grid down below) -->
       <div
@@ -371,219 +341,4 @@ const supportingStack = [
   </div>
 </section>
 
-<style is:global>
-  #lyrics-rotator-container {
-    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%);
-    mask-image: linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%);
-  }
 
-  #lyrics-rotator-track.no-transition,
-  #lyrics-rotator-track.no-transition .lyrics-line {
-    transition: none !important;
-  }
-
-  #lyrics-rotator-track .lyrics-line {
-    font-size: 14.5px;
-    line-height: 1.6;
-    letter-spacing: normal;
-    transition: transform 500ms cubic-bezier(0.25, 1, 0.5, 1),
-                opacity 500ms cubic-bezier(0.25, 1, 0.5, 1),
-                filter 500ms cubic-bezier(0.25, 1, 0.5, 1),
-                color 350ms ease;
-    transform-origin: left center;
-    cursor: pointer;
-    user-select: none;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-
-  @media (min-width: 640px) {
-    #lyrics-rotator-track .lyrics-line {
-      font-size: 15.5px;
-    }
-  }
-
-  /* Active Focal Lyric (Apple Music current line) */
-  #lyrics-rotator-track .lyrics-line-active {
-    opacity: 1 !important;
-    transform: scale(1.05) translateZ(0) !important;
-    filter: blur(0px) !important;
-    color: #0a0a0a !important;
-    cursor: default;
-  }
-
-  .dark #lyrics-rotator-track .lyrics-line-active {
-    color: #ffffff !important;
-    text-shadow: 0 0 20px rgba(255, 255, 255, 0.18);
-  }
-
-  /* Inactive Defocused Lyrics (Apple Music background lines) */
-  #lyrics-rotator-track .lyrics-line-edge {
-    opacity: 0.32 !important;
-    transform: scale(0.95) translateZ(0) !important;
-    filter: blur(1.2px) !important;
-    color: #737373 !important;
-  }
-
-  .dark #lyrics-rotator-track .lyrics-line-edge {
-    color: #888888 !important;
-  }
-
-  /* Hover Peek: Apple Music allows previewing inactive lines */
-  #lyrics-rotator-track .lyrics-line-edge:hover {
-    opacity: 0.75 !important;
-    filter: blur(0px) !important;
-    transform: scale(0.98) translateZ(0) !important;
-    color: #262626 !important;
-  }
-
-  .dark #lyrics-rotator-track .lyrics-line-edge:hover {
-    color: #e5e5e5 !important;
-  }
-
-  /* Completely hidden lines outside the 3-line viewing portal */
-  #lyrics-rotator-track .lyrics-line-hidden {
-    opacity: 0 !important;
-    visibility: hidden !important;
-    pointer-events: none !important;
-    filter: blur(2px) !important;
-    transform: scale(0.9) translateZ(0) !important;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    #lyrics-rotator-track,
-    #lyrics-rotator-track .lyrics-line {
-      transition: none !important;
-      filter: none !important;
-      transform: none !important;
-    }
-  }
-</style>
-
-<script>
-  function setupLyricsRotator() {
-    const container = document.getElementById("lyrics-rotator-container");
-    const track = document.getElementById("lyrics-rotator-track");
-    if (!container || !track) return;
-
-    const items = track.children as HTMLCollectionOf<HTMLElement>;
-    if (items.length < 4) return;
-
-    let currentIndex = 0;
-    const totalLines = 8;
-    let isPaused = false;
-    let intervalId: any = null;
-
-    function updateFocus(idx: number) {
-      for (let i = 0; i < items.length; i++) {
-        const item = items[i];
-        if (i === idx + 1) {
-          item.classList.add("lyrics-line-active");
-          item.classList.remove("lyrics-line-edge", "lyrics-line-hidden");
-        } else if (i === idx || i === idx + 2) {
-          item.classList.add("lyrics-line-edge");
-          item.classList.remove("lyrics-line-active", "lyrics-line-hidden");
-        } else {
-          item.classList.add("lyrics-line-hidden");
-          item.classList.remove("lyrics-line-active", "lyrics-line-edge");
-        }
-      }
-    }
-
-    function updateHeight() {
-      if (items.length >= 3) {
-        const h = (items[2].offsetTop + items[2].offsetHeight) - items[0].offsetTop;
-        if (h > 0) {
-          container.style.height = `${h}px`;
-        }
-      }
-    }
-
-    function goToIndex(idx: number) {
-      currentIndex = idx;
-      track.style.transition = "transform 550ms cubic-bezier(0.25, 1, 0.5, 1)";
-      const targetOffset = items[currentIndex]?.offsetTop || 0;
-      track.style.transform = `translateY(-${targetOffset}px)`;
-      updateFocus(currentIndex);
-    }
-
-    function step() {
-      if (isPaused) return;
-      currentIndex++;
-      track.style.transition = "transform 600ms cubic-bezier(0.25, 1, 0.5, 1)";
-      const targetOffset = items[currentIndex]?.offsetTop || 0;
-      track.style.transform = `translateY(-${targetOffset}px)`;
-      updateFocus(currentIndex);
-
-      if (currentIndex >= totalLines) {
-        setTimeout(() => {
-          track.classList.add("no-transition");
-          currentIndex = 0;
-          track.style.transform = "translateY(0)";
-          updateFocus(0);
-          void track.offsetHeight;
-          requestAnimationFrame(() => {
-            track.classList.remove("no-transition");
-          });
-        }, 620);
-      }
-    }
-
-    // Interactive Apple Music Seek: click any line to make it active
-    for (let i = 0; i < totalLines; i++) {
-      items[i].addEventListener("click", () => {
-        const targetIdx = (i - 1 + totalLines) % totalLines;
-        goToIndex(targetIdx);
-      });
-    }
-
-    updateFocus(0);
-    updateHeight();
-    if ("fonts" in document) {
-      document.fonts.ready.then(updateHeight);
-    }
-
-    const onResize = () => updateHeight();
-    window.addEventListener("resize", onResize, { passive: true });
-
-    container.addEventListener("mouseenter", () => {
-      isPaused = true;
-    });
-    container.addEventListener("mouseleave", () => {
-      isPaused = false;
-    });
-
-    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (!prefersReducedMotion) {
-      intervalId = setInterval(step, 3200);
-    }
-
-    const onVisibilityChange = () => {
-      if (document.hidden) {
-        if (intervalId) clearInterval(intervalId);
-        intervalId = null;
-      } else if (!prefersReducedMotion && !intervalId) {
-        intervalId = setInterval(step, 3200);
-        updateHeight();
-      }
-    };
-    document.addEventListener("visibilitychange", onVisibilityChange);
-
-    document.addEventListener(
-      "astro:before-swap",
-      () => {
-        if (intervalId) clearInterval(intervalId);
-        window.removeEventListener("resize", onResize);
-        document.removeEventListener("visibilitychange", onVisibilityChange);
-      },
-      { once: true }
-    );
-  }
-
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", setupLyricsRotator);
-  } else {
-    setupLyricsRotator();
-  }
-  document.addEventListener("astro:page-load", setupLyricsRotator);
-</script>
