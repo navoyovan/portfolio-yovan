@@ -93,3 +93,11 @@ Run this checklist before any commit to `master` / push to GitHub Pages.
 
 - [ ] **No Inline Interactive Overlays/Modals in Page Templates**: Page templates (`src/pages/*.astro`) must only contain page layout structure, metadata, content orchestration, and component composition. Complex interactive widgets, modal dialogs, backdrop overlays, and easter egg layers must be extracted to dedicated modular components in `src/components/` (e.g. `EasterEggs.astro`).
 
+### Phase 11 — Mandatory Ban on Pseudo-Brutalist & Gimmick Terminal Slop
+
+- [ ] **STRICT BAN ON PSEUDO-BRUTALIST / HACKER TERMINAL GIMMICKS**:
+  - **NEVER** introduce fake hacker/terminal badges, cyber-labels, or telemetry slop (e.g., `AXIOMATIC ENGINE`, `METRIC // OUTCOME: SILENT RUN`, `PARADIGM: FULL_SYSTEM`, `STATE: DETERMINISTIC`, `08_BARS // LOOP`).
+  - **NEVER** create mock media players, fake music decks, pulsating beacon dots, or mock scrubbers.
+  - **NEVER** create inverted shock cards with giant watermark ghosts (e.g., giant semi-transparent background numbers or letters).
+  - Respect the site's authentic design: warm/neutral editorial spreads (`#fcfbf9` / dark `#090909`), understated typography, quiet hairline dividers, and natural hierarchy.
+
