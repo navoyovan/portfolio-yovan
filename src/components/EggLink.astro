@@ -1,0 +1,33 @@
+---
+// EggLink.astro — scattered inline easter-egg trigger, styled as an ordinary hyperlink.
+// Visually identical to surrounding text until hover. Clicks are picked up by the
+// document-level [data-easter] delegation in EasterEggs.astro, so this file holds
+// no popup logic — only the trigger presentation, shared by every scattered link.
+// NOTE: do not combine slotted children with en/id — the language engine sets
+// textContent on [data-en] elements, which would wipe custom slot content.
+interface Props {
+  /** Popup key handled by the EasterEggs.astro click delegation (e.g. "gpio"). */
+  easter: string;
+  /** Visible label (EN). Also the default slot content. Omit when slotting custom content. */
+  en?: string;
+  /** Visible label (ID). Defaults to `en`. Omit when the label is language-neutral. */
+  id?: string;
+  /** Accessible name (EN). */
+  ariaEn?: string;
+  /** Accessible name (ID). */
+  ariaId?: string;
+  /** Extra classes (e.g. "font-mono text-[11px]", "inline-flex items-center gap-1.5 text-xs"). */
+  class?: string;
+}
+const { easter, en, id, ariaEn, ariaId, class: className } = Astro.props;
+---
+<button
+  type="button"
+  data-easter={easter}
+  data-en={en}
+  data-id={id ?? en}
+  aria-label={ariaEn ?? en}
+  data-aria-en={ariaEn}
+  data-aria-id={ariaId}
+  class={`cursor-pointer hover:underline underline-offset-4 bg-transparent border-0 p-0 text-inherit rounded transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent,#52FF1A)]${className ? ` ${className}` : ""}`}
+><slot>{en}</slot></button>
