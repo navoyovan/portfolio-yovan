@@ -149,7 +149,7 @@ const scrimPresets = [
   id="hero-map-dev-menu"
   role="menu"
   aria-label="Dev Options"
-  class="fixed top-20 right-6 min-w-[240px] bg-[#fcfbf9]/95 dark:bg-[#0e0e0e]/95 backdrop-blur-xl border border-neutral-200/90 dark:border-neutral-800/90 rounded-lg shadow-xl dark:shadow-2xl p-1.5 z-50 opacity-0 -translate-y-2 scale-95 pointer-events-none transition-[opacity,transform] duration-200 ease-out origin-top flex flex-col gap-1 select-none"
+  class="fixed bottom-6 left-6 min-w-[240px] bg-[#fcfbf9]/95 dark:bg-[#0e0e0e]/95 backdrop-blur-xl border border-neutral-200/90 dark:border-neutral-800/90 rounded-lg shadow-xl dark:shadow-2xl p-1.5 z-50 opacity-0 translate-y-2 scale-95 pointer-events-none transition-[opacity,transform] duration-200 ease-out origin-bottom-left flex flex-col gap-1 select-none"
   style="-webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px);"
 >
   <div class="px-2 pt-1 pb-1.5 border-b border-neutral-200/60 dark:border-neutral-800/60 flex items-center justify-between gap-2">
@@ -468,6 +468,22 @@ const scrimPresets = [
       </button>
     </div>
   </div>
+
+  <!-- View Toggles Footer (visible across all tabs) -->
+  <div class="mt-1 border-t border-neutral-200/60 dark:border-neutral-800/60 pt-1">
+    <div class="px-3 pt-1 pb-0.5 text-[9px] font-mono uppercase tracking-wider text-neutral-400 dark:text-neutral-500 select-none">
+      // VIEW
+    </div>
+    <button
+      type="button"
+      id="dev-scrollbar-toggle"
+      role="menuitem"
+      class="group flex items-center justify-between px-3 py-2 text-xs font-heading font-bold uppercase tracking-tight text-neutral-700 dark:text-neutral-300 hover:text-neutral-950 dark:hover:text-white hover:bg-neutral-100 dark:hover:bg-neutral-900/80 rounded transition-colors text-left w-full cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent,#52FF1A)] border-0 bg-transparent"
+    >
+      <span class="font-heading font-bold uppercase tracking-tight">Scrollbar</span>
+      <span id="dev-scrollbar-indicator" class="text-[10px] font-mono text-neutral-400 dark:text-neutral-600 group-hover:text-[var(--color-accent,#52FF1A)] transition-colors">OFF</span>
+    </button>
+  </div>
 </div>
 
 <style is:global>
@@ -529,12 +545,14 @@ const scrimPresets = [
       const getRectCenterOffset = () => {
         const badge = document.getElementById('hero-map-badge');
         if (!badge || !mapEl) return null;
-        const badgeRect = badge.getBoundingClientRect();
-        const mapRect = mapEl.getBoundingClientRect();
-        if (badgeRect.width === 0 || badgeRect.height === 0) return null;
+        // Layout-based metrics (offset*) deliberately ignore the CSS translate that
+        // moves the badge for the Jabodetabek view, so the Bogor target is always
+        // derived from the badge's base position — identical on load and after
+        // toggling back from Greater Jakarta.
+        if (badge.offsetWidth === 0 || badge.offsetHeight === 0) return null;
         return L.point(
-          (badgeRect.left + badgeRect.width / 2) - mapRect.left,
-          (badgeRect.top + badgeRect.height / 2) - mapRect.top
+          (badge.offsetLeft + badge.offsetWidth / 2) - mapEl.offsetLeft,
+          (badge.offsetTop + badge.offsetHeight / 2) - mapEl.offsetTop
         );
       };
 
@@ -598,24 +616,6 @@ const scrimPresets = [
         mapEl.style.cursor = 'grab';
         map.on('dragstart', () => { mapEl.style.cursor = 'grabbing'; });
         map.on('dragend', () => { mapEl.style.cursor = 'grab'; });
-        map.on('moveend', () => {
-          const c = map.getCenter();
-          const z = map.getZoom();
-          const payload = JSON.stringify({ lat: Number(c.lat.toFixed(6)), lng: Number(c.lng.toFixed(6)), zoom: z });
-          localStorage.setItem('hero_locked_map_loc', payload);
-          console.log(`[LOCKED_MAP_COORDS] ${payload}`);
-        });
-      }
-
-      // Check if user previously locked in location in localStorage
-      const savedLoc = localStorage.getItem('hero_locked_map_loc');
-      if (savedLoc) {
-        try {
-          const parsed = JSON.parse(savedLoc);
-          if (parsed.lat && parsed.lng && parsed.zoom) {
-            map.setView([parsed.lat, parsed.lng], parsed.zoom);
-          }
-        } catch (e) {}
       }
 
       (mapEl as any)._leaflet_map = map;
@@ -895,15 +895,20 @@ const scrimPresets = [
     const devMenu = document.getElementById('hero-map-dev-menu');
     if (!devMenu) return;
 
+    // Escape the parallax trap: #hero-map-parallax carries will-change-transform plus a
+    // JS translate3d, both of which contain `fixed` descendants inside the hero.
+    // Reparenting to <body> makes bottom-left viewport-relative across the whole page.
+    if (devMenu.parentElement !== document.body) document.body.appendChild(devMenu);
+
     let isDevMenuOpen = false;
     const setDevMenuState = (open: boolean) => {
       isDevMenuOpen = open;
       if (open) {
-        devMenu.classList.remove('opacity-0', '-translate-y-2', 'scale-95', 'pointer-events-none');
+        devMenu.classList.remove('opacity-0', 'translate-y-2', 'scale-95', 'pointer-events-none');
         devMenu.classList.add('opacity-100', 'translate-y-0', 'scale-100', 'pointer-events-auto');
       } else {
         devMenu.classList.remove('opacity-100', 'translate-y-0', 'scale-100', 'pointer-events-auto');
-        devMenu.classList.add('opacity-0', '-translate-y-2', 'scale-95', 'pointer-events-none');
+        devMenu.classList.add('opacity-0', 'translate-y-2', 'scale-95', 'pointer-events-none');
       }
     };
 
@@ -1283,6 +1288,20 @@ const scrimPresets = [
     // Initialize scrim state from localStorage (defaults to 'subtle')
     const savedScrim = localStorage.getItem('hero_map_scrim') || 'subtle';
     applyScrimMode(savedScrim);
+
+    // Scrollbar visibility toggle (hidden by default via global.css)
+    const scrollbarBtn = document.getElementById('dev-scrollbar-toggle');
+    const scrollbarIndicator = document.getElementById('dev-scrollbar-indicator');
+    const applyScrollbar = (on: boolean) => {
+      document.documentElement.classList.toggle('show-scrollbar', on);
+      if (scrollbarIndicator) scrollbarIndicator.textContent = on ? 'ON' : 'OFF';
+      localStorage.setItem('portfolio_show_scrollbar', on ? '1' : '0');
+    };
+    applyScrollbar(localStorage.getItem('portfolio_show_scrollbar') === '1');
+    if (scrollbarBtn) scrollbarBtn.onclick = (e) => {
+      e.stopPropagation();
+      applyScrollbar(!document.documentElement.classList.contains('show-scrollbar'));
+    };
 
     // Keyboard & click outside listeners
     const handleDevMenuKeydown = (e: KeyboardEvent) => {

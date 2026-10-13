@@ -501,32 +501,14 @@ const librariesTechniques = [
     const track = document.getElementById('hero-location-track');
     const locBogor = document.getElementById('hero-loc-bogor');
     const locJakarta = document.getElementById('hero-loc-jakarta');
-    const headerCoords = document.getElementById('hero-header-coords');
 
     let cachedRulerWidth = ruler ? ruler.offsetWidth : 144;
     const disposers: (() => void)[] = [];
 
     if (mapEl && ruler && midLabel && maxLabel && ratioLabel) {
       let currentView = 'bogor';
-      let currentLat = -6.5983;
-      let currentLng = 106.7994;
-      let coordAnimation: any = null;
       let carouselWidthAnim: any = null;
       let trackTransformAnim: any = null;
-
-      const formatCoords = (lat: number, lng: number) => {
-        const absLat = Math.abs(lat);
-        const dLat = Math.floor(absLat);
-        const mLat = Math.round((absLat - dLat) * 60);
-        const hemiLat = lat >= 0 ? 'N' : 'S';
-
-        const absLng = Math.abs(lng);
-        const dLng = Math.floor(absLng);
-        const mLng = Math.round((absLng - dLng) * 60);
-        const hemiLng = lng >= 0 ? 'E' : 'W';
-
-        return `${dLat}°${String(mLat).padStart(2, '0')}′ ${hemiLat}, ${dLng}°${String(mLng).padStart(2, '0')}′ ${hemiLng}`;
-      };
 
       const updateCarouselLayout = (isAnimated = true) => {
         if (!carousel || !track || !locBogor || !locJakarta) return;
@@ -557,37 +539,6 @@ const librariesTechniques = [
           },
           { duration: 0.52, ease: [0.16, 1, 0.3, 1] }
         );
-      };
-
-      // Continuous coordinate rolling ticker driven by Motion during map flight
-      const animateCoordsTo = (targetLat: number, targetLng: number, duration = 1.4) => {
-        if (coordAnimation) coordAnimation.stop();
-        const startLat = currentLat;
-        const startLng = currentLng;
-
-        coordAnimation = animate(0, 1, {
-          duration,
-          ease: [0.16, 1, 0.3, 1],
-          onUpdate: (progress) => {
-            currentLat = startLat + (targetLat - startLat) * progress;
-            currentLng = startLng + (targetLng - startLng) * progress;
-
-            if (headerCoords) {
-              headerCoords.textContent = formatCoords(currentLat, currentLng);
-            }
-          },
-        });
-
-        coordAnimation.then(() => {
-          currentLat = targetLat;
-          currentLng = targetLng;
-          if (headerCoords) {
-            headerCoords.textContent = formatCoords(currentLat, currentLng);
-          }
-          coordAnimation = null;
-        }).catch(() => {
-          // Animation cancelled/stopped
-        });
       };
 
       // Initial layout setup
@@ -666,13 +617,6 @@ const librariesTechniques = [
             if (detail && detail.view) {
               currentView = detail.view;
               updateCarouselLayout(true);
-              if (detail.view === 'jabodetabek') {
-                const isMobile = window.innerWidth < 768;
-                const targetCenter = isMobile ? { lat: -6.44, lng: 106.8270 } : { lat: -6.22, lng: 106.5270 };
-                animateCoordsTo(targetCenter.lat, targetCenter.lng, 1.4);
-              } else {
-                animateCoordsTo(-6.5983, 106.7994, 1.4);
-              }
             }
             updateScale();
           };
