@@ -816,46 +816,6 @@ const scrimPresets = [
         });
       }
 
-      // Bio Reveal Camera Trigger: When the bio statement reveals on scroll, move map to Bogor zoom lv 14
-      let isBioRevealed = false;
-      const onBioRevealChange = (e: any) => {
-        const revealed = Boolean(e?.detail?.revealed);
-        if (revealed === isBioRevealed) return;
-        isBioRevealed = revealed;
-
-        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        const duration = prefersReducedMotion ? 0 : 1.2;
-
-        if (revealed) {
-          // If viewing Jabodetabek, switch state back to Bogor
-          if (isJabodetabek && badgeBox && cityBtn) {
-            isJabodetabek = false;
-            badgeBox.setAttribute('data-view', 'bogor');
-            cityBtn.setAttribute('aria-pressed', 'false');
-            updateMapLabels();
-          }
-
-          const target = getBogorTarget(14);
-          if (prefersReducedMotion) {
-            map.setView(target.center, 14);
-          } else {
-            map.flyTo(target.center, 14, { duration });
-          }
-        } else {
-          // Scrolled back to initial top position: return to default Bogor zoom 13
-          if (!isJabodetabek) {
-            const target = getBogorTarget(13);
-            if (prefersReducedMotion) {
-              map.setView(target.center, target.zoom);
-            } else {
-              map.flyTo(target.center, target.zoom, { duration });
-            }
-          }
-        }
-      };
-
-      window.addEventListener('portfolio:bio-reveal-change', onBioRevealChange);
-
       // Recalculate size on window resize & adapt center
       let lastIsMobile = window.innerWidth < 768;
       const handleResize = () => {
@@ -863,7 +823,7 @@ const scrimPresets = [
           map.invalidateSize();
           const isMobileNow = window.innerWidth < 768;
           lastIsMobile = isMobileNow;
-          const target = isJabodetabek ? getJabodetabekTarget() : getBogorTarget(isBioRevealed ? 14 : 13);
+          const target = isJabodetabek ? getJabodetabekTarget() : getBogorTarget();
           map.setView(target.center, target.zoom);
         }
       };
