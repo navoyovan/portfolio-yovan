@@ -34,11 +34,11 @@ const { title, description, image, imageAlt, canonicalURL, type, keywords, schem
     <script is:inline>
       (function() {
         const storedTheme = typeof localStorage !== 'undefined' ? localStorage.getItem('theme') : null;
-        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        if (storedTheme === 'dark' || (!storedTheme && prefersDark)) {
-          document.documentElement.classList.add('dark');
-        } else {
+        // Dark theme by default unless explicitly saved as 'light'
+        if (storedTheme === 'light') {
           document.documentElement.classList.remove('dark');
+        } else {
+          document.documentElement.classList.add('dark');
         }
 
         // Global Accent Color Engine
