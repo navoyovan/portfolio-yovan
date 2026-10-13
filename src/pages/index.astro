@@ -181,13 +181,27 @@ const capabilities = [
 
                   <!-- Middle: Crisp 1-line description -->
                   <div class="lg:col-span-4 pl-8 sm:pl-9 lg:pl-0">
-                    <p
-                      data-en={item.description}
-                      data-id={item.descriptionId || item.description}
-                      class="font-sans text-sm sm:text-[14.5px] leading-relaxed text-neutral-700 dark:text-neutral-300 font-normal m-0"
-                    >
-                      {item.description}
-                    </p>
+                    {item.num === "02" ? (
+                      <p class="font-sans text-sm sm:text-[14.5px] leading-relaxed text-neutral-700 dark:text-neutral-300 font-normal m-0">
+                        <span data-en="Full-stack platforms, dashboards, internal tools, and SaaS products with " data-id="Platform full-stack, dashboard, internal tools, dan produk SaaS dengan ">Full-stack platforms, dashboards, internal tools, and SaaS products with </span><button
+                          type="button"
+                          data-easter="pertemuan7"
+                          class="cursor-pointer hover:underline underline-offset-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent,#52FF1A)] rounded bg-transparent border-0 p-0 text-inherit font-inherit inline-block"
+                          aria-label="Unlock Pertemuan 7 Form Login Cool Stuff"
+                          data-aria-en="Unlock Pertemuan 7 Form Login Cool Stuff"
+                          data-aria-id="Buka Cool Stuff Form Login Pertemuan 7"
+                          data-en="structured auth"
+                          data-id="autentikasi rapi"
+                        >structured auth</button><span data-en=" and robust APIs." data-id=" dan API tangguh."> and robust APIs.</span>
+                      </p>
+                    ) : (
+                      <p class="font-sans text-sm sm:text-[14.5px] leading-relaxed text-neutral-700 dark:text-neutral-300 font-normal m-0">
+                        <span
+                          data-en={item.description}
+                          data-id={item.descriptionId || item.description}
+                        >{item.description}</span>
+                      </p>
+                    )}
                   </div>
 
                   <!-- Right: Desktop typography metadata tags -->
