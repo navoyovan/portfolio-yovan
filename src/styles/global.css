@@ -325,19 +325,47 @@ html.dark {
   color: #000000;
 }
 
-/* Hide native OS/browser scrollbar completely across all browsers */
-html,
-body,
+/* Native page scrollbar is hidden by default; the Dev Options "Scrollbar" toggle
+   opts back in by adding .show-scrollbar to <html>. Inner .no-scrollbar
+   scrollers stay hidden in both states. */
+html:not(.show-scrollbar),
+html:not(.show-scrollbar) body {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
 .no-scrollbar {
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
 
-::-webkit-scrollbar,
+html:not(.show-scrollbar)::-webkit-scrollbar,
 .no-scrollbar::-webkit-scrollbar {
   display: none;
   width: 0px;
   height: 0px;
+}
+
+/* Opt-in native page scrollbar styling (no display override needed — the hide
+   rule above simply stops applying). Scoped to the root scroller only. */
+html.show-scrollbar::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+html.show-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+html.show-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(150, 150, 150, 0.45);
+  border-radius: 8px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+/* The custom overlay scrollbar stays retired in both states so it never doubles
+   the native bar — Dev Options "Scrollbar" means the native scrollbar. The
+   !important beats the inline display style set by CustomScrollbar.astro. */
+#custom-scrollbar-track {
+  display: none !important;
 }
 
 /* ═════════════════════════════════════════════════════
