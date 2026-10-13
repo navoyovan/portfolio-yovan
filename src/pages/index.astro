@@ -12,54 +12,48 @@ const base = rawBase.endsWith("/") ? rawBase.slice(0, -1) : rawBase;
 
 const capabilities = [
   {
+    num: "01",
     icon: "ti-browser",
-    title: "Landing Pages & Websites",
-    titleId: "Landing Page & Website",
+    title: "Websites & Web Presences",
+    titleId: "Website & Presensi Web",
     description:
-      "Fast, accessible, and search-optimized websites for products, businesses, campaigns, and personal brands. Built with structured SEO, semantic markup, and responsive UI.",
+      "Fast, accessible, and search-optimized web presences built with clean semantic markup.",
     descriptionId:
-      "Website yang cepat, aksesibel, dan ramah SEO untuk produk, bisnis, kampanye, atau personal brand. Dibangun dengan struktur SEO rapi, semantic markup, dan halaman yang lancar.",
-    tags: ["Astro", "Tailwind", "SEO", "Accessibility (a11y)", "Responsive UI"],
+      "Website cepat, aksesibel, dan ramah SEO dengan markup semantik rapi.",
+    tags: ["Astro", "Tailwind", "SEO", "Accessibility (a11y)"],
   },
   {
+    num: "02",
     icon: "ti-apps",
     title: "Web Applications",
     titleId: "Aplikasi Web",
     description:
-      "Dashboards, internal tools, SaaS products, MVP projects, authentication, APIs, and the logic behind them.",
+      "Full-stack platforms, dashboards, internal tools, and SaaS products with structured auth and robust APIs.",
     descriptionId:
-      "Dashboard, internal tools, produk SaaS, proyek MVP, autentikasi, API, dan logika di belakang panggung.",
-    tags: ["React / Vue", "Full-Stack", "Auth & RBAC", "REST APIs"],
+      "Platform full-stack, dashboard, internal tools, dan produk SaaS dengan autentikasi rapi dan API tangguh.",
+    tags: ["React / Vue", "Laravel", "REST APIs", "Auth & RBAC"],
   },
   {
+    num: "03",
     icon: "ti-hand-click",
-    title: "Interfaces & User Experience",
-    titleId: "Antarmuka & Pengalaman Pengguna",
+    title: "Interactive Interfaces",
+    titleId: "Antarmuka Interaktif",
     description:
-      "Designing and building user experiences across different platforms, from web interfaces with mobile optimized interface, touchscreen kiosks, and interactive environments.",
+      "High-fidelity user experiences across screens, from responsive mobile web to custom touchscreen kiosk interfaces.",
     descriptionId:
-      "Merancang dan membangun pengalaman pengguna di berbagai platform, dari web yang termasuk antarmuka mobile, touchscreen kiosk, sampai instalasi interaktif.",
-    tags: [
-      "Web Interfaces",
-      "Mobile Experiences",
-      "Touchscreen Kiosks",
-      "Interactive UI",
-    ],
+      "Pengalaman pengguna lintas layar, dari web mobile responsif hingga antarmuka kiosk layar sentuh.",
+    tags: ["Touchscreen Kiosks", "Mobile UI", "Interactive UX"],
   },
   {
+    num: "04",
     icon: "ti-plug-connected",
     title: "Connected Systems",
-    titleId: "Sistem Terintegrasi",
+    titleId: "Sistem Terhubung",
     description:
-      "Realtime communication, payment integrations, cloud services, and software that needs to talk to hardware.",
+      "Hardware I/O, local serial/IPC bridges, payment gateway integrations, WebSockets, and cloud pipelines.",
     descriptionId:
-      "Komunikasi realtime, integrasi pembayaran, layanan cloud, dan software yang perlu terhubung langsung ke hardware.",
-    tags: [
-      "WebSockets",
-      "Payment Gateways",
-      "Cloud Storage",
-      "IPC / Hardware I/O",
-    ],
+      "Hardware I/O, jembatan serial/IPC, integrasi payment gateway, WebSockets, dan pipeline cloud.",
+    tags: ["Serial / IPC", "Payment Gateways", "WebSockets", "IoT"],
   },
 ];
 ---
@@ -148,48 +142,65 @@ const capabilities = [
           </div>
         </div>
 
-        <div class="flex flex-col gap-4 pb-4">
+        <!-- Unboxed Editorial Capabilities Index -->
+        <div class="divide-y divide-neutral-200/80 dark:divide-neutral-800/80 border-t border-b border-neutral-200/80 dark:border-neutral-800/80">
           {
             capabilities.map((item) => (
-              <div class="group relative p-6 sm:p-7 border border-neutral-300/80 dark:border-neutral-800 bg-[#f6f4ee] dark:bg-[#141414] transition-all duration-200 hover:border-neutral-400 dark:hover:border-neutral-600">
-                <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 lg:gap-8">
-                  <div class="flex items-start gap-4 sm:gap-6 flex-1">
+              <div class="group py-6 sm:py-7 lg:py-8 transition-colors duration-200">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 lg:gap-8 items-start">
+                  <!-- Left: Sequence number + Icon + Title -->
+                  <div class="lg:col-span-5 flex items-start gap-4 sm:gap-5">
+                    <span class="font-mono text-xs font-semibold text-neutral-400 dark:text-neutral-500 pt-1 shrink-0 select-none">
+                      {item.num}
+                    </span>
                     <div
-                      class="text-xl sm:text-2xl text-neutral-400 dark:text-neutral-500 group-hover:text-[var(--color-accent,#52FF1A)] transition-colors pt-0.5 shrink-0 flex items-center justify-center"
+                      class="text-2xl sm:text-3xl text-neutral-400 dark:text-neutral-500 shrink-0 flex items-center justify-center group-hover:text-neutral-950 dark:group-hover:text-white transition-colors duration-200"
                       aria-hidden="true"
                     >
                       <i class={`ti ${item.icon}`} />
                     </div>
-                    <div class="space-y-1.5 flex-1">
+                    <div class="space-y-1">
                       <h3
                         data-en={item.title}
                         data-id={item.titleId || item.title}
-                        class="text-xl sm:text-2xl font-subheading font-semibold text-neutral-950 dark:text-white group-hover:text-[var(--color-accent,#52FF1A)] transition-colors m-0"
+                        class="text-lg sm:text-xl font-sans font-medium text-neutral-950 dark:text-white tracking-tight m-0"
                       >
                         {item.title}
                       </h3>
-                      <p
-                        data-en={item.description}
-                        data-id={item.descriptionId || item.description}
-                        class="text-sm leading-relaxed text-neutral-600 dark:text-neutral-400 max-w-3xl m-0"
-                      >
-                        {item.description}
-                      </p>
+                      <!-- Mobile metadata inline -->
+                      <div class="lg:hidden flex flex-wrap items-center gap-x-2 gap-y-1 pt-1 font-mono text-[11px] text-neutral-400 dark:text-neutral-500">
+                        {item.tags.map((tag, idx) => (
+                          <>
+                            <span>{tag}</span>
+                            {idx < item.tags.length - 1 && <span class="text-neutral-300 dark:text-neutral-700">·</span>}
+                          </>
+                        ))}
+                      </div>
                     </div>
                   </div>
 
-                  <ul
-                    class="flex flex-wrap gap-1.5 sm:gap-2 lg:justify-end shrink-0 pl-8 sm:pl-10 lg:pl-0 list-none m-0 p-0"
-                    aria-label="Capability tags"
-                  >
-                    {item.tags.map((tag) => (
-                      <li>
-                        <span class="text-[9px] sm:text-[10px] font-sans font-semibold px-2 sm:px-2.5 py-0.5 sm:py-1 rounded bg-neutral-200/60 dark:bg-neutral-800/80 text-neutral-600 dark:text-neutral-400 uppercase tracking-wider inline-block">
-                          {tag}
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
+                  <!-- Middle: Crisp 1-line description -->
+                  <div class="lg:col-span-4 pl-8 sm:pl-9 lg:pl-0">
+                    <p
+                      data-en={item.description}
+                      data-id={item.descriptionId || item.description}
+                      class="font-sans text-sm sm:text-[14.5px] leading-relaxed text-neutral-700 dark:text-neutral-300 font-normal m-0"
+                    >
+                      {item.description}
+                    </p>
+                  </div>
+
+                  <!-- Right: Desktop typography metadata tags -->
+                  <div class="hidden lg:flex lg:col-span-3 justify-end items-start pt-0.5">
+                    <div class="flex flex-wrap justify-end gap-x-2 gap-y-1 font-mono text-[11px] text-neutral-400 dark:text-neutral-500 text-right">
+                      {item.tags.map((tag, idx) => (
+                        <>
+                          <span>{tag}</span>
+                          {idx < item.tags.length - 1 && <span class="text-neutral-300 dark:text-neutral-700">·</span>}
+                        </>
+                      ))}
+                    </div>
+                  </div>
                 </div>
               </div>
             ))
@@ -241,246 +252,231 @@ const capabilities = [
               >
                 <span data-en="I build for the " data-id="Aku bikin untuk ">I build for the </span><span class="font-normal text-neutral-700 dark:text-neutral-300" data-en="thing" data-id="produknya">thing</span><span data-en=", not the stack." data-id=", bukan sekadar stacknya.">, not the stack.</span>
               </h2>
-              <p
-                data-en="Understanding the whole problem before deciding how to solve it. The interface, the backend, the hardware, the weird edge cases; they're all part of the same product."
-                data-id="Dengan memahami masalahnya secara menyeluruh sebelum milih jalan solusinya. Antarmuka, backend, hardware, sampai kasus unik yang ga kepikiran, semuanya tetap bagian dari satu produk."
-                class="font-sans text-sm sm:text-base text-neutral-600 dark:text-neutral-400 leading-relaxed font-normal tracking-[0.5px] max-w-3xl m-0"
+              <!-- 2-line Lyrics Rotator replacing original subdeck -->
+              <div
+                id="lyrics-rotator-container"
+                class="overflow-hidden relative max-w-3xl pt-1"
+                aria-live="polite"
               >
-                Understanding the whole problem before deciding how to solve it.
-                The interface, the backend, the hardware, the weird edge cases;
-                they're all part of the same product.
-              </p>
+                <div
+                  id="lyrics-rotator-track"
+                  class="relative space-y-1.5 font-serif italic text-neutral-600 dark:text-neutral-300 leading-relaxed transition-transform duration-600 ease-out"
+                >
+                  <p class="lyrics-line lyrics-line-active m-0">A little bit of webapp in my life,</p>
+                  <p class="lyrics-line lyrics-line-edge m-0">a little bit of vscode by my side,</p>
+                  <p class="lyrics-line lyrics-line-hidden m-0">a little bit of dashboard all I need,</p>
+                  <p class="lyrics-line lyrics-line-hidden m-0">a little bit of touchscreen kiosk what I see,</p>
+                  <p class="lyrics-line lyrics-line-hidden m-0">a little bit of 12v in the sun,</p>
+                  <p class="lyrics-line lyrics-line-hidden m-0">a little bit of solder all night long,</p>
+                  <p class="lyrics-line lyrics-line-hidden m-0">a little bit of LED, here I am,</p>
+                  <p class="lyrics-line lyrics-line-hidden m-0">a little bit of git makes me your guy...</p>
+                  <!-- Seamless wrap clones -->
+                  <p class="lyrics-line lyrics-line-hidden m-0" aria-hidden="true">A little bit of webapp in my life,</p>
+                  <p class="lyrics-line lyrics-line-hidden m-0" aria-hidden="true">a little bit of vscode by my side,</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 xl:gap-12 pt-6 sm:pt-8 items-start">
-          <!-- Left Column: Principles with Expand/Collapse (Expanded by Default) -->
-          <div class="lg:col-span-7 space-y-4">
-            <!-- Core Principles List with Expand/Collapse -->
-            <div class="space-y-4">
-              <!-- Item 1 -->
-              <div class="philosophy-item">
-                <button
-                  type="button"
-                  class="philosophy-trigger inline-flex items-center gap-2.5 text-left cursor-pointer bg-transparent border-0 p-0 select-none group focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-accent,#52FF1A)] rounded"
-                  aria-expanded="true"
-                  aria-controls="philosophy-content-1"
-                >
-                  <svg
-                    class="w-[18px] h-[18px] shrink-0 text-neutral-400 dark:text-neutral-400 group-hover:text-neutral-950 dark:group-hover:text-white transition-colors"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    aria-hidden="true"
-                  >
-                    <circle cx="12" cy="12" r="10"></circle>
-                    <circle cx="12" cy="12" r="6"></circle>
-                    <circle cx="12" cy="12" r="2"></circle>
-                  </svg>
-                  <span
-                    class="font-sans font-normal text-base sm:text-lg text-neutral-900 dark:text-white tracking-normal leading-none group-hover:text-[var(--color-accent,#52FF1A)] transition-colors"
+        <!-- Section 04 High-Contrast Editorial Architecture -->
+        <div class="space-y-12 sm:space-y-16 pt-8 sm:pt-12">
+          <!-- Top Row: 3 Core Principles (Expanded horizontal editorial spread) -->
+          <div class="space-y-6">
+            <div class="text-xs font-mono uppercase tracking-wider text-neutral-500 dark:text-neutral-400">
+              Core Principles
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-10 divide-y md:divide-y-0 md:divide-x divide-neutral-200 dark:divide-neutral-800 items-stretch pt-2">
+              <!-- Principle 01 -->
+              <div class="flex flex-col space-y-3 pt-6 md:pt-0 md:pr-6 first:pt-0">
+                <div class="flex items-baseline gap-2.5">
+                  <span class="font-mono text-xs font-semibold text-neutral-500 dark:text-neutral-400">01</span>
+                  <h3
+                    class="font-sans font-medium text-lg sm:text-xl text-neutral-950 dark:text-white tracking-tight m-0"
                     data-en="Purpose before technology"
                     data-id="Tujuan mendahului teknologi"
                   >
                     Purpose before technology
-                  </span>
-                  <svg
-                    class="chevron-icon w-3.5 h-3.5 shrink-0 text-neutral-400 dark:text-neutral-500 group-hover:text-neutral-950 dark:group-hover:text-white transition-transform duration-200 rotate-180"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    aria-hidden="true"
-                  >
-                    <polyline points="6 9 12 15 18 9"></polyline>
-                  </svg>
-                </button>
-                <div
-                  id="philosophy-content-1"
-                  class="philosophy-panel grid grid-rows-[1fr] transition-[grid-template-rows,opacity] duration-200 ease-out opacity-100"
-                >
-                  <div class="overflow-hidden">
-                    <p
-                      class="pt-2 pl-7 text-sm sm:text-[15px] text-neutral-600 dark:text-neutral-400 leading-relaxed font-normal m-0 max-w-xl"
-                      data-en="Technology is just the tool. I care about what the product needs to accomplish, who is using it, and what could get in their way."
-                      data-id="Teknologi adalah alat. Yang terpenting adalah apa tujuan produknya, siapa penggunanya, dan kendala apa yang mungkin mereka hadapi."
-                    >
-                      Technology is just the tool. I care about what the product
-                      needs to accomplish, who is using it, and what could get in
-                      their way.
-                    </p>
-                  </div>
+                  </h3>
                 </div>
+                <p
+                  class="text-sm sm:text-[14.5px] text-neutral-700 dark:text-neutral-300 leading-relaxed font-normal m-0"
+                  data-en="Tools serve the outcome. Focus first on what needs to be solved, who uses it, and removing friction."
+                  data-id="Alat mengikuti tujuan. Fokus utama pada masalah yang diselesaikan, siapa penggunanya, dan menghilangkan friksi."
+                >
+                  Tools serve the outcome. Focus first on what needs to be solved,
+                  who uses it, and removing friction.
+                </p>
               </div>
 
-              <!-- Item 2 -->
-              <div class="philosophy-item">
-                <button
-                  type="button"
-                  class="philosophy-trigger inline-flex items-center gap-2.5 text-left cursor-pointer bg-transparent border-0 p-0 select-none group focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-accent,#52FF1A)] rounded"
-                  aria-expanded="true"
-                  aria-controls="philosophy-content-2"
-                >
-                  <svg
-                    class="w-[18px] h-[18px] shrink-0 text-neutral-400 dark:text-neutral-400 group-hover:text-neutral-950 dark:group-hover:text-white transition-colors"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    aria-hidden="true"
-                  >
-                    <line x1="21" x2="14" y1="4" y2="4"></line>
-                    <line x1="10" x2="3" y1="4" y2="4"></line>
-                    <line x1="21" x2="12" y1="12" y2="12"></line>
-                    <line x1="8" x2="3" y1="12" y2="12"></line>
-                    <line x1="21" x2="16" y1="20" y2="20"></line>
-                    <line x1="12" x2="3" y1="20" y2="20"></line>
-                    <line x1="14" x2="14" y1="2" y2="6"></line>
-                    <line x1="8" x2="8" y1="10" y2="14"></line>
-                    <line x1="16" x2="16" y1="18" y2="22"></line>
-                  </svg>
-                  <span
-                    class="font-sans font-normal text-base sm:text-lg text-neutral-900 dark:text-white tracking-normal leading-none group-hover:text-[var(--color-accent,#52FF1A)] transition-colors"
+              <!-- Principle 02 -->
+              <div class="flex flex-col space-y-3 pt-6 md:pt-0 md:px-6">
+                <div class="flex items-baseline gap-2.5">
+                  <span class="font-mono text-xs font-semibold text-neutral-500 dark:text-neutral-400">02</span>
+                  <h3
+                    class="font-sans font-medium text-lg sm:text-xl text-neutral-950 dark:text-white tracking-tight m-0"
                     data-en="Complexity by necessity"
                     data-id="Kompleksitas seperlunya saja"
                   >
                     Complexity by necessity
-                  </span>
-                  <svg
-                    class="chevron-icon w-3.5 h-3.5 shrink-0 text-neutral-400 dark:text-neutral-500 group-hover:text-neutral-950 dark:group-hover:text-white transition-transform duration-200 rotate-180"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    aria-hidden="true"
-                  >
-                    <polyline points="6 9 12 15 18 9"></polyline>
-                  </svg>
-                </button>
-                <div
-                  id="philosophy-content-2"
-                  class="philosophy-panel grid grid-rows-[1fr] transition-[grid-template-rows,opacity] duration-200 ease-out opacity-100"
-                >
-                  <div class="overflow-hidden">
-                    <p
-                      class="pt-2 pl-7 text-sm sm:text-[15px] text-neutral-600 dark:text-neutral-400 leading-relaxed font-normal m-0 max-w-xl"
-                      data-en="Not every project needs a giant architecture. I use what the problem calls for, it doesnt have to be over-engineered but still hitting the spot."
-                      data-id="Tidak semua project butuh arsitektur besar-besaran. Aku pilih solusi yang pas sesuai masalahnya, nggak perlu over-engineered yang penting tetap tepat sasaran."
-                    >
-                      Not every project needs a giant architecture. I use what the
-                      problem calls for, it doesnt have to be over-engineered but
-                      still hitting the spot.
-                    </p>
-                  </div>
+                  </h3>
                 </div>
+                <p
+                  class="text-sm sm:text-[14.5px] text-neutral-700 dark:text-neutral-300 leading-relaxed font-normal m-0"
+                  data-en="Build for what the problem actually demands. No speculative over-engineering, just clean systems that work."
+                  data-id="Bangun sesuai kebutuhan nyata. Tanpa over-engineering berlebihan, cukup sistem yang bersih dan tepat sasaran."
+                >
+                  Build for what the problem actually demands. No speculative
+                  over-engineering, just clean systems that work.
+                </p>
               </div>
 
-              <!-- Item 3 -->
-              <div class="philosophy-item">
-                <button
-                  type="button"
-                  class="philosophy-trigger inline-flex items-center gap-2.5 text-left cursor-pointer bg-transparent border-0 p-0 select-none group focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-accent,#52FF1A)] rounded"
-                  aria-expanded="true"
-                  aria-controls="philosophy-content-3"
-                >
-                  <svg
-                    class="w-[18px] h-[18px] shrink-0 text-neutral-400 dark:text-neutral-400 group-hover:text-neutral-950 dark:group-hover:text-white transition-colors"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    aria-hidden="true"
-                  >
-                    <rect width="8" height="8" x="3" y="3" rx="2"></rect>
-                    <path d="M7 11v4a2 2 0 0 0 2 2h4"></path>
-                    <rect width="8" height="8" x="13" y="13" rx="2"></rect>
-                  </svg>
-                  <span
-                    class="font-sans font-normal text-base sm:text-lg text-neutral-900 dark:text-white tracking-normal leading-none group-hover:text-[var(--color-accent,#52FF1A)] transition-colors"
+              <!-- Principle 03 -->
+              <div class="flex flex-col space-y-3 pt-6 md:pt-0 md:pl-6">
+                <div class="flex items-baseline gap-2.5">
+                  <span class="font-mono text-xs font-semibold text-neutral-500 dark:text-neutral-400">03</span>
+                  <h3
+                    class="font-sans font-medium text-lg sm:text-xl text-neutral-950 dark:text-white tracking-tight m-0"
                     data-en="Everything works together"
                     data-id="Semua bagian saling terhubung"
                   >
                     Everything works together
-                  </span>
-                  <svg
-                    class="chevron-icon w-3.5 h-3.5 shrink-0 text-neutral-400 dark:text-neutral-500 group-hover:text-neutral-950 dark:group-hover:text-white transition-transform duration-200 rotate-180"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    aria-hidden="true"
-                  >
-                    <polyline points="6 9 12 15 18 9"></polyline>
-                  </svg>
-                </button>
-                <div
-                  id="philosophy-content-3"
-                  class="philosophy-panel grid grid-rows-[1fr] transition-[grid-template-rows,opacity] duration-200 ease-out opacity-100"
-                >
-                  <div class="overflow-hidden">
-                    <p
-                      class="pt-2 pl-7 text-sm sm:text-[15px] text-neutral-600 dark:text-neutral-400 leading-relaxed font-normal m-0 max-w-xl"
-                      data-en="A good interface is only one part of a good product. I like connecting the things behind it: databases, realtime systems, devices, payments, and everything in between; see them in broad, see them in granular level, all of 'em are part of the same product."
-                      data-id="Antarmuka yang bagus baru sebagian dari produk yang baik dan benar. Aku biasa ngehubungin hal-hal di baliknya seperti: database, sistem realtime, perangkat fisik, pembayaran, dan semuanya, baik dari gambaran besar sampai detail terkecil."
-                    >
-                      A good interface is only one part of a good product. I like
-                      connecting the things behind it: databases, realtime
-                      systems, devices, payments, and everything in between; see
-                      them in broad, see them in granular level, all of 'em are
-                      part of the same product.
-                    </p>
-                  </div>
+                  </h3>
                 </div>
+                <p
+                  class="text-sm sm:text-[14.5px] text-neutral-700 dark:text-neutral-300 leading-relaxed font-normal m-0"
+                  data-en="Great UI is only half the picture. The real craft is tying it cleanly to the backend, data, and hardware underneath."
+                  data-id="UI yang baik baru separuh cerita. Kuncinya menghubungkannya secara mulus ke backend, data, dan hardware di baliknya."
+                >
+                  Great UI is only half the picture. The real craft is tying it
+                  cleanly to the backend, data, and hardware underneath.
+                </p>
               </div>
             </div>
           </div>
 
-          <!-- Right Column: Final Product Quote Card -->
-          <div class="lg:col-span-5 space-y-3 pt-2 lg:pt-0">
-            <p
-              data-en="And the final product should make someone say:"
-              data-id="Dan hasil akhir yang ideal bikin orang bilang:"
-              class="text-neutral-600 dark:text-neutral-400 text-sm sm:text-base m-0"
-            >
-              And the final product should make someone say:
-            </p>
+          <!-- Middle Row: Ideal Outcome Benchmark (Quote & nothing on left, disclaimer text on right) -->
+          <div class="border-t border-neutral-200/80 dark:border-neutral-800/80 pt-10 sm:pt-12">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-start">
+              <!-- Left: Ideal Outcome Section Label + Quote "___" with (nothing) on the side -->
+              <div class="lg:col-span-5 flex flex-col space-y-3.5 sm:space-y-4 select-none">
+                <span class="text-xs font-mono uppercase tracking-wider text-neutral-500 dark:text-neutral-400 block">
+                  Ideal Outcome:
+                </span>
+                <div class="flex items-baseline gap-2 sm:gap-2.5">
+                  <span class="font-serif italic text-4xl sm:text-5xl lg:text-6xl text-neutral-900 dark:text-white leading-none tracking-tight">
+                    “___”
+                  </span>
+                  <span class="font-mono text-xs sm:text-[13px] text-neutral-400 dark:text-neutral-500 font-normal">
+                    (nothing)
+                  </span>
+                </div>
+              </div>
 
-            <!-- Quote Highlight -->
-            <div
-              class="p-5 sm:p-6 border-l-4 border-[var(--color-accent,#52FF1A)] bg-[#f6f4ee] dark:bg-[#141414] border-y border-r border-neutral-300/60 dark:border-neutral-800 space-y-3"
-            >
-              <blockquote
-                class="text-2xl sm:text-3xl md:text-4xl font-normal italic tracking-tight text-neutral-950 dark:text-white font-subheading m-0"
-              >
-                "_"
-              </blockquote>
-              <p
-                data-en="Nothing. That's how I know I built it for the actual use case: when the software gets out of the way, and does what it's supposed to do, it leaves nothing for the user to complain about."
-                data-id="Nggak ada. Di situlah kita tahu software ini dibuat dengan bagus: ketika aplikasinya bekerja mulus tanpa kendala, pengguna nggak punya alasan buat mengeluh."
-                class="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed m-0"
-              >
-                Nothing. That's how I know I built it for the actual use case:
-                when the software gets out of the way, and does what it's
-                supposed to do, it leaves nothing for the user to complain
-                about.
-              </p>
+              <!-- Right: Explanatory paragraph treated like a quiet disclaimer note -->
+              <div class="lg:col-span-7 flex flex-col justify-center pt-1 lg:pt-2">
+                <p
+                  data-en="When the software gets out of the way, and does what it's supposed to do, it leaves nothing for the user to complain about. Great systems shouldn't ask for applause, they just work."
+                  data-id="Ketika aplikasinya bekerja mulus tanpa kendala, pengguna nggak punya alasan buat mengeluh. Sistem yang hebat nggak perlu minta tepuk tangan, cukup bekerja sesuai fungsinya."
+                  class="font-sans text-xs sm:text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed font-normal m-0 max-w-xl"
+                >
+                  When the software gets out of the way, and does what it's supposed to do, it leaves nothing for the user to complain about. Great systems shouldn't ask for applause, they just work.
+                </p>
+              </div>
             </div>
           </div>
+
         </div>
+
+        <style is:global>
+          #lyrics-rotator-container {
+            -webkit-mask-image: linear-gradient(to bottom, black 65%, transparent 100%);
+            mask-image: linear-gradient(to bottom, black 65%, transparent 100%);
+          }
+
+          #lyrics-rotator-track.no-transition,
+          #lyrics-rotator-track.no-transition .lyrics-line {
+            transition: none !important;
+          }
+
+          #lyrics-rotator-track .lyrics-line {
+            font-size: 0.875rem; /* text-sm: 14px */
+            line-height: 1.6;
+            letter-spacing: normal;
+            transition: transform 500ms cubic-bezier(0.25, 1, 0.5, 1),
+                        opacity 500ms cubic-bezier(0.25, 1, 0.5, 1),
+                        filter 500ms cubic-bezier(0.25, 1, 0.5, 1),
+                        color 350ms ease;
+            transform-origin: left center;
+            cursor: pointer;
+            user-select: none;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+          }
+
+          @media (min-width: 640px) {
+            #lyrics-rotator-track .lyrics-line {
+              font-size: 1rem; /* text-base: 16px */
+            }
+          }
+
+          /* Active Focal Lyric: Muted editorial tone */
+          #lyrics-rotator-track .lyrics-line-active {
+            opacity: 0.88 !important;
+            transform: scale(1.02) translateZ(0) !important;
+            filter: blur(0px) !important;
+            color: #404040 !important; /* neutral-700 instead of harsh #0a0a0a */
+            cursor: default;
+          }
+
+          .dark #lyrics-rotator-track .lyrics-line-active {
+            color: #d4d4d4 !important; /* neutral-300 instead of stark white */
+            text-shadow: none !important;
+          }
+
+          /* Inactive Defocused Next Lyric: Muted background preview */
+          #lyrics-rotator-track .lyrics-line-edge {
+            opacity: 0.32 !important;
+            transform: scale(0.97) translateZ(0) !important;
+            filter: blur(0.8px) !important;
+            color: #8c8c8c !important; /* softer neutral */
+          }
+
+          .dark #lyrics-rotator-track .lyrics-line-edge {
+            color: #737373 !important;
+          }
+
+          /* Hover Peek */
+          #lyrics-rotator-track .lyrics-line-edge:hover {
+            opacity: 0.65 !important;
+            filter: blur(0px) !important;
+            transform: scale(0.99) translateZ(0) !important;
+            color: #525252 !important;
+          }
+
+          .dark #lyrics-rotator-track .lyrics-line-edge:hover {
+            color: #a3a3a3 !important;
+          }
+
+          /* Hidden lines outside 2-line portal */
+          #lyrics-rotator-track .lyrics-line-hidden {
+            opacity: 0 !important;
+            visibility: hidden !important;
+            pointer-events: none !important;
+            filter: blur(2px) !important;
+            transform: scale(0.9) translateZ(0) !important;
+          }
+
+          @media (prefers-reduced-motion: reduce) {
+            #lyrics-rotator-track,
+            #lyrics-rotator-track .lyrics-line {
+              transition: none !important;
+              filter: none !important;
+              transform: none !important;
+            }
+          }
+        </style>
 
         <script>
           function setupPhilosophyAccordions() {
@@ -511,12 +507,135 @@ const capabilities = [
             });
           }
 
-          if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', setupPhilosophyAccordions);
-          } else {
-            setupPhilosophyAccordions();
+          function setupLyricsRotator() {
+            const container = document.getElementById("lyrics-rotator-container");
+            const track = document.getElementById("lyrics-rotator-track");
+            if (!container || !track) return;
+
+            const items = track.children as HTMLCollectionOf<HTMLElement>;
+            if (items.length < 4) return;
+
+            let currentIndex = 0;
+            const totalLines = 8;
+            let isPaused = false;
+            let intervalId: any = null;
+
+            function updateFocus(idx: number) {
+              for (let i = 0; i < items.length; i++) {
+                const item = items[i];
+                if (i === idx) {
+                  item.classList.add("lyrics-line-active");
+                  item.classList.remove("lyrics-line-edge", "lyrics-line-hidden");
+                } else if (i === idx + 1) {
+                  item.classList.add("lyrics-line-edge");
+                  item.classList.remove("lyrics-line-active", "lyrics-line-hidden");
+                } else {
+                  item.classList.add("lyrics-line-hidden");
+                  item.classList.remove("lyrics-line-active", "lyrics-line-edge");
+                }
+              }
+            }
+
+            function updateHeight() {
+              if (items.length >= 2) {
+                // Height encompasses exactly the 2 active lines (idx and idx+1)
+                const h = (items[1].offsetTop + items[1].offsetHeight) - items[0].offsetTop;
+                if (h > 0) {
+                  container.style.height = `${h}px`;
+                }
+              }
+            }
+
+            function goToIndex(idx: number) {
+              currentIndex = idx;
+              track.style.transition = "transform 550ms cubic-bezier(0.25, 1, 0.5, 1)";
+              const targetOffset = items[currentIndex]?.offsetTop || 0;
+              track.style.transform = `translateY(-${targetOffset}px)`;
+              updateFocus(currentIndex);
+            }
+
+            function step() {
+              if (isPaused) return;
+              currentIndex++;
+              track.style.transition = "transform 600ms cubic-bezier(0.25, 1, 0.5, 1)";
+              const targetOffset = items[currentIndex]?.offsetTop || 0;
+              track.style.transform = `translateY(-${targetOffset}px)`;
+              updateFocus(currentIndex);
+
+              if (currentIndex >= totalLines) {
+                setTimeout(() => {
+                  track.classList.add("no-transition");
+                  currentIndex = 0;
+                  track.style.transform = "translateY(0)";
+                  updateFocus(0);
+                  void track.offsetHeight;
+                  requestAnimationFrame(() => {
+                    track.classList.remove("no-transition");
+                  });
+                }, 620);
+              }
+            }
+
+            for (let i = 0; i < totalLines; i++) {
+              items[i].addEventListener("click", () => {
+                goToIndex(i);
+              });
+            }
+
+            updateFocus(0);
+            updateHeight();
+            if ("fonts" in document) {
+              document.fonts.ready.then(updateHeight);
+            }
+
+            const onResize = () => updateHeight();
+            window.addEventListener("resize", onResize, { passive: true });
+
+            container.addEventListener("mouseenter", () => {
+              isPaused = true;
+            });
+            container.addEventListener("mouseleave", () => {
+              isPaused = false;
+            });
+
+            const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+            if (!prefersReducedMotion) {
+              intervalId = setInterval(step, 3200);
+            }
+
+            const onVisibilityChange = () => {
+              if (document.hidden) {
+                if (intervalId) clearInterval(intervalId);
+                intervalId = null;
+              } else if (!prefersReducedMotion && !intervalId) {
+                intervalId = setInterval(step, 3200);
+                updateHeight();
+              }
+            };
+            document.addEventListener("visibilitychange", onVisibilityChange);
+
+            document.addEventListener(
+              "astro:before-swap",
+              () => {
+                if (intervalId) clearInterval(intervalId);
+                window.removeEventListener("resize", onResize);
+                document.removeEventListener("visibilitychange", onVisibilityChange);
+              },
+              { once: true }
+            );
           }
-          document.addEventListener('astro:page-load', setupPhilosophyAccordions);
+
+          function initSection4() {
+            setupPhilosophyAccordions();
+            setupLyricsRotator();
+          }
+
+          if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initSection4);
+          } else {
+            initSection4();
+          }
+          document.addEventListener('astro:page-load', initSection4);
         </script>
       </section>
     </div>
