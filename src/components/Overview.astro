@@ -84,7 +84,9 @@ const supportingStack = [
   aria-labelledby="heading-intro"
   class="scroll-mt-24 pt-0 space-y-12 overview-section"
 >
-  <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start pt-0">
+  <div
+    class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start pt-0"
+  >
     <!-- Left Column: Portrait Photo with Studio Frame -->
     <div
       class="lg:col-span-5 xl:col-span-5 lg:sticky lg:top-24 flex flex-col items-center justify-center pt-0"
@@ -109,7 +111,7 @@ const supportingStack = [
         </div>
 
         <img
-          src={`${base}/images/v.png`}
+          src={`${base}/images/v.webp`}
           alt="Portrait of Yovan Gunardio Darmawan"
           width="540"
           height="540"
@@ -119,7 +121,9 @@ const supportingStack = [
           fetchpriority="high"
         />
       </div>
-      <div class="w-full pt-3 flex items-center justify-between text-xs text-neutral-400 dark:text-neutral-500 font-sans px-1">
+      <div
+        class="w-full pt-3 flex items-center justify-between text-xs text-neutral-400 dark:text-neutral-500 font-sans px-1"
+      >
         <EggLink
           easter="modpe"
           en="Entity.setRenderType(mob, 3);"
@@ -142,14 +146,36 @@ const supportingStack = [
       <h2
         class="font-sans font-normal text-2xl sm:text-3xl lg:text-[36px] text-neutral-950 dark:text-white leading-[1.25] tracking-tight m-0"
       >
-        <span data-en="Hello, I'm Yovan. I build things for the " data-id="Halo, aku Yovan. Aku bikin ini dan itu buat di ">Hello, I'm Yovan. I build things for the </span><span class="font-light text-neutral-500 dark:text-neutral-400" data-en="world wide web" data-id="internet">world wide web</span><span data-en=" and occasionally things that " data-id=" dan sesekali yang "> and occasionally things that </span><span data-en="talk to machines" data-id="nyambung ke hardware">talk to machines</span>.
+        <span
+          data-en="Hello, I'm Yovan. I build things for the "
+          data-id="Halo, aku Yovan. Aku bikin ini dan itu buat di "
+          >Hello, I'm Yovan. I build things for the
+        </span><span
+          class="font-light text-neutral-500 dark:text-neutral-400"
+          data-en="world wide web"
+          data-id="internet">world wide web</span
+        ><span
+          data-en=" and occasionally things that "
+          data-id=" dan sesekali yang "
+        >
+          and occasionally things that
+        </span><span data-en="talk to machines" data-id="nyambung ke hardware"
+          >talk to machines</span
+        >.
       </h2>
 
       <!-- Anchor alias for #about -->
-      <div id="about" class="scroll-mt-28 pointer-events-none" aria-hidden="true"></div>
+      <div
+        id="about"
+        class="scroll-mt-28 pointer-events-none"
+        aria-hidden="true"
+      >
+      </div>
 
       <!-- About Narrative (Integrated from Section 05) -->
-      <div class="space-y-4 pt-1 text-base sm:text-[17px] text-neutral-700 dark:text-neutral-300 leading-relaxed font-normal">
+      <div
+        class="space-y-4 pt-1 text-base sm:text-[17px] text-neutral-700 dark:text-neutral-300 leading-relaxed font-normal"
+      >
         <p
           data-en="Started out modding Java and Android games; curiosity did the rest. Today I design systems from interface to bare metal."
           data-id="Berawal dari ngoprek game Java dan Android; rasa penasaran menuntunku dari sana ke sini. Sampai merancang sistem dari antarmuka sampai ke mesin."
@@ -161,9 +187,13 @@ const supportingStack = [
       </div>
 
       <!-- Unboxed Two Columns -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8 lg:gap-10 pt-1 sm:pt-2 pb-2">
+      <div
+        class="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8 lg:gap-10 pt-1 sm:pt-2 pb-2"
+      >
         <div class="flex flex-col gap-2 sm:gap-2.5">
-          <h3 class="flex items-center gap-2.5 font-sans font-normal text-base sm:text-lg text-neutral-900 dark:text-white tracking-normal leading-tight m-0">
+          <h3
+            class="flex items-center gap-2.5 font-sans font-normal text-base sm:text-lg text-neutral-900 dark:text-white tracking-normal leading-tight m-0"
+          >
             <svg
               class="w-[18px] h-[18px] shrink-0 text-neutral-400 dark:text-neutral-400"
               viewBox="0 0 24 24"
@@ -178,10 +208,7 @@ const supportingStack = [
               <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path>
               <path d="M2 12h20"></path>
             </svg>
-            <span
-              data-en="The Digital Realm"
-              data-id="Dunia Digital"
-            >
+            <span data-en="The Digital Realm" data-id="Dunia Digital">
               The Digital Realm
             </span>
           </h3>
@@ -190,11 +217,14 @@ const supportingStack = [
             data-en="Full-stack web applications, interactive dashboards, and client portals built with clean semantic structure."
             data-id="Aplikasi web full-stack, dashboard interaktif, dan portal klien dengan struktur semantik rapi."
           >
-            Full-stack web applications, interactive dashboards, and client portals built with clean semantic structure.
+            Full-stack web applications, interactive dashboards, and client
+            portals built with clean semantic structure.
           </p>
         </div>
         <div class="flex flex-col gap-2 sm:gap-2.5">
-          <h3 class="flex items-center gap-2.5 font-sans font-normal text-base sm:text-lg text-neutral-900 dark:text-white tracking-normal leading-tight m-0">
+          <h3
+            class="flex items-center gap-2.5 font-sans font-normal text-base sm:text-lg text-neutral-900 dark:text-white tracking-normal leading-tight m-0"
+          >
             <svg
               class="w-[18px] h-[18px] shrink-0 text-neutral-400 dark:text-neutral-400"
               viewBox="0 0 24 24"
@@ -216,28 +246,32 @@ const supportingStack = [
               <path d="M9 2v2"></path>
               <path d="M9 20v2"></path>
             </svg>
-            <span
-              data-en="The Physical Layer"
-              data-id="Lapisan Fisik"
-            >
+            <span data-en="The Physical Layer" data-id="Lapisan Fisik">
               The Physical Layer
             </span>
           </h3>
           <p
             class="font-sans text-[14px] sm:text-[14.5px] leading-relaxed text-neutral-600 dark:text-neutral-400 m-0"
           >
-            <span data-en="Touchscreen kiosks, connected " data-id="Touchscreen kiosk, ">Touchscreen kiosks, connected </span><EggLink
+            <span
+              data-en="Touchscreen kiosks, connected "
+              data-id="Touchscreen kiosk, "
+              >Touchscreen kiosks, connected
+            </span><EggLink
               easter="gpio"
               en="microcontrollers"
               id="mikrokontroler"
               ariaEn="Unlock GPIO16 Cool Stuff"
               ariaId="Buka Cool Stuff GPIO16"
-            /><span data-en=" (ESP32), payment gateways, and direct serial/IPC protocols." data-id=" terhubung (ESP32), payment gateway, dan protokol serial/IPC."> (ESP32), payment gateways, and direct serial/IPC protocols.</span>
+            /><span
+              data-en=" (ESP32), payment gateways, and direct serial/IPC protocols."
+              data-id=" terhubung (ESP32), payment gateway, dan protokol serial/IPC."
+            >
+              (ESP32), payment gateways, and direct serial/IPC protocols.</span
+            >
           </p>
         </div>
       </div>
-
-
 
       <!-- Tech Stack Layout (Original unboxed breathing grid down below) -->
       <div
@@ -274,7 +308,11 @@ const supportingStack = [
                       class="w-full h-full"
                       aria-hidden="true"
                     >
-                      <path d={simpleIcons[tech.iconKey as keyof typeof simpleIcons]} />
+                      <path
+                        d={
+                          simpleIcons[tech.iconKey as keyof typeof simpleIcons]
+                        }
+                      />
                     </svg>
                   </div>
                 </div>
@@ -299,7 +337,9 @@ const supportingStack = [
             >
               Ecosystem & Supporting Tools
             </h3>
-            <span class="font-sans text-[11px] text-neutral-400 dark:text-neutral-400 font-medium">
+            <span
+              class="font-sans text-[11px] text-neutral-400 dark:text-neutral-400 font-medium"
+            >
               {supportingStack.length} tools
             </span>
           </div>
@@ -326,5 +366,3 @@ const supportingStack = [
     </div>
   </div>
 </section>
-
-

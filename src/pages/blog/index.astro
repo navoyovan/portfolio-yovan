@@ -172,7 +172,7 @@ const blogSchema = {
 
           return (
             <article class="group relative p-6 sm:p-8 rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-950/70 hover:border-neutral-400 dark:hover:border-neutral-700 transition-[border-color,box-shadow] duration-200 shadow-sm hover:shadow-md">
-              <span class="absolute top-0 left-6 sm:left-8 -translate-y-1/2 text-[11px] font-medium px-2.5 py-0.5 rounded-full bg-neutral-100 text-neutral-600 border border-neutral-300/80 dark:bg-neutral-900 dark:text-neutral-400 dark:border-neutral-800 font-sans shadow-xs z-10 select-none">
+              <span class="absolute top-0 left-6 sm:left-8 -translate-y-1/2 text-[11px] font-medium px-2.5 py-0.5 rounded-full bg-neutral-100 text-neutral-700 border border-neutral-300 dark:bg-neutral-900 dark:text-neutral-200 dark:border-neutral-500/80 font-sans shadow-xs z-10 select-none">
                 Latest
               </span>
               <div class={thumbSrc ? "grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center" : ""}>
@@ -245,12 +245,13 @@ const blogSchema = {
                     <span class="inline-flex items-center font-sans font-semibold text-xs text-neutral-950 dark:text-white shrink-0 whitespace-nowrap overflow-hidden">
                       <span class="inline-flex items-center translate-x-[10px] group-hover:translate-x-0 transition-transform duration-200 ease-out">
                         <span data-en="Read article" data-id="Baca artikel">Read article</span>
-                        <span class="inline-flex items-center justify-center w-3.5 ml-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200 ease-out" aria-hidden="true">
+                        <span class="inline-flex items-center justify-center w-3.5 ml-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-200 ease-out" aria-hidden="true">
                           →
                         </span>
                       </span>
                     </span>
                   </div>
+
                 </div>
 
                 {thumbSrc && (
@@ -285,9 +286,9 @@ const blogSchema = {
               const thumbSrc = resolveImageUrl(post.data.thumbnail || post.data.image);
 
               return (
-                <article class="break-inside-avoid mb-6 group relative rounded-xl border border-neutral-200/80 dark:border-neutral-800/80 bg-white/70 dark:bg-neutral-950/70 hover:border-neutral-400 dark:hover:border-neutral-700 transition-[border-color,box-shadow] duration-200 shadow-sm hover:shadow-md flex flex-col overflow-hidden">
+                <article class="break-inside-avoid mb-6 group relative rounded-xl border border-neutral-200/80 dark:border-neutral-800/80 bg-white/70 dark:bg-neutral-950/70 hover:border-neutral-400 dark:hover:border-neutral-700 transition-[border-color,box-shadow] duration-200 shadow-sm hover:shadow-md flex flex-col">
                   {thumbSrc && (
-                    <div class="relative aspect-[16/10] sm:aspect-[16/9] w-full overflow-hidden bg-neutral-100 dark:bg-neutral-900 border-b border-neutral-200/80 dark:border-neutral-800/80">
+                    <div class="relative aspect-[16/10] sm:aspect-[16/9] w-full overflow-hidden rounded-t-xl bg-neutral-100 dark:bg-neutral-900 border-b border-neutral-200/80 dark:border-neutral-800/80">
                       <img
                         src={thumbSrc}
                         alt={post.data.imageAlt || post.data.title}
@@ -366,7 +367,7 @@ const blogSchema = {
                       <span class="inline-flex items-center font-sans font-semibold text-xs text-neutral-950 dark:text-white shrink-0 whitespace-nowrap overflow-hidden">
                         <span class="inline-flex items-center translate-x-[10px] group-hover:translate-x-0 transition-transform duration-200 ease-out">
                           <span data-en="Read article" data-id="Baca artikel">Read article</span>
-                          <span class="inline-flex items-center justify-center w-3.5 ml-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200 ease-out" aria-hidden="true">
+                          <span class="inline-flex items-center justify-center w-3.5 ml-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-200 ease-out" aria-hidden="true">
                             →
                           </span>
                         </span>
