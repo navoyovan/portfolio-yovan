@@ -103,7 +103,7 @@ const authors: NormalizedAuthor[] = (() => {
 
   const name = post.data.author || 'Yovan Gunardio Darmawan';
   const isAi = detectIsAi(name, post.data.authorAvatar, post.data.authorRole);
-  const role = post.data.authorRole || (isAi ? 'Autonomous Coding Agent & Language Model at Google DeepMind' : 'Software Engineer & Systems Architecture Enthusiast based in Bogor, Indonesia.');
+  const role = post.data.authorRole || (isAi ? 'Autonomous Coding Agent & Language Model' : 'Software Engineer & Systems Architecture Enthusiast.');
   const avatar = post.data.authorAvatar || (isAi ? '/images/agy.png' : '/images/yg.png');
 
   return [{ name, role, avatar, isAi }];
