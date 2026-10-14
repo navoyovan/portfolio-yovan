@@ -188,12 +188,11 @@ const base = rawBase.endsWith("/") ? rawBase.slice(0, -1) : rawBase;
       class="relative w-full bg-black overflow-hidden border-b border-neutral-300/80 dark:border-neutral-800/80 select-none flex items-center justify-center"
     >
       <img
-        src={`${base}/whatisthis/page1.png`}
+        data-src={`${base}/whatisthis/page1.png`}
         alt="First landing page Hello-ween running on localhost:44342"
         width="1366"
         height="768"
         class="w-full h-auto block select-none"
-        loading="lazy"
         decoding="async"
       />
     </div>
@@ -330,12 +329,11 @@ const base = rawBase.endsWith("/") ? rawBase.slice(0, -1) : rawBase;
       class="relative w-full bg-black overflow-hidden border-b border-neutral-300/80 dark:border-neutral-800/80 select-none flex items-center justify-center"
     >
       <img
-        src={`${base}/whatisthis/Screenshot_20140507-0830.png`}
+        data-src={`${base}/whatisthis/Screenshot_20140507-0830.png`}
         alt="Entity.setRenderType(mob, 3); MCPE ModPE Screenshot 2014"
-        width="370"
-        height="564"
+        width="1080"
+        height="1313"
         class="w-full h-auto block select-none"
-        loading="lazy"
         decoding="async"
       />
     </div>
@@ -1072,6 +1070,10 @@ const base = rawBase.endsWith("/") ? rawBase.slice(0, -1) : rawBase;
       ) as HTMLIFrameElement | null;
       if (iframe && !iframe.src) {
         iframe.src = iframe.dataset.src || "";
+      }
+      const img = popup.querySelector("img[data-src]") as HTMLImageElement | null;
+      if (img && !img.getAttribute("src")) {
+        img.src = img.dataset.src || "";
       }
       const video = popup.querySelector(
         "video[data-src]",

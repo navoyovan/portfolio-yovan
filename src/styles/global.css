@@ -2,6 +2,10 @@
 
 @import "@fontsource/syne/700.css";
 @import "@fontsource/syne/800.css";
+@import "@fontsource/outfit/400.css";
+@import "@fontsource/outfit/500.css";
+@import "@fontsource/outfit/600.css";
+@import "@fontsource/outfit/700.css";
 
 @font-face {
   font-family: 'Neue Machina';
@@ -22,126 +26,6 @@
 @font-face {
   font-family: 'Neue Machina';
   src: url('./fonts/PPNeueMachina-InktrapUltrabold.woff2') format('woff2');
-  font-weight: 700 800 900;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'PP Neue Machina';
-  src: url('./fonts/PPNeueMachina-InktrapLight.woff2') format('woff2');
-  font-weight: 300;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'PP Neue Machina';
-  src: url('./fonts/PPNeueMachina-InktrapRegular.woff2') format('woff2');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'PP Neue Machina';
-  src: url('./fonts/PPNeueMachina-InktrapUltrabold.woff2') format('woff2');
-  font-weight: 700 800 900;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Neue Machina Plain';
-  src: url('./fonts/PPNeueMachina-PlainLight.woff2') format('woff2');
-  font-weight: 300;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Neue Machina Plain';
-  src: url('./fonts/PPNeueMachina-PlainRegular.woff2') format('woff2');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Neue Machina Plain';
-  src: url('./fonts/PPNeueMachina-PlainUltrabold.woff2') format('woff2');
-  font-weight: 700 800 900;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Neue Machina v1';
-  src: url('./fonts/NeueMachina-Light.woff2') format('woff2');
-  font-weight: 300;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Neue Machina v1';
-  src: url('./fonts/NeueMachina-Regular.woff2') format('woff2');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Neue Machina v1';
-  src: url('./fonts/NeueMachina-Ultrabold.woff2') format('woff2');
-  font-weight: 700 800 900;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Neue Machina v2 Inktrap';
-  src: url('./fonts/PPNeueMachina-InktrapLight.woff2') format('woff2');
-  font-weight: 300;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Neue Machina v2 Inktrap';
-  src: url('./fonts/PPNeueMachina-InktrapRegular.woff2') format('woff2');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Neue Machina v2 Inktrap';
-  src: url('./fonts/PPNeueMachina-InktrapUltrabold.woff2') format('woff2');
-  font-weight: 700 800 900;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Neue Machina v2 Plain';
-  src: url('./fonts/PPNeueMachina-PlainLight.woff2') format('woff2');
-  font-weight: 300;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Neue Machina v2 Plain';
-  src: url('./fonts/PPNeueMachina-PlainRegular.woff2') format('woff2');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Neue Machina v2 Plain';
-  src: url('./fonts/PPNeueMachina-PlainUltrabold.woff2') format('woff2');
   font-weight: 700 800 900;
   font-style: normal;
   font-display: swap;

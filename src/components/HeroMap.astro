@@ -40,7 +40,7 @@ const fontPresets = [
   { id: 'machina', label: 'NEUE MACHINA', code: 'MACH' },
   { id: 'swiss', label: 'SWISS MODERN', code: 'JAKARTA' },
   { id: 'brutalist', label: 'EDITORIAL BRUTAL', code: 'CLASH' },
-  { id: 'mono', label: 'TECH MONOSPACE', code: 'GROTESK' },
+  { id: 'mono', label: 'TECH MONOSPACE', code: 'MONO' },
   { id: 'serif', label: 'ARCHIVAL SERIF', code: 'FRAUNCES' },
   { id: 'industrial', label: 'NEO INDUSTRIAL', code: 'OSWALD' },
 ];
@@ -62,11 +62,11 @@ const scrimPresets = [
   data-lng={lng}
   data-zoom={zoom}
   data-interactive={interactive ? "true" : "false"}
-  aria-hidden={interactive ? "false" : "true"}
 >
   <!-- Leaflet Map Canvas (Zero opacity lag / direct composite) -->
   <div
     id="hero-leaflet-map"
+    aria-hidden={interactive ? "false" : "true"}
     class="w-full h-full bg-[#fcfbf9] dark:bg-[#090909] opacity-90 dark:opacity-80"
     style="contain: paint; backface-visibility: hidden;"
   ></div>
@@ -129,7 +129,7 @@ const scrimPresets = [
   </div>
 
   <!-- Dynamic Gradient Scrim Overlays -->
-  <div id="hero-map-scrim-container" class="pointer-events-none select-none z-[1]">
+  <div id="hero-map-scrim-container" aria-hidden="true" class="pointer-events-none select-none z-[1]">
     <!-- Subtle Scrim (Whisper) -->
     <div id="scrim-subtle" class="pointer-events-none">
       <div class="absolute inset-y-0 left-0 w-full sm:w-[36%] lg:w-[28%] bg-gradient-to-r from-[#fcfbf9]/60 via-[#fcfbf9]/20 to-transparent dark:from-[#0e0e0e]/65 dark:via-[#0e0e0e]/20 dark:to-transparent pointer-events-none"></div>
@@ -149,6 +149,7 @@ const scrimPresets = [
   id="hero-map-dev-menu"
   role="menu"
   aria-label="Dev Options"
+  inert
   class="fixed bottom-6 left-6 min-w-[240px] bg-[#fcfbf9]/95 dark:bg-[#0e0e0e]/95 backdrop-blur-xl border border-neutral-200/90 dark:border-neutral-800/90 rounded-lg shadow-xl dark:shadow-2xl p-1.5 z-50 opacity-0 translate-y-2 scale-95 pointer-events-none transition-[opacity,transform] duration-200 ease-out origin-bottom-left flex flex-col gap-1 select-none"
   style="-webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px);"
 >
@@ -904,9 +905,11 @@ const scrimPresets = [
     const setDevMenuState = (open: boolean) => {
       isDevMenuOpen = open;
       if (open) {
+        devMenu.removeAttribute('inert');
         devMenu.classList.remove('opacity-0', 'translate-y-2', 'scale-95', 'pointer-events-none');
         devMenu.classList.add('opacity-100', 'translate-y-0', 'scale-100', 'pointer-events-auto');
       } else {
+        devMenu.setAttribute('inert', '');
         devMenu.classList.remove('opacity-100', 'translate-y-0', 'scale-100', 'pointer-events-auto');
         devMenu.classList.add('opacity-0', 'translate-y-2', 'scale-95', 'pointer-events-none');
       }

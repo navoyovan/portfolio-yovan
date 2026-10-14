@@ -156,7 +156,11 @@ const { title, description, image, imageAlt, canonicalURL, type, keywords, schem
           document.querySelectorAll('[data-lang-option]').forEach(function(opt) {
             const optLang = opt.getAttribute('data-lang-option');
             const isSelected = optLang === lang;
-            opt.setAttribute('aria-selected', String(isSelected));
+            if (isSelected) {
+              opt.setAttribute('aria-current', 'true');
+            } else {
+              opt.removeAttribute('aria-current');
+            }
             const meta = opt.querySelector('.lang-meta');
             if (isSelected) {
               opt.classList.add('text-neutral-950', 'dark:text-white', '!font-black', 'bg-neutral-100', 'dark:bg-neutral-900/80');
@@ -203,9 +207,9 @@ const { title, description, image, imageAlt, canonicalURL, type, keywords, schem
             cssUrl: 'https://api.fontshare.com/v2/css?f[]=clash-display@700,600&f[]=general-sans@400,500,600&display=swap'
           },
           mono: {
-            heading: "'Space Grotesk', sans-serif",
+            heading: "'Space Mono', monospace",
             sans: "'Space Mono', monospace",
-            cssUrl: 'https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Space+Mono:wght@400;700&display=swap'
+            cssUrl: 'https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap'
           },
           serif: {
             heading: "'Fraunces', serif",
@@ -306,11 +310,29 @@ const { title, description, image, imageAlt, canonicalURL, type, keywords, schem
     <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin />
     <link rel="preconnect" href="https://fonts.cdnfonts.com" crossorigin />
     <link rel="preconnect" href="https://unpkg.com" crossorigin />
-    <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,600,700,800,900&display=swap" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&display=swap" />
-    <link rel="stylesheet" href="https://fonts.cdnfonts.com/css/pp-neue-montreal" />
+    <link
+      rel="stylesheet"
+      href="https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,600,700,800,900&display=swap"
+      media="print"
+      onload="this.media='all'"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&display=swap"
+      media="print"
+      onload="this.media='all'"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.cdnfonts.com/css/pp-neue-montreal"
+      media="print"
+      onload="this.media='all'"
+    />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.31.0/dist/tabler-icons.min.css" media="print" onload="this.media='all'" />
     <noscript>
+      <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,600,700,800,900&display=swap" />
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&display=swap" />
+      <link rel="stylesheet" href="https://fonts.cdnfonts.com/css/pp-neue-montreal" />
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.31.0/dist/tabler-icons.min.css" />
     </noscript>
     <meta name="author" content="Yovan Gunardio Darmawan" />

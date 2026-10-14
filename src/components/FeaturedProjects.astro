@@ -1161,7 +1161,7 @@ const { base } = Astro.props;
       const targetWidth = `${(1 + leftFactor + rightFactor) * 100}%`;
 
       // Measure true natural height AT targetWidth so the card smoothly animates
-      // directly to its full required height without snapping or popping at the end.
+      // directly to its exact required height without overshoot or rubberbanding.
       const prevWidth = card.style.width;
       const prevHeight = card.style.height;
       card.style.width = targetWidth;
@@ -1171,9 +1171,7 @@ const { base } = Astro.props;
       card.style.height = prevHeight || "";
       void card.offsetHeight;
 
-      const targetHeight = isMobile
-        ? Math.ceil(Math.min(Math.max(naturalH, 380), 720))
-        : Math.ceil(Math.max(naturalH, 670));
+      const targetHeight = Math.ceil(naturalH);
 
       const expandedGeometry = {
         width: targetWidth,
