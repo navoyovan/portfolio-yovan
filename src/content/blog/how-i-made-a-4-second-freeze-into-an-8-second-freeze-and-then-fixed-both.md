@@ -68,7 +68,7 @@ These were real problems, and I addressed all of them. That part worked.
 
 PR #16 (`experimental-optimization`) landed on October 4th and brought a lot of structural improvements to how the app handled state and performance. The highlights:
 
-**Pre-computed `blockMetaMap`:** Instead of traversing leaves for every filter check, metadata about each block—whether it has pack textures, ghosts, or certain keys—was computed once per tree update:
+**Pre-computed `blockMetaMap`:** Instead of traversing leaves for every filter check, metadata about each block whether it has pack textures, ghosts, or certain keys was computed once per tree update:
 
 ```ts
 const blockMetaMap = useMemo(() => {
@@ -98,7 +98,7 @@ Filter lookups became O(1) dictionary gets. Typing in the search bar became inst
 
 **Sidebar virtualization:** Only rows visible in the viewport are mounted.
 
-**Watcher classification & scoped rescans:** The filesystem watcher began classifying events—texture-file changes vs. JSON changes vs. structural modifications. When mutations were constrained to a single JSON file, the app triggered a `RescanBlocksScoped` that re-parsed only that file instead of re-enumerating the entire pack on disk. This method takes under 25 milliseconds instead of several seconds.
+**Watcher classification & scoped rescans:** The filesystem watcher began classifying events texture-file changes vs. JSON changes vs. structural modifications. When mutations were constrained to a single JSON file, the app triggered a `RescanBlocksScoped` that re-parsed only that file instead of re-enumerating the entire pack on disk. This method takes under 25 milliseconds instead of several seconds.
 
 **State diffing on the background thread:** `PackStateDiffer.ComputeDiff` already ran on `Task.Run` to keep the UI thread free while comparing state graphs.
 
@@ -160,7 +160,7 @@ v1.1.1 had introduced `RescanBlocksScoped` for fast incremental rescans when cha
 
 Understanding the deletion problem meant understanding WPF thread affinity. The browser engine depends on the host window's Win32 message pump. When the WPF Dispatcher thread is busy, the message pump doesn't run. WebView2 can't receive input events, can't composite frames, can't do anything. The browser just sits there, appearing frozen, because from its perspective it's been cut off from the outside world.
 
-This meant the fix couldn't be in React—it had to be in how the host scheduled work and how it suppressed redundant filesystem events. v1.1.1 already had the pieces: scoped rescans, background diffing, watcher classification. But the deletion path was still triggering multiple rescan cycles.
+This meant the fix couldn't be in React it had to be in how the host scheduled work and how it suppressed redundant filesystem events. v1.1.1 already had the pieces: scoped rescans, background diffing, watcher classification. But the deletion path was still triggering multiple rescan cycles.
 
 ---
 
@@ -300,10 +300,10 @@ The three fixes combined had a measurable impact:
 
 **4. The renderer being idle doesn't mean the frontend is fine.** I initially took idle JS execution as "React isn't the problem," which was correct; but the renderer was idle because it was cut off from the host, not because it was healthy. A renderer trace can't see the host thread. You need both perspectives to understand the full story.
 
-**5. Never use `loading="lazy"` on virtual host URLs.** Lazy loading is designed for images that might not be visible in the viewport, loading from a slow network. Using it on local in-memory assets just adds IntersectionObserver overhead with zero benefit.
+**5. Never use `loading="lazy"` on virtual host URLs.** Lazy loading is designed for images that might not be visible in the viewport, loading from a slow network. Using it on local in-memory assets just adds IntersectionObserver overhead with zero benefit. *or at least in my use case.*
 
 ---
 
-The fix wasn't one clever idea. It was finding where three separate systems were failing at the same intersection—unbatched mutations, a suppression journal with a blind spot, and a deficit in native deletion atomicity—and fixing each one. Once all three were addressed, the deletion freeze became imperceptible.
+The fix wasn't one clever idea. It was finding where three separate systems were failing at the same intersection unbatched mutations, a suppression journal with a blind spot, and a deficit in native deletion atomicity and fixing each one. Once all three were addressed, the deletion freeze became imperceptible.
 
-v1.1.2 tagged October 12th.
+mcTextureGhost v1.1.2 tagged October 12th.
