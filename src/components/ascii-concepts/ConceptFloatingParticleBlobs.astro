@@ -71,8 +71,11 @@ const { class: className = '' } = Astro.props;
       let last = performance.now();
 
       function loop(t) {
-        const time = t * 0.001;
-        const dt = Math.min((t - last) / 1000, 0.05);
+        const container = canvas.parentElement;
+        const speedMult = parseFloat(container?.getAttribute('data-speed-multiplier') || '1') || 1;
+        const radiusScale = parseFloat(container?.getAttribute('data-radius-scale') || '1') || 1;
+        const time = t * 0.001 * speedMult;
+        const dt = Math.min((t - last) / 1000, 0.05) * speedMult;
         last = t;
 
         ctx.fillStyle = '#121214';
@@ -99,7 +102,7 @@ const { class: className = '' } = Astro.props;
           blob.cx += blob.vx * 60 * dt;
           blob.cy += blob.vy * 60 * dt;
 
-          const pad = blob.baseRadius + 50;
+          const pad = blob.baseRadius * radiusScale + 50;
           if (blob.cx < -pad) blob.cx = w + pad;
           if (blob.cx > w + pad) blob.cx = -pad;
           if (blob.cy < -pad) blob.cy = h + pad;
@@ -110,7 +113,7 @@ const { class: className = '' } = Astro.props;
           ctx.fillStyle = `rgba(240, 240, 250, ${coreAlpha.toFixed(2)})`;
           ctx.fillText(b % 3 === 0 ? ':Mr' : (b % 2 === 0 ? '%88' : 'hA'), blob.cx, blob.cy);
 
-          const radius = blob.baseRadius * (1 + Math.sin(time * blob.morphSpeed + b) * 0.18);
+          const radius = blob.baseRadius * radiusScale * (1 + Math.sin(time * blob.morphSpeed + b) * 0.18);
 
           for (let n = 0; n < blob.nodes.length; n++) {
             const node = blob.nodes[n];

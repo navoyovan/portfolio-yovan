@@ -114,14 +114,23 @@ export const DitheringShader: React.FC<DitheringShaderProps> = ({
       }
     };
 
+    const handleSpeedChange = (e: Event) => {
+      const customEvent = e as CustomEvent<{ speed: number }>;
+      if (typeof customEvent.detail?.speed === "number" && materialRef.current) {
+        materialRef.current.uniforms.uSpeed.value = customEvent.detail.speed;
+      }
+    };
+
     window.addEventListener("dither:change-palette", handlePaletteChange);
     window.addEventListener("dither:change-pattern", handlePatternChange);
     window.addEventListener("dither:change-scale", handleScaleChange);
+    window.addEventListener("dither:change-speed", handleSpeedChange);
 
     return () => {
       window.removeEventListener("dither:change-palette", handlePaletteChange);
       window.removeEventListener("dither:change-pattern", handlePatternChange);
       window.removeEventListener("dither:change-scale", handleScaleChange);
+      window.removeEventListener("dither:change-speed", handleSpeedChange);
     };
   }, []);
 
