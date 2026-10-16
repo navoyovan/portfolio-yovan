@@ -28,6 +28,10 @@ import PersonalBusinessCard from "../components/PersonalBusinessCard.astro";
 import AsciiParticleField from "../components/AsciiParticleField.astro";
 import ConceptMetaballField from "../components/ascii-concepts/ConceptMetaballField.astro";
 import ConceptFloatingParticleBlobs from "../components/ascii-concepts/ConceptFloatingParticleBlobs.astro";
+import AuthorAvatar from "../components/AuthorAvatar.astro";
+import MorphingProjectCard from "../components/MorphingProjectCard.astro";
+import GithubContributionDivider from "../components/GithubContributionDivider.astro";
+import { DitheringShader } from "../components/ui/dithering-shader";
 
 const foundationsNav = [
   { id: "colors", label: "Color Tokens" },
@@ -47,17 +51,21 @@ const interactionNav = [
 const feedbackNav = [
   { id: "status-badges", label: "Status Badges" },
   { id: "metric-cards", label: "Metric Cards" },
+  { id: "author-avatars", label: "Author Avatars" },
 ];
 
 const systemsNav = [
-  { id: "project-tiles", label: "Project Tiles" },
+  { id: "project-tiles", label: "Project Tiles (Static)" },
+  { id: "morph-cards", label: "Morphing Project Cards" },
   { id: "tree-index", label: "Directory Tree Index" },
   { id: "app-window", label: "App Window Mockup" },
   { id: "system-topology", label: "System Topology" },
   { id: "trend-chart", label: "Telemetry Trend Spline" },
   { id: "kiosk-timeline", label: "Activity Schedule Timeline" },
   { id: "frame-rank-chart", label: "Filmstrip Asset Ranking" },
+  { id: "github-contributions", label: "GitHub Telemetry Divider" },
   { id: "ascii-particles", label: "ASCII Particle Fields" },
+  { id: "dithering-shader", label: "Bayer Dithering Shader" },
 ];
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
@@ -2158,6 +2166,104 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
             />
           </div>
         </section>
+
+        <!-- 12 / Author & User Avatars -->
+        <section id="author-avatars" class="space-y-6 scroll-mt-40 xl:scroll-mt-24">
+          <div class="pb-2 border-b border-neutral-200 dark:border-neutral-800">
+            <h2
+              class="!font-mono font-mono text-xs uppercase tracking-[0.15em] text-neutral-500 dark:text-neutral-400 font-semibold"
+            >
+              12 / Author &amp; User Avatars (Multi-Scale Matrix)
+            </h2>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+            <!-- 12.1 Size Scale Matrix -->
+            <div class="space-y-4">
+              <div class="flex items-center justify-between">
+                <span class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100 uppercase tracking-wider">
+                  12.1 / Scale Matrix (XS → XL)
+                </span>
+                <span class="font-mono text-[10px] text-neutral-400">
+                  xs (28px) • sm (36px) • md (44px) • lg (56px) • xl (80px)
+                </span>
+              </div>
+              <div class="flex flex-wrap items-end gap-4 py-3">
+                <div class="flex flex-col items-center gap-1.5">
+                  <AuthorAvatar size="xs" name="Yovan Gunardio Darmawan" />
+                  <span class="font-mono text-[10px] text-neutral-400">xs</span>
+                </div>
+                <div class="flex flex-col items-center gap-1.5">
+                  <AuthorAvatar size="sm" name="Yovan Gunardio Darmawan" />
+                  <span class="font-mono text-[10px] text-neutral-400">sm</span>
+                </div>
+                <div class="flex flex-col items-center gap-1.5">
+                  <AuthorAvatar size="md" name="Yovan Gunardio Darmawan" />
+                  <span class="font-mono text-[10px] text-neutral-400">md</span>
+                </div>
+                <div class="flex flex-col items-center gap-1.5">
+                  <AuthorAvatar size="lg" name="Yovan Gunardio Darmawan" />
+                  <span class="font-mono text-[10px] text-neutral-400">lg</span>
+                </div>
+                <div class="flex flex-col items-center gap-1.5">
+                  <AuthorAvatar size="xl" name="Yovan Gunardio Darmawan" />
+                  <span class="font-mono text-[10px] text-neutral-400">xl</span>
+                </div>
+              </div>
+              <div class="flex flex-col">
+                <span class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100">
+                  Scale &amp; Dimension Tokens
+                </span>
+                <span class="font-mono text-[11px] text-neutral-500">
+                  size="xs" | "sm" | "md" | "lg" | "xl" • Circular clipping • Syne/Outfit initials fallback
+                </span>
+              </div>
+            </div>
+
+            <!-- 12.2 Co-Author Attribution Variants -->
+            <div class="space-y-4">
+              <div class="flex items-center justify-between">
+                <span class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100 uppercase tracking-wider">
+                  12.2 / Attribution Variants &amp; Clusters
+                </span>
+                <span class="font-mono text-[10px] text-neutral-400">
+                  AI Co-Author • Human • Cluster Stack
+                </span>
+              </div>
+              <div class="flex flex-wrap items-center gap-6 py-3">
+                <!-- Human Author -->
+                <div class="flex items-center gap-2.5">
+                  <AuthorAvatar size="md" name="Yovan Gunardio Darmawan" />
+                  <div class="flex flex-col">
+                    <span class="font-heading font-bold text-xs text-neutral-900 dark:text-neutral-100">AUCTOR PRIMARIUS</span>
+                    <span class="font-mono text-[10px] text-neutral-500">Yovan (Human)</span>
+                  </div>
+                </div>
+                <!-- AI Agent Author -->
+                <div class="flex items-center gap-2.5">
+                  <AuthorAvatar size="md" name="Antigravity" isAi={true} />
+                  <div class="flex flex-col">
+                    <span class="font-heading font-bold text-xs text-neutral-900 dark:text-neutral-100">CO-AUCTOR ARTIFICIALIS</span>
+                    <span class="font-mono text-[10px] text-violet-500 font-semibold">Antigravity (AI)</span>
+                  </div>
+                </div>
+                <!-- Overlapping Cluster -->
+                <div class="flex items-center -space-x-2.5 pl-2">
+                  <AuthorAvatar size="md" name="Yovan Gunardio Darmawan" zIndex={2} />
+                  <AuthorAvatar size="md" name="Antigravity" isAi={true} zIndex={1} />
+                </div>
+              </div>
+              <div class="flex flex-col">
+                <span class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100">
+                  Editorial Co-Author Cluster Specimen
+                </span>
+                <span class="font-mono text-[11px] text-neutral-500">
+                  isAi=&#123;true&#125; • Violet halo accent • Dynamic zIndex stacking
+                </span>
+              </div>
+            </div>
+          </div>
+        </section>
       </div>
 
       <!-- Divider between Feedback & System Components -->
@@ -2168,13 +2274,13 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 
       <!-- 04 // SYSTEM & DATA VIZ Container -->
       <div id="system-data-viz" class="space-y-16 scroll-mt-40 xl:scroll-mt-24">
-        <!-- 12 / Project Tiles -->
+        <!-- 13 / Project Tiles (Static) -->
         <section id="project-tiles" class="space-y-6 scroll-mt-40 xl:scroll-mt-24">
           <div class="pb-2 border-b border-neutral-200 dark:border-neutral-800">
             <h2
-              class="!font-mono font-mono text-xs uppercase tracking-[0.15em] text-neutral-500 dark:border-neutral-400 font-semibold"
+              class="!font-mono font-mono text-xs uppercase tracking-[0.15em] text-neutral-500 dark:text-neutral-400 font-semibold"
             >
-              12 / Project Tiles (Case Study Cards)
+              13 / Project Tiles (Static Grid Specimen)
             </h2>
           </div>
 
@@ -2251,13 +2357,76 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
           </div>
         </section>
 
-        <!-- 13 / Directory & Tree Index Pattern -->
+        <!-- 14 / Morphing Project Cards (Physical Geometric Bloom & Viewfinder) -->
+        <section id="morph-cards" class="space-y-6 scroll-mt-40 xl:scroll-mt-24">
+          <div class="pb-2 border-b border-neutral-200 dark:border-neutral-800">
+            <h2
+              class="!font-mono font-mono text-xs uppercase tracking-[0.15em] text-neutral-500 dark:text-neutral-400 font-semibold"
+            >
+              14 / Morphing Project Cards (Physical Geometric Bloom &amp; Viewfinder)
+            </h2>
+          </div>
+
+          <div class="flex flex-col gap-1">
+            <span class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100 uppercase tracking-wider">
+              14.1 / Interactive Expanding Project Specimen (Click Card to Bloom)
+            </span>
+            <span class="font-mono text-[10px] text-neutral-400">
+              Interactive physical geometry morph • 16:9 widescreen viewfinder • Integrated modal &amp; touch media controls
+            </span>
+          </div>
+
+          <div
+            id="cl-morph-scroll-container"
+            class="relative flex flex-nowrap overflow-x-auto gap-6 pb-28 pt-4 -mx-4 px-4 sm:mx-0 sm:px-0 no-scrollbar items-start"
+          >
+            <MorphingProjectCard
+              index="01"
+              title="SYSTEMA TABERNAE VIVAE"
+              brand="hypebox"
+              category="01 // SYSTEMA INTERACTIVUM"
+              imageSrc={`${base}/images/mctextureghost-workspace.webp`}
+              description="Programma tabernae photographicae tactu directum, cum motu sexaginta imaginum per secundum et ordine firmo."
+              status="STATUS_VIVUS"
+              statusVariant="accent"
+              tags={["ELECTRON", "REACT 19", "TAILWIND v4", "SQLITE"]}
+              metaText="hypebox-engine.git"
+              actionText="INSPICE SPECIMEN"
+              href="https://navoyovan.github.io/photobooth-kiosk-demo/"
+            />
+            <MorphingProjectCard
+              index="02"
+              title="VISUALISATOR TECTURAE 3D"
+              brand="mctextureghost"
+              category="02 // COMPUTATIO GRAFICA"
+              imageSrc={`${base}/images/the-architecture-of-ephemeral-minds.jpeg`}
+              description="Workspace texturae et pemindai ghost cum visualisatoribus 3D entitatis et telemetria spatiali."
+              status="VERSIO_STABILIS"
+              statusVariant="neon"
+              tags={["C# / WPF", "WEBVIEW2", "THREE.JS", "GSAP"]}
+              metaText="mctextureghost.git"
+              actionText="INSPICE SPECIMEN"
+              href="https://github.com/navoyovan/mcTextureGhost"
+            />
+          </div>
+
+          <div class="flex flex-col">
+            <span class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100">
+              Morphing Project Card Component
+            </span>
+            <span class="font-mono text-[11px] text-neutral-500">
+              &lt;MorphingProjectCard /&gt; • Fixed-dimension slot • Zero-shift neighboring expansion • 16:9 Viewfinder Media Bay
+            </span>
+          </div>
+        </section>
+
+        <!-- 15 / Directory & Tree Index Pattern -->
         <section id="tree-index" class="space-y-10 scroll-mt-40 xl:scroll-mt-24">
           <div class="pb-2 border-b border-neutral-200 dark:border-neutral-800">
             <h2
-              class="!font-mono font-mono text-xs uppercase tracking-[0.15em] text-neutral-500 dark:border-neutral-400 font-semibold"
+              class="!font-mono font-mono text-xs uppercase tracking-[0.15em] text-neutral-500 dark:text-neutral-400 font-semibold"
             >
-              13 / Directory &amp; Tree Index Pattern (With Brand Logo Headers)
+              15 / Directory &amp; Tree Index Pattern (With Brand Logo Headers)
             </h2>
           </div>
 
@@ -3175,13 +3344,13 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
           </div>
         </section>
 
-        <!-- 14 / Application Window Mockup -->
+        <!-- 16 / Application Window Mockup -->
         <section id="app-window" class="space-y-6 scroll-mt-40 xl:scroll-mt-24">
           <div class="pb-2 border-b border-neutral-200 dark:border-neutral-800">
             <h2
               class="!font-mono font-mono text-xs uppercase tracking-[0.15em] text-neutral-500 dark:text-neutral-400 font-semibold"
             >
-              14 / Application Window Mockup (Interactive Showcase Frame)
+              16 / Application Window Mockup (Interactive Showcase Frame)
             </h2>
           </div>
 
@@ -3190,13 +3359,13 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
           </div>
         </section>
 
-        <!-- 15 / Exploded 3D Isometric System Topology -->
+        <!-- 17 / Exploded 3D Isometric System Topology -->
         <section id="system-topology" class="space-y-6 scroll-mt-40 xl:scroll-mt-24">
           <div class="pb-2 border-b border-neutral-200 dark:border-neutral-800">
             <h2
               class="!font-mono font-mono text-xs uppercase tracking-[0.15em] text-neutral-500 dark:text-neutral-400 font-semibold"
             >
-              15 / Exploded 3D Isometric System Topology
+              17 / Exploded 3D Isometric System Topology
             </h2>
           </div>
 
@@ -3205,13 +3374,13 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
           </div>
         </section>
 
-        <!-- 16 / Telemetry Trend Spline -->
+        <!-- 18 / Telemetry Trend Spline -->
         <section id="trend-chart" class="space-y-6 scroll-mt-40 xl:scroll-mt-24">
           <div class="pb-2 border-b border-neutral-200 dark:border-neutral-800">
             <h2
               class="!font-mono font-mono text-xs uppercase tracking-[0.15em] text-neutral-500 dark:text-neutral-400 font-semibold"
             >
-              16 / Telemetry Trend Spline (Monotone Cubic Curve)
+              18 / Telemetry Trend Spline (Monotone Cubic Curve)
             </h2>
           </div>
 
@@ -3219,7 +3388,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
             <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-1 sm:gap-0">
               <span
                 class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100 uppercase tracking-wider"
-                >16.1 / Telemetry Trend Curve</span
+                >18.1 / Telemetry Trend Curve</span
               >
               <span class="font-mono text-[10px] text-neutral-400"
                 >Monotone Cubic Spline SVG</span
@@ -3252,13 +3421,13 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
           </div>
         </section>
 
-        <!-- 17 / Activity Schedule Timeline -->
+        <!-- 19 / Activity Schedule Timeline -->
         <section id="kiosk-timeline" class="space-y-6 scroll-mt-40 xl:scroll-mt-24">
           <div class="pb-2 border-b border-neutral-200 dark:border-neutral-800">
             <h2
               class="!font-mono font-mono text-xs uppercase tracking-[0.15em] text-neutral-500 dark:text-neutral-400 font-semibold"
             >
-              17 / Activity Schedule Timeline (Multi-Track Gantt)
+              19 / Activity Schedule Timeline (Multi-Track Gantt)
             </h2>
           </div>
 
@@ -3266,7 +3435,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
             <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-1 sm:gap-0">
               <span
                 class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100 uppercase tracking-wider"
-                >17.1 / Activity Schedule Timeline</span
+                >19.1 / Activity Schedule Timeline</span
               >
               <span class="font-mono text-[10px] text-neutral-400"
                 >Multi-Track Schedule Gantt</span
@@ -3288,13 +3457,13 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
           </div>
         </section>
 
-        <!-- 18 / Filmstrip Asset Ranking Chart -->
+        <!-- 20 / Filmstrip Asset Ranking Chart -->
         <section id="frame-rank-chart" class="space-y-6 scroll-mt-40 xl:scroll-mt-24">
           <div class="pb-2 border-b border-neutral-200 dark:border-neutral-800">
             <h2
               class="!font-mono font-mono text-xs uppercase tracking-[0.15em] text-neutral-500 dark:text-neutral-400 font-semibold"
             >
-              18 / Filmstrip Asset Ranking (Proportional Filmstrip Slots)
+              20 / Filmstrip Asset Ranking (Proportional Filmstrip Slots)
             </h2>
           </div>
 
@@ -3302,7 +3471,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
             <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-1 sm:gap-0">
               <span
                 class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100 uppercase tracking-wider"
-                >18.1 / Filmstrip Asset Ranking Chart</span
+                >20.1 / Filmstrip Asset Ranking Chart</span
               >
               <span class="font-mono text-[10px] text-neutral-400"
                 >Proportional Filmstrip Slots</span
@@ -3324,22 +3493,59 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
           </div>
         </section>
 
-        <!-- 19 / Ambient Dithered ASCII Particles & Fluid Surfaces -->
+        <!-- 21 / GitHub Telemetry Heatmap -->
+        <section id="github-contributions" class="space-y-6 scroll-mt-40 xl:scroll-mt-24">
+          <div class="pb-2 border-b border-neutral-200 dark:border-neutral-800">
+            <h2
+              class="!font-mono font-mono text-xs uppercase tracking-[0.15em] text-neutral-500 dark:text-neutral-400 font-semibold"
+            >
+              21 / GitHub Telemetry Heatmap (Activity Density Divider)
+            </h2>
+          </div>
+
+          <div class="space-y-4">
+            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-1 sm:gap-0">
+              <span
+                class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100 uppercase tracking-wider"
+                >21.1 / Chronological Contribution Stream</span
+              >
+              <span class="font-mono text-[10px] text-neutral-400"
+                >Live API + Local Fallback • 5 Activity Levels</span
+              >
+            </div>
+
+            <div class="border border-neutral-200 dark:border-neutral-800 bg-[#fcfbf9] dark:bg-[#0e0e0e] overflow-hidden">
+              <GithubContributionDivider />
+            </div>
+
+            <div class="flex flex-col">
+              <span
+                class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100"
+                >GitHub Contribution Telemetry Divider</span
+              >
+              <span class="font-mono text-[11px] text-neutral-500"
+                >&lt;GithubContributionDivider /&gt; • 52-week rolling activity density • dynamic dark/light mask bleed • tooltip telemetry</span
+              >
+            </div>
+          </div>
+        </section>
+
+        <!-- 22 / Ambient Dithered ASCII Particles & Fluid Surfaces -->
         <section id="ascii-particles" class="space-y-8 scroll-mt-40 xl:scroll-mt-24">
           <div class="pb-2 border-b border-neutral-200 dark:border-neutral-800">
             <h2
               class="!font-mono font-mono text-xs uppercase tracking-[0.15em] text-neutral-500 dark:text-neutral-400 font-semibold"
             >
-              19 / Ambient Dithered ASCII Particles & Fluid Surfaces
+              22 / Ambient Dithered ASCII Particles & Fluid Surfaces
             </h2>
           </div>
 
-          <!-- 19.1 Production Specimen: Ambient Fluid ASCII Field -->
+          <!-- 22.1 Production Specimen: Ambient Fluid ASCII Field -->
           <div class="space-y-4">
             <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-1 sm:gap-0">
               <span
                 class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100 uppercase tracking-wider"
-                >19.1 / Ambient Fluid ASCII Field (Production Specimen)</span
+                >22.1 / Ambient Fluid ASCII Field (Production Specimen)</span
               >
               <span class="font-mono text-[10px] text-neutral-400"
                 >4x4 Bayer Dither Matrix • Canvas 2D</span
@@ -3371,12 +3577,12 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
             </div>
           </div>
 
-          <!-- 19.2 Exploratory Concept 1: Central Morphing Metaball Field -->
+          <!-- 22.2 Exploratory Concept 1: Central Morphing Metaball Field -->
           <div class="space-y-4">
             <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-1 sm:gap-0">
               <span
                 class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100 uppercase tracking-wider"
-                >19.2 / Central Morphing Metaball Field (Concept Prototype 01)</span
+                >22.2 / Central Morphing Metaball Field (Concept Prototype 01)</span
               >
               <span class="font-mono text-[10px] text-neutral-400"
                 >Multi-Body Harmonic Potential Surface</span
@@ -3408,12 +3614,12 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
             </div>
           </div>
 
-          <!-- 19.3 Exploratory Concept 2: Orbital Satellite Particle Blobs -->
+          <!-- 22.3 Exploratory Concept 2: Orbital Satellite Particle Blobs -->
           <div class="space-y-4">
             <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-1 sm:gap-0">
               <span
                 class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100 uppercase tracking-wider"
-                >19.3 / Orbital Satellite Particle Blobs (Concept Prototype 02)</span
+                >22.3 / Orbital Satellite Particle Blobs (Concept Prototype 02)</span
               >
               <span class="font-mono text-[10px] text-neutral-400"
                 >Multi-Body Gravitational Node Orbit</span
@@ -3441,6 +3647,60 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
               >
               <span class="font-mono text-[11px] text-neutral-500"
                 >ConceptFloatingParticleBlobs.astro • multi-body gravitational orbit simulation • pulsing cores</span
+              >
+            </div>
+          </div>
+        </section>
+
+        <!-- 23 / Bayer Matrix Dithering Shader -->
+        <section id="dithering-shader" class="space-y-8 scroll-mt-40 xl:scroll-mt-24">
+          <div class="pb-2 border-b border-neutral-200 dark:border-neutral-800">
+            <h2
+              class="!font-mono font-mono text-xs uppercase tracking-[0.15em] text-neutral-500 dark:text-neutral-400 font-semibold"
+            >
+              23 / Bayer Matrix Dithering Shader (WebGL GPU Wave Simulation)
+            </h2>
+          </div>
+
+          <div class="space-y-4">
+            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-1 sm:gap-0">
+              <span
+                class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100 uppercase tracking-wider"
+                >23.1 / WebGL 8x8 Bayer Ordered Dithering (Production Shader)</span
+              >
+              <span class="font-mono text-[10px] text-neutral-400"
+                >Custom Three.js ShaderMaterial • Wave Surface Animation</span
+              >
+            </div>
+
+            <!-- Edge-to-edge bleed container (Anti-containerslop rule) -->
+            <div class="relative w-full h-80 sm:h-96 border border-neutral-200 dark:border-neutral-800 bg-[#001122] overflow-hidden">
+              <DitheringShader
+                client:visible
+                shape="wave"
+                type="8x8"
+                pxSize={1}
+                speed={0.6}
+              />
+
+              <!-- Center Stage Latin Editorial Label -->
+              <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none select-none z-10 px-4 text-center">
+                <span class="font-heading font-black text-2xl sm:text-3xl lg:text-4xl text-white tracking-tight uppercase drop-shadow-md">
+                  UNDA DITHERING
+                </span>
+                <span class="font-mono text-[10px] sm:text-xs text-neutral-300 tracking-widest uppercase mt-1">
+                  STATUS_VIVUS // 8x8_BAYER_MATRIX
+                </span>
+              </div>
+            </div>
+
+            <div class="flex flex-col">
+              <span
+                class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100"
+                >Bayer Matrix Dithering Shader Component</span
+              >
+              <span class="font-mono text-[11px] text-neutral-500"
+                >&lt;DitheringShader client:visible shape="wave" type="8x8" pxSize=&#123;1&#125; speed=&#123;0.6&#125; /&gt; • Three.js GPU dither pass • Palette switching • 0-padding bleed</span
               >
             </div>
           </div>
@@ -3522,14 +3782,18 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
       "loaders",
       "status-badges",
       "metric-cards",
+      "author-avatars",
       "project-tiles",
+      "morph-cards",
       "tree-index",
       "app-window",
       "system-topology",
       "trend-chart",
       "kiosk-timeline",
       "frame-rank-chart",
+      "github-contributions",
       "ascii-particles",
+      "dithering-shader",
     ];
 
     const updateActiveTab = (activeId: string) => {
@@ -4022,11 +4286,238 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
     };
   };
 
+  const setupLibraryMorphCards = async () => {
+    const slots = document.querySelectorAll<HTMLElement>(
+      "#cl-morph-scroll-container [data-project-slot]",
+    );
+    if (slots.length === 0) return;
+
+    const { animate } = await import("motion");
+    const activeAnimations = new Map<HTMLElement, any>();
+
+    const collapseSlot = (slot: HTMLElement) => {
+      const card = slot.querySelector<HTMLElement>("[data-morph-card]");
+      const content = slot.querySelector<HTMLElement>("[data-morph-content]");
+      if (!card || !content) return;
+
+      const prevCardAnim = activeAnimations.get(card);
+      if (prevCardAnim) prevCardAnim.stop();
+      const prevContentAnim = activeAnimations.get(content);
+      if (prevContentAnim) prevContentAnim.stop();
+
+      card.style.transform = "";
+      card.style.zIndex = "10";
+      card.style.backgroundColor = "transparent";
+
+      if (!card.style.height || card.style.height === "auto") {
+        card.style.height = `${card.offsetHeight}px`;
+        void card.offsetHeight;
+      }
+
+      card.classList.add("is-morphing");
+      const cardAnim = animate(
+        card,
+        {
+          width: "100%",
+          left: "0px",
+          top: "0px",
+          height: "100%",
+          boxShadow: "0 0 0 0 rgba(0,0,0,0)",
+        },
+        {
+          duration: 0.35,
+          ease: [0.16, 1, 0.3, 1],
+        },
+      );
+      activeAnimations.set(card, cardAnim);
+      cardAnim.then(() => {
+        card.classList.remove("is-morphing");
+      });
+
+      content.style.pointerEvents = "none";
+      content.setAttribute("aria-hidden", "true");
+      const contentAnim = animate(
+        content,
+        { opacity: 0 },
+        { duration: 0.2, ease: [0.16, 1, 0.3, 1] },
+      );
+      activeAnimations.set(content, contentAnim);
+
+      card.setAttribute("aria-expanded", "false");
+      slot.setAttribute("data-is-expanded", "false");
+    };
+
+    const expandSlot = (slot: HTMLElement) => {
+      slots.forEach((otherSlot) => {
+        if (
+          otherSlot !== slot &&
+          otherSlot.getAttribute("data-is-expanded") === "true"
+        ) {
+          collapseSlot(otherSlot);
+        }
+      });
+
+      const card = slot.querySelector<HTMLElement>("[data-morph-card]");
+      const content = slot.querySelector<HTMLElement>("[data-morph-content]");
+      if (!card || !content) return;
+
+      const prevCardAnim = activeAnimations.get(card);
+      if (prevCardAnim) prevCardAnim.stop();
+      const prevContentAnim = activeAnimations.get(content);
+      if (prevContentAnim) prevContentAnim.stop();
+
+      card.setAttribute("aria-expanded", "true");
+      slot.setAttribute("data-is-expanded", "true");
+
+      const media = slot.querySelector<HTMLElement>("[data-morph-media]");
+      const mediaH = media
+        ? media.offsetHeight
+        : Math.round((card.offsetWidth * 9) / 16);
+      const topOffset = Math.round(mediaH * 0.125);
+
+      card.style.transform = "none";
+      card.style.zIndex = "60";
+      card.style.boxShadow = "none";
+      card.style.backgroundColor = document.documentElement.classList.contains(
+        "dark",
+      )
+        ? "#141414"
+        : "#f6f4ee";
+
+      card.classList.add("is-morphing");
+
+      const isMobile = window.innerWidth < 640;
+      const slotIndex = Array.from(slots).indexOf(slot);
+      let leftFactor = 0;
+      let rightFactor = 0;
+      if (!isMobile) {
+        leftFactor = 0.125;
+        rightFactor = 0.125;
+        if (slotIndex === 0) {
+          leftFactor = 0;
+          rightFactor = 0.25;
+        } else if (slotIndex === slots.length - 1) {
+          leftFactor = 0.25;
+          rightFactor = 0;
+        }
+      }
+      const targetWidth = `${(1 + leftFactor + rightFactor) * 100}%`;
+
+      const prevWidth = card.style.width;
+      const prevHeight = card.style.height;
+      card.style.width = targetWidth;
+      card.style.height = "auto";
+      const naturalH = card.scrollHeight;
+      card.style.width = prevWidth || "";
+      card.style.height = prevHeight || "";
+      void card.offsetHeight;
+
+      const targetHeight = Math.ceil(naturalH);
+
+      const expandedGeometry = {
+        width: targetWidth,
+        left: leftFactor === 0 ? "0px" : `${-leftFactor * 100}%`,
+        top: `-${topOffset}px`,
+        height: `${targetHeight}px`,
+        boxShadow: "none",
+      };
+
+      const cardAnim = animate(card, expandedGeometry, {
+        duration: 0.42,
+        ease: [0.16, 1, 0.3, 1],
+      });
+      activeAnimations.set(card, cardAnim);
+      cardAnim.then(() => {
+        card.classList.remove("is-morphing");
+        if (card.getAttribute("aria-expanded") === "true") {
+          card.style.height = "auto";
+        }
+      });
+
+      content.style.pointerEvents = "auto";
+      content.setAttribute("aria-hidden", "false");
+      const contentAnim = animate(
+        content,
+        { opacity: 1 },
+        { duration: 0.28, delay: 0.12, ease: [0.16, 1, 0.3, 1] },
+      );
+      activeAnimations.set(content, contentAnim);
+    };
+
+    slots.forEach((slot) => {
+      const card = slot.querySelector<HTMLElement>("[data-morph-card]");
+      const closeButtons =
+        slot.querySelectorAll<HTMLElement>("[data-close-card]");
+
+      if (card && !card.hasAttribute("data-morph-bound")) {
+        card.setAttribute("data-morph-bound", "true");
+        card.addEventListener("click", (e) => {
+          const target = e.target as HTMLElement;
+          if (target.closest("[data-close-card]")) return;
+          if (target.closest("a, button")) return;
+
+          const isExpanded = slot.getAttribute("data-is-expanded") === "true";
+          if (!isExpanded) {
+            expandSlot(slot);
+          }
+        });
+
+        card.addEventListener("keydown", (e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            const target = e.target as HTMLElement;
+            if (target.closest("[data-close-card]")) return;
+            if (target.closest("a, button")) return;
+            e.preventDefault();
+            const isExpanded = slot.getAttribute("data-is-expanded") === "true";
+            if (!isExpanded) {
+              expandSlot(slot);
+            }
+          }
+        });
+      }
+
+      closeButtons.forEach((btn) => {
+        if (!btn.hasAttribute("data-close-bound")) {
+          btn.setAttribute("data-close-bound", "true");
+          btn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            collapseSlot(slot);
+          });
+        }
+      });
+    });
+
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        slots.forEach((slot) => {
+          if (slot.getAttribute("data-is-expanded") === "true") {
+            collapseSlot(slot);
+          }
+        });
+      }
+    });
+
+    document.addEventListener("click", (e) => {
+      const target = e.target as HTMLElement;
+      if (
+        !target.closest("#cl-morph-scroll-container [data-project-slot]") &&
+        !target.closest(".tile-modal")
+      ) {
+        slots.forEach((slot) => {
+          if (slot.getAttribute("data-is-expanded") === "true") {
+            collapseSlot(slot);
+          }
+        });
+      }
+    });
+  };
+
   setupComponentLibraryNav();
   setupSidebarCollapse();
   setupAccentColorPicker();
   initIndexMarquees();
   setupAutoTabScroll();
+  setupLibraryMorphCards();
 
   let lastMarqueeWidth = typeof window !== "undefined" ? window.innerWidth : 0;
   let marqueeResizeTimer: number | null = null;
@@ -4047,6 +4538,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
     setupAccentColorPicker();
     initIndexMarquees();
     setupAutoTabScroll();
+    setupLibraryMorphCards();
   });
 </script>
 
