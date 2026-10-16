@@ -1,5 +1,5 @@
 ---
-import MediaModal from './MediaModal.astro';
+import MediaModal from "./MediaModal.astro";
 
 interface Props {
   title: string;
@@ -16,13 +16,13 @@ interface Props {
   previewBg?: string;
   status?: string;
   statusId?: string;
-  statusVariant?: 'accent' | 'neon' | 'neutral' | 'warning' | 'danger' | 'info';
+  statusVariant?: "accent" | "neon" | "neutral" | "warning" | "danger" | "info";
   tags?: string[];
   actionText?: string;
   actionTextId?: string;
-  actionVariant?: 'dashed' | 'solid' | 'cta' | 'danger';
+  actionVariant?: "dashed" | "solid" | "cta" | "danger";
   metaText?: string;
-  brand?: 'mctextureghost' | 'hypebox' | string;
+  brand?: "mctextureghost" | "hypebox" | string;
   fileName?: string;
   footerName?: string;
   date?: string;
@@ -32,12 +32,12 @@ interface Props {
   [key: string]: any;
 }
 
-import StatusBadge from './StatusBadge.astro';
-import HoverExpandButton from './HoverExpandButton.astro';
+import StatusBadge from "./StatusBadge.astro";
+import HoverExpandButton from "./HoverExpandButton.astro";
 
 const {
   title,
-  category = 'FEATURED SYSTEM',
+  category = "FEATURED SYSTEM",
   categoryId,
   description,
   descriptionId,
@@ -50,147 +50,209 @@ const {
   previewBg,
   status,
   statusId,
-  statusVariant = 'accent',
+  statusVariant = "accent",
   tags = [],
   actionText,
   actionTextId,
-  actionVariant = 'solid',
+  actionVariant = "solid",
   metaText,
   brand,
   fileName,
   footerName,
   date,
   dateLabel,
-  aspect = 'aspect-video',
-  class: className = '',
+  aspect = "aspect-video",
+  class: className = "",
   ...rest
 } = Astro.props;
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 const displayFooterName = footerName || fileName || metaText;
 const displayDate = date || dateLabel;
-const isExternal = typeof href === 'string' && href.startsWith('http');
-const titleId = `tile-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
+const isExternal = typeof href === "string" && href.startsWith("http");
+const titleId = `tile-${title.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`;
 ---
 
 <article
   aria-labelledby={titleId}
   class:list={[
-    'group relative flex flex-col bg-[#f6f4ee] dark:bg-[#141414] rounded-md transition-all duration-200 overflow-hidden shadow-sm',
-    className
+    "group relative flex flex-col bg-[#f6f4ee] dark:bg-[#141414] rounded-md transition-all duration-200 overflow-hidden shadow-sm",
+    className,
   ]}
   {...rest}
 >
   <!-- Media / Viewfinder Container (Adapted from Easter Egg Modal) -->
   <div
     class:list={[
-      'tile-media relative w-full overflow-hidden select-none flex items-center justify-center group/media rounded-t-md',
+      "tile-media relative w-full overflow-hidden select-none flex items-center justify-center group/media rounded-t-md",
       aspect,
-      previewBg ? previewBg : 'bg-neutral-200/60 dark:bg-neutral-900'
+      previewBg ? previewBg : "bg-neutral-200/60 dark:bg-neutral-900",
     ]}
   >
-    {iframeSrc ? (
-      <iframe
-        src={iframeSrc}
-        title={title}
-        class="border-0 pointer-events-none select-none shrink-0"
-        style={`width: 1440px; height: 855px; transform: scale(${iframeScale}); transform-origin: center center;`}
-        loading="lazy"
-      />
-    ) : videoSrc ? (
-      <video
-        src={videoSrc}
-        loop
-        muted
-        playsinline
-        preload="metadata"
-        class="tile-video w-full h-full object-cover"
-      />
-    ) : imageSrc ? (
-      <img
-        src={imageSrc}
-        alt={imageAlt}
-        loading="lazy"
-        decoding="async"
-        class="w-full h-full object-cover"
-      />
-    ) : (
-      <div class="w-full h-full flex flex-col items-center justify-center relative select-none overflow-hidden" aria-hidden="true">
-        <svg class="absolute inset-0 w-full h-full text-neutral-300 dark:text-neutral-800/80" preserveAspectRatio="none" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <line x1="0" y1="100" x2="100" y2="0" stroke="currentColor" stroke-width="0.5" />
-        </svg>
-      </div>
-    )}
+    {
+      iframeSrc ? (
+        <iframe
+          src={iframeSrc}
+          title={title}
+          class="border-0 pointer-events-none select-none shrink-0"
+          style={`width: 1440px; height: 855px; transform: scale(${iframeScale}); transform-origin: center center;`}
+          loading="lazy"
+        />
+      ) : videoSrc ? (
+        <video
+          src={videoSrc}
+          loop
+          muted
+          playsinline
+          preload="metadata"
+          class="tile-video w-full h-full object-cover"
+        />
+      ) : imageSrc ? (
+        <img
+          src={imageSrc}
+          alt={imageAlt}
+          loading="lazy"
+          decoding="async"
+          class="w-full h-full object-cover"
+        />
+      ) : (
+        <div
+          class="w-full h-full flex flex-col items-center justify-center relative select-none overflow-hidden"
+          aria-hidden="true"
+        >
+          <svg
+            class="absolute inset-0 w-full h-full text-neutral-300 dark:text-neutral-800/80"
+            preserveAspectRatio="none"
+            viewBox="0 0 100 100"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+          >
+            <line
+              x1="0"
+              y1="100"
+              x2="100"
+              y2="0"
+              stroke="currentColor"
+              stroke-width="0.5"
+            />
+          </svg>
+        </div>
+      )
+    }
 
     <!-- Fullscreen Button (Bottom Right Square Corners, Top Layer) -->
-    {(iframeSrc || videoSrc || imageSrc) && (
-      <button
-        type="button"
-        class="tile-scale-btn absolute bottom-2.5 right-2.5 z-30 p-2 rounded-none bg-neutral-950/85 dark:bg-black/90 backdrop-blur-sm text-white/80 hover:text-[var(--color-accent,#52FF1A)] hover:bg-neutral-900 border border-white/20 dark:border-neutral-700/80 shadow-lg opacity-0 group-hover/media:opacity-100 transition-all duration-200 cursor-pointer flex items-center justify-center select-none"
-        aria-label={`View full scale media for ${title}`}
-        data-modal-target={`modal-${titleId}`}
-      >
-        <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" stroke-linejoin="miter">
-          <path d="M3 8V3h5" />
-          <path d="M21 8V3h-5" />
-          <path d="M3 16v5h5" />
-          <path d="M21 16v5h-5" />
-        </svg>
-      </button>
-    )}
+    {
+      (iframeSrc || videoSrc || imageSrc) && (
+        <button
+          type="button"
+          class="tile-scale-btn absolute bottom-2.5 right-2.5 z-30 p-2 rounded-none bg-neutral-950/85 dark:bg-black/90 backdrop-blur-sm text-white/80 hover:text-[var(--color-accent,#52FF1A)] hover:bg-neutral-900 border border-white/20 dark:border-neutral-700/80 shadow-lg opacity-0 group-hover/media:opacity-100 transition-all duration-200 cursor-pointer flex items-center justify-center select-none"
+          aria-label={`View full scale media for ${title}`}
+          data-modal-target={`modal-${titleId}`}
+        >
+          <svg
+            class="w-3.5 h-3.5"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+            stroke-linecap="square"
+            stroke-linejoin="miter"
+          >
+            <path d="M3 8V3h5" />
+            <path d="M21 8V3h-5" />
+            <path d="M3 16v5h5" />
+            <path d="M21 16v5h-5" />
+          </svg>
+        </button>
+      )
+    }
 
     <!-- Floating Top Status Badge -->
-    {status && (
-      <div class="absolute top-2.5 left-2.5 z-10">
-        <StatusBadge variant={statusVariant} size="sm">
-          <span data-en={status} data-id={statusId || status}>{status}</span>
-        </StatusBadge>
-      </div>
-    )}
+    {
+      status && (
+        <div class="absolute top-2.5 left-2.5 z-10">
+          <StatusBadge variant={statusVariant} size="sm">
+            <span data-en={status} data-id={statusId || status}>
+              {status}
+            </span>
+          </StatusBadge>
+        </div>
+      )
+    }
 
     <!-- Hovering Holographic Brand Logo Overlay -->
-    {brand === 'mctextureghost' ? (
-      <div class="tile-hologram-overlay absolute inset-0 z-20 flex items-center justify-center bg-black/45 backdrop-blur-[1.5px] opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none select-none">
-        <div class="hologram-content flex items-center gap-2 transform scale-90 group-hover:scale-100 transition-transform duration-300">
-          <div class="w-8 h-8 relative shrink-0">
+    {
+      brand === "mctextureghost" ? (
+        <div class="tile-hologram-overlay absolute inset-0 z-20 flex items-center justify-center bg-black/45 backdrop-blur-[1.5px] opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none select-none">
+          <div class="hologram-content flex items-center gap-2 transform scale-90 group-hover:scale-100 transition-transform duration-300">
+            <div class="w-8 h-8 relative shrink-0">
+              <img
+                src={`${base}/mctextureghost-icon.png`}
+                alt=""
+                class="absolute -top-2 -left-1 w-14 h-14 max-w-none object-contain pixelated [image-rendering:pixelated] drop-shadow-[0_0_12px_rgba(82,255,26,0.95)] drop-shadow-[0_0_28px_rgba(82,255,26,0.6)]"
+              />
+            </div>
+            <div class="text-xl sm:text-2xl font-bold tracking-[-0.02em] text-white leading-none font-heading inline-flex items-center pl-4 drop-shadow-[0_0_16px_rgba(0,0,0,0.8)]">
+              <span>mc</span>
+              <span
+                class="!text-[#52FF1A]"
+                style="color: #52FF1A !important; font-family: 'Press Start 2P', monospace; font-size: 0.74em; margin: 0 3px; transform: translateY(1px); display: inline-block; text-shadow: 0 0 16px rgba(82,255,26,0.85);"
+              >
+                Texture
+              </span>
+              <span>Ghost</span>
+            </div>
+          </div>
+        </div>
+      ) : brand === "hypebox" ? (
+        <div class="tile-hologram-overlay absolute inset-0 z-20 flex items-center justify-center bg-black/45 backdrop-blur-[1.5px] opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none select-none">
+          <div class="hologram-content transform scale-90 group-hover:scale-100 transition-transform duration-300">
+            <span class="text-2xl sm:text-3xl font-black tracking-tight text-white leading-none font-heading drop-shadow-[0_0_16px_rgba(255,255,255,0.95)] drop-shadow-[0_0_36px_rgba(255,255,255,0.7)]">
+              HYPE-BOX
+            </span>
+          </div>
+        </div>
+      ) : brand === "hero" || brand === "portfolio" || brand === "yovan" ? (
+        <div class="tile-hologram-overlay absolute inset-0 z-20 flex items-center justify-center bg-black/55 backdrop-blur-[2px] opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none select-none">
+          <div
+            class="hologram-content hologram-hero select-none flex flex-col leading-[0.88] font-machina text-2xl sm:text-3xl lg:text-4xl text-white transform scale-90 group-hover:scale-100 transition-transform duration-300 drop-shadow-[0_0_24px_rgba(0,0,0,0.9)]"
+            style="letter-spacing: -0.02em; font-weight: 300;"
+          >
+            <div class="relative inline-flex items-baseline whitespace-nowrap">
+              <>
+                <span>Yovan</span>
+                <span class="inline-block transition-colors text-[var(--color-accent,#52FF1A)]">
+                  ;
+                </span>
+              </>
+            </div>
+            <div
+              class="inline-flex items-baseline whitespace-nowrap"
+              style="margin-top: -0.25rem;"
+            >
+              <>
+                <span>Gunardio</span>
+                <span class="inline-block transition-colors text-[var(--color-accent,#52FF1A)]">
+                  .
+                </span>
+              </>
+            </div>
+          </div>
+        </div>
+      ) : brand === "space-available" ? (
+        <div class="tile-hologram-overlay absolute inset-0 z-20 flex items-center justify-center bg-white/70 backdrop-blur-[2px] opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none select-none px-6">
+          <div class="hologram-content flex items-center justify-center transform scale-90 group-hover:scale-100 transition-transform duration-300">
             <img
-              src={`${base}/mctextureghost-icon.png`}
-              alt=""
-              class="absolute -top-2 -left-1 w-14 h-14 max-w-none object-contain pixelated [image-rendering:pixelated] drop-shadow-[0_0_12px_rgba(82,255,26,0.95)] drop-shadow-[0_0_28px_rgba(82,255,26,0.6)]"
+              src={`${base}/images/splash-logotype-better-mailtoyovan.webp`}
+              alt="mailtoyovan logotype"
+              class="max-w-[240px] sm:max-w-[280px] w-auto h-auto object-contain drop-shadow-[0_4px_16px_rgba(0,0,0,0.25)]"
             />
           </div>
-          <div class="text-xl sm:text-2xl font-bold tracking-[-0.02em] text-white leading-none font-heading inline-flex items-center pl-4 drop-shadow-[0_0_16px_rgba(0,0,0,0.8)]">
-            <span>mc</span>
-            <span
-              class="!text-[#52FF1A]"
-              style="color: #52FF1A !important; font-family: 'Press Start 2P', monospace; font-size: 0.74em; margin: 0 3px; transform: translateY(1px); display: inline-block; text-shadow: 0 0 16px rgba(82,255,26,0.85);"
-            >Texture</span>
-            <span>Ghost</span>
-          </div>
         </div>
-      </div>
-    ) : brand === 'hypebox' ? (
-      <div class="tile-hologram-overlay absolute inset-0 z-20 flex items-center justify-center bg-black/45 backdrop-blur-[1.5px] opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none select-none">
-        <div class="hologram-content transform scale-90 group-hover:scale-100 transition-transform duration-300">
-          <span class="text-2xl sm:text-3xl font-black tracking-tight text-white leading-none font-heading drop-shadow-[0_0_16px_rgba(255,255,255,0.95)] drop-shadow-[0_0_36px_rgba(255,255,255,0.7)]">
-            HYPE-BOX
-          </span>
-        </div>
-      </div>
-    ) : (brand === 'hero' || brand === 'portfolio' || brand === 'yovan') ? (
-      <div class="tile-hologram-overlay absolute inset-0 z-20 flex items-center justify-center bg-black/55 backdrop-blur-[2px] opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none select-none">
-        <div class="hologram-content hologram-hero select-none flex flex-col leading-[0.88] font-machina text-2xl sm:text-3xl lg:text-4xl text-white transform scale-90 group-hover:scale-100 transition-transform duration-300 drop-shadow-[0_0_24px_rgba(0,0,0,0.9)]" style="letter-spacing: -0.02em; font-weight: 300;">
-          <div class="relative inline-flex items-baseline whitespace-nowrap">
-            <span>Yovan</span><span class="inline-block transition-colors text-[var(--color-accent,#52FF1A)]">;</span>
-          </div>
-          <div class="inline-flex items-baseline whitespace-nowrap" style="margin-top: -0.25rem;">
-            <span>Gunardio</span><span class="inline-block transition-colors text-[var(--color-accent,#52FF1A)]">.</span>
-          </div>
-        </div>
-      </div>
-    ) : (
-      <slot name="brand" />
-    )}
+      ) : (
+        <slot name="brand" />
+      )
+    }
   </div>
 
   <!-- Content Section (Compact Easter Egg Card Format) -->
@@ -209,9 +271,10 @@ const titleId = `tile-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
       id={titleId}
       class:list={[
         "text-xl sm:text-2xl font-semibold text-neutral-950 dark:text-white tracking-tight leading-tight transition-colors font-subheading m-0 flex items-center gap-1.5",
-        (brand === 'mctextureghost' || title.toLowerCase().includes('mctextureghost'))
+        brand === "mctextureghost" ||
+        title.toLowerCase().includes("mctextureghost")
           ? "group-hover:text-[#52FF1A]"
-          : "group-hover:text-[var(--color-accent,#52FF1A)]"
+          : "group-hover:text-[var(--color-accent,#52FF1A)]",
       ]}
     >
       <slot name="title">
@@ -220,100 +283,129 @@ const titleId = `tile-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
     </h3>
 
     <!-- Outfit Description -->
-    {description && (
-      <p
-        data-en={description}
-        data-id={descriptionId || description}
-        class="font-sans text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed font-normal m-0 line-clamp-5 h-[calc(1.625em*5)]"
-      >
-        {description}
-      </p>
-    )}
+    {
+      description && (
+        <p
+          data-en={description}
+          data-id={descriptionId || description}
+          class="font-sans text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed font-normal m-0 line-clamp-5 h-[calc(1.625em*5)]"
+        >
+          {description}
+        </p>
+      )
+    }
 
     <!-- Tags Row -->
-    {tags.length > 0 && (
-      <div class="tile-marquee-wrapper relative overflow-hidden min-w-0 pt-1">
-        <div class="tile-marquee-track inline-flex items-center">
-          <ul class="tile-marquee-content inline-flex items-center gap-1.5 sm:gap-2 list-none p-0 m-0 shrink-0" aria-label="Tags">
-            {tags.map((tag) => (
-              <li>
-                <span class="font-sans text-[9px] sm:text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2 sm:px-2.5 py-0.5 sm:py-1 rounded inline-block">
-                  {tag}
-                </span>
-              </li>
-            ))}
-            <li class="tile-dot-trailing" aria-hidden="true"></li>
-          </ul>
-        </div>
-      </div>
-    )}
-
-    <!-- Action Link / Metadata Footer -->
-    <div class="mt-auto pt-3.5 border-t border-neutral-200/80 dark:border-neutral-800/80 flex items-center justify-between gap-3 min-w-0">
-      {displayFooterName ? (
-        <div class="tile-marquee-wrapper relative overflow-hidden min-w-0 flex-1">
+    {
+      tags.length > 0 && (
+        <div class="tile-marquee-wrapper relative overflow-hidden min-w-0 pt-1">
           <div class="tile-marquee-track inline-flex items-center">
-            <div class="tile-marquee-content inline-flex items-center text-neutral-400 dark:text-neutral-500 whitespace-nowrap shrink-0 font-mono text-[11px]">
-              <span>{displayFooterName}</span>
-              <span class="tile-dot-trailing text-neutral-400 dark:text-neutral-600 select-none text-[8px] mx-2.5" aria-hidden="true">
-                •
-              </span>
-            </div>
+            <ul
+              class="tile-marquee-content inline-flex items-center gap-1.5 sm:gap-2 list-none p-0 m-0 shrink-0"
+              aria-label="Tags"
+            >
+              {tags.map((tag) => (
+                <li>
+                  <span class="font-sans text-[9px] sm:text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2 sm:px-2.5 py-0.5 sm:py-1 rounded inline-block">
+                    {tag}
+                  </span>
+                </li>
+              ))}
+              <li class="tile-dot-trailing" aria-hidden="true" />
+            </ul>
           </div>
         </div>
-      ) : (
-        <span></span>
-      )}
+      )
+    }
 
-      {displayDate && (
-        <span class="font-mono text-[10px] sm:text-[11px] text-neutral-400 dark:text-neutral-500 whitespace-nowrap shrink-0">
-          {displayDate}
-        </span>
-      )}
+    <!-- Action Link / Metadata Footer -->
+    <div
+      class="mt-auto pt-3.5 border-t border-neutral-200/80 dark:border-neutral-800/80 flex items-center justify-between gap-3 min-w-0"
+    >
+      {
+        displayFooterName ? (
+          <div class="tile-marquee-wrapper relative overflow-hidden min-w-0 flex-1">
+            <div class="tile-marquee-track inline-flex items-center">
+              <div class="tile-marquee-content inline-flex items-center text-neutral-400 dark:text-neutral-500 whitespace-nowrap shrink-0 font-mono text-[11px]">
+                <span>{displayFooterName}</span>
+                <span
+                  class="tile-dot-trailing text-neutral-400 dark:text-neutral-600 select-none text-[8px] mx-2.5"
+                  aria-hidden="true"
+                >
+                  •
+                </span>
+              </div>
+            </div>
+          </div>
+        ) : (
+          <span />
+        )
+      }
 
-      {actionText && (
-        <HoverExpandButton
-          href={href}
-          label={actionText}
-          labelEn={actionText}
-          labelId={actionTextId || (actionText === 'VIEW CASE STUDY' ? 'LIHAT STUDI KASUS' : actionText === 'VISIT SITE' ? 'KUNJUNGI SITUS' : actionText === 'LAUNCH DEMO' ? 'BUKA DEMO' : actionText === 'VIEW REPO' ? 'LIHAT REPO' : actionText)}
-          size="micro"
-          variant={actionVariant}
-          expandDirection="left"
-          rotateIcon={false}
-          ariaLabel={`${actionText}: ${title}${isExternal ? ' (opens in new tab)' : ''}`}
-          data-aria-en={`${actionText}: ${title}${isExternal ? ' (opens in new tab)' : ''}`}
-          data-aria-id={`${actionTextId || actionText}: ${title}${isExternal ? ' (buka di tab baru)' : ''}`}
-          target={isExternal ? '_blank' : undefined}
-          rel={isExternal ? 'noopener noreferrer' : undefined}
-          class="shrink-0 ml-auto z-10"
-        >
-          <svg
-            slot="icon"
-            class="w-3.5 h-3.5"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2.5"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            aria-hidden="true"
+      {
+        displayDate && (
+          <span class="font-mono text-[10px] sm:text-[11px] text-neutral-400 dark:text-neutral-500 whitespace-nowrap shrink-0">
+            {displayDate}
+          </span>
+        )
+      }
+
+      {
+        actionText && (
+          <HoverExpandButton
+            href={href}
+            label={actionText}
+            labelEn={actionText}
+            labelId={
+              actionTextId ||
+              (actionText === "VIEW CASE STUDY"
+                ? "LIHAT STUDI KASUS"
+                : actionText === "VISIT SITE"
+                  ? "KUNJUNGI SITUS"
+                  : actionText === "LAUNCH DEMO"
+                    ? "BUKA DEMO"
+                    : actionText === "VIEW REPO"
+                      ? "LIHAT REPO"
+                      : actionText)
+            }
+            size="micro"
+            variant={actionVariant}
+            expandDirection="left"
+            rotateIcon={false}
+            ariaLabel={`${actionText}: ${title}${isExternal ? " (opens in new tab)" : ""}`}
+            data-aria-en={`${actionText}: ${title}${isExternal ? " (opens in new tab)" : ""}`}
+            data-aria-id={`${actionTextId || actionText}: ${title}${isExternal ? " (buka di tab baru)" : ""}`}
+            target={isExternal ? "_blank" : undefined}
+            rel={isExternal ? "noopener noreferrer" : undefined}
+            class="shrink-0 ml-auto z-10"
           >
-            {isExternal ? (
-              <>
-                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                <path d="M17 7l-10 10" />
-                <path d="M8 7l9 0l0 9" />
-              </>
-            ) : (
-              <>
-                <line x1="5" y1="12" x2="19" y2="12" />
-                <polyline points="12 5 19 12 12 19" />
-              </>
-            )}
-          </svg>
-        </HoverExpandButton>
-      )}
+            <svg
+              slot="icon"
+              class="w-3.5 h-3.5"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              {isExternal ? (
+                <>
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                  <path d="M17 7l-10 10" />
+                  <path d="M8 7l9 0l0 9" />
+                </>
+              ) : (
+                <>
+                  <line x1="5" y1="12" x2="19" y2="12" />
+                  <polyline points="12 5 19 12 12 19" />
+                </>
+              )}
+            </svg>
+          </HoverExpandButton>
+        )
+      }
     </div>
   </div>
 </article>
@@ -328,7 +420,6 @@ const titleId = `tile-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
 />
 
 <style is:global>
-
   @keyframes tile-marquee-scroll {
     0% {
       transform: translate3d(0, 0, 0);
@@ -343,8 +434,20 @@ const titleId = `tile-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
   }
 
   .tile-marquee-wrapper.is-overflowing {
-    mask-image: linear-gradient(to right, transparent 0%, black 24px, black calc(100% - 24px), transparent 100%);
-    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 24px, black calc(100% - 24px), transparent 100%);
+    mask-image: linear-gradient(
+      to right,
+      transparent 0%,
+      black 24px,
+      black calc(100% - 24px),
+      transparent 100%
+    );
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent 0%,
+      black 24px,
+      black calc(100% - 24px),
+      transparent 100%
+    );
   }
 
   .tile-marquee-track {
@@ -390,11 +493,15 @@ const titleId = `tile-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
 <script>
   function initTileMarquees(targetContainer?: HTMLElement | Document) {
     const root = targetContainer || document;
-    const wrappers = root.querySelectorAll<HTMLElement>(".tile-marquee-wrapper");
+    const wrappers = root.querySelectorAll<HTMLElement>(
+      ".tile-marquee-wrapper",
+    );
 
     wrappers.forEach((wrapper) => {
       const track = wrapper.querySelector<HTMLElement>(".tile-marquee-track");
-      const content = wrapper.querySelector<HTMLElement>(".tile-marquee-content");
+      const content = wrapper.querySelector<HTMLElement>(
+        ".tile-marquee-content",
+      );
 
       if (!track || !content) return;
 
@@ -438,7 +545,11 @@ const titleId = `tile-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
     });
   }
 
-  function easeMarqueeRate(track: HTMLElement, targetRate: number, durationMs = 600) {
+  function easeMarqueeRate(
+    track: HTMLElement,
+    targetRate: number,
+    durationMs = 600,
+  ) {
     const anims = track.getAnimations();
     if (!anims.length) return;
     const anim = anims[0];
@@ -469,69 +580,76 @@ const titleId = `tile-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
       tileVideoObserver = null;
     }
 
-    const videos = document.querySelectorAll<HTMLVideoElement>('video.tile-video');
+    const videos =
+      document.querySelectorAll<HTMLVideoElement>("video.tile-video");
     if (!videos.length) return;
 
-    if (!('IntersectionObserver' in window)) {
-      videos.forEach(v => v.play().catch(() => {}));
+    if (!("IntersectionObserver" in window)) {
+      videos.forEach((v) => v.play().catch(() => {}));
       return;
     }
 
-    tileVideoObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        const video = entry.target as HTMLVideoElement;
-        // Only autoplay when visible within screen and containing scroll boundaries
-        if (entry.isIntersecting && entry.intersectionRatio >= 0.15) {
-          if (video.paused) {
-            video.play().catch(() => {});
+    tileVideoObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const video = entry.target as HTMLVideoElement;
+          // Only autoplay when visible within screen and containing scroll boundaries
+          if (entry.isIntersecting && entry.intersectionRatio >= 0.15) {
+            if (video.paused) {
+              video.play().catch(() => {});
+            }
+          } else {
+            if (!video.paused) {
+              video.pause();
+            }
           }
-        } else {
-          if (!video.paused) {
-            video.pause();
-          }
-        }
-      });
-    }, {
-      root: null, // Viewport (automatically handles window scroll + horizontal container overflow)
-      threshold: [0, 0.15, 0.5]
-    });
+        });
+      },
+      {
+        root: null, // Viewport (automatically handles window scroll + horizontal container overflow)
+        threshold: [0, 0.15, 0.5],
+      },
+    );
 
-    videos.forEach(video => {
+    videos.forEach((video) => {
       tileVideoObserver?.observe(video);
     });
   }
 
   function initTileTouchInteraction() {
-    const mediaContainers = document.querySelectorAll<HTMLElement>('.tile-media');
+    const mediaContainers =
+      document.querySelectorAll<HTMLElement>(".tile-media");
 
     mediaContainers.forEach((media) => {
-      if (media.dataset.touchInit === 'true') return;
-      media.dataset.touchInit = 'true';
+      if (media.dataset.touchInit === "true") return;
+      media.dataset.touchInit = "true";
 
       let touchTimer: number | null = null;
 
-      media.addEventListener('click', (e) => {
+      media.addEventListener("click", (e) => {
         const target = e.target as HTMLElement | null;
-        if (target?.closest('.tile-scale-btn')) {
+        if (target?.closest(".tile-scale-btn")) {
           return;
         }
 
-        const isCurrentlyActive = media.classList.contains('is-touch-active');
+        const isCurrentlyActive = media.classList.contains("is-touch-active");
 
-        document.querySelectorAll<HTMLElement>('.tile-media.is-touch-active').forEach((other) => {
-          if (other !== media) {
-            other.classList.remove('is-touch-active');
-          }
-        });
+        document
+          .querySelectorAll<HTMLElement>(".tile-media.is-touch-active")
+          .forEach((other) => {
+            if (other !== media) {
+              other.classList.remove("is-touch-active");
+            }
+          });
 
         if (isCurrentlyActive) {
-          media.classList.remove('is-touch-active');
+          media.classList.remove("is-touch-active");
           if (touchTimer) clearTimeout(touchTimer);
         } else {
-          media.classList.add('is-touch-active');
+          media.classList.add("is-touch-active");
           if (touchTimer) clearTimeout(touchTimer);
           touchTimer = window.setTimeout(() => {
-            media.classList.remove('is-touch-active');
+            media.classList.remove("is-touch-active");
           }, 4500);
         }
       });
@@ -539,12 +657,14 @@ const titleId = `tile-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
 
     if (!(window as any).__tileTouchDocInit) {
       (window as any).__tileTouchDocInit = true;
-      document.addEventListener('click', (e) => {
+      document.addEventListener("click", (e) => {
         const target = e.target as HTMLElement | null;
-        if (!target?.closest('.tile-media')) {
-          document.querySelectorAll<HTMLElement>('.tile-media.is-touch-active').forEach((media) => {
-            media.classList.remove('is-touch-active');
-          });
+        if (!target?.closest(".tile-media")) {
+          document
+            .querySelectorAll<HTMLElement>(".tile-media.is-touch-active")
+            .forEach((media) => {
+              media.classList.remove("is-touch-active");
+            });
         }
       });
     }
@@ -572,9 +692,13 @@ const titleId = `tile-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
 
     document.addEventListener("visibilitychange", () => {
       if (document.hidden) {
-        document.querySelectorAll<HTMLVideoElement>('video.tile-video, video.tile-modal-video').forEach(v => {
-          if (!v.paused) v.pause();
-        });
+        document
+          .querySelectorAll<HTMLVideoElement>(
+            "video.tile-video, video.tile-modal-video",
+          )
+          .forEach((v) => {
+            if (!v.paused) v.pause();
+          });
       } else {
         initTileVideoAutoplay();
       }
