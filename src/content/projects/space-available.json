@@ -1,0 +1,14 @@
+{
+  "title": "SPACE AVAILABLE",
+  "brand": "space-available",
+  "category": "SPACE AVAILABLE",
+  "categoryId": "SPACE AVAILABLE",
+  "description": "Reserved space for upcoming collaborations, sponsorship, or your next project.",
+  "descriptionId": "Ruang kosong yang disediakan untuk kolaborasi berikutnya, sponsor, atau proyek Anda.",
+  "tech": [
+    "Hi",
+    "Hire me"
+  ],
+  "imageSrc": "/images/space-available-board.webp",
+  "year": "2026"
+}

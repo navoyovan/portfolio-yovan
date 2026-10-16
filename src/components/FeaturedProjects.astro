@@ -36,13 +36,23 @@ const { base } = Astro.props;
     </div>
 
     <!-- Vertical Divider Line (Exact Slice Axis) -->
-    <div class="w-px bg-neutral-300 dark:bg-neutral-800 shrink-0 self-stretch my-0.5" aria-hidden="true"></div>
+    <div
+      class="w-px bg-neutral-300 dark:bg-neutral-800 shrink-0 self-stretch my-0.5"
+      aria-hidden="true"
+    >
+    </div>
 
     <!-- Right Side: Section label with horizontal rule and index link + Headline -->
-    <div class="flex-1 flex flex-col justify-center min-w-0 pl-2.5 sm:pl-4 lg:pl-5 py-0.5 gap-1.5">
+    <div
+      class="flex-1 flex flex-col justify-center min-w-0 pl-2.5 sm:pl-4 lg:pl-5 py-0.5 gap-1.5"
+    >
       <!-- Top: Category label with horizontal rule -->
-      <div class="flex items-center justify-between pb-1 border-b border-neutral-200 dark:border-neutral-800 w-full">
-        <span class="font-sans font-medium text-[10.5px] sm:text-xs uppercase tracking-[0.5px] text-neutral-500 dark:text-neutral-400">
+      <div
+        class="flex items-center justify-between pb-1 border-b border-neutral-200 dark:border-neutral-800 w-full"
+      >
+        <span
+          class="font-sans font-medium text-[10.5px] sm:text-xs uppercase tracking-[0.5px] text-neutral-500 dark:text-neutral-400"
+        >
           FEATURED WORK
         </span>
         <a
@@ -79,17 +89,16 @@ const { base } = Astro.props;
           data-id="Kumpulan proyek dan produk tempat aku mencoba menyelesaikan masalah, belajar hal baru, atau sekedar membangun ekosistem SaaS multi-tenant B2B."
           class="font-sans text-sm sm:text-base text-neutral-600 dark:text-neutral-400 leading-relaxed font-normal tracking-[0.5px] max-w-3xl m-0"
         >
-          A collection of projects and products where I tried to solve a problem, learn something new, or just casually build a SaaS multi-tenant B2B ecosystem.
+          A collection of projects and products where I tried to solve a
+          problem, learn something new, or just casually build a SaaS
+          multi-tenant B2B ecosystem.
         </p>
       </div>
     </div>
   </div>
 
   <!-- Featured Spotlight: Hypebox Pipeline & Connected Ecosystem -->
-  <article
-    aria-labelledby="heading-hypebox"
-    class="space-y-8"
-  >
+  <article aria-labelledby="heading-hypebox" class="space-y-8">
     <!-- Hypebox Header & Actions -->
     <div
       class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-neutral-200/80 dark:border-neutral-800/80"
@@ -152,9 +161,8 @@ const { base } = Astro.props;
           <div
             class="inline-flex items-center translate-x-[10px] group-hover/btn:translate-x-0 transition-transform duration-200 ease-out"
           >
-            <span
-              data-en="Visit Hypebox Site"
-              data-id="Kunjungi Situs Hypebox">Visit Hypebox Site</span
+            <span data-en="Visit Hypebox Site" data-id="Kunjungi Situs Hypebox"
+              >Visit Hypebox Site</span
             >
             <span
               class="inline-flex items-center justify-center w-3.5 ml-1.5 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-200 ease-out"
@@ -173,9 +181,9 @@ const { base } = Astro.props;
       data-id="Pipeline hardware-software terintegrasi yang menghubungkan printer, kamera, aplikasi touchscreen berbasis Electron, telemetry real-time WebSocket, dan cloud fleet management."
       class="text-sm sm:text-base text-neutral-700 dark:text-neutral-300 leading-relaxed max-w-3xl font-normal m-0"
     >
-      An integrated hardware-software pipeline orchestrating physical
-      printers, camera hardware, a touchscreen Electron client, real-time
-      WebSocket telemetry, and cloud fleet management.
+      An integrated hardware-software pipeline orchestrating physical printers,
+      camera hardware, a touchscreen Electron client, real-time WebSocket
+      telemetry, and cloud fleet management.
     </p>
 
     <!-- Pipeline Cards (1-line side-scroll on mobile, 4-col grid on desktop) -->
@@ -202,8 +210,8 @@ const { base } = Astro.props;
             data-id="Kiosk bikin order. Laravel REST API mengenerate kode QRIS via SNAP API dengan konfirmasi webhook."
             class="font-sans text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed font-normal m-0"
           >
-            Kiosk generates order. Laravel REST API generates dynamic QRIS
-            via SNAP API with webhook confirmation.
+            Kiosk generates order. Laravel REST API generates dynamic QRIS via
+            SNAP API with webhook confirmation.
           </p>
         </div>
         <div class="mt-auto pt-3.5 space-y-2">
@@ -211,8 +219,7 @@ const { base } = Astro.props;
             class="flex items-center justify-between font-mono text-[10px] text-neutral-500 dark:text-neutral-400"
           >
             <span>Protocol:</span>
-            <span
-              class="font-semibold text-neutral-700 dark:text-neutral-300"
+            <span class="font-semibold text-neutral-700 dark:text-neutral-300"
               >REST / SNAP</span
             >
           </div>
@@ -271,8 +278,7 @@ const { base } = Astro.props;
             class="flex items-center justify-between font-mono text-[10px] text-neutral-500 dark:text-neutral-400"
           >
             <span>Performance:</span>
-            <span
-              class="font-semibold text-neutral-700 dark:text-neutral-300"
+            <span class="font-semibold text-neutral-700 dark:text-neutral-300"
               >Fast / GPU Accel</span
             >
           </div>
@@ -322,9 +328,8 @@ const { base } = Astro.props;
             data-id="Hasil foto di upload ke Google Cloud Storage, sementara Laravel Reverb membroadcast telemetry real-time ke dashboard operator."
             class="font-sans text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed font-normal m-0"
           >
-            Composited strips sync to Google Cloud Storage while Laravel
-            Reverb broadcasts real-time telemetry to connected operator
-            dashboards.
+            Composited strips sync to Google Cloud Storage while Laravel Reverb
+            broadcasts real-time telemetry to connected operator dashboards.
           </p>
         </div>
         <div class="mt-auto pt-3.5 space-y-2">
@@ -332,8 +337,7 @@ const { base } = Astro.props;
             class="flex items-center justify-between font-mono text-[10px] text-neutral-500 dark:text-neutral-400"
           >
             <span>Telemetry:</span>
-            <span
-              class="font-semibold text-neutral-700 dark:text-neutral-300"
+            <span class="font-semibold text-neutral-700 dark:text-neutral-300"
               >WebSocket / WSS</span
             >
           </div>
@@ -365,9 +369,7 @@ const { base } = Astro.props;
     </div>
 
     <!-- Dual Visual Specimen Viewports: Kiosk Client & Vendor Portal -->
-    <div
-      class="grid grid-cols-1 lg:grid-cols-2 gap-5 sm:gap-6 pt-4 sm:pt-6"
-    >
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-5 sm:gap-6 pt-4 sm:pt-6">
       <!-- Specimen 1: Kiosk Touchscreen -->
       <div
         class="group relative border border-neutral-300/80 dark:border-neutral-800 bg-[#f6f4ee] dark:bg-[#141414] flex flex-col justify-between overflow-hidden shadow-sm transition-all duration-200 hover:border-neutral-400 dark:hover:border-neutral-600"
@@ -388,9 +390,9 @@ const { base } = Astro.props;
             data-id="UI self-service berbasis Electron untuk tamu event atau area publik. Dengan spooler printer, dan alur jepret foto otomatis dan tetap tolerir meski tanpa internet."
             class="font-sans text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed font-normal m-0"
           >
-            Electron-based self-service UI for event guests or public
-            spaces. Offline-tolerant state machine, print spooler, and
-            countdown capture loop.
+            Electron-based self-service UI for event guests or public spaces.
+            Offline-tolerant state machine, print spooler, and countdown capture
+            loop.
           </p>
         </div>
         <div
@@ -412,8 +414,7 @@ const { base } = Astro.props;
             <div
               class="w-8 h-8 rounded-full border border-dashed border-neutral-700 flex items-center justify-center text-neutral-500"
             >
-              <i class="ti ti-device-desktop text-lg" aria-hidden="true"
-              ></i>
+              <i class="ti ti-device-desktop text-lg" aria-hidden="true"></i>
             </div>
             <span class="font-mono text-[11px] text-neutral-400"
               >Place screenshot at <br /><code
@@ -502,9 +503,9 @@ const { base } = Astro.props;
                       data-en="The demo asks for webcam access for live photo capture and asks for consent before optionally uploading snapshots to the public demo gallery."
                       data-id="Situs Uji Coba akan meminta akses webcam untuk foto langsung dan meminta persetujuan sebelum mengunggah foto ke galeri demo publik secara opsional."
                     >
-                      The demo asks for webcam access for live photo
-                      capture and asks for consent before optionally
-                      uploading snapshots to the public demo gallery.
+                      The demo asks for webcam access for live photo capture and
+                      asks for consent before optionally uploading snapshots to
+                      the public demo gallery.
                     </p>
                   </div>
                 </div>
@@ -572,9 +573,8 @@ const { base } = Astro.props;
             data-id="Portal web operator untuk telemetri armada kiosk photobooth real-time, editor frame custom, sistem kupon, dan analitik penjualan."
             class="font-sans text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed font-normal m-0"
           >
-            Operator web portal for real-time kiosk fleet telemetry,
-            custom print frame asset designers, coupon engines, and sales
-            analytics.
+            Operator web portal for real-time kiosk fleet telemetry, custom
+            print frame asset designers, coupon engines, and sales analytics.
           </p>
         </div>
         <div
@@ -596,9 +596,8 @@ const { base } = Astro.props;
             <div
               class="w-7 h-7 rounded-full border border-dashed border-neutral-700 flex items-center justify-center text-neutral-500"
             >
-              <i
-                class="ti ti-layout-dashboard text-base"
-                aria-hidden="true"></i>
+              <i class="ti ti-layout-dashboard text-base" aria-hidden="true"
+              ></i>
             </div>
             <span class="font-mono text-[10px] text-neutral-400"
               >Place screenshot at <br /><code
@@ -667,9 +666,7 @@ const { base } = Astro.props;
     </div>
 
     <!-- Full-bleed seamless horizontal container -->
-    <div
-      class="relative w-screen left-1/2 -translate-x-1/2 py-2 z-30"
-    >
+    <div class="relative w-screen left-1/2 -translate-x-1/2 py-2 z-30">
       <div
         id="others-scroll-container"
         class="relative flex flex-nowrap overflow-x-auto gap-4 sm:gap-5 pt-14 pl-6 pr-6 sm:pl-12 sm:pr-12 no-scrollbar items-start"
@@ -677,6 +674,25 @@ const { base } = Astro.props;
       >
         <MorphingProjectCard
           index="01"
+          title="SPACE AVAILABLE"
+          brand="space-available"
+          category="SPACE AVAILABLE"
+          categoryId="SPACE AVAILABLE"
+          imageSrc={`${base}/images/space-available-board.webp`}
+          description="Reserved space for upcoming collaborations, sponsorship, or your next project."
+          descriptionId="Ruang kosong yang disediakan untuk kolaborasi berikutnya, sponsor, atau proyek Anda."
+          status="AVAILABLE"
+          statusId="TERSEDIA"
+          statusVariant="neutral"
+          tags={["Hi", "Hire me"]}
+          metaText="space-available"
+          actionText="Get Space"
+          actionTextId="Ambil Slot"
+          actionArrow="↓"
+          href="#contact"
+        />
+        <MorphingProjectCard
+          index="02"
           title="mcTextureGhost"
           brand="mctextureghost"
           category="DESKTOP & GAMEDEV"
@@ -685,6 +701,7 @@ const { base } = Astro.props;
           description="Minecraft Bedrock texture workspace & ghost asset scanner with live 3D block and entity visualizers."
           descriptionId="Workspace tekstur Minecraft Bedrock dan pemindai aset ghost dengan visualisator 3D blok dan entitas live."
           tags={[
+            "json",
             "C# / WPF",
             "WebView2",
             "React 19",
@@ -760,12 +777,7 @@ const { base } = Astro.props;
           videoSrc={`${base}/images/frame-editor-showcase_converted.webm`}
           description="Interactive photobooth frame cutout layout editor with drag-and-drop slot positioning, and alpha mask detection."
           descriptionId="Editor layout bingkai photobooth interaktif dengan pemosisian slot drag-and-drop, dan alpha mask detection."
-          tags={[
-            "React 19",
-            "Canvas API",
-            "Layout Telemetry",
-            "Vector Masks",
-          ]}
+          tags={["React 19", "Canvas API", "Layout Telemetry", "Vector Masks"]}
           metaText="frame-cutout-studio"
           actionText="Explore Studio"
           actionTextId="Jelajahi Studio"
@@ -780,15 +792,9 @@ const { base } = Astro.props;
           videoSrc={`${base}/images/color-grading-showcase_converted.webm`}
           description="Realtime CSS filter color grading studio with grain, scratches, and custom texture blend mode layering."
           descriptionId="Studio color grading, edit secara langsung pakai layer blend mode dengan tekstur seperti grain, scratches, dan custom textures."
-          tags={[
-            "CSS Filters",
-            "SVG Noise",
-            "Blend Modes",
-            "Color Lab",
-          ]}
+          tags={["CSS Filters", "SVG Noise", "Blend Modes", "Color Lab"]}
           metaText="color-grading-engine"
         />
-
       </div>
 
       <!-- Custom Horizontal Scrollbar Matching Page Scrollbar (Zero layout shift reserved height) -->
@@ -971,7 +977,9 @@ const { base } = Astro.props;
     // against the screen (viewport root), so only the most-visible tile on
     // screen plays and the rest stay paused (saves decode/battery). Expanded
     // tile owns its own playback via expand/collapse and is left alone here.
-    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const reduceMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
     if ("IntersectionObserver" in window) {
       const visibility = new Map<HTMLElement, number>();
       slots.forEach((slot) => visibility.set(slot, 0));
@@ -994,7 +1002,12 @@ const { base } = Astro.props;
           const video = el.querySelector<HTMLVideoElement>("video.morph-video");
           if (!video) return;
           if (el.getAttribute("data-is-expanded") === "true") return;
-          if (anyExpanded || reduceMotion || el !== bestSlot || bestRatio < 0.35) {
+          if (
+            anyExpanded ||
+            reduceMotion ||
+            el !== bestSlot ||
+            bestRatio < 0.35
+          ) {
             if (!video.paused) video.pause();
             return;
           }
@@ -1015,7 +1028,7 @@ const { base } = Astro.props;
           });
           updatePlayback();
         },
-        { root: null, threshold: [0, 0.35, 0.6, 1] }
+        { root: null, threshold: [0, 0.35, 0.6, 1] },
       );
       slots.forEach((slot) => videoObserver.observe(slot));
 
@@ -1023,7 +1036,9 @@ const { base } = Astro.props;
       document.addEventListener("visibilitychange", () => {
         if (document.hidden) {
           slots.forEach((slot) => {
-            const video = (slot as HTMLElement).querySelector<HTMLVideoElement>("video.morph-video");
+            const video = (slot as HTMLElement).querySelector<HTMLVideoElement>(
+              "video.morph-video",
+            );
             if (video && !video.paused) video.pause();
           });
         } else {
@@ -1104,7 +1119,10 @@ const { base } = Astro.props;
     const expandSlot = (slot: HTMLElement) => {
       // 1. Collapse all other open slots (zero push on siblings)
       slots.forEach((otherSlot) => {
-        if (otherSlot !== slot && otherSlot.getAttribute("data-is-expanded") === "true") {
+        if (
+          otherSlot !== slot &&
+          otherSlot.getAttribute("data-is-expanded") === "true"
+        ) {
           collapseSlot(otherSlot);
         }
       });
@@ -1126,13 +1144,17 @@ const { base } = Astro.props;
 
       // 2. Real geometric morph: physically animate width, height, top, left using Motion
       const media = slot.querySelector<HTMLElement>("[data-morph-media]");
-      const mediaH = media ? media.offsetHeight : Math.round((card.offsetWidth * 9) / 16);
+      const mediaH = media
+        ? media.offsetHeight
+        : Math.round((card.offsetWidth * 9) / 16);
       const topOffset = Math.round(mediaH * 0.125); // keeps middle point of image pinned
 
       card.style.transform = "none";
       card.style.zIndex = "60";
       card.style.boxShadow = "none";
-      card.style.backgroundColor = document.documentElement.classList.contains("dark")
+      card.style.backgroundColor = document.documentElement.classList.contains(
+        "dark",
+      )
         ? "#141414"
         : "#f6f4ee";
 
@@ -1181,10 +1203,9 @@ const { base } = Astro.props;
         boxShadow: "none",
       };
       const cardAnim = animate(card, expandedGeometry, {
-          duration: 0.4,
-          ease: [0.16, 1, 0.3, 1],
-        },
-      );
+        duration: 0.4,
+        ease: [0.16, 1, 0.3, 1],
+      });
       activeAnimations.set(card, cardAnim);
       cardAnim.then(() => {
         card.classList.remove("is-morphing");
@@ -1235,7 +1256,8 @@ const { base } = Astro.props;
         let targetScroll = currentScroll;
 
         if (expandedWidth > containerWidth - padding * 2) {
-          targetScroll = (expandedLeft + expandedRight) / 2 - containerWidth / 2;
+          targetScroll =
+            (expandedLeft + expandedRight) / 2 - containerWidth / 2;
         } else if (expandedLeft - padding < currentScroll) {
           targetScroll = expandedLeft - padding;
         } else if (expandedRight + padding > currentScroll + containerWidth) {
@@ -1278,7 +1300,8 @@ const { base } = Astro.props;
 
     slots.forEach((slot) => {
       const card = slot.querySelector<HTMLElement>("[data-morph-card]");
-      const closeButtons = slot.querySelectorAll<HTMLElement>("[data-close-card]");
+      const closeButtons =
+        slot.querySelectorAll<HTMLElement>("[data-close-card]");
       const media = slot.querySelector<HTMLElement>("[data-morph-media]");
 
       // Touch: tap expanded media toggles player controls (tap zoom/modal
@@ -1347,7 +1370,10 @@ const { base } = Astro.props;
 
     document.addEventListener("click", (e) => {
       const target = e.target as HTMLElement;
-      if (!target.closest("[data-project-slot]") && !target.closest(".tile-modal")) {
+      if (
+        !target.closest("[data-project-slot]") &&
+        !target.closest(".tile-modal")
+      ) {
         slots.forEach((slot) => {
           if (slot.getAttribute("data-is-expanded") === "true") {
             collapseSlot(slot);

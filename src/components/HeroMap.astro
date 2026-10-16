@@ -623,6 +623,7 @@ const scrimPresets = [
 
       const cartoKey = import.meta.env.PUBLIC_CARTO_KEY ?? '';
       const keyParam = cartoKey ? `?key=${cartoKey}` : '';
+      const voyagerUrl = `https://{s}.basemaps.cartocdn.com/rastertiles/voyager_nolabels/{z}/{x}/{y}{r}.png${keyParam}`;
       const lightBaseUrl = `https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png${keyParam}`;
       const darkBaseUrl = `https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png${keyParam}`;
 
@@ -641,10 +642,7 @@ const scrimPresets = [
         const isDark = document.documentElement.classList.contains('dark');
         switch (theme) {
           case 'voyager':
-            return L.tileLayer(
-              `https://{s}.basemaps.cartocdn.com/rastertiles/voyager_nolabels/{z}/{x}/{y}{r}.png${keyParam}`,
-              commonTileOpts
-            );
+            return L.tileLayer(voyagerUrl, commonTileOpts);
           case 'dark':
             return L.tileLayer(darkBaseUrl, commonTileOpts);
           case 'light':
@@ -661,7 +659,7 @@ const scrimPresets = [
             );
           case 'default':
           default:
-            return L.tileLayer(isDark ? darkBaseUrl : lightBaseUrl, commonTileOpts);
+            return L.tileLayer(isDark ? darkBaseUrl : voyagerUrl, commonTileOpts);
         }
       };
 
