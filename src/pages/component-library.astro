@@ -28,37 +28,30 @@ import PersonalBusinessCard from "../components/PersonalBusinessCard.astro";
 import AsciiParticleField from "../components/AsciiParticleField.astro";
 import ConceptMetaballField from "../components/ascii-concepts/ConceptMetaballField.astro";
 import ConceptFloatingParticleBlobs from "../components/ascii-concepts/ConceptFloatingParticleBlobs.astro";
+import AuthorAvatar from "../components/AuthorAvatar.astro";
+import MorphingProjectCard from "../components/MorphingProjectCard.astro";
+import GithubContributionDivider from "../components/GithubContributionDivider.astro";
+import { DitheringShader } from "../components/ui/dithering-shader";
+import SectionHeaderTuner from "../components/SectionHeaderTuner.astro";
+import { COMPONENT_LIBRARY_REGISTRY, ORDERED_SECTION_IDS } from "../data/componentLibraryRegistry";
 
-const foundationsNav = [
-  { id: "colors", label: "Color Tokens" },
-  { id: "typography", label: "Typography Hierarchy" },
-  { id: "depth-cards", label: "Spatial Depth Cards" },
-];
+const allEntries = Object.values(COMPONENT_LIBRARY_REGISTRY);
 
-const interactionNav = [
-  { id: "buttons", label: "Buttons & Micro" },
-  { id: "kinetic-triggers", label: "Kinetic Triggers" },
-  { id: "forms", label: "Form Controls & Sliders" },
-  { id: "text-inputs", label: "Text Inputs & Area" },
-  { id: "dropdowns", label: "Dropdowns & Pickers" },
-  { id: "loaders", label: "Loaders (Square Wave)" },
-];
+const foundationsNav = allEntries
+  .filter((e) => e.group === "foundations")
+  .map((e) => ({ id: e.id, label: e.navLabel }));
 
-const feedbackNav = [
-  { id: "status-badges", label: "Status Badges" },
-  { id: "metric-cards", label: "Metric Cards" },
-];
+const interactionNav = allEntries
+  .filter((e) => e.group === "interaction")
+  .map((e) => ({ id: e.id, label: e.navLabel }));
 
-const systemsNav = [
-  { id: "project-tiles", label: "Project Tiles" },
-  { id: "tree-index", label: "Directory Tree Index" },
-  { id: "app-window", label: "App Window Mockup" },
-  { id: "system-topology", label: "System Topology" },
-  { id: "trend-chart", label: "Telemetry Trend Spline" },
-  { id: "kiosk-timeline", label: "Activity Schedule Timeline" },
-  { id: "frame-rank-chart", label: "Filmstrip Asset Ranking" },
-  { id: "ascii-particles", label: "ASCII Particle Fields" },
-];
+const feedbackNav = allEntries
+  .filter((e) => e.group === "feedback")
+  .map((e) => ({ id: e.id, label: e.navLabel }));
+
+const systemsNav = allEntries
+  .filter((e) => e.group === "systems")
+  .map((e) => ({ id: e.id, label: e.navLabel }));
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 ---
@@ -359,13 +352,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
       <div id="foundations" class="space-y-16 scroll-mt-40 xl:scroll-mt-24">
         <!-- 01 / Color Tokens -->
         <section id="colors" class="space-y-6 scroll-mt-40 xl:scroll-mt-24">
-          <div class="pb-2 border-b border-neutral-200 dark:border-neutral-800">
-            <h2
-              class="!font-mono font-mono text-xs uppercase tracking-[0.15em] text-neutral-500 dark:text-neutral-400 font-semibold"
-            >
-              01 / Color Tokens
-            </h2>
-          </div>
+          <SectionHeaderTuner sectionId="colors" />
           <!-- 01.0 / Core Brand & Surface Tokens -->
           <div class="grid grid-cols-2 sm:grid-cols-4 gap-6">
             <!-- Neon Green Accent (Secret Interactive Swatch) -->
@@ -590,13 +577,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 
         <!-- 02 / Typography Hierarchy -->
         <section id="typography" class="space-y-8 scroll-mt-40 xl:scroll-mt-24">
-          <div class="pb-2 border-b border-neutral-200 dark:border-neutral-800">
-            <h2
-              class="!font-mono font-mono text-xs uppercase tracking-[0.15em] text-neutral-500 dark:text-neutral-400 font-semibold"
-            >
-              02 / Typography Hierarchy
-            </h2>
-          </div>
+          <SectionHeaderTuner sectionId="typography" />
 
           <div class="space-y-12">
             <!-- Display & Headings (Syne) -->
@@ -889,17 +870,9 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 
         <!-- 03 / Spatial Depth Cards -->
         <section id="depth-cards" class="space-y-8 scroll-mt-40 xl:scroll-mt-24">
-          <div class="pb-2 border-b border-neutral-200 dark:border-neutral-800">
-            <h2
-              class="!font-mono font-mono text-xs uppercase tracking-[0.15em] text-neutral-500 dark:text-neutral-400 font-semibold"
-            >
-              03 / Spatial Depth Cards &amp; Surface Elevation
-            </h2>
-          </div>
+          <SectionHeaderTuner sectionId="depth-cards" />
 
           <div class="space-y-4">
-
-
             <div
               class="flex flex-nowrap overflow-x-auto lg:overflow-visible gap-3.5 sm:gap-4 lg:gap-4 pb-4 pt-1 -mx-4 px-4 sm:mx-0 sm:px-0 lg:grid lg:grid-cols-5 lg:pb-0 no-scrollbar"
             >
@@ -1003,21 +976,25 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
                 </div>
               </div>
             </div>
+          </div>
+        </section>
 
-            <!-- Subsection 03.1 / Skeuomorphic Calling Card -->
-            <div class="pt-8 border-t border-neutral-200/70 dark:border-neutral-800/70 space-y-4">
-              <div class="flex flex-col gap-1">
-                <span class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100">
-                  03.1 / Skeuomorphic 3D Parallax Calling Card
-                </span>
-                <span class="font-mono text-[11px] text-neutral-500">
-                  interactive={true} • 3D perspective parallax • EMV smart chip • dynamic specular glare • debossed letterpress
-                </span>
-              </div>
+        <!-- 04 / Interactive 3D Skeuomorphic Business Card -->
+        <section id="business-card" class="space-y-6 scroll-mt-40 xl:scroll-mt-24">
+          <SectionHeaderTuner sectionId="business-card" />
 
-              <div class="py-2 flex justify-start">
-                <PersonalBusinessCard id="cl-skeuo-card" latinMode={true} />
-              </div>
+          <div class="space-y-4">
+            <div class="flex flex-col gap-1">
+              <span class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100">
+                04.1 / Skeuomorphic 3D Parallax Calling Card
+              </span>
+              <span class="font-mono text-[11px] text-neutral-500">
+                interactive=&#123;true&#125; • 3D perspective parallax • EMV smart chip • dynamic specular glare • debossed letterpress
+              </span>
+            </div>
+
+            <div class="py-2 flex justify-start" style="transform: scale(var(--cl-bcard-scale, 1)); transform-origin: top left;">
+              <PersonalBusinessCard id="cl-skeuo-card" latinMode={true} />
             </div>
           </div>
         </section>
