@@ -2216,66 +2216,32 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
             >
               <MorphingProjectCard
                 index={0}
-                id="morph-specimen-hypebox"
                 title="HYPE-BOX SYSTEMA TABERNAE"
                 brand="hypebox"
                 category="01 // SYSTEMA INTERACTIVUM"
                 description="Programma tabernae photographicae tactu directum, cum motu sexaginta imaginum per secundum et ordine sine interrete firmo."
-                fullOverview="Architectura completa machinae photographicae in Electron et React 19 constructa. Gubernat fluxum sessionis sine haesitatione, communicationem periphericorum per IPC, et impressionem imaginum summae definitionis etiam cum conexio retis intermittit."
                 status="STATUS_VIVUS"
                 statusVariant="accent"
                 tags={["ELECTRON", "REACT 19", "TAILWIND v4", "SQLITE"]}
-                fileName="hypebox-photobooth-kiosk-orchestration-engine-firmware-v5-production-runtime.bin"
-                date="MMXXVI // FEBRUARIUS"
-                role="ARCHITECTUS SYSTEMATIS PRINCIPALIS"
-                client="HYPE-BOX STUDIO"
-                metrics={[
-                  { label: "01 // MOTUS CADENTIA", value: "60 FPS", subtext: "Transitus physici GPU accelerati" },
-                  { label: "02 // LATENTIA TACTUS", value: "< 8ms", subtext: "Responsio directa in taberna" },
-                  { label: "03 // CONEXIO FIRMA", value: "100%", subtext: "Ordo localis SQLite sine interrete" },
-                  { label: "04 // ONUS MEMORIAE", value: "140 MB", subtext: " Corpus levis in processu principali" }
-                ]}
-                features={[
-                  "Gubernatio status sessionis deterministica cum memoria locali",
-                  "Transitus physici per cubic-bezier [0.22, 1, 0.36, 1] sine saltu",
-                  "Communicatio periphericorum (DSLR, impressor termalis, QRIS) isolata",
-                  " modus tutelae OLED et calibratio colorum automatica"
-                ]}
-                architectureNotes="Separatio stricta inter processum redditionis (React 19) et pontem nativum (Electron IPC) garantit ut nulla operatio I/O filum principale graphicum retardet."
+                metaText="MMXXVI // SYSTEMA PRINCIPALE"
                 actionText="INSPICE SPECIMEN"
-                liveUrl="https://navoyovan.github.io/photobooth-kiosk-demo/"
+                imageSrc={`${base}/images/kiosk-screenshot.webp`}
+                href={`${base}/portfolio-index`}
               />
 
               <MorphingProjectCard
                 index={1}
-                id="morph-specimen-portal"
                 title="PORTA CURATORIS TABERNAE"
                 brand="hypebox"
                 category="02 // PLATFORMA CURATIONIS"
                 description="Analytica summae praestantiae, gubernatio telemetriae tabernae, designator formarum, et ordinatio solutionum."
-                fullOverview="Systema centrale curationis pro multi-unitatibus tabernarum photographicarum. Praebet telemetriam vivam per WebSockets, editorium visuale formarum impressionis, et reconciliationem automaticam transactionum QRIS."
                 status="VERSIO_STABILIS"
                 statusVariant="neutral"
                 tags={["LARAVEL 13", "REVERB", "FILAMENT", "MIDTRANS"]}
-                fileName="photobooth-vendor-portal-admin-console-telemetry-dashboard-cluster-spec.git"
-                date="MMXXVI // IANUARIUS"
-                role="INGENIARIUS SYSTEMATIS"
-                client="HYPE-BOX CLOUD"
-                metrics={[
-                  { label: "01 // FLUMEN EVENTUUM", value: "REALTIME", subtext: " Synchronizatio per Laravel Reverb" },
-                  { label: "02 // TEMPUS QUAESTIONIS", value: "12 ms", subtext: "Indices compositi et cache" },
-                  { label: "03 // INTEGRITAS", value: "99.98%", subtext: "Idempotentia webhook solutionum" },
-                  { label: "04 // PAYLOAD JS", value: "0 KB", subtext: " Tabulae analyticae SSR" }
-                ]}
-                features={[
-                  " Curva tendentiae sessionum cum comparatione hebdomadali",
-                  " Diagramma temporis (Gantt) pro programmatibus et eventibus",
-                  " Index popularitatis formarum cum imaginibus proportionalibus",
-                  " Signa status viva pro singulis machinis in agro"
-                ]}
-                architectureNotes="Constructum super Laravel 13 et Reverb ad sustinendam conexum continuum cum tabernis remotis per canales privatos authenticos."
+                metaText="MMXXVI // CONSOLA CURATORIS"
                 actionText="INSPICE SPECIMEN"
-                liveUrl="https://navoyovan.github.io/photobooth-vendor-portal/"
+                videoSrc={`${base}/images/component-library.webm`}
+                href={`${base}/portfolio-index`}
               />
             </div>
 
@@ -4084,132 +4050,227 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
   const setupLibraryMorphCards = () => {
     const container = document.getElementById("cl-morph-scroll-container");
     if (!container) return;
-    const wrappers = Array.from(
-      container.querySelectorAll<HTMLElement>("[data-morph-wrapper]"),
+    const slots = Array.from(
+      container.querySelectorAll<HTMLElement>("[data-project-slot]"),
     );
-    if (wrappers.length === 0) return;
+    if (slots.length === 0) return;
 
-    let activeWrapper: HTMLElement | null = null;
+    let activeSlot: HTMLElement | null = null;
     let isAnimating = false;
+    let savedWidth = 0;
+    let savedHeight = 0;
 
-    const getMorphSpeedMultiplier = () => {
+    const getMorphConfig = () => {
       const section = document.getElementById("morph-cards");
-      const raw = section?.getAttribute("data-morph-duration");
-      return raw ? parseFloat(raw) / 0.48 : 1;
+      const bloomAttr = section?.getAttribute("data-bloom-factor");
+      const durAttr = section?.getAttribute("data-morph-duration");
+      return {
+        bloomFactor: bloomAttr ? parseFloat(bloomAttr) : 1.25,
+        duration: durAttr ? parseFloat(durAttr) : 0.42,
+      };
     };
 
-    const expandCard = (wrapper: HTMLElement) => {
-      if (isAnimating || activeWrapper === wrapper) return;
-      if (activeWrapper) {
-        collapseCard(activeWrapper, () => expandCard(wrapper));
-        return;
-      }
-
-      isAnimating = true;
-      activeWrapper = wrapper;
-
-      const card = wrapper.querySelector<HTMLElement>("[data-morph-card]");
-      const preview = wrapper.querySelector<HTMLElement>("[data-morph-preview]");
-      const expanded = wrapper.querySelector<HTMLElement>("[data-morph-expanded]");
-      const subItems = wrapper.querySelectorAll<HTMLElement>("[data-morph-item]");
-      if (!card || !preview || !expanded) {
-        isAnimating = false;
-        return;
-      }
-
-      const speedMult = getMorphSpeedMultiplier();
-      const startHeight = card.offsetHeight;
-      const startWidth = wrapper.offsetWidth;
-      const isDesktopGrid = window.innerWidth >= 768;
-
-      wrapper.setAttribute("data-expanded", "true");
-      wrapper.classList.add("md:col-span-2", "w-full");
-      wrapper.classList.remove("w-[300px]", "sm:w-[360px]");
-
-      preview.classList.add("hidden");
-      expanded.classList.remove("hidden");
-      expanded.style.opacity = "1";
-
-      const targetHeight = card.scrollHeight;
-      const targetWidth = wrapper.offsetWidth;
-
-      if (isDesktopGrid && Math.abs(targetWidth - startWidth) > 8) {
-        animate(
-          wrapper,
-          { width: [`${startWidth}px`, `${targetWidth}px`] },
-          { duration: 0.46 * speedMult, easing: [0.22, 1, 0.36, 1] },
-        ).finished.then(() => {
-          wrapper.style.width = "";
+    // Match heights of unexpanded cards
+    const matchHeights = () => {
+      slots.forEach((slot) => {
+        const card = slot.querySelector<HTMLElement>("[data-morph-card]");
+        if (card && !card.classList.contains("is-expanded")) {
+          card.style.minHeight = "0px";
+        }
+      });
+      let maxH = 0;
+      slots.forEach((slot) => {
+        const card = slot.querySelector<HTMLElement>("[data-morph-card]");
+        if (card && !card.classList.contains("is-expanded")) {
+          if (card.offsetHeight > maxH) maxH = card.offsetHeight;
+        }
+      });
+      if (maxH > 0) {
+        slots.forEach((slot) => {
+          const card = slot.querySelector<HTMLElement>("[data-morph-card]");
+          if (card && !card.classList.contains("is-expanded")) {
+            card.style.minHeight = `${maxH}px`;
+            slot.style.minHeight = `${maxH}px`;
+          }
         });
       }
+    };
+    requestAnimationFrame(matchHeights);
+
+    const expandSlot = (slot: HTMLElement) => {
+      if (isAnimating || activeSlot === slot) return;
+      if (activeSlot) {
+        collapseSlot(activeSlot, () => expandSlot(slot));
+        return;
+      }
+
+      const card = slot.querySelector<HTMLElement>("[data-morph-card]");
+      const content = slot.querySelector<HTMLElement>("[data-morph-content]");
+      const media = slot.querySelector<HTMLElement>("[data-morph-media]");
+      const subItems = slot.querySelectorAll<HTMLElement>("[data-morph-sub]");
+      if (!card || !content) return;
+
+      isAnimating = true;
+      activeSlot = slot;
+
+      const { bloomFactor, duration } = getMorphConfig();
+      const rect = slot.getBoundingClientRect();
+      savedWidth = rect.width;
+      savedHeight = card.offsetHeight;
+
+      slot.style.height = `${savedHeight}px`;
+      slot.classList.add("has-expanded");
+
+      const idx = parseInt(slot.dataset.index || "0", 10);
+      const isRightColumn = window.innerWidth >= 768 && idx % 2 === 1;
+      const isMobile = window.innerWidth < 768;
+
+      const targetWidth = isMobile
+        ? Math.min(window.innerWidth - 32, Math.round(savedWidth * 1.06))
+        : Math.round(savedWidth * bloomFactor);
+
+      card.classList.add("is-expanded");
+      card.style.position = "absolute";
+      card.style.top = "0";
+      card.style.zIndex = "50";
+      if (isRightColumn) {
+        card.style.right = "0";
+        card.style.left = "auto";
+      } else {
+        card.style.left = "0";
+        card.style.right = "auto";
+      }
+
+      card.style.width = `${targetWidth}px`;
+      card.style.height = "auto";
+      content.style.height = "auto";
+      content.style.opacity = "1";
+
+      const targetContentHeight = content.scrollHeight;
+      const targetCardHeight = card.offsetHeight;
+
+      card.style.width = `${savedWidth}px`;
+      card.style.height = `${savedHeight}px`;
+      content.style.height = "0px";
+      content.style.opacity = "0";
 
       animate(
         card,
-        { height: [`${startHeight}px`, `${targetHeight}px`] },
-        { duration: 0.48 * speedMult, easing: [0.22, 1, 0.36, 1] },
+        {
+          width: [`${savedWidth}px`, `${targetWidth}px`],
+          height: [`${savedHeight}px`, `${targetCardHeight}px`],
+          y: [0, -8],
+        },
+        { duration, easing: [0.22, 1, 0.36, 1] },
       ).finished.then(() => {
-        card.style.height = "auto";
-        isAnimating = false;
+        if (card.classList.contains("is-expanded")) {
+          card.style.height = "auto";
+          isAnimating = false;
+        }
       });
 
-      subItems.forEach((item, idx) => {
-        item.style.opacity = "0";
-        item.style.transform = "translateY(10px)";
+      if (media) {
         animate(
-          item,
-          { opacity: [0, 1], transform: ["translateY(10px)", "translateY(0px)"] },
+          media,
+          { scale: [1, 1.02] },
+          { duration: duration * 1.07, easing: [0.22, 1, 0.36, 1] },
+        );
+      }
+
+      animate(
+        content,
+        {
+          height: ["0px", `${targetContentHeight}px`],
+          opacity: [0, 1],
+        },
+        { duration: duration * 0.9, easing: [0.22, 1, 0.36, 1] },
+      ).finished.then(() => {
+        if (card.classList.contains("is-expanded")) {
+          content.style.height = "auto";
+        }
+      });
+
+      if (subItems.length > 0) {
+        animate(
+          subItems,
+          { opacity: [0, 1], y: [8, 0] },
           {
-            duration: 0.36 * speedMult,
-            delay: (0.08 + idx * 0.045) * speedMult,
+            delay: stagger(0.05, { start: 0.1 }),
+            duration: duration * 0.72,
             easing: [0.22, 1, 0.36, 1],
           },
         );
-      });
+      }
     };
 
-    const collapseCard = (wrapper: HTMLElement, onDone?: () => void) => {
-      if (!wrapper) return;
+    const collapseSlot = (slot: HTMLElement, onDone?: () => void) => {
+      if (!slot) return;
       isAnimating = true;
 
-      const card = wrapper.querySelector<HTMLElement>("[data-morph-card]");
-      const preview = wrapper.querySelector<HTMLElement>("[data-morph-preview]");
-      const expanded = wrapper.querySelector<HTMLElement>("[data-morph-expanded]");
-      if (!card || !preview || !expanded) {
+      const card = slot.querySelector<HTMLElement>("[data-morph-card]");
+      const content = slot.querySelector<HTMLElement>("[data-morph-content]");
+      const media = slot.querySelector<HTMLElement>("[data-morph-media]");
+      if (!card || !content) {
         isAnimating = false;
         return;
       }
 
-      const speedMult = getMorphSpeedMultiplier();
-      const startHeight = card.offsetHeight;
+      const { duration } = getMorphConfig();
+      const currentWidth = card.offsetWidth;
+      const currentHeight = card.offsetHeight;
+      const currentContentHeight = content.offsetHeight;
 
-      expanded.classList.add("hidden");
-      preview.classList.remove("hidden");
-      wrapper.classList.remove("md:col-span-2", "w-full");
-      wrapper.classList.add("w-[300px]", "sm:w-[360px]", "md:w-auto");
-      wrapper.setAttribute("data-expanded", "false");
+      animate(
+        content,
+        {
+          height: [`${currentContentHeight}px`, "0px"],
+          opacity: [1, 0],
+        },
+        { duration: duration * 0.65, easing: [0.22, 1, 0.36, 1] },
+      );
 
-      const targetHeight = card.scrollHeight;
-
-      expanded.classList.remove("hidden");
-      preview.classList.add("hidden");
+      if (media) {
+        animate(
+          media,
+          { scale: [1.02, 1] },
+          { duration: duration * 0.75, easing: [0.22, 1, 0.36, 1] },
+        );
+      }
 
       animate(
         card,
-        { height: [`${startHeight}px`, `${targetHeight}px`] },
-        { duration: 0.38 * speedMult, easing: [0.22, 1, 0.36, 1] },
+        {
+          width: [`${currentWidth}px`, `${savedWidth}px`],
+          height: [`${currentHeight}px`, `${savedHeight}px`],
+          y: [-8, 0],
+        },
+        { duration: duration * 0.8, easing: [0.22, 1, 0.36, 1] },
       ).finished.then(() => {
-        expanded.classList.add("hidden");
-        preview.classList.remove("hidden");
+        card.classList.remove("is-expanded");
+        card.style.position = "";
+        card.style.top = "";
+        card.style.left = "";
+        card.style.right = "";
+        card.style.width = "";
         card.style.height = "";
-        activeWrapper = null;
+        card.style.zIndex = "";
+        card.style.transform = "";
+
+        slot.style.height = "";
+        slot.classList.remove("has-expanded");
+
+        content.style.height = "0px";
+        content.style.opacity = "0";
+
+        activeSlot = null;
         isAnimating = false;
         if (onDone) onDone();
       });
     };
 
-    wrappers.forEach((wrapper) => {
-      const card = wrapper.querySelector<HTMLElement>("[data-morph-card]");
-      const closeBtn = wrapper.querySelector<HTMLElement>("[data-morph-close]");
+    slots.forEach((slot) => {
+      const card = slot.querySelector<HTMLElement>("[data-morph-card]");
+      const closeBtn = slot.querySelector<HTMLElement>("[data-morph-close]");
 
       if (card) {
         card.onclick = (e) => {
@@ -4217,8 +4278,8 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
           if (target.closest("a") || target.closest("[data-morph-close]")) {
             return;
           }
-          if (wrapper.getAttribute("data-expanded") !== "true") {
-            expandCard(wrapper);
+          if (!card.classList.contains("is-expanded")) {
+            expandSlot(slot);
           }
         };
       }
@@ -4227,8 +4288,8 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
         closeBtn.onclick = (e) => {
           e.preventDefault();
           e.stopPropagation();
-          if (wrapper.getAttribute("data-expanded") === "true") {
-            collapseCard(wrapper);
+          if (activeSlot === slot) {
+            collapseSlot(slot);
           }
         };
       }
@@ -4251,6 +4312,15 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
     if (!tunedValues[sectionId]) tunedValues[sectionId] = {};
     tunedValues[sectionId][key] = rawVal;
 
+    // Highlight active dot on the Tune Constants button
+    const dot = document.querySelector<HTMLElement>(
+      `[data-tuner-dot="${sectionId}"]`,
+    );
+    if (dot) {
+      dot.classList.remove("bg-neutral-400", "dark:bg-neutral-600");
+      dot.classList.add("bg-[var(--color-accent,#52FF1A)]");
+    }
+
     if (cssVar) {
       sectionEl.style.setProperty(cssVar, `${rawVal}${unit || ""}`);
     }
@@ -4259,19 +4329,22 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 
     switch (sectionId) {
       case "colors": {
-        if (key === "accentColor") {
+        if (key === "accentHex") {
+          (window as any).__setPortfolioAccent?.(rawVal, "Custom");
           document.documentElement.style.setProperty("--color-accent", rawVal);
           document.documentElement.style.setProperty("--color-accent-hover", rawVal);
           const chip = document.getElementById("accent-swatch-chip");
           const hexEl = document.getElementById("accent-swatch-hex");
+          const picker = document.getElementById("custom-accent-picker") as HTMLInputElement | null;
           if (chip) {
             chip.style.backgroundColor = rawVal;
             chip.style.boxShadow = `0 0 20px ${rawVal}4D`;
           }
-          if (hexEl) hexEl.textContent = `--color-accent • ${rawVal}`;
+          if (hexEl) hexEl.textContent = `--color-accent • ${rawVal.toUpperCase()}`;
+          if (picker) picker.value = rawVal;
         } else if (key === "swatchHeight") {
           sectionEl
-            .querySelectorAll<HTMLElement>(".h-24, [data-swatch-box]")
+            .querySelectorAll<HTMLElement>(".h-28, [data-swatch-box]")
             .forEach((el) => {
               el.setAttribute("data-swatch-box", "true");
               el.style.height = `${numVal}px`;
@@ -4280,200 +4353,214 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
         break;
       }
       case "typography": {
-        if (key === "displayWeight") {
+        if (key === "headingTracking") {
           sectionEl
-            .querySelectorAll<HTMLElement>(".font-heading")
-            .forEach((el) => (el.style.fontWeight = rawVal));
-        } else if (key === "letterSpacing") {
-          sectionEl
-            .querySelectorAll<HTMLElement>(".font-heading")
+            .querySelectorAll<HTMLElement>(".font-heading, h1, h2, h3, h4")
             .forEach((el) => (el.style.letterSpacing = `${rawVal}em`));
+        } else if (key === "bodyLineHeight") {
+          sectionEl
+            .querySelectorAll<HTMLElement>("p, .font-sans")
+            .forEach((el) => (el.style.lineHeight = rawVal));
         }
         break;
       }
       case "depth-cards": {
-        const cards = sectionEl.querySelectorAll<HTMLElement>(".group.relative");
+        const cards = sectionEl.querySelectorAll<HTMLElement>(".depth-card");
         cards.forEach((card) => {
-          if (key === "shadowOffset") {
-            card.style.boxShadow = `${numVal}px ${numVal}px 0px var(--color-accent, #52FF1A)`;
-          } else if (key === "borderRadius") {
-            card.style.borderRadius = `${numVal}px`;
+          if (key === "hoverLift") {
+            card.style.transform = `translateY(-${numVal}px)`;
+          } else if (key === "cardPadding") {
+            card.style.padding = `${numVal}px`;
           }
         });
         break;
       }
       case "business-card": {
-        const card = document.getElementById("business-card-flipper");
-        if (card) {
-          if (key === "perspective") {
-            (card.parentElement as HTMLElement).style.perspective = `${numVal}px`;
-          } else if (key === "flipDuration") {
-            const inner = card.querySelector<HTMLElement>("#business-card-inner");
-            if (inner) inner.style.transitionDuration = `${numVal}ms`;
-          }
+        const container = sectionEl.querySelector<HTMLElement>(".skeuo-card-container");
+        const body = sectionEl.querySelector<HTMLElement>(".skeuo-card-body");
+        if (key === "perspective" && container) {
+          container.style.perspective = `${numVal}px`;
+        } else if (key === "cardScale" && body) {
+          body.style.transform = `scale(${numVal})`;
         }
         break;
       }
       case "buttons": {
-        const btns = sectionEl.querySelectorAll<HTMLElement>(".action-button");
-        btns.forEach((btn) => {
-          if (key === "borderRadius") btn.style.borderRadius = `${numVal}px`;
-          if (key === "pressScale") btn.style.setProperty("--active-scale", rawVal);
-          if (key === "variant" && btn.hasAttribute("data-action-showcase")) {
-            btn.className = btn.className.replace(
-              /action-button--(cta|primary-neutral|primary|secondary|ghost|danger)/g,
-              `action-button--${rawVal}`,
-            );
-          }
-        });
+        if (key === "btnScale") {
+          sectionEl
+            .querySelectorAll<HTMLElement>(":scope > div button, :scope > div a")
+            .forEach((btn) => {
+              btn.style.transform = `scale(${numVal})`;
+            });
+        } else if (key === "btnGap") {
+          sectionEl
+            .querySelectorAll<HTMLElement>(".grid")
+            .forEach((g) => {
+              g.style.gap = `${numVal}px`;
+            });
+        }
         break;
       }
       case "kinetic-triggers": {
-        const triggers = sectionEl.querySelectorAll<HTMLElement>(".hover-expand-btn");
-        triggers.forEach((btn) => {
-          if (key === "expandMaxWidth") {
-            btn.style.setProperty("--expand-max-w", `${numVal}px`);
-          }
-          if (key === "transitionMs") {
-            btn.style.transitionDuration = `${numVal}ms`;
-            btn
-              .querySelectorAll<HTMLElement>(".hover-expand-label")
-              .forEach((l) => (l.style.transitionDuration = `${numVal}ms`));
-          }
-        });
+        if (key === "expandDuration") {
+          sectionEl
+            .querySelectorAll<HTMLElement>(":scope > div button, :scope > div button *")
+            .forEach((el) => {
+              el.style.transitionDuration = `${numVal}ms`;
+            });
+        }
         break;
       }
       case "checkboxes":
       case "radios":
       case "toggles": {
-        const wrappers = sectionEl.querySelectorAll<HTMLElement>("[data-loading-delay]");
-        wrappers.forEach((w) => {
-          if (key === "loadingDelay") {
-            w.setAttribute("data-loading-delay", rawVal);
-          }
-          if (key === "boxSize") {
-            w.querySelectorAll<HTMLElement>(".checkbox-box, .radio-circle").forEach(
-              (box) => {
-                box.style.width = `${numVal}px`;
-                box.style.height = `${numVal}px`;
-              },
-            );
-          }
-          if (key === "trackWidth") {
-            w.querySelectorAll<HTMLElement>(".toggle-track").forEach((track) => {
-              track.style.width = `${numVal}px`;
+        if (key === "rowGap") {
+          sectionEl
+            .querySelectorAll<HTMLElement>(".grid, .flex.flex-col.gap-2\\.5")
+            .forEach((el) => {
+              el.style.gap = `${numVal}px`;
             });
-          }
-        });
+        }
         break;
       }
       case "sliders": {
-        const sliders = sectionEl.querySelectorAll<HTMLInputElement>('input[type="range"]');
-        sliders.forEach((s) => {
-          if (key === "step") s.step = rawVal;
-          if (key === "value") {
-            s.value = rawVal;
-            s.dispatchEvent(new Event("input", { bubbles: true }));
-          }
-        });
+        if (key === "sliderStep") {
+          sectionEl
+            .querySelectorAll<HTMLInputElement>('input[type="range"]:not([data-tune-section])')
+            .forEach((s) => {
+              s.step = rawVal;
+            });
+        }
         break;
       }
-      case "text-inputs":
+      case "text-inputs": {
+        if (key === "inputGap") {
+          sectionEl
+            .querySelectorAll<HTMLElement>(".grid")
+            .forEach((g) => {
+              g.style.gap = `${numVal}px`;
+            });
+        }
+        break;
+      }
       case "password-input": {
-        const inputs = sectionEl.querySelectorAll<HTMLElement>("input");
-        inputs.forEach((inp) => {
-          if (key === "borderRadius") inp.style.borderRadius = `${numVal}px`;
-          if (key === "inputHeight") inp.style.height = `${numVal}px`;
-        });
+        if (key === "maskStyle") {
+          sectionEl
+            .querySelectorAll<HTMLInputElement>("input:not([data-tune-section])")
+            .forEach((inp) => {
+              inp.type = rawVal;
+            });
+        }
         break;
       }
       case "limit-textarea": {
-        const wrapper = sectionEl.querySelector<HTMLElement>("[data-max-length]");
-        const textarea = sectionEl.querySelector<HTMLTextAreaElement>("textarea");
-        if (key === "maxLength" && wrapper && textarea) {
-          wrapper.setAttribute("data-max-length", rawVal);
-          textarea.dispatchEvent(new Event("input", { bubbles: true }));
-        }
-        if (key === "minHeight" && textarea) {
-          textarea.style.minHeight = `${numVal}px`;
+        if (key === "maxLength") {
+          const textarea = sectionEl.querySelector<HTMLTextAreaElement>("textarea");
+          const wrapper = sectionEl.querySelector<HTMLElement>("[data-limit], [data-max-length]");
+          if (wrapper) {
+            wrapper.setAttribute("data-limit", rawVal);
+            wrapper.setAttribute("data-max-length", rawVal);
+          }
+          if (textarea) {
+            textarea.maxLength = numVal;
+            textarea.dispatchEvent(new Event("input", { bubbles: true }));
+          }
         }
         break;
       }
       case "form-select":
-      case "search-dropdown":
-      case "date-picker": {
-        if (key === "borderRadius") {
+      case "search-dropdown": {
+        if (key === "menuMaxH") {
           sectionEl
-            .querySelectorAll<HTMLElement>("button, [data-select-menu], [data-dropdown-menu], [data-datepicker-menu]")
-            .forEach((el) => (el.style.borderRadius = `${numVal}px`));
-        }
-        if (key === "cellSize") {
-          sectionEl
-            .querySelectorAll<HTMLElement>("[data-date-cell]")
+            .querySelectorAll<HTMLElement>("[role='listbox'], .max-h-60, .overflow-y-auto")
             .forEach((el) => {
-              el.style.height = `${numVal}px`;
+              el.style.maxHeight = `${numVal}px`;
             });
         }
         break;
       }
+      case "date-picker": {
+        if (key === "pickerScale") {
+          const box = sectionEl.querySelector<HTMLElement>(":scope > div.max-w-xl");
+          if (box) {
+            box.style.transform = `scale(${numVal})`;
+            box.style.transformOrigin = "top left";
+          }
+        }
+        break;
+      }
       case "loaders": {
-        const loaders = sectionEl.querySelectorAll<HTMLElement>(".square-wave-loader");
-        loaders.forEach((loader) => {
-          if (key === "gap") loader.style.gap = `${numVal}px`;
-          const bars = loader.querySelectorAll<HTMLElement>(".square-wave-bar");
-          bars.forEach((bar) => {
-            if (key === "size") {
-              bar.style.width = `${numVal}px`;
-              bar.style.height = `${numVal}px`;
-            }
-            if (key === "speed") {
+        if (key === "waveSpeed") {
+          sectionEl
+            .querySelectorAll<HTMLElement>(".sq-bar, [style*='animation']")
+            .forEach((bar) => {
               bar.style.animationDuration = `${numVal}s`;
-            }
-          });
-        });
+            });
+        }
         break;
       }
       case "status-badges": {
-        const badges = sectionEl.querySelectorAll<HTMLElement>("span.inline-flex");
-        badges.forEach((b) => {
-          if (key === "borderRadius") b.style.borderRadius = `${numVal}px`;
-          if (key === "tracking") b.style.letterSpacing = `${rawVal}em`;
-        });
+        if (key === "badgeVariant") {
+          const colorMap: Record<string, string> = {
+            accent: "var(--color-accent, #52FF1A)",
+            neon: "#52FF1A",
+            neutral: "#a3a3a3",
+            warning: "#f59e0b",
+            danger: "#ef4444",
+            info: "#38bdf8",
+          };
+          const chosen = colorMap[rawVal] || colorMap.accent;
+          sectionEl
+            .querySelectorAll<HTMLElement>(":scope > div span.inline-flex span.rounded-full")
+            .forEach((dotEl) => {
+              dotEl.style.backgroundColor = chosen;
+            });
+        }
         break;
       }
       case "metric-cards": {
-        const cards = sectionEl.querySelectorAll<HTMLElement>(":scope > div > div");
-        cards.forEach((c) => {
-          if (key === "padding") c.style.padding = `${numVal}px`;
-          if (key === "borderRadius") c.style.borderRadius = `${numVal}px`;
-        });
+        if (key === "cardGap") {
+          sectionEl
+            .querySelectorAll<HTMLElement>(".grid")
+            .forEach((g) => {
+              g.style.gap = `${numVal}px`;
+            });
+        }
         break;
       }
       case "author-avatars": {
-        const avatars = sectionEl.querySelectorAll<HTMLElement>(".rounded-full");
-        avatars.forEach((a) => {
-          if (key === "ringWidth") a.style.borderWidth = `${numVal}px`;
-        });
+        if (key === "avatarOverlap") {
+          const stack = sectionEl.querySelector<HTMLElement>(".-space-x-2\\.5");
+          if (stack) {
+            Array.from(stack.children).forEach((child, idx) => {
+              if (idx > 0) {
+                (child as HTMLElement).style.marginLeft = `${numVal}px`;
+              }
+            });
+          }
+        }
         break;
       }
       case "project-tiles": {
-        const tiles = sectionEl.querySelectorAll<HTMLElement>("article");
-        tiles.forEach((t) => {
-          if (key === "borderRadius") t.style.borderRadius = `${numVal}px`;
-          if (key === "hoverLift") {
-            t.style.setProperty("--tw-translate-y", `-${numVal}px`);
-          }
-        });
+        if (key === "tileGap") {
+          sectionEl
+            .querySelectorAll<HTMLElement>(".md\\:grid")
+            .forEach((g) => {
+              g.style.gap = `${numVal}px`;
+            });
+        }
         break;
       }
       case "morph-cards": {
-        if (key === "expandDuration") {
+        if (key === "bloomFactor") {
+          sectionEl.setAttribute("data-bloom-factor", rawVal);
+          const expandedCard = sectionEl.querySelector<HTMLElement>("[data-morph-card].is-expanded");
+          const slot = expandedCard?.closest<HTMLElement>("[data-project-slot]");
+          if (expandedCard && slot && window.innerWidth >= 768) {
+            expandedCard.style.width = `${Math.round(slot.offsetWidth * numVal)}px`;
+          }
+        } else if (key === "morphDuration") {
           sectionEl.setAttribute("data-morph-duration", rawVal);
-        }
-        if (key === "borderRadius") {
-          sectionEl
-            .querySelectorAll<HTMLElement>("[data-morph-card]")
-            .forEach((c) => (c.style.borderRadius = `${numVal}px`));
         }
         break;
       }
@@ -4484,73 +4571,82 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
             .forEach((track) => {
               const content = track.querySelector<HTMLElement>(".index-marquee-content");
               if (content) {
-                const duration = Math.max(8, content.scrollWidth / numVal);
+                const duration = Math.max(4, content.scrollWidth / numVal);
                 track.style.animationDuration = `${duration}s`;
               }
-            });
-        }
-        if (key === "rowGap") {
-          sectionEl
-            .querySelectorAll<HTMLElement>(".space-y-7")
-            .forEach((box) => {
-              box.style.display = "flex";
-              box.style.flexDirection = "column";
-              box.style.gap = `${numVal}px`;
             });
         }
         break;
       }
       case "app-window": {
-        const frame = sectionEl.querySelector<HTMLElement>(":scope > div > div");
-        if (frame && key === "borderRadius") {
-          frame.style.borderRadius = `${numVal}px`;
+        if (key === "windowScale") {
+          const frame = sectionEl.querySelector<HTMLElement>(".app-window");
+          if (frame) {
+            frame.style.transform = `scale(${numVal})`;
+            frame.style.transformOrigin = "top left";
+          }
         }
         break;
       }
       case "system-topology": {
-        const layers = sectionEl.querySelectorAll<HTMLElement>("[data-topology-layer]");
-        if (key === "layerSpacing" && layers.length) {
-          layers.forEach((l, i) => {
-            l.style.marginTop = i === 0 ? "0px" : `${numVal - 48}px`;
-          });
+        if (key === "topoScale") {
+          const box = sectionEl.querySelector<HTMLElement>(":scope > div.max-w-3xl");
+          if (box) {
+            box.style.transform = `scale(${numVal})`;
+            box.style.transformOrigin = "top left";
+          }
         }
         break;
       }
       case "trend-chart": {
-        const paths = sectionEl.querySelectorAll<SVGPathElement>("svg path[stroke-width]");
         if (key === "strokeWidth") {
-          paths.forEach((p) => p.setAttribute("stroke-width", rawVal));
+          sectionEl
+            .querySelectorAll<SVGPathElement>("svg path[stroke-width]")
+            .forEach((p) => p.setAttribute("stroke-width", rawVal));
         }
         break;
       }
       case "kiosk-timeline": {
-        if (key === "dayWidth") {
-          sectionEl.style.setProperty("--day-col-width", `${numVal}px`);
+        if (key === "timelineHeight") {
+          const box = sectionEl.querySelector<HTMLElement>(":scope > div.space-y-4");
+          if (box) box.style.opacity = rawVal;
         }
         break;
       }
       case "frame-rank-chart": {
-        const strip = sectionEl.querySelector<HTMLElement>(".flex.gap-1\\.5, .flex.gap-1");
-        if (strip) {
-          if (key === "slotGap") strip.style.gap = `${numVal}px`;
-          if (key === "stripHeight") strip.style.height = `${numVal}px`;
+        if (key === "slotGap") {
+          sectionEl
+            .querySelectorAll<HTMLElement>(".flex.items-stretch, .flex.gap-1\\.5, .flex.gap-2")
+            .forEach((strip) => {
+              strip.style.gap = `${numVal}px`;
+            });
         }
         break;
       }
       case "github-contributions": {
-        const grid = sectionEl.querySelector<HTMLElement>("[data-gh-grid]");
-        if (grid && key === "cellGap") {
-          grid.style.gap = `${numVal}px`;
-        }
+        sectionEl
+          .querySelectorAll<HTMLElement>("[data-contrib-divider], [style*='--cell']")
+          .forEach((el) => {
+            if (key === "cellSize") {
+              el.style.setProperty("--cell", `${numVal}px`);
+            } else if (key === "cellGap") {
+              el.style.setProperty("--gap", `${numVal}px`);
+            }
+          });
         break;
       }
       case "ascii-particles": {
-        const canvas = sectionEl.querySelector<HTMLElement>(".ascii-particle-canvas");
-        if (canvas) {
-          if (key === "opacityMultiplier") {
-            canvas.setAttribute("data-opacity-multiplier", rawVal);
-          } else if (key === "contrastPower") {
-            canvas.setAttribute("data-contrast-power", rawVal);
+        if (key === "opacityMultiplier") {
+          window.dispatchEvent(
+            new CustomEvent("portfolio:ascii-params", {
+              detail: { maxOpacity: 0.2 * numVal },
+            }),
+          );
+        } else if (key === "fieldHeight") {
+          const box = sectionEl.querySelector<HTMLElement>(".relative.w-full.h-80");
+          if (box) {
+            box.style.height = `${numVal}px`;
+            window.dispatchEvent(new Event("resize"));
           }
         }
         break;
@@ -4586,16 +4682,16 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
           window.dispatchEvent(
             new CustomEvent("dither:change-speed", { detail: { speed: numVal } }),
           );
-        } else if (key === "ditherMode") {
+        } else if (key === "pattern") {
           window.dispatchEvent(
             new CustomEvent("dither:change-pattern", {
-              detail: { mode: parseInt(rawVal, 10) },
+              detail: { pattern: parseInt(rawVal, 10) },
             }),
           );
-        } else if (key === "colorFront") {
+        } else if (key === "palette") {
           window.dispatchEvent(
             new CustomEvent("dither:change-palette", {
-              detail: { colorBack: "#0d120e", colorFront: rawVal },
+              detail: { index: parseInt(rawVal, 10) },
             }),
           );
         }
@@ -4622,17 +4718,10 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
       return `- \`${c.key}\` (${c.label}): \`${currentVal}${c.unit || ""}\`${c.cssVar ? ` (CSS token: \`${c.cssVar}\`)` : ""}`;
     });
 
-    const sourceBlocks = meta.files
-      .map(
-        (f) =>
-          `### File: \`${f.name}\` (\`${f.path}\`)\n\`\`\`${f.language}\n${f.raw.trim()}\n\`\`\``,
-      )
-      .join("\n\n");
-
     return [
       `# Component Implementation Prompt: ${meta.number} / ${meta.title}`,
       ``,
-      `Please implement the **${meta.title}** component from Yovan's Component Library into my project, preserving its exact editorial aesthetic, tactile interactions, and responsive behavior.`,
+      `Please implement the **${meta.title}** component (\`${meta.fileName}\`) from Yovan's Component Library into my project, preserving its exact editorial aesthetic, tactile interactions, and responsive behavior.`,
       ``,
       `## 1. Design System Context & Tokens`,
       `- **Display / Heading Font**: \`Syne\` (\`--font-heading: 'Syne', sans-serif\`, weights 700–800)`,
@@ -4647,13 +4736,10 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
         ? constantsLines
         : [`- Uses standard default component tokens.`]),
       ``,
-      `## 3. Usage Example`,
-      `\`\`\`astro`,
-      meta.usageSnippet,
+      `## 3. Full Reference Source Code (\`${meta.fileName}\`)`,
+      `\`\`\`${meta.language}`,
+      meta.rawSource.trim(),
       `\`\`\``,
-      ``,
-      `## 4. Full Reference Source Code`,
-      sourceBlocks,
     ].join("\n");
   };
 
@@ -4686,7 +4772,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
             btn.setAttribute("aria-expanded", "false");
             btn.classList.remove(
               "border-[var(--color-accent,#52FF1A)]",
-              "text-neutral-900",
+              "text-neutral-950",
               "dark:text-white",
               "bg-neutral-100",
               "dark:bg-neutral-900",
@@ -4737,6 +4823,14 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
           if (!sectionId) return;
           delete tunedValues[sectionId];
 
+          const dot = document.querySelector<HTMLElement>(
+            `[data-tuner-dot="${sectionId}"]`,
+          );
+          if (dot) {
+            dot.classList.remove("bg-[var(--color-accent,#52FF1A)]");
+            dot.classList.add("bg-neutral-400", "dark:bg-neutral-600");
+          }
+
           const panel = document.querySelector<HTMLElement>(
             `[data-tuner-panel="${sectionId}"]`,
           );
@@ -4771,7 +4865,9 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 
           try {
             await navigator.clipboard.writeText(promptText);
-            const labelEl = btn.querySelector<HTMLElement>("[data-copy-prompt-label]");
+            const labelEl =
+              btn.querySelector<HTMLElement>(`[data-copy-label="${sectionId}"]`) ||
+              btn.querySelector<HTMLElement>("[data-copy-label]");
             const originalText = labelEl ? labelEl.textContent : "Copy Prompt";
             if (labelEl) labelEl.textContent = "✓ Copied Prompt";
             btn.classList.add(
@@ -4828,6 +4924,24 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 </script>
 
 <style is:global>
+  #morph-cards .morph-card.is-expanded {
+    cursor: default;
+    border-color: rgb(23 23 23);
+    box-shadow: 0 32px 64px -16px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(0, 0, 0, 0.08);
+  }
+  @media (prefers-color-scheme: dark) {
+    #morph-cards .morph-card.is-expanded {
+      border-color: rgb(229 229 229);
+      box-shadow: 0 32px 64px -16px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(255, 255, 255, 0.12);
+    }
+  }
+  #morph-cards .morph-card.is-expanded [data-morph-close] {
+    display: inline-flex;
+  }
+  #morph-cards .morph-card.is-expanded [data-morph-expand-hint] {
+    display: none;
+  }
+
   @keyframes marquee-scroll {
     0% {
       transform: translate3d(0, 0, 0);

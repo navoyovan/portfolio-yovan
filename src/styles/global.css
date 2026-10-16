@@ -34,7 +34,7 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  --font-sans: 'Satoshi', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-sans: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-heading: 'Syne', sans-serif;
   --font-subheading: 'Newsreader', Georgia, Cambria, serif;
   --font-serif: 'Newsreader', Georgia, Cambria, serif;
