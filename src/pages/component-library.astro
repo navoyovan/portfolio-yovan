@@ -2118,15 +2118,9 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 
       <!-- 04 // SYSTEM & DATA VIZ Container -->
       <div id="system-data-viz" class="space-y-16 scroll-mt-40 xl:scroll-mt-24">
-        <!-- 12 / Project Tiles -->
+        <!-- 21 / Project Tiles -->
         <section id="project-tiles" class="space-y-6 scroll-mt-40 xl:scroll-mt-24">
-          <div class="pb-2 border-b border-neutral-200 dark:border-neutral-800">
-            <h2
-              class="!font-mono font-mono text-xs uppercase tracking-[0.15em] text-neutral-500 dark:border-neutral-400 font-semibold"
-            >
-              12 / Project Tiles (Case Study Cards)
-            </h2>
-          </div>
+          <SectionHeaderTuner sectionId="project-tiles" />
 
           <div
             class="flex flex-nowrap overflow-x-auto gap-6 pb-4 pt-1 -mx-4 px-4 sm:mx-0 sm:px-0 md:grid md:grid-cols-2 md:overflow-visible md:pb-0 md:gap-8 no-scrollbar"
@@ -2201,15 +2195,105 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
           </div>
         </section>
 
-        <!-- 13 / Directory & Tree Index Pattern -->
-        <section id="tree-index" class="space-y-10 scroll-mt-40 xl:scroll-mt-24">
-          <div class="pb-2 border-b border-neutral-200 dark:border-neutral-800">
-            <h2
-              class="!font-mono font-mono text-xs uppercase tracking-[0.15em] text-neutral-500 dark:border-neutral-400 font-semibold"
+        <!-- 22 / Morphing Project Cards (Inline Expanding Case Studies) -->
+        <section id="morph-cards" class="space-y-6 scroll-mt-40 xl:scroll-mt-24">
+          <SectionHeaderTuner sectionId="morph-cards" />
+
+          <div class="space-y-4">
+            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-1 sm:gap-0">
+              <span
+                class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100 uppercase tracking-wider"
+                >22.1 / Interactive Physical Morph Tiles (Click to Expand)</span
+              >
+              <span class="font-mono text-[10px] text-neutral-400"
+                >Motion Cubic-Bezier [0.22, 1, 0.36, 1] • Inline Stage Expansion</span
+              >
+            </div>
+
+            <div
+              id="cl-morph-scroll-container"
+              class="flex flex-nowrap overflow-x-auto gap-6 pb-4 pt-1 -mx-4 px-4 sm:mx-0 sm:px-0 md:grid md:grid-cols-2 md:overflow-visible md:pb-0 md:gap-8 no-scrollbar items-start"
             >
-              13 / Directory &amp; Tree Index Pattern (With Brand Logo Headers)
-            </h2>
+              <MorphingProjectCard
+                index={0}
+                id="morph-specimen-hypebox"
+                title="HYPE-BOX SYSTEMA TABERNAE"
+                brand="hypebox"
+                category="01 // SYSTEMA INTERACTIVUM"
+                description="Programma tabernae photographicae tactu directum, cum motu sexaginta imaginum per secundum et ordine sine interrete firmo."
+                fullOverview="Architectura completa machinae photographicae in Electron et React 19 constructa. Gubernat fluxum sessionis sine haesitatione, communicationem periphericorum per IPC, et impressionem imaginum summae definitionis etiam cum conexio retis intermittit."
+                status="STATUS_VIVUS"
+                statusVariant="accent"
+                tags={["ELECTRON", "REACT 19", "TAILWIND v4", "SQLITE"]}
+                fileName="hypebox-photobooth-kiosk-orchestration-engine-firmware-v5-production-runtime.bin"
+                date="MMXXVI // FEBRUARIUS"
+                role="ARCHITECTUS SYSTEMATIS PRINCIPALIS"
+                client="HYPE-BOX STUDIO"
+                metrics={[
+                  { label: "01 // MOTUS CADENTIA", value: "60 FPS", subtext: "Transitus physici GPU accelerati" },
+                  { label: "02 // LATENTIA TACTUS", value: "< 8ms", subtext: "Responsio directa in taberna" },
+                  { label: "03 // CONEXIO FIRMA", value: "100%", subtext: "Ordo localis SQLite sine interrete" },
+                  { label: "04 // ONUS MEMORIAE", value: "140 MB", subtext: " Corpus levis in processu principali" }
+                ]}
+                features={[
+                  "Gubernatio status sessionis deterministica cum memoria locali",
+                  "Transitus physici per cubic-bezier [0.22, 1, 0.36, 1] sine saltu",
+                  "Communicatio periphericorum (DSLR, impressor termalis, QRIS) isolata",
+                  " modus tutelae OLED et calibratio colorum automatica"
+                ]}
+                architectureNotes="Separatio stricta inter processum redditionis (React 19) et pontem nativum (Electron IPC) garantit ut nulla operatio I/O filum principale graphicum retardet."
+                actionText="INSPICE SPECIMEN"
+                liveUrl="https://navoyovan.github.io/photobooth-kiosk-demo/"
+              />
+
+              <MorphingProjectCard
+                index={1}
+                id="morph-specimen-portal"
+                title="PORTA CURATORIS TABERNAE"
+                brand="hypebox"
+                category="02 // PLATFORMA CURATIONIS"
+                description="Analytica summae praestantiae, gubernatio telemetriae tabernae, designator formarum, et ordinatio solutionum."
+                fullOverview="Systema centrale curationis pro multi-unitatibus tabernarum photographicarum. Praebet telemetriam vivam per WebSockets, editorium visuale formarum impressionis, et reconciliationem automaticam transactionum QRIS."
+                status="VERSIO_STABILIS"
+                statusVariant="neutral"
+                tags={["LARAVEL 13", "REVERB", "FILAMENT", "MIDTRANS"]}
+                fileName="photobooth-vendor-portal-admin-console-telemetry-dashboard-cluster-spec.git"
+                date="MMXXVI // IANUARIUS"
+                role="INGENIARIUS SYSTEMATIS"
+                client="HYPE-BOX CLOUD"
+                metrics={[
+                  { label: "01 // FLUMEN EVENTUUM", value: "REALTIME", subtext: " Synchronizatio per Laravel Reverb" },
+                  { label: "02 // TEMPUS QUAESTIONIS", value: "12 ms", subtext: "Indices compositi et cache" },
+                  { label: "03 // INTEGRITAS", value: "99.98%", subtext: "Idempotentia webhook solutionum" },
+                  { label: "04 // PAYLOAD JS", value: "0 KB", subtext: " Tabulae analyticae SSR" }
+                ]}
+                features={[
+                  " Curva tendentiae sessionum cum comparatione hebdomadali",
+                  " Diagramma temporis (Gantt) pro programmatibus et eventibus",
+                  " Index popularitatis formarum cum imaginibus proportionalibus",
+                  " Signa status viva pro singulis machinis in agro"
+                ]}
+                architectureNotes="Constructum super Laravel 13 et Reverb ad sustinendam conexum continuum cum tabernis remotis per canales privatos authenticos."
+                actionText="INSPICE SPECIMEN"
+                liveUrl="https://navoyovan.github.io/photobooth-vendor-portal/"
+              />
+            </div>
+
+            <div class="flex flex-col">
+              <span
+                class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100"
+                >Morphing Project Card (Inline FLIP Expansion)</span
+              >
+              <span class="font-mono text-[11px] text-neutral-500"
+                >MorphingProjectCard.astro • click card or [ EXPAND ] • physical height &amp; width bloom • Esc / click-outside to collapse</span
+              >
+            </div>
           </div>
+        </section>
+
+        <!-- 23 / Directory & Tree Index Pattern -->
+        <section id="tree-index" class="space-y-10 scroll-mt-40 xl:scroll-mt-24">
+          <SectionHeaderTuner sectionId="tree-index" />
 
           <!-- Category 1: Typography Logo Header (5 items) -->
           <div class="space-y-4">
@@ -2217,7 +2301,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
               <span
                 class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100 uppercase tracking-wider"
               >
-                13.1 / Typography Logo Header
+                23.1 / Typography Logo Header
               </span>
               <span class="font-mono text-[11px] text-neutral-500"
                 >brand type mark • Syne 700 titles • 5 items</span
@@ -2768,7 +2852,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
               <span
                 class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100 uppercase tracking-wider"
               >
-                13.2 / Image Logo Header
+                23.2 / Image Logo Header
               </span>
               <span class="font-mono text-[11px] text-neutral-500"
                 >image/icon logo • Syne 700 titles • 3 items</span
@@ -3125,51 +3209,33 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
           </div>
         </section>
 
-        <!-- 14 / Application Window Mockup -->
+        <!-- 24 / Application Window Mockup -->
         <section id="app-window" class="space-y-6 scroll-mt-40 xl:scroll-mt-24">
-          <div class="pb-2 border-b border-neutral-200 dark:border-neutral-800">
-            <h2
-              class="!font-mono font-mono text-xs uppercase tracking-[0.15em] text-neutral-500 dark:text-neutral-400 font-semibold"
-            >
-              14 / Application Window Mockup (Interactive Showcase Frame)
-            </h2>
-          </div>
+          <SectionHeaderTuner sectionId="app-window" />
 
           <div class="max-w-5xl">
             <AppWindow />
           </div>
         </section>
 
-        <!-- 15 / Exploded 3D Isometric System Topology -->
+        <!-- 25 / Exploded 3D Isometric System Topology -->
         <section id="system-topology" class="space-y-6 scroll-mt-40 xl:scroll-mt-24">
-          <div class="pb-2 border-b border-neutral-200 dark:border-neutral-800">
-            <h2
-              class="!font-mono font-mono text-xs uppercase tracking-[0.15em] text-neutral-500 dark:text-neutral-400 font-semibold"
-            >
-              15 / Exploded 3D Isometric System Topology
-            </h2>
-          </div>
+          <SectionHeaderTuner sectionId="system-topology" />
 
           <div class="max-w-3xl">
             <SystemTopology />
           </div>
         </section>
 
-        <!-- 16 / Telemetry Trend Spline -->
+        <!-- 26 / Telemetry Trend Spline -->
         <section id="trend-chart" class="space-y-6 scroll-mt-40 xl:scroll-mt-24">
-          <div class="pb-2 border-b border-neutral-200 dark:border-neutral-800">
-            <h2
-              class="!font-mono font-mono text-xs uppercase tracking-[0.15em] text-neutral-500 dark:text-neutral-400 font-semibold"
-            >
-              16 / Telemetry Trend Spline (Monotone Cubic Curve)
-            </h2>
-          </div>
+          <SectionHeaderTuner sectionId="trend-chart" />
 
           <div class="space-y-4">
             <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-1 sm:gap-0">
               <span
                 class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100 uppercase tracking-wider"
-                >16.1 / Telemetry Trend Curve</span
+                >26.1 / Telemetry Trend Curve</span
               >
               <span class="font-mono text-[10px] text-neutral-400"
                 >Monotone Cubic Spline SVG</span
@@ -3202,21 +3268,15 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
           </div>
         </section>
 
-        <!-- 17 / Activity Schedule Timeline -->
+        <!-- 27 / Activity Schedule Timeline -->
         <section id="kiosk-timeline" class="space-y-6 scroll-mt-40 xl:scroll-mt-24">
-          <div class="pb-2 border-b border-neutral-200 dark:border-neutral-800">
-            <h2
-              class="!font-mono font-mono text-xs uppercase tracking-[0.15em] text-neutral-500 dark:text-neutral-400 font-semibold"
-            >
-              17 / Activity Schedule Timeline (Multi-Track Gantt)
-            </h2>
-          </div>
+          <SectionHeaderTuner sectionId="kiosk-timeline" />
 
           <div class="space-y-4">
             <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-1 sm:gap-0">
               <span
                 class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100 uppercase tracking-wider"
-                >17.1 / Activity Schedule Timeline</span
+                >27.1 / Activity Schedule Timeline</span
               >
               <span class="font-mono text-[10px] text-neutral-400"
                 >Multi-Track Schedule Gantt</span
@@ -3238,21 +3298,15 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
           </div>
         </section>
 
-        <!-- 18 / Filmstrip Asset Ranking Chart -->
+        <!-- 28 / Filmstrip Asset Ranking Chart -->
         <section id="frame-rank-chart" class="space-y-6 scroll-mt-40 xl:scroll-mt-24">
-          <div class="pb-2 border-b border-neutral-200 dark:border-neutral-800">
-            <h2
-              class="!font-mono font-mono text-xs uppercase tracking-[0.15em] text-neutral-500 dark:text-neutral-400 font-semibold"
-            >
-              18 / Filmstrip Asset Ranking (Proportional Filmstrip Slots)
-            </h2>
-          </div>
+          <SectionHeaderTuner sectionId="frame-rank-chart" />
 
           <div class="space-y-4">
             <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-1 sm:gap-0">
               <span
                 class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100 uppercase tracking-wider"
-                >18.1 / Filmstrip Asset Ranking Chart</span
+                >28.1 / Filmstrip Asset Ranking Chart</span
               >
               <span class="font-mono text-[10px] text-neutral-400"
                 >Proportional Filmstrip Slots</span
@@ -3274,22 +3328,44 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
           </div>
         </section>
 
-        <!-- 19 / Ambient Dithered ASCII Particles & Fluid Surfaces -->
-        <section id="ascii-particles" class="space-y-8 scroll-mt-40 xl:scroll-mt-24">
-          <div class="pb-2 border-b border-neutral-200 dark:border-neutral-800">
-            <h2
-              class="!font-mono font-mono text-xs uppercase tracking-[0.15em] text-neutral-500 dark:text-neutral-400 font-semibold"
-            >
-              19 / Ambient Dithered ASCII Particles & Fluid Surfaces
-            </h2>
-          </div>
+        <!-- 29 / GitHub Telemetry Heatmap -->
+        <section id="github-contributions" class="space-y-6 scroll-mt-40 xl:scroll-mt-24">
+          <SectionHeaderTuner sectionId="github-contributions" />
 
-          <!-- 19.1 Production Specimen: Ambient Fluid ASCII Field -->
           <div class="space-y-4">
             <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-1 sm:gap-0">
               <span
                 class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100 uppercase tracking-wider"
-                >19.1 / Ambient Fluid ASCII Field (Production Specimen)</span
+                >29.1 / 52-Week Contribution Activity Matrix</span
+              >
+              <span class="font-mono text-[10px] text-neutral-400"
+                >Dynamic Responsive Cell Grid • Live API Sync</span
+              >
+            </div>
+
+            <GithubContributionDivider username="navoyovan" class="py-0" />
+
+            <div class="flex flex-col">
+              <span
+                class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100"
+                >GitHub Contribution Heatmap Divider</span
+              >
+              <span class="font-mono text-[11px] text-neutral-500"
+                >GithubContributionDivider.astro • ResizeObserver cell sizing • 5 intensity levels • client-side API hydration</span
+              >
+            </div>
+          </div>
+        </section>
+
+        <!-- 30 / Ambient Fluid ASCII Field -->
+        <section id="ascii-particles" class="space-y-6 scroll-mt-40 xl:scroll-mt-24">
+          <SectionHeaderTuner sectionId="ascii-particles" />
+
+          <div class="space-y-4">
+            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-1 sm:gap-0">
+              <span
+                class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100 uppercase tracking-wider"
+                >30.1 / Ambient Fluid ASCII Field (Production Specimen)</span
               >
               <span class="font-mono text-[10px] text-neutral-400"
                 >4x4 Bayer Dither Matrix • Canvas 2D</span
@@ -3320,13 +3396,17 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
               >
             </div>
           </div>
+        </section>
 
-          <!-- 19.2 Exploratory Concept 1: Central Morphing Metaball Field -->
+        <!-- 31 / Morphing Metaball ASCII Field -->
+        <section id="ascii-metaballs" class="space-y-6 scroll-mt-40 xl:scroll-mt-24">
+          <SectionHeaderTuner sectionId="ascii-metaballs" />
+
           <div class="space-y-4">
             <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-1 sm:gap-0">
               <span
                 class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100 uppercase tracking-wider"
-                >19.2 / Central Morphing Metaball Field (Concept Prototype 01)</span
+                >31.1 / Central Morphing Metaball Field (Concept Prototype 01)</span
               >
               <span class="font-mono text-[10px] text-neutral-400"
                 >Multi-Body Harmonic Potential Surface</span
@@ -3357,13 +3437,17 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
               >
             </div>
           </div>
+        </section>
 
-          <!-- 19.3 Exploratory Concept 2: Orbital Satellite Particle Blobs -->
+        <!-- 32 / Orbital Satellite Particle Blobs -->
+        <section id="ascii-blobs" class="space-y-6 scroll-mt-40 xl:scroll-mt-24">
+          <SectionHeaderTuner sectionId="ascii-blobs" />
+
           <div class="space-y-4">
             <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-1 sm:gap-0">
               <span
                 class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100 uppercase tracking-wider"
-                >19.3 / Orbital Satellite Particle Blobs (Concept Prototype 02)</span
+                >32.1 / Orbital Satellite Particle Blobs (Concept Prototype 02)</span
               >
               <span class="font-mono text-[10px] text-neutral-400"
                 >Multi-Body Gravitational Node Orbit</span
@@ -3391,6 +3475,54 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
               >
               <span class="font-mono text-[11px] text-neutral-500"
                 >ConceptFloatingParticleBlobs.astro • multi-body gravitational orbit simulation • pulsing cores</span
+              >
+            </div>
+          </div>
+        </section>
+
+        <!-- 33 / Bayer Matrix Dithering Shader -->
+        <section id="dithering-shader" class="space-y-6 scroll-mt-40 xl:scroll-mt-24">
+          <SectionHeaderTuner sectionId="dithering-shader" />
+
+          <div class="space-y-4">
+            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-1 sm:gap-0">
+              <span
+                class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100 uppercase tracking-wider"
+                >33.1 / WebGL GLSL Ordered Dithering Canvas</span
+              >
+              <span class="font-mono text-[10px] text-neutral-400"
+                >Three.js Fragment Shader • Bayer 4×4 &amp; 8×8</span
+              >
+            </div>
+
+            <div class="relative w-full h-80 sm:h-96 border border-neutral-200 dark:border-neutral-800 bg-[#0d120e] overflow-hidden">
+              <DitheringShader
+                client:visible
+                colorBack="#0d120e"
+                colorFront="#52FF1A"
+                pxSize={3}
+                speed={0.6}
+                className="w-full h-full"
+              />
+
+              <!-- Center Stage Latin Editorial Label -->
+              <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none select-none z-10 px-4 text-center">
+                <span class="font-heading font-black text-2xl sm:text-3xl lg:text-4xl text-white tracking-tight uppercase drop-shadow-sm">
+                  MATRIX BAYERIANA
+                </span>
+                <span class="font-mono text-[10px] sm:text-xs text-neutral-300 tracking-widest uppercase mt-1">
+                  SHADER_GLSL // SIMPLEX_NOISE_3D
+                </span>
+              </div>
+            </div>
+
+            <div class="flex flex-col">
+              <span
+                class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100"
+                >Bayer Matrix WebGL Dithering Shader</span
+              >
+              <span class="font-mono text-[11px] text-neutral-500"
+                >dithering-shader.tsx • React + Three.js • Bayer 4×4 / 8×8 / Halftone / Crosshatch • live uniform event bus</span
               >
             </div>
           </div>
