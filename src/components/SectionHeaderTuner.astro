@@ -1,0 +1,176 @@
+---
+import { COMPONENT_LIBRARY_REGISTRY } from "../data/componentLibraryRegistry";
+
+interface Props {
+  sectionId: string;
+  customTitle?: string;
+}
+
+const { sectionId, customTitle } = Astro.props;
+const entry = COMPONENT_LIBRARY_REGISTRY[sectionId];
+const displayTitle = customTitle ?? entry?.title ?? sectionId;
+const constants = entry?.constants ?? [];
+---
+
+<div class="space-y-0" data-section-header-wrapper={sectionId}>
+  <!-- Section Header Row -->
+  <div class="pb-2 border-b border-neutral-200 dark:border-neutral-800 flex flex-wrap items-center justify-between gap-2">
+    <h2
+      class="!font-mono font-mono text-xs uppercase tracking-[0.15em] text-neutral-500 dark:text-neutral-400 font-semibold m-0"
+    >
+      {displayTitle}
+    </h2>
+
+    {
+      entry && (
+        <div class="flex items-center gap-1.5 shrink-0">
+          {constants.length > 0 && (
+            <button
+              type="button"
+              data-toggle-tuner={sectionId}
+              aria-expanded="false"
+              class="cl-tuner-toggle group inline-flex items-center gap-1.5 px-2 py-1 font-mono text-[10px] uppercase tracking-wider text-neutral-500 dark:text-neutral-400 hover:text-neutral-950 dark:hover:text-white bg-neutral-100/70 dark:bg-neutral-900/70 hover:bg-neutral-200/70 dark:hover:bg-neutral-800/80 border border-neutral-200/80 dark:border-neutral-800 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-accent,#52FF1A)]"
+            >
+              <span
+                data-tuner-dot={sectionId}
+                class="w-1.5 h-1.5 rounded-full bg-neutral-400 dark:bg-neutral-600 transition-colors"
+              />
+              <span>Tune Constants</span>
+              <svg
+                class="w-3 h-3 text-neutral-400 transition-transform duration-200 group-aria-expanded:rotate-180"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <polyline points="6 9 12 15 18 9" />
+              </svg>
+            </button>
+          )}
+
+          <button
+            type="button"
+            data-copy-prompt={sectionId}
+            class="cl-copy-prompt-btn group inline-flex items-center gap-1.5 px-2.5 py-1 font-mono text-[10px] uppercase tracking-wider font-semibold text-neutral-800 dark:text-neutral-200 hover:text-neutral-950 dark:hover:text-white bg-neutral-100 dark:bg-neutral-900 hover:border-[var(--color-accent,#52FF1A)] border border-neutral-300 dark:border-neutral-700 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-accent,#52FF1A)]"
+            title={`Copy AI prompt & reference source for ${entry.fileName}`}
+          >
+            <svg
+              class="w-3 h-3 text-neutral-500 group-hover:text-[var(--color-accent,#52FF1A)] transition-colors shrink-0"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+            </svg>
+            <span data-copy-label={sectionId}>Copy Prompt</span>
+          </button>
+        </div>
+      )
+    }
+  </div>
+
+  <!-- Collapsible Live Constants Tuner Bar (21st.dev style, 0 containerslop) -->
+  {
+    entry && constants.length > 0 && (
+      <div
+        data-tuner-panel={sectionId}
+        class="hidden border-b border-dashed border-neutral-200 dark:border-neutral-800 bg-neutral-100/40 dark:bg-neutral-900/40 py-2.5 px-3"
+      >
+        <div class="flex flex-wrap items-center justify-between gap-x-6 gap-y-2.5">
+          <div class="flex flex-wrap items-center gap-x-6 gap-y-2">
+            {constants.map((c) => (
+              <label class="inline-flex items-center gap-2 font-mono text-[11px] text-neutral-600 dark:text-neutral-400">
+                <span class="text-neutral-500 dark:text-neutral-400 select-none">
+                  {c.label}:
+                </span>
+
+                {c.type === "range" && (
+                  <div class="inline-flex items-center gap-2">
+                    <input
+                      type="range"
+                      min={c.min}
+                      max={c.max}
+                      step={c.step}
+                      value={String(c.defaultValue)}
+                      data-tune-section={sectionId}
+                      data-tune-key={c.key}
+                      data-tune-default={String(c.defaultValue)}
+                      data-tune-unit={c.unit ?? ""}
+                      data-tune-cssvar={c.cssVar ?? ""}
+                      class="w-24 h-1 bg-neutral-300 dark:bg-neutral-700 accent-neutral-900 dark:accent-white cursor-pointer"
+                    />
+                    <span
+                      data-tune-readout={`${sectionId}:${c.key}`}
+                      class="text-neutral-900 dark:text-neutral-100 font-semibold min-w-[3.25rem] tabular-nums"
+                    >
+                      {c.defaultValue}
+                      {c.unit ?? ""}
+                    </span>
+                  </div>
+                )}
+
+                {c.type === "select" && (
+                  <select
+                    data-tune-section={sectionId}
+                    data-tune-key={c.key}
+                    data-tune-default={String(c.defaultValue)}
+                    data-tune-cssvar={c.cssVar ?? ""}
+                    class="bg-[#fcfbf9] dark:bg-[#0e0e0e] border border-neutral-300 dark:border-neutral-700 px-2 py-0.5 font-mono text-[11px] text-neutral-900 dark:text-neutral-100 focus:outline-none focus:border-neutral-900 dark:focus:border-white cursor-pointer"
+                  >
+                    {c.options?.map((opt) => (
+                      <option
+                        value={opt.value}
+                        selected={opt.value === String(c.defaultValue)}
+                      >
+                        {opt.label}
+                      </option>
+                    ))}
+                  </select>
+                )}
+
+                {c.type === "color" && (
+                  <div class="inline-flex items-center gap-1.5">
+                    <input
+                      type="color"
+                      value={String(c.defaultValue)}
+                      data-tune-section={sectionId}
+                      data-tune-key={c.key}
+                      data-tune-default={String(c.defaultValue)}
+                      data-tune-cssvar={c.cssVar ?? ""}
+                      class="w-5 h-5 p-0 border border-neutral-300 dark:border-neutral-700 bg-transparent cursor-pointer"
+                    />
+                    <span
+                      data-tune-readout={`${sectionId}:${c.key}`}
+                      class="text-neutral-900 dark:text-neutral-100 font-semibold uppercase"
+                    >
+                      {c.defaultValue}
+                    </span>
+                  </div>
+                )}
+              </label>
+            ))}
+          </div>
+
+          <div class="flex items-center gap-3 ml-auto">
+            <span class="font-mono text-[10px] text-neutral-400 hidden sm:inline">
+              {entry.fileName}
+            </span>
+            <button
+              type="button"
+              data-reset-tuner={sectionId}
+              class="font-mono text-[10px] uppercase tracking-wider text-neutral-400 hover:text-neutral-900 dark:hover:text-white underline underline-offset-2 cursor-pointer"
+            >
+              Reset
+            </button>
+          </div>
+        </div>
+      </div>
+    )
+  }
+</div>
