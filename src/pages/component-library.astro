@@ -3574,6 +3574,12 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 </RootLayout>
 
 <script>
+  import { animate } from "motion";
+  import {
+    COMPONENT_LIBRARY_REGISTRY,
+    ORDERED_SECTION_IDS,
+  } from "../data/componentLibraryRegistry";
+
   const setupComponentLibraryNav = () => {
     const navButtons = document.querySelectorAll<HTMLButtonElement>(
       ".sidebar-nav-btn, .tab-nav-btn",
@@ -3592,27 +3598,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
       });
     });
 
-    const sectionIds = [
-      "colors",
-      "typography",
-      "depth-cards",
-      "buttons",
-      "kinetic-triggers",
-      "forms",
-      "text-inputs",
-      "dropdowns",
-      "loaders",
-      "status-badges",
-      "metric-cards",
-      "project-tiles",
-      "tree-index",
-      "app-window",
-      "system-topology",
-      "trend-chart",
-      "kiosk-timeline",
-      "frame-rank-chart",
-      "ascii-particles",
-    ];
+    const sectionIds = ORDERED_SECTION_IDS;
 
     const updateActiveTab = (activeId: string) => {
       navButtons.forEach((btn) => {
@@ -3941,17 +3927,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
     ) as HTMLInputElement | null;
     if (!defaultInput) return;
 
-    const autoScrollTargets = [
-      "colors",
-      "typography",
-      "depth-cards",
-      "buttons",
-      "kinetic-triggers",
-      "forms",
-      "text-inputs",
-      "dropdowns",
-      "loaders",
-    ];
+    const autoScrollTargets = ORDERED_SECTION_IDS.slice(0, 12);
 
     const triggerTab = (targetId: string) => {
       const sidebarBtn = document.querySelector<HTMLButtonElement>(
@@ -4104,11 +4080,728 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
     };
   };
 
+  // Interactive Motion Controller for Section 22 MorphingProjectCard
+  const setupLibraryMorphCards = () => {
+    const container = document.getElementById("cl-morph-scroll-container");
+    if (!container) return;
+    const wrappers = Array.from(
+      container.querySelectorAll<HTMLElement>("[data-morph-wrapper]"),
+    );
+    if (wrappers.length === 0) return;
+
+    let activeWrapper: HTMLElement | null = null;
+    let isAnimating = false;
+
+    const getMorphSpeedMultiplier = () => {
+      const section = document.getElementById("morph-cards");
+      const raw = section?.getAttribute("data-morph-duration");
+      return raw ? parseFloat(raw) / 0.48 : 1;
+    };
+
+    const expandCard = (wrapper: HTMLElement) => {
+      if (isAnimating || activeWrapper === wrapper) return;
+      if (activeWrapper) {
+        collapseCard(activeWrapper, () => expandCard(wrapper));
+        return;
+      }
+
+      isAnimating = true;
+      activeWrapper = wrapper;
+
+      const card = wrapper.querySelector<HTMLElement>("[data-morph-card]");
+      const preview = wrapper.querySelector<HTMLElement>("[data-morph-preview]");
+      const expanded = wrapper.querySelector<HTMLElement>("[data-morph-expanded]");
+      const subItems = wrapper.querySelectorAll<HTMLElement>("[data-morph-item]");
+      if (!card || !preview || !expanded) {
+        isAnimating = false;
+        return;
+      }
+
+      const speedMult = getMorphSpeedMultiplier();
+      const startHeight = card.offsetHeight;
+      const startWidth = wrapper.offsetWidth;
+      const isDesktopGrid = window.innerWidth >= 768;
+
+      wrapper.setAttribute("data-expanded", "true");
+      wrapper.classList.add("md:col-span-2", "w-full");
+      wrapper.classList.remove("w-[300px]", "sm:w-[360px]");
+
+      preview.classList.add("hidden");
+      expanded.classList.remove("hidden");
+      expanded.style.opacity = "1";
+
+      const targetHeight = card.scrollHeight;
+      const targetWidth = wrapper.offsetWidth;
+
+      if (isDesktopGrid && Math.abs(targetWidth - startWidth) > 8) {
+        animate(
+          wrapper,
+          { width: [`${startWidth}px`, `${targetWidth}px`] },
+          { duration: 0.46 * speedMult, easing: [0.22, 1, 0.36, 1] },
+        ).finished.then(() => {
+          wrapper.style.width = "";
+        });
+      }
+
+      animate(
+        card,
+        { height: [`${startHeight}px`, `${targetHeight}px`] },
+        { duration: 0.48 * speedMult, easing: [0.22, 1, 0.36, 1] },
+      ).finished.then(() => {
+        card.style.height = "auto";
+        isAnimating = false;
+      });
+
+      subItems.forEach((item, idx) => {
+        item.style.opacity = "0";
+        item.style.transform = "translateY(10px)";
+        animate(
+          item,
+          { opacity: [0, 1], transform: ["translateY(10px)", "translateY(0px)"] },
+          {
+            duration: 0.36 * speedMult,
+            delay: (0.08 + idx * 0.045) * speedMult,
+            easing: [0.22, 1, 0.36, 1],
+          },
+        );
+      });
+    };
+
+    const collapseCard = (wrapper: HTMLElement, onDone?: () => void) => {
+      if (!wrapper) return;
+      isAnimating = true;
+
+      const card = wrapper.querySelector<HTMLElement>("[data-morph-card]");
+      const preview = wrapper.querySelector<HTMLElement>("[data-morph-preview]");
+      const expanded = wrapper.querySelector<HTMLElement>("[data-morph-expanded]");
+      if (!card || !preview || !expanded) {
+        isAnimating = false;
+        return;
+      }
+
+      const speedMult = getMorphSpeedMultiplier();
+      const startHeight = card.offsetHeight;
+
+      expanded.classList.add("hidden");
+      preview.classList.remove("hidden");
+      wrapper.classList.remove("md:col-span-2", "w-full");
+      wrapper.classList.add("w-[300px]", "sm:w-[360px]", "md:w-auto");
+      wrapper.setAttribute("data-expanded", "false");
+
+      const targetHeight = card.scrollHeight;
+
+      expanded.classList.remove("hidden");
+      preview.classList.add("hidden");
+
+      animate(
+        card,
+        { height: [`${startHeight}px`, `${targetHeight}px`] },
+        { duration: 0.38 * speedMult, easing: [0.22, 1, 0.36, 1] },
+      ).finished.then(() => {
+        expanded.classList.add("hidden");
+        preview.classList.remove("hidden");
+        card.style.height = "";
+        activeWrapper = null;
+        isAnimating = false;
+        if (onDone) onDone();
+      });
+    };
+
+    wrappers.forEach((wrapper) => {
+      const card = wrapper.querySelector<HTMLElement>("[data-morph-card]");
+      const closeBtn = wrapper.querySelector<HTMLElement>("[data-morph-close]");
+
+      if (card) {
+        card.onclick = (e) => {
+          const target = e.target as HTMLElement;
+          if (target.closest("a") || target.closest("[data-morph-close]")) {
+            return;
+          }
+          if (wrapper.getAttribute("data-expanded") !== "true") {
+            expandCard(wrapper);
+          }
+        };
+      }
+
+      if (closeBtn) {
+        closeBtn.onclick = (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          if (wrapper.getAttribute("data-expanded") === "true") {
+            collapseCard(wrapper);
+          }
+        };
+      }
+    });
+  };
+
+  // Live Constants Tuner & Single-Click Prompt Copy Engine
+  const tunedValues: Record<string, Record<string, string | number>> = {};
+
+  const applySectionTuning = (
+    sectionId: string,
+    key: string,
+    rawVal: string,
+    cssVar?: string,
+    unit?: string,
+  ) => {
+    const sectionEl = document.getElementById(sectionId);
+    if (!sectionEl) return;
+
+    if (!tunedValues[sectionId]) tunedValues[sectionId] = {};
+    tunedValues[sectionId][key] = rawVal;
+
+    if (cssVar) {
+      sectionEl.style.setProperty(cssVar, `${rawVal}${unit || ""}`);
+    }
+
+    const numVal = parseFloat(rawVal);
+
+    switch (sectionId) {
+      case "colors": {
+        if (key === "accentColor") {
+          document.documentElement.style.setProperty("--color-accent", rawVal);
+          document.documentElement.style.setProperty("--color-accent-hover", rawVal);
+          const chip = document.getElementById("accent-swatch-chip");
+          const hexEl = document.getElementById("accent-swatch-hex");
+          if (chip) {
+            chip.style.backgroundColor = rawVal;
+            chip.style.boxShadow = `0 0 20px ${rawVal}4D`;
+          }
+          if (hexEl) hexEl.textContent = `--color-accent • ${rawVal}`;
+        } else if (key === "swatchHeight") {
+          sectionEl
+            .querySelectorAll<HTMLElement>(".h-24, [data-swatch-box]")
+            .forEach((el) => {
+              el.setAttribute("data-swatch-box", "true");
+              el.style.height = `${numVal}px`;
+            });
+        }
+        break;
+      }
+      case "typography": {
+        if (key === "displayWeight") {
+          sectionEl
+            .querySelectorAll<HTMLElement>(".font-heading")
+            .forEach((el) => (el.style.fontWeight = rawVal));
+        } else if (key === "letterSpacing") {
+          sectionEl
+            .querySelectorAll<HTMLElement>(".font-heading")
+            .forEach((el) => (el.style.letterSpacing = `${rawVal}em`));
+        }
+        break;
+      }
+      case "depth-cards": {
+        const cards = sectionEl.querySelectorAll<HTMLElement>(".group.relative");
+        cards.forEach((card) => {
+          if (key === "shadowOffset") {
+            card.style.boxShadow = `${numVal}px ${numVal}px 0px var(--color-accent, #52FF1A)`;
+          } else if (key === "borderRadius") {
+            card.style.borderRadius = `${numVal}px`;
+          }
+        });
+        break;
+      }
+      case "business-card": {
+        const card = document.getElementById("business-card-flipper");
+        if (card) {
+          if (key === "perspective") {
+            (card.parentElement as HTMLElement).style.perspective = `${numVal}px`;
+          } else if (key === "flipDuration") {
+            const inner = card.querySelector<HTMLElement>("#business-card-inner");
+            if (inner) inner.style.transitionDuration = `${numVal}ms`;
+          }
+        }
+        break;
+      }
+      case "buttons": {
+        const btns = sectionEl.querySelectorAll<HTMLElement>(".action-button");
+        btns.forEach((btn) => {
+          if (key === "borderRadius") btn.style.borderRadius = `${numVal}px`;
+          if (key === "pressScale") btn.style.setProperty("--active-scale", rawVal);
+          if (key === "variant" && btn.hasAttribute("data-action-showcase")) {
+            btn.className = btn.className.replace(
+              /action-button--(cta|primary-neutral|primary|secondary|ghost|danger)/g,
+              `action-button--${rawVal}`,
+            );
+          }
+        });
+        break;
+      }
+      case "kinetic-triggers": {
+        const triggers = sectionEl.querySelectorAll<HTMLElement>(".hover-expand-btn");
+        triggers.forEach((btn) => {
+          if (key === "expandMaxWidth") {
+            btn.style.setProperty("--expand-max-w", `${numVal}px`);
+          }
+          if (key === "transitionMs") {
+            btn.style.transitionDuration = `${numVal}ms`;
+            btn
+              .querySelectorAll<HTMLElement>(".hover-expand-label")
+              .forEach((l) => (l.style.transitionDuration = `${numVal}ms`));
+          }
+        });
+        break;
+      }
+      case "checkboxes":
+      case "radios":
+      case "toggles": {
+        const wrappers = sectionEl.querySelectorAll<HTMLElement>("[data-loading-delay]");
+        wrappers.forEach((w) => {
+          if (key === "loadingDelay") {
+            w.setAttribute("data-loading-delay", rawVal);
+          }
+          if (key === "boxSize") {
+            w.querySelectorAll<HTMLElement>(".checkbox-box, .radio-circle").forEach(
+              (box) => {
+                box.style.width = `${numVal}px`;
+                box.style.height = `${numVal}px`;
+              },
+            );
+          }
+          if (key === "trackWidth") {
+            w.querySelectorAll<HTMLElement>(".toggle-track").forEach((track) => {
+              track.style.width = `${numVal}px`;
+            });
+          }
+        });
+        break;
+      }
+      case "sliders": {
+        const sliders = sectionEl.querySelectorAll<HTMLInputElement>('input[type="range"]');
+        sliders.forEach((s) => {
+          if (key === "step") s.step = rawVal;
+          if (key === "value") {
+            s.value = rawVal;
+            s.dispatchEvent(new Event("input", { bubbles: true }));
+          }
+        });
+        break;
+      }
+      case "text-inputs":
+      case "password-input": {
+        const inputs = sectionEl.querySelectorAll<HTMLElement>("input");
+        inputs.forEach((inp) => {
+          if (key === "borderRadius") inp.style.borderRadius = `${numVal}px`;
+          if (key === "inputHeight") inp.style.height = `${numVal}px`;
+        });
+        break;
+      }
+      case "limit-textarea": {
+        const wrapper = sectionEl.querySelector<HTMLElement>("[data-max-length]");
+        const textarea = sectionEl.querySelector<HTMLTextAreaElement>("textarea");
+        if (key === "maxLength" && wrapper && textarea) {
+          wrapper.setAttribute("data-max-length", rawVal);
+          textarea.dispatchEvent(new Event("input", { bubbles: true }));
+        }
+        if (key === "minHeight" && textarea) {
+          textarea.style.minHeight = `${numVal}px`;
+        }
+        break;
+      }
+      case "form-select":
+      case "search-dropdown":
+      case "date-picker": {
+        if (key === "borderRadius") {
+          sectionEl
+            .querySelectorAll<HTMLElement>("button, [data-select-menu], [data-dropdown-menu], [data-datepicker-menu]")
+            .forEach((el) => (el.style.borderRadius = `${numVal}px`));
+        }
+        if (key === "cellSize") {
+          sectionEl
+            .querySelectorAll<HTMLElement>("[data-date-cell]")
+            .forEach((el) => {
+              el.style.height = `${numVal}px`;
+            });
+        }
+        break;
+      }
+      case "loaders": {
+        const loaders = sectionEl.querySelectorAll<HTMLElement>(".square-wave-loader");
+        loaders.forEach((loader) => {
+          if (key === "gap") loader.style.gap = `${numVal}px`;
+          const bars = loader.querySelectorAll<HTMLElement>(".square-wave-bar");
+          bars.forEach((bar) => {
+            if (key === "size") {
+              bar.style.width = `${numVal}px`;
+              bar.style.height = `${numVal}px`;
+            }
+            if (key === "speed") {
+              bar.style.animationDuration = `${numVal}s`;
+            }
+          });
+        });
+        break;
+      }
+      case "status-badges": {
+        const badges = sectionEl.querySelectorAll<HTMLElement>("span.inline-flex");
+        badges.forEach((b) => {
+          if (key === "borderRadius") b.style.borderRadius = `${numVal}px`;
+          if (key === "tracking") b.style.letterSpacing = `${rawVal}em`;
+        });
+        break;
+      }
+      case "metric-cards": {
+        const cards = sectionEl.querySelectorAll<HTMLElement>(":scope > div > div");
+        cards.forEach((c) => {
+          if (key === "padding") c.style.padding = `${numVal}px`;
+          if (key === "borderRadius") c.style.borderRadius = `${numVal}px`;
+        });
+        break;
+      }
+      case "author-avatars": {
+        const avatars = sectionEl.querySelectorAll<HTMLElement>(".rounded-full");
+        avatars.forEach((a) => {
+          if (key === "ringWidth") a.style.borderWidth = `${numVal}px`;
+        });
+        break;
+      }
+      case "project-tiles": {
+        const tiles = sectionEl.querySelectorAll<HTMLElement>("article");
+        tiles.forEach((t) => {
+          if (key === "borderRadius") t.style.borderRadius = `${numVal}px`;
+          if (key === "hoverLift") {
+            t.style.setProperty("--tw-translate-y", `-${numVal}px`);
+          }
+        });
+        break;
+      }
+      case "morph-cards": {
+        if (key === "expandDuration") {
+          sectionEl.setAttribute("data-morph-duration", rawVal);
+        }
+        if (key === "borderRadius") {
+          sectionEl
+            .querySelectorAll<HTMLElement>("[data-morph-card]")
+            .forEach((c) => (c.style.borderRadius = `${numVal}px`));
+        }
+        break;
+      }
+      case "tree-index": {
+        if (key === "marqueeSpeed") {
+          sectionEl
+            .querySelectorAll<HTMLElement>(".index-marquee-track")
+            .forEach((track) => {
+              const content = track.querySelector<HTMLElement>(".index-marquee-content");
+              if (content) {
+                const duration = Math.max(8, content.scrollWidth / numVal);
+                track.style.animationDuration = `${duration}s`;
+              }
+            });
+        }
+        if (key === "rowGap") {
+          sectionEl
+            .querySelectorAll<HTMLElement>(".space-y-7")
+            .forEach((box) => {
+              box.style.display = "flex";
+              box.style.flexDirection = "column";
+              box.style.gap = `${numVal}px`;
+            });
+        }
+        break;
+      }
+      case "app-window": {
+        const frame = sectionEl.querySelector<HTMLElement>(":scope > div > div");
+        if (frame && key === "borderRadius") {
+          frame.style.borderRadius = `${numVal}px`;
+        }
+        break;
+      }
+      case "system-topology": {
+        const layers = sectionEl.querySelectorAll<HTMLElement>("[data-topology-layer]");
+        if (key === "layerSpacing" && layers.length) {
+          layers.forEach((l, i) => {
+            l.style.marginTop = i === 0 ? "0px" : `${numVal - 48}px`;
+          });
+        }
+        break;
+      }
+      case "trend-chart": {
+        const paths = sectionEl.querySelectorAll<SVGPathElement>("svg path[stroke-width]");
+        if (key === "strokeWidth") {
+          paths.forEach((p) => p.setAttribute("stroke-width", rawVal));
+        }
+        break;
+      }
+      case "kiosk-timeline": {
+        if (key === "dayWidth") {
+          sectionEl.style.setProperty("--day-col-width", `${numVal}px`);
+        }
+        break;
+      }
+      case "frame-rank-chart": {
+        const strip = sectionEl.querySelector<HTMLElement>(".flex.gap-1\\.5, .flex.gap-1");
+        if (strip) {
+          if (key === "slotGap") strip.style.gap = `${numVal}px`;
+          if (key === "stripHeight") strip.style.height = `${numVal}px`;
+        }
+        break;
+      }
+      case "github-contributions": {
+        const grid = sectionEl.querySelector<HTMLElement>("[data-gh-grid]");
+        if (grid && key === "cellGap") {
+          grid.style.gap = `${numVal}px`;
+        }
+        break;
+      }
+      case "ascii-particles": {
+        const canvas = sectionEl.querySelector<HTMLElement>(".ascii-particle-canvas");
+        if (canvas) {
+          if (key === "opacityMultiplier") {
+            canvas.setAttribute("data-opacity-multiplier", rawVal);
+          } else if (key === "contrastPower") {
+            canvas.setAttribute("data-contrast-power", rawVal);
+          }
+        }
+        break;
+      }
+      case "ascii-metaballs": {
+        const container = sectionEl.querySelector<HTMLElement>("#concept-metaball-container");
+        if (container) {
+          if (key === "speedMultiplier") {
+            container.setAttribute("data-speed-multiplier", rawVal);
+          } else if (key === "threshold") {
+            container.setAttribute("data-threshold", rawVal);
+          }
+        }
+        break;
+      }
+      case "ascii-blobs": {
+        const container = sectionEl.querySelector<HTMLElement>("#concept-particles-container");
+        if (container) {
+          if (key === "speedMultiplier") {
+            container.setAttribute("data-speed-multiplier", rawVal);
+          } else if (key === "radiusScale") {
+            container.setAttribute("data-radius-scale", rawVal);
+          }
+        }
+        break;
+      }
+      case "dithering-shader": {
+        if (key === "pxSize") {
+          window.dispatchEvent(
+            new CustomEvent("dither:change-scale", { detail: { pxSize: numVal } }),
+          );
+        } else if (key === "speed") {
+          window.dispatchEvent(
+            new CustomEvent("dither:change-speed", { detail: { speed: numVal } }),
+          );
+        } else if (key === "ditherMode") {
+          window.dispatchEvent(
+            new CustomEvent("dither:change-pattern", {
+              detail: { mode: parseInt(rawVal, 10) },
+            }),
+          );
+        } else if (key === "colorFront") {
+          window.dispatchEvent(
+            new CustomEvent("dither:change-palette", {
+              detail: { colorBack: "#0d120e", colorFront: rawVal },
+            }),
+          );
+        }
+        break;
+      }
+    }
+  };
+
+  const buildAiPromptForSection = (sectionId: string): string => {
+    const meta = COMPONENT_LIBRARY_REGISTRY[sectionId];
+    if (!meta) return "";
+
+    const activeAccent =
+      getComputedStyle(document.documentElement)
+        .getPropertyValue("--color-accent")
+        .trim() || "#52FF1A";
+
+    const sectionOverrides = tunedValues[sectionId] || {};
+    const constantsLines = meta.constants.map((c) => {
+      const currentVal =
+        sectionOverrides[c.key] !== undefined
+          ? sectionOverrides[c.key]
+          : c.defaultValue;
+      return `- \`${c.key}\` (${c.label}): \`${currentVal}${c.unit || ""}\`${c.cssVar ? ` (CSS token: \`${c.cssVar}\`)` : ""}`;
+    });
+
+    const sourceBlocks = meta.files
+      .map(
+        (f) =>
+          `### File: \`${f.name}\` (\`${f.path}\`)\n\`\`\`${f.language}\n${f.raw.trim()}\n\`\`\``,
+      )
+      .join("\n\n");
+
+    return [
+      `# Component Implementation Prompt: ${meta.number} / ${meta.title}`,
+      ``,
+      `Please implement the **${meta.title}** component from Yovan's Component Library into my project, preserving its exact editorial aesthetic, tactile interactions, and responsive behavior.`,
+      ``,
+      `## 1. Design System Context & Tokens`,
+      `- **Display / Heading Font**: \`Syne\` (\`--font-heading: 'Syne', sans-serif\`, weights 700–800)`,
+      `- **Primary UI / Body Font**: \`Outfit\` (\`--font-sans: 'Outfit', sans-serif\`, weights 400–700)`,
+      `- **Monospace / Technical Metadata Font**: \`JetBrains Mono\` (\`--font-mono: 'JetBrains Mono', monospace\`)`,
+      `- **Surface Palette**: Warm editorial paper light mode (\`#fcfbf9\`) and deep OLED carbon dark mode (\`#090909\` / \`#141414\`)`,
+      `- **Active Accent Token**: \`--color-accent: ${activeAccent}\``,
+      `- **Dependencies**: ${meta.dependencies.join(", ")}`,
+      ``,
+      `## 2. Configured Constants & Props`,
+      ...(constantsLines.length > 0
+        ? constantsLines
+        : [`- Uses standard default component tokens.`]),
+      ``,
+      `## 3. Usage Example`,
+      `\`\`\`astro`,
+      meta.usageSnippet,
+      `\`\`\``,
+      ``,
+      `## 4. Full Reference Source Code`,
+      sourceBlocks,
+    ].join("\n");
+  };
+
+  const setupLiveTunersAndPrompts = () => {
+    // 1. Toggle Tuner Drawer
+    document
+      .querySelectorAll<HTMLButtonElement>("[data-toggle-tuner]")
+      .forEach((btn) => {
+        btn.onclick = (e) => {
+          e.preventDefault();
+          const sectionId = btn.getAttribute("data-toggle-tuner");
+          if (!sectionId) return;
+          const panel = document.querySelector<HTMLElement>(
+            `[data-tuner-panel="${sectionId}"]`,
+          );
+          if (!panel) return;
+          const isHidden = panel.classList.contains("hidden");
+          if (isHidden) {
+            panel.classList.remove("hidden");
+            btn.setAttribute("aria-expanded", "true");
+            btn.classList.add(
+              "border-[var(--color-accent,#52FF1A)]",
+              "text-neutral-950",
+              "dark:text-white",
+              "bg-neutral-100",
+              "dark:bg-neutral-900",
+            );
+          } else {
+            panel.classList.add("hidden");
+            btn.setAttribute("aria-expanded", "false");
+            btn.classList.remove(
+              "border-[var(--color-accent,#52FF1A)]",
+              "text-neutral-900",
+              "dark:text-white",
+              "bg-neutral-100",
+              "dark:bg-neutral-900",
+            );
+          }
+        };
+      });
+
+    // 2. Live Constant Controls
+    document
+      .querySelectorAll<HTMLInputElement | HTMLSelectElement>("[data-tune-section]")
+      .forEach((input) => {
+        const handleTune = () => {
+          const sectionId = input.getAttribute("data-tune-section");
+          const key = input.getAttribute("data-tune-key");
+          const unit = input.getAttribute("data-tune-unit") || "";
+          const cssVar = input.getAttribute("data-tune-cssvar") || undefined;
+          if (!sectionId || !key) return;
+
+          const val = input.value;
+          const readout = document.querySelector<HTMLElement>(
+            `[data-tune-readout="${sectionId}:${key}"]`,
+          );
+          if (readout) {
+            if (input.tagName === "SELECT") {
+              const sel = input as HTMLSelectElement;
+              readout.textContent =
+                sel.options[sel.selectedIndex]?.text || val;
+            } else {
+              readout.textContent = `${val}${unit}`;
+            }
+          }
+
+          applySectionTuning(sectionId, key, val, cssVar, unit);
+        };
+
+        input.addEventListener("input", handleTune);
+        input.addEventListener("change", handleTune);
+      });
+
+    // 3. Reset Tuner Controls
+    document
+      .querySelectorAll<HTMLButtonElement>("[data-reset-tuner]")
+      .forEach((btn) => {
+        btn.onclick = (e) => {
+          e.preventDefault();
+          const sectionId = btn.getAttribute("data-reset-tuner");
+          if (!sectionId) return;
+          delete tunedValues[sectionId];
+
+          const panel = document.querySelector<HTMLElement>(
+            `[data-tuner-panel="${sectionId}"]`,
+          );
+          if (!panel) return;
+
+          panel
+            .querySelectorAll<HTMLInputElement | HTMLSelectElement>(
+              "[data-tune-section]",
+            )
+            .forEach((input) => {
+              const defVal = input.getAttribute("data-tune-default");
+              if (defVal !== null) {
+                input.value = defVal;
+                input.dispatchEvent(new Event("input", { bubbles: true }));
+                input.dispatchEvent(new Event("change", { bubbles: true }));
+              }
+            });
+        };
+      });
+
+    // 4. Single-Click Copy Prompt
+    document
+      .querySelectorAll<HTMLButtonElement>("[data-copy-prompt]")
+      .forEach((btn) => {
+        btn.onclick = async (e) => {
+          e.preventDefault();
+          const sectionId = btn.getAttribute("data-copy-prompt");
+          if (!sectionId) return;
+
+          const promptText = buildAiPromptForSection(sectionId);
+          if (!promptText) return;
+
+          try {
+            await navigator.clipboard.writeText(promptText);
+            const labelEl = btn.querySelector<HTMLElement>("[data-copy-prompt-label]");
+            const originalText = labelEl ? labelEl.textContent : "Copy Prompt";
+            if (labelEl) labelEl.textContent = "✓ Copied Prompt";
+            btn.classList.add(
+              "!bg-[var(--color-accent,#52FF1A)]",
+              "!text-neutral-950",
+              "!border-[var(--color-accent,#52FF1A)]",
+            );
+
+            setTimeout(() => {
+              if (labelEl) labelEl.textContent = originalText;
+              btn.classList.remove(
+                "!bg-[var(--color-accent,#52FF1A)]",
+                "!text-neutral-950",
+                "!border-[var(--color-accent,#52FF1A)]",
+              );
+            }, 2000);
+          } catch (err) {
+            console.error("Failed to copy component prompt:", err);
+          }
+        };
+      });
+  };
+
   setupComponentLibraryNav();
   setupSidebarCollapse();
   setupAccentColorPicker();
   initIndexMarquees();
   setupAutoTabScroll();
+  setupLibraryMorphCards();
+  setupLiveTunersAndPrompts();
 
   let lastMarqueeWidth = typeof window !== "undefined" ? window.innerWidth : 0;
   let marqueeResizeTimer: number | null = null;
@@ -4129,6 +4822,8 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
     setupAccentColorPicker();
     initIndexMarquees();
     setupAutoTabScroll();
+    setupLibraryMorphCards();
+    setupLiveTunersAndPrompts();
   });
 </script>
 
