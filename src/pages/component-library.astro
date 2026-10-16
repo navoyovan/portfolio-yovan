@@ -4338,7 +4338,8 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
           const picker = document.getElementById("custom-accent-picker") as HTMLInputElement | null;
           if (chip) {
             chip.style.backgroundColor = rawVal;
-            chip.style.boxShadow = `0 0 20px ${rawVal}4D`;
+            const spread = tunedValues.colors?.glowSpread || 20;
+            chip.style.boxShadow = `0 0 ${spread}px ${rawVal}4D`;
           }
           if (hexEl) hexEl.textContent = `--color-accent • ${rawVal.toUpperCase()}`;
           if (picker) picker.value = rawVal;
@@ -4349,14 +4350,40 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
               el.setAttribute("data-swatch-box", "true");
               el.style.height = `${numVal}px`;
             });
+        } else if (key === "swatchRadius") {
+          sectionEl
+            .querySelectorAll<HTMLElement>(".h-28, [data-swatch-box], [data-swatch-box] > div, :scope > div.grid > div")
+            .forEach((el) => {
+              el.style.borderRadius = `${numVal}px`;
+            });
+        } else if (key === "glowSpread") {
+          const chip = document.getElementById("accent-swatch-chip");
+          const accent = tunedValues.colors?.accentHex || "#52FF1A";
+          if (chip) chip.style.boxShadow = `0 0 ${numVal}px ${accent}4D`;
         }
         break;
       }
       case "typography": {
-        if (key === "headingTracking") {
+        if (key === "displayScale") {
+          sectionEl
+            .querySelectorAll<HTMLElement>(".font-heading, h1, h2, h3, h4")
+            .forEach((el) => {
+              el.style.fontSize = `calc(1rem * ${numVal})`;
+            });
+        } else if (key === "headingWeight") {
+          sectionEl
+            .querySelectorAll<HTMLElement>(".font-heading, h1, h2, h3, h4")
+            .forEach((el) => {
+              el.style.fontWeight = rawVal;
+            });
+        } else if (key === "headingTracking") {
           sectionEl
             .querySelectorAll<HTMLElement>(".font-heading, h1, h2, h3, h4")
             .forEach((el) => (el.style.letterSpacing = `${rawVal}em`));
+        } else if (key === "bodySize") {
+          sectionEl
+            .querySelectorAll<HTMLElement>("p, .font-sans")
+            .forEach((el) => (el.style.fontSize = `${numVal}px`));
         } else if (key === "bodyLineHeight") {
           sectionEl
             .querySelectorAll<HTMLElement>("p, .font-sans")
@@ -4367,10 +4394,14 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
       case "depth-cards": {
         const cards = sectionEl.querySelectorAll<HTMLElement>(".depth-card");
         cards.forEach((card) => {
-          if (key === "hoverLift") {
-            card.style.transform = `translateY(-${numVal}px)`;
-          } else if (key === "cardPadding") {
+          if (key === "cardPadding") {
             card.style.padding = `${numVal}px`;
+          } else if (key === "cardRadius") {
+            card.style.borderRadius = `${numVal}px`;
+          } else if (key === "hoverLift") {
+            card.style.transform = `translateY(-${numVal}px)`;
+          } else if (key === "borderWidth") {
+            card.style.borderWidth = `${numVal}px`;
           }
         });
         break;
@@ -4378,53 +4409,163 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
       case "business-card": {
         const container = sectionEl.querySelector<HTMLElement>(".skeuo-card-container");
         const body = sectionEl.querySelector<HTMLElement>(".skeuo-card-body");
-        if (key === "perspective" && container) {
+        if (key === "cardWidth" && container) {
+          container.style.maxWidth = `${numVal}px`;
+          container.style.width = "100%";
+        } else if (key === "cardRadius") {
+          sectionEl
+            .querySelectorAll<HTMLElement>(".skeuo-card-face, .skeuo-card-body, .skeuo-card-container")
+            .forEach((el) => (el.style.borderRadius = `${numVal}px`));
+        } else if (key === "perspective" && container) {
           container.style.perspective = `${numVal}px`;
-        } else if (key === "cardScale" && body) {
-          body.style.transform = `scale(${numVal})`;
+        } else if (key === "flipDuration" && body) {
+          body.style.transitionDuration = `${numVal}ms`;
         }
         break;
       }
       case "buttons": {
-        if (key === "btnScale") {
-          sectionEl
-            .querySelectorAll<HTMLElement>(":scope > div button, :scope > div a")
-            .forEach((btn) => {
-              btn.style.transform = `scale(${numVal})`;
-            });
-        } else if (key === "btnGap") {
-          sectionEl
-            .querySelectorAll<HTMLElement>(".grid")
-            .forEach((g) => {
-              g.style.gap = `${numVal}px`;
-            });
-        }
+        const btns = sectionEl.querySelectorAll<HTMLElement>(":scope > div button, :scope > div a.action-button");
+        btns.forEach((btn) => {
+          if (key === "btnHeight") {
+            btn.style.height = `${numVal}px`;
+            btn.style.minHeight = `${numVal}px`;
+          } else if (key === "btnPaddingX") {
+            btn.style.paddingLeft = `${numVal}px`;
+            btn.style.paddingRight = `${numVal}px`;
+          } else if (key === "btnFontSize") {
+            btn.style.fontSize = `${numVal}px`;
+          } else if (key === "btnRadius") {
+            btn.style.borderRadius = `${numVal}px`;
+          } else if (key === "btnScale") {
+            btn.style.transform = `scale(${numVal})`;
+          }
+        });
         break;
       }
       case "kinetic-triggers": {
-        if (key === "expandDuration") {
-          sectionEl
-            .querySelectorAll<HTMLElement>(":scope > div button, :scope > div button *")
-            .forEach((el) => {
-              el.style.transitionDuration = `${numVal}ms`;
+        const triggers = sectionEl.querySelectorAll<HTMLElement>(":scope > div button, .hover-expand-btn");
+        triggers.forEach((btn) => {
+          if (key === "triggerHeight") {
+            btn.style.height = `${numVal}px`;
+            btn.style.minHeight = `${numVal}px`;
+          } else if (key === "triggerPaddingX") {
+            btn.style.paddingLeft = `${numVal}px`;
+            btn.style.paddingRight = `${numVal}px`;
+          } else if (key === "triggerFontSize") {
+            btn.style.fontSize = `${numVal}px`;
+          } else if (key === "triggerRadius") {
+            btn.style.borderRadius = `${numVal}px`;
+          } else if (key === "expandDuration") {
+            btn.style.transitionDuration = `${numVal}ms`;
+            btn.querySelectorAll("*").forEach((c) => {
+              (c as HTMLElement).style.transitionDuration = `${numVal}ms`;
             });
+          }
+        });
+        break;
+      }
+      case "checkboxes": {
+        if (key === "boxSize") {
+          sectionEl.querySelectorAll<HTMLElement>(".cb-box").forEach((b) => {
+            b.style.width = `${numVal}px`;
+            b.style.height = `${numVal}px`;
+            const svg = b.querySelector<HTMLElement>("svg");
+            if (svg) {
+              svg.style.width = `${Math.round(numVal * 0.7)}px`;
+              svg.style.height = `${Math.round(numVal * 0.7)}px`;
+            }
+          });
+        } else if (key === "boxRadius") {
+          sectionEl.querySelectorAll<HTMLElement>(".cb-box").forEach((b) => {
+            b.style.borderRadius = `${numVal}px`;
+          });
+        } else if (key === "labelSize") {
+          sectionEl.querySelectorAll<HTMLElement>("label span:not(.cb-box)").forEach((l) => {
+            l.style.fontSize = `${numVal}px`;
+          });
+        } else if (key === "loadingDelay") {
+          sectionEl.querySelectorAll<HTMLElement>("[data-delay]").forEach((w) => {
+            w.setAttribute("data-delay", rawVal);
+          });
         }
         break;
       }
-      case "checkboxes":
-      case "radios":
+      case "radios": {
+        if (key === "radioSize") {
+          sectionEl.querySelectorAll<HTMLElement>(".rb-box").forEach((b) => {
+            b.style.width = `${numVal}px`;
+            b.style.height = `${numVal}px`;
+            const dotEl = b.querySelector<HTMLElement>(".rb-dot");
+            if (dotEl) {
+              dotEl.style.width = `${Math.round(numVal * 0.5)}px`;
+              dotEl.style.height = `${Math.round(numVal * 0.5)}px`;
+            }
+          });
+        } else if (key === "borderWidth") {
+          sectionEl.querySelectorAll<HTMLElement>(".rb-box").forEach((b) => {
+            b.style.borderWidth = `${numVal}px`;
+          });
+        } else if (key === "labelSize") {
+          sectionEl.querySelectorAll<HTMLElement>("label span:not(.rb-box)").forEach((l) => {
+            l.style.fontSize = `${numVal}px`;
+          });
+        } else if (key === "loadingDelay") {
+          sectionEl.querySelectorAll<HTMLElement>("[data-delay]").forEach((w) => {
+            w.setAttribute("data-delay", rawVal);
+          });
+        }
+        break;
+      }
       case "toggles": {
-        if (key === "rowGap") {
-          sectionEl
-            .querySelectorAll<HTMLElement>(".grid, .flex.flex-col.gap-2\\.5")
-            .forEach((el) => {
-              el.style.gap = `${numVal}px`;
-            });
+        if (key === "trackWidth") {
+          sectionEl.querySelectorAll<HTMLElement>(".ts-track").forEach((t) => {
+            t.style.width = `${numVal}px`;
+          });
+        } else if (key === "trackHeight") {
+          sectionEl.querySelectorAll<HTMLElement>(".ts-track").forEach((t) => {
+            t.style.height = `${numVal}px`;
+            const thumb = t.querySelector<HTMLElement>(".ts-thumb");
+            if (thumb) {
+              thumb.style.width = `${numVal - 4}px`;
+              thumb.style.height = `${numVal - 4}px`;
+            }
+          });
+        } else if (key === "trackRadius") {
+          sectionEl.querySelectorAll<HTMLElement>(".ts-track, .ts-thumb").forEach((el) => {
+            el.style.borderRadius = `${numVal}px`;
+          });
+        } else if (key === "loadingDelay") {
+          sectionEl.querySelectorAll<HTMLElement>("[data-delay]").forEach((w) => {
+            w.setAttribute("data-delay", rawVal);
+          });
         }
         break;
       }
       case "sliders": {
-        if (key === "sliderStep") {
+        if (key === "trackHeight") {
+          sectionEl.querySelectorAll<HTMLElement>(".fs-track, .fs-fill").forEach((t) => {
+            t.style.height = `${numVal}px`;
+          });
+        } else if (key === "thumbSize") {
+          sectionEl
+            .querySelectorAll<HTMLInputElement>('input[type="range"]:not([data-tune-section])')
+            .forEach((s) => {
+              s.style.setProperty("--thumb-size", `${numVal}px`);
+            });
+          sectionEl.querySelectorAll<HTMLElement>(".fs-thumb-preview").forEach((t) => {
+            t.style.width = `${numVal}px`;
+            t.style.height = `${numVal}px`;
+          });
+        } else if (key === "thumbRadius") {
+          sectionEl.querySelectorAll<HTMLElement>(".fs-thumb-preview").forEach((t) => {
+            t.style.borderRadius = `${numVal}px`;
+          });
+          sectionEl
+            .querySelectorAll<HTMLInputElement>('input[type="range"]:not([data-tune-section])')
+            .forEach((s) => {
+              s.style.setProperty("--thumb-radius", `${numVal}px`);
+            });
+        } else if (key === "sliderStep") {
           sectionEl
             .querySelectorAll<HTMLInputElement>('input[type="range"]:not([data-tune-section])')
             .forEach((s) => {
@@ -4434,29 +4575,47 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
         break;
       }
       case "text-inputs": {
-        if (key === "inputGap") {
-          sectionEl
-            .querySelectorAll<HTMLElement>(".grid")
-            .forEach((g) => {
-              g.style.gap = `${numVal}px`;
-            });
-        }
+        const inputs = sectionEl.querySelectorAll<HTMLElement>("input:not([data-tune-section])");
+        inputs.forEach((inp) => {
+          if (key === "inputHeight") {
+            inp.style.height = `${numVal}px`;
+          } else if (key === "inputFontSize") {
+            inp.style.fontSize = `${numVal}px`;
+          } else if (key === "inputRadius") {
+            inp.style.borderRadius = `${numVal}px`;
+          } else if (key === "borderWidth") {
+            inp.style.borderWidth = `${numVal}px`;
+          }
+        });
         break;
       }
       case "password-input": {
-        if (key === "maskStyle") {
-          sectionEl
-            .querySelectorAll<HTMLInputElement>("input:not([data-tune-section])")
-            .forEach((inp) => {
-              inp.type = rawVal;
-            });
-        }
+        const inputs = sectionEl.querySelectorAll<HTMLInputElement>("input:not([data-tune-section])");
+        inputs.forEach((inp) => {
+          if (key === "inputHeight") {
+            inp.style.height = `${numVal}px`;
+          } else if (key === "inputFontSize") {
+            inp.style.fontSize = `${numVal}px`;
+          } else if (key === "inputRadius") {
+            inp.style.borderRadius = `${numVal}px`;
+          } else if (key === "maskStyle") {
+            inp.type = rawVal;
+          }
+        });
         break;
       }
       case "limit-textarea": {
-        if (key === "maxLength") {
-          const textarea = sectionEl.querySelector<HTMLTextAreaElement>("textarea");
-          const wrapper = sectionEl.querySelector<HTMLElement>("[data-limit], [data-max-length]");
+        const textarea = sectionEl.querySelector<HTMLTextAreaElement>("textarea");
+        const wrapper = sectionEl.querySelector<HTMLElement>("[data-limit], [data-max-length]");
+        if (key === "minHeight" && textarea) {
+          textarea.style.minHeight = `${numVal}px`;
+        } else if (key === "fontSize" && textarea) {
+          textarea.style.fontSize = `${numVal}px`;
+        } else if (key === "boxRadius") {
+          sectionEl.querySelectorAll<HTMLElement>("textarea, [data-limit]").forEach((el) => {
+            el.style.borderRadius = `${numVal}px`;
+          });
+        } else if (key === "maxLength") {
           if (wrapper) {
             wrapper.setAttribute("data-limit", rawVal);
             wrapper.setAttribute("data-max-length", rawVal);
@@ -4468,19 +4627,62 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
         }
         break;
       }
-      case "form-select":
+      case "form-select": {
+        if (key === "triggerHeight") {
+          sectionEl.querySelectorAll<HTMLElement>("button:not([data-toggle-tuner]):not([data-copy-prompt]):not([data-reset-tuner])").forEach((btn) => {
+            btn.style.height = `${numVal}px`;
+          });
+        } else if (key === "fontSize") {
+          sectionEl.querySelectorAll<HTMLElement>("button, [role='option']").forEach((el) => {
+            el.style.fontSize = `${numVal}px`;
+          });
+        } else if (key === "selectRadius") {
+          sectionEl.querySelectorAll<HTMLElement>("button, [role='listbox']").forEach((el) => {
+            el.style.borderRadius = `${numVal}px`;
+          });
+        } else if (key === "menuMaxH") {
+          sectionEl.querySelectorAll<HTMLElement>("[role='listbox']").forEach((el) => {
+            el.style.maxHeight = `${numVal}px`;
+          });
+        }
+        break;
+      }
       case "search-dropdown": {
-        if (key === "menuMaxH") {
-          sectionEl
-            .querySelectorAll<HTMLElement>("[role='listbox'], .max-h-60, .overflow-y-auto")
-            .forEach((el) => {
-              el.style.maxHeight = `${numVal}px`;
-            });
+        if (key === "inputHeight") {
+          sectionEl.querySelectorAll<HTMLElement>("input:not([data-tune-section])").forEach((inp) => {
+            inp.style.height = `${numVal}px`;
+          });
+        } else if (key === "optionPaddingY") {
+          sectionEl.querySelectorAll<HTMLElement>("[role='option'], .sd-option").forEach((el) => {
+            el.style.paddingTop = `${numVal}px`;
+            el.style.paddingBottom = `${numVal}px`;
+          });
+        } else if (key === "dropdownRadius") {
+          sectionEl.querySelectorAll<HTMLElement>("input, [role='listbox']").forEach((el) => {
+            el.style.borderRadius = `${numVal}px`;
+          });
+        } else if (key === "menuMaxH") {
+          sectionEl.querySelectorAll<HTMLElement>("[role='listbox']").forEach((el) => {
+            el.style.maxHeight = `${numVal}px`;
+          });
         }
         break;
       }
       case "date-picker": {
-        if (key === "pickerScale") {
+        if (key === "cellSize") {
+          sectionEl.querySelectorAll<HTMLElement>("[data-date-cell], .dp-cell").forEach((c) => {
+            c.style.width = `${numVal}px`;
+            c.style.height = `${numVal}px`;
+          });
+        } else if (key === "cellRadius") {
+          sectionEl.querySelectorAll<HTMLElement>("[data-date-cell], .dp-cell").forEach((c) => {
+            c.style.borderRadius = `${numVal}px`;
+          });
+        } else if (key === "pickerRadius") {
+          sectionEl.querySelectorAll<HTMLElement>(":scope > div.max-w-xl, [data-datepicker-panel]").forEach((b) => {
+            b.style.borderRadius = `${numVal}px`;
+          });
+        } else if (key === "pickerScale") {
           const box = sectionEl.querySelector<HTMLElement>(":scope > div.max-w-xl");
           if (box) {
             box.style.transform = `scale(${numVal})`;
@@ -4490,17 +4692,43 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
         break;
       }
       case "loaders": {
-        if (key === "waveSpeed") {
-          sectionEl
-            .querySelectorAll<HTMLElement>(".sq-bar, [style*='animation']")
-            .forEach((bar) => {
-              bar.style.animationDuration = `${numVal}s`;
-            });
+        if (key === "barSize") {
+          sectionEl.querySelectorAll<HTMLElement>(".sq-bar, .square-wave-bar").forEach((b) => {
+            b.style.width = `${numVal}px`;
+          });
+        } else if (key === "loaderHeight") {
+          sectionEl.querySelectorAll<HTMLElement>(".sq-bar, .square-wave-bar").forEach((b) => {
+            b.style.height = `${numVal}px`;
+          });
+        } else if (key === "barGap") {
+          sectionEl.querySelectorAll<HTMLElement>(".square-wave-loader, :scope > div > div.flex").forEach((l) => {
+            l.style.gap = `${numVal}px`;
+          });
+        } else if (key === "waveSpeed") {
+          sectionEl.querySelectorAll<HTMLElement>(".sq-bar, [style*='animation']").forEach((b) => {
+            b.style.animationDuration = `${numVal}s`;
+          });
         }
         break;
       }
       case "status-badges": {
-        if (key === "badgeVariant") {
+        const badges = sectionEl.querySelectorAll<HTMLElement>(":scope > div span.inline-flex");
+        if (key === "badgeHeight") {
+          badges.forEach((b) => {
+            b.style.minHeight = `${numVal}px`;
+            b.style.paddingTop = `${Math.max(2, (numVal - 16) / 2)}px`;
+            b.style.paddingBottom = `${Math.max(2, (numVal - 16) / 2)}px`;
+          });
+        } else if (key === "badgeFontSize") {
+          badges.forEach((b) => (b.style.fontSize = `${numVal}px`));
+        } else if (key === "dotSize") {
+          sectionEl.querySelectorAll<HTMLElement>(":scope > div span.rounded-full").forEach((d) => {
+            d.style.width = `${numVal}px`;
+            d.style.height = `${numVal}px`;
+          });
+        } else if (key === "badgeRadius") {
+          badges.forEach((b) => (b.style.borderRadius = `${numVal}px`));
+        } else if (key === "badgeVariant") {
           const colorMap: Record<string, string> = {
             accent: "var(--color-accent, #52FF1A)",
             neon: "#52FF1A",
@@ -4519,35 +4747,57 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
         break;
       }
       case "metric-cards": {
-        if (key === "cardGap") {
-          sectionEl
-            .querySelectorAll<HTMLElement>(".grid")
-            .forEach((g) => {
-              g.style.gap = `${numVal}px`;
-            });
+        const cards = sectionEl.querySelectorAll<HTMLElement>(":scope > div.grid > div");
+        if (key === "valueFontSize") {
+          sectionEl.querySelectorAll<HTMLElement>(".font-heading.font-bold, .metric-value").forEach((v) => {
+            v.style.fontSize = `${numVal}px`;
+          });
+        } else if (key === "cardPadding") {
+          cards.forEach((c) => (c.style.padding = `${numVal}px`));
+        } else if (key === "cardRadius") {
+          cards.forEach((c) => (c.style.borderRadius = `${numVal}px`));
+        } else if (key === "borderWidth") {
+          cards.forEach((c) => (c.style.borderWidth = `${numVal}px`));
         }
         break;
       }
       case "author-avatars": {
-        if (key === "avatarOverlap") {
-          const stack = sectionEl.querySelector<HTMLElement>(".-space-x-2\\.5");
+        const avatars = sectionEl.querySelectorAll<HTMLElement>(".rounded-full, [data-avatar]");
+        if (key === "avatarSize") {
+          avatars.forEach((a) => {
+            a.style.width = `${numVal}px`;
+            a.style.height = `${numVal}px`;
+          });
+        } else if (key === "ringWidth") {
+          avatars.forEach((a) => (a.style.borderWidth = `${numVal}px`));
+        } else if (key === "avatarRadius") {
+          avatars.forEach((a) => (a.style.borderRadius = `${numVal}px`));
+        } else if (key === "avatarOverlap") {
+          const stack = sectionEl.querySelector<HTMLElement>(".-space-x-2\\.5, [data-avatar-stack]");
           if (stack) {
             Array.from(stack.children).forEach((child, idx) => {
-              if (idx > 0) {
-                (child as HTMLElement).style.marginLeft = `${numVal}px`;
-              }
+              if (idx > 0) (child as HTMLElement).style.marginLeft = `${numVal}px`;
             });
           }
         }
         break;
       }
       case "project-tiles": {
-        if (key === "tileGap") {
-          sectionEl
-            .querySelectorAll<HTMLElement>(".md\\:grid")
-            .forEach((g) => {
-              g.style.gap = `${numVal}px`;
-            });
+        const tiles = sectionEl.querySelectorAll<HTMLElement>("article, .project-tile");
+        if (key === "mediaHeight") {
+          sectionEl.querySelectorAll<HTMLElement>(".relative.overflow-hidden, [data-tile-media]").forEach((m) => {
+            m.style.height = `${numVal}px`;
+          });
+        } else if (key === "bodyPadding") {
+          sectionEl.querySelectorAll<HTMLElement>(".p-5, .p-6, [data-tile-body]").forEach((b) => {
+            b.style.padding = `${numVal}px`;
+          });
+        } else if (key === "titleSize") {
+          sectionEl.querySelectorAll<HTMLElement>("h3, .font-heading").forEach((t) => {
+            t.style.fontSize = `${numVal}px`;
+          });
+        } else if (key === "tileRadius") {
+          tiles.forEach((t) => (t.style.borderRadius = `${numVal}px`));
         }
         break;
       }
@@ -4561,120 +4811,223 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
           }
         } else if (key === "morphDuration") {
           sectionEl.setAttribute("data-morph-duration", rawVal);
+        } else if (key === "cardPadding") {
+          sectionEl.querySelectorAll<HTMLElement>("[data-morph-card]").forEach((c) => {
+            c.style.padding = `${numVal}px`;
+          });
+        } else if (key === "cardRadius") {
+          sectionEl.querySelectorAll<HTMLElement>("[data-morph-card]").forEach((c) => {
+            c.style.borderRadius = `${numVal}px`;
+          });
         }
         break;
       }
       case "tree-index": {
-        if (key === "marqueeSpeed") {
-          sectionEl
-            .querySelectorAll<HTMLElement>(".index-marquee-track")
-            .forEach((track) => {
-              const content = track.querySelector<HTMLElement>(".index-marquee-content");
-              if (content) {
-                const duration = Math.max(4, content.scrollWidth / numVal);
-                track.style.animationDuration = `${duration}s`;
-              }
-            });
+        if (key === "titleFontSize") {
+          sectionEl.querySelectorAll<HTMLElement>("h3, .font-heading").forEach((t) => {
+            t.style.fontSize = `${numVal}px`;
+          });
+        } else if (key === "rowPaddingY") {
+          sectionEl.querySelectorAll<HTMLElement>(".index-marquee-track > div, .space-y-3 > div").forEach((r) => {
+            r.style.paddingTop = `${numVal}px`;
+            r.style.paddingBottom = `${numVal}px`;
+          });
+        } else if (key === "branchIndent") {
+          sectionEl.querySelectorAll<HTMLElement>(".pl-7").forEach((i) => {
+            i.style.paddingLeft = `${numVal}px`;
+          });
+        } else if (key === "marqueeSpeed") {
+          sectionEl.querySelectorAll<HTMLElement>(".index-marquee-track").forEach((track) => {
+            const content = track.querySelector<HTMLElement>(".index-marquee-content");
+            if (content) {
+              const duration = Math.max(4, content.scrollWidth / numVal);
+              track.style.animationDuration = `${duration}s`;
+            }
+          });
         }
         break;
       }
       case "app-window": {
-        if (key === "windowScale") {
-          const frame = sectionEl.querySelector<HTMLElement>(".app-window");
-          if (frame) {
-            frame.style.transform = `scale(${numVal})`;
-            frame.style.transformOrigin = "top left";
-          }
+        const frame = sectionEl.querySelector<HTMLElement>(".app-window, :scope > div > div");
+        if (key === "titlebarHeight") {
+          const tb = sectionEl.querySelector<HTMLElement>(".flex.items-center.justify-between.px-4, .app-window-titlebar");
+          if (tb) tb.style.height = `${numVal}px`;
+        } else if (key === "contentHeight") {
+          const content = sectionEl.querySelector<HTMLElement>(".p-6.bg-white, .app-window-content");
+          if (content) content.style.minHeight = `${numVal}px`;
+        } else if (key === "windowRadius" && frame) {
+          frame.style.borderRadius = `${numVal}px`;
+        } else if (key === "windowScale" && frame) {
+          frame.style.transform = `scale(${numVal})`;
+          frame.style.transformOrigin = "top left";
         }
         break;
       }
       case "system-topology": {
-        if (key === "topoScale") {
-          const box = sectionEl.querySelector<HTMLElement>(":scope > div.max-w-3xl");
-          if (box) {
-            box.style.transform = `scale(${numVal})`;
-            box.style.transformOrigin = "top left";
+        const box = sectionEl.querySelector<HTMLElement>(":scope > div.max-w-3xl");
+        if (key === "planeSize") {
+          sectionEl.querySelectorAll<HTMLElement>("[data-topology-layer]").forEach((p) => {
+            p.style.width = `${numVal}px`;
+            p.style.height = `${numVal}px`;
+          });
+        } else if (key === "layerGap") {
+          const layers = sectionEl.querySelectorAll<HTMLElement>("[data-topology-layer]");
+          layers.forEach((l, idx) => {
+            if (idx > 0) l.style.marginTop = `${numVal - 48}px`;
+          });
+        } else if (key === "isoTiltX") {
+          const isoContainer = sectionEl.querySelector<HTMLElement>("[data-isometric-container]");
+          if (isoContainer) {
+            isoContainer.style.transform = `rotateX(${numVal}deg) rotateZ(-45deg)`;
           }
+        } else if (key === "topoScale" && box) {
+          box.style.transform = `scale(${numVal})`;
+          box.style.transformOrigin = "top left";
         }
         break;
       }
       case "trend-chart": {
-        if (key === "strokeWidth") {
-          sectionEl
-            .querySelectorAll<SVGPathElement>("svg path[stroke-width]")
-            .forEach((p) => p.setAttribute("stroke-width", rawVal));
+        const svg = sectionEl.querySelector<SVGElement>("svg");
+        if (key === "chartHeight" && svg) {
+          svg.style.height = `${numVal}px`;
+        } else if (key === "strokeWidth") {
+          sectionEl.querySelectorAll<SVGPathElement>("svg path[stroke-width]").forEach((p) => {
+            p.setAttribute("stroke-width", rawVal);
+          });
+        } else if (key === "pointRadius") {
+          sectionEl.querySelectorAll<SVGCircleElement>("svg circle").forEach((c) => {
+            c.setAttribute("r", rawVal);
+          });
+        } else if (key === "fillOpacity") {
+          sectionEl.querySelectorAll<SVGElement>("svg [fill-opacity], svg stop").forEach((el) => {
+            el.setAttribute("stop-opacity", rawVal);
+            el.setAttribute("fill-opacity", rawVal);
+          });
         }
         break;
       }
       case "kiosk-timeline": {
-        if (key === "timelineHeight") {
-          const box = sectionEl.querySelector<HTMLElement>(":scope > div.space-y-4");
-          if (box) box.style.opacity = rawVal;
+        if (key === "trackHeight") {
+          sectionEl.querySelectorAll<HTMLElement>(".h-8, .h-9, [data-timeline-track]").forEach((t) => {
+            t.style.height = `${numVal}px`;
+          });
+        } else if (key === "barRadius") {
+          sectionEl.querySelectorAll<HTMLElement>(".rounded, .rounded-sm, [data-timeline-bar]").forEach((b) => {
+            b.style.borderRadius = `${numVal}px`;
+          });
+        } else if (key === "cardPadding") {
+          const box = sectionEl.querySelector<HTMLElement>(":scope > div.space-y-4, :scope > div > div.p-4");
+          if (box) box.style.padding = `${numVal}px`;
+        } else if (key === "fontSize") {
+          sectionEl.querySelectorAll<HTMLElement>(".text-xs, .text-sm").forEach((l) => {
+            l.style.fontSize = `${numVal}px`;
+          });
         }
         break;
       }
       case "frame-rank-chart": {
-        if (key === "slotGap") {
-          sectionEl
-            .querySelectorAll<HTMLElement>(".flex.items-stretch, .flex.gap-1\\.5, .flex.gap-2")
-            .forEach((strip) => {
-              strip.style.gap = `${numVal}px`;
-            });
+        const strip = sectionEl.querySelector<HTMLElement>(".flex.items-stretch, .flex.gap-1\\.5, .flex.gap-2");
+        if (key === "stripHeight" && strip) {
+          strip.style.height = `${numVal}px`;
+        } else if (key === "slotRadius") {
+          sectionEl.querySelectorAll<HTMLElement>(".filmstrip-slot, :scope > div.flex > div").forEach((s) => {
+            s.style.borderRadius = `${numVal}px`;
+          });
+        } else if (key === "slotGap" && strip) {
+          strip.style.gap = `${numVal}px`;
+        } else if (key === "cardPadding") {
+          const box = sectionEl.querySelector<HTMLElement>(":scope > div.p-4, :scope > div > div");
+          if (box) box.style.padding = `${numVal}px`;
         }
         break;
       }
       case "github-contributions": {
-        sectionEl
-          .querySelectorAll<HTMLElement>("[data-contrib-divider], [style*='--cell']")
-          .forEach((el) => {
-            if (key === "cellSize") {
-              el.style.setProperty("--cell", `${numVal}px`);
-            } else if (key === "cellGap") {
-              el.style.setProperty("--gap", `${numVal}px`);
-            }
+        if (key === "cellSize") {
+          sectionEl.querySelectorAll<HTMLElement>("[data-contrib-divider], [style*='--cell']").forEach((el) => {
+            el.style.setProperty("--cell", `${numVal}px`);
           });
+        } else if (key === "cellGap") {
+          sectionEl.querySelectorAll<HTMLElement>("[data-contrib-divider], [style*='--gap']").forEach((el) => {
+            el.style.setProperty("--gap", `${numVal}px`);
+          });
+        } else if (key === "cellRadius") {
+          sectionEl.querySelectorAll<HTMLElement>(".contrib-grid span, [data-contrib-divider] span").forEach((s) => {
+            s.style.borderRadius = `${numVal}px`;
+          });
+        } else if (key === "activeOpacity") {
+          sectionEl.querySelectorAll<HTMLElement>(".contrib-grid, [data-contrib-divider]").forEach((el) => {
+            el.style.opacity = rawVal;
+          });
+        }
         break;
       }
       case "ascii-particles": {
-        if (key === "opacityMultiplier") {
+        if (key === "fieldHeight") {
+          const box = sectionEl.querySelector<HTMLElement>(".relative.w-full.h-80, [data-ascii-canvas]");
+          if (box) {
+            box.style.height = `${numVal}px`;
+            window.dispatchEvent(new Event("resize"));
+          }
+        } else if (key === "opacityMultiplier") {
           window.dispatchEvent(
             new CustomEvent("portfolio:ascii-params", {
               detail: { maxOpacity: 0.2 * numVal },
             }),
           );
-        } else if (key === "fieldHeight") {
-          const box = sectionEl.querySelector<HTMLElement>(".relative.w-full.h-80");
-          if (box) {
-            box.style.height = `${numVal}px`;
-            window.dispatchEvent(new Event("resize"));
-          }
+        } else if (key === "contrastPower") {
+          window.dispatchEvent(
+            new CustomEvent("portfolio:ascii-params", {
+              detail: { contrastPower: numVal },
+            }),
+          );
+        } else if (key === "stageRadius") {
+          const box = sectionEl.querySelector<HTMLElement>(".relative.w-full.h-80, canvas");
+          if (box) box.style.borderRadius = `${numVal}px`;
         }
         break;
       }
       case "ascii-metaballs": {
         const container = sectionEl.querySelector<HTMLElement>("#concept-metaball-container");
-        if (container) {
-          if (key === "speedMultiplier") {
-            container.setAttribute("data-speed-multiplier", rawVal);
-          } else if (key === "threshold") {
-            container.setAttribute("data-threshold", rawVal);
+        if (key === "fieldHeight") {
+          const box = sectionEl.querySelector<HTMLElement>("#concept-metaball-container, :scope > div > div.h-96");
+          if (box) {
+            box.style.height = `${numVal}px`;
+            window.dispatchEvent(new Event("resize"));
           }
+        } else if (key === "speedMultiplier" && container) {
+          container.setAttribute("data-speed-multiplier", rawVal);
+        } else if (key === "threshold" && container) {
+          container.setAttribute("data-threshold", rawVal);
+        } else if (key === "stageRadius") {
+          if (container) container.style.borderRadius = `${numVal}px`;
         }
         break;
       }
       case "ascii-blobs": {
         const container = sectionEl.querySelector<HTMLElement>("#concept-particles-container");
-        if (container) {
-          if (key === "speedMultiplier") {
-            container.setAttribute("data-speed-multiplier", rawVal);
-          } else if (key === "radiusScale") {
-            container.setAttribute("data-radius-scale", rawVal);
+        if (key === "fieldHeight") {
+          const box = sectionEl.querySelector<HTMLElement>("#concept-particles-container, :scope > div > div.h-96");
+          if (box) {
+            box.style.height = `${numVal}px`;
+            window.dispatchEvent(new Event("resize"));
           }
+        } else if (key === "speedMultiplier" && container) {
+          container.setAttribute("data-speed-multiplier", rawVal);
+        } else if (key === "radiusScale" && container) {
+          container.setAttribute("data-radius-scale", rawVal);
+        } else if (key === "stageRadius") {
+          if (container) container.style.borderRadius = `${numVal}px`;
         }
         break;
       }
       case "dithering-shader": {
-        if (key === "pxSize") {
+        if (key === "stageHeight") {
+          const box = sectionEl.querySelector<HTMLElement>(":scope > div.relative, :scope > div > div.h-\\[420px\\]");
+          if (box) {
+            box.style.height = `${numVal}px`;
+            window.dispatchEvent(new Event("resize"));
+          }
+        } else if (key === "pxSize") {
           window.dispatchEvent(
             new CustomEvent("dither:change-scale", { detail: { pxSize: numVal } }),
           );
