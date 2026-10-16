@@ -1916,15 +1916,9 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 
       <!-- 03 // FEEDBACK & STATUS Container -->
       <div id="feedback-status" class="space-y-16 scroll-mt-40 xl:scroll-mt-24">
-        <!-- 10 / Status Badges -->
+        <!-- 18 / Status Badges -->
         <section id="status-badges" class="space-y-6 scroll-mt-40 xl:scroll-mt-24">
-          <div class="pb-2 border-b border-neutral-200 dark:border-neutral-800">
-            <h2
-              class="!font-mono font-mono text-xs uppercase tracking-[0.15em] text-neutral-500 dark:text-neutral-400 font-semibold"
-            >
-              10 / Status Badges (High-Contrast Solid)
-            </h2>
-          </div>
+          <SectionHeaderTuner sectionId="status-badges" />
 
           <div class="space-y-8">
             <!-- High Contrast Badges -->
@@ -1976,15 +1970,9 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
           </div>
         </section>
 
-        <!-- 11 / Metric Cards -->
+        <!-- 19 / Metric Cards -->
         <section id="metric-cards" class="space-y-6 scroll-mt-40 xl:scroll-mt-24">
-          <div class="pb-2 border-b border-neutral-200 dark:border-neutral-800">
-            <h2
-              class="!font-mono font-mono text-xs uppercase tracking-[0.15em] text-neutral-500 dark:text-neutral-400 font-semibold"
-            >
-              11 / Metric Cards (System Telemetry)
-            </h2>
-          </div>
+          <SectionHeaderTuner sectionId="metric-cards" />
 
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
             <MetricCard
@@ -2008,6 +1996,116 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
               badgeVariant="info"
               subtext="Formae GPU acceleratae et physica motus"
             />
+          </div>
+        </section>
+
+        <!-- 20 / Author & Co-Author Avatars -->
+        <section id="author-avatars" class="space-y-8 scroll-mt-40 xl:scroll-mt-24">
+          <SectionHeaderTuner sectionId="author-avatars" />
+
+          <!-- 20.1 Scale Matrix -->
+          <div class="space-y-4">
+            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-1 sm:gap-0">
+              <span
+                class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100 uppercase tracking-wider"
+                >20.1 / Avatar Scale Matrix (xs • sm • md • lg • xl)</span
+              >
+              <span class="font-mono text-[10px] text-neutral-400"
+                >24px to 56px • Initials Fallback</span
+              >
+            </div>
+
+            <div class="grid grid-cols-2 sm:grid-cols-5 gap-6 items-end">
+              <div class="flex flex-col gap-3">
+                <AuthorAvatar name="AUCTOR PRIMUS" size="xs" status="online" showName={false} />
+                <div class="flex flex-col">
+                  <span class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100">Extra Small</span>
+                  <span class="font-mono text-[11px] text-neutral-500">size="xs" • 24px</span>
+                </div>
+              </div>
+              <div class="flex flex-col gap-3">
+                <AuthorAvatar name="AUCTOR PRIMUS" size="sm" status="online" showName={false} />
+                <div class="flex flex-col">
+                  <span class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100">Small</span>
+                  <span class="font-mono text-[11px] text-neutral-500">size="sm" • 32px</span>
+                </div>
+              </div>
+              <div class="flex flex-col gap-3">
+                <AuthorAvatar name="AUCTOR PRIMUS" size="md" status="online" showName={false} />
+                <div class="flex flex-col">
+                  <span class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100">Medium</span>
+                  <span class="font-mono text-[11px] text-neutral-500">size="md" • 40px</span>
+                </div>
+              </div>
+              <div class="flex flex-col gap-3">
+                <AuthorAvatar name="AUCTOR PRIMUS" size="lg" status="online" showName={false} />
+                <div class="flex flex-col">
+                  <span class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100">Large</span>
+                  <span class="font-mono text-[11px] text-neutral-500">size="lg" • 48px</span>
+                </div>
+              </div>
+              <div class="flex flex-col gap-3">
+                <AuthorAvatar name="AUCTOR PRIMUS" size="xl" status="online" showName={false} />
+                <div class="flex flex-col">
+                  <span class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100">Extra Large</span>
+                  <span class="font-mono text-[11px] text-neutral-500">size="xl" • 56px</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 20.2 Attribution Variants & Co-Author Cluster -->
+          <div class="space-y-4 pt-2">
+            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-1 sm:gap-0">
+              <span
+                class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100 uppercase tracking-wider"
+                >20.2 / Editorial Attribution &amp; Co-Author Cluster</span
+              >
+              <span class="font-mono text-[10px] text-neutral-400"
+                >Status Dots • Overlapping Avatar Stack</span
+              >
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 items-start">
+              <div class="flex flex-col gap-3">
+                <AuthorAvatar
+                  name="AUCTOR PRIMUS"
+                  role="ARCHITECTUS SYSTEMATIS"
+                  size="md"
+                  status="online"
+                  href="#author-avatars"
+                />
+                <div class="flex flex-col">
+                  <span class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100">Interactive Author Link</span>
+                  <span class="font-mono text-[11px] text-neutral-500">status="online" • href + role</span>
+                </div>
+              </div>
+
+              <div class="flex flex-col gap-3">
+                <AuthorAvatar
+                  name="CO-AUCTOR SECUNDUS"
+                  role="INGENIARIUS TELEMETRIAE"
+                  size="md"
+                  status="away"
+                />
+                <div class="flex flex-col">
+                  <span class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100">Static Attribution</span>
+                  <span class="font-mono text-[11px] text-neutral-500">status="away" • amber indicator</span>
+                </div>
+              </div>
+
+              <div class="flex flex-col gap-3">
+                <div class="flex items-center -space-x-2.5">
+                  <AuthorAvatar name="YOVAN PRIMUS" size="md" showName={false} status="online" />
+                  <AuthorAvatar name="MARCUS AURELIUS" size="md" showName={false} status="away" />
+                  <AuthorAvatar name="LUCIUS SENECA" size="md" showName={false} status="offline" />
+                </div>
+                <div class="flex flex-col">
+                  <span class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100">Co-Author Avatar Stack</span>
+                  <span class="font-mono text-[11px] text-neutral-500">showName=false • -space-x-2.5 cluster</span>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
       </div>
