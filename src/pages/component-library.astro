@@ -1008,21 +1008,15 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 
       <!-- 02 // INTERACTION PRIMITIVES Container -->
       <div id="interaction-primitives" class="space-y-16 scroll-mt-40 xl:scroll-mt-24">
-        <!-- 04 / Buttons & Micro Action Triggers -->
+        <!-- 05 / Action Buttons & Micro Triggers -->
         <section id="buttons" class="space-y-8 scroll-mt-40 xl:scroll-mt-24">
-          <div class="pb-2 border-b border-neutral-200 dark:border-neutral-800">
-            <h2
-              class="!font-mono font-mono text-xs uppercase tracking-[0.15em] text-neutral-500 dark:text-neutral-400 font-semibold"
-            >
-              04 / Buttons &amp; Micro Action Triggers
-            </h2>
-          </div>
+          <SectionHeaderTuner sectionId="buttons" />
 
           <div class="space-y-4">
             <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-1 sm:gap-0">
               <span
                 class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100 uppercase tracking-wider"
-                >04.1 / Action Buttons</span
+                >05.1 / Action Buttons</span
               >
               <span class="font-mono text-[10px] text-neutral-400"
                 >cta · primary · primary-neutral · secondary</span
@@ -1109,7 +1103,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
             <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-1 sm:gap-0">
               <span
                 class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100 uppercase tracking-wider"
-                >04.2 / Micro & Icon Triggers (size="micro" • 32×32px)</span
+                >05.2 / Micro & Icon Triggers (size="micro" • 32×32px)</span
               >
               <span class="font-mono text-[10px] text-neutral-400"
                 >Tactile Utility Controls</span
@@ -1258,21 +1252,15 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
           </div>
         </section>
 
-        <!-- 05 / Kinetic Expand-on-Hover Triggers -->
+        <!-- 06 / Kinetic Expand-on-Hover Triggers -->
         <section id="kinetic-triggers" class="space-y-8 scroll-mt-40 xl:scroll-mt-24">
-          <div class="pb-2 border-b border-neutral-200 dark:border-neutral-800">
-            <h2
-              class="!font-mono font-mono text-xs uppercase tracking-[0.15em] text-neutral-500 dark:text-neutral-400 font-semibold"
-            >
-              05 / Kinetic Expand-on-Hover Triggers
-            </h2>
-          </div>
+          <SectionHeaderTuner sectionId="kinetic-triggers" />
 
           <div class="space-y-4">
             <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-1 sm:gap-0">
               <span
                 class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100 uppercase tracking-wider"
-                >05.1 / Dynamic Label Reveal &amp; Micro States</span
+                >06.1 / Dynamic Label Reveal &amp; Micro States</span
               >
               <span class="font-mono text-[10px] text-neutral-400"
                 >Dynamic Label Reveal</span
@@ -1368,610 +1356,497 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
           </div>
         </section>
 
-        <!-- 06 / Form Selection Controls (Checkboxes, Radios, Toggles & Sliders) -->
-        <section id="forms" class="space-y-10 scroll-mt-40 xl:scroll-mt-24">
-          <div class="pb-2 border-b border-neutral-200 dark:border-neutral-800">
-            <h2
-              class="!font-mono font-mono text-xs uppercase tracking-[0.15em] text-neutral-500 dark:text-neutral-400 font-semibold"
-            >
-              06 / Form Selection Controls &amp; Sliders
-            </h2>
-          </div>
+        <!-- 07 / 3-State Tactile Checkboxes -->
+        <section id="checkboxes" class="space-y-6 scroll-mt-40 xl:scroll-mt-24">
+          <SectionHeaderTuner sectionId="checkboxes" />
 
-          <!-- Row 1: Checkboxes & Radio Buttons -->
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-14">
-            <!-- 06.1 / Checkbox List (Left Side) -->
-            <div class="space-y-4">
-              <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between pb-1 gap-1 sm:gap-0">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="flex flex-col gap-2.5">
+              <Checkbox
+                id="cb-regular"
+                name="demo_regular"
+                label="NOTIFICATIO ACTIVA"
+                description="Status interactus summae praestantiae"
+                checked={false}
+                loadingDelay={800}
+              />
+              <div class="flex flex-col pl-9">
                 <span
-                  class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100 uppercase tracking-wider"
+                  class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100"
+                  >Regular Checkbox</span
                 >
-                  06.1 / Checkboxes
-                </span>
-                <span class="font-mono text-[10px] text-neutral-400"
-                  >24px dashed square</span
+                <span class="font-mono text-[11px] text-neutral-500"
+                  >checked=false • 800ms loading • 24px dashed square</span
                 >
-              </div>
-
-              <div class="flex flex-col gap-6">
-                <div class="flex flex-col gap-2.5">
-                  <Checkbox
-                    id="cb-regular"
-                    name="demo_regular"
-                    label="NOTIFICATIO ACTIVA"
-                    description="Status interactus summae praestantiae"
-                    checked={false}
-                    loadingDelay={800}
-                  />
-                  <div class="flex flex-col pl-9">
-                    <span
-                      class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100"
-                      >Regular Checkbox</span
-                    >
-                    <span class="font-mono text-[11px] text-neutral-500"
-                      >checked=false • 800ms loading • 24px dashed square</span
-                    >
-                  </div>
-                </div>
-
-                <div class="flex flex-col gap-2.5">
-                  <Checkbox
-                    id="cb-3state"
-                    name="demo_3state"
-                    label="ELECTIO INDETERMINATA"
-                    description="Status mixtus per ordinem batch"
-                    indeterminate={true}
-                    loadingDelay={0}
-                  />
-                  <div class="flex flex-col pl-9">
-                    <span
-                      class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100"
-                      >3-State Checkbox</span
-                    >
-                    <span class="font-mono text-[11px] text-neutral-500"
-                      >indeterminate=true • instant 3-state • 24px solid square</span
-                    >
-                  </div>
-                </div>
               </div>
             </div>
 
-            <!-- 06.2 / Radio Buttons List (Right Side) -->
-            <div class="space-y-4">
-              <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between pb-1 gap-1 sm:gap-0">
+            <div class="flex flex-col gap-2.5">
+              <Checkbox
+                id="cb-3state"
+                name="demo_3state"
+                label="ELECTIO INDETERMINATA"
+                description="Status mixtus per ordinem batch"
+                indeterminate={true}
+                loadingDelay={0}
+              />
+              <div class="flex flex-col pl-9">
                 <span
-                  class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100 uppercase tracking-wider"
+                  class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100"
+                  >3-State Checkbox</span
                 >
-                  06.2 / Radio Buttons
-                </span>
-                <span class="font-mono text-[10px] text-neutral-400"
-                  >24px dashed circle</span
+                <span class="font-mono text-[11px] text-neutral-500"
+                  >indeterminate=true • instant 3-state • 24px solid square</span
                 >
-              </div>
-
-              <div class="flex flex-col gap-6">
-                <div class="flex flex-col gap-2.5">
-                  <RadioButton
-                    id="rb-mode-std"
-                    name="demo_radio_group"
-                    value="std"
-                    label="QUALITAS ORDINARIA"
-                    description="Tempus processus celerrimum"
-                    checked={true}
-                    loadingDelay={800}
-                  />
-                  <div class="flex flex-col pl-9">
-                    <span
-                      class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100"
-                      >Standard Radio</span
-                    >
-                    <span class="font-mono text-[11px] text-neutral-500"
-                      >checked=true • 800ms loading • 24px dashed circle</span
-                    >
-                  </div>
-                </div>
-
-                <div class="flex flex-col gap-2.5">
-                  <RadioButton
-                    id="rb-mode-studio"
-                    name="demo_radio_group"
-                    value="studio"
-                    label="QUALITAS STUDII"
-                    description="Amplificatio artificialis provecta"
-                    loadingDelay={0}
-                  />
-                  <div class="flex flex-col pl-9">
-                    <span
-                      class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100"
-                      >Option Radio</span
-                    >
-                    <span class="font-mono text-[11px] text-neutral-500"
-                      >checked=false • instant select • 24px dashed circle</span
-                    >
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Row 2: Toggle Switches & Sliders -->
-          <div
-            class="grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-14 pt-4 border-t border-neutral-200/60 dark:border-neutral-800/60"
-          >
-            <!-- 06.3 / Toggle Switches (Left Side) -->
-            <div class="space-y-4">
-              <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between pb-1 gap-1 sm:gap-0">
-                <span
-                  class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100 uppercase tracking-wider"
-                >
-                  06.3 / Toggle Switches
-                </span>
-                <span class="font-mono text-[10px] text-neutral-400"
-                  >44×22px pill track</span
-                >
-              </div>
-
-              <div class="flex flex-col gap-6">
-                <div class="flex flex-col gap-2.5">
-                  <ToggleSwitch
-                    id="toggle-telemetry"
-                    name="telemetry_active"
-                    label="SYNCHRONIZATIO VIVA"
-                    description="Flumen continuum telemetriae ad tabernam"
-                    checked={true}
-                    loadingDelay={800}
-                  />
-                  <div class="flex flex-col pl-15">
-                    <span
-                      class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100"
-                      >Loading Transition Switch</span
-                    >
-                    <span class="font-mono text-[11px] text-neutral-500"
-                      >checked=true • 800ms loading • 44×22px pill track</span
-                    >
-                  </div>
-                </div>
-
-                <div class="flex flex-col gap-2.5">
-                  <ToggleSwitch
-                    id="toggle-acceleratio"
-                    name="gpu_accel"
-                    label="ACCELERATIO GRAFICA"
-                    description="Reductio oneris CPU per transformationes GPU"
-                    checked={false}
-                    loadingDelay={0}
-                  />
-                  <div class="flex flex-col pl-15">
-                    <span
-                      class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100"
-                      >Standard Switch</span
-                    >
-                    <span class="font-mono text-[11px] text-neutral-500"
-                      >checked=false • instant toggle • 44×22px pill track</span
-                    >
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- 06.4 / Form Sliders (Right Side) -->
-            <div class="space-y-4">
-              <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between pb-1 gap-1 sm:gap-0">
-                <span
-                  class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100 uppercase tracking-wider"
-                >
-                  06.4 / Range Sliders
-                </span>
-                <span class="font-mono text-[10px] text-neutral-400"
-                  >continuous tactile rail</span
-                >
-              </div>
-
-              <div class="flex flex-col gap-6">
-                <div class="flex flex-col gap-2.5">
-                  <FormSlider
-                    id="slider-intensitas"
-                    name="filter_intensity"
-                    label="INTENSITAS COLORIS"
-                    description="Gradus saturationis et luminositatis photographicae"
-                    min={0}
-                    max={100}
-                    value={75}
-                    unit="%"
-                  />
-                  <div class="flex flex-col">
-                    <span
-                      class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100"
-                      >Percentage Slider</span
-                    >
-                    <span class="font-mono text-[11px] text-neutral-500"
-                      >min=0 • max=100 • value=75 • unit="%"</span
-                    >
-                  </div>
-                </div>
-
-                <div class="flex flex-col gap-2.5">
-                  <FormSlider
-                    id="slider-fps"
-                    name="render_budget"
-                    label="LIMES MOTUS"
-                    description="Fines imaginum per secundum ad motum lenem"
-                    min={30}
-                    max={120}
-                    step={5}
-                    value={60}
-                    unit=" FPS"
-                  />
-                  <div class="flex flex-col">
-                    <span
-                      class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100"
-                      >Step Interval Slider</span
-                    >
-                    <span class="font-mono text-[11px] text-neutral-500"
-                      >min=30 • max=120 • step=5 • unit=" FPS"</span
-                    >
-                  </div>
-                </div>
               </div>
             </div>
           </div>
         </section>
 
-        <!-- 07 / Text Inputs & Soft-Limit Textarea -->
-        <section id="text-inputs" class="space-y-10 scroll-mt-40 xl:scroll-mt-24">
-          <div class="pb-2 border-b border-neutral-200 dark:border-neutral-800">
-            <h2
-              class="!font-mono font-mono text-xs uppercase tracking-[0.15em] text-neutral-500 dark:text-neutral-400 font-semibold"
-            >
-              07 / Text Inputs &amp; Soft-Limit Textarea
-            </h2>
-          </div>
+        <!-- 08 / Tactile Radio Selectors -->
+        <section id="radios" class="space-y-6 scroll-mt-40 xl:scroll-mt-24">
+          <SectionHeaderTuner sectionId="radios" />
 
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-14">
-            <!-- 07.1 / Text Inputs (Left Side) -->
-            <div class="space-y-4">
-              <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between pb-1 gap-1 sm:gap-0">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="flex flex-col gap-2.5">
+              <RadioButton
+                id="rb-mode-std"
+                name="demo_radio_group"
+                value="std"
+                label="QUALITAS ORDINARIA"
+                description="Tempus processus celerrimum"
+                checked={true}
+                loadingDelay={800}
+              />
+              <div class="flex flex-col pl-9">
                 <span
-                  class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100 uppercase tracking-wider"
+                  class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100"
+                  >Standard Radio</span
                 >
-                  07.1 / Text Inputs
-                </span>
-                <span class="font-mono text-[10px] text-neutral-400"
-                  >Syne label · Outfit input</span
+                <span class="font-mono text-[11px] text-neutral-500"
+                  >checked=true • 800ms loading • 24px dashed circle</span
                 >
-              </div>
-
-              <div class="flex flex-col gap-6">
-                <!-- Standard / Optional -->
-                <div class="flex flex-col gap-2.5">
-                  <TextInput
-                    id="ti-default"
-                    name="demo_default"
-                    label="NOMEN UTENTIS (optionale)"
-                    placeholder="Inscribe nomen..."
-                    tips="Nomen ad systema notum."
-                  />
-                  <div class="flex flex-col">
-                    <span
-                      class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100"
-                      >Standard Input</span
-                    >
-                    <span class="font-mono text-[11px] text-neutral-500"
-                      >label="... (optionale)" • tips present</span
-                    >
-                  </div>
-                </div>
-
-                <!-- Error -->
-                <div class="flex flex-col gap-2.5">
-                  <TextInput
-                    id="ti-error"
-                    name="demo_error"
-                    label="INSCRIPTIO ERRATA"
-                    placeholder="Valor invalidus..."
-                    hasError={true}
-                    errorMsg="Hoc est requirentur"
-                  />
-                  <div class="flex flex-col">
-                    <span
-                      class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100"
-                      >Error State</span
-                    >
-                    <span class="font-mono text-[11px] text-neutral-500"
-                      >hasError=true • errorMsg inline</span
-                    >
-                  </div>
-                </div>
-
-                <!-- Warning -->
-                <div class="flex flex-col gap-2.5">
-                  <TextInput
-                    id="ti-warning"
-                    name="demo_warning"
-                    label="SIGNUM MONITIONIS"
-                    placeholder="Valor suspectus..."
-                    hasWarning={true}
-                    warningMsg="Confirma valorem"
-                    tips="Haec inscriptio possit conflictum causare."
-                  />
-                  <div class="flex flex-col">
-                    <span
-                      class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100"
-                      >Warning State</span
-                    >
-                    <span class="font-mono text-[11px] text-neutral-500"
-                      >hasWarning=true • amber border + tips</span
-                    >
-                  </div>
-                </div>
-
-                <!-- Safe / Valid -->
-                <div class="flex flex-col gap-2.5">
-                  <TextInput
-                    id="ti-safe"
-                    name="demo_safe"
-                    label="SIGNUM TUTUM"
-                    value="navoyovan"
-                    isSafe={true}
-                    safeMsg="Validum!"
-                  />
-                  <div class="flex flex-col">
-                    <span
-                      class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100"
-                      >Safe / Valid State</span
-                    >
-                    <span class="font-mono text-[11px] text-neutral-500"
-                      >isSafe=true • green border</span
-                    >
-                  </div>
-                </div>
               </div>
             </div>
 
-            <!-- 07.2 / Text Area & Password (Right Side) -->
-            <div class="space-y-4">
-              <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between pb-1 gap-1 sm:gap-0">
+            <div class="flex flex-col gap-2.5">
+              <RadioButton
+                id="rb-mode-studio"
+                name="demo_radio_group"
+                value="studio"
+                label="QUALITAS STUDII"
+                description="Amplificatio artificialis provecta"
+                loadingDelay={0}
+              />
+              <div class="flex flex-col pl-9">
                 <span
-                  class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100 uppercase tracking-wider"
+                  class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100"
+                  >Option Radio</span
                 >
-                  07.2 / Text Area &amp; Password
-                </span>
-                <span class="font-mono text-[10px] text-neutral-400"
-                  >overflow highlight · validation cues</span
+                <span class="font-mono text-[11px] text-neutral-500"
+                  >checked=false • instant select • 24px dashed circle</span
                 >
-              </div>
-
-              <div class="flex flex-col gap-6">
-                <!-- One Big Soft-Limit Textarea -->
-                <div class="flex flex-col gap-2.5">
-                  <LimitTextarea
-                    id="lta-demo"
-                    name="commentarium_demo"
-                    label="COMMENTARIUM NOTAE"
-                    value="Systema prototypum cum limite verborum et excessu highlight."
-                    placeholder="Scribe hic notam tuam..."
-                    maxLength={40}
-                    tips="Typa ultra 40 litteras ut excessus ruber appareat."
-                  />
-                  <div class="flex flex-col">
-                    <span
-                      class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100"
-                      >Soft-Limit Textarea</span
-                    >
-                    <span class="font-mono text-[11px] text-neutral-500"
-                      >maxLength=40 • live backdrop overflow highlight</span
-                    >
-                  </div>
-                </div>
-
-                <!-- Password Input with Char Cues Checklist -->
-                <div class="flex flex-col gap-2.5">
-                  <PasswordInput
-                    id="pw-demo"
-                    name="tessera_demo"
-                    label="TESSERA SECURA"
-                    value="Aegis#2026"
-                    placeholder="Inscribe tesseram..."
-                  />
-                  <div class="flex flex-col">
-                    <span
-                      class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100"
-                      >Secure Password Input</span
-                    >
-                    <span class="font-mono text-[11px] text-neutral-500"
-                      >disc masked • toggle visibility • live rule cues</span
-                    >
-                  </div>
-                </div>
               </div>
             </div>
           </div>
         </section>
 
-        <!-- 08 / Dropdowns & Calendar Date Picker -->
-        <section id="dropdowns" class="space-y-10 scroll-mt-40 xl:scroll-mt-24">
-          <div class="pb-2 border-b border-neutral-200 dark:border-neutral-800">
-            <h2
-              class="!font-mono font-mono text-xs uppercase tracking-[0.15em] text-neutral-500 dark:text-neutral-400 font-semibold"
-            >
-              08 / Dropdowns &amp; Calendar Date Picker
-            </h2>
-          </div>
+        <!-- 09 / Pill Track Toggle Switches -->
+        <section id="toggles" class="space-y-6 scroll-mt-40 xl:scroll-mt-24">
+          <SectionHeaderTuner sectionId="toggles" />
 
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-14">
-            <!-- 08.1 / Regular Dropdown & Dropdown Search (Left Side) -->
-            <div class="space-y-4">
-              <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between pb-1 gap-1 sm:gap-0">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="flex flex-col gap-2.5">
+              <ToggleSwitch
+                id="toggle-telemetry"
+                name="telemetry_active"
+                label="SYNCHRONIZATIO VIVA"
+                description="Flumen continuum telemetriae ad tabernam"
+                checked={true}
+                loadingDelay={800}
+              />
+              <div class="flex flex-col pl-15">
                 <span
-                  class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100 uppercase tracking-wider"
+                  class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100"
+                  >Loading Transition Switch</span
                 >
-                  08.1 / Dropdown Selectors
-                </span>
-                <span class="font-mono text-[10px] text-neutral-400"
-                  >single &amp; search multi-select</span
+                <span class="font-mono text-[11px] text-neutral-500"
+                  >checked=true • 800ms loading • 44×22px pill track</span
                 >
-              </div>
-
-              <div class="flex flex-col gap-6">
-                <!-- Regular Select Dropdown -->
-                <div class="flex flex-col gap-2.5">
-                  <FormSelect
-                    id="fs-specimen-regular"
-                    name="genus_dispositivi"
-                    label="GENUS DISPOSITIVI (optionale)"
-                    value="kiosk"
-                    options={[
-                      { value: "kiosk", label: "KIOSK TOUCHSCREEN" },
-                      { value: "dslr", label: "CAMERA CANON EOS" },
-                      { value: "printer", label: "IMPRESSOR TERMALIS" },
-                      { value: "payment", label: "TERMINALE EDC / QRIS" },
-                    ]}
-                    tips="Elige genus hardware configurati ad sessionem."
-                  />
-                  <div class="flex flex-col">
-                    <span
-                      class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100"
-                      >Standard Dropdown</span
-                    >
-                    <span class="font-mono text-[11px] text-neutral-500"
-                      >label="... (optionale)" • single value • custom trigger
-                      caret</span
-                    >
-                  </div>
-                </div>
-
-                <!-- Dropdown Search with Multi-select Checkboxes -->
-                <div class="flex flex-col gap-2.5">
-                  <SearchDropdown
-                    id="sd-specimen"
-                    name="distributio_regionum"
-                    label="DISTRIBUTIO REGIONUM"
-                    allLabel="Omnes regiones (Jabodetabek)"
-                    placeholder="Elige regiones..."
-                    items={[
-                      {
-                        id: "bogor",
-                        label: "Bogor Centralis",
-                        subLabel: "BOG-01",
-                      },
-                      {
-                        id: "jakarta",
-                        label: "Jakarta Meridionalis",
-                        subLabel: "JKT-02",
-                      },
-                      {
-                        id: "depok",
-                        label: "Depok Margonda",
-                        subLabel: "DPK-01",
-                      },
-                      {
-                        id: "tangerang",
-                        label: "Tangerang BSD",
-                        subLabel: "TNG-03",
-                      },
-                      {
-                        id: "bekasi",
-                        label: "Bekasi Barat",
-                        subLabel: "BKS-01",
-                      },
-                    ]}
-                    selectedItems={["bogor", "jakarta"]}
-                    tips="Quaere et filtra unitates per regionem geographicam."
-                  />
-                  <div class="flex flex-col">
-                    <span
-                      class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100"
-                      >Searchable Multi-Select</span
-                    >
-                    <span class="font-mono text-[11px] text-neutral-500"
-                      >searchable=true • multi-select=true • 18px dashed box •
-                      batch badge</span
-                    >
-                  </div>
-                </div>
               </div>
             </div>
 
-            <!-- 08.2 / Calendar Date Picker (Right Side) -->
-            <div class="space-y-4">
-              <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between pb-1 gap-1 sm:gap-0">
+            <div class="flex flex-col gap-2.5">
+              <ToggleSwitch
+                id="toggle-acceleratio"
+                name="gpu_accel"
+                label="ACCELERATIO GRAFICA"
+                description="Reductio oneris CPU per transformationes GPU"
+                checked={false}
+                loadingDelay={0}
+              />
+              <div class="flex flex-col pl-15">
                 <span
-                  class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100 uppercase tracking-wider"
+                  class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100"
+                  >Standard Switch</span
                 >
-                  08.2 / Calendar Date Picker
-                </span>
-                <span class="font-mono text-[10px] text-neutral-400"
-                  >interactive matrix · count badges</span
+                <span class="font-mono text-[11px] text-neutral-500"
+                  >checked=false • instant toggle • 44×22px pill track</span
                 >
-              </div>
-
-              <div class="flex flex-col gap-6">
-                <!-- Interactive Date Picker Specimen -->
-                <div class="flex flex-col gap-2.5">
-                  <DatePicker
-                    id="dp-specimen"
-                    name="dies_sessionis"
-                    label="DIES SESSIONIS"
-                    value="2026-08-22"
-                    sessionCountsByDate={{
-                      "2026-08-15": 12,
-                      "2026-08-18": 34,
-                      "2026-08-20": 48,
-                      "2026-08-22": 64,
-                    }}
-                    tips="Elige diem ad inspiciendam telemetriam et sessionum volumen."
-                  />
-                  <div class="flex flex-col">
-                    <span
-                      class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100"
-                      >Calendar Date Picker</span
-                    >
-                    <span class="font-mono text-[11px] text-neutral-500"
-                      >interactive month navigation • live activity badges •
-                      quick today jump</span
-                    >
-                  </div>
-                </div>
-
-                <!-- Error State Select -->
-                <div class="flex flex-col gap-2.5">
-                  <FormSelect
-                    id="fs-specimen-error"
-                    name="formatum_archivi"
-                    label="FORMATUM ARCHIVI"
-                    options={[
-                      { value: "raw", label: "RAW IMAGO (.CR3)" },
-                      { value: "png", label: "PNG 24-BIT" },
-                      { value: "webp", label: "WEBP ULTRA" },
-                    ]}
-                    hasError={true}
-                    errorMsg="Formatum requiritur"
-                    placeholder="Elige formatum..."
-                  />
-                  <div class="flex flex-col">
-                    <span
-                      class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100"
-                      >Select Error State</span
-                    >
-                    <span class="font-mono text-[11px] text-neutral-500"
-                      >hasError=true • errorMsg="Formatum requiritur"</span
-                    >
-                  </div>
-                </div>
               </div>
             </div>
           </div>
         </section>
 
-        <!-- 09 / Loaders -->
+        <!-- 10 / Continuous & Step Range Sliders -->
+        <section id="sliders" class="space-y-6 scroll-mt-40 xl:scroll-mt-24">
+          <SectionHeaderTuner sectionId="sliders" />
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="flex flex-col gap-2.5">
+              <FormSlider
+                id="slider-intensitas"
+                name="filter_intensity"
+                label="INTENSITAS COLORIS"
+                description="Gradus saturationis et luminositatis photographicae"
+                min={0}
+                max={100}
+                value={75}
+                unit="%"
+              />
+              <div class="flex flex-col">
+                <span
+                  class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100"
+                  >Percentage Slider</span
+                >
+                <span class="font-mono text-[11px] text-neutral-500"
+                  >min=0 • max=100 • value=75 • unit="%"</span
+                >
+              </div>
+            </div>
+
+            <div class="flex flex-col gap-2.5">
+              <FormSlider
+                id="slider-fps"
+                name="render_budget"
+                label="LIMES MOTUS"
+                description="Fines imaginum per secundum ad motum lenem"
+                min={30}
+                max={120}
+                step={5}
+                value={60}
+                unit=" FPS"
+              />
+              <div class="flex flex-col">
+                <span
+                  class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100"
+                  >Step Interval Slider</span
+                >
+                <span class="font-mono text-[11px] text-neutral-500"
+                  >min=30 • max=120 • step=5 • unit=" FPS"</span
+                >
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 11 / Text Inputs & Validation States -->
+        <section id="text-inputs" class="space-y-6 scroll-mt-40 xl:scroll-mt-24">
+          <SectionHeaderTuner sectionId="text-inputs" />
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- Standard / Optional -->
+            <div class="flex flex-col gap-2.5">
+              <TextInput
+                id="ti-default"
+                name="demo_default"
+                label="NOMEN UTENTIS (optionale)"
+                placeholder="Inscribe nomen..."
+                tips="Nomen ad systema notum."
+              />
+              <div class="flex flex-col">
+                <span
+                  class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100"
+                  >Standard Input</span
+                >
+                <span class="font-mono text-[11px] text-neutral-500"
+                  >label="... (optionale)" • tips present</span
+                >
+              </div>
+            </div>
+
+            <!-- Error -->
+            <div class="flex flex-col gap-2.5">
+              <TextInput
+                id="ti-error"
+                name="demo_error"
+                label="INSCRIPTIO ERRATA"
+                placeholder="Valor invalidus..."
+                hasError={true}
+                errorMsg="Hoc est requirentur"
+              />
+              <div class="flex flex-col">
+                <span
+                  class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100"
+                  >Error State</span
+                >
+                <span class="font-mono text-[11px] text-neutral-500"
+                  >hasError=true • errorMsg inline</span
+                >
+              </div>
+            </div>
+
+            <!-- Warning -->
+            <div class="flex flex-col gap-2.5">
+              <TextInput
+                id="ti-warning"
+                name="demo_warning"
+                label="SIGNUM MONITIONIS"
+                placeholder="Valor suspectus..."
+                hasWarning={true}
+                warningMsg="Confirma valorem"
+                tips="Haec inscriptio possit conflictum causare."
+              />
+              <div class="flex flex-col">
+                <span
+                  class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100"
+                  >Warning State</span
+                >
+                <span class="font-mono text-[11px] text-neutral-500"
+                  >hasWarning=true • amber border + tips</span
+                >
+              </div>
+            </div>
+
+            <!-- Safe / Valid -->
+            <div class="flex flex-col gap-2.5">
+              <TextInput
+                id="ti-safe"
+                name="demo_safe"
+                label="SIGNUM TUTUM"
+                value="navoyovan"
+                isSafe={true}
+                safeMsg="Validum!"
+              />
+              <div class="flex flex-col">
+                <span
+                  class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100"
+                  >Safe / Valid State</span
+                >
+                <span class="font-mono text-[11px] text-neutral-500"
+                  >isSafe=true • green border</span
+                >
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 12 / Secure Password Input & Rule Cues -->
+        <section id="password-input" class="space-y-6 scroll-mt-40 xl:scroll-mt-24">
+          <SectionHeaderTuner sectionId="password-input" />
+
+          <div class="max-w-xl">
+            <div class="flex flex-col gap-2.5">
+              <PasswordInput
+                id="pw-demo"
+                name="tessera_demo"
+                label="TESSERA SECURA"
+                value="Aegis#2026"
+                placeholder="Inscribe tesseram..."
+              />
+              <div class="flex flex-col">
+                <span
+                  class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100"
+                  >Secure Password Input</span
+                >
+                <span class="font-mono text-[11px] text-neutral-500"
+                  >disc masked • toggle visibility • live rule cues</span
+                >
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 13 / Soft-Limit Overflow Textarea -->
+        <section id="limit-textarea" class="space-y-6 scroll-mt-40 xl:scroll-mt-24">
+          <SectionHeaderTuner sectionId="limit-textarea" />
+
+          <div class="max-w-xl">
+            <div class="flex flex-col gap-2.5">
+              <LimitTextarea
+                id="lta-demo"
+                name="commentarium_demo"
+                label="COMMENTARIUM NOTAE"
+                value="Systema prototypum cum limite verborum et excessu highlight."
+                placeholder="Scribe hic notam tuam..."
+                maxLength={40}
+                tips="Typa ultra 40 litteras ut excessus ruber appareat."
+              />
+              <div class="flex flex-col">
+                <span
+                  class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100"
+                  >Soft-Limit Textarea</span
+                >
+                <span class="font-mono text-[11px] text-neutral-500"
+                  >maxLength=40 • live backdrop overflow highlight</span
+                >
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 14 / Single-Value Form Select Dropdown -->
+        <section id="form-select" class="space-y-6 scroll-mt-40 xl:scroll-mt-24">
+          <SectionHeaderTuner sectionId="form-select" />
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- Regular Select Dropdown -->
+            <div class="flex flex-col gap-2.5">
+              <FormSelect
+                id="fs-specimen-regular"
+                name="genus_dispositivi"
+                label="GENUS DISPOSITIVI (optionale)"
+                value="kiosk"
+                options={[
+                  { value: "kiosk", label: "KIOSK TOUCHSCREEN" },
+                  { value: "dslr", label: "CAMERA CANON EOS" },
+                  { value: "printer", label: "IMPRESSOR TERMALIS" },
+                  { value: "payment", label: "TERMINALE EDC / QRIS" },
+                ]}
+                tips="Elige genus hardware configurati ad sessionem."
+              />
+              <div class="flex flex-col">
+                <span
+                  class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100"
+                  >Standard Dropdown</span
+                >
+                <span class="font-mono text-[11px] text-neutral-500"
+                  >label="... (optionale)" • single value • custom trigger
+                  caret</span
+                >
+              </div>
+            </div>
+
+            <!-- Error State Select -->
+            <div class="flex flex-col gap-2.5">
+              <FormSelect
+                id="fs-specimen-error"
+                name="formatum_archivi"
+                label="FORMATUM ARCHIVI"
+                options={[
+                  { value: "raw", label: "RAW IMAGO (.CR3)" },
+                  { value: "png", label: "PNG 24-BIT" },
+                  { value: "webp", label: "WEBP ULTRA" },
+                ]}
+                hasError={true}
+                errorMsg="Formatum requiritur"
+                placeholder="Elige formatum..."
+              />
+              <div class="flex flex-col">
+                <span
+                  class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100"
+                  >Select Error State</span
+                >
+                <span class="font-mono text-[11px] text-neutral-500"
+                  >hasError=true • errorMsg="Formatum requiritur"</span
+                >
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 15 / Searchable Multi-Select Dropdown -->
+        <section id="search-dropdown" class="space-y-6 scroll-mt-40 xl:scroll-mt-24">
+          <SectionHeaderTuner sectionId="search-dropdown" />
+
+          <div class="max-w-xl">
+            <div class="flex flex-col gap-2.5">
+              <SearchDropdown
+                id="sd-specimen"
+                name="distributio_regionum"
+                label="DISTRIBUTIO REGIONUM"
+                allLabel="Omnes regiones (Jabodetabek)"
+                placeholder="Elige regiones..."
+                items={[
+                  {
+                    id: "bogor",
+                    label: "Bogor Centralis",
+                    subLabel: "BOG-01",
+                  },
+                  {
+                    id: "jakarta",
+                    label: "Jakarta Meridionalis",
+                    subLabel: "JKT-02",
+                  },
+                  {
+                    id: "depok",
+                    label: "Depok Margonda",
+                    subLabel: "DPK-01",
+                  },
+                  {
+                    id: "tangerang",
+                    label: "Tangerang BSD",
+                    subLabel: "TNG-03",
+                  },
+                  {
+                    id: "bekasi",
+                    label: "Bekasi Barat",
+                    subLabel: "BKS-01",
+                  },
+                ]}
+                selectedItems={["bogor", "jakarta"]}
+                tips="Quaere et filtra unitates per regionem geographicam."
+              />
+              <div class="flex flex-col">
+                <span
+                  class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100"
+                  >Searchable Multi-Select</span
+                >
+                <span class="font-mono text-[11px] text-neutral-500"
+                  >searchable=true • multi-select=true • 18px dashed box •
+                  batch badge</span
+                >
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 16 / Calendar Date Picker Matrix -->
+        <section id="date-picker" class="space-y-6 scroll-mt-40 xl:scroll-mt-24">
+          <SectionHeaderTuner sectionId="date-picker" />
+
+          <div class="max-w-xl">
+            <div class="flex flex-col gap-2.5">
+              <DatePicker
+                id="dp-specimen"
+                name="dies_sessionis"
+                label="DIES SESSIONIS"
+                value="2026-08-22"
+                sessionCountsByDate={{
+                  "2026-08-15": 12,
+                  "2026-08-18": 34,
+                  "2026-08-20": 48,
+                  "2026-08-22": 64,
+                }}
+                tips="Elige diem ad inspiciendam telemetriam et sessionum volumen."
+              />
+              <div class="flex flex-col">
+                <span
+                  class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100"
+                  >Calendar Date Picker</span
+                >
+                <span class="font-mono text-[11px] text-neutral-500"
+                  >interactive month navigation • live activity badges •
+                  quick today jump</span
+                >
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 17 / Loaders (Square Wave) -->
         <section id="loaders" class="space-y-6 scroll-mt-40 xl:scroll-mt-24">
-          <div class="pb-2 border-b border-neutral-200 dark:border-neutral-800">
-            <h2
-              class="!font-mono font-mono text-xs uppercase tracking-[0.15em] text-neutral-500 dark:text-neutral-400 font-semibold"
-            >
-              09 / Loaders (Square Wave)
-            </h2>
-          </div>
+          <SectionHeaderTuner sectionId="loaders" />
 
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-8">
             <!-- Accent Neon Loader -->
