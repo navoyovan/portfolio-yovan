@@ -658,7 +658,8 @@ const { base } = Astro.props;
       >
         <EggLink
           easter="first-landing"
-          en="Other(s)"
+          en="Engineer"
+          id="Engineer"
           ariaEn="Unlock First Landing Page Cool Stuff"
           ariaId="Buka Cool Stuff Landing Page Pertama"
         />
@@ -666,10 +667,13 @@ const { base } = Astro.props;
     </div>
 
     <!-- Full-bleed seamless horizontal container -->
-    <div class="relative w-screen left-1/2 -translate-x-1/2 py-2 z-30">
+    <div
+      id="others-carousel-wrapper"
+      class="relative w-screen left-1/2 -translate-x-1/2 py-2 z-10 pointer-events-none"
+    >
       <div
         id="others-scroll-container"
-        class="relative flex flex-nowrap overflow-x-auto gap-4 sm:gap-5 pt-14 pl-6 pr-6 sm:pl-12 sm:pr-12 no-scrollbar items-start"
+        class="relative flex flex-nowrap overflow-x-auto gap-4 sm:gap-5 pt-14 pl-6 pr-6 sm:pl-12 sm:pr-12 no-scrollbar items-start pointer-events-none"
         style="margin-top: -24px; padding-bottom: 420px; margin-bottom: -420px;"
       >
         <MorphingProjectCard
@@ -814,6 +818,224 @@ const { base } = Astro.props;
           </div>
         </div>
       </div>
+    </div>
+  </div>
+
+  <!-- Design Showcase Justified Bento Grid -->
+  <div
+    id="design-bento-container"
+    class="pt-4 sm:pt-6 space-y-5 relative z-20 pointer-events-auto"
+  >
+    <div class="flex items-center justify-between">
+      <h3
+        class="text-xl sm:text-2xl font-semibold tracking-tight text-neutral-950 dark:text-white font-sans"
+        data-en="Gallery"
+        data-id="Galeri"
+      >
+        Gallery
+      </h3>
+    </div>
+
+    <!-- Justified Bento Grid: Predetermined 1:1, 2:1, 1:2 interlocking layout with zero outside clutter -->
+    <div
+      class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 pt-2"
+    >
+      <!-- 01: 2:1 Horizontal Merge -->
+      <MorphingProjectCard
+        index="01"
+        variant="bento"
+        ratio="2:1"
+        title="Systema Typographicum & Signa"
+        category="RATIO SYSTEMATIS"
+        categoryId="RATIO SYSTEMATIS"
+        description="Architectura modulorum typographicorum, scalae proportionum, indices chromatici, et elementa visualia reusabilia."
+        descriptionId="Architectura modulorum typographicorum, scalae proportionum, indices chromatici, et elementa visualia reusabilia."
+        tags={["Typographia", "Moduli", "Ordinatio"]}
+        metaText="systema-specimen-01"
+        actionText="Specimen Inspicere"
+        actionTextId="Specimen Inspicere"
+      />
+
+      <!-- 02: 1:1 Square -->
+      <MorphingProjectCard
+        index="02"
+        variant="bento"
+        ratio="1:1"
+        title="Identitas Visualis & Monogramma"
+        category="FIGURA & IDENTITAS"
+        categoryId="FIGURA & IDENTITAS"
+        description="Logotypi geometrici, insignia spatialia, vectorum rationes, et normae conformationis visualis."
+        descriptionId="Logotypi geometrici, insignia spatialia, vectorum rationes, et normae conformationis visualis."
+        tags={["Vector", "Identitas", "Geometria"]}
+        metaText="identitas-specimen-02"
+        actionText="Specimen Inspicere"
+        actionTextId="Specimen Inspicere"
+      />
+
+      <!-- 03: 1:2 Vertical Merge (Phone screen format) -->
+      <MorphingProjectCard
+        index="03"
+        variant="bento"
+        ratio="1:2"
+        title="Ratio Kioski & Interfactio Mobilis"
+        category="INTERFACTIO MOBILIS"
+        categoryId="INTERFACTIO MOBILIS"
+        imageSrc={`${base}/images/DEG.webp`}
+        description="Processus checkout mobilis, reservatio spatii tempore reali, et protocolla authentificationis sine contactu."
+        descriptionId="Processus checkout mobilis, reservatio spatii tempore reali, et protocolla authentificationis sine contactu."
+        tags={["Mobilis", "Responsivum", "Fluxus"]}
+        metaText="kioski-specimen-03"
+        actionText="Specimen Inspicere"
+        actionTextId="Specimen Inspicere"
+      />
+
+      <!-- 04: 1:1 Square -->
+      <MorphingProjectCard
+        index="04"
+        variant="bento"
+        ratio="1:1"
+        title="Paginatio Typographica & Impressio"
+        category="COMPOSITIO LIBRARIA"
+        categoryId="COMPOSITIO LIBRARIA"
+        description="Structurae editorialis modulatio, linea basalis typographiae, ritmus verticalis, et rationes tabularum Helveticarum."
+        descriptionId="Structurae editorialis modulatio, linea basalis typographiae, ritmus verticalis, et rationes tabularum Helveticarum."
+        tags={["Paginatio", "Helvetica", "Ordo"]}
+        metaText="editorial-specimen-04"
+        actionText="Specimen Inspicere"
+        actionTextId="Specimen Inspicere"
+      />
+
+      <!-- 05: 1:1 Square -->
+      <MorphingProjectCard
+        index="05"
+        variant="bento"
+        ratio="1:1"
+        title="Interfactio Cinetica & Motus"
+        category="TECHNOLOGIA CINETICA"
+        categoryId="TECHNOLOGIA CINETICA"
+        description="Prototypa motus continui, curvae flexurae elasticae, dynamica physica, et responsa tactilia visualia."
+        descriptionId="Prototypa motus continui, curvae flexurae elasticae, dynamica physica, et responsa tactilia visualia."
+        tags={["Motus", "Elastica", "Dynamica"]}
+        metaText="cinetica-specimen-05"
+        actionText="Specimen Inspicere"
+        actionTextId="Specimen Inspicere"
+      />
+
+      <!-- 06: 1:1 Square -->
+      <MorphingProjectCard
+        index="06"
+        variant="bento"
+        ratio="1:1"
+        title="Superficies WebGL & Tridimensionale"
+        category="GRAPHICA 3D"
+        categoryId="GRAPHICA 3D"
+        description="Geometria parametrica procedendo formata, umbratores luminis ambientis, et cursus grafici directi."
+        descriptionId="Geometria parametrica procedendo formata, umbratores luminis ambientis, et cursus grafici directi."
+        tags={["WebGL", "Umbratores", "Spatium"]}
+        metaText="superficies-specimen-06"
+        actionText="Specimen Inspicere"
+        actionTextId="Specimen Inspicere"
+      />
+
+      {
+        /* Hidden 07 to 12 per user request
+      <!-- 07: 1:2 Vertical Merge (Phone screen format) -->
+      <MorphingProjectCard
+        index="07"
+        variant="bento"
+        ratio="1:2"
+        title="Camera & Filter Viewfinder"
+        category="MOBILE CAMERA"
+        categoryId="KAMERA MOBILE"
+        description="Mobile live preview viewfinder with hardware shutter triggers, LUT previews, and gesture exposures."
+        descriptionId="Viewfinder preview live mobile dengan pemicu shutter hardware, preview LUT, dan exposure gesture."
+        tags={["Mobile Camera", "LUT Pipeline", "Gestures"]}
+        metaText="mobile-viewfinder-spec"
+        actionText="Explore Specimen"
+        actionTextId="Jelajahi Spesimen"
+      />
+
+      <!-- 08: 1:1 Square -->
+      <MorphingProjectCard
+        index="08"
+        variant="bento"
+        ratio="1:1"
+        title="Tactile Feedback & Haptic Deck"
+        category="INTERFACE LAB"
+        categoryId="LAB ANTARMUKA"
+        description="Experimental physical audio synthesizing, frequency dampening, and haptic web feedback prototypes."
+        descriptionId="Sintesis audio fisik eksperimental, redaman frekuensi, dan prototipe haptic web."
+        tags={["Web Audio", "Haptics", "UI Sound"]}
+        metaText="tactile-audio-spec"
+        actionText="Explore Specimen"
+        actionTextId="Jelajahi Spesimen"
+      />
+
+      <!-- 09: 2:1 Horizontal Merge (Ultrawide format) -->
+      <MorphingProjectCard
+        index="09"
+        variant="bento"
+        ratio="2:1"
+        title="Panoramic Telemetry Console"
+        category="DASHBOARD & MONITORING"
+        categoryId="DASHBOARD & MONITORING"
+        description="21:9 ultrawide telemetry cockpit visualizing real-time cluster workloads, edge events, and heartbeat pings."
+        descriptionId="Cockpit telemetri ultrawide 21:9 untuk visualisasi workload cluster realtime, edge event, dan ping heartbeat."
+        tags={["Ultrawide", "Telemetry", "Data Viz"]}
+        metaText="panoramic-telemetry-spec"
+        actionText="Explore Specimen"
+        actionTextId="Jelajahi Spesimen"
+      />
+
+      <!-- 10: 1:1 Square -->
+      <MorphingProjectCard
+        index="10"
+        variant="bento"
+        ratio="1:1"
+        title="Spatial Map Iconography"
+        category="VECTOR & ASSETS"
+        categoryId="VEKTOR & ASET"
+        description="High-precision cartographic glyphs, telemetry pin sets, and scalable geospatial UI tokens."
+        descriptionId="Glif kartografi presisi tinggi, pin set telemetri, dan token UI geospasial scalable."
+        tags={["Icons", "Cartography", "SVG"]}
+        metaText="spatial-icons-spec"
+        actionText="Explore Specimen"
+        actionTextId="Jelajahi Spesimen"
+      />
+
+      <!-- 11: 1:1 Square -->
+      <MorphingProjectCard
+        index="11"
+        variant="bento"
+        ratio="1:1"
+        title="Color Grading & Shader Studio"
+        category="IMAGE PROCESSING"
+        categoryId="PEMROSESAN GAMBAR"
+        description="Realtime filter color grading workbench with film grain algorithms, scratches, and blend-mode matrix."
+        descriptionId="Workbench color grading filter realtime dengan algoritma film grain, goresan, dan matriks blend-mode."
+        tags={["CSS Filters", "SVG Noise", "Shaders"]}
+        metaText="color-grading-spec"
+        actionText="Explore Specimen"
+        actionTextId="Jelajahi Spesimen"
+      />
+
+      <!-- 12: 1:1 Square -->
+      <MorphingProjectCard
+        index="12"
+        variant="bento"
+        ratio="1:1"
+        title="Photobooth Frame Compositor"
+        category="CANVAS & ASSETS"
+        categoryId="KANVAS & ASET"
+        description="Interactive photo cutout canvas layout editor with coordinate telemetry and dynamic alpha masks."
+        descriptionId="Editor layout kanvas potongan foto interaktif dengan telemetri koordinat dan alpha mask dinamis."
+        tags={["Canvas API", "Alpha Masks", "SVG"]}
+        metaText="canvas-compositor-spec"
+        actionText="Explore Specimen"
+        actionTextId="Jelajahi Spesimen"
+      />
+      */
+      }
     </div>
   </div>
 </section>
@@ -1059,11 +1281,14 @@ const { base } = Astro.props;
       const prevContentAnim = activeAnimations.get(content);
       if (prevContentAnim) prevContentAnim.stop();
 
-      card.style.transform = "";
-      card.style.zIndex = "10";
-      card.style.backgroundColor = "transparent";
+      // Z-INDEX RACE FIX: Keep card at elevated z-index (50) during collapse so it never
+      // drops behind neighboring or expanding cards (which use z-index 60).
+      card.style.zIndex = "50";
 
-      // Freeze auto height (mobile adaptive) to px so Motion can animate back to 100%
+      // Target footprint: measure slot dimensions in exact pixels
+      const targetHeight = `${slot.offsetHeight}px`;
+
+      // Freeze auto height to px so Motion can animate smoothly down to target height
       if (!card.style.height || card.style.height === "auto") {
         card.style.height = `${card.offsetHeight}px`;
         void card.offsetHeight;
@@ -1082,14 +1307,17 @@ const { base } = Astro.props;
       }
 
       card.classList.add("is-morphing");
+      card.classList.add("is-collapsing");
+      slot.setAttribute("data-is-expanded", "false");
+
       const cardAnim = animate(
         card,
         {
           width: "100%",
           left: "0px",
           top: "0px",
-          height: "100%",
-          boxShadow: "0 0 0 0 rgba(0,0,0,0)",
+          height: targetHeight,
+          boxShadow: "none",
         },
         {
           duration: 0.35,
@@ -1098,9 +1326,13 @@ const { base } = Astro.props;
       );
       activeAnimations.set(card, cardAnim);
       cardAnim.then(() => {
+        card.setAttribute("aria-expanded", "false");
         card.classList.remove("is-morphing");
         card.classList.remove("is-collapsing");
+<<<<<<< HEAD
         if (statusBadge) statusBadge.style.transform = "";
+=======
+>>>>>>> 5dd9c3eb9794aab6b37d3969d2983b8dff4d1114
         card.style.width = "100%";
         card.style.height = "100%";
         card.style.left = "0px";
@@ -1146,9 +1378,6 @@ const { base } = Astro.props;
 
       const slotMedia = slot.querySelector<HTMLElement>("[data-morph-media]");
       if (slotMedia) hideMediaControls(slotMedia);
-
-      card.setAttribute("aria-expanded", "false");
-      slot.setAttribute("data-is-expanded", "false");
     };
 
     const expandSlot = (slot: HTMLElement) => {
@@ -1182,7 +1411,27 @@ const { base } = Astro.props;
       const mediaH = media
         ? media.offsetHeight
         : Math.round((card.offsetWidth * 9) / 16);
+      const isBento = slot.dataset.variant === "bento";
       const topOffset = Math.round(mediaH * 0.125); // keeps middle point of image pinned
+
+      if (isBento) {
+        const slotW = slot.offsetWidth;
+        const slotH = slot.offsetHeight;
+        card.style.setProperty("--bento-aspect", `${slotW} / ${slotH}`);
+      }
+
+      // Section stacking elevation: ensure expanding card section sits cleanly above other sections
+      const carouselWrapper = document.getElementById(
+        "others-carousel-wrapper",
+      );
+      const bentoContainer = document.getElementById("design-bento-container");
+      if (isBento) {
+        if (bentoContainer) bentoContainer.style.zIndex = "45";
+        if (carouselWrapper) carouselWrapper.style.zIndex = "20";
+      } else {
+        if (carouselWrapper) carouselWrapper.style.zIndex = "45";
+        if (bentoContainer) bentoContainer.style.zIndex = "10";
+      }
 
       card.style.transform = "none";
       card.style.zIndex = "60";
@@ -1201,18 +1450,29 @@ const { base } = Astro.props;
       // tile blooms rightward and the last tile leftward so nothing clips off
       // the viewport edge (scroll can't go negative past the flush edge).
       const isMobile = window.innerWidth < 640;
-      const slotIndex = Array.from(slots).indexOf(slot);
       let leftFactor = 0;
       let rightFactor = 0;
       if (!isMobile) {
-        leftFactor = 0.125;
-        rightFactor = 0.125;
-        if (slotIndex === 0) {
-          leftFactor = 0;
-          rightFactor = 0.25;
-        } else if (slotIndex === slots.length - 1) {
-          leftFactor = 0.25;
-          rightFactor = 0;
+        if (isBento) {
+          // Bento cards all bloom centered with uniform 125% width
+          leftFactor = 0.125;
+          rightFactor = 0.125;
+        } else {
+          // Carousel cards: 125% expansion; edge-aware so 1st card blooms rightward and last leftward
+          const carouselSlots = Array.from(
+            document.querySelectorAll("#others-scroll-container .project-slot"),
+          );
+          const cIndex = carouselSlots.indexOf(slot);
+          if (cIndex === 0) {
+            leftFactor = 0;
+            rightFactor = 0.25;
+          } else if (cIndex === carouselSlots.length - 1) {
+            leftFactor = 0.25;
+            rightFactor = 0;
+          } else {
+            leftFactor = 0.125;
+            rightFactor = 0.125;
+          }
         }
       }
       const targetWidth = `${(1 + leftFactor + rightFactor) * 100}%`;
@@ -1256,8 +1516,6 @@ const { base } = Astro.props;
       activeAnimations.set(card, cardAnim);
       cardAnim.then(() => {
         card.classList.remove("is-morphing");
-        // Stay adaptive after the morph (language toggle / font load reflows
-        // naturally instead of clipping inside a fixed px height).
         card.style.height = "auto";
       });
 
@@ -1287,8 +1545,8 @@ const { base } = Astro.props;
       if (isTouch && media) showMediaControls(media);
 
       // 4. ALONGSIDE THE MIDDLE ANCHOR: Ensure expanded card is ALWAYS fully in the viewport!
-      // A. Horizontal scroll container alignment
-      if (container) {
+      // A. Horizontal scroll container alignment (carousel only)
+      if (container && !isBento) {
         const slotLeft = slot.offsetLeft;
         const slotWidth = slot.offsetWidth;
         const expandedWidth = slotWidth * (1 + leftFactor + rightFactor);
@@ -1322,7 +1580,7 @@ const { base } = Astro.props;
 
       // B. Vertical window viewport alignment
       const slotRect = slot.getBoundingClientRect();
-      const cardHeight = isMobile ? targetHeight : 670;
+      const cardHeight = targetHeight;
       const expandedTop = slotRect.top - topOffset;
       const expandedBottom = expandedTop + cardHeight;
       const vh = window.innerHeight;
