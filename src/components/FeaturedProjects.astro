@@ -838,7 +838,7 @@ const { base } = Astro.props;
 
     <!-- Justified Bento Grid: Predetermined 1:1, 2:1, 1:2 interlocking layout with zero outside clutter -->
     <div
-      class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 pt-2"
+      class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5 pt-2"
     >
       <!-- 01: 2:1 Horizontal Merge -->
       <MorphingProjectCard
@@ -848,6 +848,9 @@ const { base } = Astro.props;
         title="Systema Typographicum & Signa"
         category="RATIO SYSTEMATIS"
         categoryId="RATIO SYSTEMATIS"
+        status="DISPONIBILIS"
+        statusId="DISPONIBILIS"
+        statusVariant="neutral"
         description="Architectura modulorum typographicorum, scalae proportionum, indices chromatici, et elementa visualia reusabilia."
         descriptionId="Architectura modulorum typographicorum, scalae proportionum, indices chromatici, et elementa visualia reusabilia."
         tags={["Typographia", "Moduli", "Ordinatio"]}
@@ -880,6 +883,9 @@ const { base } = Astro.props;
         title="Ratio Kioski & Interfactio Mobilis"
         category="INTERFACTIO MOBILIS"
         categoryId="INTERFACTIO MOBILIS"
+        status="STATUS_VIVUS"
+        statusId="STATUS_VIVUS"
+        statusVariant="neutral"
         imageSrc={`${base}/images/DEG.webp`}
         description="Processus checkout mobilis, reservatio spatii tempore reali, et protocolla authentificationis sine contactu."
         descriptionId="Processus checkout mobilis, reservatio spatii tempore reali, et protocolla authentificationis sine contactu."
@@ -913,6 +919,9 @@ const { base } = Astro.props;
         title="Interfactio Cinetica & Motus"
         category="TECHNOLOGIA CINETICA"
         categoryId="TECHNOLOGIA CINETICA"
+        status="PROTOTYPUM"
+        statusId="PROTOTYPUM"
+        statusVariant="neutral"
         description="Prototypa motus continui, curvae flexurae elasticae, dynamica physica, et responsa tactilia visualia."
         descriptionId="Prototypa motus continui, curvae flexurae elasticae, dynamica physica, et responsa tactilia visualia."
         tags={["Motus", "Elastica", "Dynamica"]}

@@ -59,9 +59,9 @@ const isBento = variant === "bento";
 
 const bentoSpanClasses =
   ratio === "2:1"
-    ? "col-span-1 sm:col-span-2 row-span-1 aspect-[2/1] sm:aspect-auto sm:h-full"
+    ? "col-span-2 row-span-1 aspect-[2/1] lg:aspect-auto lg:h-full"
     : ratio === "1:2"
-      ? "col-span-1 row-span-2 aspect-[1/2] sm:aspect-auto sm:h-full"
+      ? "col-span-1 row-span-2 h-full min-h-0"
       : "col-span-1 row-span-1 aspect-square";
 ---
 
@@ -99,16 +99,6 @@ const bentoSpanClasses =
       ]}
       data-morph-media
     >
-      <!-- Quiet Index: pure minimal specimen face for Bento -->
-      {
-        isBento && formattedIndex && (
-          <span class="absolute top-3 left-3.5 z-20 font-mono text-xs font-semibold text-neutral-500 dark:text-neutral-400 select-none tracking-wider pointer-events-none">
-            {formattedIndex}
-          </span>
-        )
-      }
-
-
       {
         videoSrc ? (
           <video
@@ -295,21 +285,22 @@ const bentoSpanClasses =
         ) : null
       }
 
-      <!-- Top Overlay Status Badge -->
-      {
-        status && (
-          <div class="absolute top-2 left-2.5 z-40 pointer-events-none">
-            <div class="morph-status-badge">
-              <StatusBadge variant={statusVariant} size="sm">
-                <span data-en={status} data-id={statusId || status}>
-                  {status}
-                </span>
-              </StatusBadge>
-            </div>
-          </div>
-        )
-      }
     </div>
+
+    <!-- Top Overlay Status Badge -->
+    {
+      status && (
+        <div class="absolute top-2 left-2.5 z-40 pointer-events-none">
+          <div class="morph-status-badge">
+            <StatusBadge variant={statusVariant} size="sm">
+              <span data-en={status} data-id={statusId || status}>
+                {status}
+              </span>
+            </StatusBadge>
+          </div>
+        </div>
+      )
+    }
 
     <!-- Category Header: Always positioned BELOW the media (carousel mode only) -->
     {
@@ -484,6 +475,7 @@ const bentoSpanClasses =
     cursor: default;
     box-shadow: none !important;
     border: 1px solid rgba(0, 0, 0, 0.14) !important;
+    overflow: visible !important;
   }
 
   :global(.dark) .morph-card[aria-expanded="true"],
