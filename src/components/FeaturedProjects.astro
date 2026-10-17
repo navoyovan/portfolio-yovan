@@ -1069,6 +1069,18 @@ const { base } = Astro.props;
         void card.offsetHeight;
       }
 
+      const statusBadge = slot.querySelector<HTMLElement>(".morph-status-badge");
+      if (statusBadge) {
+        const prevBadgeAnim = activeAnimations.get(statusBadge);
+        if (prevBadgeAnim) prevBadgeAnim.stop();
+        const badgeAnim = animate(
+          statusBadge,
+          { y: 0 },
+          { duration: 0.35, ease: [0.16, 1, 0.3, 1] }
+        );
+        activeAnimations.set(statusBadge, badgeAnim);
+      }
+
       card.classList.add("is-morphing");
       const cardAnim = animate(
         card,
@@ -1087,6 +1099,29 @@ const { base } = Astro.props;
       activeAnimations.set(card, cardAnim);
       cardAnim.then(() => {
         card.classList.remove("is-morphing");
+        card.classList.remove("is-collapsing");
+        if (statusBadge) statusBadge.style.transform = "";
+        card.style.width = "100%";
+        card.style.height = "100%";
+        card.style.left = "0px";
+        card.style.top = "0px";
+        card.style.zIndex = "";
+        card.style.backgroundColor = "transparent";
+        card.style.transform = "";
+
+        const anyExpanded = Array.from(slots).some(
+          (s) => s.getAttribute("data-is-expanded") === "true",
+        );
+        if (!anyExpanded) {
+          const carouselWrapper = document.getElementById(
+            "others-carousel-wrapper",
+          );
+          const bentoContainer = document.getElementById(
+            "design-bento-container",
+          );
+          if (carouselWrapper) carouselWrapper.style.zIndex = "";
+          if (bentoContainer) bentoContainer.style.zIndex = "";
+        }
       });
 
       const metaLabel = slot.querySelector<HTMLElement>(".morph-meta-label");
@@ -1202,6 +1237,18 @@ const { base } = Astro.props;
         height: `${targetHeight}px`,
         boxShadow: "none",
       };
+      const statusBadge = slot.querySelector<HTMLElement>(".morph-status-badge");
+      if (statusBadge) {
+        const prevBadgeAnim = activeAnimations.get(statusBadge);
+        if (prevBadgeAnim) prevBadgeAnim.stop();
+        const badgeAnim = animate(
+          statusBadge,
+          { y: -26 },
+          { duration: 0.4, ease: [0.16, 1, 0.3, 1] }
+        );
+        activeAnimations.set(statusBadge, badgeAnim);
+      }
+
       const cardAnim = animate(card, expandedGeometry, {
         duration: 0.4,
         ease: [0.16, 1, 0.3, 1],
@@ -1322,7 +1369,32 @@ const { base } = Astro.props;
         });
       }
 
+      let unhoverTimer: ReturnType<typeof setTimeout> | null = null;
+
       if (card) {
+        card.addEventListener("mouseleave", () => {
+          if (!window.matchMedia("(hover: hover)").matches) return;
+          if (slot.getAttribute("data-is-expanded") !== "true") return;
+          if (document.querySelector("dialog.tile-modal[open]")) return;
+
+          if (unhoverTimer) clearTimeout(unhoverTimer);
+          unhoverTimer = setTimeout(() => {
+            if (
+              slot.getAttribute("data-is-expanded") === "true" &&
+              !document.querySelector("dialog.tile-modal[open]")
+            ) {
+              collapseSlot(slot);
+            }
+          }, 150);
+        });
+
+        card.addEventListener("mouseenter", () => {
+          if (unhoverTimer) {
+            clearTimeout(unhoverTimer);
+            unhoverTimer = null;
+          }
+        });
+
         card.addEventListener("click", (e) => {
           const target = e.target as HTMLElement;
           if (target.closest("[data-close-card]")) return;
@@ -1353,6 +1425,10 @@ const { base } = Astro.props;
       closeButtons.forEach((btn) => {
         btn.addEventListener("click", (e) => {
           e.stopPropagation();
+          if (unhoverTimer) {
+            clearTimeout(unhoverTimer);
+            unhoverTimer = null;
+          }
           collapseSlot(slot);
         });
       });
