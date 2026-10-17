@@ -23,6 +23,8 @@ interface Props {
   metaText?: string;
   brand?: string;
   class?: string;
+  ratio?: "1:1" | "2:1" | "1:2";
+  variant?: "carousel" | "bento";
 }
 
 const {
@@ -45,37 +47,68 @@ const {
   metaText = "",
   brand = "",
   class: className = "",
+  ratio = "1:1",
+  variant = "carousel",
 } = Astro.props;
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 const formattedIndex =
   typeof index === "number" ? String(index).padStart(2, "0") : index;
 const titleId = `tile-${title.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`;
+const isBento = variant === "bento";
+
+const bentoSpanClasses =
+  ratio === "2:1"
+    ? "col-span-1 sm:col-span-2 row-span-1 aspect-[2/1] sm:aspect-auto sm:h-full"
+    : ratio === "1:2"
+      ? "col-span-1 row-span-2 aspect-[1/2] sm:aspect-auto sm:h-full"
+      : "col-span-1 row-span-1 aspect-square";
 ---
 
 <!-- Fixed-dimension slot: NEVER shifts or pushes neighboring cards -->
 <div
   class:list={[
-    "project-slot relative shrink-0 w-[calc(100vw-3rem)] max-w-[360px] sm:max-w-none sm:w-[440px] md:w-[480px] lg:w-[calc((100vw-5rem)/3.15)] lg:min-w-[460px] h-[295px] sm:h-[335px] lg:h-[375px]",
+    "project-slot relative pointer-events-auto",
+    isBento
+      ? [bentoSpanClasses, "w-full select-none"]
+      : "shrink-0 w-[calc(100vw-3rem)] max-w-[360px] sm:max-w-none sm:w-[440px] md:w-[480px] lg:w-[calc((100vw-5rem)/3.15)] lg:min-w-[460px] h-[295px] sm:h-[335px] lg:h-[375px]",
     className,
   ]}
   data-project-slot
   data-title={title}
+  data-variant={variant}
+  data-ratio={ratio}
 >
   <!-- The Real Morphing Card: physically animates width, height, top, left, and shadow -->
   <div
     class="morph-card group/card absolute top-0 left-0 w-full h-full z-10 flex flex-col bg-transparent rounded-none cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent,#52FF1A)]"
     data-morph-card
+    data-ratio={ratio}
     role="button"
     tabindex="0"
     aria-expanded="false"
     aria-label={`Open ${title} project card`}
   >
-    <!-- Viewfinder Media Bay: 16:9 widescreen horizontal, flush top -->
+    <!-- Viewfinder Media Bay: 16:9 widescreen horizontal on carousel, full footprint on bento -->
     <div
-      class="morph-media group/media relative w-full aspect-video shrink-0 bg-neutral-200/70 dark:bg-neutral-900/90 flex items-center justify-center rounded-none"
+      class:list={[
+        "morph-media group/media relative w-full flex items-center justify-center rounded-none shrink-0",
+        isBento
+          ? "h-full bento-media overflow-hidden"
+          : "aspect-video bg-neutral-200/70 dark:bg-neutral-900/90",
+      ]}
       data-morph-media
     >
+      <!-- Quiet Index: pure minimal specimen face for Bento -->
+      {
+        isBento && formattedIndex && (
+          <span class="absolute top-3 left-3.5 z-20 font-mono text-xs font-semibold text-neutral-500 dark:text-neutral-400 select-none tracking-wider pointer-events-none">
+            {formattedIndex}
+          </span>
+        )
+      }
+
+
       {
         videoSrc ? (
           <video
@@ -95,9 +128,9 @@ const titleId = `tile-${title.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`;
             class="morph-img w-full h-full object-cover"
           />
         ) : (
-          <div class="w-full h-full flex flex-col items-center justify-center relative select-none overflow-hidden bg-neutral-100/80 dark:bg-neutral-950">
+          <div class="w-full h-full flex flex-col items-center justify-center relative select-none overflow-hidden bg-neutral-200/90 dark:bg-neutral-800/80 border border-neutral-300 dark:border-neutral-700/60">
             <svg
-              class="absolute inset-0 w-full h-full text-neutral-300/70 dark:text-neutral-800/80 pointer-events-none"
+              class="absolute inset-0 w-full h-full text-neutral-400 dark:text-neutral-500/70 pointer-events-none"
               xmlns="http://www.w3.org/2000/svg"
             >
               <line
@@ -278,35 +311,53 @@ const titleId = `tile-${title.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`;
       }
     </div>
 
-    <!-- Category Header: Always positioned BELOW the media -->
-    <div
-      class="morph-header pt-4 pb-2.5 px-3.5 sm:px-4 flex flex-col gap-2 select-none"
-    >
-      <div class="flex items-center justify-between gap-3">
-        <span
-          class="font-sans text-xs tracking-wider font-normal text-neutral-500 dark:text-neutral-400 uppercase truncate"
-          data-en={category}
-          data-id={categoryId || category}
-        >
-          {category}
-        </span>
-        {
-          metaText && (
-            <span class="morph-meta-label font-mono text-[11px] font-normal text-neutral-400 dark:text-neutral-500 shrink-0 opacity-0 group-hover/card:opacity-100 transition-opacity duration-200">
-              {metaText}
+    <!-- Category Header: Always positioned BELOW the media (carousel mode only) -->
+    {
+      !isBento && (
+        <div class="morph-header pt-4 pb-2.5 px-3.5 sm:px-4 flex flex-col gap-2 select-none">
+          <div class="flex items-center justify-between gap-3">
+            <span
+              class="font-sans text-xs tracking-wider font-normal text-neutral-500 dark:text-neutral-400 uppercase truncate"
+              data-en={category}
+              data-id={categoryId || category}
+            >
+              {category}
             </span>
-          )
-        }
-      </div>
-    </div>
+            {metaText && (
+              <span class="morph-meta-label font-mono text-[11px] font-normal text-neutral-400 dark:text-neutral-500 shrink-0 opacity-0 group-hover/card:opacity-100 transition-opacity duration-200">
+                {metaText}
+              </span>
+            )}
+          </div>
+        </div>
+      )
+    }
 
     <!-- Morphed Expanded Details: title, description, tags, action dock -->
     <div
-      class="morph-details flex flex-col px-3.5 sm:px-4 pb-5 gap-4 flex-1 opacity-0 pointer-events-none transition-opacity duration-250 ease-out overflow-visible"
+      class="morph-details flex flex-col px-3.5 sm:px-4 pb-5 gap-4 flex-1 opacity-0 pointer-events-none overflow-visible will-change-[transform,opacity]"
       data-morph-details
       data-morph-content
       aria-hidden="true"
     >
+      {
+        isBento && (
+          <div class="flex items-center justify-between gap-3 pt-3">
+            <span
+              class="font-sans text-xs tracking-wider font-normal text-neutral-500 dark:text-neutral-400 uppercase truncate"
+              data-en={category}
+              data-id={categoryId || category}
+            >
+              {category}
+            </span>
+            {metaText && (
+              <span class="font-mono text-[11px] font-normal text-neutral-400 dark:text-neutral-500 shrink-0">
+                {metaText}
+              </span>
+            )}
+          </div>
+        )
+      }
       <!-- Title: Revealed ONLY on expanded active morph (NEVER on inactive) -->
       <h4
         class:list={[
@@ -348,12 +399,12 @@ const titleId = `tile-${title.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`;
 
       <!-- Action Dock -->
       {
-        href && href !== "#" && (
+        ((href && href !== "#") || isBento) && (
           <div class="pt-4 flex items-center justify-end mt-auto">
             <ActionButton
-              href={href}
-              target="_blank"
-              rel="noopener noreferrer"
+              href={href && href !== "#" ? href : "#contact"}
+              target={href && href.startsWith("http") ? "_blank" : undefined}
+              rel={href && href.startsWith("http") ? "noopener noreferrer" : undefined}
               variant="cta-white"
               size="sm"
               font="sans"
@@ -397,8 +448,11 @@ const titleId = `tile-${title.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`;
       background-color 280ms ease;
   }
 
-  .morph-card.is-morphing {
+  .morph-card.is-morphing,
+  .morph-card.is-collapsing {
+    transition: none !important;
     will-change: width, height, top, left;
+    overflow: hidden !important;
   }
 
   .morph-media {
@@ -408,9 +462,10 @@ const titleId = `tile-${title.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`;
   /* Card shell: strictly NO ugly elevation shadows on inactive or active cards */
   .morph-card {
     box-shadow: none !important;
+    border: 1px solid transparent;
   }
 
-  .morph-card:not([aria-expanded="true"]):hover {
+  .morph-card:not([aria-expanded="true"]):not(.is-collapsing):not(.is-morphing):hover {
     transform: scale(1.025) !important;
     z-index: 30;
     box-shadow: none !important;
@@ -421,12 +476,39 @@ const titleId = `tile-${title.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`;
     box-shadow: 0 10px 25px -8px rgba(0, 0, 0, 0.55);
   }
 
-  /* Active: crisp morph layout at z-60, no ugly card drop shadow */
-  .morph-card[aria-expanded="true"] {
+  /* Active: crisp morph layout at z-60 with single outer hairline border */
+  .morph-card[aria-expanded="true"],
+  .morph-card.is-collapsing {
     transform: none !important;
     z-index: 60 !important;
     cursor: default;
     box-shadow: none !important;
+    border: 1px solid rgba(0, 0, 0, 0.14) !important;
+  }
+
+  :global(.dark) .morph-card[aria-expanded="true"],
+  :global(.dark) .morph-card.is-collapsing {
+    border-color: rgba(255, 255, 255, 0.16) !important;
+  }
+
+  /* Prevent double border touching: when card is expanded with outer border,
+     suppress outer borders on the inner media/fallback box so they don't double up */
+  .morph-card[aria-expanded="true"] .morph-media,
+  .morph-card.is-collapsing .morph-media {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  :global(.dark) .morph-card[aria-expanded="true"] .morph-media,
+  :global(.dark) .morph-card.is-collapsing .morph-media {
+    border-bottom-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .morph-card[aria-expanded="true"] .morph-media > div,
+  .morph-card.is-collapsing .morph-media > div {
+    border-top: none !important;
+    border-left: none !important;
+    border-right: none !important;
+    border-bottom: none !important;
   }
 
   .morph-status-badge {
@@ -453,6 +535,19 @@ const titleId = `tile-${title.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`;
     display: none !important;
     opacity: 0 !important;
     pointer-events: none !important;
+  }
+
+  /* Bento Media: exact aspect ratio while expanded/collapsing, 100% height at rest */
+  .morph-card[aria-expanded="true"] .bento-media,
+  .morph-card.is-collapsing .bento-media {
+    aspect-ratio: var(--bento-aspect, 1 / 1);
+    width: 100%;
+    height: auto !important;
+  }
+
+  .morph-card:not([aria-expanded="true"]):not(.is-collapsing) .bento-media {
+    height: 100% !important;
+    width: 100% !important;
   }
 
   /* Touch: media-player style controls — tap media to show logo + zoom,
