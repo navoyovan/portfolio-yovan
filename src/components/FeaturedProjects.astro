@@ -1458,6 +1458,9 @@ const { base } = Astro.props;
       const isMobile = window.innerWidth < 640;
       let leftFactor = 0;
       let rightFactor = 0;
+      let targetWidth = "";
+      let targetLeft = "0px";
+
       if (!isMobile) {
         if (isBento) {
           // Bento cards all bloom centered with uniform 125% width
@@ -1480,8 +1483,27 @@ const { base } = Astro.props;
             rightFactor = 0.125;
           }
         }
+        targetWidth = `${(1 + leftFactor + rightFactor) * 100}%`;
+        targetLeft = leftFactor === 0 ? "0px" : `${-leftFactor * 100}%`;
+      } else {
+        if (isBento) {
+          // On mobile, match the morph width to the engineering carousel card
+          const engSlot = document.querySelector(
+            "#others-scroll-container .project-slot",
+          ) as HTMLElement;
+          const engWidth = engSlot
+            ? engSlot.offsetWidth
+            : Math.min(window.innerWidth - 48, 360);
+          targetWidth = `${engWidth}px`;
+          const slotRect = slot.getBoundingClientRect();
+          const targetLeftScreen = (window.innerWidth - engWidth) / 2;
+          const targetLeftPx = Math.round(targetLeftScreen - slotRect.left);
+          targetLeft = `${targetLeftPx}px`;
+        } else {
+          targetWidth = "100%";
+          targetLeft = "0px";
+        }
       }
-      const targetWidth = `${(1 + leftFactor + rightFactor) * 100}%`;
 
       // Measure true natural height AT targetWidth so the card smoothly animates
       // directly to its exact required height without overshoot or rubberbanding.
@@ -1498,7 +1520,7 @@ const { base } = Astro.props;
 
       const expandedGeometry = {
         width: targetWidth,
-        left: leftFactor === 0 ? "0px" : `${-leftFactor * 100}%`,
+        left: targetLeft,
         top: `-${topOffset}px`,
         height: `${targetHeight}px`,
         boxShadow: "none",

@@ -14,9 +14,9 @@ const { id, title, videoSrc, imageSrc, imageAlt = title, iframeSrc } = Astro.pro
 {(iframeSrc || videoSrc || imageSrc) && (
   <dialog
     id={id}
-    class="tile-modal backdrop:bg-black/80 backdrop:backdrop-blur-md bg-transparent p-0 m-auto w-[95vw] max-w-5xl overflow-visible border-0"
+    class="tile-modal backdrop:bg-black/80 backdrop:backdrop-blur-md bg-transparent p-0 m-0 w-full h-[100dvh] max-w-none max-h-none border-0 overflow-hidden touch-none"
   >
-    <div class="flex flex-col items-center justify-center w-full h-full max-h-[90vh]">
+    <div class="tile-modal-card flex flex-col items-center justify-center w-[95vw] max-w-5xl pointer-events-auto">
       <!-- Dismiss Label -->
       <div class="w-full flex justify-end mb-2 px-1">
         <button
@@ -32,14 +32,14 @@ const { id, title, videoSrc, imageSrc, imageAlt = title, iframeSrc } = Astro.pro
       <div class="w-full bg-[#fcfbf9] dark:bg-[#0e0e0e] shadow-2xl rounded-sm overflow-hidden aspect-video flex items-center justify-center relative">
         {iframeSrc ? (
           <iframe
-            src={iframeSrc}
+            data-src={iframeSrc}
             title={title}
             class="w-full h-full border-0 select-none bg-white"
             loading="lazy"
           />
         ) : videoSrc ? (
           <video
-            src={videoSrc}
+            data-src={videoSrc}
             loop
             muted
             playsinline
@@ -48,10 +48,11 @@ const { id, title, videoSrc, imageSrc, imageAlt = title, iframeSrc } = Astro.pro
           />
         ) : imageSrc ? (
           <img
-            src={imageSrc}
+            data-src={imageSrc}
             alt={imageAlt}
             loading="lazy"
-            class="w-full h-full object-contain bg-neutral-100 dark:bg-neutral-900"
+            draggable="false"
+            class="w-full h-full object-contain bg-neutral-100 dark:bg-neutral-900 pointer-events-none select-none"
           />
         ) : null}
       </div>
@@ -60,14 +61,26 @@ const { id, title, videoSrc, imageSrc, imageAlt = title, iframeSrc } = Astro.pro
 )}
 
 <style is:global>
+  .tile-modal:not([open]) {
+    display: none !important;
+    pointer-events: none !important;
+  }
+
   .tile-modal {
     --backdrop-progress: 1;
     opacity: 0;
     transform: translateY(15px) scale(0.98);
     transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1), transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    touch-action: none;
+    -webkit-user-select: none;
+    user-select: none;
   }
   
   .tile-modal[open] {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     opacity: 1;
     transform: translateY(0) scale(1);
   }
@@ -133,13 +146,31 @@ const { id, title, videoSrc, imageSrc, imageAlt = title, iframeSrc } = Astro.pro
         if (!modalId) return;
         const dialog = document.getElementById(modalId) as HTMLDialogElement | null;
         if (dialog) {
-          dialog.showModal();
-          dialog.style.transform = 'none';
+          // Hydrate media src on demand so closed modals never make duplicate network requests
+          const modalImg = dialog.querySelector<HTMLImageElement>('img[data-src]');
+          if (modalImg && !modalImg.getAttribute('src')) {
+            modalImg.src = modalImg.getAttribute('data-src') || '';
+          }
+          const modalIframe = dialog.querySelector<HTMLIFrameElement>('iframe[data-src]');
+          if (modalIframe && !modalIframe.getAttribute('src')) {
+            modalIframe.src = modalIframe.getAttribute('data-src') || '';
+          }
           const modalVideo = dialog.querySelector<HTMLVideoElement>('video.tile-modal-video');
           if (modalVideo) {
+            if (!modalVideo.getAttribute('src')) {
+              modalVideo.src = modalVideo.getAttribute('data-src') || '';
+              modalVideo.load();
+            }
             modalVideo.currentTime = 0;
             modalVideo.play().catch(() => {});
           }
+
+          dialog.showModal();
+          dialog.style.transition = '';
+          dialog.style.transform = '';
+          dialog.style.opacity = '';
+          dialog.style.removeProperty('--backdrop-progress');
+          dialog.classList.remove('is-closing', 'is-dragging');
         }
         return;
       }
@@ -152,7 +183,7 @@ const { id, title, videoSrc, imageSrc, imageAlt = title, iframeSrc } = Astro.pro
         return;
       }
 
-      // 3. Backdrop Click
+      // 3. Backdrop Click (clicking outside the media card)
       if (target.classList.contains('tile-modal') && target.tagName === 'DIALOG') {
         closeModal(target as HTMLDialogElement);
       }
@@ -168,31 +199,39 @@ const { id, title, videoSrc, imageSrc, imageAlt = title, iframeSrc } = Astro.pro
 
       let touchStartY = 0;
       let currentY = 0;
+      let isDragging = false;
 
       d.addEventListener(
         'touchstart',
         (e) => {
+          if (e.touches.length !== 1) return;
           touchStartY = e.touches[0].clientY;
+          currentY = touchStartY;
+          isDragging = false;
           d.classList.remove('is-closing');
         },
-        { passive: false }
+        { passive: true }
       );
 
       d.addEventListener(
         'touchmove',
         (e) => {
-          if (touchStartY === 0) return;
+          if (touchStartY === 0 || e.touches.length !== 1) return;
           currentY = e.touches[0].clientY;
           const diff = currentY - touchStartY;
           if (diff > 0) {
-            e.preventDefault();
+            if (e.cancelable) e.preventDefault();
+            isDragging = true;
             d.classList.add('is-dragging');
             d.style.transition = 'none';
             d.style.transform = `translateY(${diff}px) scale(1)`;
 
-            const maxDrag = Math.min(window.innerHeight * 0.4, 220);
+            const maxDrag = Math.min(window.innerHeight * 0.45, 240);
             const progress = Math.max(0, Math.min(1, 1 - diff / maxDrag));
             d.style.setProperty('--backdrop-progress', progress.toFixed(3));
+          } else {
+            const damping = diff * 0.2;
+            d.style.transform = `translateY(${damping}px) scale(1)`;
           }
         },
         { passive: false }
@@ -203,8 +242,8 @@ const { id, title, videoSrc, imageSrc, imageAlt = title, iframeSrc } = Astro.pro
         const diff = currentY - touchStartY;
         d.classList.remove('is-dragging');
 
-        if (diff > 100) {
-          d.style.transition = 'transform 0.2s ease-out, opacity 0.2s ease-out';
+        if (isDragging && diff > 60) {
+          d.style.transition = 'transform 0.22s ease-out, opacity 0.22s ease-out';
           d.style.transform = 'translateY(100vh) scale(0.95)';
           d.style.opacity = '0';
           d.style.setProperty('--backdrop-progress', '0');
@@ -220,15 +259,17 @@ const { id, title, videoSrc, imageSrc, imageAlt = title, iframeSrc } = Astro.pro
             d.style.transform = '';
             d.style.opacity = '';
             d.style.removeProperty('--backdrop-progress');
-          }, 200);
+            d.classList.remove('is-closing', 'is-dragging');
+          }, 220);
         } else {
-          d.style.transition = 'transform 0.2s ease-out';
+          d.style.transition = 'transform 0.2s cubic-bezier(0.16, 1, 0.3, 1)';
           d.style.transform = 'translateY(0) scale(1)';
           d.style.removeProperty('--backdrop-progress');
         }
 
         touchStartY = 0;
         currentY = 0;
+        isDragging = false;
       };
 
       d.addEventListener('touchend', handleTouchEnd);
@@ -246,12 +287,11 @@ const { id, title, videoSrc, imageSrc, imageAlt = title, iframeSrc } = Astro.pro
 
       setTimeout(() => {
         dialog.close();
-        dialog.classList.remove('is-closing');
-        dialog.style.transition = 'none';
-        dialog.style.transform = 'none';
-        setTimeout(() => {
-          dialog.style.transition = '';
-        }, 50);
+        dialog.classList.remove('is-closing', 'is-dragging');
+        dialog.style.transition = '';
+        dialog.style.transform = '';
+        dialog.style.opacity = '';
+        dialog.style.removeProperty('--backdrop-progress');
       }, 200);
     }
   }
