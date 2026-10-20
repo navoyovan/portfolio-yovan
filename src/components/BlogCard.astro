@@ -1,0 +1,173 @@
+---
+import AuthorAvatar from './AuthorAvatar.astro';
+
+interface Props {
+  post: any;
+  project?: any;
+  base: string;
+}
+
+const { post, project, base } = Astro.props;
+
+const postSlug = post.id.replace(/\.[^/.]+$/, '');
+const formattedDate = post.data.publishDate.toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'short',
+  day: 'numeric',
+  timeZone: 'UTC',
+});
+
+function detectIsAi(name = '', avatar = '', role = '', explicitIsAi?: boolean): boolean {
+  if (typeof explicitIsAi === 'boolean') return explicitIsAi;
+  const n = name.toLowerCase();
+  const a = (avatar || '').toLowerCase();
+  const r = (role || '').toLowerCase();
+  if (n.includes('yovan')) return false;
+  return (
+    n.includes('antigravity') ||
+    n.includes('claude') ||
+    n.includes('gemini') ||
+    n.includes('gpt') ||
+    n.includes('openai') ||
+    n.includes('anthropic') ||
+    n.includes('deepmind') ||
+    a.includes('agy') ||
+    a.includes('cld') ||
+    r.includes('language model') ||
+    r.includes('coding agent') ||
+    r.includes('generation')
+  );
+}
+
+function getPostAuthors(p: any) {
+  if (p.data.authors && p.data.authors.length > 0) {
+    return p.data.authors.map((a: any) => {
+      if (typeof a === 'string') {
+        const isAi = detectIsAi(a);
+        return {
+          name: a,
+          isAi,
+          avatar: isAi ? '/images/agy.png' : (a.toLowerCase().includes('yovan') ? '/images/yg.png' : undefined),
+        };
+      }
+      const isAi = detectIsAi(a.name, a.avatar, a.role, a.isAi);
+      return {
+        name: a.name,
+        isAi,
+        avatar: a.avatar || (isAi ? '/images/agy.png' : (a.name.toLowerCase().includes('yovan') ? '/images/yg.png' : undefined)),
+      };
+    });
+  }
+  const name = p.data.author || 'Yovan Gunardio Darmawan';
+  const isAi = detectIsAi(name, p.data.authorAvatar, p.data.authorRole);
+  const avatar = p.data.authorAvatar || (isAi ? '/images/agy.png' : '/images/yg.png');
+  return [{ name, isAi, avatar }];
+}
+
+function resolveImageUrl(img?: string): string | undefined {
+  if (!img) return undefined;
+  if (img.startsWith('http://') || img.startsWith('https://')) return img;
+  const cleanImg = img.startsWith('/') ? img : `/${img}`;
+  return `${base}${cleanImg}`;
+}
+
+function getReadingTime(content: string = ''): string {
+  const wordsPerMinute = 200;
+  const wordCount = content.trim().split(/\s+/).filter(Boolean).length;
+  const minutes = Math.max(1, Math.ceil(wordCount / wordsPerMinute));
+  return `${minutes} min read`;
+}
+
+const postAuthors = getPostAuthors(post);
+const thumbSrc = resolveImageUrl(post.data.thumbnail || post.data.image);
+---
+
+<article class="group relative rounded-xl border border-neutral-200/80 dark:border-neutral-800/80 bg-white/70 dark:bg-neutral-950/70 hover:border-neutral-400 dark:hover:border-neutral-700 transition-[border-color,box-shadow] duration-200 shadow-sm hover:shadow-md flex flex-col">
+  {thumbSrc && (
+    <div class="relative aspect-[16/10] sm:aspect-[16/9] w-full overflow-hidden rounded-t-xl bg-neutral-100 dark:bg-neutral-900 border-b border-neutral-200/80 dark:border-neutral-800/80">
+      <img
+        src={thumbSrc}
+        alt={post.data.imageAlt || post.data.title}
+        class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]"
+        loading="lazy"
+      />
+    </div>
+  )}
+
+  <div class="p-6 sm:p-7 flex flex-col flex-1">
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <div class="flex items-center gap-2 flex-wrap">
+        <div class="flex items-center gap-1.5">
+          <div class="flex items-center -space-x-1.5">
+            {postAuthors.map((author: any, index: number) => (
+              <AuthorAvatar
+                name={author.name}
+                avatar={author.avatar}
+                isAi={author.isAi}
+                size="xs"
+                class="ring-1 ring-white dark:ring-neutral-950"
+                zIndex={postAuthors.length - index}
+              />
+            ))}
+          </div>
+          <span class="text-[11px] sm:text-xs text-neutral-700 dark:text-neutral-300 font-sans font-medium">
+            By {postAuthors.map((a: any, i: number) => (
+              <>
+                {i > 0 && i === postAuthors.length - 1 ? (
+                  <span class="text-neutral-400 dark:text-neutral-500 font-normal px-1 select-none">&</span>
+                ) : i > 0 ? (
+                  <span class="text-neutral-400 dark:text-neutral-500 font-normal mr-1 select-none">,</span>
+                ) : null}
+                <span>{a.name}</span>
+              </>
+            ))}
+          </span>
+        </div>
+        <div class="inline-flex items-center gap-1.5 text-[11px] sm:text-xs text-neutral-500 dark:text-neutral-400 font-sans whitespace-nowrap px-2 py-0.5 rounded-full bg-neutral-100 dark:bg-neutral-900 border border-neutral-200/80 dark:border-neutral-800 shrink-0">
+          <time datetime={post.data.publishDate.toISOString()}>
+            {formattedDate}
+          </time>
+          <span class="text-neutral-300 dark:text-neutral-700" aria-hidden="true">•</span>
+          <span>
+            {getReadingTime(post.body)}
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <h3 class="text-xl sm:text-2xl font-sans font-bold text-neutral-950 dark:text-white mb-2 leading-snug">
+      <a href={`${base}/blog/${postSlug}/`} class="focus:outline-none focus-visible:underline group-hover:text-neutral-700 dark:group-hover:text-neutral-200 transition-colors">
+        <span class="absolute inset-0" aria-hidden="true"></span>
+        {post.data.title}
+      </a>
+    </h3>
+
+    <p class="font-sans text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed mb-4">
+      {post.data.description}
+    </p>
+
+    <div class="flex items-end justify-between gap-3 pt-3 border-t border-neutral-200/60 dark:border-neutral-800/60 mt-auto">
+      <div class="flex items-center gap-1.5 flex-wrap min-w-0">
+        {project && (
+          <span class="inline-flex items-center text-xs px-2.5 py-0.5 rounded-full bg-neutral-800 text-neutral-200 dark:bg-neutral-200 dark:text-neutral-900 font-sans font-medium">
+            {project.data.title}
+          </span>
+        )}
+        {post.data.tags.map((tag: string) => (
+          <span class="text-xs px-2.5 py-0.5 rounded-full bg-neutral-100 dark:bg-neutral-900 border border-neutral-200/80 dark:border-neutral-800 text-neutral-600 dark:text-neutral-400 font-sans">
+            {tag}
+          </span>
+        ))}
+      </div>
+
+      <span class="inline-flex items-center font-sans font-semibold text-xs text-neutral-950 dark:text-white shrink-0 whitespace-nowrap overflow-hidden">
+        <span class="inline-flex items-center translate-x-[10px] group-hover:translate-x-0 transition-transform duration-200 ease-out">
+          <span data-en="Read article" data-id="Baca artikel">Read article</span>
+          <span class="inline-flex items-center justify-center w-3.5 ml-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-200 ease-out" aria-hidden="true">
+            →
+          </span>
+        </span>
+      </span>
+    </div>
+  </div>
+</article>
