@@ -1,5 +1,12 @@
 ---
 import ActionButton from "./ActionButton.astro";
+import { Image } from "astro:assets";
+import kioskScreenshot from "../assets/images/kiosk-screenshot.webp";
+import vendorPortalScreenshot from "../assets/images/vendor-portal-screenshot.webp";
+import spaceAvailableImg from "../assets/images/space-available-board.webp";
+import mcTextureGhostWorkspaceImg from "../assets/images/mctextureghost-workspace.webp";
+import blogSystemImg from "../assets/images/blog-system.jpg";
+import degImg from "../assets/images/DEG.webp";
 import EggLink from "./EggLink.astro";
 import MorphingProjectCard from "./MorphingProjectCard.astro";
 import HoverExpandButton from "./HoverExpandButton.astro";
@@ -398,8 +405,8 @@ const { base } = Astro.props;
         <div
           class="relative w-full aspect-[16/9] border-t border-neutral-200/80 dark:border-neutral-800 overflow-hidden bg-neutral-100 dark:bg-neutral-900"
         >
-          <img
-            src={`${base}/images/kiosk-screenshot.webp`}
+          <Image
+            src={kioskScreenshot}
             alt="Photobooth Kiosk UI Screenshot"
             width="1280"
             height="720"
@@ -580,8 +587,8 @@ const { base } = Astro.props;
         <div
           class="relative w-full aspect-[16/9] border-t border-neutral-200/80 dark:border-neutral-800 overflow-hidden bg-neutral-100 dark:bg-neutral-900"
         >
-          <img
-            src={`${base}/images/vendor-portal-screenshot.webp`}
+          <Image
+            src={vendorPortalScreenshot}
             alt="Vendor Portal UI Screenshot"
             width="1280"
             height="720"
@@ -682,7 +689,7 @@ const { base } = Astro.props;
           brand="space-available"
           category="SPACE AVAILABLE"
           categoryId="SPACE AVAILABLE"
-          imageSrc={`${base}/images/space-available-board.webp`}
+          imageSrc={spaceAvailableImg}
           description="Reserved space for upcoming collaborations, sponsorship, or your next project."
           descriptionId="Ruang kosong yang disediakan untuk kolaborasi berikutnya, sponsor, atau proyek Anda."
           status="AVAILABLE"
@@ -701,7 +708,7 @@ const { base } = Astro.props;
           brand="mctextureghost"
           category="DESKTOP & GAMEDEV"
           categoryId="DESKTOP & GAMEDEV"
-          imageSrc={`${base}/images/mctextureghost-workspace.webp`}
+          imageSrc={mcTextureGhostWorkspaceImg}
           description="Minecraft Bedrock texture workspace & ghost asset scanner with live 3D block and entity visualizers."
           descriptionId="Workspace tekstur Minecraft Bedrock dan pemindai aset ghost dengan visualisator 3D blok dan entitas live."
           tags={[
@@ -724,7 +731,7 @@ const { base } = Astro.props;
           brand="blog"
           category="CONTENT ARCHITECTURE"
           categoryId="ARSITEKTUR KONTEN"
-          imageSrc={`${base}/images/blog-system.jpg`}
+          imageSrc={blogSystemImg}
           description="Static publishing engine with Astro 5 Content Layer, human + AI co-author attribution, scroll-spy outline, and responsive markdown primitives."
           descriptionId="Engine publikasi statis dengan Astro 5 Content Layer, atribusi co-author manusia + AI, outline scroll-spy, dan primitif markdown responsif."
           tags={[
@@ -886,7 +893,7 @@ const { base } = Astro.props;
         status="STATUS_VIVUS"
         statusId="STATUS_VIVUS"
         statusVariant="neutral"
-        imageSrc={`${base}/images/DEG.webp`}
+        imageSrc={degImg}
         description="Processus checkout mobilis, reservatio spatii tempore reali, et protocolla authentificationis sine contactu."
         descriptionId="Processus checkout mobilis, reservatio spatii tempore reali, et protocolla authentificationis sine contactu."
         tags={["Mobilis", "Responsivum", "Fluxus"]}

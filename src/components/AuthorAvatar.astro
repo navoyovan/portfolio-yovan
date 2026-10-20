@@ -1,4 +1,9 @@
 ---
+import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
+import agyImg from "../assets/images/agy.png";
+import ygImg from "../assets/images/yg.png";
+
 interface Props {
   name?: string;
   avatar?: string;
@@ -35,6 +40,7 @@ const sizeClasses = {
 }[size];
 
 // Resolve image URL
+let resolvedImage: ImageMetadata | undefined;
 let resolvedSrc: string | undefined;
 
 if (avatar) {
@@ -46,9 +52,9 @@ if (avatar) {
     resolvedSrc = `${base}/${avatar}`;
   }
 } else if (isAntigravity) {
-  resolvedSrc = `${base}/images/agy.png`;
+  resolvedImage = agyImg;
 } else if (isYovan) {
-  resolvedSrc = `${base}/images/yg.png`;
+  resolvedImage = ygImg;
 }
 
 const computedStyle = [
@@ -70,7 +76,17 @@ const computedStyle = [
   title={name}
   aria-label={`Avatar of ${name}`}
 >
-  {resolvedSrc ? (
+  {resolvedImage ? (
+    <Image
+      src={resolvedImage}
+      alt={name}
+      width={80}
+      height={80}
+      class="w-full h-full object-cover object-center"
+      loading="lazy"
+      decoding="async"
+    />
+  ) : resolvedSrc ? (
     <img
       src={resolvedSrc}
       alt={name}

@@ -1,6 +1,8 @@
 ---
 // Overview.astro - Curated 01 // Overview Section
 import simpleIcons from "../data/simpleIcons.json";
+import { Image } from "astro:assets";
+import vPortrait from "../assets/images/v.webp";
 import { DitheringShader } from "./ui/dithering-shader";
 import EggLink from "./EggLink.astro";
 
@@ -110,13 +112,13 @@ const supportingStack = [
           />
         </div>
 
-        <img
-          src={`${base}/images/v.webp`}
+        <Image
+          src={vPortrait}
           alt="Portrait of Yovan Gunardio Darmawan"
           width="540"
           height="540"
           class="relative z-10 w-full max-h-[500px] sm:max-h-[540px] object-contain object-bottom select-none pt-4"
-          loading="eager"
+          loading="lazy"
           decoding="async"
           fetchpriority="high"
         />

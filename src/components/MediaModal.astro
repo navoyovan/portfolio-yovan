@@ -14,7 +14,7 @@ const { id, title, videoSrc, imageSrc, imageAlt = title, iframeSrc } = Astro.pro
 {(iframeSrc || videoSrc || imageSrc) && (
   <dialog
     id={id}
-    class="tile-modal backdrop:bg-black/80 backdrop:backdrop-blur-md bg-transparent p-0 m-0 w-full h-[100dvh] max-w-none max-h-none border-0 overflow-hidden touch-none"
+    class="tile-modal bg-transparent p-0 m-0 w-full h-[100dvh] max-w-none max-h-none border-0 overflow-hidden touch-none"
   >
     <div class="tile-modal-card flex flex-col items-center justify-center w-[95vw] max-w-5xl pointer-events-auto">
       <!-- Dismiss Label -->
@@ -99,9 +99,9 @@ const { id, title, videoSrc, imageSrc, imageAlt = title, iframeSrc } = Astro.pro
   }
 
   .tile-modal[open]::backdrop {
-    background-color: rgba(0, 0, 0, calc(0.8 * var(--backdrop-progress, 1)));
-    backdrop-filter: blur(calc(12px * var(--backdrop-progress, 1)));
-    -webkit-backdrop-filter: blur(calc(12px * var(--backdrop-progress, 1)));
+    background-color: rgba(0, 0, 0, calc(0.8 * var(--backdrop-progress, 1))) !important;
+    backdrop-filter: blur(calc(16px * var(--backdrop-progress, 1))) !important;
+    -webkit-backdrop-filter: blur(calc(16px * var(--backdrop-progress, 1))) !important;
   }
 
   .tile-modal.is-dragging::backdrop {

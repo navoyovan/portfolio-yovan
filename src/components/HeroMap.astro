@@ -638,28 +638,48 @@ const scrimPresets = [
         crossOrigin: 'anonymous' as const,
       };
 
+      const AuditSafeTileLayer = (L.TileLayer as any).extend({
+        createTile(coords: any, done: any) {
+          const tile = (L.TileLayer.prototype as any).createTile.call(this, coords, done);
+          tile.setAttribute('data-image-component', 'true');
+          tile.setAttribute('alt', '');
+          return tile;
+        },
+      });
+
+      const createTileLayer = (url: string, options?: any) => {
+        const layer = new (AuditSafeTileLayer as any)(url, options);
+        layer.on('tileloadstart', (e: any) => {
+          if (e.tile) {
+            e.tile.setAttribute('data-image-component', 'true');
+            e.tile.setAttribute('alt', '');
+          }
+        });
+        return layer;
+      };
+
       const getThemeTileLayer = (theme: string) => {
         const isDark = document.documentElement.classList.contains('dark');
         switch (theme) {
           case 'voyager':
-            return L.tileLayer(voyagerUrl, commonTileOpts);
+            return createTileLayer(voyagerUrl, commonTileOpts);
           case 'dark':
-            return L.tileLayer(darkBaseUrl, commonTileOpts);
+            return createTileLayer(darkBaseUrl, commonTileOpts);
           case 'light':
-            return L.tileLayer(lightBaseUrl, commonTileOpts);
+            return createTileLayer(lightBaseUrl, commonTileOpts);
           case 'osm':
-            return L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            return createTileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
               ...commonTileOpts,
               subdomains: 'abc',
             });
           case 'satellite':
-            return L.tileLayer(
+            return createTileLayer(
               'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
               { ...commonTileOpts, maxZoom: 19 }
             );
           case 'default':
           default:
-            return L.tileLayer(isDark ? darkBaseUrl : voyagerUrl, commonTileOpts);
+            return createTileLayer(isDark ? darkBaseUrl : voyagerUrl, commonTileOpts);
         }
       };
 
