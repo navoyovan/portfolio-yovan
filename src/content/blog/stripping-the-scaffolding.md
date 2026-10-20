@@ -119,7 +119,33 @@ Same editorial rules as the rest of the page, just applied to writing.
 
 ---
 
-## 6. The Last Mile: Astro's Dev Toolbar DDoS'd My Localhost
+## 6. The Scoreboard: From 59 to 97
+
+Visual polish does not mean much if the page feels sluggish.
+
+Earlier in the build, the numbers were rough: 59 on Performance, 85 on Accessibility. The main thread was doing too much unnecessary work, and the Largest Contentful Paint sat at 16.3 seconds.
+
+![Lighthouse audit on the older build showing a 59 Performance and 85 Accessibility score](./media/lighthouse-old.png)
+*Early baseline audit: Performance at 59 with a 16.3s LCP, and Accessibility at 85.*
+
+Most of the drag came from familiar oversights:
+
+* Raw screenshots dumped straight into the layout without responsive downscaling.
+* Font requests competing with page rendering on first load.
+* An SVG filter on the hero map forcing CPU software rasterization across the whole viewport every time Leaflet updated tiles.
+
+Getting both Performance and Accessibility up to 97 came down to systematic cleanup:
+
+* **Responsive assets.** Every project card now uses `srcset` and `sizes`. Mobile viewports fetch 15-30 kB variants instead of downloading 400+ kB desktop images, and the portrait in Overview stays eagerly loaded so LCP resolves right away.
+* **Composited map styling.** Replaced the SVG road-suppression filter with hardware-accelerated CSS filters, keeping the Leaflet layer on the GPU.
+* **Accessibility cleanup.** Removed dead interactive hitboxes, synced ARIA labels with actual visible text, and fixed low-contrast borders.
+
+![Lighthouse audit on the overhauled build showing 97 Performance, 97 Accessibility, 100 Best Practices, and 100 SEO](./media/lighthouse-new.png)
+*Overhauled build: 97 Performance, 97 Accessibility, 100 Best Practices, 100 SEO.*
+
+---
+
+## 7. The Last Mile: Astro's Dev Toolbar DDoS'd My Localhost
 
 One thing had been running in the background the whole time, and I knew it was there. I just saved fixing it for last.
 
@@ -148,32 +174,6 @@ Astro's Dev Toolbar Audit app grabs every `img` missing `data-image-component` a
 * **Clearing the Leaflet map noise:** The hero map's external slippy tiles (`HeroMap.astro`) were not being re-fetched (`perf.js` skips external URLs before calling `fetch`), but the same rule still flagged every single tile and painted **83 purple warning boxes** across the hero. Extending `L.TileLayer` to stamp `data-image-component="true"` and `alt=""` on tile creation shut the overlay up.
 
 ![Astro Dev Toolbar Audit painting 83 purple warning boxes across the Leaflet slippy map tiles in Hero](./media/hero-map-83-audit-warnings.png) Multiple *false-positive "Use the Image component" audit boxes painted over the external Leaflet map tiles in Hero.*
-
----
-
-## 7. The Scoreboard: From 59 to 97
-
-Visual polish does not mean much if the page feels sluggish.
-
-Earlier in the build, the numbers were rough: 59 on Performance, 85 on Accessibility. The main thread was doing too much unnecessary work, and the Largest Contentful Paint sat at 16.3 seconds.
-
-![Lighthouse audit on the older build showing a 59 Performance and 85 Accessibility score](./media/lighthouse-old.png)
-*Early baseline audit: Performance at 59 with a 16.3s LCP, and Accessibility at 85.*
-
-Most of the drag came from familiar oversights:
-
-* Raw screenshots dumped straight into the layout without responsive downscaling.
-* Font requests competing with page rendering on first load.
-* An SVG filter on the hero map forcing CPU software rasterization across the whole viewport every time Leaflet updated tiles.
-
-Getting both Performance and Accessibility up to 97 came down to systematic cleanup:
-
-* **Responsive assets.** Every project card now uses `srcset` and `sizes`. Mobile viewports fetch 15-30 kB variants instead of downloading 400+ kB desktop images, and the portrait in Overview stays eagerly loaded so LCP resolves right away.
-* **Composited map styling.** Replaced the SVG road-suppression filter with hardware-accelerated CSS filters, keeping the Leaflet layer on the GPU.
-* **Accessibility cleanup.** Removed dead interactive hitboxes, synced ARIA labels with actual visible text, and fixed low-contrast borders.
-
-![Lighthouse audit on the overhauled build showing 97 Performance, 97 Accessibility, 100 Best Practices, and 100 SEO](./media/lighthouse-new.png)
-*Overhauled build: 97 Performance, 97 Accessibility, 100 Best Practices, 100 SEO.*
 
 ---
 
