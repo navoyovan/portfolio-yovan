@@ -1,0 +1,977 @@
+---
+import RootLayout from '../../layouts/RootLayout.astro';
+import ActionButton from '../../components/ActionButton.astro';
+import { Image } from 'astro:assets';
+import kioskScreenshot from '../../assets/images/kiosk-screenshot.webp';
+---
+
+<RootLayout
+  title="Hypebox Rework Sandbox"
+  description="Interactive product operations showcase for the HYPE-BOX connected photobooth platform."
+  noindex={true}
+>
+  <main class="min-h-screen bg-[#08080a] text-neutral-100 w-full overflow-x-hidden">
+    <!-- Outer Portfolio Section Header (Full-width bleed with horizontal padding) -->
+    <header class="w-full px-4 sm:px-8 lg:px-12 pt-8 sm:pt-10 pb-6 border-b border-neutral-800/80 bg-[#08080a]">
+      <div class="w-full flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div class="space-y-1">
+          <h1
+            id="heading-hypebox"
+            class="text-2xl sm:text-3xl font-black tracking-tight text-white leading-none font-heading uppercase"
+          >
+            HYPE-BOX
+          </h1>
+          <p class="font-sans text-sm font-medium text-neutral-400 m-0 pt-0.5">
+            A connected photo booth platform, built from kiosk to backend.
+          </p>
+        </div>
+
+        <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full sm:w-auto">
+          <ActionButton
+            variant="secondary"
+            size="sm"
+            href="https://navoyovan.github.io/photobooth-kiosk-demo/"
+            target="_blank"
+            rel="noopener noreferrer"
+            ariaLabel="Launch Kiosk Demo (opens in new tab)"
+            class="group/btn overflow-hidden w-full sm:w-auto max-sm:!py-[11px]"
+          >
+            <div class="inline-flex items-center translate-x-[10px] group-hover/btn:translate-x-0 transition-transform duration-200 ease-out">
+              <span>Launch Kiosk Demo</span>
+              <span
+                class="inline-flex items-center justify-center w-3.5 ml-1.5 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-200 ease-out"
+                aria-hidden="true"
+              >
+                ↗
+              </span>
+            </div>
+          </ActionButton>
+          <ActionButton
+            variant="primary"
+            size="sm"
+            href="https://navoyovan.github.io/hypebox/"
+            target="_blank"
+            rel="noopener noreferrer"
+            ariaLabel="Visit Hypebox Site (opens in new tab)"
+            class="group/btn overflow-hidden w-full sm:w-auto max-sm:!py-[11px]"
+          >
+            <div class="inline-flex items-center translate-x-[10px] group-hover/btn:translate-x-0 transition-transform duration-200 ease-out">
+              <span>Visit Hypebox Site</span>
+              <span
+                class="inline-flex items-center justify-center w-3.5 ml-1.5 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-200 ease-out"
+                aria-hidden="true"
+              >
+                ↗
+              </span>
+            </div>
+          </ActionButton>
+        </div>
+      </div>
+    </header>
+
+    <!-- Unified Sanity-Style Interactive Product Showcase Stage (Full edge-to-edge bleed) -->
+    <section id="hypebox-showcase" style="--hb-accent: #f86910;" class="relative w-full bg-[#08080a] text-white overflow-hidden px-4 sm:px-8 lg:px-12 pt-10 sm:pt-14 pb-12 sm:pb-16 font-sans select-none">
+          <!-- Warm Diffused Motion-Blur Ambient Glow Backdrop -->
+          <div class="pointer-events-none absolute inset-0 overflow-hidden z-0" aria-hidden="true">
+            <!-- Deep warm red/orange core plume matching the Sanity backdrop -->
+            <div
+              class="absolute left-[28%] top-[-6%] w-[44%] h-[68%] rounded-full opacity-80 blur-[72px]"
+              style="background: radial-gradient(circle at 50% 42%, #ff2e00 0%, #c83208 42%, #591605 75%, transparent 100%); transform: rotate(-8deg);"
+            ></div>
+            <!-- Secondary warm amber/ochre wash -->
+            <div
+              class="absolute left-[34%] top-[18%] w-[36%] h-[58%] rounded-full opacity-65 blur-[85px]"
+              style="background: radial-gradient(ellipse at 50% 50%, #e06d2b 0%, #8a3812 55%, transparent 100%);"
+            ></div>
+            <!-- Cool slate atmospheric counterweight -->
+            <div
+              class="absolute left-[14%] top-[8%] w-[32%] h-[55%] rounded-full opacity-40 blur-[90px]"
+              style="background: radial-gradient(circle at 50% 50%, #3a4454 0%, #181c24 65%, transparent 100%);"
+            ></div>
+            <!-- Subtle dark vignette + noise grain feeling -->
+            <div
+              class="absolute inset-0"
+              style="background: radial-gradient(ellipse 95% 85% at 50% 38%, transparent 35%, rgba(8, 8, 10, 0.72) 78%, #08080a 100%);"
+            ></div>
+          </div>
+
+          <!-- Upper Wireframe Preview Stage (Extends down behind the 4 containers with smooth bottom fade) -->
+          <div
+            id="wireframe-window-stage"
+            class="relative z-10 w-[92%] sm:w-[86%] lg:w-[80%] mx-auto min-h-[640px] sm:min-h-[740px] pb-56 sm:pb-72 border border-white/[0.15] border-b-0 bg-black/[0.14] backdrop-blur-[1px] px-5 sm:px-10 lg:px-14 pt-5 flex flex-col overflow-hidden [mask-image:linear-gradient(to_bottom,black_0%,black_65%,transparent_100%)] [-webkit-mask-image:linear-gradient(to_bottom,black_0%,black_65%,transparent_100%)]"
+          >
+            <!-- 3D Wireframe Photostrip Starfield Canvas (Clipped to Window Bounds) -->
+            <canvas
+              id="wireframe-starfield"
+              class="pointer-events-none absolute inset-0 w-full h-full z-0"
+              aria-hidden="true"
+            ></canvas>
+
+            <!-- Wireframe Top Bar -->
+            <div class="relative z-10 flex items-center justify-between text-[10px] font-mono tracking-[0.14em] uppercase text-white/70">
+              <div class="flex items-center gap-1.5">
+                <span class="w-2.5 h-2.5 rounded-full bg-white/25 inline-block"></span>
+                <span class="w-2.5 h-2.5 rounded-full bg-white/25 inline-block"></span>
+                <span class="w-2.5 h-2.5 rounded-full bg-white/25 inline-block"></span>
+                <span class="ml-2 font-semibold text-white/50">SIMULATED DEMO</span>
+              </div>
+
+              <div class="hidden sm:flex items-center gap-4 text-white/75">
+                <span>ATTRACT</span>
+                <span>CAPTURE</span>
+                <span>PRINT</span>
+              </div>
+
+              <div class="flex items-center gap-3 text-white/75">
+                <span>BOOTH_01</span>
+                <span id="stage-queue-count">QUEUE [1]</span>
+              </div>
+            </div>
+
+            <!-- Optical Middle (Shifted Down): HYPE-BOX Logotype Display (Strictly 1-line, smaller + margined) -->
+            <div id="stage-title-wrap" class="relative z-10 flex items-center justify-center pt-48 sm:pt-60 pb-12 px-6 sm:px-12 w-full my-4">
+              <h2
+                id="stage-live-title"
+                class="font-heading font-black text-[clamp(2.15rem,7vw,5.75rem)] tracking-tight text-white uppercase select-none leading-none text-center whitespace-nowrap mx-auto px-4 drop-shadow-[0_10px_35px_rgba(0,0,0,0.8)]"
+              >
+                HYPE-BOX
+              </h2>
+            </div>
+
+            <!-- Bottom Atmospheric Gradient Wash for extra smooth blend into canvas -->
+            <div
+              class="pointer-events-none absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-[#08080a] via-[#08080a]/60 to-transparent z-10"
+              aria-hidden="true"
+            ></div>
+          </div>
+
+          <!-- Bottom 4-Column Interactive Mini-Demos (Simulated data only) -->
+          <div class="relative z-20 -mt-36 sm:-mt-52 w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 items-stretch">
+
+            <!-- DEMO 1: Photo Session -->
+            <article
+              id="demo-session"
+              data-state="idle"
+              aria-labelledby="demo-session-title"
+              class="group bg-[#121214] border border-white/[0.09] rounded-xl h-[390px] shadow-[0_20px_50px_rgba(0,0,0,0.85)] overflow-hidden flex flex-col"
+            >
+              <header class="flex items-center justify-between px-4 pt-3.5 pb-2.5 border-b border-white/[0.06]">
+                <h3 id="demo-session-title" class="text-xs font-medium text-white">Photo Session</h3>
+                <span class="text-[10px] text-neutral-500">Simulated</span>
+              </header>
+
+              <button
+                id="session-viewfinder"
+                type="button"
+                aria-label="Start simulated photo session"
+                class="relative block w-full aspect-[4/3] bg-[#0a0a0c] cursor-pointer overflow-hidden focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-[var(--hb-accent)] disabled:cursor-default"
+              >
+                <svg viewBox="0 0 400 300" class="absolute inset-0 w-full h-full pointer-events-none" fill="none" aria-hidden="true">
+                  <line x1="152.8" y1="0" x2="152.8" y2="300" stroke="rgba(255,255,255,0.06)" vector-effect="non-scaling-stroke" />
+                  <line x1="247.2" y1="0" x2="247.2" y2="300" stroke="rgba(255,255,255,0.06)" vector-effect="non-scaling-stroke" />
+                  <line x1="0" y1="114.6" x2="400" y2="114.6" stroke="rgba(255,255,255,0.06)" vector-effect="non-scaling-stroke" />
+                  <line x1="0" y1="185.4" x2="400" y2="185.4" stroke="rgba(255,255,255,0.06)" vector-effect="non-scaling-stroke" />
+                </svg>
+
+                <!-- Corner marks pick up the accent while a session is running -->
+                <span class="absolute top-3 left-3 w-3.5 h-3.5 border-t border-l border-white/25 transition-colors duration-200 ease-out group-data-[state=counting]:border-[var(--hb-accent)]" aria-hidden="true"></span>
+                <span class="absolute top-3 right-3 w-3.5 h-3.5 border-t border-r border-white/25 transition-colors duration-200 ease-out group-data-[state=counting]:border-[var(--hb-accent)]" aria-hidden="true"></span>
+                <span class="absolute bottom-3 left-3 w-3.5 h-3.5 border-b border-l border-white/25 transition-colors duration-200 ease-out group-data-[state=counting]:border-[var(--hb-accent)]" aria-hidden="true"></span>
+                <span class="absolute bottom-3 right-3 w-3.5 h-3.5 border-b border-r border-white/25 transition-colors duration-200 ease-out group-data-[state=counting]:border-[var(--hb-accent)]" aria-hidden="true"></span>
+
+
+                <span class="absolute inset-0 flex items-center justify-center pointer-events-none" aria-hidden="true">
+                  <span
+                    id="session-count"
+                    class="leading-none text-white opacity-0 transform-gpu"
+                    style="font-family: 'Neue Machina', sans-serif; font-weight: 300; font-size: 110px; margin-top: 0.22em;"
+                  ></span>
+                </span>
+
+                <span id="session-flash" class="absolute inset-0 bg-white opacity-0 pointer-events-none" aria-hidden="true"></span>
+              </button>
+
+              <div class="flex-1 px-4 py-3 flex items-center">
+                <ol class="flex items-center gap-2" aria-label="Shots">
+                  <li class="session-shot w-10 h-7 border border-white/10 transition-colors duration-200 ease-out data-[state=active]:border-[var(--hb-accent)] data-[state=done]:border-[var(--hb-accent)] data-[state=done]:bg-[color-mix(in_srgb,var(--hb-accent)_24%,transparent)]" data-state="idle"></li>
+                  <li class="session-shot w-10 h-7 border border-white/10 transition-colors duration-200 ease-out data-[state=active]:border-[var(--hb-accent)] data-[state=done]:border-[var(--hb-accent)] data-[state=done]:bg-[color-mix(in_srgb,var(--hb-accent)_24%,transparent)]" data-state="idle"></li>
+                  <li class="session-shot w-10 h-7 border border-white/10 transition-colors duration-200 ease-out data-[state=active]:border-[var(--hb-accent)] data-[state=done]:border-[var(--hb-accent)] data-[state=done]:bg-[color-mix(in_srgb,var(--hb-accent)_24%,transparent)]" data-state="idle"></li>
+                </ol>
+              </div>
+            </article>
+
+            <!-- DEMO 2: Frame Studio -->
+            <article
+              id="demo-frame"
+              aria-labelledby="demo-frame-title"
+              class="bg-[#121214] border border-white/[0.09] rounded-xl h-[390px] shadow-[0_20px_50px_rgba(0,0,0,0.85)] overflow-hidden flex flex-col"
+            >
+              <header class="flex items-center justify-between px-4 pt-3.5 pb-2.5 border-b border-white/[0.06]">
+                <h3 id="demo-frame-title" class="text-xs font-medium text-white">Frame Studio</h3>
+                <span class="text-[10px] text-neutral-500">Simulated</span>
+              </header>
+
+              <!-- Frame Studio Views (Tab Switcher) -->
+              <div id="frame-tabs" role="tablist" aria-label="Frame Studio views" class="flex items-center gap-1 px-3 pt-2 pb-1.5 border-b border-white/[0.06]">
+                <button type="button" role="tab" id="frame-tab-studio" aria-selected="true" aria-controls="frame-panel-studio" data-frame-tab="studio" class="px-2.5 py-1 rounded-md text-[11px] text-neutral-400 hover:text-white aria-selected:bg-white/[0.1] aria-selected:text-white transition-colors duration-150 ease-out cursor-pointer focus-visible:outline-2 focus-visible:outline-[var(--hb-accent)]">Studio</button>
+                <button type="button" role="tab" id="frame-tab-selector" aria-selected="false" aria-controls="frame-panel-selector" data-frame-tab="selector" class="px-2.5 py-1 rounded-md text-[11px] text-neutral-400 hover:text-white aria-selected:bg-white/[0.1] aria-selected:text-white transition-colors duration-150 ease-out cursor-pointer focus-visible:outline-2 focus-visible:outline-[var(--hb-accent)]">Selector</button>
+              </div>
+
+              <!-- Tab 1: Studio / Layout Builder -->
+              <div id="frame-panel-studio" role="tabpanel" aria-labelledby="frame-tab-studio" class="flex-1 flex flex-col min-h-0">
+                <div class="flex-1 min-h-0 flex items-center justify-center bg-[#0a0a0c]">
+                  <div
+                    id="frame-preview"
+                    class="flex flex-col p-1.5 gap-1.5 bg-[var(--hb-accent)] shadow-[0_10px_30px_rgba(0,0,0,0.6)] transition-[width,background-color] duration-300 ease-out"
+                    style="width: 52px; height: 156px;"
+                    role="img"
+                    aria-label="Frame preview"
+                  >
+                    <div id="frame-slots" class="flex-1 grid gap-1"></div>
+                    <span class="block text-center font-heading font-black text-[7px] leading-none tracking-wide text-black/80 pb-0.5">HYPE-BOX</span>
+                  </div>
+                </div>
+
+                <div class="px-4 py-3 space-y-3 border-t border-white/[0.06]">
+                  <div class="flex items-center justify-between gap-3">
+                    <span id="frame-layout-label" class="text-[11px] text-neutral-400">Layout</span>
+                    <div id="frame-layout-group" role="radiogroup" aria-labelledby="frame-layout-label" class="flex items-center gap-1 rounded-md bg-white/[0.05] p-0.5">
+                      <button type="button" role="radio" aria-checked="true" data-layout="strip" class="px-2.5 py-1 rounded text-[11px] text-neutral-400 hover:text-white aria-checked:bg-white/[0.12] aria-checked:text-white transition-colors duration-150 ease-out cursor-pointer focus-visible:outline-2 focus-visible:outline-[var(--hb-accent)]">Strip</button>
+                      <button type="button" role="radio" aria-checked="false" data-layout="grid" class="px-2.5 py-1 rounded text-[11px] text-neutral-400 hover:text-white aria-checked:bg-white/[0.12] aria-checked:text-white transition-colors duration-150 ease-out cursor-pointer focus-visible:outline-2 focus-visible:outline-[var(--hb-accent)]">Grid</button>
+                      <button type="button" role="radio" aria-checked="false" data-layout="single" class="px-2.5 py-1 rounded text-[11px] text-neutral-400 hover:text-white aria-checked:bg-white/[0.12] aria-checked:text-white transition-colors duration-150 ease-out cursor-pointer focus-visible:outline-2 focus-visible:outline-[var(--hb-accent)]">Single</button>
+                    </div>
+                  </div>
+                  <div class="flex items-center justify-between gap-3">
+                    <span id="frame-accent-label" class="text-[11px] text-neutral-400">Accent</span>
+                    <div id="frame-accent-group" role="radiogroup" aria-labelledby="frame-accent-label" class="flex items-center gap-2">
+                      <button type="button" role="radio" aria-checked="true" aria-label="Orange" data-color="#f86910" style="background:#f86910" class="w-5 h-5 rounded-full ring-offset-2 ring-offset-[#121214] aria-checked:ring-2 ring-white/70 transition-shadow duration-150 ease-out cursor-pointer focus-visible:outline-2 focus-visible:outline-white"></button>
+                      <button type="button" role="radio" aria-checked="false" aria-label="Green" data-color="#52FF1A" style="background:#52FF1A" class="w-5 h-5 rounded-full ring-offset-2 ring-offset-[#121214] aria-checked:ring-2 ring-white/70 transition-shadow duration-150 ease-out cursor-pointer focus-visible:outline-2 focus-visible:outline-white"></button>
+                      <button type="button" role="radio" aria-checked="false" aria-label="Violet" data-color="#C71AFF" style="background:#C71AFF" class="w-5 h-5 rounded-full ring-offset-2 ring-offset-[#121214] aria-checked:ring-2 ring-white/70 transition-shadow duration-150 ease-out cursor-pointer focus-visible:outline-2 focus-visible:outline-white"></button>
+                      <button type="button" role="radio" aria-checked="false" aria-label="White" data-color="#f5f5f5" style="background:#f5f5f5" class="w-5 h-5 rounded-full ring-offset-2 ring-offset-[#121214] aria-checked:ring-2 ring-white/70 transition-shadow duration-150 ease-out cursor-pointer focus-visible:outline-2 focus-visible:outline-white"></button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Tab 2: Barebone Infinite Scroll Frame Selector (Aesthetic Showcase) -->
+              <div id="frame-panel-selector" role="tabpanel" aria-labelledby="frame-tab-selector" class="hidden flex-1 min-h-0 bg-[#0a0a0c] flex relative overflow-hidden select-none pointer-events-none">
+                <!-- Left: Category Indicator Rail (Proportional editorial width, borderless) -->
+                <div class="w-[36%] shrink-0 h-full flex flex-col justify-center pl-5 sm:pl-6 pr-2 z-10 bg-[#0a0a0c]">
+                  <div class="flex flex-col gap-3">
+                    <!-- ALL (Active) with sharp accent indicator bar -->
+                    <div class="flex items-center gap-2">
+                      <span class="w-1 h-5 bg-[var(--hb-accent)] transition-colors duration-200" aria-hidden="true"></span>
+                      <span class="font-heading font-black text-xl sm:text-2xl tracking-tight text-white uppercase leading-none">ALL</span>
+                    </div>
+                    <!-- Inactive categories -->
+                    <div class="pl-3 flex flex-col gap-2.5">
+                      <span class="font-heading font-black text-xl sm:text-2xl tracking-tight text-neutral-600 uppercase leading-none translate-x-2">SPACE</span>
+                      <span class="font-heading font-black text-xl sm:text-2xl tracking-tight text-neutral-600 uppercase leading-none translate-x-2">GRID</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Right: Infinite Alternating Columns (Smooth CSS mask fade, zero hard clipping, sharp corners) -->
+                <div class="flex-1 h-full min-w-0 relative overflow-hidden selector-grid-mask">
+                  <div class="absolute inset-0 flex gap-2 -rotate-2 origin-center -my-24 h-[240%] items-center justify-center px-1">
+                    <!-- Column 1 (Scrolls Down) -->
+                    <div class="selector-col flex-1 flex flex-col gap-2 will-change-transform animate-selector-down">
+                      <!-- Set 1 -->
+                      <div class="bg-[#121214] border border-white/10 rounded-none p-1 flex flex-col aspect-[3/4] shrink-0 relative">
+                        <div class="flex-1 bg-white/[0.03] rounded-none relative overflow-hidden flex items-center justify-center">
+                          <span class="absolute top-1 left-1 w-1.5 h-1.5 border-t border-l border-white/35"></span>
+                          <span class="absolute top-1 right-1 w-1.5 h-1.5 border-t border-r border-white/35"></span>
+                          <span class="absolute bottom-1 left-1 w-1.5 h-1.5 border-b border-l border-white/35"></span>
+                          <span class="absolute bottom-1 right-1 w-1.5 h-1.5 border-b border-r border-white/35"></span>
+                          <span class="w-2 h-px bg-white/20 absolute"></span>
+                          <span class="h-2 w-px bg-white/20 absolute"></span>
+                        </div>
+                      </div>
+                      <div class="bg-[#121214] border border-[var(--hb-accent)]/60 rounded-none p-1 flex flex-col aspect-[1/2] shrink-0 relative">
+                        <div class="flex-1 bg-[var(--hb-accent)]/10 rounded-none grid grid-rows-3 gap-0.5 p-0.5">
+                          <span class="bg-black/50 rounded-none"></span>
+                          <span class="bg-black/50 rounded-none"></span>
+                          <span class="bg-black/50 rounded-none"></span>
+                        </div>
+                      </div>
+                      <div class="bg-[#121214] border border-white/10 rounded-none p-1 flex flex-col aspect-[3/4] shrink-0 relative">
+                        <div class="flex-1 bg-white/[0.03] rounded-none grid grid-cols-2 gap-0.5 p-0.5">
+                          <span class="bg-black/50 rounded-none"></span>
+                          <span class="bg-black/50 rounded-none"></span>
+                          <span class="bg-black/50 rounded-none"></span>
+                          <span class="bg-black/50 rounded-none"></span>
+                        </div>
+                      </div>
+                      <div class="bg-[#121214] border border-white/10 rounded-none p-1 flex flex-col aspect-[1/2] shrink-0 relative">
+                        <div class="flex-1 bg-white/[0.03] rounded-none grid grid-rows-3 gap-0.5 p-0.5">
+                          <span class="bg-black/50 rounded-none"></span>
+                          <span class="bg-black/50 rounded-none"></span>
+                          <span class="bg-black/50 rounded-none"></span>
+                        </div>
+                      </div>
+                      <!-- Set 2 (Exact duplicate for seamless continuous drift) -->
+                      <div class="bg-[#121214] border border-white/10 rounded-none p-1 flex flex-col aspect-[3/4] shrink-0 relative" aria-hidden="true">
+                        <div class="flex-1 bg-white/[0.03] rounded-none relative overflow-hidden flex items-center justify-center">
+                          <span class="absolute top-1 left-1 w-1.5 h-1.5 border-t border-l border-white/35"></span>
+                          <span class="absolute top-1 right-1 w-1.5 h-1.5 border-t border-r border-white/35"></span>
+                          <span class="absolute bottom-1 left-1 w-1.5 h-1.5 border-b border-l border-white/35"></span>
+                          <span class="absolute bottom-1 right-1 w-1.5 h-1.5 border-b border-r border-white/35"></span>
+                          <span class="w-2 h-px bg-white/20 absolute"></span>
+                          <span class="h-2 w-px bg-white/20 absolute"></span>
+                        </div>
+                      </div>
+                      <div class="bg-[#121214] border border-[var(--hb-accent)]/60 rounded-none p-1 flex flex-col aspect-[1/2] shrink-0 relative" aria-hidden="true">
+                        <div class="flex-1 bg-[var(--hb-accent)]/10 rounded-none grid grid-rows-3 gap-0.5 p-0.5">
+                          <span class="bg-black/50 rounded-none"></span>
+                          <span class="bg-black/50 rounded-none"></span>
+                          <span class="bg-black/50 rounded-none"></span>
+                        </div>
+                      </div>
+                      <div class="bg-[#121214] border border-white/10 rounded-none p-1 flex flex-col aspect-[3/4] shrink-0 relative" aria-hidden="true">
+                        <div class="flex-1 bg-white/[0.03] rounded-none grid grid-cols-2 gap-0.5 p-0.5">
+                          <span class="bg-black/50 rounded-none"></span>
+                          <span class="bg-black/50 rounded-none"></span>
+                          <span class="bg-black/50 rounded-none"></span>
+                          <span class="bg-black/50 rounded-none"></span>
+                        </div>
+                      </div>
+                      <div class="bg-[#121214] border border-white/10 rounded-none p-1 flex flex-col aspect-[1/2] shrink-0 relative" aria-hidden="true">
+                        <div class="flex-1 bg-white/[0.03] rounded-none grid grid-rows-3 gap-0.5 p-0.5">
+                          <span class="bg-black/50 rounded-none"></span>
+                          <span class="bg-black/50 rounded-none"></span>
+                          <span class="bg-black/50 rounded-none"></span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Column 2 (Scrolls Up) -->
+                    <div class="selector-col flex-1 flex flex-col gap-2 will-change-transform animate-selector-up">
+                      <!-- Set 1 -->
+                      <div class="bg-[#121214] border border-white/10 rounded-none p-1 flex flex-col aspect-[1/2] shrink-0 relative">
+                        <div class="flex-1 bg-white/[0.03] rounded-none grid grid-rows-3 gap-0.5 p-0.5">
+                          <span class="bg-black/50 rounded-none"></span>
+                          <span class="bg-black/50 rounded-none"></span>
+                          <span class="bg-black/50 rounded-none"></span>
+                        </div>
+                      </div>
+                      <div class="bg-[#121214] border border-white/10 rounded-none p-1 flex flex-col aspect-[3/4] shrink-0 relative">
+                        <div class="flex-1 bg-white/[0.03] rounded-none relative overflow-hidden flex items-center justify-center">
+                          <span class="absolute top-1 left-1 w-1.5 h-1.5 border-t border-l border-white/35"></span>
+                          <span class="absolute top-1 right-1 w-1.5 h-1.5 border-t border-r border-white/35"></span>
+                          <span class="absolute bottom-1 left-1 w-1.5 h-1.5 border-b border-l border-white/35"></span>
+                          <span class="absolute bottom-1 right-1 w-1.5 h-1.5 border-b border-r border-white/35"></span>
+                          <span class="w-2 h-px bg-white/20 absolute"></span>
+                          <span class="h-2 w-px bg-white/20 absolute"></span>
+                        </div>
+                      </div>
+                      <div class="bg-[#121214] border border-[var(--hb-accent)]/60 rounded-none p-1 flex flex-col aspect-[3/4] shrink-0 relative">
+                        <div class="flex-1 bg-[var(--hb-accent)]/10 rounded-none grid grid-cols-2 gap-0.5 p-0.5">
+                          <span class="bg-black/50 rounded-none"></span>
+                          <span class="bg-black/50 rounded-none"></span>
+                          <span class="bg-black/50 rounded-none"></span>
+                          <span class="bg-black/50 rounded-none"></span>
+                        </div>
+                      </div>
+                      <div class="bg-[#121214] border border-white/10 rounded-none p-1 flex flex-col aspect-[3/4] shrink-0 relative">
+                        <div class="flex-1 bg-white/[0.03] rounded-none relative overflow-hidden flex items-center justify-center">
+                          <span class="text-[6px] font-mono text-white/35 uppercase">DEMO</span>
+                        </div>
+                      </div>
+                      <!-- Set 2 (Exact duplicate for seamless continuous drift) -->
+                      <div class="bg-[#121214] border border-white/10 rounded-none p-1 flex flex-col aspect-[1/2] shrink-0 relative" aria-hidden="true">
+                        <div class="flex-1 bg-white/[0.03] rounded-none grid grid-rows-3 gap-0.5 p-0.5">
+                          <span class="bg-black/50 rounded-none"></span>
+                          <span class="bg-black/50 rounded-none"></span>
+                          <span class="bg-black/50 rounded-none"></span>
+                        </div>
+                      </div>
+                      <div class="bg-[#121214] border border-white/10 rounded-none p-1 flex flex-col aspect-[3/4] shrink-0 relative" aria-hidden="true">
+                        <div class="flex-1 bg-white/[0.03] rounded-none relative overflow-hidden flex items-center justify-center">
+                          <span class="absolute top-1 left-1 w-1.5 h-1.5 border-t border-l border-white/35"></span>
+                          <span class="absolute top-1 right-1 w-1.5 h-1.5 border-t border-r border-white/35"></span>
+                          <span class="absolute bottom-1 left-1 w-1.5 h-1.5 border-b border-l border-white/35"></span>
+                          <span class="absolute bottom-1 right-1 w-1.5 h-1.5 border-b border-r border-white/35"></span>
+                          <span class="w-2 h-px bg-white/20 absolute"></span>
+                          <span class="h-2 w-px bg-white/20 absolute"></span>
+                        </div>
+                      </div>
+                      <div class="bg-[#121214] border border-[var(--hb-accent)]/60 rounded-none p-1 flex flex-col aspect-[3/4] shrink-0 relative" aria-hidden="true">
+                        <div class="flex-1 bg-[var(--hb-accent)]/10 rounded-none grid grid-cols-2 gap-0.5 p-0.5">
+                          <span class="bg-black/50 rounded-none"></span>
+                          <span class="bg-black/50 rounded-none"></span>
+                          <span class="bg-black/50 rounded-none"></span>
+                          <span class="bg-black/50 rounded-none"></span>
+                        </div>
+                      </div>
+                      <div class="bg-[#121214] border border-white/10 rounded-none p-1 flex flex-col aspect-[3/4] shrink-0 relative" aria-hidden="true">
+                        <div class="flex-1 bg-white/[0.03] rounded-none relative overflow-hidden flex items-center justify-center">
+                          <span class="text-[6px] font-mono text-white/35 uppercase">DEMO</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Column 3 (Scrolls Down) -->
+                    <div class="selector-col flex-1 flex flex-col gap-2 will-change-transform animate-selector-down">
+                      <!-- Set 1 -->
+                      <div class="bg-[#121214] border border-white/10 rounded-none p-1 flex flex-col aspect-[3/4] shrink-0 relative">
+                        <div class="flex-1 bg-white/[0.03] rounded-none relative overflow-hidden flex items-center justify-center">
+                          <span class="absolute top-1 left-1 w-1.5 h-1.5 border-t border-l border-white/35"></span>
+                          <span class="absolute top-1 right-1 w-1.5 h-1.5 border-t border-r border-white/35"></span>
+                          <span class="absolute bottom-1 left-1 w-1.5 h-1.5 border-b border-l border-white/35"></span>
+                          <span class="absolute bottom-1 right-1 w-1.5 h-1.5 border-b border-r border-white/35"></span>
+                          <span class="w-2 h-px bg-white/20 absolute"></span>
+                          <span class="h-2 w-px bg-white/20 absolute"></span>
+                        </div>
+                      </div>
+                      <div class="bg-[#121214] border border-white/10 rounded-none p-1 flex flex-col aspect-[1/2] shrink-0 relative">
+                        <div class="flex-1 bg-white/[0.03] rounded-none grid grid-rows-3 gap-0.5 p-0.5">
+                          <span class="bg-black/50 rounded-none"></span>
+                          <span class="bg-black/50 rounded-none"></span>
+                          <span class="bg-black/50 rounded-none"></span>
+                        </div>
+                      </div>
+                      <div class="bg-[#121214] border border-[var(--hb-accent)]/60 rounded-none p-1 flex flex-col aspect-[3/4] shrink-0 relative">
+                        <div class="flex-1 bg-[var(--hb-accent)]/10 rounded-none grid grid-cols-2 gap-0.5 p-0.5">
+                          <span class="bg-black/50 rounded-none"></span>
+                          <span class="bg-black/50 rounded-none"></span>
+                          <span class="bg-black/50 rounded-none"></span>
+                          <span class="bg-black/50 rounded-none"></span>
+                        </div>
+                      </div>
+                      <div class="bg-[#121214] border border-white/10 rounded-none p-1 flex flex-col aspect-[1/2] shrink-0 relative">
+                        <div class="flex-1 bg-white/[0.03] rounded-none relative overflow-hidden flex items-center justify-center">
+                          <span class="text-[6px] font-mono text-white/35 uppercase">DEMO</span>
+                        </div>
+                      </div>
+                      <!-- Set 2 (Exact duplicate for seamless continuous drift) -->
+                      <div class="bg-[#121214] border border-white/10 rounded-none p-1 flex flex-col aspect-[3/4] shrink-0 relative" aria-hidden="true">
+                        <div class="flex-1 bg-white/[0.03] rounded-none relative overflow-hidden flex items-center justify-center">
+                          <span class="absolute top-1 left-1 w-1.5 h-1.5 border-t border-l border-white/35"></span>
+                          <span class="absolute top-1 right-1 w-1.5 h-1.5 border-t border-r border-white/35"></span>
+                          <span class="absolute bottom-1 left-1 w-1.5 h-1.5 border-b border-l border-white/35"></span>
+                          <span class="absolute bottom-1 right-1 w-1.5 h-1.5 border-b border-r border-white/35"></span>
+                          <span class="w-2 h-px bg-white/20 absolute"></span>
+                          <span class="h-2 w-px bg-white/20 absolute"></span>
+                        </div>
+                      </div>
+                      <div class="bg-[#121214] border border-white/10 rounded-none p-1 flex flex-col aspect-[1/2] shrink-0 relative" aria-hidden="true">
+                        <div class="flex-1 bg-white/[0.03] rounded-none grid grid-rows-3 gap-0.5 p-0.5">
+                          <span class="bg-black/50 rounded-none"></span>
+                          <span class="bg-black/50 rounded-none"></span>
+                          <span class="bg-black/50 rounded-none"></span>
+                        </div>
+                      </div>
+                      <div class="bg-[#121214] border border-[var(--hb-accent)]/60 rounded-none p-1 flex flex-col aspect-[3/4] shrink-0 relative" aria-hidden="true">
+                        <div class="flex-1 bg-[var(--hb-accent)]/10 rounded-none grid grid-cols-2 gap-0.5 p-0.5">
+                          <span class="bg-black/50 rounded-none"></span>
+                          <span class="bg-black/50 rounded-none"></span>
+                          <span class="bg-black/50 rounded-none"></span>
+                          <span class="bg-black/50 rounded-none"></span>
+                        </div>
+                      </div>
+                      <div class="bg-[#121214] border border-white/10 rounded-none p-1 flex flex-col aspect-[1/2] shrink-0 relative" aria-hidden="true">
+                        <div class="flex-1 bg-white/[0.03] rounded-none relative overflow-hidden flex items-center justify-center">
+                          <span class="text-[6px] font-mono text-white/35 uppercase">DEMO</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <!-- DEMO 3: Booth Operations -->
+            <article
+              id="demo-booths"
+              aria-labelledby="demo-booths-title"
+              class="bg-[#121214] border border-white/[0.09] rounded-xl h-[390px] shadow-[0_20px_50px_rgba(0,0,0,0.85)] overflow-hidden flex flex-col"
+            >
+              <header class="flex items-center justify-between px-4 pt-3.5 pb-2.5 border-b border-white/[0.06]">
+                <h3 id="demo-booths-title" class="text-xs font-medium text-white">Booth Operations</h3>
+                <span class="text-[10px] text-neutral-500">Demo data</span>
+              </header>
+
+              <div id="booth-tabs" role="tablist" aria-label="Booths" class="flex items-center gap-1 px-3 pt-3">
+                <button type="button" role="tab" id="booth-tab-bogor" aria-selected="true" aria-controls="booth-panel" data-booth="bogor" class="px-2.5 py-1 rounded-md text-[11px] text-neutral-400 hover:text-white aria-selected:bg-white/[0.1] aria-selected:text-white transition-colors duration-150 ease-out cursor-pointer focus-visible:outline-2 focus-visible:outline-[var(--hb-accent)]">Bogor-HQ</button>
+                <button type="button" role="tab" id="booth-tab-jakarta" aria-selected="false" aria-controls="booth-panel" data-booth="jakarta" class="px-2.5 py-1 rounded-md text-[11px] text-neutral-400 hover:text-white aria-selected:bg-white/[0.1] aria-selected:text-white transition-colors duration-150 ease-out cursor-pointer focus-visible:outline-2 focus-visible:outline-[var(--hb-accent)]">Jakarta-01</button>
+                <button type="button" role="tab" id="booth-tab-bandung" aria-selected="false" aria-controls="booth-panel" data-booth="bandung" class="px-2.5 py-1 rounded-md text-[11px] text-neutral-400 hover:text-white aria-selected:bg-white/[0.1] aria-selected:text-white transition-colors duration-150 ease-out cursor-pointer focus-visible:outline-2 focus-visible:outline-[var(--hb-accent)]">Bandung-02</button>
+              </div>
+
+              <div id="booth-panel" role="tabpanel" data-online="true" aria-live="polite" class="group flex-1 px-4 pt-5 pb-4 flex flex-col gap-5">
+                <div class="flex items-center gap-2">
+                  <span class="w-2 h-2 rounded-full bg-neutral-600 group-data-[online=true]:bg-[var(--hb-accent)] transition-colors duration-200 ease-out" aria-hidden="true"></span>
+                  <span id="booth-status" class="text-xs text-white">Online</span>
+                  <span id="booth-note" class="text-[11px] text-neutral-500"></span>
+                </div>
+
+                <dl class="grid grid-cols-2 gap-4">
+                  <div>
+                    <dt class="text-[11px] text-neutral-500">Sessions today</dt>
+                    <dd id="booth-sessions" class="mt-1 font-heading font-bold text-2xl text-white tabular-nums">42</dd>
+                  </div>
+                  <div>
+                    <dt class="text-[11px] text-neutral-500">Revenue</dt>
+                    <dd id="booth-revenue" class="mt-1 font-heading font-bold text-2xl text-white tabular-nums">Rp1.470.000</dd>
+                  </div>
+                </dl>
+
+                <div class="mt-auto">
+                  <div class="flex items-end gap-1.5 h-24" aria-hidden="true">
+                    <span class="booth-bar flex-1 bg-white/15 group-data-[online=true]:bg-[var(--hb-accent)] transition-[height,background-color] duration-300 ease-out" style="height: 20%"></span>
+                    <span class="booth-bar flex-1 bg-white/15 group-data-[online=true]:bg-[var(--hb-accent)] transition-[height,background-color] duration-300 ease-out" style="height: 20%"></span>
+                    <span class="booth-bar flex-1 bg-white/15 group-data-[online=true]:bg-[var(--hb-accent)] transition-[height,background-color] duration-300 ease-out" style="height: 20%"></span>
+                    <span class="booth-bar flex-1 bg-white/15 group-data-[online=true]:bg-[var(--hb-accent)] transition-[height,background-color] duration-300 ease-out" style="height: 20%"></span>
+                    <span class="booth-bar flex-1 bg-white/15 group-data-[online=true]:bg-[var(--hb-accent)] transition-[height,background-color] duration-300 ease-out" style="height: 20%"></span>
+                    <span class="booth-bar flex-1 bg-white/15 group-data-[online=true]:bg-[var(--hb-accent)] transition-[height,background-color] duration-300 ease-out" style="height: 20%"></span>
+                    <span class="booth-bar flex-1 bg-white/15 group-data-[online=true]:bg-[var(--hb-accent)] transition-[height,background-color] duration-300 ease-out" style="height: 20%"></span>
+                    <span class="booth-bar flex-1 bg-white/15 group-data-[online=true]:bg-[var(--hb-accent)] transition-[height,background-color] duration-300 ease-out" style="height: 20%"></span>
+                  </div>
+                  <p class="mt-2 text-[11px] text-neutral-500">Sessions per hour · sample figures</p>
+                </div>
+              </div>
+            </article>
+
+            <!-- DEMO 4: Connected Workflow -->
+            <article
+              id="demo-workflow"
+              aria-labelledby="demo-workflow-title"
+              class="bg-[#121214] border border-white/[0.09] rounded-xl h-[390px] shadow-[0_20px_50px_rgba(0,0,0,0.85)] overflow-hidden flex flex-col"
+            >
+              <header class="flex items-center justify-between px-4 pt-3.5 pb-2.5 border-b border-white/[0.06]">
+                <h3 id="demo-workflow-title" class="text-xs font-medium text-white">Connected Workflow</h3>
+                <span class="text-[10px] text-neutral-500">Simulated</span>
+              </header>
+
+              <ol id="workflow-steps" class="px-3 pt-3 space-y-0.5">
+                <li>
+                  <button type="button" data-step="0" data-state="active" aria-current="step" class="workflow-step w-full flex items-center gap-3 px-2 py-2 rounded-md text-left hover:bg-white/[0.04] transition-colors duration-150 ease-out cursor-pointer group focus-visible:outline-2 focus-visible:outline-[var(--hb-accent)]">
+                    <span class="w-5 h-5 shrink-0 rounded-full border border-white/20 flex items-center justify-center text-[10px] text-neutral-400 transition-colors duration-200 ease-out group-data-[state=active]:border-[var(--hb-accent)] group-data-[state=active]:text-white group-data-[state=done]:border-[var(--hb-accent)] group-data-[state=done]:bg-[var(--hb-accent)] group-data-[state=done]:text-black">1</span>
+                    <span class="text-xs text-neutral-400 group-data-[state=active]:text-white group-data-[state=done]:text-neutral-200 transition-colors duration-200 ease-out">Capture</span>
+                  </button>
+                </li>
+                <li>
+                  <button type="button" data-step="1" data-state="idle" class="workflow-step w-full flex items-center gap-3 px-2 py-2 rounded-md text-left hover:bg-white/[0.04] transition-colors duration-150 ease-out cursor-pointer group focus-visible:outline-2 focus-visible:outline-[var(--hb-accent)]">
+                    <span class="w-5 h-5 shrink-0 rounded-full border border-white/20 flex items-center justify-center text-[10px] text-neutral-400 transition-colors duration-200 ease-out group-data-[state=active]:border-[var(--hb-accent)] group-data-[state=active]:text-white group-data-[state=done]:border-[var(--hb-accent)] group-data-[state=done]:bg-[var(--hb-accent)] group-data-[state=done]:text-black">2</span>
+                    <span class="text-xs text-neutral-400 group-data-[state=active]:text-white group-data-[state=done]:text-neutral-200 transition-colors duration-200 ease-out">Process</span>
+                  </button>
+                </li>
+                <li>
+                  <button type="button" data-step="2" data-state="idle" class="workflow-step w-full flex items-center gap-3 px-2 py-2 rounded-md text-left hover:bg-white/[0.04] transition-colors duration-150 ease-out cursor-pointer group focus-visible:outline-2 focus-visible:outline-[var(--hb-accent)]">
+                    <span class="w-5 h-5 shrink-0 rounded-full border border-white/20 flex items-center justify-center text-[10px] text-neutral-400 transition-colors duration-200 ease-out group-data-[state=active]:border-[var(--hb-accent)] group-data-[state=active]:text-white group-data-[state=done]:border-[var(--hb-accent)] group-data-[state=done]:bg-[var(--hb-accent)] group-data-[state=done]:text-black">3</span>
+                    <span class="text-xs text-neutral-400 group-data-[state=active]:text-white group-data-[state=done]:text-neutral-200 transition-colors duration-200 ease-out">Sync</span>
+                  </button>
+                </li>
+                <li>
+                  <button type="button" data-step="3" data-state="idle" class="workflow-step w-full flex items-center gap-3 px-2 py-2 rounded-md text-left hover:bg-white/[0.04] transition-colors duration-150 ease-out cursor-pointer group focus-visible:outline-2 focus-visible:outline-[var(--hb-accent)]">
+                    <span class="w-5 h-5 shrink-0 rounded-full border border-white/20 flex items-center justify-center text-[10px] text-neutral-400 transition-colors duration-200 ease-out group-data-[state=active]:border-[var(--hb-accent)] group-data-[state=active]:text-white group-data-[state=done]:border-[var(--hb-accent)] group-data-[state=done]:bg-[var(--hb-accent)] group-data-[state=done]:text-black">4</span>
+                    <span class="text-xs text-neutral-400 group-data-[state=active]:text-white group-data-[state=done]:text-neutral-200 transition-colors duration-200 ease-out">Deliver</span>
+                  </button>
+                </li>
+              </ol>
+
+              <div class="mt-auto px-4 py-3 border-t border-white/[0.06] space-y-3">
+                <p id="workflow-desc" role="status" aria-live="polite" class="text-xs leading-relaxed text-neutral-300 min-h-[3.25rem]">The kiosk takes a 3-shot burst from the camera.</p>
+                <button
+                  id="workflow-next"
+                  type="button"
+                  class="px-3 py-1.5 rounded-md bg-white/[0.08] hover:bg-white/[0.15] active:scale-95 text-xs font-medium text-white transition-[transform,background-color] duration-150 ease-out cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--hb-accent)]"
+                >Next step</button>
+              </div>
+            </article>
+
+          </div>
+        </section>
+  </main>
+
+  <script>
+    const showcase = document.getElementById('hypebox-showcase') as HTMLElement | null;
+    // Respect reduced-motion preference for the demo animations
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const wait = (ms: number) => new Promise<void>((resolve) => setTimeout(resolve, ms));
+
+    // Starfield warp pulse (consumed by the starfield renderer below)
+    let warpFrames = 0;
+
+    // Shared radio/tab group helper: click + arrow-key navigation with roving tabindex
+    function bindChoiceGroup(
+      group: HTMLElement | null,
+      role: 'radio' | 'tab',
+      onSelect: (btn: HTMLElement) => void
+    ) {
+      if (!group) return;
+      const attr = role === 'radio' ? 'aria-checked' : 'aria-selected';
+      const buttons = Array.from(group.querySelectorAll<HTMLElement>(`[role="${role}"]`));
+      const select = (btn: HTMLElement, focus: boolean) => {
+        buttons.forEach((b) => {
+          const on = b === btn;
+          b.setAttribute(attr, String(on));
+          b.tabIndex = on ? 0 : -1;
+        });
+        if (focus) btn.focus();
+        onSelect(btn);
+      };
+      buttons.forEach((btn, i) => {
+        btn.tabIndex = btn.getAttribute(attr) === 'true' ? 0 : -1;
+        btn.addEventListener('click', () => select(btn, false));
+        btn.addEventListener('keydown', (e: KeyboardEvent) => {
+          let next = -1;
+          if (e.key === 'ArrowRight' || e.key === 'ArrowDown') next = (i + 1) % buttons.length;
+          if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') next = (i - 1 + buttons.length) % buttons.length;
+          if (next < 0) return;
+          e.preventDefault();
+          select(buttons[next], true);
+        });
+      });
+    }
+
+    // ───────────────────────── Demo 1: Photo Session ─────────────────────────
+    const sessionCard = document.getElementById('demo-session');
+    const viewfinderBtn = document.getElementById('session-viewfinder') as HTMLButtonElement | null;
+    const sessionCount = document.getElementById('session-count');
+    const sessionFlash = document.getElementById('session-flash');
+    const shotEls = Array.from(document.querySelectorAll<HTMLElement>('.session-shot'));
+    const TOTAL_SHOTS = 3;
+    let sessionRunning = false;
+
+    const setShots = (activeIdx: number | null, done: number) => {
+      shotEls.forEach((el, i) => {
+        el.dataset.state = i < done ? 'done' : i === activeIdx ? 'active' : 'idle';
+      });
+    };
+
+    const setSessionRunning = (running: boolean) => {
+      sessionRunning = running;
+      if (viewfinderBtn) viewfinderBtn.disabled = running;
+    };
+
+    async function runSession() {
+      if (sessionRunning || !sessionCard || !sessionCount) return;
+      setSessionRunning(true);
+      sessionCard.dataset.state = 'counting';
+      setShots(0, 0);
+
+      for (let shot = 0; shot < TOTAL_SHOTS; shot++) {
+        setShots(shot, shot);
+
+        for (let n = 3; n >= 1; n--) {
+          sessionCount.textContent = String(n);
+          if (!reduceMotion) {
+            sessionCount.animate(
+              [
+                { transform: 'scale(1.25)', opacity: 0 },
+                { transform: 'scale(1)', opacity: 0.9 }
+              ],
+              { duration: 300, easing: 'ease-out', fill: 'forwards' }
+            );
+          } else {
+            sessionCount.style.opacity = '0.9';
+          }
+          await wait(850);
+        }
+
+        sessionCount.textContent = '';
+        sessionCount.style.opacity = '0';
+        if (sessionFlash && !reduceMotion) {
+          sessionFlash.animate([{ opacity: 0.85 }, { opacity: 0 }], { duration: 280, easing: 'ease-out' });
+        }
+        setShots(null, shot + 1);
+        await wait(450);
+      }
+
+      sessionCard.dataset.state = 'complete';
+      warpFrames = 45;
+      setSessionRunning(false);
+    }
+
+    viewfinderBtn?.addEventListener('click', runSession);
+
+    // ───────────────────────── Demo 2: Frame Studio ─────────────────────────
+    const framePreview = document.getElementById('frame-preview');
+    const frameSlots = document.getElementById('frame-slots');
+
+    const frameLayouts: Record<string, { cols: number; rows: number; width: number; label: string }> = {
+      strip: { cols: 1, rows: 3, width: 52, label: 'Strip frame preview, 3 photos' },
+      grid: { cols: 2, rows: 2, width: 104, label: 'Grid frame preview, 4 photos' },
+      single: { cols: 1, rows: 1, width: 104, label: 'Single frame preview, 1 photo' }
+    };
+
+    const renderFrame = (key: string) => {
+      const layout = frameLayouts[key];
+      if (!layout || !frameSlots || !framePreview) return;
+      frameSlots.style.gridTemplateColumns = `repeat(${layout.cols}, 1fr)`;
+      frameSlots.style.gridTemplateRows = `repeat(${layout.rows}, 1fr)`;
+      frameSlots.innerHTML = Array.from({ length: layout.cols * layout.rows })
+        .map(() => '<div class="bg-[#121214]"></div>')
+        .join('');
+      framePreview.style.width = `${layout.width}px`;
+      framePreview.setAttribute('aria-label', layout.label);
+    };
+
+    renderFrame('strip');
+    bindChoiceGroup(document.getElementById('frame-layout-group'), 'radio', (btn) => {
+      renderFrame(btn.dataset.layout || 'strip');
+    });
+    bindChoiceGroup(document.getElementById('frame-accent-group'), 'radio', (btn) => {
+      if (btn.dataset.color && showcase) showcase.style.setProperty('--hb-accent', btn.dataset.color);
+    });
+
+    const framePanelStudio = document.getElementById('frame-panel-studio');
+    const framePanelSelector = document.getElementById('frame-panel-selector');
+    bindChoiceGroup(document.getElementById('frame-tabs'), 'tab', (btn) => {
+      const tab = btn.dataset.frameTab;
+      if (tab === 'studio') {
+        framePanelStudio?.classList.remove('hidden');
+        framePanelSelector?.classList.add('hidden');
+      } else if (tab === 'selector') {
+        framePanelStudio?.classList.add('hidden');
+        framePanelSelector?.classList.remove('hidden');
+      }
+    });
+
+    // ───────────────────────── Demo 3: Booth Operations ─────────────────────────
+    interface BoothSample {
+      name: string;
+      online: boolean;
+      sessions: number;
+      hourly: number[];
+      note: string;
+    }
+    const TARIFF_IDR = 35000;
+    const booths: Record<string, BoothSample> = {
+      bogor: { name: 'Bogor-HQ', online: true, sessions: 42, hourly: [2, 4, 6, 9, 7, 5, 6, 3], note: '' },
+      jakarta: { name: 'Jakarta-01', online: true, sessions: 67, hourly: [4, 7, 10, 14, 12, 9, 7, 4], note: '' },
+      bandung: { name: 'Bandung-02', online: false, sessions: 18, hourly: [3, 5, 4, 3, 2, 1, 0, 0], note: 'Last seen 2h ago' }
+    };
+    const idr = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 });
+    const boothPanel = document.getElementById('booth-panel');
+    const boothBars = Array.from(document.querySelectorAll<HTMLElement>('.booth-bar'));
+
+    const renderBooth = (key: string) => {
+      const booth = booths[key];
+      if (!booth || !boothPanel) return;
+      boothPanel.dataset.online = String(booth.online);
+      boothPanel.setAttribute('aria-labelledby', `booth-tab-${key}`);
+      const set = (id: string, text: string) => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = text;
+      };
+      set('booth-status', booth.online ? 'Online' : 'Offline');
+      set('booth-note', booth.note);
+      set('booth-sessions', String(booth.sessions));
+      set('booth-revenue', idr.format(booth.sessions * TARIFF_IDR).replace(/\s/g, ''));
+      const peak = Math.max(...booth.hourly, 1);
+      boothBars.forEach((bar, i) => {
+        bar.style.height = `${Math.max(6, Math.round((booth.hourly[i] / peak) * 100))}%`;
+      });
+    };
+
+    renderBooth('bogor');
+    bindChoiceGroup(document.getElementById('booth-tabs'), 'tab', (btn) => {
+      renderBooth(btn.dataset.booth || 'bogor');
+    });
+
+    // ───────────────────────── Demo 4: Connected Workflow ─────────────────────────
+    const workflowSteps = Array.from(document.querySelectorAll<HTMLElement>('.workflow-step'));
+    const workflowDesc = document.getElementById('workflow-desc');
+    const workflowNext = document.getElementById('workflow-next');
+    const workflowCopy = [
+      'The kiosk takes a 3-shot burst from the camera.',
+      'Shots are composed into the selected frame layout.',
+      'The session record is sent to the backend so operators can see it.',
+      'The guest receives the finished strip as a print.'
+    ];
+    let workflowIdx = 0;
+
+    const renderWorkflow = (idx: number) => {
+      workflowIdx = idx;
+      workflowSteps.forEach((el, i) => {
+        el.dataset.state = i < idx ? 'done' : i === idx ? 'active' : 'idle';
+        if (i === idx) el.setAttribute('aria-current', 'step');
+        else el.removeAttribute('aria-current');
+      });
+      if (workflowDesc) workflowDesc.textContent = workflowCopy[idx];
+      if (workflowNext) workflowNext.textContent = idx === workflowCopy.length - 1 ? 'Replay' : 'Next step';
+    };
+
+    workflowSteps.forEach((el, i) => el.addEventListener('click', () => renderWorkflow(i)));
+    workflowNext?.addEventListener('click', () => {
+      renderWorkflow(workflowIdx === workflowCopy.length - 1 ? 0 : workflowIdx + 1);
+    });
+
+    // 6. 3D Wireframe Photostrip Starfield (Ported from Hypebox 00-Idle Starfield.jsx)
+    const starfieldCanvas = document.getElementById('wireframe-starfield') as HTMLCanvasElement | null;
+    const windowStage = document.getElementById('wireframe-window-stage');
+
+    if (starfieldCanvas && windowStage) {
+      const ctx = starfieldCanvas.getContext('2d');
+      const numStrips = 16;
+      const maxDepth = 1000;
+      let focalLength = 200;
+      let speed = 1.25;
+
+      interface StripItem {
+        x: number;
+        y: number;
+        z: number;
+        baseHeight: number;
+        accent: boolean;
+      }
+
+      const getSpawnPos = () => {
+        let px = 0;
+        let py = 0;
+        do {
+          px = (Math.random() - 0.5) * 1800;
+          py = (Math.random() - 0.5) * 1400;
+        } while (Math.abs(px) < 340 && Math.abs(py) < 240);
+        return { x: px, y: py };
+      };
+
+      const strips: StripItem[] = Array.from({ length: numStrips }, (_, idx) => {
+        const pos = getSpawnPos();
+        return {
+          x: pos.x,
+          y: pos.y,
+          z: Math.random() * maxDepth,
+          baseHeight: 340 + Math.random() * 260,
+          accent: idx % 5 === 0
+        };
+      });
+
+      const resizeStarfield = () => {
+        const rect = windowStage.getBoundingClientRect();
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        starfieldCanvas.width = rect.width * dpr;
+        starfieldCanvas.height = rect.height * dpr;
+        if (ctx) ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      };
+
+      window.addEventListener('resize', resizeStarfield);
+      resizeStarfield();
+
+      const drawWireframeStrip = (
+        c: CanvasRenderingContext2D,
+        w: number,
+        h: number,
+        alpha: number
+      ) => {
+        const x0 = -w / 2;
+        const y0 = -h / 2;
+
+        c.globalAlpha = alpha;
+        c.lineWidth = 1;
+        c.strokeStyle = 'rgba(255, 255, 255, 0.22)';
+        c.strokeRect(x0, y0, w, h);
+      };
+
+      const renderStarfield = () => {
+        if (!ctx) return;
+        // Save current canvas transform and clear the entire backing buffer completely
+        ctx.save();
+        ctx.setTransform(1, 0, 0, 1, 0, 0);
+        ctx.clearRect(0, 0, starfieldCanvas.width, starfieldCanvas.height);
+        ctx.restore();
+
+        const width = windowStage.clientWidth;
+        const height = windowStage.clientHeight;
+
+        // Origin aligned further down with the lower logotype position
+        const centerX = width / 2;
+        const centerY = height * 0.58;
+
+        if (warpFrames > 0) {
+          warpFrames--;
+          speed += (3.8 - speed) * 0.15;
+          focalLength += (320 - focalLength) * 0.1;
+        } else {
+          speed += (1.25 - speed) * 0.08;
+          focalLength += (200 - focalLength) * 0.08;
+        }
+
+        strips.sort((a, b) => b.z - a.z);
+
+        for (const strip of strips) {
+          strip.z -= speed;
+
+          if (strip.z <= -90) {
+            const pos = getSpawnPos();
+            strip.x = pos.x;
+            strip.y = pos.y;
+            strip.z = maxDepth + (Math.random() * 140 - 40);
+            strip.baseHeight = 340 + Math.random() * 260;
+          }
+
+          const perspective = focalLength / (focalLength + strip.z);
+          const projectedX = centerX + strip.x * perspective;
+          const projectedY = centerY + strip.y * perspective;
+          const scale = Math.max(0.01, perspective);
+
+          // 2*strip aspect ratio (1 strip = 2:6 [1:3], 2*strip = 4:6 [2:3])
+          const scaledHeight = strip.baseHeight * scale;
+          const scaledWidth = scaledHeight * (2 / 3);
+
+          let opacity = 0.85;
+          if (strip.z > maxDepth - 450) {
+            opacity *= (maxDepth - strip.z) / 450;
+          }
+          if (strip.z < 40) {
+            opacity *= Math.max(0, (90 + strip.z) / 130);
+          }
+
+          if (
+            opacity > 0.01 &&
+            projectedX + scaledWidth > 0 &&
+            projectedX - scaledWidth < width &&
+            projectedY + scaledHeight > 0 &&
+            projectedY - scaledHeight < height
+          ) {
+            ctx.save();
+            ctx.translate(projectedX, projectedY);
+            drawWireframeStrip(ctx, scaledWidth, scaledHeight, Math.max(0, opacity));
+            ctx.restore();
+          }
+        }
+
+        requestAnimationFrame(renderStarfield);
+      };
+
+      requestAnimationFrame(renderStarfield);
+    }
+
+  </script>
+
+  <style>
+    .selector-grid-mask {
+      mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);
+    }
+    @keyframes selector-drift-down {
+      0% {
+        transform: translateY(-50%);
+      }
+      100% {
+        transform: translateY(0%);
+      }
+    }
+    @keyframes selector-drift-up {
+      0% {
+        transform: translateY(0%);
+      }
+      100% {
+        transform: translateY(-50%);
+      }
+    }
+    .animate-selector-down {
+      animation: selector-drift-down 22s linear infinite;
+    }
+    .animate-selector-up {
+      animation: selector-drift-up 18s linear infinite;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .animate-selector-down,
+      .animate-selector-up {
+        animation: none !important;
+      }
+    }
+  </style>
+</RootLayout>

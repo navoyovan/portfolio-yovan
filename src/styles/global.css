@@ -45,6 +45,7 @@
 
   --color-accent: var(--accent-color, #52FF1A);
   --color-accent-hover: var(--accent-hover, #42e012);
+  --color-accent-complementary: var(--accent-complementary, #C71AFF);
 
   --color-safe: #10B981;
   --color-safe-hover: #059669;
@@ -136,6 +137,7 @@
 
   --accent-color: #52FF1A;
   --accent-hover: #42e012;
+  --accent-complementary: #C71AFF;
   --terminal-green: #52FF1A;
 
   --transition-normal: 0.4s cubic-bezier(0.16, 1, 0.3, 1);

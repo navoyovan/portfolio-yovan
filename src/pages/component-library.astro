@@ -378,7 +378,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
             </h2>
           </div>
           <!-- 01.0 / Core Brand & Surface Tokens -->
-          <div class="grid grid-cols-2 sm:grid-cols-4 gap-6">
+          <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6">
             <!-- Neon Green Accent (Secret Interactive Swatch) -->
             <div
               class="relative flex flex-col gap-2"
@@ -440,8 +440,8 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
                     {
                       [
                         { name: "Neon Green", hex: "#52FF1A" },
-                        { name: "Electric Yellow", hex: "#FFE500" },
-                        { name: "Hot Coral", hex: "#FF5C3A" },
+                        { name: "Electric Lime", hex: "#C2FE0C" },
+                        { name: "Blaze Orange", hex: "#FF3E00" },
                         { name: "Sky Cyan", hex: "#00E5FF" },
                         { name: "Lavender Pulse", hex: "#C87DFF" },
                         { name: "Neon Pink", hex: "#FF3CAC" },
@@ -472,6 +472,26 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
                     }
                   </ul>
                 </div>
+              </div>
+            </div>
+
+            <!-- Accent Complementary Token -->
+            <div class="flex flex-col gap-2">
+              <div
+                id="accent-complementary-chip"
+                class="w-full aspect-video bg-[#C71AFF] border border-black/10 shadow-[0_0_20px_rgba(199,26,255,0.25)] transition-colors duration-200"
+              >
+              </div>
+              <div class="flex flex-col">
+                <span
+                  class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100"
+                  >Accent Complementary</span
+                >
+                <span
+                  id="accent-complementary-hex"
+                  class="font-mono text-[11px] text-neutral-500"
+                  >--color-accent-complementary • #C71AFF</span
+                >
               </div>
             </div>
 
@@ -3950,6 +3970,8 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
       } else {
         document.documentElement.style.setProperty("--color-accent", hex);
         document.documentElement.style.setProperty("--color-accent-hover", hex);
+        document.documentElement.style.setProperty("--color-accent-complementary", hex === "#52FF1A" ? "#C71AFF" : (hex === "#C2FE0C" ? "#490CFE" : (hex === "#FF3E00" ? "#00C1FF" : (hex === "#00E5FF" ? "#FF1A00" : (hex === "#C87DFF" ? "#95FF7D" : (hex === "#FF3CAC" ? "#3CFF8F" : "#0055FF"))))));
+        document.documentElement.style.setProperty("--accent-complementary", hex === "#52FF1A" ? "#C71AFF" : (hex === "#C2FE0C" ? "#490CFE" : (hex === "#FF3E00" ? "#00C1FF" : (hex === "#00E5FF" ? "#FF1A00" : (hex === "#C87DFF" ? "#95FF7D" : (hex === "#FF3CAC" ? "#3CFF8F" : "#0055FF"))))));
         document.documentElement.style.setProperty("--accent-color", hex);
         document.documentElement.style.setProperty("--accent-hover", hex);
         document.documentElement.style.setProperty("--terminal-green", hex);
@@ -3963,6 +3985,16 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
       }
       if (nameEl) {
         nameEl.textContent = `Accent ${name.replace("Accent ", "")}`;
+      }
+      const compHex = hex === "#52FF1A" ? "#C71AFF" : (hex === "#C2FE0C" ? "#490CFE" : (hex === "#FF3E00" ? "#00C1FF" : (hex === "#00E5FF" ? "#FF1A00" : (hex === "#C87DFF" ? "#95FF7D" : (hex === "#FF3CAC" ? "#3CFF8F" : "#0055FF")))));
+      const compChip = document.getElementById("accent-complementary-chip");
+      const compHexEl = document.getElementById("accent-complementary-hex");
+      if (compChip) {
+        compChip.style.backgroundColor = compHex;
+        compChip.style.boxShadow = `0 0 20px ${compHex}4D`;
+      }
+      if (compHexEl) {
+        compHexEl.textContent = `--color-accent-complementary • ${compHex}`;
       }
     };
 
