@@ -1,8 +1,6 @@
 ---
 import RootLayout from '../../layouts/RootLayout.astro';
 import ActionButton from '../../components/ActionButton.astro';
-import { Image } from 'astro:assets';
-import kioskScreenshot from '../../assets/images/kiosk-screenshot.webp';
 ---
 
 <RootLayout
@@ -11,64 +9,6 @@ import kioskScreenshot from '../../assets/images/kiosk-screenshot.webp';
   noindex={true}
 >
   <main class="min-h-screen bg-[#08080a] text-neutral-100 w-full overflow-x-hidden">
-    <!-- Outer Portfolio Section Header (Full-width bleed with horizontal padding) -->
-    <header class="w-full px-4 sm:px-8 lg:px-12 pt-8 sm:pt-10 pb-6 border-b border-neutral-800/80 bg-[#08080a]">
-      <div class="w-full flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div class="space-y-1">
-          <h1
-            id="heading-hypebox"
-            class="text-2xl sm:text-3xl font-black tracking-tight text-white leading-none font-heading uppercase"
-          >
-            HYPE-BOX
-          </h1>
-          <p class="font-sans text-sm font-medium text-neutral-400 m-0 pt-0.5">
-            A connected photo booth platform, built from kiosk to backend.
-          </p>
-        </div>
-
-        <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full sm:w-auto">
-          <ActionButton
-            variant="secondary"
-            size="sm"
-            href="https://navoyovan.github.io/photobooth-kiosk-demo/"
-            target="_blank"
-            rel="noopener noreferrer"
-            ariaLabel="Launch Kiosk Demo (opens in new tab)"
-            class="group/btn overflow-hidden w-full sm:w-auto max-sm:!py-[11px]"
-          >
-            <div class="inline-flex items-center translate-x-[10px] group-hover/btn:translate-x-0 transition-transform duration-200 ease-out">
-              <span>Launch Kiosk Demo</span>
-              <span
-                class="inline-flex items-center justify-center w-3.5 ml-1.5 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-200 ease-out"
-                aria-hidden="true"
-              >
-                ↗
-              </span>
-            </div>
-          </ActionButton>
-          <ActionButton
-            variant="primary"
-            size="sm"
-            href="https://navoyovan.github.io/hypebox/"
-            target="_blank"
-            rel="noopener noreferrer"
-            ariaLabel="Visit Hypebox Site (opens in new tab)"
-            class="group/btn overflow-hidden w-full sm:w-auto max-sm:!py-[11px]"
-          >
-            <div class="inline-flex items-center translate-x-[10px] group-hover/btn:translate-x-0 transition-transform duration-200 ease-out">
-              <span>Visit Hypebox Site</span>
-              <span
-                class="inline-flex items-center justify-center w-3.5 ml-1.5 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-200 ease-out"
-                aria-hidden="true"
-              >
-                ↗
-              </span>
-            </div>
-          </ActionButton>
-        </div>
-      </div>
-    </header>
-
     <!-- Unified Sanity-Style Interactive Product Showcase Stage (Full edge-to-edge bleed) -->
     <section id="hypebox-showcase" style="--hb-accent: #f86910;" class="relative w-full bg-[#08080a] text-white overflow-hidden px-4 sm:px-8 lg:px-12 pt-10 sm:pt-14 pb-12 sm:pb-16 font-sans select-none">
           <!-- Warm Diffused Motion-Blur Ambient Glow Backdrop -->
@@ -109,17 +49,9 @@ import kioskScreenshot from '../../assets/images/kiosk-screenshot.webp';
 
             <!-- Wireframe Top Bar -->
             <div class="relative z-10 flex items-center justify-between text-[10px] font-mono tracking-[0.14em] uppercase text-white/70">
-              <div class="flex items-center gap-1.5">
-                <span class="w-2.5 h-2.5 rounded-full bg-white/25 inline-block"></span>
-                <span class="w-2.5 h-2.5 rounded-full bg-white/25 inline-block"></span>
-                <span class="w-2.5 h-2.5 rounded-full bg-white/25 inline-block"></span>
-                <span class="ml-2 font-semibold text-white/50">SIMULATED DEMO</span>
-              </div>
-
-              <div class="hidden sm:flex items-center gap-4 text-white/75">
-                <span>ATTRACT</span>
-                <span>CAPTURE</span>
-                <span>PRINT</span>
+              <div class="flex items-center gap-4 text-white/75">
+                <span>CAMERA [READY]</span>
+                <span>PRINTER [READY]</span>
               </div>
 
               <div class="flex items-center gap-3 text-white/75">
@@ -129,13 +61,58 @@ import kioskScreenshot from '../../assets/images/kiosk-screenshot.webp';
             </div>
 
             <!-- Optical Middle (Shifted Down): HYPE-BOX Logotype Display (Strictly 1-line, smaller + margined) -->
-            <div id="stage-title-wrap" class="relative z-10 flex items-center justify-center pt-48 sm:pt-60 pb-12 px-6 sm:px-12 w-full my-4">
-              <h2
+            <div id="stage-title-wrap" class="relative z-10 flex flex-col items-center justify-center pt-48 sm:pt-60 pb-12 px-6 sm:px-12 w-full my-4">
+              <h1
                 id="stage-live-title"
                 class="font-heading font-black text-[clamp(2.15rem,7vw,5.75rem)] tracking-tight text-white uppercase select-none leading-none text-center whitespace-nowrap mx-auto px-4 drop-shadow-[0_10px_35px_rgba(0,0,0,0.8)]"
               >
                 HYPE-BOX
-              </h2>
+              </h1>
+
+              <p class="font-mono text-[10px] sm:text-[11px] tracking-[0.14em] uppercase text-white/70 mt-4 text-center max-w-xl mx-auto">
+                A connected photo booth platform, built from kiosk to backend.
+              </p>
+
+              <div class="flex flex-col sm:flex-row items-center gap-3 mt-6 pointer-events-auto">
+                <ActionButton
+                  variant="secondary"
+                  size="sm"
+                  href="https://navoyovan.github.io/photobooth-kiosk-demo/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  ariaLabel="Launch Kiosk Demo (opens in new tab)"
+                  class="group/btn overflow-hidden w-full sm:w-auto max-sm:!py-[11px]"
+                >
+                  <div class="inline-flex items-center translate-x-[10px] group-hover/btn:translate-x-0 transition-transform duration-200 ease-out">
+                    <span>Launch Kiosk Demo</span>
+                    <span
+                      class="inline-flex items-center justify-center w-3.5 ml-1.5 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-200 ease-out"
+                      aria-hidden="true"
+                    >
+                      ↗
+                    </span>
+                  </div>
+                </ActionButton>
+                <ActionButton
+                  variant="secondary"
+                  size="sm"
+                  href="https://navoyovan.github.io/hypebox/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  ariaLabel="Visit Hypebox Site (opens in new tab)"
+                  class="group/btn overflow-hidden w-full sm:w-auto max-sm:!py-[11px]"
+                >
+                  <div class="inline-flex items-center translate-x-[10px] group-hover/btn:translate-x-0 transition-transform duration-200 ease-out">
+                    <span>Visit Hypebox Site</span>
+                    <span
+                      class="inline-flex items-center justify-center w-3.5 ml-1.5 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-200 ease-out"
+                      aria-hidden="true"
+                    >
+                      ↗
+                    </span>
+                  </div>
+                </ActionButton>
+              </div>
             </div>
 
             <!-- Bottom Atmospheric Gradient Wash for extra smooth blend into canvas -->
@@ -183,8 +160,7 @@ import kioskScreenshot from '../../assets/images/kiosk-screenshot.webp';
                 <span class="absolute inset-0 flex items-center justify-center pointer-events-none" aria-hidden="true">
                   <span
                     id="session-count"
-                    class="leading-none text-white opacity-0 transform-gpu"
-                    style="font-family: 'Neue Machina', sans-serif; font-weight: 300; font-size: 110px; margin-top: 0.22em;"
+                    class="session-countdown-numeral font-light text-[110px] mt-[0.22em] leading-none text-white opacity-0 transform-gpu"
                   ></span>
                 </span>
 
@@ -200,7 +176,7 @@ import kioskScreenshot from '../../assets/images/kiosk-screenshot.webp';
               </div>
             </article>
 
-            <!-- DEMO 2: Frame Studio -->
+            <!-- DEMO 2: Frame Selector -->
             <article
               id="demo-frame"
               aria-labelledby="demo-frame-title"
@@ -211,267 +187,136 @@ import kioskScreenshot from '../../assets/images/kiosk-screenshot.webp';
                 <span class="text-[10px] text-neutral-500">Simulated</span>
               </header>
 
-              <!-- Frame Studio Views (Tab Switcher) -->
-              <div id="frame-tabs" role="tablist" aria-label="Frame Studio views" class="flex items-center gap-1 px-3 pt-2 pb-1.5 border-b border-white/[0.06]">
-                <button type="button" role="tab" id="frame-tab-studio" aria-selected="true" aria-controls="frame-panel-studio" data-frame-tab="studio" class="px-2.5 py-1 rounded-md text-[11px] text-neutral-400 hover:text-white aria-selected:bg-white/[0.1] aria-selected:text-white transition-colors duration-150 ease-out cursor-pointer focus-visible:outline-2 focus-visible:outline-[var(--hb-accent)]">Studio</button>
-                <button type="button" role="tab" id="frame-tab-selector" aria-selected="false" aria-controls="frame-panel-selector" data-frame-tab="selector" class="px-2.5 py-1 rounded-md text-[11px] text-neutral-400 hover:text-white aria-selected:bg-white/[0.1] aria-selected:text-white transition-colors duration-150 ease-out cursor-pointer focus-visible:outline-2 focus-visible:outline-[var(--hb-accent)]">Selector</button>
-              </div>
+              <!-- Infinite Scroll Frame Studio (Aesthetic Showcase) -->
+              <div id="frame-panel-selector" class="flex-1 min-h-0 bg-[#0a0a0c] relative overflow-hidden select-none pointer-events-none">
+                <!-- Left: Category Rail -->
+                <div class="absolute left-0 inset-y-0 w-[28%] z-20 flex flex-col justify-center pl-4 bg-gradient-to-r from-[#0a0a0c] via-[#0a0a0c]/90 to-transparent"></div>
 
-              <!-- Tab 1: Studio / Layout Builder -->
-              <div id="frame-panel-studio" role="tabpanel" aria-labelledby="frame-tab-studio" class="flex-1 flex flex-col min-h-0">
-                <div class="flex-1 min-h-0 flex items-center justify-center bg-[#0a0a0c]">
-                  <div
-                    id="frame-preview"
-                    class="flex flex-col p-1.5 gap-1.5 bg-[var(--hb-accent)] shadow-[0_10px_30px_rgba(0,0,0,0.6)] transition-[width,background-color] duration-300 ease-out"
-                    style="width: 52px; height: 156px;"
-                    role="img"
-                    aria-label="Frame preview"
-                  >
-                    <div id="frame-slots" class="flex-1 grid gap-1"></div>
-                    <span class="block text-center font-heading font-black text-[7px] leading-none tracking-wide text-black/80 pb-0.5">HYPE-BOX</span>
-                  </div>
-                </div>
-
-                <div class="px-4 py-3 space-y-3 border-t border-white/[0.06]">
-                  <div class="flex items-center justify-between gap-3">
-                    <span id="frame-layout-label" class="text-[11px] text-neutral-400">Layout</span>
-                    <div id="frame-layout-group" role="radiogroup" aria-labelledby="frame-layout-label" class="flex items-center gap-1 rounded-md bg-white/[0.05] p-0.5">
-                      <button type="button" role="radio" aria-checked="true" data-layout="strip" class="px-2.5 py-1 rounded text-[11px] text-neutral-400 hover:text-white aria-checked:bg-white/[0.12] aria-checked:text-white transition-colors duration-150 ease-out cursor-pointer focus-visible:outline-2 focus-visible:outline-[var(--hb-accent)]">Strip</button>
-                      <button type="button" role="radio" aria-checked="false" data-layout="grid" class="px-2.5 py-1 rounded text-[11px] text-neutral-400 hover:text-white aria-checked:bg-white/[0.12] aria-checked:text-white transition-colors duration-150 ease-out cursor-pointer focus-visible:outline-2 focus-visible:outline-[var(--hb-accent)]">Grid</button>
-                      <button type="button" role="radio" aria-checked="false" data-layout="single" class="px-2.5 py-1 rounded text-[11px] text-neutral-400 hover:text-white aria-checked:bg-white/[0.12] aria-checked:text-white transition-colors duration-150 ease-out cursor-pointer focus-visible:outline-2 focus-visible:outline-[var(--hb-accent)]">Single</button>
-                    </div>
-                  </div>
-                  <div class="flex items-center justify-between gap-3">
-                    <span id="frame-accent-label" class="text-[11px] text-neutral-400">Accent</span>
-                    <div id="frame-accent-group" role="radiogroup" aria-labelledby="frame-accent-label" class="flex items-center gap-2">
-                      <button type="button" role="radio" aria-checked="true" aria-label="Orange" data-color="#f86910" style="background:#f86910" class="w-5 h-5 rounded-full ring-offset-2 ring-offset-[#121214] aria-checked:ring-2 ring-white/70 transition-shadow duration-150 ease-out cursor-pointer focus-visible:outline-2 focus-visible:outline-white"></button>
-                      <button type="button" role="radio" aria-checked="false" aria-label="Green" data-color="#52FF1A" style="background:#52FF1A" class="w-5 h-5 rounded-full ring-offset-2 ring-offset-[#121214] aria-checked:ring-2 ring-white/70 transition-shadow duration-150 ease-out cursor-pointer focus-visible:outline-2 focus-visible:outline-white"></button>
-                      <button type="button" role="radio" aria-checked="false" aria-label="Violet" data-color="#C71AFF" style="background:#C71AFF" class="w-5 h-5 rounded-full ring-offset-2 ring-offset-[#121214] aria-checked:ring-2 ring-white/70 transition-shadow duration-150 ease-out cursor-pointer focus-visible:outline-2 focus-visible:outline-white"></button>
-                      <button type="button" role="radio" aria-checked="false" aria-label="White" data-color="#f5f5f5" style="background:#f5f5f5" class="w-5 h-5 rounded-full ring-offset-2 ring-offset-[#121214] aria-checked:ring-2 ring-white/70 transition-shadow duration-150 ease-out cursor-pointer focus-visible:outline-2 focus-visible:outline-white"></button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Tab 2: Barebone Infinite Scroll Frame Selector (Aesthetic Showcase) -->
-              <div id="frame-panel-selector" role="tabpanel" aria-labelledby="frame-tab-selector" class="hidden flex-1 min-h-0 bg-[#0a0a0c] flex relative overflow-hidden select-none pointer-events-none">
-                <!-- Left: Category Indicator Rail (Proportional editorial width, borderless) -->
-                <div class="w-[36%] shrink-0 h-full flex flex-col justify-center pl-5 sm:pl-6 pr-2 z-10 bg-[#0a0a0c]">
-                  <div class="flex flex-col gap-3">
-                    <!-- ALL (Active) with sharp accent indicator bar -->
-                    <div class="flex items-center gap-2">
-                      <span class="w-1 h-5 bg-[var(--hb-accent)] transition-colors duration-200" aria-hidden="true"></span>
-                      <span class="font-heading font-black text-xl sm:text-2xl tracking-tight text-white uppercase leading-none">ALL</span>
-                    </div>
-                    <!-- Inactive categories -->
-                    <div class="pl-3 flex flex-col gap-2.5">
-                      <span class="font-heading font-black text-xl sm:text-2xl tracking-tight text-neutral-600 uppercase leading-none translate-x-2">SPACE</span>
-                      <span class="font-heading font-black text-xl sm:text-2xl tracking-tight text-neutral-600 uppercase leading-none translate-x-2">GRID</span>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Right: Infinite Alternating Columns (Smooth CSS mask fade, zero hard clipping, sharp corners) -->
-                <div class="flex-1 h-full min-w-0 relative overflow-hidden selector-grid-mask">
-                  <div class="absolute inset-0 flex gap-2 -rotate-2 origin-center -my-24 h-[240%] items-center justify-center px-1">
+                <!-- Right: Infinite Alternating Columns (Continuous Flow, Zero Blanks) -->
+                <div class="selector-viewport absolute inset-0 pl-[28%] overflow-hidden flex justify-center z-10">
+                  <div class="w-[125%] flex gap-2 -rotate-2 origin-center justify-center">
                     <!-- Column 1 (Scrolls Down) -->
-                    <div class="selector-col flex-1 flex flex-col gap-2 will-change-transform animate-selector-down">
-                      <!-- Set 1 -->
-                      <div class="bg-[#121214] border border-white/10 rounded-none p-1 flex flex-col aspect-[3/4] shrink-0 relative">
-                        <div class="flex-1 bg-white/[0.03] rounded-none relative overflow-hidden flex items-center justify-center">
-                          <span class="absolute top-1 left-1 w-1.5 h-1.5 border-t border-l border-white/35"></span>
-                          <span class="absolute top-1 right-1 w-1.5 h-1.5 border-t border-r border-white/35"></span>
-                          <span class="absolute bottom-1 left-1 w-1.5 h-1.5 border-b border-l border-white/35"></span>
-                          <span class="absolute bottom-1 right-1 w-1.5 h-1.5 border-b border-r border-white/35"></span>
-                          <span class="w-2 h-px bg-white/20 absolute"></span>
-                          <span class="h-2 w-px bg-white/20 absolute"></span>
+                    <div class="selector-col flex-1 flex flex-col gap-2 will-change-transform">
+                      <!-- Set 1 (6 items) -->
+                      <div class="w-full shrink-0 bg-[#121214] border border-white/10 p-1 flex flex-col aspect-[3/4] relative">
+                        <div class="flex-1 bg-white/[0.04]"></div>
+                      </div>
+                      <div class="w-full shrink-0 bg-[#121214] border border-white/10 p-1 flex flex-col aspect-[1/2] relative">
+                        <div class="flex-1 bg-white/[0.04] grid grid-rows-3 gap-0.5 p-0.5">
+                          <span class="bg-black/50"></span>
+                          <span class="bg-black/50"></span>
+                          <span class="bg-black/50"></span>
                         </div>
                       </div>
-                      <div class="bg-[#121214] border border-[var(--hb-accent)]/60 rounded-none p-1 flex flex-col aspect-[1/2] shrink-0 relative">
-                        <div class="flex-1 bg-[var(--hb-accent)]/10 rounded-none grid grid-rows-3 gap-0.5 p-0.5">
-                          <span class="bg-black/50 rounded-none"></span>
-                          <span class="bg-black/50 rounded-none"></span>
-                          <span class="bg-black/50 rounded-none"></span>
+                      <div class="w-full shrink-0 bg-[#121214] border border-[var(--hb-accent)]/60 p-1 flex flex-col aspect-[3/4] relative">
+                        <div class="flex-1 bg-[var(--hb-accent)]/15 grid grid-cols-2 gap-0.5 p-0.5">
+                          <span class="bg-black/50"></span>
+                          <span class="bg-black/50"></span>
+                          <span class="bg-black/50"></span>
+                          <span class="bg-black/50"></span>
                         </div>
                       </div>
-                      <div class="bg-[#121214] border border-white/10 rounded-none p-1 flex flex-col aspect-[3/4] shrink-0 relative">
-                        <div class="flex-1 bg-white/[0.03] rounded-none grid grid-cols-2 gap-0.5 p-0.5">
-                          <span class="bg-black/50 rounded-none"></span>
-                          <span class="bg-black/50 rounded-none"></span>
-                          <span class="bg-black/50 rounded-none"></span>
-                          <span class="bg-black/50 rounded-none"></span>
+                      <div class="w-full shrink-0 bg-[#121214] border border-white/10 p-1 flex flex-col aspect-[1/2] relative">
+                        <div class="flex-1 bg-white/[0.04] grid grid-rows-4 gap-0.5 p-0.5">
+                          <span class="bg-black/50"></span>
+                          <span class="bg-black/50"></span>
+                          <span class="bg-black/50"></span>
+                          <span class="bg-black/50"></span>
                         </div>
                       </div>
-                      <div class="bg-[#121214] border border-white/10 rounded-none p-1 flex flex-col aspect-[1/2] shrink-0 relative">
-                        <div class="flex-1 bg-white/[0.03] rounded-none grid grid-rows-3 gap-0.5 p-0.5">
-                          <span class="bg-black/50 rounded-none"></span>
-                          <span class="bg-black/50 rounded-none"></span>
-                          <span class="bg-black/50 rounded-none"></span>
+                      <div class="w-full shrink-0 bg-[#121214] border border-white/10 p-1 flex flex-col aspect-[3/4] relative">
+                        <div class="flex-1 bg-white/[0.04] p-1 flex flex-col justify-between">
+                          <div class="flex-1 bg-black/50"></div>
+                          <span class="h-1.5 bg-white/10 mt-1"></span>
                         </div>
                       </div>
-                      <!-- Set 2 (Exact duplicate for seamless continuous drift) -->
-                      <div class="bg-[#121214] border border-white/10 rounded-none p-1 flex flex-col aspect-[3/4] shrink-0 relative" aria-hidden="true">
-                        <div class="flex-1 bg-white/[0.03] rounded-none relative overflow-hidden flex items-center justify-center">
-                          <span class="absolute top-1 left-1 w-1.5 h-1.5 border-t border-l border-white/35"></span>
-                          <span class="absolute top-1 right-1 w-1.5 h-1.5 border-t border-r border-white/35"></span>
-                          <span class="absolute bottom-1 left-1 w-1.5 h-1.5 border-b border-l border-white/35"></span>
-                          <span class="absolute bottom-1 right-1 w-1.5 h-1.5 border-b border-r border-white/35"></span>
-                          <span class="w-2 h-px bg-white/20 absolute"></span>
-                          <span class="h-2 w-px bg-white/20 absolute"></span>
-                        </div>
-                      </div>
-                      <div class="bg-[#121214] border border-[var(--hb-accent)]/60 rounded-none p-1 flex flex-col aspect-[1/2] shrink-0 relative" aria-hidden="true">
-                        <div class="flex-1 bg-[var(--hb-accent)]/10 rounded-none grid grid-rows-3 gap-0.5 p-0.5">
-                          <span class="bg-black/50 rounded-none"></span>
-                          <span class="bg-black/50 rounded-none"></span>
-                          <span class="bg-black/50 rounded-none"></span>
-                        </div>
-                      </div>
-                      <div class="bg-[#121214] border border-white/10 rounded-none p-1 flex flex-col aspect-[3/4] shrink-0 relative" aria-hidden="true">
-                        <div class="flex-1 bg-white/[0.03] rounded-none grid grid-cols-2 gap-0.5 p-0.5">
-                          <span class="bg-black/50 rounded-none"></span>
-                          <span class="bg-black/50 rounded-none"></span>
-                          <span class="bg-black/50 rounded-none"></span>
-                          <span class="bg-black/50 rounded-none"></span>
-                        </div>
-                      </div>
-                      <div class="bg-[#121214] border border-white/10 rounded-none p-1 flex flex-col aspect-[1/2] shrink-0 relative" aria-hidden="true">
-                        <div class="flex-1 bg-white/[0.03] rounded-none grid grid-rows-3 gap-0.5 p-0.5">
-                          <span class="bg-black/50 rounded-none"></span>
-                          <span class="bg-black/50 rounded-none"></span>
-                          <span class="bg-black/50 rounded-none"></span>
+                      <div class="w-full shrink-0 bg-[#121214] border border-[var(--hb-accent)]/60 p-1 flex flex-col aspect-[1/2] relative">
+                        <div class="flex-1 bg-[var(--hb-accent)]/15 grid grid-rows-3 gap-0.5 p-0.5">
+                          <span class="bg-black/50"></span>
+                          <span class="bg-black/50"></span>
+                          <span class="bg-black/50"></span>
                         </div>
                       </div>
                     </div>
 
                     <!-- Column 2 (Scrolls Up) -->
-                    <div class="selector-col flex-1 flex flex-col gap-2 will-change-transform animate-selector-up">
-                      <!-- Set 1 -->
-                      <div class="bg-[#121214] border border-white/10 rounded-none p-1 flex flex-col aspect-[1/2] shrink-0 relative">
-                        <div class="flex-1 bg-white/[0.03] rounded-none grid grid-rows-3 gap-0.5 p-0.5">
-                          <span class="bg-black/50 rounded-none"></span>
-                          <span class="bg-black/50 rounded-none"></span>
-                          <span class="bg-black/50 rounded-none"></span>
+                    <div class="selector-col flex-1 flex flex-col gap-2 will-change-transform">
+                      <!-- Set 1 (6 items) -->
+                      <div class="w-full shrink-0 bg-[#121214] border border-white/10 p-1 flex flex-col aspect-[1/2] relative">
+                        <div class="flex-1 bg-white/[0.04] grid grid-rows-3 gap-0.5 p-0.5">
+                          <span class="bg-black/50"></span>
+                          <span class="bg-black/50"></span>
+                          <span class="bg-black/50"></span>
                         </div>
                       </div>
-                      <div class="bg-[#121214] border border-white/10 rounded-none p-1 flex flex-col aspect-[3/4] shrink-0 relative">
-                        <div class="flex-1 bg-white/[0.03] rounded-none relative overflow-hidden flex items-center justify-center">
-                          <span class="absolute top-1 left-1 w-1.5 h-1.5 border-t border-l border-white/35"></span>
-                          <span class="absolute top-1 right-1 w-1.5 h-1.5 border-t border-r border-white/35"></span>
-                          <span class="absolute bottom-1 left-1 w-1.5 h-1.5 border-b border-l border-white/35"></span>
-                          <span class="absolute bottom-1 right-1 w-1.5 h-1.5 border-b border-r border-white/35"></span>
-                          <span class="w-2 h-px bg-white/20 absolute"></span>
-                          <span class="h-2 w-px bg-white/20 absolute"></span>
+                      <div class="w-full shrink-0 bg-[#121214] border border-white/10 p-1 flex flex-col aspect-[3/4] relative">
+                        <div class="flex-1 bg-white/[0.04]"></div>
+                      </div>
+                      <div class="w-full shrink-0 bg-[#121214] border border-[var(--hb-accent)]/60 p-1 flex flex-col aspect-[1/2] relative">
+                        <div class="flex-1 bg-[var(--hb-accent)]/15 grid grid-rows-3 gap-0.5 p-0.5">
+                          <span class="bg-black/50"></span>
+                          <span class="bg-black/50"></span>
+                          <span class="bg-black/50"></span>
                         </div>
                       </div>
-                      <div class="bg-[#121214] border border-[var(--hb-accent)]/60 rounded-none p-1 flex flex-col aspect-[3/4] shrink-0 relative">
-                        <div class="flex-1 bg-[var(--hb-accent)]/10 rounded-none grid grid-cols-2 gap-0.5 p-0.5">
-                          <span class="bg-black/50 rounded-none"></span>
-                          <span class="bg-black/50 rounded-none"></span>
-                          <span class="bg-black/50 rounded-none"></span>
-                          <span class="bg-black/50 rounded-none"></span>
+                      <div class="w-full shrink-0 bg-[#121214] border border-white/10 p-1 flex flex-col aspect-[3/4] relative">
+                        <div class="flex-1 bg-white/[0.04] grid grid-cols-2 gap-0.5 p-0.5">
+                          <span class="bg-black/50"></span>
+                          <span class="bg-black/50"></span>
+                          <span class="bg-black/50"></span>
+                          <span class="bg-black/50"></span>
                         </div>
                       </div>
-                      <div class="bg-[#121214] border border-white/10 rounded-none p-1 flex flex-col aspect-[3/4] shrink-0 relative">
-                        <div class="flex-1 bg-white/[0.03] rounded-none relative overflow-hidden flex items-center justify-center">
-                          <span class="text-[6px] font-mono text-white/35 uppercase">DEMO</span>
+                      <div class="w-full shrink-0 bg-[#121214] border border-white/10 p-1 flex flex-col aspect-[1/2] relative">
+                        <div class="flex-1 bg-white/[0.04] grid grid-rows-4 gap-0.5 p-0.5">
+                          <span class="bg-black/50"></span>
+                          <span class="bg-black/50"></span>
+                          <span class="bg-black/50"></span>
+                          <span class="bg-black/50"></span>
                         </div>
                       </div>
-                      <!-- Set 2 (Exact duplicate for seamless continuous drift) -->
-                      <div class="bg-[#121214] border border-white/10 rounded-none p-1 flex flex-col aspect-[1/2] shrink-0 relative" aria-hidden="true">
-                        <div class="flex-1 bg-white/[0.03] rounded-none grid grid-rows-3 gap-0.5 p-0.5">
-                          <span class="bg-black/50 rounded-none"></span>
-                          <span class="bg-black/50 rounded-none"></span>
-                          <span class="bg-black/50 rounded-none"></span>
-                        </div>
-                      </div>
-                      <div class="bg-[#121214] border border-white/10 rounded-none p-1 flex flex-col aspect-[3/4] shrink-0 relative" aria-hidden="true">
-                        <div class="flex-1 bg-white/[0.03] rounded-none relative overflow-hidden flex items-center justify-center">
-                          <span class="absolute top-1 left-1 w-1.5 h-1.5 border-t border-l border-white/35"></span>
-                          <span class="absolute top-1 right-1 w-1.5 h-1.5 border-t border-r border-white/35"></span>
-                          <span class="absolute bottom-1 left-1 w-1.5 h-1.5 border-b border-l border-white/35"></span>
-                          <span class="absolute bottom-1 right-1 w-1.5 h-1.5 border-b border-r border-white/35"></span>
-                          <span class="w-2 h-px bg-white/20 absolute"></span>
-                          <span class="h-2 w-px bg-white/20 absolute"></span>
-                        </div>
-                      </div>
-                      <div class="bg-[#121214] border border-[var(--hb-accent)]/60 rounded-none p-1 flex flex-col aspect-[3/4] shrink-0 relative" aria-hidden="true">
-                        <div class="flex-1 bg-[var(--hb-accent)]/10 rounded-none grid grid-cols-2 gap-0.5 p-0.5">
-                          <span class="bg-black/50 rounded-none"></span>
-                          <span class="bg-black/50 rounded-none"></span>
-                          <span class="bg-black/50 rounded-none"></span>
-                          <span class="bg-black/50 rounded-none"></span>
-                        </div>
-                      </div>
-                      <div class="bg-[#121214] border border-white/10 rounded-none p-1 flex flex-col aspect-[3/4] shrink-0 relative" aria-hidden="true">
-                        <div class="flex-1 bg-white/[0.03] rounded-none relative overflow-hidden flex items-center justify-center">
-                          <span class="text-[6px] font-mono text-white/35 uppercase">DEMO</span>
-                        </div>
+                      <div class="w-full shrink-0 bg-[#121214] border border-white/10 p-1 flex flex-col aspect-[3/4] relative">
+                        <div class="flex-1 bg-white/[0.04]"></div>
                       </div>
                     </div>
 
                     <!-- Column 3 (Scrolls Down) -->
-                    <div class="selector-col flex-1 flex flex-col gap-2 will-change-transform animate-selector-down">
-                      <!-- Set 1 -->
-                      <div class="bg-[#121214] border border-white/10 rounded-none p-1 flex flex-col aspect-[3/4] shrink-0 relative">
-                        <div class="flex-1 bg-white/[0.03] rounded-none relative overflow-hidden flex items-center justify-center">
-                          <span class="absolute top-1 left-1 w-1.5 h-1.5 border-t border-l border-white/35"></span>
-                          <span class="absolute top-1 right-1 w-1.5 h-1.5 border-t border-r border-white/35"></span>
-                          <span class="absolute bottom-1 left-1 w-1.5 h-1.5 border-b border-l border-white/35"></span>
-                          <span class="absolute bottom-1 right-1 w-1.5 h-1.5 border-b border-r border-white/35"></span>
-                          <span class="w-2 h-px bg-white/20 absolute"></span>
-                          <span class="h-2 w-px bg-white/20 absolute"></span>
+                    <div class="selector-col flex-1 flex flex-col gap-2 will-change-transform">
+                      <!-- Set 1 (6 items) -->
+                      <div class="w-full shrink-0 bg-[#121214] border border-white/10 p-1 flex flex-col aspect-[3/4] relative">
+                        <div class="flex-1 bg-white/[0.04]"></div>
+                      </div>
+                      <div class="w-full shrink-0 bg-[#121214] border border-white/10 p-1 flex flex-col aspect-[1/2] relative">
+                        <div class="flex-1 bg-white/[0.04] grid grid-rows-3 gap-0.5 p-0.5">
+                          <span class="bg-black/50"></span>
+                          <span class="bg-black/50"></span>
+                          <span class="bg-black/50"></span>
                         </div>
                       </div>
-                      <div class="bg-[#121214] border border-white/10 rounded-none p-1 flex flex-col aspect-[1/2] shrink-0 relative">
-                        <div class="flex-1 bg-white/[0.03] rounded-none grid grid-rows-3 gap-0.5 p-0.5">
-                          <span class="bg-black/50 rounded-none"></span>
-                          <span class="bg-black/50 rounded-none"></span>
-                          <span class="bg-black/50 rounded-none"></span>
+                      <div class="w-full shrink-0 bg-[#121214] border border-white/10 p-1 flex flex-col aspect-[3/4] relative">
+                        <div class="flex-1 bg-white/[0.04] grid grid-cols-2 gap-0.5 p-0.5">
+                          <span class="bg-black/50"></span>
+                          <span class="bg-black/50"></span>
+                          <span class="bg-black/50"></span>
+                          <span class="bg-black/50"></span>
                         </div>
                       </div>
-                      <div class="bg-[#121214] border border-[var(--hb-accent)]/60 rounded-none p-1 flex flex-col aspect-[3/4] shrink-0 relative">
-                        <div class="flex-1 bg-[var(--hb-accent)]/10 rounded-none grid grid-cols-2 gap-0.5 p-0.5">
-                          <span class="bg-black/50 rounded-none"></span>
-                          <span class="bg-black/50 rounded-none"></span>
-                          <span class="bg-black/50 rounded-none"></span>
-                          <span class="bg-black/50 rounded-none"></span>
+                      <div class="w-full shrink-0 bg-[#121214] border border-[var(--hb-accent)]/60 p-1 flex flex-col aspect-[1/2] relative">
+                        <div class="flex-1 bg-[var(--hb-accent)]/15 grid grid-rows-3 gap-0.5 p-0.5">
+                          <span class="bg-black/50"></span>
+                          <span class="bg-black/50"></span>
+                          <span class="bg-black/50"></span>
                         </div>
                       </div>
-                      <div class="bg-[#121214] border border-white/10 rounded-none p-1 flex flex-col aspect-[1/2] shrink-0 relative">
-                        <div class="flex-1 bg-white/[0.03] rounded-none relative overflow-hidden flex items-center justify-center">
-                          <span class="text-[6px] font-mono text-white/35 uppercase">DEMO</span>
-                        </div>
+                      <div class="w-full shrink-0 bg-[#121214] border border-white/10 p-1 flex flex-col aspect-[3/4] relative">
+                        <div class="flex-1 bg-white/[0.04]"></div>
                       </div>
-                      <!-- Set 2 (Exact duplicate for seamless continuous drift) -->
-                      <div class="bg-[#121214] border border-white/10 rounded-none p-1 flex flex-col aspect-[3/4] shrink-0 relative" aria-hidden="true">
-                        <div class="flex-1 bg-white/[0.03] rounded-none relative overflow-hidden flex items-center justify-center">
-                          <span class="absolute top-1 left-1 w-1.5 h-1.5 border-t border-l border-white/35"></span>
-                          <span class="absolute top-1 right-1 w-1.5 h-1.5 border-t border-r border-white/35"></span>
-                          <span class="absolute bottom-1 left-1 w-1.5 h-1.5 border-b border-l border-white/35"></span>
-                          <span class="absolute bottom-1 right-1 w-1.5 h-1.5 border-b border-r border-white/35"></span>
-                          <span class="w-2 h-px bg-white/20 absolute"></span>
-                          <span class="h-2 w-px bg-white/20 absolute"></span>
-                        </div>
-                      </div>
-                      <div class="bg-[#121214] border border-white/10 rounded-none p-1 flex flex-col aspect-[1/2] shrink-0 relative" aria-hidden="true">
-                        <div class="flex-1 bg-white/[0.03] rounded-none grid grid-rows-3 gap-0.5 p-0.5">
-                          <span class="bg-black/50 rounded-none"></span>
-                          <span class="bg-black/50 rounded-none"></span>
-                          <span class="bg-black/50 rounded-none"></span>
-                        </div>
-                      </div>
-                      <div class="bg-[#121214] border border-[var(--hb-accent)]/60 rounded-none p-1 flex flex-col aspect-[3/4] shrink-0 relative" aria-hidden="true">
-                        <div class="flex-1 bg-[var(--hb-accent)]/10 rounded-none grid grid-cols-2 gap-0.5 p-0.5">
-                          <span class="bg-black/50 rounded-none"></span>
-                          <span class="bg-black/50 rounded-none"></span>
-                          <span class="bg-black/50 rounded-none"></span>
-                          <span class="bg-black/50 rounded-none"></span>
-                        </div>
-                      </div>
-                      <div class="bg-[#121214] border border-white/10 rounded-none p-1 flex flex-col aspect-[1/2] shrink-0 relative" aria-hidden="true">
-                        <div class="flex-1 bg-white/[0.03] rounded-none relative overflow-hidden flex items-center justify-center">
-                          <span class="text-[6px] font-mono text-white/35 uppercase">DEMO</span>
+                      <div class="w-full shrink-0 bg-[#121214] border border-white/10 p-1 flex flex-col aspect-[1/2] relative">
+                        <div class="flex-1 bg-white/[0.04] grid grid-rows-4 gap-0.5 p-0.5">
+                          <span class="bg-black/50"></span>
+                          <span class="bg-black/50"></span>
+                          <span class="bg-black/50"></span>
+                          <span class="bg-black/50"></span>
                         </div>
                       </div>
                     </div>
@@ -492,9 +337,9 @@ import kioskScreenshot from '../../assets/images/kiosk-screenshot.webp';
               </header>
 
               <div id="booth-tabs" role="tablist" aria-label="Booths" class="flex items-center gap-1 px-3 pt-3">
-                <button type="button" role="tab" id="booth-tab-bogor" aria-selected="true" aria-controls="booth-panel" data-booth="bogor" class="px-2.5 py-1 rounded-md text-[11px] text-neutral-400 hover:text-white aria-selected:bg-white/[0.1] aria-selected:text-white transition-colors duration-150 ease-out cursor-pointer focus-visible:outline-2 focus-visible:outline-[var(--hb-accent)]">Bogor-HQ</button>
-                <button type="button" role="tab" id="booth-tab-jakarta" aria-selected="false" aria-controls="booth-panel" data-booth="jakarta" class="px-2.5 py-1 rounded-md text-[11px] text-neutral-400 hover:text-white aria-selected:bg-white/[0.1] aria-selected:text-white transition-colors duration-150 ease-out cursor-pointer focus-visible:outline-2 focus-visible:outline-[var(--hb-accent)]">Jakarta-01</button>
-                <button type="button" role="tab" id="booth-tab-bandung" aria-selected="false" aria-controls="booth-panel" data-booth="bandung" class="px-2.5 py-1 rounded-md text-[11px] text-neutral-400 hover:text-white aria-selected:bg-white/[0.1] aria-selected:text-white transition-colors duration-150 ease-out cursor-pointer focus-visible:outline-2 focus-visible:outline-[var(--hb-accent)]">Bandung-02</button>
+                <button type="button" role="tab" id="booth-tab-neo-tokyo" aria-selected="true" aria-controls="booth-panel" data-booth="neo-tokyo" class="px-2.5 py-1 rounded-md text-[11px] text-neutral-400 hover:text-white aria-selected:bg-white/[0.1] aria-selected:text-white transition-colors duration-150 ease-out cursor-pointer focus-visible:outline-2 focus-visible:outline-[var(--hb-accent)]">Neo-Tokyo-HQ</button>
+                <button type="button" role="tab" id="booth-tab-coruscant" aria-selected="false" aria-controls="booth-panel" data-booth="coruscant" class="px-2.5 py-1 rounded-md text-[11px] text-neutral-400 hover:text-white aria-selected:bg-white/[0.1] aria-selected:text-white transition-colors duration-150 ease-out cursor-pointer focus-visible:outline-2 focus-visible:outline-[var(--hb-accent)]">Coruscant-01</button>
+                <button type="button" role="tab" id="booth-tab-vice-city" aria-selected="false" aria-controls="booth-panel" data-booth="vice-city" class="px-2.5 py-1 rounded-md text-[11px] text-neutral-400 hover:text-white aria-selected:bg-white/[0.1] aria-selected:text-white transition-colors duration-150 ease-out cursor-pointer focus-visible:outline-2 focus-visible:outline-[var(--hb-accent)]">Vice City-02</button>
               </div>
 
               <div id="booth-panel" role="tabpanel" data-online="true" aria-live="polite" class="group flex-1 px-4 pt-5 pb-4 flex flex-col gap-5">
@@ -511,7 +356,7 @@ import kioskScreenshot from '../../assets/images/kiosk-screenshot.webp';
                   </div>
                   <div>
                     <dt class="text-[11px] text-neutral-500">Revenue</dt>
-                    <dd id="booth-revenue" class="mt-1 font-heading font-bold text-2xl text-white tabular-nums">Rp1.470.000</dd>
+                    <dd id="booth-revenue" class="mt-1 font-heading font-bold text-2xl text-white tabular-nums">₡1,470</dd>
                   </div>
                 </dl>
 
@@ -545,32 +390,32 @@ import kioskScreenshot from '../../assets/images/kiosk-screenshot.webp';
               <ol id="workflow-steps" class="px-3 pt-3 space-y-0.5">
                 <li>
                   <button type="button" data-step="0" data-state="active" aria-current="step" class="workflow-step w-full flex items-center gap-3 px-2 py-2 rounded-md text-left hover:bg-white/[0.04] transition-colors duration-150 ease-out cursor-pointer group focus-visible:outline-2 focus-visible:outline-[var(--hb-accent)]">
-                    <span class="w-5 h-5 shrink-0 rounded-full border border-white/20 flex items-center justify-center text-[10px] text-neutral-400 transition-colors duration-200 ease-out group-data-[state=active]:border-[var(--hb-accent)] group-data-[state=active]:text-white group-data-[state=done]:border-[var(--hb-accent)] group-data-[state=done]:bg-[var(--hb-accent)] group-data-[state=done]:text-black">1</span>
-                    <span class="text-xs text-neutral-400 group-data-[state=active]:text-white group-data-[state=done]:text-neutral-200 transition-colors duration-200 ease-out">Capture</span>
+                    <span class="w-5 h-5 shrink-0 rounded-full border border-white/20 flex items-center justify-center text-[10px] text-neutral-400 transition-colors duration-200 ease-out group-data-[state=active]:border-[var(--hb-accent)] group-data-[state=active]:bg-[var(--hb-accent)] group-data-[state=active]:text-black group-data-[state=active]:font-semibold group-data-[state=done]:border-white/30 group-data-[state=done]:text-neutral-400">1</span>
+                    <span class="text-xs text-neutral-400 group-data-[state=active]:text-white group-data-[state=active]:font-medium group-data-[state=done]:text-neutral-300 transition-colors duration-200 ease-out">Capture</span>
                   </button>
                 </li>
                 <li>
                   <button type="button" data-step="1" data-state="idle" class="workflow-step w-full flex items-center gap-3 px-2 py-2 rounded-md text-left hover:bg-white/[0.04] transition-colors duration-150 ease-out cursor-pointer group focus-visible:outline-2 focus-visible:outline-[var(--hb-accent)]">
-                    <span class="w-5 h-5 shrink-0 rounded-full border border-white/20 flex items-center justify-center text-[10px] text-neutral-400 transition-colors duration-200 ease-out group-data-[state=active]:border-[var(--hb-accent)] group-data-[state=active]:text-white group-data-[state=done]:border-[var(--hb-accent)] group-data-[state=done]:bg-[var(--hb-accent)] group-data-[state=done]:text-black">2</span>
-                    <span class="text-xs text-neutral-400 group-data-[state=active]:text-white group-data-[state=done]:text-neutral-200 transition-colors duration-200 ease-out">Process</span>
+                    <span class="w-5 h-5 shrink-0 rounded-full border border-white/20 flex items-center justify-center text-[10px] text-neutral-400 transition-colors duration-200 ease-out group-data-[state=active]:border-[var(--hb-accent)] group-data-[state=active]:bg-[var(--hb-accent)] group-data-[state=active]:text-black group-data-[state=active]:font-semibold group-data-[state=done]:border-white/30 group-data-[state=done]:text-neutral-400">2</span>
+                    <span class="text-xs text-neutral-400 group-data-[state=active]:text-white group-data-[state=active]:font-medium group-data-[state=done]:text-neutral-300 transition-colors duration-200 ease-out">Compose</span>
                   </button>
                 </li>
                 <li>
                   <button type="button" data-step="2" data-state="idle" class="workflow-step w-full flex items-center gap-3 px-2 py-2 rounded-md text-left hover:bg-white/[0.04] transition-colors duration-150 ease-out cursor-pointer group focus-visible:outline-2 focus-visible:outline-[var(--hb-accent)]">
-                    <span class="w-5 h-5 shrink-0 rounded-full border border-white/20 flex items-center justify-center text-[10px] text-neutral-400 transition-colors duration-200 ease-out group-data-[state=active]:border-[var(--hb-accent)] group-data-[state=active]:text-white group-data-[state=done]:border-[var(--hb-accent)] group-data-[state=done]:bg-[var(--hb-accent)] group-data-[state=done]:text-black">3</span>
-                    <span class="text-xs text-neutral-400 group-data-[state=active]:text-white group-data-[state=done]:text-neutral-200 transition-colors duration-200 ease-out">Sync</span>
+                    <span class="w-5 h-5 shrink-0 rounded-full border border-white/20 flex items-center justify-center text-[10px] text-neutral-400 transition-colors duration-200 ease-out group-data-[state=active]:border-[var(--hb-accent)] group-data-[state=active]:bg-[var(--hb-accent)] group-data-[state=active]:text-black group-data-[state=active]:font-semibold group-data-[state=done]:border-white/30 group-data-[state=done]:text-neutral-400">3</span>
+                    <span class="text-xs text-neutral-400 group-data-[state=active]:text-white group-data-[state=active]:font-medium group-data-[state=done]:text-neutral-300 transition-colors duration-200 ease-out">Telemetry</span>
                   </button>
                 </li>
                 <li>
                   <button type="button" data-step="3" data-state="idle" class="workflow-step w-full flex items-center gap-3 px-2 py-2 rounded-md text-left hover:bg-white/[0.04] transition-colors duration-150 ease-out cursor-pointer group focus-visible:outline-2 focus-visible:outline-[var(--hb-accent)]">
-                    <span class="w-5 h-5 shrink-0 rounded-full border border-white/20 flex items-center justify-center text-[10px] text-neutral-400 transition-colors duration-200 ease-out group-data-[state=active]:border-[var(--hb-accent)] group-data-[state=active]:text-white group-data-[state=done]:border-[var(--hb-accent)] group-data-[state=done]:bg-[var(--hb-accent)] group-data-[state=done]:text-black">4</span>
-                    <span class="text-xs text-neutral-400 group-data-[state=active]:text-white group-data-[state=done]:text-neutral-200 transition-colors duration-200 ease-out">Deliver</span>
+                    <span class="w-5 h-5 shrink-0 rounded-full border border-white/20 flex items-center justify-center text-[10px] text-neutral-400 transition-colors duration-200 ease-out group-data-[state=active]:border-[var(--hb-accent)] group-data-[state=active]:bg-[var(--hb-accent)] group-data-[state=active]:text-black group-data-[state=active]:font-semibold group-data-[state=done]:border-white/30 group-data-[state=done]:text-neutral-400">4</span>
+                    <span class="text-xs text-neutral-400 group-data-[state=active]:text-white group-data-[state=active]:font-medium group-data-[state=done]:text-neutral-300 transition-colors duration-200 ease-out">Dispatch</span>
                   </button>
                 </li>
               </ol>
 
               <div class="mt-auto px-4 py-3 border-t border-white/[0.06] space-y-3">
-                <p id="workflow-desc" role="status" aria-live="polite" class="text-xs leading-relaxed text-neutral-300 min-h-[3.25rem]">The kiosk takes a 3-shot burst from the camera.</p>
+                <p id="workflow-desc" role="status" aria-live="polite" class="text-xs leading-relaxed text-neutral-300 min-h-[3.25rem]">Tethered camera sequence captures timed exposures with hardware flash synchronization.</p>
                 <button
                   id="workflow-next"
                   type="button"
@@ -588,9 +433,6 @@ import kioskScreenshot from '../../assets/images/kiosk-screenshot.webp';
     // Respect reduced-motion preference for the demo animations
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const wait = (ms: number) => new Promise<void>((resolve) => setTimeout(resolve, ms));
-
-    // Starfield warp pulse (consumed by the starfield renderer below)
-    let warpFrames = 0;
 
     // Shared radio/tab group helper: click + arrow-key navigation with roving tabindex
     function bindChoiceGroup(
@@ -679,54 +521,51 @@ import kioskScreenshot from '../../assets/images/kiosk-screenshot.webp';
       }
 
       sessionCard.dataset.state = 'complete';
-      warpFrames = 45;
       setSessionRunning(false);
     }
 
     viewfinderBtn?.addEventListener('click', runSession);
 
+    // Trigger viewfinder capture automatically when scrolled into viewport
+    if (viewfinderBtn && 'IntersectionObserver' in window) {
+      const sessionObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting && !sessionRunning) {
+              runSession();
+              sessionObserver.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.4 }
+      );
+      sessionObserver.observe(viewfinderBtn);
+    }
+
     // ───────────────────────── Demo 2: Frame Studio ─────────────────────────
-    const framePreview = document.getElementById('frame-preview');
-    const frameSlots = document.getElementById('frame-slots');
-
-    const frameLayouts: Record<string, { cols: number; rows: number; width: number; label: string }> = {
-      strip: { cols: 1, rows: 3, width: 52, label: 'Strip frame preview, 3 photos' },
-      grid: { cols: 2, rows: 2, width: 104, label: 'Grid frame preview, 4 photos' },
-      single: { cols: 1, rows: 1, width: 104, label: 'Single frame preview, 1 photo' }
-    };
-
-    const renderFrame = (key: string) => {
-      const layout = frameLayouts[key];
-      if (!layout || !frameSlots || !framePreview) return;
-      frameSlots.style.gridTemplateColumns = `repeat(${layout.cols}, 1fr)`;
-      frameSlots.style.gridTemplateRows = `repeat(${layout.rows}, 1fr)`;
-      frameSlots.innerHTML = Array.from({ length: layout.cols * layout.rows })
-        .map(() => '<div class="bg-[#121214]"></div>')
-        .join('');
-      framePreview.style.width = `${layout.width}px`;
-      framePreview.setAttribute('aria-label', layout.label);
-    };
-
-    renderFrame('strip');
-    bindChoiceGroup(document.getElementById('frame-layout-group'), 'radio', (btn) => {
-      renderFrame(btn.dataset.layout || 'strip');
-    });
-    bindChoiceGroup(document.getElementById('frame-accent-group'), 'radio', (btn) => {
-      if (btn.dataset.color && showcase) showcase.style.setProperty('--hb-accent', btn.dataset.color);
-    });
-
-    const framePanelStudio = document.getElementById('frame-panel-studio');
     const framePanelSelector = document.getElementById('frame-panel-selector');
-    bindChoiceGroup(document.getElementById('frame-tabs'), 'tab', (btn) => {
-      const tab = btn.dataset.frameTab;
-      if (tab === 'studio') {
-        framePanelStudio?.classList.remove('hidden');
-        framePanelSelector?.classList.add('hidden');
-      } else if (tab === 'selector') {
-        framePanelStudio?.classList.add('hidden');
-        framePanelSelector?.classList.remove('hidden');
-      }
-    });
+    const selectorCols = Array.from(document.querySelectorAll<HTMLElement>('.selector-col'));
+    let singleSetHeight = 0;
+    let colBaseMiddles: number[] = [];
+
+    const measureSelectorCols = () => {
+      const firstCol = selectorCols[0];
+      if (!firstCol || firstCol.scrollHeight === 0) return;
+      singleSetHeight = firstCol.scrollHeight / 4;
+      colBaseMiddles = selectorCols.map((col) => -(col.scrollHeight / 2));
+    };
+
+    if (selectorCols.length > 0) {
+      // Replicate single HTML set to 4 sets for seamless warp buffering
+      selectorCols.forEach((col) => {
+        const baseMarkup = col.innerHTML;
+        col.innerHTML = baseMarkup.repeat(4);
+      });
+      measureSelectorCols();
+      selectorCols.forEach((col, i) => {
+        col.style.transform = `translate3d(0, ${colBaseMiddles[i] || 0}px, 0)`;
+      });
+    }
 
     // ───────────────────────── Demo 3: Booth Operations ─────────────────────────
     interface BoothSample {
@@ -736,49 +575,89 @@ import kioskScreenshot from '../../assets/images/kiosk-screenshot.webp';
       hourly: number[];
       note: string;
     }
-    const TARIFF_IDR = 35000;
+    const TARIFF_CREDITS = 35;
     const booths: Record<string, BoothSample> = {
-      bogor: { name: 'Bogor-HQ', online: true, sessions: 42, hourly: [2, 4, 6, 9, 7, 5, 6, 3], note: '' },
-      jakarta: { name: 'Jakarta-01', online: true, sessions: 67, hourly: [4, 7, 10, 14, 12, 9, 7, 4], note: '' },
-      bandung: { name: 'Bandung-02', online: false, sessions: 18, hourly: [3, 5, 4, 3, 2, 1, 0, 0], note: 'Last seen 2h ago' }
+      'neo-tokyo': { name: 'Neo-Tokyo-HQ', online: true, sessions: 42, hourly: [2, 4, 6, 9, 7, 5, 6, 3], note: '' },
+      coruscant: { name: 'Coruscant-01', online: true, sessions: 67, hourly: [4, 7, 10, 14, 12, 9, 7, 4], note: '' },
+      'vice-city': { name: 'Vice City-02', online: false, sessions: 18, hourly: [3, 5, 4, 3, 2, 1, 0, 0], note: 'Last seen 2h ago' }
     };
-    const idr = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 });
+    const creditFmt = new Intl.NumberFormat('en-US');
     const boothPanel = document.getElementById('booth-panel');
+    const boothStatusEl = document.getElementById('booth-status');
+    const boothNoteEl = document.getElementById('booth-note');
+    const boothSessionsEl = document.getElementById('booth-sessions');
+    const boothRevenueEl = document.getElementById('booth-revenue');
     const boothBars = Array.from(document.querySelectorAll<HTMLElement>('.booth-bar'));
+    const demoBoothsCard = document.getElementById('demo-booths');
+    const boothTabsEl = document.getElementById('booth-tabs');
+    const boothButtons = boothTabsEl ? Array.from(boothTabsEl.querySelectorAll<HTMLButtonElement>('[role="tab"]')) : [];
+    const boothKeys = ['neo-tokyo', 'coruscant', 'vice-city'];
+    let boothCycleIdx = 0;
+    let boothCycleTimer: ReturnType<typeof setInterval> | null = null;
+    let isShowcaseVisible = true;
 
     const renderBooth = (key: string) => {
       const booth = booths[key];
       if (!booth || !boothPanel) return;
       boothPanel.dataset.online = String(booth.online);
       boothPanel.setAttribute('aria-labelledby', `booth-tab-${key}`);
-      const set = (id: string, text: string) => {
-        const el = document.getElementById(id);
-        if (el) el.textContent = text;
-      };
-      set('booth-status', booth.online ? 'Online' : 'Offline');
-      set('booth-note', booth.note);
-      set('booth-sessions', String(booth.sessions));
-      set('booth-revenue', idr.format(booth.sessions * TARIFF_IDR).replace(/\s/g, ''));
+      if (boothStatusEl) boothStatusEl.textContent = booth.online ? 'Online' : 'Offline';
+      if (boothNoteEl) boothNoteEl.textContent = booth.note;
+      if (boothSessionsEl) boothSessionsEl.textContent = String(booth.sessions);
+      if (boothRevenueEl) boothRevenueEl.textContent = `₡${creditFmt.format(booth.sessions * TARIFF_CREDITS)}`;
       const peak = Math.max(...booth.hourly, 1);
       boothBars.forEach((bar, i) => {
         bar.style.height = `${Math.max(6, Math.round((booth.hourly[i] / peak) * 100))}%`;
       });
     };
 
-    renderBooth('bogor');
-    bindChoiceGroup(document.getElementById('booth-tabs'), 'tab', (btn) => {
-      renderBooth(btn.dataset.booth || 'bogor');
+    const selectBooth = (key: string) => {
+      boothButtons.forEach((btn) => {
+        const isTarget = btn.dataset.booth === key;
+        btn.setAttribute('aria-selected', String(isTarget));
+        btn.tabIndex = isTarget ? 0 : -1;
+      });
+      renderBooth(key);
+    };
+
+    const stopBoothCycle = () => {
+      if (boothCycleTimer) {
+        clearInterval(boothCycleTimer);
+        boothCycleTimer = null;
+      }
+    };
+
+    const startBoothCycle = () => {
+      stopBoothCycle();
+      if (!isShowcaseVisible || document.hidden) return;
+      boothCycleTimer = setInterval(() => {
+        boothCycleIdx = (boothCycleIdx + 1) % boothKeys.length;
+        selectBooth(boothKeys[boothCycleIdx]);
+      }, 3500);
+    };
+
+    renderBooth('neo-tokyo');
+    bindChoiceGroup(boothTabsEl, 'tab', (btn) => {
+      const key = btn.dataset.booth || 'neo-tokyo';
+      const foundIdx = boothKeys.indexOf(key);
+      if (foundIdx !== -1) boothCycleIdx = foundIdx;
+      renderBooth(key);
+      startBoothCycle();
     });
+
+    demoBoothsCard?.addEventListener('mouseenter', stopBoothCycle);
+    demoBoothsCard?.addEventListener('mouseleave', startBoothCycle);
+    startBoothCycle();
 
     // ───────────────────────── Demo 4: Connected Workflow ─────────────────────────
     const workflowSteps = Array.from(document.querySelectorAll<HTMLElement>('.workflow-step'));
     const workflowDesc = document.getElementById('workflow-desc');
     const workflowNext = document.getElementById('workflow-next');
     const workflowCopy = [
-      'The kiosk takes a 3-shot burst from the camera.',
-      'Shots are composed into the selected frame layout.',
-      'The session record is sent to the backend so operators can see it.',
-      'The guest receives the finished strip as a print.'
+      'Tethered camera sequence captures timed exposures with hardware flash synchronization.',
+      'WebGL compositor stitches high-res exposures into the selected template canvas in real-time.',
+      'Encrypted session record and print metrics stream to the fleet management portal.',
+      'High-speed dye-sub printer outputs the physical cut strip while generating a private guest QR.'
     ];
     let workflowIdx = 0;
 
@@ -798,101 +677,81 @@ import kioskScreenshot from '../../assets/images/kiosk-screenshot.webp';
       renderWorkflow(workflowIdx === workflowCopy.length - 1 ? 0 : workflowIdx + 1);
     });
 
-    // 6. 3D Wireframe Photostrip Starfield (Ported from Hypebox 00-Idle Starfield.jsx)
+    // ───────────────────────── 3D Wireframe Photostrip Starfield & Unified rAF Loop ─────────────────────────
     const starfieldCanvas = document.getElementById('wireframe-starfield') as HTMLCanvasElement | null;
     const windowStage = document.getElementById('wireframe-window-stage');
+    const ctx = starfieldCanvas?.getContext('2d') ?? null;
 
-    if (starfieldCanvas && windowStage) {
-      const ctx = starfieldCanvas.getContext('2d');
-      const numStrips = 16;
-      const maxDepth = 1000;
-      let focalLength = 200;
-      let speed = 1.25;
+    const numStrips = 16;
+    const maxDepth = 1000;
+    const focalLength = 200;
+    const starfieldSpeed = 1.0;
+    const selectorSpeed = 0.75;
+    let selectorScrollPos = 0;
+    let stageWidth = 0;
+    let stageHeight = 0;
+    let rafId: number | null = null;
 
-      interface StripItem {
-        x: number;
-        y: number;
-        z: number;
-        baseHeight: number;
-        accent: boolean;
-      }
+    interface StripItem {
+      x: number;
+      y: number;
+      z: number;
+      baseHeight: number;
+    }
 
-      const getSpawnPos = () => {
-        let px = 0;
-        let py = 0;
-        do {
-          px = (Math.random() - 0.5) * 1800;
-          py = (Math.random() - 0.5) * 1400;
-        } while (Math.abs(px) < 340 && Math.abs(py) < 240);
-        return { x: px, y: py };
+    const getSpawnPos = () => {
+      let px = 0;
+      let py = 0;
+      do {
+        px = (Math.random() - 0.5) * 1800;
+        py = (Math.random() - 0.5) * 1400;
+      } while (Math.abs(px) < 340 && Math.abs(py) < 240);
+      return { x: px, y: py };
+    };
+
+    const strips: StripItem[] = Array.from({ length: numStrips }, () => {
+      const pos = getSpawnPos();
+      return {
+        x: pos.x,
+        y: pos.y,
+        z: Math.random() * maxDepth,
+        baseHeight: 340 + Math.random() * 260
       };
+    });
 
-      const strips: StripItem[] = Array.from({ length: numStrips }, (_, idx) => {
-        const pos = getSpawnPos();
-        return {
-          x: pos.x,
-          y: pos.y,
-          z: Math.random() * maxDepth,
-          baseHeight: 340 + Math.random() * 260,
-          accent: idx % 5 === 0
-        };
-      });
-
-      const resizeStarfield = () => {
+    const resizeStageAndCols = () => {
+      if (starfieldCanvas && windowStage) {
         const rect = windowStage.getBoundingClientRect();
+        stageWidth = rect.width;
+        stageHeight = rect.height;
         const dpr = Math.min(window.devicePixelRatio || 1, 2);
-        starfieldCanvas.width = rect.width * dpr;
-        starfieldCanvas.height = rect.height * dpr;
+        starfieldCanvas.width = stageWidth * dpr;
+        starfieldCanvas.height = stageHeight * dpr;
         if (ctx) ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      };
+      }
+      measureSelectorCols();
+    };
 
-      window.addEventListener('resize', resizeStarfield);
-      resizeStarfield();
+    window.addEventListener('resize', resizeStageAndCols, { passive: true });
+    resizeStageAndCols();
 
-      const drawWireframeStrip = (
-        c: CanvasRenderingContext2D,
-        w: number,
-        h: number,
-        alpha: number
-      ) => {
-        const x0 = -w / 2;
-        const y0 = -h / 2;
+    const drawStarfieldFrame = (advance: boolean) => {
+      if (!ctx || !starfieldCanvas || stageWidth === 0 || stageHeight === 0) return;
+      ctx.save();
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.clearRect(0, 0, starfieldCanvas.width, starfieldCanvas.height);
+      ctx.restore();
 
-        c.globalAlpha = alpha;
-        c.lineWidth = 1;
-        c.strokeStyle = 'rgba(255, 255, 255, 0.22)';
-        c.strokeRect(x0, y0, w, h);
-      };
+      const centerX = stageWidth / 2;
+      const centerY = stageHeight * 0.58;
 
-      const renderStarfield = () => {
-        if (!ctx) return;
-        // Save current canvas transform and clear the entire backing buffer completely
-        ctx.save();
-        ctx.setTransform(1, 0, 0, 1, 0, 0);
-        ctx.clearRect(0, 0, starfieldCanvas.width, starfieldCanvas.height);
-        ctx.restore();
+      strips.sort((a, b) => b.z - a.z);
+      ctx.lineWidth = 1;
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.22)';
 
-        const width = windowStage.clientWidth;
-        const height = windowStage.clientHeight;
-
-        // Origin aligned further down with the lower logotype position
-        const centerX = width / 2;
-        const centerY = height * 0.58;
-
-        if (warpFrames > 0) {
-          warpFrames--;
-          speed += (3.8 - speed) * 0.15;
-          focalLength += (320 - focalLength) * 0.1;
-        } else {
-          speed += (1.25 - speed) * 0.08;
-          focalLength += (200 - focalLength) * 0.08;
-        }
-
-        strips.sort((a, b) => b.z - a.z);
-
-        for (const strip of strips) {
-          strip.z -= speed;
-
+      for (const strip of strips) {
+        if (advance) {
+          strip.z -= starfieldSpeed;
           if (strip.z <= -90) {
             const pos = getSpawnPos();
             strip.x = pos.x;
@@ -900,78 +759,122 @@ import kioskScreenshot from '../../assets/images/kiosk-screenshot.webp';
             strip.z = maxDepth + (Math.random() * 140 - 40);
             strip.baseHeight = 340 + Math.random() * 260;
           }
-
-          const perspective = focalLength / (focalLength + strip.z);
-          const projectedX = centerX + strip.x * perspective;
-          const projectedY = centerY + strip.y * perspective;
-          const scale = Math.max(0.01, perspective);
-
-          // 2*strip aspect ratio (1 strip = 2:6 [1:3], 2*strip = 4:6 [2:3])
-          const scaledHeight = strip.baseHeight * scale;
-          const scaledWidth = scaledHeight * (2 / 3);
-
-          let opacity = 0.85;
-          if (strip.z > maxDepth - 450) {
-            opacity *= (maxDepth - strip.z) / 450;
-          }
-          if (strip.z < 40) {
-            opacity *= Math.max(0, (90 + strip.z) / 130);
-          }
-
-          if (
-            opacity > 0.01 &&
-            projectedX + scaledWidth > 0 &&
-            projectedX - scaledWidth < width &&
-            projectedY + scaledHeight > 0 &&
-            projectedY - scaledHeight < height
-          ) {
-            ctx.save();
-            ctx.translate(projectedX, projectedY);
-            drawWireframeStrip(ctx, scaledWidth, scaledHeight, Math.max(0, opacity));
-            ctx.restore();
-          }
         }
 
-        requestAnimationFrame(renderStarfield);
-      };
+        const perspective = focalLength / (focalLength + strip.z);
+        const projectedX = centerX + strip.x * perspective;
+        const projectedY = centerY + strip.y * perspective;
+        const scale = Math.max(0.01, perspective);
 
-      requestAnimationFrame(renderStarfield);
+        const scaledHeight = strip.baseHeight * scale;
+        const scaledWidth = scaledHeight * (2 / 3);
+
+        let opacity = 0.85;
+        if (strip.z > maxDepth - 450) {
+          opacity *= (maxDepth - strip.z) / 450;
+        }
+        if (strip.z < 40) {
+          opacity *= Math.max(0, (90 + strip.z) / 130);
+        }
+
+        if (
+          opacity > 0.01 &&
+          projectedX + scaledWidth > 0 &&
+          projectedX - scaledWidth < stageWidth &&
+          projectedY + scaledHeight > 0 &&
+          projectedY - scaledHeight < stageHeight
+        ) {
+          ctx.globalAlpha = Math.max(0, opacity);
+          ctx.strokeRect(projectedX - scaledWidth / 2, projectedY - scaledHeight / 2, scaledWidth, scaledHeight);
+        }
+      }
+    };
+
+    const tickShowcase = () => {
+      if (!isShowcaseVisible || document.hidden || reduceMotion) {
+        rafId = null;
+        return;
+      }
+
+      // 1. Advance Frame Studio columns (cached dimensions, zero DOM layout reads)
+      if (selectorCols.length > 0 && !framePanelSelector?.classList.contains('hidden')) {
+        if (singleSetHeight === 0) measureSelectorCols();
+        if (singleSetHeight > 0) {
+          selectorScrollPos += selectorSpeed;
+          if (selectorScrollPos >= singleSetHeight) {
+            selectorScrollPos -= singleSetHeight;
+          }
+          for (let i = 0; i < selectorCols.length; i++) {
+            const delta = selectorScrollPos * (i % 2 === 0 ? 1 : -1);
+            selectorCols[i].style.transform = `translate3d(0, ${colBaseMiddles[i] + delta}px, 0)`;
+          }
+        }
+      }
+
+      // 2. Advance 3D Wireframe Starfield
+      drawStarfieldFrame(true);
+
+      rafId = requestAnimationFrame(tickShowcase);
+    };
+
+    const startShowcaseLoop = () => {
+      if (reduceMotion) {
+        drawStarfieldFrame(false);
+        return;
+      }
+      if (rafId === null && isShowcaseVisible && !document.hidden) {
+        rafId = requestAnimationFrame(tickShowcase);
+      }
+    };
+
+    const stopShowcaseLoop = () => {
+      if (rafId !== null) {
+        cancelAnimationFrame(rafId);
+        rafId = null;
+      }
+    };
+
+    if (showcase && 'IntersectionObserver' in window) {
+      const visibilityObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            isShowcaseVisible = entry.isIntersecting;
+            if (isShowcaseVisible) {
+              startShowcaseLoop();
+              startBoothCycle();
+            } else {
+              stopShowcaseLoop();
+              stopBoothCycle();
+            }
+          });
+        },
+        { threshold: 0.05 }
+      );
+      visibilityObserver.observe(showcase);
     }
+
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+        stopShowcaseLoop();
+        stopBoothCycle();
+      } else if (isShowcaseVisible) {
+        startShowcaseLoop();
+        startBoothCycle();
+      }
+    });
+
+    startShowcaseLoop();
 
   </script>
 
   <style>
-    .selector-grid-mask {
-      mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);
-      -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);
+    .session-countdown-numeral {
+      font-family: 'Neue Machina', sans-serif;
     }
-    @keyframes selector-drift-down {
-      0% {
-        transform: translateY(-50%);
-      }
-      100% {
-        transform: translateY(0%);
-      }
-    }
-    @keyframes selector-drift-up {
-      0% {
-        transform: translateY(0%);
-      }
-      100% {
-        transform: translateY(-50%);
-      }
-    }
-    .animate-selector-down {
-      animation: selector-drift-down 22s linear infinite;
-    }
-    .animate-selector-up {
-      animation: selector-drift-up 18s linear infinite;
-    }
-    @media (prefers-reduced-motion: reduce) {
-      .animate-selector-down,
-      .animate-selector-up {
-        animation: none !important;
-      }
+
+    .selector-viewport {
+      -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 15%, #000 85%, transparent 100%);
+      mask-image: linear-gradient(to bottom, transparent 0%, #000 15%, #000 85%, transparent 100%);
     }
   </style>
 </RootLayout>
