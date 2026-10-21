@@ -4,6 +4,7 @@ import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
 import CustomScrollbar from '../components/CustomScrollbar.astro';
 import SmoothScroll from '../components/SmoothScroll.astro';
+import EndSkyBackground from '../components/EndSkyBackground.astro';
 import '../styles/global.css';
 
 interface Props {
@@ -43,33 +44,45 @@ const { title, description, image, imageAlt, canonicalURL, type, keywords, schem
 
         // Global Accent Color Engine
         function updateAccentStyle(hex) {
-          if (!hex) return;
+          if (!hex || hex.toUpperCase() === '#52FF1A') {
+            hex = '#BCFF1C';
+            try {
+              localStorage.removeItem('portfolio_accent_hex');
+              localStorage.removeItem('portfolio_accent_name');
+            } catch(e) {}
+          }
           let styleEl = document.getElementById('portfolio-dynamic-accent-css');
           if (!styleEl) {
             styleEl = document.createElement('style');
             styleEl.id = 'portfolio-dynamic-accent-css';
             document.head.appendChild(styleEl);
           }
-          if (hex.toUpperCase() === '#52FF1A') {
-            styleEl.textContent = '';
-            document.documentElement.style.removeProperty('--color-accent');
-            document.documentElement.style.removeProperty('--color-accent-hover');
-            document.documentElement.style.removeProperty('--accent-color');
-            document.documentElement.style.removeProperty('--accent-hover');
-            document.documentElement.style.removeProperty('--terminal-green');
-            return;
-          }
+          const compMap = {
+            '#BCFF1C': '#F2003C',
+            '#52FF1A': '#C71AFF',
+            '#C2FE0C': '#490CFE',
+            '#FF3E00': '#00C1FF',
+            '#00E5FF': '#FF1A00',
+            '#C87DFF': '#95FF7D',
+            '#FF3CAC': '#3CFF8F',
+            '#FFAA00': '#0055FF'
+          };
+          const compHex = compMap[hex.toUpperCase()] || '#F2003C';
           document.documentElement.style.setProperty('--color-accent', hex);
           document.documentElement.style.setProperty('--color-accent-hover', hex);
+          document.documentElement.style.setProperty('--color-accent-complementary', compHex);
           document.documentElement.style.setProperty('--accent-color', hex);
           document.documentElement.style.setProperty('--accent-hover', hex);
+          document.documentElement.style.setProperty('--accent-complementary', compHex);
           document.documentElement.style.setProperty('--terminal-green', hex);
           styleEl.textContent = `
             :root, :root.dark, html, html.dark, .dark {
               --color-accent: ${hex} !important;
               --color-accent-hover: ${hex} !important;
+              --color-accent-complementary: ${compHex} !important;
               --accent-color: ${hex} !important;
               --accent-hover: ${hex} !important;
+              --accent-complementary: ${compHex} !important;
               --terminal-green: ${hex} !important;
             }
             .text-\\[\\#52FF1A\\] { color: ${hex} !important; }
@@ -276,7 +289,12 @@ const { title, description, image, imageAlt, canonicalURL, type, keywords, schem
 
         try {
           const savedHex = localStorage.getItem('portfolio_accent_hex');
-          if (savedHex) updateAccentStyle(savedHex);
+          if (savedHex === '#52FF1A') {
+            localStorage.removeItem('portfolio_accent_hex');
+            localStorage.removeItem('portfolio_accent_name');
+          }
+          const activeAccent = (savedHex && savedHex !== '#52FF1A') ? savedHex : '#BCFF1C';
+          updateAccentStyle(activeAccent);
           const savedLang = localStorage.getItem('portfolio_lang');
           if (savedLang === 'id' || savedLang === 'en') {
             document.documentElement.lang = savedLang;
@@ -362,6 +380,7 @@ const { title, description, image, imageAlt, canonicalURL, type, keywords, schem
     >
       Skip to content
     </a>
+    <EndSkyBackground />
     <CustomScrollbar />
     <SmoothScroll />
     {!hideNavbar && <Navbar />}

@@ -8,176 +8,149 @@ const currentYear = new Date().getFullYear();
 
 <GithubContributionDivider />
 <footer
-  class="w-full bg-[#fcfbf9] dark:bg-[#0e0e0e] text-neutral-600 dark:text-neutral-400 font-sans transition-colors duration-200"
+  class="relative z-10 w-full bg-[#fcfbf9] dark:bg-[#0e0e0e] text-neutral-600 dark:text-neutral-400 font-sans transition-colors duration-200"
   style="--cell: 28px;"
 >
   <div class="w-[92%] sm:w-[86%] lg:w-[80%] mx-auto">
-    <!-- Layer 2: Section 06 Sliced Numeral Header Bar + Contact Actions -->
+    <!-- Layer 2: Contact Headline + Actions -->
     <div
       id="contact"
       class="scroll-mt-24 pt-[calc(2*var(--cell,28px))] pb-10 sm:pb-12 border-b border-neutral-200/60 dark:border-neutral-800/60"
     >
-      <div class="flex items-stretch gap-0 pb-1">
-        <!-- Section Indicator: Tuned LiveChat Icon -->
-        <div
-          id="contact-numeral-crop"
-          class="relative overflow-hidden flex items-start justify-end select-none shrink-0 w-[60px] sm:w-[85px] pt-1 sm:pt-2 pr-1 sm:pr-2"
-          style="contain: paint;"
-        >
-          <svg
-            id="contact-icon"
-            role="img"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="currentColor"
-            class="text-neutral-950/40 dark:text-white/40 shrink-0 select-none"
-            style="width: 75px; height: 75px; transform: translate(24px, 4px) rotate(-13deg);"
-            aria-hidden="true"
+      <div class="flex flex-col justify-center min-w-0 py-0.5 space-y-6 sm:space-y-8">
+        <!-- Headline & Subtext -->
+        <div class="space-y-2 max-w-2xl">
+          <h2
+            id="heading-contact"
+            class="text-3xl sm:text-4xl lg:text-[42px] font-medium tracking-tight text-neutral-950 dark:text-white leading-[1.12] font-montreal m-0"
+            data-en="Have an idea? Let's build it."
+            data-id="Punya ide? Mari kita bangun."
           >
-            <title>LiveChat</title>
-            <path d="M23.849 14.91c-.24 2.94-2.73 5.22-5.7 5.19h-3.15l-6 3.9v-3.9l6-3.9h3.15c.93.03 1.71-.66 1.83-1.59.18-3 .18-6-.06-9-.06-.84-.75-1.47-1.56-1.53-2.04-.09-4.2-.18-6.36-.18s-4.32.06-6.36.21c-.84.06-1.5.69-1.56 1.53-.21 3-.24 6-.06 9 .09.93.9 1.59 1.83 1.56h3.15v3.9h-3.15a5.644 5.644 0 01-5.7-5.19c-.21-3.21-.18-6.39.06-9.6a5.57 5.57 0 015.19-5.1c2.1-.15 4.35-.21 6.6-.21s4.5.06 6.63.24a5.57 5.57 0 015.19 5.1c.21 3.18.24 6.39.03 9.57z"/>
-          </svg>
+            <span class="text-neutral-400 dark:text-neutral-500 font-normal">Have an idea?</span><br />
+            <span class="text-neutral-950 dark:text-white font-medium">Let's build <span class="text-[var(--color-accent,#1b7f3b)] dark:text-[var(--color-accent,#52FF1A)]">it.</span></span>
+          </h2>
+          <p
+            class="font-sans text-[13px] sm:text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed max-w-md m-0"
+            data-en="Available for select freelance contracts & full-time engineering roles."
+            data-id="Tersedia untuk kontrak lepas pilihan & posisi engineering full-time."
+          >
+            Available for select freelance contracts &amp; full-time engineering roles.
+          </p>
         </div>
 
-        <!-- Vertical Divider Line (Exact Slice Axis) -->
-        <div class="w-px bg-neutral-300 dark:bg-neutral-800 shrink-0 self-stretch my-0.5" aria-hidden="true"></div>
+        <!-- Contact Action Buttons: Responsive & Wrap-Safe -->
+        <div class="flex flex-wrap items-center gap-2 sm:gap-2.5">
+          <!-- Email -->
+          <ActionButton
+            href="mailto:yovangunardio@gmail.com"
+            variant="cta-white"
+            size="sm"
+            font="sans"
+            uppercase={false}
+            rounded="rounded-md"
+            class="group overflow-hidden text-[13px]"
+            aria-label="Send email to Yovan"
+            data-aria-en="Send email to Yovan"
+            data-aria-id="Kirim email ke Yovan"
+          >
+            <div class="inline-flex items-center translate-x-[10px] group-hover:translate-x-0 transition-transform duration-200 ease-out">
+              <i class="ti ti-mail text-sm mr-2" aria-hidden="true"></i>
+              <span data-en="Get in touch" data-id="Hubungi saya">Get in touch</span>
+              <span class="inline-flex items-center justify-center w-3.5 ml-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-200 ease-out text-neutral-400 group-hover:text-white dark:group-hover:text-neutral-950" aria-hidden="true">↗</span>
+            </div>
+          </ActionButton>
 
-        <!-- Right Side: Headline & Actions -->
-        <div class="flex-1 flex flex-col justify-center min-w-0 pl-3 sm:pl-5 lg:pl-6 py-0.5 space-y-6 sm:space-y-8">
-          <!-- Headline & Subtext -->
-          <div class="space-y-2 max-w-2xl">
-            <h2
-              id="heading-contact"
-              class="text-3xl sm:text-4xl lg:text-[42px] font-medium tracking-tight text-neutral-950 dark:text-white leading-[1.12] font-montreal m-0"
-              data-en="Have an idea? Let's build it."
-              data-id="Punya ide? Mari kita bangun."
-            >
-              <span class="text-neutral-400 dark:text-neutral-500 font-normal">Have an idea?</span><br />
-              <span class="text-neutral-950 dark:text-white font-medium">Let's build <span class="text-[var(--color-accent,#1b7f3b)] dark:text-[var(--color-accent,#52FF1A)]">it.</span></span>
-            </h2>
-            <p
-              class="font-sans text-[13px] sm:text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed max-w-md m-0"
-              data-en="Available for select freelance contracts & full-time engineering roles."
-              data-id="Tersedia untuk kontrak lepas pilihan & posisi engineering full-time."
-            >
-              Available for select freelance contracts &amp; full-time engineering roles.
-            </p>
-          </div>
+          <!-- GitHub -->
+          <ActionButton
+            href="https://github.com/navoyovan"
+            target="_blank"
+            rel="noopener noreferrer"
+            variant="secondary"
+            borderStyle="solid"
+            size="sm"
+            font="sans"
+            uppercase={false}
+            rounded="rounded-md"
+            class="group overflow-hidden text-[13px] text-neutral-700 dark:text-neutral-300"
+            aria-label="GitHub Profile (opens in new tab)"
+            data-aria-en="GitHub Profile (opens in new tab)"
+            data-aria-id="Profil GitHub (buka di tab baru)"
+          >
+            <div class="inline-flex items-center translate-x-[10px] group-hover:translate-x-0 transition-transform duration-200 ease-out">
+              <i class="ti ti-brand-github text-sm mr-1.5 text-neutral-400 group-hover:text-neutral-950 dark:group-hover:text-white transition-colors" aria-hidden="true"></i>
+              <span>GitHub</span>
+              <span class="inline-flex items-center justify-center w-3.5 ml-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-200 ease-out text-neutral-400 group-hover:text-neutral-950 dark:group-hover:text-white" aria-hidden="true">↗</span>
+            </div>
+          </ActionButton>
 
-          <!-- Contact Action Buttons: Responsive & Wrap-Safe -->
-          <div class="flex flex-wrap items-center gap-2 sm:gap-2.5">
-            <!-- Email -->
-            <ActionButton
-              href="mailto:yovangunardio@gmail.com"
-              variant="cta-white"
-              size="sm"
-              font="sans"
-              uppercase={false}
-              rounded="rounded-md"
-              class="group overflow-hidden text-[13px]"
-              aria-label="Send email to Yovan"
-              data-aria-en="Send email to Yovan"
-              data-aria-id="Kirim email ke Yovan"
-            >
-              <div class="inline-flex items-center translate-x-[10px] group-hover:translate-x-0 transition-transform duration-200 ease-out">
-                <i class="ti ti-mail text-sm mr-2" aria-hidden="true"></i>
-                <span data-en="Get in touch" data-id="Hubungi saya">Get in touch</span>
-                <span class="inline-flex items-center justify-center w-3.5 ml-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-200 ease-out text-neutral-400 group-hover:text-white dark:group-hover:text-neutral-950" aria-hidden="true">↗</span>
-              </div>
-            </ActionButton>
+          <!-- LinkedIn -->
+          <ActionButton
+            href="https://linkedin.com/in/yovan-g-d-22379ba7/"
+            target="_blank"
+            rel="noopener noreferrer"
+            variant="secondary"
+            borderStyle="solid"
+            size="sm"
+            font="sans"
+            uppercase={false}
+            rounded="rounded-md"
+            class="group overflow-hidden text-[13px] text-neutral-700 dark:text-neutral-300"
+            aria-label="LinkedIn Profile (opens in new tab)"
+            data-aria-en="LinkedIn Profile (opens in new tab)"
+            data-aria-id="Profil LinkedIn (buka di tab baru)"
+          >
+            <div class="inline-flex items-center translate-x-[10px] group-hover:translate-x-0 transition-transform duration-200 ease-out">
+              <i class="ti ti-brand-linkedin text-sm mr-1.5 text-neutral-400 group-hover:text-neutral-950 dark:group-hover:text-white transition-colors" aria-hidden="true"></i>
+              <span>LinkedIn</span>
+              <span class="inline-flex items-center justify-center w-3.5 ml-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-200 ease-out text-neutral-400 group-hover:text-neutral-950 dark:group-hover:text-white" aria-hidden="true">↗</span>
+            </div>
+          </ActionButton>
 
-            <!-- GitHub -->
-            <ActionButton
-              href="https://github.com/navoyovan"
-              target="_blank"
-              rel="noopener noreferrer"
-              variant="secondary"
-              borderStyle="solid"
-              size="sm"
-              font="sans"
-              uppercase={false}
-              rounded="rounded-md"
-              class="group overflow-hidden text-[13px] text-neutral-700 dark:text-neutral-300"
-              aria-label="GitHub Profile (opens in new tab)"
-              data-aria-en="GitHub Profile (opens in new tab)"
-              data-aria-id="Profil GitHub (buka di tab baru)"
-            >
-              <div class="inline-flex items-center translate-x-[10px] group-hover:translate-x-0 transition-transform duration-200 ease-out">
-                <i class="ti ti-brand-github text-sm mr-1.5 text-neutral-400 group-hover:text-neutral-950 dark:group-hover:text-white transition-colors" aria-hidden="true"></i>
-                <span>GitHub</span>
-                <span class="inline-flex items-center justify-center w-3.5 ml-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-200 ease-out text-neutral-400 group-hover:text-neutral-950 dark:group-hover:text-white" aria-hidden="true">↗</span>
-              </div>
-            </ActionButton>
+          <!-- 21st.dev -->
+          <ActionButton
+            href="https://21st.dev/@yovan"
+            target="_blank"
+            rel="noopener noreferrer"
+            variant="secondary"
+            borderStyle="solid"
+            size="sm"
+            font="sans"
+            uppercase={false}
+            rounded="rounded-md"
+            class="group overflow-hidden text-[13px] text-neutral-700 dark:text-neutral-300"
+            aria-label="21st.dev Profile (opens in new tab)"
+            data-aria-en="21st.dev Profile (opens in new tab)"
+            data-aria-id="Profil 21st.dev (buka di tab baru)"
+          >
+            <div class="inline-flex items-center translate-x-[10px] group-hover:translate-x-0 transition-transform duration-200 ease-out">
+              <i class="ti ti-cube text-sm mr-1.5 text-neutral-400 group-hover:text-neutral-950 dark:group-hover:text-white transition-colors" aria-hidden="true"></i>
+              <span>21st.dev</span>
+              <span class="inline-flex items-center justify-center w-3.5 ml-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-200 ease-out text-neutral-400 group-hover:text-neutral-950 dark:group-hover:text-white" aria-hidden="true">↗</span>
+            </div>
+          </ActionButton>
 
-            <!-- LinkedIn -->
-            <ActionButton
-              href="https://linkedin.com/in/yovan-g-d-22379ba7/"
-              target="_blank"
-              rel="noopener noreferrer"
-              variant="secondary"
-              borderStyle="solid"
-              size="sm"
-              font="sans"
-              uppercase={false}
-              rounded="rounded-md"
-              class="group overflow-hidden text-[13px] text-neutral-700 dark:text-neutral-300"
-              aria-label="LinkedIn Profile (opens in new tab)"
-              data-aria-en="LinkedIn Profile (opens in new tab)"
-              data-aria-id="Profil LinkedIn (buka di tab baru)"
-            >
-              <div class="inline-flex items-center translate-x-[10px] group-hover:translate-x-0 transition-transform duration-200 ease-out">
-                <i class="ti ti-brand-linkedin text-sm mr-1.5 text-neutral-400 group-hover:text-neutral-950 dark:group-hover:text-white transition-colors" aria-hidden="true"></i>
-                <span>LinkedIn</span>
-                <span class="inline-flex items-center justify-center w-3.5 ml-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-200 ease-out text-neutral-400 group-hover:text-neutral-950 dark:group-hover:text-white" aria-hidden="true">↗</span>
-              </div>
-            </ActionButton>
-
-            <!-- 21st.dev -->
-            <ActionButton
-              href="https://21st.dev/@yovan"
-              target="_blank"
-              rel="noopener noreferrer"
-              variant="secondary"
-              borderStyle="solid"
-              size="sm"
-              font="sans"
-              uppercase={false}
-              rounded="rounded-md"
-              class="group overflow-hidden text-[13px] text-neutral-700 dark:text-neutral-300"
-              aria-label="21st.dev Profile (opens in new tab)"
-              data-aria-en="21st.dev Profile (opens in new tab)"
-              data-aria-id="Profil 21st.dev (buka di tab baru)"
-            >
-              <div class="inline-flex items-center translate-x-[10px] group-hover:translate-x-0 transition-transform duration-200 ease-out">
-                <i class="ti ti-cube text-sm mr-1.5 text-neutral-400 group-hover:text-neutral-950 dark:group-hover:text-white transition-colors" aria-hidden="true"></i>
-                <span>21st.dev</span>
-                <span class="inline-flex items-center justify-center w-3.5 ml-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-200 ease-out text-neutral-400 group-hover:text-neutral-950 dark:group-hover:text-white" aria-hidden="true">↗</span>
-              </div>
-            </ActionButton>
-
-            <!-- Resume / CV -->
-            <ActionButton
-              href="https://docs.google.com/document/d/1dlUKA5EGLI3qPxEOfJ3acjt4tA39oxKy_Fs1Z_JM0Pk/export?format=pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              variant="secondary"
-              borderStyle="solid"
-              size="sm"
-              font="sans"
-              uppercase={false}
-              rounded="rounded-md"
-              class="group overflow-hidden text-[13px] text-neutral-700 dark:text-neutral-300"
-              aria-label="Download Resume / CV as PDF (opens in new tab)"
-              data-aria-en="Download Resume / CV as PDF (opens in new tab)"
-              data-aria-id="Unduh Resume / CV (buka di tab baru)"
-            >
-              <div class="inline-flex items-center translate-x-[10px] group-hover:translate-x-0 transition-transform duration-200 ease-out">
-                <i class="ti ti-file-text text-sm mr-1.5 text-neutral-400 group-hover:text-neutral-950 dark:group-hover:text-white transition-colors" aria-hidden="true"></i>
-                <span data-en="Resume / CV" data-id="Resume / CV">Resume / CV</span>
-                <span class="inline-flex items-center justify-center w-3.5 ml-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-200 ease-out text-neutral-400 group-hover:text-neutral-950 dark:group-hover:text-white" aria-hidden="true">↗</span>
-              </div>
-            </ActionButton>
-          </div>
+          <!-- Resume / CV -->
+          <ActionButton
+            href="https://docs.google.com/document/d/1dlUKA5EGLI3qPxEOfJ3acjt4tA39oxKy_Fs1Z_JM0Pk/export?format=pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            variant="secondary"
+            borderStyle="solid"
+            size="sm"
+            font="sans"
+            uppercase={false}
+            rounded="rounded-md"
+            class="group overflow-hidden text-[13px] text-neutral-700 dark:text-neutral-300"
+            aria-label="Download Resume / CV as PDF (opens in new tab)"
+            data-aria-en="Download Resume / CV as PDF (opens in new tab)"
+            data-aria-id="Unduh Resume / CV (buka di tab baru)"
+          >
+            <div class="inline-flex items-center translate-x-[10px] group-hover:translate-x-0 transition-transform duration-200 ease-out">
+              <i class="ti ti-file-text text-sm mr-1.5 text-neutral-400 group-hover:text-neutral-950 dark:group-hover:text-white transition-colors" aria-hidden="true"></i>
+              <span data-en="Resume / CV" data-id="Resume / CV">Resume / CV</span>
+              <span class="inline-flex items-center justify-center w-3.5 ml-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-200 ease-out text-neutral-400 group-hover:text-neutral-950 dark:group-hover:text-white" aria-hidden="true">↗</span>
+            </div>
+          </ActionButton>
         </div>
       </div>
     </div>

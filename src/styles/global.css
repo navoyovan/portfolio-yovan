@@ -42,10 +42,17 @@
   --font-hero: 'Syne', sans-serif;
   --font-machina: 'Neue Machina', sans-serif;
   --font-pixel: 'Press Start 2P', monospace;
+  --font-mono: 'Neue Machina', ui-monospace, SFMono-Regular, monospace;
 
-  --color-accent: var(--accent-color, #52FF1A);
-  --color-accent-hover: var(--accent-hover, #42e012);
-  --color-accent-complementary: var(--accent-complementary, #C71AFF);
+  --color-accent: #BCFF1C;
+  --color-accent-hover: #A6E615;
+  --color-accent-complementary: #F2003C;
+
+  /* Full Saturation Halftone Duo: Electric Volt & Electric Crimson */
+  --color-neon-volt: #BCFF1C;
+  --color-neon-volt-hover: #A6E615;
+  --color-electric-crimson: #F2003C;
+  --color-electric-crimson-hover: #D90035;
 
   --color-safe: #10B981;
   --color-safe-hover: #059669;
@@ -118,6 +125,16 @@
       transform: scale(1.01, 0.99);
     }
   }
+}
+
+@utility font-mono {
+  font-family: var(--font-mono);
+  font-weight: 300 !important;
+}
+
+.font-mono,
+.font-mono * {
+  font-weight: 300 !important;
 }
 
 :root {
@@ -402,5 +419,4 @@ html.show-scrollbar::-webkit-scrollbar-thumb {
 .sd-label::before,
 .sd-label::after {
   content: none !important;
-  display: none !important;
 }

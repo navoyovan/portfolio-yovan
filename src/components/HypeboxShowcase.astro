@@ -6,9 +6,11 @@ import ActionButton from "./ActionButton.astro";
 <section
   id="hypebox-showcase"
   aria-labelledby="heading-hypebox"
-  style="--hb-accent: #f86910;"
-  class="relative w-full text-neutral-950 dark:text-white overflow-x-clip overflow-y-visible px-4 sm:px-8 lg:px-12 pt-10 sm:pt-14 pb-12 sm:pb-16 font-sans select-none"
+  style="--hb-accent: var(--color-accent, #52FF1A);"
+  class="relative w-full text-neutral-950 dark:text-white overflow-x-clip overflow-y-visible px-4 sm:px-8 lg:px-12 pt-10 sm:pt-14 pb-12 sm:pb-16 font-sans select-none scroll-mt-24"
 >
+  <!-- Anchor alias for direct #hypebox deep links -->
+  <div id="hypebox" class="absolute -top-24 pointer-events-none" aria-hidden="true"></div>
   <!-- Warm Diffused Motion-Blur Ambient Glow Backdrop (Unclipped vertically + soft top/bottom mask fade) -->
   <div
     class="pointer-events-none absolute -top-44 -bottom-24 inset-x-0 overflow-visible z-0 [mask-image:linear-gradient(to_bottom,transparent_0%,black_22%,black_80%,transparent_100%)] [-webkit-mask-image:linear-gradient(to_bottom,transparent_0%,black_22%,black_80%,transparent_100%)]"
@@ -17,31 +19,31 @@ import ActionButton from "./ActionButton.astro";
     <!-- Light-Mode Luminous Orange/Peach Plumes (Zero dark/brown stops) -->
     <div
       class="dark:hidden absolute left-[28%] top-[14%] w-[44%] h-[54%] rounded-full blur-[72px]"
-      style="background: radial-gradient(circle at 50% 45%, rgba(255, 88, 18, 0.52) 0%, rgba(255, 128, 56, 0.30) 45%, rgba(255, 176, 120, 0.10) 74%, transparent 100%); transform: rotate(-8deg);"
+      style="background: radial-gradient(circle at 50% 45%, color-mix(in srgb, var(--color-accent, #1b7f3b) 45%, transparent) 0%, color-mix(in srgb, var(--color-accent, #1b7f3b) 25%, transparent) 45%, transparent 100%); transform: rotate(-8deg);"
     >
     </div>
     <div
       class="dark:hidden absolute left-[34%] top-[26%] w-[36%] h-[48%] rounded-full blur-[85px]"
-      style="background: radial-gradient(ellipse at 50% 50%, rgba(255, 138, 60, 0.42) 0%, rgba(255, 182, 125, 0.18) 58%, transparent 100%);"
+      style="background: radial-gradient(ellipse at 50% 50%, color-mix(in srgb, var(--color-accent, #1b7f3b) 35%, transparent) 0%, color-mix(in srgb, var(--color-accent, #1b7f3b) 15%, transparent) 58%, transparent 100%);"
     >
     </div>
 
     <!-- Dark-Mode Deep Warm Red/Orange Core Plumes matching the Sanity backdrop -->
     <div
       class="hidden dark:block absolute left-[28%] top-[14%] w-[44%] h-[54%] rounded-full opacity-80 blur-[72px]"
-      style="background: radial-gradient(circle at 50% 45%, #ff2e00 0%, #c83208 42%, #591605 72%, transparent 100%); transform: rotate(-8deg);"
+      style="background: radial-gradient(circle at 50% 45%, color-mix(in srgb, var(--color-accent, #52FF1A) 60%, transparent) 0%, color-mix(in srgb, var(--color-accent, #52FF1A) 30%, transparent) 42%, transparent 100%); transform: rotate(-8deg);"
     >
     </div>
     <!-- Dark-Mode Secondary warm amber/ochre wash -->
     <div
       class="hidden dark:block absolute left-[34%] top-[26%] w-[36%] h-[48%] rounded-full opacity-65 blur-[85px]"
-      style="background: radial-gradient(ellipse at 50% 50%, #e06d2b 0%, #8a3812 55%, transparent 100%);"
+      style="background: radial-gradient(ellipse at 50% 50%, color-mix(in srgb, var(--color-accent, #52FF1A) 40%, transparent) 0%, color-mix(in srgb, var(--color-accent, #52FF1A) 15%, transparent) 55%, transparent 100%);"
     >
     </div>
     <!-- Dark-Mode Cool slate atmospheric counterweight -->
     <div
       class="hidden dark:block absolute left-[14%] top-[18%] w-[32%] h-[46%] rounded-full opacity-40 blur-[90px]"
-      style="background: radial-gradient(circle at 50% 50%, #3a4454 0%, #181c24 65%, transparent 100%);"
+      style="background: radial-gradient(circle at 50% 50%, color-mix(in srgb, var(--color-accent, #52FF1A) 25%, #181c24) 0%, #181c24 65%, transparent 100%);"
     >
     </div>
   </div>
@@ -49,7 +51,7 @@ import ActionButton from "./ActionButton.astro";
   <!-- Upper Wireframe Preview Stage (Extends down behind the 4 containers with smooth bottom fade) -->
   <div
     id="wireframe-window-stage"
-    class="relative z-10 w-[92%] sm:w-[86%] lg:w-[80%] mx-auto min-h-[640px] sm:min-h-[740px] pb-56 sm:pb-72 border border-neutral-900/[0.14] dark:border-white/[0.15] border-b-0 bg-white/[0.35] dark:bg-black/[0.14] backdrop-blur-[1px] px-5 sm:px-10 lg:px-14 pt-5 flex flex-col overflow-hidden [mask-image:linear-gradient(to_bottom,black_0%,black_65%,transparent_100%)] [-webkit-mask-image:linear-gradient(to_bottom,black_0%,black_65%,transparent_100%)]"
+    class="relative z-10 w-[92%] sm:w-[86%] lg:w-[80%] mx-auto min-h-[540px] sm:min-h-[620px] pb-44 sm:pb-56 border border-neutral-900/[0.14] dark:border-white/[0.15] border-b-0 bg-white/[0.35] dark:bg-black/[0.14] backdrop-blur-[1px] px-5 sm:px-10 lg:px-14 pt-5 flex flex-col overflow-hidden [mask-image:linear-gradient(to_bottom,black_0%,black_65%,transparent_100%)] [-webkit-mask-image:linear-gradient(to_bottom,black_0%,black_65%,transparent_100%)]"
   >
     <!-- 3D Wireframe Photostrip Starfield Canvas (Clipped to Window Bounds) -->
     <canvas
@@ -72,14 +74,14 @@ import ActionButton from "./ActionButton.astro";
       </div>
     </div>
 
-    <!-- Optical Middle (Shifted Down): HYPE-BOX Logotype Display (Strictly 1-line, smaller + margined) -->
+    <!-- Optical Middle: HYPE-BOX Logotype Display (Vertically balanced + margined) -->
     <div
       id="stage-title-wrap"
-      class="relative z-10 flex flex-col items-center justify-center pt-48 sm:pt-60 pb-12 px-6 sm:px-12 w-full my-4"
+      class="relative z-10 flex flex-col items-center justify-center pt-36 sm:pt-48 pb-10 px-6 sm:px-12 w-full my-3"
     >
       <h3
         id="heading-hypebox"
-        class="font-heading font-black text-[clamp(2.15rem,7vw,5.75rem)] tracking-tight text-neutral-950 dark:text-white uppercase select-none leading-none text-center whitespace-nowrap mx-auto px-4 drop-shadow-[0_10px_28px_rgba(248,105,16,0.12)] dark:drop-shadow-[0_10px_35px_rgba(0,0,0,0.8)] m-0"
+        class="font-heading font-black text-[clamp(2.15rem,7vw,5.75rem)] tracking-tight text-neutral-950 dark:text-white uppercase select-none leading-none text-center whitespace-nowrap mx-auto px-4 drop-shadow-[0_10px_28px_color-mix(in_srgb,var(--color-accent,#52FF1A)_18%,transparent)] dark:drop-shadow-[0_10px_35px_rgba(0,0,0,0.8)] m-0"
       >
         HYPE-BOX
       </h3>
@@ -158,14 +160,14 @@ import ActionButton from "./ActionButton.astro";
 
   <!-- Bottom 4-Column Interactive Mini-Demos (Simulated data only) -->
   <div
-    class="relative z-20 -mt-36 sm:-mt-52 w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 items-stretch"
+    class="relative z-20 -mt-28 sm:-mt-40 w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 items-stretch"
   >
     <!-- DEMO 1: Photo Session -->
     <article
       id="demo-session"
       data-state="idle"
       aria-labelledby="demo-session-title"
-      class="group bg-[#f6f4ee] dark:bg-[#121214] border border-neutral-300/80 dark:border-white/[0.09] rounded-xl h-[390px] shadow-[0_16px_40px_rgba(0,0,0,0.08)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.85)] overflow-hidden flex flex-col"
+      class="group bg-[#f6f4ee] dark:bg-[#121214] border border-neutral-300/80 dark:border-white/[0.09] rounded-xl h-[390px] shadow-[0_4px_16px_rgba(0,0,0,0.035)] dark:shadow-[0_6px_20px_rgba(0,0,0,0.3)] overflow-hidden flex flex-col"
     >
       <header
         class="flex items-center justify-between px-4 pt-3.5 pb-2.5 border-b border-neutral-200/90 dark:border-white/[0.06]"
@@ -275,7 +277,7 @@ import ActionButton from "./ActionButton.astro";
     <article
       id="demo-frame"
       aria-labelledby="demo-frame-title"
-      class="bg-[#f6f4ee] dark:bg-[#121214] border border-neutral-300/80 dark:border-white/[0.09] rounded-xl h-[390px] shadow-[0_16px_40px_rgba(0,0,0,0.08)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.85)] overflow-hidden flex flex-col"
+      class="bg-[#f6f4ee] dark:bg-[#121214] border border-neutral-300/80 dark:border-white/[0.09] rounded-xl h-[390px] shadow-[0_4px_16px_rgba(0,0,0,0.035)] dark:shadow-[0_6px_20px_rgba(0,0,0,0.3)] overflow-hidden flex flex-col"
     >
       <header
         class="flex items-center justify-between px-4 pt-3.5 pb-2.5 border-b border-neutral-200/90 dark:border-white/[0.06]"
@@ -506,7 +508,7 @@ import ActionButton from "./ActionButton.astro";
     <article
       id="demo-booths"
       aria-labelledby="demo-booths-title"
-      class="bg-[#f6f4ee] dark:bg-[#121214] border border-neutral-300/80 dark:border-white/[0.09] rounded-xl h-[390px] shadow-[0_16px_40px_rgba(0,0,0,0.08)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.85)] overflow-hidden flex flex-col"
+      class="bg-[#f6f4ee] dark:bg-[#121214] border border-neutral-300/80 dark:border-white/[0.09] rounded-xl h-[390px] shadow-[0_4px_16px_rgba(0,0,0,0.035)] dark:shadow-[0_6px_20px_rgba(0,0,0,0.3)] overflow-hidden flex flex-col"
     >
       <header
         class="flex items-center justify-between px-4 pt-3.5 pb-2.5 border-b border-neutral-200/90 dark:border-white/[0.06]"
@@ -635,7 +637,7 @@ import ActionButton from "./ActionButton.astro";
     <article
       id="demo-workflow"
       aria-labelledby="demo-workflow-title"
-      class="bg-[#f6f4ee] dark:bg-[#121214] border border-neutral-300/80 dark:border-white/[0.09] rounded-xl h-[390px] shadow-[0_16px_40px_rgba(0,0,0,0.08)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.85)] overflow-hidden flex flex-col"
+      class="bg-[#f6f4ee] dark:bg-[#121214] border border-neutral-300/80 dark:border-white/[0.09] rounded-xl h-[390px] shadow-[0_4px_16px_rgba(0,0,0,0.035)] dark:shadow-[0_6px_20px_rgba(0,0,0,0.3)] overflow-hidden flex flex-col"
     >
       <header
         class="flex items-center justify-between px-4 pt-3.5 pb-2.5 border-b border-neutral-200/90 dark:border-white/[0.06]"

@@ -1,0 +1,927 @@
+---
+// Section3Capabilities.astro — Section 03 ("What I Can Build") 3x3 Staggered Horizontal Carousel
+import ActionButton from "./ActionButton.astro";
+import EggLink from "./EggLink.astro";
+
+interface Props {
+  base?: string;
+}
+
+const rawBase = Astro.props.base ?? import.meta.env.BASE_URL;
+const base = rawBase.endsWith("/") ? rawBase.slice(0, -1) : rawBase;
+
+const capabilities = [
+  {
+    num: "01",
+    icon: "ti-browser",
+    shortTitle: "Web Presences",
+    shortTitleId: "Presensi Web",
+    category: "Presences & Landing Experiences",
+    categoryId: "Presensi & Halaman Utama",
+    categoryCode: "DOMAIN_01",
+    title: "Websites & Web Presences",
+    titleId: "Website & Presensi Web",
+    description:
+      "Fast, accessible, and search-optimized web presences built with clean semantic markup.",
+    descriptionId:
+      "Website cepat, aksesibel, dan ramah SEO dengan markup semantik rapi.",
+    tags: ["Astro", "Tailwind", "SEO", "Accessibility (a11y)"],
+    stats: [
+      {
+        value: "Astro",
+        label: "Static & island architecture",
+        labelId: "Arsitektur statis & island",
+      },
+      {
+        value: "a11y",
+        label: "Semantic markup & keyboard navigation",
+        labelId: "Markup semantik & navigasi keyboard",
+      },
+      {
+        value: "SEO",
+        label: "Structured metadata & fast load times",
+        labelId: "Metadata terstruktur & muat cepat",
+      },
+    ],
+  },
+  {
+    num: "02",
+    icon: "ti-apps",
+    shortTitle: "Web Apps",
+    shortTitleId: "Aplikasi Web",
+    category: "Full-Stack Web Applications",
+    categoryId: "Aplikasi Web Full-Stack",
+    categoryCode: "DOMAIN_02",
+    title: "Web Applications",
+    titleId: "Aplikasi Web",
+    description:
+      "Full-stack platforms, dashboards, internal tools, and SaaS products with structured auth and robust APIs.",
+    descriptionId:
+      "Platform full-stack, dashboard, internal tools, dan produk SaaS dengan autentikasi rapi dan API tangguh.",
+    tags: ["React / Vue", "Laravel", "REST APIs", "Auth & RBAC"],
+    stats: [
+      {
+        value: "RBAC",
+        label: "Structured authentication & role permissions",
+        labelId: "Autentikasi rapi & izin berbasis peran",
+      },
+      {
+        value: "REST",
+        label: "Typed API contracts & backend services",
+        labelId: "Kontrak API terukur & layanan backend",
+      },
+      {
+        value: "SQL",
+        label: "Relational data models & automated migrations",
+        labelId: "Model data relasional & migrasi otomatis",
+      },
+    ],
+  },
+  {
+    num: "03",
+    icon: "ti-hand-click",
+    shortTitle: "Interactive UI",
+    shortTitleId: "UI Interaktif",
+    category: "Human-Machine & Interactive UI",
+    categoryId: "Antarmuka Manusia-Mesin & Interaktif",
+    categoryCode: "DOMAIN_03",
+    title: "Interactive Interfaces",
+    titleId: "Antarmuka Interaktif",
+    description:
+      "High-fidelity user experiences across screens, from responsive mobile web to custom touchscreen kiosk interfaces.",
+    descriptionId:
+      "Pengalaman pengguna lintas layar, dari web mobile responsif hingga antarmuka kiosk layar sentuh.",
+    tags: ["Touchscreen Kiosks", "Mobile UI", "Interactive UX"],
+    stats: [
+      {
+        value: "Kiosk",
+        label: "Touch-first public & self-service interfaces",
+        labelId: "Antarmuka publik & mandiri berbasis sentuh",
+      },
+      {
+        value: "60fps",
+        label: "Responsive layouts & fluid micro-interactions",
+        labelId: "Tata letak responsif & interaksi mulus",
+      },
+      {
+        value: "State",
+        label: "Deterministic session flows across screens",
+        labelId: "Alur sesi terukur di berbagai layar",
+      },
+    ],
+  },
+  {
+    num: "04",
+    icon: "ti-plug-connected",
+    shortTitle: "Connected I/O",
+    shortTitleId: "I/O Terhubung",
+    category: "Connected Systems & Hardware",
+    categoryId: "Sistem Terhubung & Hardware",
+    categoryCode: "DOMAIN_04",
+    title: "Connected Systems & Hardware",
+    titleId: "Sistem Terhubung & Hardware",
+    description:
+      "Hardware I/O, local serial/IPC bridges, payment gateway integrations, WebSockets, and cloud pipelines.",
+    descriptionId:
+      "Hardware I/O, bridge serial/IPC lokal, integrasi gateway pembayaran, WebSockets, dan pipeline cloud.",
+    tags: ["Serial / IPC", "Payment Gateways", "WebSockets", "IoT"],
+    stats: [
+      {
+        value: "IPC",
+        label: "Secure bridges between UI and local daemons",
+        labelId: "Bridge aman antara UI dan daemon lokal",
+      },
+      {
+        value: "QRIS",
+        label: "Live transaction webhooks & thermal printing",
+        labelId: "Webhook transaksi langsung & cetak thermal",
+      },
+      {
+        value: "Live",
+        label: "Low-latency telemetry & bidirectional events",
+        labelId: "Telemetri latensi rendah & event dua arah",
+      },
+    ],
+  },
+];
+---
+
+<section
+  id="capabilities"
+  aria-labelledby="heading-capabilities"
+  class="scroll-mt-24 pt-6 sm:pt-10 w-full"
+>
+  <!-- Top Row: Eyebrow with Bold Number + Headline -->
+  <div class="relative w-screen left-1/2 -translate-x-1/2 px-6 sm:px-12 flex flex-col min-w-0 pb-1 gap-1">
+    <!-- Eyebrow Row: Bold Number + Eyebrow Label -->
+    <div class="relative flex items-center justify-between pb-1.5 border-b border-neutral-200 dark:border-neutral-800 w-full">
+      <span aria-hidden="true" class="absolute -bottom-[5.5px] left-0 font-mono text-[10px] leading-none text-neutral-400/70 dark:text-neutral-600 select-none pointer-events-none">+</span>
+      <span aria-hidden="true" class="absolute -bottom-[5.5px] right-0 font-mono text-[10px] leading-none text-neutral-400/70 dark:text-neutral-600 select-none pointer-events-none">+</span>
+
+      <div class="flex items-center gap-2.5">
+        <span aria-hidden="true" class="inline-flex flex-col w-[3px] h-3.5 shrink-0 select-none">
+          <span class="w-full h-1/2 bg-[var(--color-accent,#BCFF1C)]"></span>
+          <span class="w-full h-1/2 bg-[var(--color-accent-complementary,#F2003C)]"></span>
+        </span>
+        <span class="font-sans font-black leading-none text-neutral-950 dark:text-white tracking-normal select-none text-[15px] sm:text-[16px]">
+          3
+        </span>
+
+        <span class="font-sans font-medium text-[10.5px] sm:text-xs uppercase tracking-[0.5px] text-neutral-500 dark:text-neutral-400">
+          WHAT I CAN BUILD
+        </span>
+      </div>
+
+      <div aria-hidden="true" class="flex items-center gap-1 select-none pointer-events-none">
+        <span class="w-2 h-1 bg-[var(--color-accent,#BCFF1C)]"></span>
+        <span class="w-2 h-1 bg-[var(--color-accent-complementary,#F2003C)]"></span>
+        <span class="font-mono text-[9px] text-neutral-400 dark:text-neutral-600 pl-1">3×3</span>
+      </div>
+    </div>
+
+    <!-- Section Headline -->
+    <div class="pt-0">
+      <h2
+        id="heading-capabilities"
+        data-en="From simple pages to systems that do stuff."
+        data-id="Dari halaman sederhana sampai sistem yang beneran kerja."
+        class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-medium tracking-[0.5px] text-neutral-950 dark:text-white leading-[1.08] font-montreal w-full m-0"
+      >
+        From simple pages to systems that do stuff.
+      </h2>
+    </div>
+
+    <!-- Under Header, Right: Pager (01 02 03 04) with SLIDING active fill box -->
+    <div class="flex justify-end pt-2 sm:pt-3">
+      <div
+        id="cd-pager-container"
+        role="tablist"
+        aria-label="Capabilities slides"
+        class="relative flex items-center gap-1.5 shrink-0 select-none"
+      >
+        <!-- Physical Sliding Fill Box (Strictly sharp geometry - no border radius) -->
+        <div
+          id="cd-pager-sliding-indicator"
+          class="absolute top-0 left-0 pointer-events-none z-0 transition-[transform,width] duration-300 ease-in-out"
+          style="width: 36px; transform: translateX(0px);"
+          aria-hidden="true"
+        >
+          <div class="w-full h-[26px] bg-neutral-950 dark:bg-white rounded-none"></div>
+        </div>
+
+        {
+          capabilities.map((item, idx) => (
+            <button
+              type="button"
+              role="tab"
+              aria-selected={idx === 0 ? "true" : "false"}
+              data-cd-pager-target={idx}
+              class:list={[
+                "cd-pager-btn relative z-10 flex items-center justify-center cursor-pointer select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 dark:focus-visible:ring-white w-9 sm:w-10 bg-transparent border-0 p-0",
+                idx === 0 ? "is-active" : "",
+              ]}
+            >
+              <span
+                class:list={[
+                  "cd-pager-chip inline-flex items-center justify-center w-full h-[26px] text-xs tracking-tight transition-colors duration-200 select-none",
+                  idx === 0
+                    ? "font-machina font-light text-white dark:text-neutral-950"
+                    : "font-machina font-light text-neutral-400 dark:text-neutral-500 hover:text-neutral-950 dark:hover:text-white",
+                ]}
+              >
+                {item.num}
+              </span>
+            </button>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+
+  <!-- Center Stage: Full-Bleed 100vw Horizontal Carousel with Exact 3x3 Sanity Geometry -->
+  <div
+    id="cd-carousel-stage"
+    class="relative w-screen left-1/2 -translate-x-1/2 cd-stage overflow-hidden pt-20 sm:pt-28 md:pt-36 pb-20 sm:pb-28 md:pb-36"
+  >
+    <!-- Seamless Architectural Greeble Backdrop (Sparse, Airy 2D Scatter Parallax) -->
+    <div
+      id="cd-parallax-backdrop"
+      class="absolute inset-y-0 -left-[40vw] w-[280vw] pointer-events-none select-none z-0 overflow-hidden"
+      aria-hidden="true"
+    >
+      <div id="cd-parallax-strip" class="flex flex-nowrap h-full">
+        {
+          [0, 1, 2, 3, 4, 5, 6, 7].map(() => (
+            <div
+              class="cd-backdrop-tile relative flex-shrink-0 h-full"
+              style="width: var(--tile-w, 480px);"
+            >
+              <!-- Sparse Crosshairs (+) with generous breathing room -->
+              <span class="absolute top-[18%] left-[14%] font-mono text-[10px] text-neutral-400/30 dark:text-neutral-700/40">+</span>
+              <span class="absolute top-[76%] left-[64%] font-mono text-[10px] text-neutral-400/25 dark:text-neutral-700/35">+</span>
+
+              <!-- Faint corner registration bracket -->
+              <span class="absolute top-[72%] left-[34%] font-mono text-[9px] text-neutral-400/30 dark:text-neutral-700/40">└</span>
+
+              <!-- Quiet coordinate stamp -->
+              <div class="absolute top-[32%] left-[48%] flex items-center gap-1 font-mono text-[8px] text-neutral-400/30 dark:text-neutral-700/40">
+                <span class="w-1 h-[1px] bg-[var(--color-accent,#BCFF1C)]/60"></span>
+                <span>SYS.03</span>
+              </div>
+
+              <!-- Single subtle dual-accent dither pip -->
+              <div class="absolute top-[26%] left-[84%] flex gap-0.5 opacity-50">
+                <span class="w-1 h-1 bg-[var(--color-accent,#BCFF1C)]"></span>
+                <span class="w-1 h-1 bg-[var(--color-accent-complementary,#F2003C)]"></span>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+    <div id="cd-slides-track" class="relative z-10 cd-track">
+      {
+        capabilities.map((item, idx) => (
+          <div
+            role="group"
+            aria-roledescription="slide"
+            aria-label={`${item.num} of 04: ${item.title}`}
+            data-cd-cell={idx}
+            class:list={[
+              "cd-slide select-none",
+              idx === 0 ? "is-active" : "is-neighbour",
+            ]}
+          >
+            <div class="cd-slide-grid">
+              <!-- ROW 1, COL 1: Capability Wordmark -->
+              <div class="cd-cell-wordmark">
+                <span
+                  data-en={item.shortTitle}
+                  data-id={item.shortTitleId || item.shortTitle}
+                  class="font-sans font-bold text-2xl sm:text-[28px] text-neutral-950 dark:text-white tracking-tight whitespace-nowrap leading-none"
+                >
+                  {item.shortTitle}
+                </span>
+              </div>
+
+              <!-- ROW 1, COL 2: Stat Box 1 (Strictly NO tint, light blur) -->
+              <div class="relative cd-cell-box border border-neutral-300 dark:border-neutral-800 bg-transparent backdrop-blur-sm">
+                <span aria-hidden="true" class="absolute -top-[1px] -left-[1px] w-2.5 h-[2px] bg-[var(--color-accent,#BCFF1C)] pointer-events-none"></span>
+                <span aria-hidden="true" class="absolute -top-[1px] -left-[1px] w-[2px] h-2.5 bg-[var(--color-accent,#BCFF1C)] pointer-events-none"></span>
+                <span class="font-machina font-light text-2xl sm:text-3xl text-neutral-950 dark:text-white tracking-tight leading-none">
+                  {item.stats[0].value}
+                </span>
+              </div>
+
+              <!-- ROW 1, COL 3: Stat Label 1 -->
+              <div class="cd-cell-label-right">
+                <span
+                  data-en={item.stats[0].label}
+                  data-id={item.stats[0].labelId}
+                  class="font-sans text-xs text-neutral-600 dark:text-neutral-400 leading-snug"
+                >
+                  {item.stats[0].label}
+                </span>
+              </div>
+
+              <!-- ROW 2, COL 1: Empty space below Wordmark -->
+              <div class="cd-cell-empty relative flex items-center justify-center" aria-hidden="true">
+                <span class="font-mono text-[10px] text-neutral-300 dark:text-neutral-800 select-none">+</span>
+              </div>
+
+              <!-- ROW 2, COL 2: Stat Label 2 -->
+              <div class="cd-cell-label-left">
+                <span
+                  data-en={item.stats[1].label}
+                  data-id={item.stats[1].labelId}
+                  class="font-sans text-xs text-neutral-600 dark:text-neutral-400 leading-snug"
+                >
+                  {item.stats[1].label}
+                </span>
+              </div>
+
+              <!-- ROW 2, COL 3: Stat Box 2 (Strictly NO tint, light blur) -->
+              <div class="relative cd-cell-box border border-neutral-300 dark:border-neutral-800 bg-transparent backdrop-blur-sm">
+                <span aria-hidden="true" class="absolute -top-[1px] -right-[1px] w-2.5 h-[2px] bg-[var(--color-accent-complementary,#F2003C)] pointer-events-none"></span>
+                <span aria-hidden="true" class="absolute -top-[1px] -right-[1px] w-[2px] h-2.5 bg-[var(--color-accent-complementary,#F2003C)] pointer-events-none"></span>
+                <span class="font-machina font-light text-2xl sm:text-3xl text-neutral-950 dark:text-white tracking-tight leading-none">
+                  {item.stats[1].value}
+                </span>
+              </div>
+
+              <!-- ROW 3, COL 1: Empty space below Wordmark -->
+              <div class="cd-cell-empty relative flex items-end justify-start p-1.5" aria-hidden="true">
+                <span class="inline-flex items-center gap-0.5 opacity-60">
+                  <span class="w-1 h-1 bg-[var(--color-accent,#BCFF1C)]"></span>
+                  <span class="w-1 h-1 bg-[var(--color-accent-complementary,#F2003C)]"></span>
+                </span>
+              </div>
+
+              <!-- ROW 3, COL 2: Stat Box 3 (Strictly NO tint, light blur) -->
+              <div class="relative cd-cell-box border border-neutral-300 dark:border-neutral-800 bg-transparent backdrop-blur-sm">
+                <span aria-hidden="true" class="absolute -bottom-[1px] -left-[1px] w-2.5 h-[2px] bg-[var(--color-accent,#BCFF1C)] pointer-events-none"></span>
+                <span aria-hidden="true" class="absolute -bottom-[1px] -left-[1px] w-[2px] h-2.5 bg-[var(--color-accent,#BCFF1C)] pointer-events-none"></span>
+                <span class="font-machina font-light text-2xl sm:text-3xl text-neutral-950 dark:text-white tracking-tight leading-none">
+                  {item.stats[2].value}
+                </span>
+              </div>
+
+              <!-- ROW 3, COL 3: Stat Label 3 -->
+              <div class="cd-cell-label-right">
+                <span
+                  data-en={item.stats[2].label}
+                  data-id={item.stats[2].labelId}
+                  class="font-sans text-xs text-neutral-600 dark:text-neutral-400 leading-snug"
+                >
+                  {item.stats[2].label}
+                </span>
+              </div>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+
+  <!-- Pinned Bottom Row: Left-Ruled Description + ActionButton (Standard page container width) -->
+  <div id="cd-pinned-bottom" class="w-full flex flex-col sm:flex-row sm:items-end justify-between gap-8 pt-8 sm:pt-12 pb-6 sm:pb-10">
+    <div class="relative border-l border-neutral-300 dark:border-neutral-700 pl-5 sm:pl-6 max-w-xl">
+      <!-- Split Dual-Accent Vertical Rule Greeble -->
+      <span aria-hidden="true" class="absolute -left-[1.5px] top-0 w-[2px] h-6 bg-[var(--color-accent,#BCFF1C)]"></span>
+      <span aria-hidden="true" class="absolute -left-[1.5px] top-6 w-[2px] h-6 bg-[var(--color-accent-complementary,#F2003C)]"></span>
+      {
+        capabilities.map((item, idx) => (
+          <div
+            data-cd-quote={idx}
+            class:list={[
+              "cd-quote-block",
+              idx === 0 ? "block" : "hidden",
+            ]}
+            aria-hidden={idx === 0 ? "false" : "true"}
+          >
+            {item.num === "02" ? (
+              <p class="font-sans text-base sm:text-lg leading-relaxed text-neutral-800 dark:text-neutral-200 font-normal m-0 mb-4 sm:mb-5">
+                <span data-en="Full-stack platforms, dashboards, internal tools, and SaaS products with " data-id="Platform full-stack, dashboard, internal tools, dan produk SaaS dengan ">Full-stack platforms, dashboards, internal tools, and SaaS products with </span><EggLink
+                  easter="pertemuan7"
+                  en="structured auth"
+                  id="autentikasi rapi"
+                  ariaEn="Unlock Pertemuan 7 Form Login Cool Stuff"
+                  ariaId="Buka Cool Stuff Form Login Pertemuan 7"
+                /><span data-en=" and robust APIs." data-id=" dan API tangguh."> and robust APIs.</span>
+              </p>
+            ) : (
+              <p class="font-sans text-base sm:text-lg leading-relaxed text-neutral-800 dark:text-neutral-200 font-normal m-0 mb-4 sm:mb-5">
+                <span
+                  data-en={item.description}
+                  data-id={item.descriptionId || item.description}
+                >{item.description}</span>
+              </p>
+            )}
+
+            <div class="space-y-1 text-xs sm:text-[13px] font-sans">
+              <div
+                data-en={item.category}
+                data-id={item.categoryId || item.category}
+                class="font-semibold text-neutral-900 dark:text-neutral-100"
+              >
+                {item.category}
+              </div>
+              <div class="flex flex-wrap items-center gap-x-2 gap-y-1 text-neutral-500 dark:text-neutral-400">
+                {item.tags.map((tag, tIdx) => (
+                  <>
+                    <span>{tag}</span>
+                    {tIdx < item.tags.length - 1 && (
+                      <span
+                        class={tIdx % 2 === 0 ? "text-[var(--color-accent,#BCFF1C)] font-bold" : "text-[var(--color-accent-complementary,#F2003C)] font-bold"}
+                      >·</span>
+                    )}
+                  </>
+                ))}
+              </div>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+
+    <ActionButton
+      href={`${base}/#projects`}
+      variant="secondary"
+      borderStyle="solid"
+      size="sm"
+      font="sans"
+      uppercase={false}
+      rounded="rounded-full"
+      class="group/btn overflow-hidden self-start sm:self-end shrink-0 text-[13px] text-neutral-900 dark:text-neutral-100"
+      ariaLabel="See Projects"
+      data-aria-en="See Projects"
+      data-aria-id="Lihat Proyek"
+    >
+      <div class="inline-flex items-center translate-x-[10px] group-hover/btn:translate-x-0 transition-transform duration-200 ease-out">
+        <span data-en="See Projects" data-id="Lihat Proyek">See Projects</span>
+        <span
+          class="inline-flex items-center justify-center w-3.5 ml-1.5 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-200 ease-out text-neutral-400 group-hover/btn:text-neutral-950 dark:group-hover/btn:text-white"
+          aria-hidden="true"
+        >
+          ↗
+        </span>
+      </div>
+    </ActionButton>
+  </div>
+</section>
+
+<script>
+  (() => {
+    const cdPagerBtns = document.querySelectorAll(".cd-pager-btn");
+    const cdStage = document.getElementById("cd-carousel-stage");
+    const cdTrack = document.getElementById("cd-slides-track");
+    const cdQuotes = document.querySelectorAll(".cd-quote-block");
+
+    if (!cdStage || !cdTrack || cdPagerBtns.length === 0) return;
+
+    const cdTotal = 4;
+    let cdActiveIdx = 0;
+    let cdCellIndex = 4; // Main Set B starts at 4 (0..3 = Set A, 4..7 = Set B, 8..11 = Set C)
+    let bgStepIndex = 4; // Parallax step index matching Set B
+    const cdCycleMs = 4800;
+    let cdTimer: ReturnType<typeof setTimeout> | null = null;
+    let cdReady = false;
+
+    function updateCdGap() {
+      if (!cdStage || !cdTrack) return;
+      const firstCell = cdTrack.children[0] as HTMLElement | undefined;
+      if (!firstCell) return;
+      const stageW = cdStage.offsetWidth;
+      const slideW = firstCell.offsetWidth || 553;
+      const sideSpace = (stageW - slideW) / 2;
+      const targetPeek = 234;
+      const gapPx = stageW >= 900 ? Math.max(28, Math.round(sideSpace - targetPeek)) : 32;
+      cdTrack.style.gap = `${gapPx}px`;
+
+      // Each repeating backdrop tile corresponds exactly to 1 full 4-slide cycle
+      const tileW = Math.round(cdTotal * (slideW + gapPx) * 0.18);
+      cdStage.style.setProperty("--tile-w", `${tileW}px`);
+    }
+
+    function setupCdCarousel() {
+      if (!cdTrack || !cdStage || cdReady) return;
+      const baseCells = Array.from(cdTrack.querySelectorAll("[data-cd-cell]"));
+      if (baseCells.length !== cdTotal) return;
+
+      const clonesBefore = baseCells.map((c) => {
+        const clone = c.cloneNode(true) as HTMLElement;
+        clone.removeAttribute("data-cd-cell");
+        clone.setAttribute("data-cd-copy", "prev");
+        clone.setAttribute("aria-hidden", "true");
+        return clone;
+      });
+
+      const clonesAfter = baseCells.map((c) => {
+        const clone = c.cloneNode(true) as HTMLElement;
+        clone.removeAttribute("data-cd-cell");
+        clone.setAttribute("data-cd-copy", "next");
+        clone.setAttribute("aria-hidden", "true");
+        return clone;
+      });
+
+      clonesBefore.forEach((clone) => cdTrack.insertBefore(clone, baseCells[0]));
+      clonesAfter.forEach((clone) => cdTrack.appendChild(clone));
+
+      Array.from(cdTrack.children).forEach((cell, idx) => {
+        cell.addEventListener("click", () => {
+          if (idx !== cdCellIndex) {
+            goToCdSlide(idx % cdTotal, idx);
+          }
+        });
+      });
+
+      cdTrack.addEventListener("transitionend", (e) => {
+        if (e.target !== cdTrack) return;
+        if (e.propertyName && e.propertyName !== "transform") return;
+        snapCdBoundary();
+      });
+
+      cdReady = true;
+      updateCdGap();
+      normalizeCdIndex();
+      positionCdTrack(cdCellIndex, false);
+      updateCdCellState();
+    }
+
+    function snapCdBoundary() {
+      if (!cdTrack) return;
+      if (cdCellIndex >= cdTotal * 2) {
+        cdCellIndex -= cdTotal;
+        bgStepIndex -= cdTotal;
+        cdTrack.classList.add("is-snapping");
+        positionCdTrack(cdCellIndex, false);
+        updateCdCellState();
+        void cdTrack.offsetHeight;
+        cdTrack.classList.remove("is-snapping");
+      } else if (cdCellIndex < cdTotal) {
+        cdCellIndex += cdTotal;
+        bgStepIndex += cdTotal;
+        cdTrack.classList.add("is-snapping");
+        positionCdTrack(cdCellIndex, false);
+        updateCdCellState();
+        void cdTrack.offsetHeight;
+        cdTrack.classList.remove("is-snapping");
+      }
+    }
+
+    function normalizeCdIndex() {
+      if (!cdTrack) return;
+      if (cdCellIndex >= cdTotal * 2) {
+        cdCellIndex -= cdTotal;
+      } else if (cdCellIndex < cdTotal) {
+        cdCellIndex += cdTotal;
+      }
+    }
+
+    function updateCdCellState() {
+      if (!cdTrack) return;
+      const activeModulo = ((cdCellIndex % cdTotal) + cdTotal) % cdTotal;
+      Array.from(cdTrack.children).forEach((cell, idx) => {
+        // Keep both the current slide and its mirrored clone in sync so boundary wrap never triggers an opacity fade
+        const isActive = idx === cdCellIndex || (idx % cdTotal === activeModulo);
+        cell.classList.toggle("is-active", isActive);
+        cell.classList.toggle("is-neighbour", !isActive);
+        cell.setAttribute("aria-hidden", idx === cdCellIndex ? "false" : "true");
+      });
+    }
+
+    function positionCdTrack(cellIdx: number, smooth = true) {
+      if (!cdTrack || !cdStage) return;
+      updateCdGap();
+      const cell = cdTrack.children[cellIdx] as HTMLElement | undefined;
+      if (!cell) return;
+
+      const stageW = cdStage.offsetWidth;
+      const cellCenter = cell.offsetLeft + cell.offsetWidth / 2;
+      const tx = Math.round(stageW / 2 - cellCenter);
+
+      const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (smooth && !reduced) {
+        cdTrack.style.transition = "transform 850ms cubic-bezier(0.65, 0, 0.35, 1)";
+      } else {
+        cdTrack.style.transition = "none";
+      }
+      cdTrack.style.transform = `translateX(${tx}px)`;
+
+      const cdStrip = document.getElementById("cd-parallax-strip");
+      if (cdStrip) {
+        const slideW = cell.offsetWidth || 553;
+        const sideSpace = (stageW - slideW) / 2;
+        const targetPeek = 234;
+        const gapPx = stageW >= 900 ? Math.max(28, Math.round(sideSpace - targetPeek)) : 32;
+        const stepDist = (slideW + gapPx) * 0.18;
+        // Direction: moves in the same direction as carousel (negative translateX as index increases)
+        const bgTx = Math.round(-bgStepIndex * stepDist);
+        if (smooth && !reduced) {
+          cdStrip.style.transition = "transform 850ms cubic-bezier(0.65, 0, 0.35, 1)";
+        } else {
+          cdStrip.style.transition = "none";
+        }
+        cdStrip.style.transform = `translateX(${bgTx}px)`;
+      }
+    }
+
+    function updateCdIndicator(targetIdx: number) {
+      const ind = document.getElementById("cd-pager-sliding-indicator");
+      const btn = cdPagerBtns[targetIdx] as HTMLElement | undefined;
+      if (ind && btn) {
+        ind.style.transform = `translateX(${btn.offsetLeft}px)`;
+        ind.style.width = `${btn.offsetWidth}px`;
+      }
+    }
+
+    function stopCdCycle() {
+      if (cdTimer) {
+        clearTimeout(cdTimer);
+        cdTimer = null;
+      }
+    }
+
+    function startCdCycle() {
+      stopCdCycle();
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+      cdTimer = setTimeout(() => {
+        goToCdSlide((cdActiveIdx + 1) % cdTotal, cdCellIndex + 1);
+      }, cdCycleMs);
+    }
+
+    function goToCdSlide(targetSlideIdx: number, explicitCellIdx?: number) {
+      if (!cdTrack || !cdStage) return;
+      setupCdCarousel();
+
+      if (cdCellIndex >= cdTotal * 2 || cdCellIndex < cdTotal) {
+        snapCdBoundary();
+        void cdTrack.offsetHeight;
+      }
+
+      const prevCellIdx = cdCellIndex;
+      if (explicitCellIdx !== undefined) {
+        cdCellIndex = explicitCellIdx;
+        cdActiveIdx = ((cdCellIndex % cdTotal) + cdTotal) % cdTotal;
+        bgStepIndex += (explicitCellIdx - prevCellIdx);
+      } else {
+        let diff = targetSlideIdx - (cdCellIndex % cdTotal);
+        if (diff > 2) diff -= cdTotal;
+        if (diff < -2) diff += cdTotal;
+        cdCellIndex += diff;
+        cdActiveIdx = targetSlideIdx;
+        bgStepIndex += diff;
+      }
+
+      positionCdTrack(cdCellIndex, true);
+      updateCdCellState();
+      updateCdIndicator(cdActiveIdx);
+
+      cdPagerBtns.forEach((btn, idx) => {
+        const isCurrent = idx === cdActiveIdx;
+        btn.setAttribute("aria-selected", isCurrent ? "true" : "false");
+        btn.classList.toggle("is-active", isCurrent);
+
+        const chip = btn.querySelector(".cd-pager-chip");
+        if (chip) {
+          if (isCurrent) {
+            chip.className = "cd-pager-chip inline-flex items-center justify-center w-full h-[26px] text-xs tracking-tight transition-colors duration-200 select-none font-machina font-light text-white dark:text-neutral-950";
+          } else {
+            chip.className = "cd-pager-chip inline-flex items-center justify-center w-full h-[26px] text-xs tracking-tight transition-colors duration-200 select-none font-machina font-light text-neutral-400 dark:text-neutral-500 hover:text-neutral-950 dark:hover:text-white";
+          }
+        }
+      });
+
+      // Show ONLY the active quote, hide all inactive ones completely
+      cdQuotes.forEach((panel, qIdx) => {
+        const isCurrent = qIdx === cdActiveIdx;
+        panel.classList.toggle("hidden", !isCurrent);
+        panel.classList.toggle("block", isCurrent);
+        panel.setAttribute("aria-hidden", isCurrent ? "false" : "true");
+      });
+
+      startCdCycle();
+    }
+
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) {
+        stopCdCycle();
+      } else {
+        snapCdBoundary();
+        updateCdIndicator(cdActiveIdx);
+        startCdCycle();
+      }
+    });
+
+    if (typeof ResizeObserver !== "undefined" && cdStage) {
+      const ro = new ResizeObserver(() => {
+        positionCdTrack(cdCellIndex, false);
+        updateCdIndicator(cdActiveIdx);
+      });
+      ro.observe(cdStage);
+    }
+
+    window.addEventListener("resize", () => {
+      positionCdTrack(cdCellIndex, false);
+      updateCdIndicator(cdActiveIdx);
+    });
+
+    cdPagerBtns.forEach((btn, idx) => {
+      btn.addEventListener("click", () => {
+        goToCdSlide(idx);
+      });
+    });
+
+    function initCdCarousel() {
+      setupCdCarousel();
+      goToCdSlide(0, 4);
+      setTimeout(() => {
+        positionCdTrack(cdCellIndex, false);
+        updateCdIndicator(0);
+      }, 60);
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(() => {
+          positionCdTrack(cdCellIndex, false);
+          updateCdIndicator(0);
+        });
+      }
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", initCdCarousel);
+    } else {
+      initCdCarousel();
+    }
+  })();
+</script>
+
+<style>
+  .cd-stage {
+    width: 100vw;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .cd-track {
+    display: flex;
+    align-items: center;
+    gap: 80px;
+    width: max-content;
+  }
+
+  .cd-track.is-snapping,
+  .cd-track.is-snapping * {
+    transition: none !important;
+  }
+
+  .cd-slide {
+    flex-shrink: 0;
+    width: 553px;
+  }
+
+  .cd-slide.is-active {
+    cursor: default;
+  }
+
+  .cd-slide.is-neighbour {
+    cursor: pointer;
+  }
+
+  /* Fade contents instead of .cd-slide itself so .cd-slide keeps opacity: 1 at all times.
+     This prevents offscreen compositing buffers from destroying backdrop-filter blur during transforms. */
+  .cd-slide .cd-cell-wordmark,
+  .cd-slide .cd-cell-label-right,
+  .cd-slide .cd-cell-label-left,
+  .cd-slide .cd-cell-empty,
+  .cd-slide .cd-cell-box > span {
+    transition: opacity 850ms cubic-bezier(0.65, 0, 0.35, 1);
+  }
+
+  .cd-slide .cd-cell-box {
+    transition: border-color 850ms cubic-bezier(0.65, 0, 0.35, 1);
+  }
+
+  .cd-slide.is-neighbour .cd-cell-wordmark,
+  .cd-slide.is-neighbour .cd-cell-label-right,
+  .cd-slide.is-neighbour .cd-cell-label-left,
+  .cd-slide.is-neighbour .cd-cell-empty,
+  .cd-slide.is-neighbour .cd-cell-box > span {
+    opacity: 0.35;
+  }
+
+  .cd-slide.is-neighbour:hover .cd-cell-wordmark,
+  .cd-slide.is-neighbour:hover .cd-cell-label-right,
+  .cd-slide.is-neighbour:hover .cd-cell-label-left,
+  .cd-slide.is-neighbour:hover .cd-cell-empty,
+  .cd-slide.is-neighbour:hover .cd-cell-box > span {
+    opacity: 0.75;
+  }
+
+  .cd-slide.is-active .cd-cell-wordmark,
+  .cd-slide.is-active .cd-cell-label-right,
+  .cd-slide.is-active .cd-cell-label-left,
+  .cd-slide.is-active .cd-cell-empty,
+  .cd-slide.is-active .cd-cell-box > span {
+    opacity: 1;
+  }
+
+  .cd-slide.is-neighbour .cd-cell-box {
+    border-color: rgba(163, 163, 163, 0.35);
+  }
+
+  :global(.dark) .cd-slide.is-neighbour .cd-cell-box {
+    border-color: rgba(64, 64, 64, 0.4);
+  }
+
+  .cd-slide.is-active .cd-cell-box {
+    border-color: rgb(212, 212, 212);
+  }
+
+  :global(.dark) .cd-slide.is-active .cd-cell-box {
+    border-color: rgb(38, 38, 38);
+  }
+
+  /* 3 Columns x 3 Rows Matrix:
+     Col 1 (175px): Row 1 Wordmark (right-aligned), Row 2 Empty, Row 3 Empty
+     Col 2 (175px): Row 1 Box 1, Row 2 Label 2, Row 3 Box 3
+     Col 3 (175px): Row 1 Label 1, Row 2 Box 2, Row 3 Label 3
+     Total width: 175 + 14 + 175 + 14 + 175 = 553px */
+  .cd-slide-grid {
+    display: grid;
+    grid-template-columns: 175px 175px 175px;
+    grid-template-rows: 56px 56px 56px;
+    column-gap: 14px;
+    row-gap: 14px;
+    align-items: center;
+    width: 553px;
+  }
+
+  .cd-cell-wordmark {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    text-align: right;
+    padding-right: 6px;
+    height: 100%;
+    min-width: 0;
+  }
+
+  .cd-cell-box {
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    width: 100%;
+    height: 100%;
+    background: transparent !important;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    box-sizing: border-box;
+    transform: translateZ(0);
+  }
+
+  .cd-cell-label-right {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    text-align: left;
+    padding-left: 2px;
+    height: 100%;
+  }
+
+  .cd-cell-label-left {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    text-align: left;
+    padding-right: 4px;
+    height: 100%;
+  }
+
+  .cd-cell-empty {
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+
+  @media (max-width: 640px) {
+    .cd-slide,
+    .cd-slide-grid {
+      width: 320px;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto repeat(3, 50px);
+    }
+
+    .cd-cell-wordmark {
+      grid-column: 1 / -1;
+      justify-content: flex-start;
+      text-align: left;
+      padding-bottom: 4px;
+    }
+
+    .cd-cell-empty {
+      display: none;
+    }
+  }
+</style>

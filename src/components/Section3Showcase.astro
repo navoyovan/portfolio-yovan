@@ -253,8 +253,15 @@ const capabilities = [
       <div class="flex items-center gap-1 bg-neutral-200/80 dark:bg-neutral-800/80 p-0.5 rounded-md border border-neutral-300/60 dark:border-neutral-700/60">
         <button
           type="button"
-          data-variant="slides"
+          data-variant="slidesD"
           class="variant-btn active px-2.5 py-1 text-[11px] font-semibold rounded bg-white dark:bg-neutral-950 text-neutral-950 dark:text-white shadow-xs transition-colors cursor-pointer"
+        >
+          Slides (Concept D)
+        </button>
+        <button
+          type="button"
+          data-variant="slides"
+          class="variant-btn px-2.5 py-1 text-[11px] font-medium rounded text-neutral-600 dark:text-neutral-400 hover:text-neutral-950 dark:hover:text-white transition-colors cursor-pointer"
         >
           Slides (Concept C)
         </button>
@@ -326,12 +333,282 @@ const capabilities = [
   <!-- Primary Specimen Stage (Directly resized by viewport controls, 0 containerslop) -->
   <main
     id="sandbox-primary-stage"
-    class="relative z-10 w-[92%] sm:w-[86%] lg:w-[80%] mx-auto transition-[max-width,width] duration-300 ease-out pt-10"
+    class="relative z-10 w-full mx-auto transition-[max-width,width] duration-300 ease-out pt-10"
   >
+    <!-- ========================================================================= -->
+    <!-- VARIANT D: EXACT SANITY 3x3 STAGGERED HORIZONTAL CAROUSEL (CONCEPT D)     -->
+    <!-- ========================================================================= -->
+    <div id="specimen-slides-d" class="specimen-container block space-y-8">
+      <div class="w-[92%] sm:w-[86%] lg:w-[80%] mx-auto flex items-center justify-between pb-2 border-b border-neutral-200 dark:border-neutral-800">
+        <span class="font-mono text-[11px] font-semibold text-neutral-500 dark:text-neutral-400 uppercase tracking-wider">
+          Specimen 00D // Concept D: True Sanity 3×3 Staggered Horizontal Carousel
+        </span>
+        <span class="font-mono text-[10px] text-neutral-400">Wordmark inline left • 3×3 staggered cells • Edge-clipped neighbours</span>
+      </div>
+
+      <section
+        id="capabilities-slides-d"
+        aria-labelledby="heading-capabilities-slides-d"
+        class="scroll-mt-24 pt-6 sm:pt-10 w-full"
+      >
+        <!-- Top Row: Eyebrow with Bold Number + Headline -->
+        <div class="w-[92%] sm:w-[86%] lg:w-[80%] mx-auto flex flex-col min-w-0 pb-1 gap-1">
+          <!-- Eyebrow Row: Bold Number + Eyebrow Label -->
+          <div class="flex items-center gap-2.5 pb-1 border-b border-neutral-200 dark:border-neutral-800 w-full">
+            <!-- Bold Section Number (from the original graphic, without the slicer) -->
+            <span class="font-sans font-black leading-none text-neutral-950/60 dark:text-white/60 tracking-normal select-none text-[15px] sm:text-[16px]">
+              3
+            </span>
+
+            <!-- Eyebrow Section Label -->
+            <span class="font-sans font-medium text-[10.5px] sm:text-xs uppercase tracking-[0.5px] text-neutral-500 dark:text-neutral-400">
+              WHAT I CAN BUILD
+            </span>
+          </div>
+
+          <!-- Section Headline -->
+          <div class="pt-0">
+            <h2
+              id="heading-capabilities-slides-d"
+              data-en="From simple pages to systems that do stuff."
+              data-id="Dari halaman sederhana sampai sistem yang beneran kerja."
+              class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-medium tracking-[0.5px] text-neutral-950 dark:text-white leading-[1.08] font-montreal w-full m-0"
+            >
+              From simple pages to systems that do stuff.
+            </h2>
+          </div>
+
+          <!-- Under Header, Right: Pager (01 02 03 04) with SLIDING active fill box -->
+          <div class="flex justify-end pt-2 sm:pt-3">
+            <div
+              id="cd-pager-container"
+              role="tablist"
+              aria-label="Capabilities slides Concept D"
+              class="relative flex items-center gap-1.5 shrink-0 select-none"
+            >
+              <!-- Physical Sliding Fill Box (Strictly sharp geometry - no border radius) -->
+              <div
+                id="cd-pager-sliding-indicator"
+                class="absolute top-0 left-0 pointer-events-none z-0 transition-[transform,width] duration-300 ease-in-out"
+                style="width: 36px; transform: translateX(0px);"
+                aria-hidden="true"
+              >
+                <div class="w-full h-[26px] bg-neutral-950 dark:bg-white rounded-none" />
+              </div>
+
+              {
+                capabilities.map((item, idx) => (
+                  <button
+                    type="button"
+                    role="tab"
+                    aria-selected={idx === 0 ? "true" : "false"}
+                    data-cd-pager-target={idx}
+                    class:list={[
+                      "cd-pager-btn relative z-10 flex items-center justify-center cursor-pointer select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 dark:focus-visible:ring-white w-9 sm:w-10 bg-transparent border-0 p-0",
+                      idx === 0 ? "is-active" : "",
+                    ]}
+                  >
+                    <!-- Active: Satoshi font-bold | Inactive: Neue Machina font-light (strictly NEVER bold) -->
+                    <span
+                      class:list={[
+                        "cd-pager-chip inline-flex items-center justify-center w-full h-[26px] text-xs tracking-tight transition-colors duration-200 select-none",
+                        idx === 0
+                          ? "font-machina font-light text-white dark:text-neutral-950"
+                          : "font-machina font-light text-neutral-400 dark:text-neutral-500 hover:text-neutral-950 dark:hover:text-white",
+                      ]}
+                    >
+                      {item.num}
+                    </span>
+                  </button>
+                ))
+              }
+            </div>
+          </div>
+        </div>
+
+        <!-- Center Stage: Full-Width 100vw Horizontal Carousel with Exact 3x3 Sanity Geometry -->
+        <div
+          id="cd-carousel-stage"
+          class="cd-stage overflow-hidden pt-20 sm:pt-28 md:pt-32 pb-20 sm:pb-28 md:pb-32"
+        >
+          <div id="cd-slides-track" class="cd-track will-change-transform">
+            {
+              capabilities.map((item, idx) => (
+                <div
+                  role="group"
+                  aria-roledescription="slide"
+                  aria-label={`${item.num} of 04: ${item.title}`}
+                  data-cd-cell={idx}
+                  class:list={[
+                    "cd-slide select-none transition-opacity duration-300",
+                    idx === 0 ? "is-active" : "is-neighbour",
+                  ]}
+                >
+                  <div class="cd-slide-grid">
+                    <!-- ROW 1, COL 1: Capability Wordmark (Inline left of Box 1, right-aligned like GAGA / TECOVAS / COMPLEX) -->
+                    <div class="cd-cell-wordmark">
+                      <span
+                        data-en={item.shortTitle}
+                        data-id={item.shortTitleId || item.shortTitle}
+                        class="font-sans font-bold text-2xl sm:text-[28px] text-neutral-950 dark:text-white tracking-tight whitespace-nowrap leading-none"
+                      >
+                        {item.shortTitle}
+                      </span>
+                    </div>
+
+                    <!-- ROW 1, COL 2: Stat Box 1 (Strictly NO background) -->
+                    <div class="cd-cell-box border border-neutral-300 dark:border-neutral-800 bg-transparent">
+                      <span class="font-machina font-light text-2xl sm:text-3xl text-neutral-950 dark:text-white tracking-tight leading-none">
+                        {item.stats[0].value}
+                      </span>
+                    </div>
+
+                    <!-- ROW 1, COL 3: Stat Label 1 (Right of Box 1) -->
+                    <div class="cd-cell-label-right">
+                      <span
+                        data-en={item.stats[0].label}
+                        data-id={item.stats[0].labelId}
+                        class="font-sans text-xs text-neutral-600 dark:text-neutral-400 leading-snug"
+                      >
+                        {item.stats[0].label}
+                      </span>
+                    </div>
+
+                    <!-- ROW 2, COL 1: Empty space below Wordmark -->
+                    <div class="cd-cell-empty" aria-hidden="true"></div>
+
+                    <!-- ROW 2, COL 2: Stat Label 2 (Left of Box 2, aligned under Box 1) -->
+                    <div class="cd-cell-label-left">
+                      <span
+                        data-en={item.stats[1].label}
+                        data-id={item.stats[1].labelId}
+                        class="font-sans text-xs text-neutral-600 dark:text-neutral-400 leading-snug"
+                      >
+                        {item.stats[1].label}
+                      </span>
+                    </div>
+
+                    <!-- ROW 2, COL 3: Stat Box 2 (Staggered right into Col 3, strictly NO background) -->
+                    <div class="cd-cell-box border border-neutral-300 dark:border-neutral-800 bg-transparent">
+                      <span class="font-machina font-light text-2xl sm:text-3xl text-neutral-950 dark:text-white tracking-tight leading-none">
+                        {item.stats[1].value}
+                      </span>
+                    </div>
+
+                    <!-- ROW 3, COL 1: Empty space below Wordmark -->
+                    <div class="cd-cell-empty" aria-hidden="true"></div>
+
+                    <!-- ROW 3, COL 2: Stat Box 3 (Aligned vertically under Box 1 in Col 2, strictly NO background) -->
+                    <div class="cd-cell-box border border-neutral-300 dark:border-neutral-800 bg-transparent">
+                      <span class="font-machina font-light text-2xl sm:text-3xl text-neutral-950 dark:text-white tracking-tight leading-none">
+                        {item.stats[2].value}
+                      </span>
+                    </div>
+
+                    <!-- ROW 3, COL 3: Stat Label 3 (Right of Box 3) -->
+                    <div class="cd-cell-label-right">
+                      <span
+                        data-en={item.stats[2].label}
+                        data-id={item.stats[2].labelId}
+                        class="font-sans text-xs text-neutral-600 dark:text-neutral-400 leading-snug"
+                      >
+                        {item.stats[2].label}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+
+        <!-- Pinned Bottom Row: Left-Ruled Quote & Attribution + ActionButton (Matches home left/right margin) -->
+        <div id="cd-pinned-bottom" class="w-[92%] sm:w-[86%] lg:w-[80%] mx-auto flex flex-col sm:flex-row sm:items-end justify-between gap-8 pt-4 sm:pt-6 pb-2 sm:pb-4">
+          <div class="border-l border-neutral-300 dark:border-neutral-700 pl-5 sm:pl-6 max-w-xl">
+            {
+              capabilities.map((item, idx) => (
+                <div
+                  data-cd-quote={idx}
+                  class:list={[
+                    "cd-quote-block",
+                    idx === 0 ? "block" : "hidden",
+                  ]}
+                  aria-hidden={idx === 0 ? "false" : "true"}
+                >
+                  {item.num === "02" ? (
+                    <p class="font-sans text-base sm:text-lg leading-relaxed text-neutral-800 dark:text-neutral-200 font-normal m-0 mb-4 sm:mb-5">
+                      <span data-en="Full-stack platforms, dashboards, internal tools, and SaaS products with " data-id="Platform full-stack, dashboard, internal tools, dan produk SaaS dengan ">Full-stack platforms, dashboards, internal tools, and SaaS products with </span><EggLink
+                        easter="pertemuan7"
+                        en="structured auth"
+                        id="autentikasi rapi"
+                        ariaEn="Unlock Pertemuan 7 Form Login Cool Stuff"
+                        ariaId="Buka Cool Stuff Form Login Pertemuan 7"
+                      /><span data-en=" and robust APIs." data-id=" dan API tangguh."> and robust APIs.</span>
+                    </p>
+                  ) : (
+                    <p class="font-sans text-base sm:text-lg leading-relaxed text-neutral-800 dark:text-neutral-200 font-normal m-0 mb-4 sm:mb-5">
+                      <span
+                        data-en={item.description}
+                        data-id={item.descriptionId || item.description}
+                      >{item.description}</span>
+                    </p>
+                  )}
+
+                  <div class="space-y-1 text-xs sm:text-[13px] font-sans">
+                    <div
+                      data-en={item.category}
+                      data-id={item.categoryId || item.category}
+                      class="font-semibold text-neutral-900 dark:text-neutral-100"
+                    >
+                      {item.category}
+                    </div>
+                    <div class="flex flex-wrap items-center gap-x-2 gap-y-1 text-neutral-500 dark:text-neutral-400">
+                      {item.tags.map((tag, tIdx) => (
+                        <>
+                          <span>{tag}</span>
+                          {tIdx < item.tags.length - 1 && (
+                            <span class="text-neutral-300 dark:text-neutral-700">·</span>
+                          )}
+                        </>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              ))
+            }
+          </div>
+
+          <ActionButton
+            href={`${base}/#projects`}
+            variant="secondary"
+            borderStyle="solid"
+            size="sm"
+            font="sans"
+            uppercase={false}
+            rounded="rounded-full"
+            class="group/btn overflow-hidden self-start sm:self-end shrink-0 text-[13px] text-neutral-900 dark:text-neutral-100"
+            ariaLabel="See Projects"
+            data-aria-en="See Projects"
+            data-aria-id="Lihat Proyek"
+          >
+            <div class="inline-flex items-center translate-x-[10px] group-hover/btn:translate-x-0 transition-transform duration-200 ease-out">
+              <span data-en="See Projects" data-id="Lihat Proyek">See Projects</span>
+              <span
+                class="inline-flex items-center justify-center w-3.5 ml-1.5 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-200 ease-out text-neutral-400 group-hover/btn:text-neutral-950 dark:group-hover/btn:text-white"
+                aria-hidden="true"
+              >
+                ↗
+              </span>
+            </div>
+          </ActionButton>
+        </div>
+      </section>
+    </div>
+
     <!-- ========================================================================= -->
     <!-- VARIANT 0: SANITY-STYLE SLIDE SHOWCASE (CONCEPT C)                        -->
     <!-- ========================================================================= -->
-    <div id="specimen-slides" class="specimen-container block space-y-8">
+    <div id="specimen-slides" class="specimen-container hidden space-y-8">
       <div class="flex items-center justify-between pb-2 border-b border-neutral-200 dark:border-neutral-800">
         <span class="font-mono text-[11px] font-semibold text-neutral-500 dark:text-neutral-400 uppercase tracking-wider">
           Specimen 00 // Concept C: Staggered Slide Showcase
@@ -377,7 +654,7 @@ const capabilities = [
                   id="heading-capabilities-slides"
                   data-en="From simple pages to systems that do stuff."
                   data-id="Dari halaman sederhana sampai sistem yang beneran kerja."
-                  class="text-[25px] sm:text-3xl md:text-4xl lg:text-5xl font-medium tracking-[0.5px] text-neutral-950 dark:text-white leading-[1.08] font-montreal w-full m-0"
+                  class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-medium tracking-[0.5px] text-neutral-950 dark:text-white leading-[1.08] font-montreal w-full m-0"
                 >
                   From simple pages to systems that do stuff.
                 </h2>
@@ -671,7 +948,7 @@ const capabilities = [
                 id="heading-capabilities-baseline"
                 data-en="From simple pages to systems that do stuff."
                 data-id="Dari halaman sederhana sampai sistem yang beneran kerja."
-                class="text-[25px] sm:text-3xl md:text-4xl lg:text-5xl font-medium tracking-[0.5px] text-neutral-950 dark:text-white leading-[1.08] font-montreal w-full m-0"
+                class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-medium tracking-[0.5px] text-neutral-950 dark:text-white leading-[1.08] font-montreal w-full m-0"
               >
                 From simple pages to systems that do stuff.
               </h2>
@@ -805,7 +1082,7 @@ const capabilities = [
                 id="heading-capabilities-matrix"
                 data-en="From simple pages to systems that do stuff."
                 data-id="Dari halaman sederhana sampai sistem yang beneran kerja."
-                class="text-[25px] sm:text-3xl md:text-4xl lg:text-5xl font-medium tracking-[0.5px] text-neutral-950 dark:text-white leading-[1.08] font-montreal w-full m-0"
+                class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-medium tracking-[0.5px] text-neutral-950 dark:text-white leading-[1.08] font-montreal w-full m-0"
               >
                 From simple pages to systems that do stuff.
               </h2>
@@ -970,7 +1247,7 @@ const capabilities = [
                 id="heading-capabilities-grid"
                 data-en="From simple pages to systems that do stuff."
                 data-id="Dari halaman sederhana sampai sistem yang beneran kerja."
-                class="text-[25px] sm:text-3xl md:text-4xl lg:text-5xl font-medium tracking-[0.5px] text-neutral-950 dark:text-white leading-[1.08] font-montreal w-full m-0"
+                class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-medium tracking-[0.5px] text-neutral-950 dark:text-white leading-[1.08] font-montreal w-full m-0"
               >
                 From simple pages to systems that do stuff.
               </h2>
@@ -1078,7 +1355,7 @@ const capabilities = [
 <script is:inline>
   (function () {
     // Viewport Emulation Engine (Direct container resize, anti-containerslop)
-    const stage = document.getElementById("sandbox-primary-stage");
+    const sandboxStage = document.getElementById("sandbox-primary-stage");
     const viewportBtns = document.querySelectorAll(".viewport-btn");
 
     viewportBtns.forEach((btn) => {
@@ -1092,11 +1369,11 @@ const capabilities = [
 
         const vp = btn.getAttribute("data-viewport");
         if (vp === "full") {
-          stage.style.maxWidth = "100%";
-          stage.style.width = "80%";
+          sandboxStage.style.maxWidth = "100%";
+          sandboxStage.style.width = "";
         } else {
-          stage.style.maxWidth = vp;
-          stage.style.width = "100%";
+          sandboxStage.style.maxWidth = vp;
+          sandboxStage.style.width = "100%";
         }
       });
     });
@@ -1104,6 +1381,7 @@ const capabilities = [
     // Variant Switcher Engine
     const variantBtns = document.querySelectorAll(".variant-btn");
     const specimens = {
+      slidesD: document.getElementById("specimen-slides-d"),
       slides: document.getElementById("specimen-slides"),
       baseline: document.getElementById("specimen-baseline"),
       matrix: document.getElementById("specimen-matrix"),
@@ -1132,6 +1410,14 @@ const capabilities = [
           }
         });
 
+        if (targetVariant === "slidesD") {
+          startCdCycle();
+          positionCdTrack(cdCellIndex, false);
+          updateCdIndicator(cdActiveIdx);
+        } else {
+          stopCdCycle();
+        }
+
         if (targetVariant === "slides") {
           startCycle();
           positionTrack(currentCellIndex, false);
@@ -1141,9 +1427,288 @@ const capabilities = [
       });
     });
 
+    // =========================================================================
+    // CONCEPT D CONTROLLER (True Sanity 3x3 Staggered Horizontal Carousel)
+    // =========================================================================
+    const cdPagerBtns = document.querySelectorAll(".cd-pager-btn");
+    const cdStage = document.getElementById("cd-carousel-stage");
+    const cdTrack = document.getElementById("cd-slides-track");
+    const cdQuotes = document.querySelectorAll(".cd-quote-block");
+
+    const cdTotal = 4;
+    let cdActiveIdx = 0;
+    let cdCellIndex = 4; // Main Set B starts at 4 (0..3 = Set A, 4..7 = Set B, 8..11 = Set C)
+    const cdCycleMs = 4800;
+    let cdTimer = null;
+    let cdReady = false;
+
+    function updateCdGap() {
+      if (!cdStage || !cdTrack) return;
+      const firstCell = cdTrack.children[0];
+      if (!firstCell) return;
+      const stageW = cdStage.offsetWidth;
+      const slideW = firstCell.offsetWidth || 553;
+      const sideSpace = (stageW - slideW) / 2;
+      // 234px peek reveals:
+      // Left edge: 45px of prev Col 2 (Box 1 & 3 clipped) + 14px gap + 175px of prev Col 3 (Box 2 sticking out)
+      // Right edge: 175px of next Col 1 (Wordmark) + 14px gap + 45px of next Col 2 (Box 1 & 3 clipped)
+      const targetPeek = 234;
+      const gapPx = stageW >= 900 ? Math.max(28, Math.round(sideSpace - targetPeek)) : 32;
+      cdTrack.style.gap = `${gapPx}px`;
+    }
+
+    function setupCdCarousel() {
+      if (!cdTrack || !cdStage || cdReady) return;
+      const baseCells = Array.from(cdTrack.querySelectorAll("[data-cd-cell]"));
+      if (baseCells.length !== cdTotal) return;
+
+      const clonesBefore = baseCells.map((c) => {
+        const clone = c.cloneNode(true);
+        clone.removeAttribute("data-cd-cell");
+        clone.setAttribute("data-cd-copy", "prev");
+        clone.setAttribute("aria-hidden", "true");
+        return clone;
+      });
+
+      const clonesAfter = baseCells.map((c) => {
+        const clone = c.cloneNode(true);
+        clone.removeAttribute("data-cd-cell");
+        clone.setAttribute("data-cd-copy", "next");
+        clone.setAttribute("aria-hidden", "true");
+        return clone;
+      });
+
+      clonesBefore.forEach((clone) => cdTrack.insertBefore(clone, baseCells[0]));
+      clonesAfter.forEach((clone) => cdTrack.appendChild(clone));
+
+      Array.from(cdTrack.children).forEach((cell, idx) => {
+        cell.addEventListener("click", () => {
+          if (idx !== cdCellIndex) {
+            goToCdSlide(idx % cdTotal, idx);
+          }
+        });
+      });
+
+      // Seamless snap on loop boundary
+      cdTrack.addEventListener("transitionend", (e) => {
+        if (e.target !== cdTrack) return;
+        if (e.propertyName && e.propertyName !== "transform") return;
+        snapCdBoundary();
+      });
+
+      cdReady = true;
+      updateCdGap();
+      normalizeCdIndex();
+      positionCdTrack(cdCellIndex, false);
+      updateCdCellState();
+    }
+
+    function snapCdBoundary() {
+      if (!cdTrack) return;
+      if (cdCellIndex >= cdTotal * 2) {
+        cdCellIndex -= cdTotal;
+        positionCdTrack(cdCellIndex, false);
+        updateCdCellState();
+      } else if (cdCellIndex < cdTotal) {
+        cdCellIndex += cdTotal;
+        positionCdTrack(cdCellIndex, false);
+        updateCdCellState();
+      }
+    }
+
+    function normalizeCdIndex() {
+      if (!cdTrack) return;
+      if (cdCellIndex >= cdTotal * 2) {
+        cdCellIndex -= cdTotal;
+      } else if (cdCellIndex < cdTotal) {
+        cdCellIndex += cdTotal;
+      }
+    }
+
+    function updateCdCellState() {
+      if (!cdTrack) return;
+      Array.from(cdTrack.children).forEach((cell, idx) => {
+        const isActive = idx === cdCellIndex;
+        cell.classList.toggle("is-active", isActive);
+        cell.classList.toggle("is-neighbour", !isActive);
+        cell.setAttribute("aria-hidden", isActive ? "false" : "true");
+      });
+    }
+
+    function positionCdTrack(cellIdx, smooth = true) {
+      if (!cdTrack || !cdStage) return;
+      updateCdGap();
+      const cell = cdTrack.children[cellIdx];
+      if (!cell) return;
+
+      const stageW = cdStage.offsetWidth;
+      const cellCenter = cell.offsetLeft + cell.offsetWidth / 2;
+      const tx = Math.round(stageW / 2 - cellCenter);
+
+      const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (smooth && !reduced) {
+        cdTrack.style.transition = "transform 700ms cubic-bezier(0.22, 1, 0.36, 1)";
+      } else {
+        cdTrack.style.transition = "none";
+      }
+      cdTrack.style.transform = `translate3d(${tx}px, 0, 0)`;
+    }
+
+    function updateCdIndicator(targetIdx) {
+      const ind = document.getElementById("cd-pager-sliding-indicator");
+      const btn = cdPagerBtns[targetIdx];
+      if (ind && btn) {
+        ind.style.transform = `translateX(${btn.offsetLeft}px)`;
+        ind.style.width = `${btn.offsetWidth}px`;
+      }
+    }
+
+    function stopCdCycle() {
+      if (cdTimer) {
+        clearTimeout(cdTimer);
+        cdTimer = null;
+      }
+    }
+
+    function startCdCycle() {
+      stopCdCycle();
+      const container = document.getElementById("specimen-slides-d");
+      if (!container || container.classList.contains("hidden")) return;
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+      cdTimer = setTimeout(() => {
+        goToCdSlide((cdActiveIdx + 1) % cdTotal, cdCellIndex + 1);
+      }, cdCycleMs);
+    }
+
+    function goToCdSlide(targetSlideIdx, explicitCellIdx) {
+      if (!cdTrack || !cdStage) return;
+      setupCdCarousel();
+
+      // Foolproof boundary check BEFORE transitioning:
+      // If currently sitting at an outer clone, silently normalize to Set B first
+      if (cdCellIndex >= cdTotal * 2 || cdCellIndex < cdTotal) {
+        snapCdBoundary();
+        // Force reflow so transition starts from the normalized coordinate
+        void cdTrack.offsetHeight;
+      }
+
+      if (explicitCellIdx !== undefined) {
+        cdCellIndex = explicitCellIdx;
+        cdActiveIdx = ((cdCellIndex % cdTotal) + cdTotal) % cdTotal;
+      } else {
+        let diff = targetSlideIdx - (cdCellIndex % cdTotal);
+        if (diff > 2) diff -= cdTotal;
+        if (diff < -2) diff += cdTotal;
+        cdCellIndex += diff;
+        cdActiveIdx = targetSlideIdx;
+      }
+
+      // Smooth horizontal animation
+      positionCdTrack(cdCellIndex, true);
+
+      // Instantly update active/neighbour states
+      updateCdCellState();
+
+      // Update pager indicator
+      updateCdIndicator(cdActiveIdx);
+
+      // Update pager tab chips
+      cdPagerBtns.forEach((btn, idx) => {
+        const isCurrent = idx === cdActiveIdx;
+        btn.setAttribute("aria-selected", isCurrent ? "true" : "false");
+        btn.classList.toggle("is-active", isCurrent);
+
+        const chip = btn.querySelector(".cd-pager-chip");
+        if (chip) {
+          if (isCurrent) {
+            chip.className = "cd-pager-chip inline-flex items-center justify-center w-full h-[26px] text-xs tracking-tight transition-colors duration-200 select-none font-machina font-light text-white dark:text-neutral-950";
+          } else {
+            chip.className = "cd-pager-chip inline-flex items-center justify-center w-full h-[26px] text-xs tracking-tight transition-colors duration-200 select-none font-machina font-light text-neutral-400 dark:text-neutral-500 hover:text-neutral-950 dark:hover:text-white";
+          }
+        }
+      });
+
+      // Show ONLY the active quote, hide all inactive ones completely
+      cdQuotes.forEach((panel, qIdx) => {
+        const isCurrent = qIdx === cdActiveIdx;
+        panel.classList.toggle("hidden", !isCurrent);
+        panel.classList.toggle("block", isCurrent);
+        panel.setAttribute("aria-hidden", isCurrent ? "false" : "true");
+      });
+
+      startCdCycle();
+    }
+
+    // Visibility-change recovery (foolproof against browser background throttling)
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) {
+        stopCdCycle();
+      } else {
+        snapCdBoundary();
+        updateCdIndicator(cdActiveIdx);
+        startCdCycle();
+      }
+    });
+
+    if (typeof ResizeObserver !== "undefined" && cdStage) {
+      const ro = new ResizeObserver(() => {
+        positionCdTrack(cdCellIndex, false);
+        updateCdIndicator(cdActiveIdx);
+      });
+      ro.observe(cdStage);
+    }
+
+    window.addEventListener("resize", () => {
+      positionCdTrack(cdCellIndex, false);
+      updateCdIndicator(cdActiveIdx);
+    });
+
+    function initCdShowcase() {
+      setupCdCarousel();
+      goToCdSlide(0, 4);
+      setTimeout(() => {
+        positionCdTrack(cdCellIndex, false);
+        updateCdIndicator(cdActiveIdx);
+      }, 60);
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(() => {
+          positionCdTrack(cdCellIndex, false);
+          updateCdIndicator(cdActiveIdx);
+        });
+      }
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", initCdShowcase);
+    } else {
+      initCdShowcase();
+    }
+    document.addEventListener("astro:page-load", initCdShowcase);
+
+    cdPagerBtns.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const idx = parseInt(btn.getAttribute("data-cd-pager-target") || "0", 10);
+        goToCdSlide(idx);
+      });
+      btn.addEventListener("keydown", (e) => {
+        if (e.key === "ArrowRight") {
+          e.preventDefault();
+          const next = (cdActiveIdx + 1) % cdPagerBtns.length;
+          goToCdSlide(next);
+          cdPagerBtns[next]?.focus();
+        } else if (e.key === "ArrowLeft") {
+          e.preventDefault();
+          const prev = (cdActiveIdx - 1 + cdPagerBtns.length) % cdPagerBtns.length;
+          goToCdSlide(prev);
+          cdPagerBtns[prev]?.focus();
+        }
+      });
+    });
+
     // Slide Showcase Controller (Concept C: Full-Width Continuous Horizontal Carousel)
     const pagerBtns = document.querySelectorAll(".cap-slide-pager-btn");
-    const stage = document.getElementById("cap-carousel-stage");
+    const carouselStage = document.getElementById("cap-carousel-stage");
     const track = document.getElementById("cap-slides-track");
     const quotePanels = document.querySelectorAll(".cap-quote-block");
 
@@ -1155,7 +1720,7 @@ const capabilities = [
     let isInitialized = false;
 
     function setupInfiniteCarousel() {
-      if (!track || !stage || isInitialized) return;
+      if (!track || !carouselStage || isInitialized) return;
       const initialCells = Array.from(track.querySelectorAll("[data-carousel-cell]"));
       if (initialCells.length !== totalCapabilities) return;
 
@@ -1163,6 +1728,7 @@ const capabilities = [
       const setAClones = initialCells.map((cell, idx) => {
         const clone = cell.cloneNode(true);
         clone.removeAttribute("id");
+        clone.removeAttribute("data-carousel-cell");
         clone.setAttribute("data-cell-copy", "set-a");
         clone.setAttribute("aria-hidden", "true");
         clone.querySelectorAll("button, a").forEach((el) => el.setAttribute("tabindex", "-1"));
@@ -1173,6 +1739,7 @@ const capabilities = [
       const setCClones = initialCells.map((cell, idx) => {
         const clone = cell.cloneNode(true);
         clone.removeAttribute("id");
+        clone.removeAttribute("data-carousel-cell");
         clone.setAttribute("data-cell-copy", "set-c");
         clone.setAttribute("aria-hidden", "true");
         clone.querySelectorAll("button, a").forEach((el) => el.setAttribute("tabindex", "-1"));
@@ -1210,11 +1777,11 @@ const capabilities = [
     }
 
     function positionTrack(cellIdx, smooth = true) {
-      if (!track || !stage) return;
+      if (!track || !carouselStage) return;
       const cell = track.children[cellIdx];
       if (!cell) return;
 
-      const stageWidth = stage.offsetWidth;
+      const stageWidth = carouselStage.offsetWidth;
       const cellCenter = cell.offsetLeft + (cell.offsetWidth / 2);
       const targetX = (stageWidth / 2) - cellCenter;
 
@@ -1255,7 +1822,7 @@ const capabilities = [
     }
 
     function goToSlide(targetSlideIdx, explicitCellIdx) {
-      if (!track || !stage) return;
+      if (!track || !carouselStage) return;
       setupInfiniteCarousel();
 
       if (explicitCellIdx !== undefined) {
@@ -1337,6 +1904,10 @@ const capabilities = [
     function initSlideShowcase() {
       setupInfiniteCarousel();
       goToSlide(0, 4);
+      setTimeout(() => positionTrack(currentCellIndex, false), 60);
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(() => positionTrack(currentCellIndex, false));
+      }
     }
 
     if (document.readyState === "loading") {
@@ -1409,7 +1980,8 @@ const capabilities = [
           if (val) el.textContent = val;
         });
 
-        setActiveSlide(activeSlideIdx);
+        goToCdSlide(cdActiveIdx, cdCellIndex);
+        goToSlide(activeSlideIdx, currentCellIndex);
       });
     }
 
@@ -1430,3 +2002,120 @@ const capabilities = [
     }
   })();
 </script>
+
+<style>
+  /* Deterministic 3x3 Staggered Sanity Carousel Architecture (Concept D) */
+  .cd-stage {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .cd-track {
+    display: flex;
+    align-items: center;
+    gap: 80px;
+    width: max-content;
+    will-change: transform;
+  }
+
+  .cd-slide {
+    flex-shrink: 0;
+    width: 553px;
+  }
+
+  .cd-slide.is-active {
+    opacity: 1;
+    cursor: default;
+  }
+
+  .cd-slide.is-neighbour {
+    opacity: 0.35;
+    cursor: pointer;
+  }
+
+  .cd-slide.is-neighbour:hover {
+    opacity: 0.75;
+  }
+
+  /* 3 Columns x 3 Rows Matrix:
+     Col 1 (175px): Row 1 Wordmark (right-aligned), Row 2 Empty, Row 3 Empty
+     Col 2 (175px): Row 1 Box 1, Row 2 Label 2, Row 3 Box 3
+     Col 3 (175px): Row 1 Label 1, Row 2 Box 2, Row 3 Label 3
+     Total width: 175 + 14 + 175 + 14 + 175 = 553px */
+  .cd-slide-grid {
+    display: grid;
+    grid-template-columns: 175px 175px 175px;
+    grid-template-rows: 56px 56px 56px;
+    column-gap: 14px;
+    row-gap: 14px;
+    align-items: center;
+    width: 553px;
+  }
+
+  .cd-cell-wordmark {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    text-align: right;
+    padding-right: 6px;
+    height: 100%;
+    min-width: 0;
+  }
+
+  .cd-cell-box {
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    width: 100%;
+    height: 100%;
+    background: transparent !important;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    box-sizing: border-box;
+  }
+
+  .cd-cell-label-right {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    text-align: left;
+    padding-left: 2px;
+    height: 100%;
+  }
+
+  .cd-cell-label-left {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    text-align: left;
+    padding-right: 4px;
+    height: 100%;
+  }
+
+  .cd-cell-empty {
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+
+  @media (max-width: 640px) {
+    .cd-slide,
+    .cd-slide-grid {
+      width: 320px;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto repeat(3, 50px);
+    }
+
+    .cd-cell-wordmark {
+      grid-column: 1 / -1;
+      justify-content: flex-start;
+      text-align: left;
+      padding-bottom: 4px;
+    }
+
+    .cd-cell-empty {
+      display: none;
+    }
+  }
+</style>
