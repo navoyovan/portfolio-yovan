@@ -1,15 +1,11 @@
 ---
-import ActionButton from "./ActionButton.astro";
-import { Image } from "astro:assets";
-import kioskScreenshot from "../assets/images/kiosk-screenshot.webp";
-import vendorPortalScreenshot from "../assets/images/vendor-portal-screenshot.webp";
 import spaceAvailableImg from "../assets/images/space-available-board.webp";
 import mcTextureGhostWorkspaceImg from "../assets/images/mctextureghost-workspace.webp";
 import blogSystemImg from "../assets/images/blog-system.jpg";
 import degImg from "../assets/images/DEG.webp";
 import EggLink from "./EggLink.astro";
 import MorphingProjectCard from "./MorphingProjectCard.astro";
-import HoverExpandButton from "./HoverExpandButton.astro";
+import HypeboxShowcase from "./HypeboxShowcase.astro";
 
 interface Props {
   base: string;
@@ -104,562 +100,10 @@ const { base } = Astro.props;
     </div>
   </div>
 
-  <!-- Featured Spotlight: Hypebox Pipeline & Connected Ecosystem -->
-  <article aria-labelledby="heading-hypebox" class="space-y-8">
-    <!-- Hypebox Header & Actions -->
-    <div
-      class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-neutral-200/80 dark:border-neutral-800/80"
-    >
-      <div class="space-y-1">
-        <h3
-          id="heading-hypebox"
-          class="text-2xl sm:text-3xl font-black tracking-tight text-neutral-950 dark:text-white leading-none font-heading uppercase"
-        >
-          HYPE-BOX
-        </h3>
-        <p
-          data-en="A connected photo booth platform, built from kiosk to backend."
-          data-id="Platform photo booth terintegrasi, dibangun dari software kiosk sampai backend."
-          class="text-sm font-medium text-neutral-600 dark:text-neutral-400 m-0 pt-0.5"
-        >
-          A connected photo booth platform, built from kiosk to backend.
-        </p>
-      </div>
-
-      <div
-        class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full sm:w-auto"
-      >
-        <ActionButton
-          variant="secondary"
-          size="sm"
-          href="https://navoyovan.github.io/photobooth-kiosk-demo/"
-          target="_blank"
-          rel="noopener noreferrer"
-          ariaLabel="Launch Kiosk Demo (opens in new tab)"
-          data-aria-en="Launch Kiosk Demo (opens in new tab)"
-          data-aria-id="Uji Coba Kiosk (buka di tab baru)"
-          class="group/btn overflow-hidden w-full sm:w-auto max-sm:!py-[11px]"
-        >
-          <div
-            class="inline-flex items-center translate-x-[10px] group-hover/btn:translate-x-0 transition-transform duration-200 ease-out"
-          >
-            <span data-en="Launch Kiosk Demo" data-id="Uji Coba Kiosk"
-              >Launch Kiosk Demo</span
-            >
-            <span
-              class="inline-flex items-center justify-center w-3.5 ml-1.5 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-200 ease-out"
-              aria-hidden="true"
-            >
-              ↗
-            </span>
-          </div>
-        </ActionButton>
-        <ActionButton
-          variant="primary"
-          size="sm"
-          href="https://navoyovan.github.io/hypebox/"
-          target="_blank"
-          rel="noopener noreferrer"
-          ariaLabel="Visit Hypebox Site (opens in new tab)"
-          data-aria-en="Visit Hypebox Site (opens in new tab)"
-          data-aria-id="Kunjungi Situs Hypebox (buka di tab baru)"
-          class="group/btn overflow-hidden w-full sm:w-auto max-sm:!py-[11px]"
-        >
-          <div
-            class="inline-flex items-center translate-x-[10px] group-hover/btn:translate-x-0 transition-transform duration-200 ease-out"
-          >
-            <span data-en="Visit Hypebox Site" data-id="Kunjungi Situs Hypebox"
-              >Visit Hypebox Site</span
-            >
-            <span
-              class="inline-flex items-center justify-center w-3.5 ml-1.5 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-200 ease-out"
-              aria-hidden="true"
-            >
-              ↗
-            </span>
-          </div>
-        </ActionButton>
-      </div>
-    </div>
-
-    <!-- Architecture Summary -->
-    <p
-      data-en="An integrated hardware-software pipeline orchestrating printers, camera hardware, a touchscreen Electron client, real-time WebSocket telemetry, and cloud fleet management."
-      data-id="Pipeline hardware-software terintegrasi yang menghubungkan printer, kamera, aplikasi touchscreen berbasis Electron, telemetry real-time WebSocket, dan cloud fleet management."
-      class="text-sm sm:text-base text-neutral-700 dark:text-neutral-300 leading-relaxed max-w-3xl font-normal m-0"
-    >
-      An integrated hardware-software pipeline orchestrating physical printers,
-      camera hardware, a touchscreen Electron client, real-time WebSocket
-      telemetry, and cloud fleet management.
-    </p>
-
-    <!-- Pipeline Cards (1-line side-scroll on mobile, 4-col grid on desktop) -->
-    <div
-      class="flex flex-nowrap overflow-x-auto gap-4 pb-4 pt-3 sm:pt-4 -mx-4 px-4 sm:mx-0 sm:px-0 lg:grid lg:grid-cols-4 lg:overflow-visible lg:pb-0 lg:gap-4 no-scrollbar"
-    >
-      <!-- STAGE 01: Initiation & Payment -->
-      <div
-        class="w-[280px] sm:w-[320px] lg:w-auto shrink-0 lg:shrink flex flex-col justify-between p-4 sm:p-5 bg-[#f6f4ee] dark:bg-[#141414] border border-neutral-300/80 dark:border-neutral-800 transition-all duration-200 hover:border-neutral-400 dark:hover:border-neutral-600 shadow-sm relative group"
-      >
-        <div class="flex flex-col flex-1 gap-3">
-          <p
-            class="font-sans text-[11px] uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-semibold m-0"
-          >
-            Edge &rarr; API
-          </p>
-          <h4
-            class="text-xl sm:text-2xl font-semibold text-neutral-950 dark:text-white tracking-tight leading-tight group-hover:text-[var(--color-accent,#52FF1A)] transition-colors font-heading m-0"
-          >
-            Touch &amp; QRIS Payment
-          </h4>
-          <p
-            data-en="Kiosk generates order. Laravel REST API generates dynamic QRIS via SNAP API with webhook confirmation."
-            data-id="Kiosk bikin order. Laravel REST API mengenerate kode QRIS via SNAP API dengan konfirmasi webhook."
-            class="font-sans text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed font-normal m-0"
-          >
-            Kiosk generates order. Laravel REST API generates dynamic QRIS via
-            SNAP API with webhook confirmation.
-          </p>
-        </div>
-        <div class="mt-auto pt-3.5 space-y-2">
-          <div
-            class="flex items-center justify-between font-mono text-[10px] text-neutral-500 dark:text-neutral-400"
-          >
-            <span>Protocol:</span>
-            <span class="font-semibold text-neutral-700 dark:text-neutral-300"
-              >REST / SNAP</span
-            >
-          </div>
-          <ul
-            class="flex flex-wrap gap-1.5 list-none p-0 m-0"
-            aria-label="Tech tokens"
-          >
-            <li>
-              <span
-                class="font-sans text-[9px] sm:text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2 sm:px-2.5 py-0.5 rounded inline-block"
-                >ELECTRON</span
-              >
-            </li>
-            <li>
-              <span
-                class="font-sans text-[9px] sm:text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2 sm:px-2.5 py-0.5 rounded inline-block"
-                >LARAVEL</span
-              >
-            </li>
-            <li>
-              <span
-                class="font-sans text-[9px] sm:text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2 sm:px-2.5 py-0.5 rounded inline-block"
-                >SNAP API</span
-              >
-            </li>
-          </ul>
-        </div>
-      </div>
-
-      <!-- STAGE 02: Real-time Capture -->
-      <div
-        class="w-[280px] sm:w-[320px] lg:w-auto shrink-0 lg:shrink flex flex-col justify-between p-4 sm:p-5 bg-[#f6f4ee] dark:bg-[#141414] border border-neutral-300/80 dark:border-neutral-800 transition-all duration-200 hover:border-neutral-400 dark:hover:border-neutral-600 shadow-sm relative group"
-      >
-        <div class="flex flex-col flex-1 gap-3">
-          <p
-            class="font-sans text-[11px] uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-semibold m-0"
-          >
-            Camera Engine
-          </p>
-          <h4
-            class="text-xl sm:text-2xl font-semibold text-neutral-950 dark:text-white tracking-tight leading-tight group-hover:text-[var(--color-accent,#52FF1A)] transition-colors font-heading m-0"
-          >
-            Viewfinder &amp; FX
-          </h4>
-          <p
-            data-en="Camera via USB, captures images with countdown burst. Canvas compositor renders multi-frame layouts and color grading."
-            data-id="Kamera via USB, jepret foto dengan countdown burst. Canvas compositor merender layout multi-frame dan color grading."
-            class="font-sans text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed font-normal m-0"
-          >
-            Camera via USB, captures images with countdown burst. Canvas
-            compositor renders multi-frame layouts and color grading.
-          </p>
-        </div>
-        <div class="mt-auto pt-3.5 space-y-2">
-          <div
-            class="flex items-center justify-between font-mono text-[10px] text-neutral-500 dark:text-neutral-400"
-          >
-            <span>Performance:</span>
-            <span class="font-semibold text-neutral-700 dark:text-neutral-300"
-              >Fast / GPU Accel</span
-            >
-          </div>
-          <ul
-            class="flex flex-wrap gap-1.5 list-none p-0 m-0"
-            aria-label="Tech tokens"
-          >
-            <li>
-              <span
-                class="font-sans text-[9px] sm:text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2 sm:px-2.5 py-0.5 rounded inline-block"
-                >REACT</span
-              >
-            </li>
-            <li>
-              <span
-                class="font-sans text-[9px] sm:text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2 sm:px-2.5 py-0.5 rounded inline-block"
-                >CANVAS API</span
-              >
-            </li>
-            <li>
-              <span
-                class="font-sans text-[9px] sm:text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2 sm:px-2.5 py-0.5 rounded inline-block"
-                >NODE IPC</span
-              >
-            </li>
-          </ul>
-        </div>
-      </div>
-
-      <!-- STAGE 03: Cloud Sync & WebSockets -->
-      <div
-        class="w-[280px] sm:w-[320px] lg:w-auto shrink-0 lg:shrink flex flex-col justify-between p-4 sm:p-5 bg-[#f6f4ee] dark:bg-[#141414] border border-neutral-300/80 dark:border-neutral-800 transition-all duration-200 hover:border-neutral-400 dark:hover:border-neutral-600 shadow-sm relative group"
-      >
-        <div class="flex flex-col flex-1 gap-3">
-          <p
-            class="font-sans text-[11px] uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-semibold m-0"
-          >
-            Live Reverb &amp; GCS
-          </p>
-          <h4
-            class="text-xl sm:text-2xl font-semibold text-neutral-950 dark:text-white tracking-tight leading-tight group-hover:text-[var(--color-accent,#52FF1A)] transition-colors font-heading m-0"
-          >
-            WebSocket Push &amp; GCS
-          </h4>
-          <p
-            data-en="Composited strips sync to Google Cloud Storage while Laravel Reverb broadcasts real-time telemetry to connected operator dashboards."
-            data-id="Hasil foto di upload ke Google Cloud Storage, sementara Laravel Reverb membroadcast telemetry real-time ke dashboard operator."
-            class="font-sans text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed font-normal m-0"
-          >
-            Composited strips sync to Google Cloud Storage while Laravel Reverb
-            broadcasts real-time telemetry to connected operator dashboards.
-          </p>
-        </div>
-        <div class="mt-auto pt-3.5 space-y-2">
-          <div
-            class="flex items-center justify-between font-mono text-[10px] text-neutral-500 dark:text-neutral-400"
-          >
-            <span>Telemetry:</span>
-            <span class="font-semibold text-neutral-700 dark:text-neutral-300"
-              >WebSocket / WSS</span
-            >
-          </div>
-          <ul
-            class="flex flex-wrap gap-1.5 list-none p-0 m-0"
-            aria-label="Tech tokens"
-          >
-            <li>
-              <span
-                class="font-sans text-[9px] sm:text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2 sm:px-2.5 py-0.5 rounded inline-block"
-                >REVERB</span
-              >
-            </li>
-            <li>
-              <span
-                class="font-sans text-[9px] sm:text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2 sm:px-2.5 py-0.5 rounded inline-block"
-                >GCS BUCKET</span
-              >
-            </li>
-            <li>
-              <span
-                class="font-sans text-[9px] sm:text-[10px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-200/60 dark:bg-neutral-800/80 px-2 sm:px-2.5 py-0.5 rounded inline-block"
-                >SQLITE</span
-              >
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-
-    <!-- Dual Visual Specimen Viewports: Kiosk Client & Vendor Portal -->
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-5 sm:gap-6 pt-4 sm:pt-6">
-      <!-- Specimen 1: Kiosk Touchscreen -->
-      <div
-        class="group relative border border-neutral-300/80 dark:border-neutral-800 bg-[#f6f4ee] dark:bg-[#141414] flex flex-col justify-between overflow-hidden shadow-sm transition-all duration-200 hover:border-neutral-400 dark:hover:border-neutral-600"
-      >
-        <div class="p-4 sm:p-5 flex flex-col flex-1 gap-3">
-          <p
-            class="font-sans text-[11px] uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-semibold m-0"
-          >
-            STANDALONE APP
-          </p>
-          <h4
-            class="text-xl sm:text-2xl font-semibold text-neutral-950 dark:text-white tracking-tight leading-tight group-hover:text-[var(--color-accent,#52FF1A)] transition-colors font-heading m-0"
-          >
-            Touchscreen Kiosk Client
-          </h4>
-          <p
-            data-en="Electron-based self-service UI for event guests or public spaces. Offline-tolerant state machine, print spooler, and countdown capture loop."
-            data-id="UI self-service berbasis Electron untuk tamu event atau area publik. Dengan spooler printer, dan alur jepret foto otomatis dan tetap tolerir meski tanpa internet."
-            class="font-sans text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed font-normal m-0"
-          >
-            Electron-based self-service UI for event guests or public spaces.
-            Offline-tolerant state machine, print spooler, and countdown capture
-            loop.
-          </p>
-        </div>
-        <div
-          class="relative w-full aspect-[16/9] border-t border-neutral-200/80 dark:border-neutral-800 overflow-hidden bg-neutral-100 dark:bg-neutral-900"
-        >
-          <Image
-            src={kioskScreenshot}
-            alt="Photobooth Kiosk UI Screenshot"
-            width="1280"
-            height="720"
-            widths={[480, 800, 1280]}
-            sizes="(max-width: 640px) 96vw, (max-width: 1024px) 80vw, 1200px"
-            class="w-full h-full object-cover object-top"
-            loading="lazy"
-            decoding="async"
-            onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"
-          />
-          <div
-            class="hidden absolute inset-0 flex-col items-center justify-center p-4 text-center space-y-2 bg-[#121212]"
-          >
-            <div
-              class="w-8 h-8 rounded-full border border-dashed border-neutral-700 flex items-center justify-center text-neutral-500"
-            >
-              <i class="ti ti-device-desktop text-lg" aria-hidden="true"></i>
-            </div>
-            <span class="font-mono text-[11px] text-neutral-400"
-              >Place screenshot at <br /><code
-                class="text-[var(--color-accent,#52FF1A)]"
-                >public/images/kiosk-screenshot.webp</code
-              ></span
-            >
-          </div>
-        </div>
-        <div
-          class="p-3.5 sm:p-4 bg-neutral-100/60 dark:bg-neutral-900/60 border-t border-neutral-200/80 dark:border-neutral-800 flex items-center justify-between gap-2.5 min-w-0"
-        >
-          <span
-            class="font-mono text-[10px] sm:text-[11px] text-neutral-400 dark:text-neutral-500 truncate"
-            >Electron</span
-          >
-          <div class="flex items-center gap-2 ml-auto shrink-0">
-            <!-- Webcam & Public Server Upload Notice Tooltip Pill -->
-            <div class="relative group/warning flex items-center">
-              <button
-                type="button"
-                class="inline-flex items-center gap-1.5 px-2 py-1 rounded bg-amber-500/10 dark:bg-amber-400/10 text-amber-800 dark:text-amber-300 border border-amber-500/20 dark:border-amber-400/20 text-[11px] font-sans font-medium transition-colors hover:bg-amber-500/20 dark:hover:bg-amber-400/20 focus:outline-none focus-visible:ring-1 focus-visible:ring-amber-500 cursor-help"
-                aria-label="Webcam and upload consent warning"
-                data-aria-en="Webcam and upload consent warning"
-                data-aria-id="Peringatan izin webcam dan persetujuan unggahan"
-              >
-                <svg
-                  class="w-3.5 h-3.5 shrink-0 text-amber-600 dark:text-amber-400"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  aria-hidden="true"
-                >
-                  <path d="M12 9v4"></path>
-                  <path d="M12 17h.01"></path>
-                  <path
-                    d="M5.07 19H19a2 2 0 0 0 1.75 -2.96L13.75 4a2 2 0 0 0 -3.5 0L3.32 16.04a2 2 0 0 0 1.75 2.96z"
-                  ></path>
-                </svg>
-                <span
-                  class="hidden sm:inline"
-                  data-en="Webcam & Upload Consent"
-                  data-id="Izin Kamera & Unggah"
-                  >Webcam &amp; Upload Consent</span
-                >
-                <span class="sm:hidden" data-en="Notice" data-id="Info"
-                  >Notice</span
-                >
-              </button>
-
-              <!-- Interactive Tooltip Popover -->
-              <div
-                role="tooltip"
-                class="pointer-events-none absolute bottom-full right-0 mb-2 w-64 sm:w-72 p-3 rounded-lg bg-neutral-950 dark:bg-neutral-900 text-white border border-neutral-800 dark:border-neutral-700 shadow-xl opacity-0 translate-y-1 group-hover/warning:opacity-100 group-hover/warning:translate-y-0 group-focus-within/warning:opacity-100 group-focus-within/warning:translate-y-0 transition-all duration-150 z-30 text-left"
-              >
-                <div class="flex items-start gap-2.5">
-                  <svg
-                    class="w-4 h-4 shrink-0 text-amber-400 mt-0.5"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    aria-hidden="true"
-                  >
-                    <path d="M12 9v4"></path>
-                    <path d="M12 17h.01"></path>
-                    <path
-                      d="M5.07 19H19a2 2 0 0 0 1.75 -2.96L13.75 4a2 2 0 0 0 -3.5 0L3.32 16.04a2 2 0 0 0 1.75 2.96z"
-                    ></path>
-                  </svg>
-                  <div class="flex-1 space-y-1">
-                    <p
-                      class="font-heading font-bold text-xs text-white leading-tight m-0"
-                      data-en="Webcam & Upload Notice"
-                      data-id="Pemberitahuan Kamera & Unggahan"
-                    >
-                      Webcam &amp; Upload Notice
-                    </p>
-                    <p
-                      class="font-sans text-[11px] text-neutral-300 leading-relaxed m-0"
-                      data-en="The demo asks for webcam access for live photo capture and asks for consent before optionally uploading snapshots to the public demo gallery."
-                      data-id="Situs Uji Coba akan meminta akses webcam untuk foto langsung dan meminta persetujuan sebelum mengunggah foto ke galeri demo publik secara opsional."
-                    >
-                      The demo asks for webcam access for live photo capture and
-                      asks for consent before optionally uploading snapshots to
-                      the public demo gallery.
-                    </p>
-                  </div>
-                </div>
-                <!-- Popover Arrow Pointer -->
-                <div
-                  class="absolute -bottom-1 right-6 w-2 h-2 bg-neutral-950 dark:bg-neutral-900 border-r border-b border-neutral-800 dark:border-neutral-700 rotate-45"
-                  aria-hidden="true"
-                >
-                </div>
-              </div>
-            </div>
-
-            <HoverExpandButton
-              href="https://navoyovan.github.io/photobooth-kiosk-demo/"
-              label="LAUNCH DEMO"
-              labelEn="LAUNCH DEMO"
-              labelId="UJI COBA"
-              size="micro"
-              variant="solid"
-              expandDirection="left"
-              rotateIcon={false}
-              ariaLabel="Launch Kiosk Demo (opens in new tab)"
-              data-aria-en="Launch Kiosk Demo (opens in new tab)"
-              data-aria-id="Uji Coba Kiosk (buka di tab baru)"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="shrink-0 z-10"
-            >
-              <svg
-                slot="icon"
-                class="w-3.5 h-3.5"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2.5"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                aria-hidden="true"
-              >
-                <line x1="7" y1="17" x2="17" y2="7"></line>
-                <polyline points="7 7 17 7 17 17"></polyline>
-              </svg>
-            </HoverExpandButton>
-          </div>
-        </div>
-      </div>
-
-      <!-- Specimen 2: Vendor Portal & Cloud Telemetry -->
-      <div
-        class="group relative border border-neutral-300/80 dark:border-neutral-800 bg-[#f6f4ee] dark:bg-[#141414] flex flex-col justify-between overflow-hidden shadow-sm transition-all duration-200 hover:border-neutral-400 dark:hover:border-neutral-600"
-      >
-        <div class="p-4 sm:p-5 flex flex-col flex-1 gap-3">
-          <p
-            class="font-sans text-[11px] uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-semibold m-0"
-          >
-            FLEET MANAGER
-          </p>
-          <h4
-            class="text-xl sm:text-2xl font-semibold text-neutral-950 dark:text-white tracking-tight leading-tight group-hover:text-[var(--color-accent,#52FF1A)] transition-colors font-heading m-0"
-          >
-            Vendor Portal &amp; Telemetry
-          </h4>
-          <p
-            data-en="Operator web portal for real-time kiosk fleet telemetry, custom print frame asset designers, coupon engines, and sales analytics."
-            data-id="Portal web operator untuk telemetri armada kiosk photobooth real-time, editor frame custom, sistem kupon, dan analitik penjualan."
-            class="font-sans text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed font-normal m-0"
-          >
-            Operator web portal for real-time kiosk fleet telemetry, custom
-            print frame asset designers, coupon engines, and sales analytics.
-          </p>
-        </div>
-        <div
-          class="relative w-full aspect-[16/9] border-t border-neutral-200/80 dark:border-neutral-800 overflow-hidden bg-neutral-100 dark:bg-neutral-900"
-        >
-          <Image
-            src={vendorPortalScreenshot}
-            alt="Vendor Portal UI Screenshot"
-            width="1280"
-            height="720"
-            widths={[480, 800, 1280]}
-            sizes="(max-width: 640px) 96vw, (max-width: 1024px) 80vw, 1200px"
-            class="w-full h-full object-cover object-top"
-            loading="lazy"
-            decoding="async"
-            onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"
-          />
-          <div
-            class="hidden absolute inset-0 flex-col items-center justify-center p-3 text-center space-y-1.5 bg-[#121212]"
-          >
-            <div
-              class="w-7 h-7 rounded-full border border-dashed border-neutral-700 flex items-center justify-center text-neutral-500"
-            >
-              <i class="ti ti-layout-dashboard text-base" aria-hidden="true"
-              ></i>
-            </div>
-            <span class="font-mono text-[10px] text-neutral-400"
-              >Place screenshot at <br /><code
-                class="text-[var(--color-accent,#52FF1A)]"
-                >public/images/vendor-portal-screenshot.webp</code
-              ></span
-            >
-          </div>
-        </div>
-        <div
-          class="p-3.5 sm:p-4 bg-neutral-100/60 dark:bg-neutral-900/60 border-t border-neutral-200/80 dark:border-neutral-800 flex items-center justify-between gap-3 min-w-0"
-        >
-          <span
-            class="font-mono text-[10px] sm:text-[11px] text-neutral-400 dark:text-neutral-500 truncate"
-            >React • Laravel • Reverb</span
-          >
-          <HoverExpandButton
-            href="https://navoyovan.github.io/hypebox/"
-            label="EXPLORE ECOSYSTEM"
-            labelEn="EXPLORE ECOSYSTEM"
-            labelId="JELAJAHI EKOSISTEM"
-            size="micro"
-            variant="solid"
-            expandDirection="left"
-            rotateIcon={false}
-            ariaLabel="Explore Hypebox Ecosystem (opens in new tab)"
-            data-aria-en="Explore Hypebox Ecosystem (opens in new tab)"
-            data-aria-id="Jelajahi Ekosistem Hypebox (buka di tab baru)"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="shrink-0 ml-auto z-10"
-          >
-            <svg
-              slot="icon"
-              class="w-3.5 h-3.5"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2.5"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              aria-hidden="true"
-            >
-              <line x1="7" y1="17" x2="17" y2="7"></line>
-              <polyline points="7 7 17 7 17 17"></polyline>
-            </svg>
-          </HoverExpandButton>
-        </div>
-      </div>
-    </div>
-  </article>
+  <!-- Featured Spotlight: Hypebox Interactive Product Showcase (Full-Bleed) -->
+  <div class="relative w-screen left-1/2 -translate-x-1/2">
+    <HypeboxShowcase />
+  </div>
 
   <!-- Additional Featured Work Grid (Full-Bleed Horizontal Carousel) -->
   <div class="pt-8 space-y-4">
@@ -669,8 +113,8 @@ const { base } = Astro.props;
       >
         <EggLink
           easter="first-landing"
-          en="Engineer"
-          id="Engineer"
+          en="Engineering"
+          id="Engineering"
           ariaEn="Unlock First Landing Page Cool Stuff"
           ariaId="Buka Cool Stuff Landing Page Pertama"
         />
@@ -835,7 +279,7 @@ const { base } = Astro.props;
   <!-- Design Showcase Justified Bento Grid -->
   <div
     id="design-bento-container"
-    class="pt-4 sm:pt-6 space-y-5 relative z-20 pointer-events-auto"
+    class="pt-4 sm:pt-6 space-y-5 relative z-20 pointer-events-auto hidden"
   >
     <div class="flex items-center justify-between">
       <h3
@@ -848,9 +292,7 @@ const { base } = Astro.props;
     </div>
 
     <!-- Justified Bento Grid: Predetermined 1:1, 2:1, 1:2 interlocking layout with zero outside clutter -->
-    <div
-      class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5 pt-2"
-    >
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5 pt-2">
       <!-- 01: 2:1 Horizontal Merge -->
       <MorphingProjectCard
         index="01"
@@ -1314,14 +756,16 @@ const { base } = Astro.props;
         void card.offsetHeight;
       }
 
-      const statusBadge = slot.querySelector<HTMLElement>(".morph-status-badge");
+      const statusBadge = slot.querySelector<HTMLElement>(
+        ".morph-status-badge",
+      );
       if (statusBadge) {
         const prevBadgeAnim = activeAnimations.get(statusBadge);
         if (prevBadgeAnim) prevBadgeAnim.stop();
         const badgeAnim = animate(
           statusBadge,
           { y: 0 },
-          { duration: 0.35, ease: [0.16, 1, 0.3, 1] }
+          { duration: 0.35, ease: [0.16, 1, 0.3, 1] },
         );
         activeAnimations.set(statusBadge, badgeAnim);
       }
@@ -1536,14 +980,16 @@ const { base } = Astro.props;
         height: `${targetHeight}px`,
         boxShadow: "none",
       };
-      const statusBadge = slot.querySelector<HTMLElement>(".morph-status-badge");
+      const statusBadge = slot.querySelector<HTMLElement>(
+        ".morph-status-badge",
+      );
       if (statusBadge) {
         const prevBadgeAnim = activeAnimations.get(statusBadge);
         if (prevBadgeAnim) prevBadgeAnim.stop();
         const badgeAnim = animate(
           statusBadge,
           { y: -26 },
-          { duration: 0.4, ease: [0.16, 1, 0.3, 1] }
+          { duration: 0.4, ease: [0.16, 1, 0.3, 1] },
         );
         activeAnimations.set(statusBadge, badgeAnim);
       }
