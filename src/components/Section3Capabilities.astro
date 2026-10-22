@@ -1,6 +1,5 @@
 ---
 // Section3Capabilities.astro — Section 03 ("What I Can Build") 3x3 Staggered Horizontal Carousel
-import ActionButton from "./ActionButton.astro";
 import EggLink from "./EggLink.astro";
 
 interface Props {
@@ -386,7 +385,7 @@ const capabilities = [
     </div>
   </div>
 
-  <!-- Pinned Bottom Row: Left-Ruled Description + ActionButton (Standard page container width) -->
+  <!-- Pinned Bottom Row: Left-Ruled Description (Standard page container width) -->
   <div id="cd-pinned-bottom" class="w-full flex flex-col sm:flex-row sm:items-end justify-between gap-8 pt-8 sm:pt-12 pb-6 sm:pb-10">
     <div class="relative border-l border-neutral-300 dark:border-neutral-700 pl-5 sm:pl-6 max-w-xl">
       <!-- Split Dual-Accent Vertical Rule Greeble -->
@@ -447,29 +446,7 @@ const capabilities = [
       }
     </div>
 
-    <ActionButton
-      href={`${base}/#projects`}
-      variant="secondary"
-      borderStyle="solid"
-      size="sm"
-      font="sans"
-      uppercase={false}
-      rounded="rounded-full"
-      class="group/btn overflow-hidden self-start sm:self-end shrink-0 text-[13px] text-neutral-900 dark:text-neutral-100"
-      ariaLabel="See Projects"
-      data-aria-en="See Projects"
-      data-aria-id="Lihat Proyek"
-    >
-      <div class="inline-flex items-center translate-x-[10px] group-hover/btn:translate-x-0 transition-transform duration-200 ease-out">
-        <span data-en="See Projects" data-id="Lihat Proyek">See Projects</span>
-        <span
-          class="inline-flex items-center justify-center w-3.5 ml-1.5 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-200 ease-out text-neutral-400 group-hover/btn:text-neutral-950 dark:group-hover/btn:text-white"
-          aria-hidden="true"
-        >
-          ↗
-        </span>
-      </div>
-    </ActionButton>
+
   </div>
 </section>
 
