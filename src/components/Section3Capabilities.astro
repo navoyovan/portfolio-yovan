@@ -603,7 +603,7 @@ const capabilities = [
 
       const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       if (smooth && !reduced) {
-        cdTrack.style.transition = "transform 520ms cubic-bezier(0.16, 1, 0.3, 1)";
+        cdTrack.style.transition = "transform 850ms cubic-bezier(0.65, 0, 0.35, 1)";
       } else {
         cdTrack.style.transition = "none";
       }
@@ -613,7 +613,7 @@ const capabilities = [
       if (cdStrip) {
         const bgTx = Math.round(-bgStepIndex * stepDist);
         if (smooth && !reduced) {
-          cdStrip.style.transition = "transform 520ms cubic-bezier(0.16, 1, 0.3, 1)";
+          cdStrip.style.transition = "transform 850ms cubic-bezier(0.65, 0, 0.35, 1)";
         } else {
           cdStrip.style.transition = "none";
         }
@@ -856,7 +856,7 @@ const capabilities = [
     flex-shrink: 0;
     width: 553px;
     will-change: opacity;
-    transition: opacity 450ms cubic-bezier(0.16, 1, 0.3, 1);
+    transition: opacity 700ms cubic-bezier(0.65, 0, 0.35, 1);
   }
 
   .cd-slide.is-neighbour {
@@ -875,7 +875,7 @@ const capabilities = [
 
   .cd-slide .cd-cell-box {
     border-color: rgba(163, 163, 163, 0.35);
-    transition: border-color 450ms cubic-bezier(0.16, 1, 0.3, 1);
+    transition: border-color 700ms cubic-bezier(0.65, 0, 0.35, 1);
   }
 
   :global(.dark) .cd-slide .cd-cell-box {
