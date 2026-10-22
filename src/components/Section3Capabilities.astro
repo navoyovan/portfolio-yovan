@@ -647,12 +647,8 @@ const capabilities = [
       const ind = document.getElementById("cd-pager-sliding-indicator");
       const btn = cdPagerBtns[targetIdx] as HTMLElement | undefined;
       if (ind && btn) {
-        if (indicatorAnim) indicatorAnim.stop();
-        indicatorAnim = animate(
-          ind,
-          { transform: `translateX(${btn.offsetLeft}px)`, width: `${btn.offsetWidth}px` },
-          { duration: 0.3, ease: [0.16, 1, 0.3, 1] }
-        );
+        ind.style.transform = `translateX(${btn.offsetLeft}px)`;
+        ind.style.width = `${btn.offsetWidth}px`;
       }
     }
 
@@ -705,10 +701,11 @@ const capabilities = [
 
         const chip = btn.querySelector(".cd-pager-chip");
         if (chip) {
-          chip.classList.toggle("text-white", isCurrent);
-          chip.classList.toggle("dark:text-neutral-950", isCurrent);
-          chip.classList.toggle("text-neutral-400", !isCurrent);
-          chip.classList.toggle("dark:text-neutral-500", !isCurrent);
+          if (isCurrent) {
+            chip.className = "cd-pager-chip inline-flex items-center justify-center w-full h-[26px] text-xs tracking-tight transition-colors duration-200 select-none font-machina font-light text-white dark:text-neutral-950";
+          } else {
+            chip.className = "cd-pager-chip inline-flex items-center justify-center w-full h-[26px] text-xs tracking-tight transition-colors duration-200 select-none font-machina font-light text-neutral-400 dark:text-neutral-500 hover:text-neutral-950 dark:hover:text-white";
+          }
         }
       });
 
