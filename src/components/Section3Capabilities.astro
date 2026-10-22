@@ -490,19 +490,24 @@ const capabilities = [
     let cdTimer: ReturnType<typeof setTimeout> | null = null;
     let cdReady = false;
 
+    let stageW = 0;
+    let slideW = 553;
+    let gapPx = 32;
+    let stepDist = 100;
+
     function updateCdGap() {
       if (!cdStage || !cdTrack) return;
+      stageW = cdStage.offsetWidth;
       const firstCell = cdTrack.children[0] as HTMLElement | undefined;
-      if (!firstCell) return;
-      const stageW = cdStage.offsetWidth;
-      const slideW = firstCell.offsetWidth || 553;
+      slideW = firstCell?.offsetWidth || (window.innerWidth < 640 ? 320 : 553);
       const sideSpace = (stageW - slideW) / 2;
       const targetPeek = 234;
-      const gapPx = stageW >= 900 ? Math.max(28, Math.round(sideSpace - targetPeek)) : 32;
+      gapPx = stageW >= 900 ? Math.max(28, Math.round(sideSpace - targetPeek)) : (window.innerWidth < 640 ? 16 : 32);
       cdTrack.style.gap = `${gapPx}px`;
 
+      stepDist = (slideW + gapPx) * 0.18;
       // Each repeating backdrop tile corresponds exactly to 1 full 4-slide cycle
-      const tileW = Math.round(cdTotal * (slideW + gapPx) * 0.18);
+      const tileW = Math.round(cdTotal * stepDist);
       cdStage.style.setProperty("--tile-w", `${tileW}px`);
     }
 
@@ -592,36 +597,27 @@ const capabilities = [
 
     function positionCdTrack(cellIdx: number, smooth = true) {
       if (!cdTrack || !cdStage) return;
-      updateCdGap();
-      const cell = cdTrack.children[cellIdx] as HTMLElement | undefined;
-      if (!cell) return;
 
-      const stageW = cdStage.offsetWidth;
-      const cellCenter = cell.offsetLeft + cell.offsetWidth / 2;
+      const cellCenter = cellIdx * (slideW + gapPx) + slideW / 2;
       const tx = Math.round(stageW / 2 - cellCenter);
 
       const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       if (smooth && !reduced) {
-        cdTrack.style.transition = "transform 850ms cubic-bezier(0.65, 0, 0.35, 1)";
+        cdTrack.style.transition = "transform 520ms cubic-bezier(0.16, 1, 0.3, 1)";
       } else {
         cdTrack.style.transition = "none";
       }
-      cdTrack.style.transform = `translateX(${tx}px)`;
+      cdTrack.style.transform = `translate3d(${tx}px, 0, 0)`;
 
       const cdStrip = document.getElementById("cd-parallax-strip");
       if (cdStrip) {
-        const slideW = cell.offsetWidth || 553;
-        const sideSpace = (stageW - slideW) / 2;
-        const targetPeek = 234;
-        const gapPx = stageW >= 900 ? Math.max(28, Math.round(sideSpace - targetPeek)) : 32;
-        const stepDist = (slideW + gapPx) * 0.18;
         const bgTx = Math.round(-bgStepIndex * stepDist);
         if (smooth && !reduced) {
-          cdStrip.style.transition = "transform 850ms cubic-bezier(0.65, 0, 0.35, 1)";
+          cdStrip.style.transition = "transform 520ms cubic-bezier(0.16, 1, 0.3, 1)";
         } else {
           cdStrip.style.transition = "none";
         }
-        cdStrip.style.transform = `translateX(${bgTx}px)`;
+        cdStrip.style.transform = `translate3d(${bgTx}px, 0, 0)`;
       }
     }
 
@@ -714,6 +710,7 @@ const capabilities = [
     let ro: ResizeObserver | null = null;
     if (typeof ResizeObserver !== "undefined") {
       ro = new ResizeObserver(() => {
+        updateCdGap();
         positionCdTrack(cdCellIndex, false);
         updateCdIndicator(cdActiveIdx);
       });
@@ -721,6 +718,7 @@ const capabilities = [
     }
 
     const onResize = () => {
+      updateCdGap();
       positionCdTrack(cdCellIndex, false);
       updateCdIndicator(cdActiveIdx);
     };
@@ -840,6 +838,13 @@ const capabilities = [
     align-items: center;
     gap: 80px;
     width: max-content;
+    will-change: transform;
+    transform: translateZ(0);
+  }
+
+  #cd-parallax-strip {
+    will-change: transform;
+    transform: translateZ(0);
   }
 
   .cd-track.is-snapping,
@@ -850,59 +855,30 @@ const capabilities = [
   .cd-slide {
     flex-shrink: 0;
     width: 553px;
-  }
-
-  .cd-slide.is-active {
-    cursor: default;
+    will-change: opacity;
+    transition: opacity 450ms cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .cd-slide.is-neighbour {
+    opacity: 0.35;
     cursor: pointer;
   }
 
-  /* Fade contents instead of .cd-slide itself so .cd-slide keeps opacity: 1 at all times.
-     This prevents offscreen compositing buffers from destroying backdrop-filter blur during transforms. */
-  .cd-slide .cd-cell-wordmark,
-  .cd-slide .cd-cell-label-right,
-  .cd-slide .cd-cell-label-left,
-  .cd-slide .cd-cell-empty,
-  .cd-slide .cd-cell-box > span {
-    transition: opacity 850ms cubic-bezier(0.65, 0, 0.35, 1);
-  }
-
-  .cd-slide .cd-cell-box {
-    transition: border-color 850ms cubic-bezier(0.65, 0, 0.35, 1);
-  }
-
-  .cd-slide.is-neighbour .cd-cell-wordmark,
-  .cd-slide.is-neighbour .cd-cell-label-right,
-  .cd-slide.is-neighbour .cd-cell-label-left,
-  .cd-slide.is-neighbour .cd-cell-empty,
-  .cd-slide.is-neighbour .cd-cell-box > span {
-    opacity: 0.35;
-  }
-
-  .cd-slide.is-neighbour:hover .cd-cell-wordmark,
-  .cd-slide.is-neighbour:hover .cd-cell-label-right,
-  .cd-slide.is-neighbour:hover .cd-cell-label-left,
-  .cd-slide.is-neighbour:hover .cd-cell-empty,
-  .cd-slide.is-neighbour:hover .cd-cell-box > span {
+  .cd-slide.is-neighbour:hover {
     opacity: 0.75;
   }
 
-  .cd-slide.is-active .cd-cell-wordmark,
-  .cd-slide.is-active .cd-cell-label-right,
-  .cd-slide.is-active .cd-cell-label-left,
-  .cd-slide.is-active .cd-cell-empty,
-  .cd-slide.is-active .cd-cell-box > span {
+  .cd-slide.is-active {
     opacity: 1;
+    cursor: default;
   }
 
-  .cd-slide.is-neighbour .cd-cell-box {
+  .cd-slide .cd-cell-box {
     border-color: rgba(163, 163, 163, 0.35);
+    transition: border-color 450ms cubic-bezier(0.16, 1, 0.3, 1);
   }
 
-  :global(.dark) .cd-slide.is-neighbour .cd-cell-box {
+  :global(.dark) .cd-slide .cd-cell-box {
     border-color: rgba(64, 64, 64, 0.4);
   }
 
@@ -911,7 +887,7 @@ const capabilities = [
   }
 
   :global(.dark) .cd-slide.is-active .cd-cell-box {
-    border-color: rgb(38, 38, 38);
+    border-color: rgb(45, 45, 45);
   }
 
   /* 3 Columns x 3 Rows Matrix:
@@ -945,11 +921,8 @@ const capabilities = [
     padding: 0 16px;
     width: 100%;
     height: 100%;
-    background: transparent !important;
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
+    background: transparent;
     box-sizing: border-box;
-    transform: translateZ(0);
   }
 
   .cd-cell-label-right {
