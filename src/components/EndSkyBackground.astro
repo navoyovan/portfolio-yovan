@@ -20,6 +20,8 @@ const textureUrl = `${base}/end_sky.png`;
     const canvas = document.getElementById('end-sky-canvas') as HTMLCanvasElement | null;
 
     if (!canvas || !container) return;
+    if ((canvas as any).__skyInitialized) return;
+    (canvas as any).__skyInitialized = true;
 
     const textureUrl = container.getAttribute('data-texture-url') || '/portfolio-yovan/end_sky.png';
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -149,7 +151,8 @@ const textureUrl = `${base}/end_sky.png`;
 
     let animationFrameId: number | null = null;
     let startTime = performance.now();
-    let isPaused = false;
+    let isDark = document.documentElement.classList.contains('dark');
+    let isPaused = !isDark;
     let currentScroll = window.scrollY || window.pageYOffset || 0;
     let targetScroll = currentScroll;
 
@@ -189,15 +192,37 @@ const textureUrl = `${base}/end_sky.png`;
 
       gl.drawArrays(gl.TRIANGLES, 0, 6);
 
-      if (!prefersReducedMotion) {
+      if (!prefersReducedMotion && !isPaused) {
         animationFrameId = requestAnimationFrame(render);
       }
     }
 
-    animationFrameId = requestAnimationFrame(render);
+    if (isDark && !prefersReducedMotion) {
+      animationFrameId = requestAnimationFrame(render);
+    }
+
+    const themeObserver = new MutationObserver(() => {
+      const newDark = document.documentElement.classList.contains('dark');
+      if (newDark !== isDark) {
+        isDark = newDark;
+        if (isDark && !document.hidden) {
+          isPaused = false;
+          if (!prefersReducedMotion && animationFrameId === null) {
+            animationFrameId = requestAnimationFrame(render);
+          }
+        } else {
+          isPaused = true;
+          if (animationFrameId !== null) {
+            cancelAnimationFrame(animationFrameId);
+            animationFrameId = null;
+          }
+        }
+      }
+    });
+    themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
 
     function onVisibilityChange() {
-      if (document.hidden) {
+      if (document.hidden || !isDark) {
         isPaused = true;
         if (animationFrameId !== null) {
           cancelAnimationFrame(animationFrameId);
@@ -220,9 +245,19 @@ const textureUrl = `${base}/end_sky.png`;
           cancelAnimationFrame(animationFrameId);
           animationFrameId = null;
         }
+        themeObserver.disconnect();
         window.removeEventListener('scroll', onScroll);
         window.removeEventListener('resize', resize);
         document.removeEventListener('visibilitychange', onVisibilityChange);
+
+        try {
+          gl.deleteBuffer(positionBuffer);
+          gl.deleteTexture(texture);
+          gl.deleteProgram(program);
+          gl.deleteShader(vertexShader);
+          gl.deleteShader(fragmentShader);
+          gl.getExtension('WEBGL_lose_context')?.loseContext();
+        } catch (e) {}
       },
       { once: true }
     );
