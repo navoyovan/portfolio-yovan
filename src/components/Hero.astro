@@ -275,7 +275,7 @@ const librariesTechniques = [
 
     <!-- Clean Editorial Footer with Scale Ruler - Elevated for Navbar & Viewport Comfort -->
     <footer class="absolute bottom-0 inset-x-0 z-20 w-full px-6 sm:px-8 lg:px-12 pb-8 sm:pb-10 lg:pb-12 flex items-end justify-between font-sans text-[11px] text-neutral-500 select-none">
-      <div class="flex items-center gap-2.5">
+      <div id="hero-footer-left" class="flex items-center gap-2.5 transition-opacity duration-300">
         <span aria-hidden="true" class="inline-flex flex-col w-[2px] h-7 shrink-0">
           <span class="w-full h-1/2 bg-[var(--color-accent,#BCFF1C)]"></span>
           <span class="w-full h-1/2 bg-[var(--color-accent-complementary,#F2003C)]"></span>
@@ -286,10 +286,10 @@ const librariesTechniques = [
         </div>
       </div>
 
-      <div class="flex flex-col items-end gap-2">
+      <div id="hero-ruler-cluster" class="relative flex flex-col items-end gap-1 select-none pointer-events-none">
         <!-- Dynamic Architectural Scale Ruler (Bottom Right) -->
         <div id="hero-ruler-container" class="flex flex-col gap-1 w-36 sm:w-44" aria-label="Cartographic Scale">
-          <div class="flex items-center justify-between font-mono text-[9px] tracking-widest text-neutral-400">
+          <div class="flex items-center justify-between font-mono text-[9px] tracking-widest text-neutral-400 font-light">
             <span class="text-[var(--color-accent,#BCFF1C)]">0</span>
             <span id="hero-ruler-mid" class="text-[var(--color-accent-complementary,#F2003C)]">1.5</span>
             <span id="hero-ruler-max">3 KM</span>
@@ -304,6 +304,15 @@ const librariesTechniques = [
           </div>
         </div>
         <span id="hero-ruler-ratio" class="text-neutral-500 text-[10px] tracking-wide font-sans">1:50,000 Architectural Scale</span>
+
+        <!-- Trail Telemetry Readout (Placed under ruler, absolute so scale ruler stays pulled down on axis) -->
+        <div
+          id="hero-ruler-trail"
+          class="absolute top-full right-0 pt-1.5 flex items-center gap-1.5 font-mono text-[11px] font-light tracking-wider opacity-0 translate-y-1 transition-[opacity,transform] duration-300 ease-out whitespace-nowrap"
+        >
+          <span class="text-[var(--color-accent,#BCFF1C)] select-none text-[8px]">•</span>
+          <span id="hero-ruler-trail-name" class="font-light tracking-wider uppercase truncate text-neutral-800 dark:text-neutral-200"></span>
+        </div>
       </div>
     </footer>
   </main>
@@ -772,8 +781,11 @@ const librariesTechniques = [
           headerEl.style.pointerEvents = mainDataOpacity === 0 ? 'none' : 'auto';
         }
         if (footerEl) {
-          footerEl.style.opacity = mainDataOpacity.toString();
-          footerEl.style.pointerEvents = mainDataOpacity === 0 ? 'none' : 'auto';
+          const footerLeft = footerEl.querySelector('#hero-footer-left') as HTMLElement | null;
+          if (footerLeft) {
+            footerLeft.style.opacity = mainDataOpacity.toString();
+            footerLeft.style.pointerEvents = mainDataOpacity === 0 ? 'none' : 'auto';
+          }
         }
         if (badgeBox) {
           badgeBox.style.opacity = mainDataOpacity.toString();
