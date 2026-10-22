@@ -72,12 +72,34 @@ for (let w = 0; w < availableWeeks; w++) {
     --gap: 2px;
     --pad: 6px;
     --cell-inner: 14px;
-    height: calc(7 * var(--cell-inner) + 6 * var(--gap) + 2 * var(--pad));
+    height: calc(7 * var(--cell-inner) + 6 * var(--gap) + 2 * var(--pad) + 18px);
   "
 >
+  <!-- Top Registration Bar Greeble (Volt + Crimson Thermal Scale) -->
+  <div
+    aria-hidden="true"
+    class="w-[92%] sm:w-[86%] lg:w-[80%] mx-auto flex items-center justify-between h-[18px] text-[9px] font-mono text-neutral-400 dark:text-neutral-600 pointer-events-none select-none"
+  >
+    <div class="flex items-center gap-1.5">
+      <span>+</span>
+      <span class="w-2 h-[2px] bg-[var(--color-accent,#BCFF1C)]"></span>
+      <span class="w-2 h-[2px] bg-[var(--color-accent-complementary,#F2003C)]"></span>
+      <span class="tracking-wider uppercase">GH // COMMITS</span>
+    </div>
+    <div class="flex items-center gap-1">
+      <span class="pr-0.5">L1</span>
+      <span class="w-2 h-2 rounded-[1px] bg-[var(--color-accent-complementary,#F2003C)]/45"></span>
+      <span class="w-2 h-2 rounded-[1px] bg-[var(--color-accent-complementary,#F2003C)]/85"></span>
+      <span class="w-2 h-2 rounded-[1px] bg-[var(--color-accent,#BCFF1C)]/65"></span>
+      <span class="w-2 h-2 rounded-[1px] bg-[var(--color-accent,#BCFF1C)]"></span>
+      <span class="pl-0.5">L4</span>
+      <span class="pl-1">+</span>
+    </div>
+  </div>
+
   <!-- Heatmap: Borderless grid with top mask fade and right-anchored latest view -->
   <div
-    class="relative w-full h-full overflow-hidden"
+    class="relative w-full h-[calc(100%-18px)] overflow-hidden"
     style="
       -webkit-mask-image: linear-gradient(to bottom, transparent, black 35%, black 100%);
       mask-image: linear-gradient(to bottom, transparent, black 35%, black 100%);
@@ -148,7 +170,7 @@ for (let w = 0; w < availableWeeks; w++) {
       >
         <div>
           Yovan<span
-            class="text-[var(--color-accent,#1b7f3b)] dark:text-[var(--color-accent,#52FF1A)]"
+            class="text-[var(--color-accent,#BCFF1C)]"
             >;</span>
         </div>
         <div class="text-neutral-500 dark:text-neutral-400">Gunardio.</div>
@@ -167,21 +189,21 @@ for (let w = 0; w < availableWeeks; w++) {
 <style is:global>
   #github-contrib-grid {
     --gcd-empty: #ebedf0;
-    --gcd-l1: #9be9a8;
-    --gcd-l2: #40c463;
-    --gcd-l3: #30a14e;
-    --gcd-l4: #216e39;
+    --gcd-l1: rgba(242, 0, 60, 0.35);
+    --gcd-l2: rgba(242, 0, 60, 0.75);
+    --gcd-l3: rgba(166, 230, 21, 0.85);
+    --gcd-l4: var(--color-accent, #BCFF1C);
     --gcd-glow-l4: none;
   }
 
   .dark #github-contrib-grid,
   :root.dark #github-contrib-grid {
-    --gcd-empty: #1c1c1c;
-    --gcd-l1: rgba(16, 185, 129, 0.2);
-    --gcd-l2: rgba(16, 185, 129, 0.45);
-    --gcd-l3: rgba(16, 185, 129, 0.7);
-    --gcd-l4: #10b981;
-    --gcd-glow-l4: 0 0 6px rgba(16, 185, 129, 0.35);
+    --gcd-empty: #141414;
+    --gcd-l1: rgba(242, 0, 60, 0.45);
+    --gcd-l2: rgba(242, 0, 60, 0.85);
+    --gcd-l3: rgba(188, 255, 28, 0.65);
+    --gcd-l4: var(--color-accent, #BCFF1C);
+    --gcd-glow-l4: 0 0 8px rgba(188, 255, 28, 0.45);
   }
 
   #github-contrib-grid .gcd-col {

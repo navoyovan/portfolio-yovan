@@ -42,10 +42,17 @@
   --font-hero: 'Syne', sans-serif;
   --font-machina: 'Neue Machina', sans-serif;
   --font-pixel: 'Press Start 2P', monospace;
+  --font-mono: 'Neue Machina', ui-monospace, SFMono-Regular, monospace;
 
-  --color-accent: var(--accent-color, #52FF1A);
-  --color-accent-hover: var(--accent-hover, #42e012);
-  --color-accent-complementary: var(--accent-complementary, #C71AFF);
+  --color-accent: #BCFF1C;
+  --color-accent-hover: #A6E615;
+  --color-accent-complementary: #F2003C;
+
+  /* Full Saturation Halftone Duo: Electric Volt & Electric Crimson */
+  --color-neon-volt: #BCFF1C;
+  --color-neon-volt-hover: #A6E615;
+  --color-electric-crimson: #F2003C;
+  --color-electric-crimson-hover: #D90035;
 
   --color-safe: #10B981;
   --color-safe-hover: #059669;
@@ -72,16 +79,16 @@
 
   @keyframes kiosk-pulse-accent-glow {
     0% {
-      box-shadow: 0 0 0 0 transparent, 0 0 0 0 color-mix(in srgb, var(--color-accent, var(--accent-color, #52FF1A)) 55%, transparent);
+      box-shadow: 0 0 0 0 transparent, 0 0 0 0 color-mix(in srgb, var(--color-accent, var(--accent-color, #BCFF1C)) 55%, transparent);
     }
 
     50% {
-      box-shadow: 0 0 14px color-mix(in srgb, var(--color-accent, var(--accent-color, #52FF1A)) 40%, transparent), 0 0 0 8px color-mix(in srgb, var(--color-accent, var(--accent-color, #52FF1A)) 0%, transparent);
+      box-shadow: 0 0 14px color-mix(in srgb, var(--color-accent, var(--accent-color, #BCFF1C)) 40%, transparent), 0 0 0 8px color-mix(in srgb, var(--color-accent, var(--accent-color, #BCFF1C)) 0%, transparent);
       animation-timing-function: cubic-bezier(0.1, 0, 0.9, 1);
     }
 
     100% {
-      box-shadow: 0 0 0 0 transparent, 0 0 0 0 color-mix(in srgb, var(--color-accent, var(--accent-color, #52FF1A)) 0%, transparent);
+      box-shadow: 0 0 0 0 transparent, 0 0 0 0 color-mix(in srgb, var(--color-accent, var(--accent-color, #BCFF1C)) 0%, transparent);
     }
   }
 
@@ -120,6 +127,16 @@
   }
 }
 
+@utility font-mono {
+  font-family: var(--font-mono);
+  font-weight: 300;
+}
+
+.font-mono {
+  font-family: var(--font-mono);
+  font-weight: 300;
+}
+
 :root {
   --font-heading-weight: 700;
   --font-hero-weight: 900;
@@ -135,10 +152,10 @@
   --text-secondary: #5a5750;
   --text-muted: #8a857b;
 
-  --accent-color: #52FF1A;
-  --accent-hover: #42e012;
-  --accent-complementary: #C71AFF;
-  --terminal-green: #52FF1A;
+  --accent-color: #BCFF1C;
+  --accent-hover: #A6E615;
+  --accent-complementary: #F2003C;
+  --terminal-green: #BCFF1C;
 
   --transition-normal: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   --transition-fast: 0.2s cubic-bezier(0.16, 1, 0.3, 1);
@@ -402,5 +419,4 @@ html.show-scrollbar::-webkit-scrollbar-thumb {
 .sd-label::before,
 .sd-label::after {
   content: none !important;
-  display: none !important;
 }

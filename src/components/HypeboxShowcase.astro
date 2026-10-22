@@ -6,9 +6,11 @@ import ActionButton from "./ActionButton.astro";
 <section
   id="hypebox-showcase"
   aria-labelledby="heading-hypebox"
-  style="--hb-accent: #f86910;"
-  class="relative w-full text-neutral-950 dark:text-white overflow-x-clip overflow-y-visible px-4 sm:px-8 lg:px-12 pt-10 sm:pt-14 pb-12 sm:pb-16 font-sans select-none"
+  style="--hb-accent: var(--color-accent, #52FF1A);"
+  class="relative w-full text-neutral-950 dark:text-white overflow-x-clip overflow-y-visible px-4 sm:px-8 lg:px-12 pt-10 sm:pt-14 pb-12 sm:pb-16 font-sans select-none scroll-mt-24"
 >
+  <!-- Anchor alias for direct #hypebox deep links -->
+  <div id="hypebox" class="absolute -top-24 pointer-events-none" aria-hidden="true"></div>
   <!-- Warm Diffused Motion-Blur Ambient Glow Backdrop (Unclipped vertically + soft top/bottom mask fade) -->
   <div
     class="pointer-events-none absolute -top-44 -bottom-24 inset-x-0 overflow-visible z-0 [mask-image:linear-gradient(to_bottom,transparent_0%,black_22%,black_80%,transparent_100%)] [-webkit-mask-image:linear-gradient(to_bottom,transparent_0%,black_22%,black_80%,transparent_100%)]"
@@ -17,31 +19,31 @@ import ActionButton from "./ActionButton.astro";
     <!-- Light-Mode Luminous Orange/Peach Plumes (Zero dark/brown stops) -->
     <div
       class="dark:hidden absolute left-[28%] top-[14%] w-[44%] h-[54%] rounded-full blur-[72px]"
-      style="background: radial-gradient(circle at 50% 45%, rgba(255, 88, 18, 0.52) 0%, rgba(255, 128, 56, 0.30) 45%, rgba(255, 176, 120, 0.10) 74%, transparent 100%); transform: rotate(-8deg);"
+      style="background: radial-gradient(circle at 50% 45%, color-mix(in srgb, var(--color-accent, #1b7f3b) 45%, transparent) 0%, color-mix(in srgb, var(--color-accent, #1b7f3b) 25%, transparent) 45%, transparent 100%); transform: rotate(-8deg);"
     >
     </div>
     <div
       class="dark:hidden absolute left-[34%] top-[26%] w-[36%] h-[48%] rounded-full blur-[85px]"
-      style="background: radial-gradient(ellipse at 50% 50%, rgba(255, 138, 60, 0.42) 0%, rgba(255, 182, 125, 0.18) 58%, transparent 100%);"
+      style="background: radial-gradient(ellipse at 50% 50%, color-mix(in srgb, var(--color-accent, #1b7f3b) 35%, transparent) 0%, color-mix(in srgb, var(--color-accent, #1b7f3b) 15%, transparent) 58%, transparent 100%);"
     >
     </div>
 
     <!-- Dark-Mode Deep Warm Red/Orange Core Plumes matching the Sanity backdrop -->
     <div
       class="hidden dark:block absolute left-[28%] top-[14%] w-[44%] h-[54%] rounded-full opacity-80 blur-[72px]"
-      style="background: radial-gradient(circle at 50% 45%, #ff2e00 0%, #c83208 42%, #591605 72%, transparent 100%); transform: rotate(-8deg);"
+      style="background: radial-gradient(circle at 50% 45%, color-mix(in srgb, var(--color-accent, #52FF1A) 60%, transparent) 0%, color-mix(in srgb, var(--color-accent, #52FF1A) 30%, transparent) 42%, transparent 100%); transform: rotate(-8deg);"
     >
     </div>
     <!-- Dark-Mode Secondary warm amber/ochre wash -->
     <div
       class="hidden dark:block absolute left-[34%] top-[26%] w-[36%] h-[48%] rounded-full opacity-65 blur-[85px]"
-      style="background: radial-gradient(ellipse at 50% 50%, #e06d2b 0%, #8a3812 55%, transparent 100%);"
+      style="background: radial-gradient(ellipse at 50% 50%, color-mix(in srgb, var(--color-accent, #52FF1A) 40%, transparent) 0%, color-mix(in srgb, var(--color-accent, #52FF1A) 15%, transparent) 55%, transparent 100%);"
     >
     </div>
     <!-- Dark-Mode Cool slate atmospheric counterweight -->
     <div
       class="hidden dark:block absolute left-[14%] top-[18%] w-[32%] h-[46%] rounded-full opacity-40 blur-[90px]"
-      style="background: radial-gradient(circle at 50% 50%, #3a4454 0%, #181c24 65%, transparent 100%);"
+      style="background: radial-gradient(circle at 50% 50%, color-mix(in srgb, var(--color-accent, #52FF1A) 25%, #181c24) 0%, #181c24 65%, transparent 100%);"
     >
     </div>
   </div>
@@ -49,7 +51,7 @@ import ActionButton from "./ActionButton.astro";
   <!-- Upper Wireframe Preview Stage (Extends down behind the 4 containers with smooth bottom fade) -->
   <div
     id="wireframe-window-stage"
-    class="relative z-10 w-[92%] sm:w-[86%] lg:w-[80%] mx-auto min-h-[640px] sm:min-h-[740px] pb-56 sm:pb-72 border border-neutral-900/[0.14] dark:border-white/[0.15] border-b-0 bg-white/[0.35] dark:bg-black/[0.14] backdrop-blur-[1px] px-5 sm:px-10 lg:px-14 pt-5 flex flex-col overflow-hidden [mask-image:linear-gradient(to_bottom,black_0%,black_65%,transparent_100%)] [-webkit-mask-image:linear-gradient(to_bottom,black_0%,black_65%,transparent_100%)]"
+    class="relative z-10 w-[92%] sm:w-[86%] lg:w-[80%] mx-auto min-h-[540px] sm:min-h-[620px] pb-44 sm:pb-56 border border-neutral-900/[0.14] dark:border-white/[0.15] border-b-0 bg-white/[0.35] dark:bg-black/[0.14] backdrop-blur-[1px] px-5 sm:px-10 lg:px-14 pt-5 flex flex-col overflow-hidden [mask-image:linear-gradient(to_bottom,black_0%,black_65%,transparent_100%)] [-webkit-mask-image:linear-gradient(to_bottom,black_0%,black_65%,transparent_100%)]"
   >
     <!-- 3D Wireframe Photostrip Starfield Canvas (Clipped to Window Bounds) -->
     <canvas
@@ -72,14 +74,14 @@ import ActionButton from "./ActionButton.astro";
       </div>
     </div>
 
-    <!-- Optical Middle (Shifted Down): HYPE-BOX Logotype Display (Strictly 1-line, smaller + margined) -->
+    <!-- Optical Middle: HYPE-BOX Logotype Display (Vertically balanced + margined) -->
     <div
       id="stage-title-wrap"
-      class="relative z-10 flex flex-col items-center justify-center pt-48 sm:pt-60 pb-12 px-6 sm:px-12 w-full my-4"
+      class="relative z-10 flex flex-col items-center justify-center pt-36 sm:pt-48 pb-10 px-6 sm:px-12 w-full my-3"
     >
       <h3
         id="heading-hypebox"
-        class="font-heading font-black text-[clamp(2.15rem,7vw,5.75rem)] tracking-tight text-neutral-950 dark:text-white uppercase select-none leading-none text-center whitespace-nowrap mx-auto px-4 drop-shadow-[0_10px_28px_rgba(248,105,16,0.12)] dark:drop-shadow-[0_10px_35px_rgba(0,0,0,0.8)] m-0"
+        class="font-heading font-black text-[clamp(2.15rem,7vw,5.75rem)] tracking-tight text-neutral-950 dark:text-white uppercase select-none leading-none text-center whitespace-nowrap mx-auto px-4 drop-shadow-[0_10px_28px_color-mix(in_srgb,var(--color-accent,#52FF1A)_18%,transparent)] dark:drop-shadow-[0_10px_35px_rgba(0,0,0,0.8)] m-0"
       >
         HYPE-BOX
       </h3>
@@ -158,14 +160,14 @@ import ActionButton from "./ActionButton.astro";
 
   <!-- Bottom 4-Column Interactive Mini-Demos (Simulated data only) -->
   <div
-    class="relative z-20 -mt-36 sm:-mt-52 w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 items-stretch"
+    class="relative z-20 -mt-28 sm:-mt-40 w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 items-stretch"
   >
     <!-- DEMO 1: Photo Session -->
     <article
       id="demo-session"
       data-state="idle"
       aria-labelledby="demo-session-title"
-      class="group bg-[#f6f4ee] dark:bg-[#121214] border border-neutral-300/80 dark:border-white/[0.09] rounded-xl h-[390px] shadow-[0_16px_40px_rgba(0,0,0,0.08)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.85)] overflow-hidden flex flex-col"
+      class="group bg-[#f6f4ee] dark:bg-[#121214] border border-neutral-300/80 dark:border-white/[0.09] rounded-xl h-[390px] shadow-[0_4px_16px_rgba(0,0,0,0.035)] dark:shadow-[0_6px_20px_rgba(0,0,0,0.3)] overflow-hidden flex flex-col"
     >
       <header
         class="flex items-center justify-between px-4 pt-3.5 pb-2.5 border-b border-neutral-200/90 dark:border-white/[0.06]"
@@ -173,10 +175,12 @@ import ActionButton from "./ActionButton.astro";
         <h4
           id="demo-session-title"
           class="text-xs font-medium text-neutral-950 dark:text-white m-0"
+          data-en="Photo Session"
+          data-id="Sesi Foto"
         >
           Photo Session
         </h4>
-        <span class="text-[10px] text-neutral-500">Simulated</span>
+        <span class="text-[10px] text-neutral-500" data-en="Simulated" data-id="Simulasi">Simulated</span>
       </header>
 
       <button
@@ -275,7 +279,7 @@ import ActionButton from "./ActionButton.astro";
     <article
       id="demo-frame"
       aria-labelledby="demo-frame-title"
-      class="bg-[#f6f4ee] dark:bg-[#121214] border border-neutral-300/80 dark:border-white/[0.09] rounded-xl h-[390px] shadow-[0_16px_40px_rgba(0,0,0,0.08)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.85)] overflow-hidden flex flex-col"
+      class="bg-[#f6f4ee] dark:bg-[#121214] border border-neutral-300/80 dark:border-white/[0.09] rounded-xl h-[390px] shadow-[0_4px_16px_rgba(0,0,0,0.035)] dark:shadow-[0_6px_20px_rgba(0,0,0,0.3)] overflow-hidden flex flex-col"
     >
       <header
         class="flex items-center justify-between px-4 pt-3.5 pb-2.5 border-b border-neutral-200/90 dark:border-white/[0.06]"
@@ -283,10 +287,12 @@ import ActionButton from "./ActionButton.astro";
         <h4
           id="demo-frame-title"
           class="text-xs font-medium text-neutral-950 dark:text-white m-0"
+          data-en="Frame Studio"
+          data-id="Studio Frame"
         >
           Frame Studio
         </h4>
-        <span class="text-[10px] text-neutral-500">Simulated</span>
+        <span class="text-[10px] text-neutral-500" data-en="Simulated" data-id="Simulasi">Simulated</span>
       </header>
 
       <!-- Infinite Scroll Frame Studio (Aesthetic Showcase) -->
@@ -506,7 +512,7 @@ import ActionButton from "./ActionButton.astro";
     <article
       id="demo-booths"
       aria-labelledby="demo-booths-title"
-      class="bg-[#f6f4ee] dark:bg-[#121214] border border-neutral-300/80 dark:border-white/[0.09] rounded-xl h-[390px] shadow-[0_16px_40px_rgba(0,0,0,0.08)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.85)] overflow-hidden flex flex-col"
+      class="bg-[#f6f4ee] dark:bg-[#121214] border border-neutral-300/80 dark:border-white/[0.09] rounded-xl h-[390px] shadow-[0_4px_16px_rgba(0,0,0,0.035)] dark:shadow-[0_6px_20px_rgba(0,0,0,0.3)] overflow-hidden flex flex-col"
     >
       <header
         class="flex items-center justify-between px-4 pt-3.5 pb-2.5 border-b border-neutral-200/90 dark:border-white/[0.06]"
@@ -514,10 +520,12 @@ import ActionButton from "./ActionButton.astro";
         <h4
           id="demo-booths-title"
           class="text-xs font-medium text-neutral-950 dark:text-white m-0"
+          data-en="Booth Operations"
+          data-id="Operasional Booth"
         >
           Booth Operations
         </h4>
-        <span class="text-[10px] text-neutral-500">Demo data</span>
+        <span class="text-[10px] text-neutral-500" data-en="Demo data" data-id="Data demo">Demo data</span>
       </header>
 
       <div
@@ -635,7 +643,7 @@ import ActionButton from "./ActionButton.astro";
     <article
       id="demo-workflow"
       aria-labelledby="demo-workflow-title"
-      class="bg-[#f6f4ee] dark:bg-[#121214] border border-neutral-300/80 dark:border-white/[0.09] rounded-xl h-[390px] shadow-[0_16px_40px_rgba(0,0,0,0.08)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.85)] overflow-hidden flex flex-col"
+      class="bg-[#f6f4ee] dark:bg-[#121214] border border-neutral-300/80 dark:border-white/[0.09] rounded-xl h-[390px] shadow-[0_4px_16px_rgba(0,0,0,0.035)] dark:shadow-[0_6px_20px_rgba(0,0,0,0.3)] overflow-hidden flex flex-col"
     >
       <header
         class="flex items-center justify-between px-4 pt-3.5 pb-2.5 border-b border-neutral-200/90 dark:border-white/[0.06]"
@@ -643,10 +651,12 @@ import ActionButton from "./ActionButton.astro";
         <h4
           id="demo-workflow-title"
           class="text-xs font-medium text-neutral-950 dark:text-white m-0"
+          data-en="Connected Workflow"
+          data-id="Alur Kerja Terhubung"
         >
           Connected Workflow
         </h4>
-        <span class="text-[10px] text-neutral-500">Simulated</span>
+        <span class="text-[10px] text-neutral-500" data-en="Simulated" data-id="Simulasi">Simulated</span>
       </header>
 
       <ol id="workflow-steps" class="px-3 pt-3 space-y-0.5 list-none m-0">
@@ -663,6 +673,8 @@ import ActionButton from "./ActionButton.astro";
               >1</span
             >
             <span
+              data-en="Capture"
+              data-id="Tangkap"
               class="text-xs text-neutral-500 dark:text-neutral-400 group-data-[state=active]:text-neutral-950 dark:group-data-[state=active]:text-white group-data-[state=active]:font-medium group-data-[state=done]:text-neutral-700 dark:group-data-[state=done]:text-neutral-300 transition-colors duration-200 ease-out"
               >Capture</span
             >
@@ -680,6 +692,8 @@ import ActionButton from "./ActionButton.astro";
               >2</span
             >
             <span
+              data-en="Compose"
+              data-id="Susun"
               class="text-xs text-neutral-500 dark:text-neutral-400 group-data-[state=active]:text-neutral-950 dark:group-data-[state=active]:text-white group-data-[state=active]:font-medium group-data-[state=done]:text-neutral-700 dark:group-data-[state=done]:text-neutral-300 transition-colors duration-200 ease-out"
               >Compose</span
             >
@@ -697,6 +711,8 @@ import ActionButton from "./ActionButton.astro";
               >3</span
             >
             <span
+              data-en="Telemetry"
+              data-id="Telemetri"
               class="text-xs text-neutral-500 dark:text-neutral-400 group-data-[state=active]:text-neutral-950 dark:group-data-[state=active]:text-white group-data-[state=active]:font-medium group-data-[state=done]:text-neutral-700 dark:group-data-[state=done]:text-neutral-300 transition-colors duration-200 ease-out"
               >Telemetry</span
             >
@@ -714,6 +730,8 @@ import ActionButton from "./ActionButton.astro";
               >4</span
             >
             <span
+              data-en="Dispatch"
+              data-id="Kirim"
               class="text-xs text-neutral-500 dark:text-neutral-400 group-data-[state=active]:text-neutral-950 dark:group-data-[state=active]:text-white group-data-[state=active]:font-medium group-data-[state=done]:text-neutral-700 dark:group-data-[state=done]:text-neutral-300 transition-colors duration-200 ease-out"
               >Dispatch</span
             >
@@ -901,30 +919,18 @@ import ActionButton from "./ActionButton.astro";
   }
 
   // ───────────────────────── Demo 2: Frame Studio ─────────────────────────
-  const framePanelSelector = document.getElementById("frame-panel-selector");
   const selectorCols = Array.from(
     document.querySelectorAll<HTMLElement>(".selector-col"),
   );
-  let singleSetHeight = 0;
-  let colBaseMiddles: number[] = [];
-
-  const measureSelectorCols = () => {
-    const firstCol = selectorCols[0];
-    if (!firstCol || firstCol.scrollHeight === 0) return;
-    singleSetHeight = firstCol.scrollHeight / 4;
-    colBaseMiddles = selectorCols.map((col) => -(col.scrollHeight / 2));
-  };
 
   if (selectorCols.length > 0) {
-    selectorCols.forEach((col) => {
+    selectorCols.forEach((col, idx) => {
       if (col.dataset.cloned === "true") return;
       col.dataset.cloned = "true";
-      const baseMarkup = col.innerHTML;
-      col.innerHTML = baseMarkup.repeat(4);
-    });
-    measureSelectorCols();
-    selectorCols.forEach((col, i) => {
-      col.style.transform = `translate3d(0, ${colBaseMiddles[i] || 0}px, 0)`;
+      col.innerHTML = col.innerHTML + col.innerHTML;
+      if (!reduceMotion) {
+        col.classList.add(idx % 2 === 0 ? "marquee-col-down" : "marquee-col-up");
+      }
     });
   }
 
@@ -1042,12 +1048,20 @@ import ActionButton from "./ActionButton.astro";
   );
   const workflowDesc = document.getElementById("workflow-desc");
   const workflowNext = document.getElementById("workflow-next");
-  const workflowCopy = [
-    "Tethered camera sequence captures timed exposures with hardware flash synchronization.",
-    "WebGL compositor stitches high-res exposures into the selected template canvas in real-time.",
-    "Queued prints and analytics stream to the fleet management portal.",
-    "High-speed dye-sub printer outputs the physical cut strip while generating a private guest QR.",
-  ];
+  const workflowCopy = {
+    en: [
+      "Tethered camera sequence captures timed exposures with hardware flash synchronization.",
+      "WebGL compositor stitches high-res exposures into the selected template canvas in real-time.",
+      "Queued prints and analytics stream to the fleet management portal.",
+      "High-speed dye-sub printer outputs the physical cut strip while generating a private guest QR.",
+    ],
+    id: [
+      "Rangkaian kamera tertambat menangkap eksposur berjangka dengan sinkronisasi lampu kilat perangkat keras.",
+      "Kompositor WebGL merender eksposur resolusi tinggi ke kanvas template secara langsung.",
+      "Antrean cetak dan analitik dialirkan ke portal manajemen armada.",
+      "Printer dye-sub berkecepatan tinggi mencetak potongan strip fisik sembari membuat QR pribadi untuk tamu.",
+    ],
+  };
   let workflowIdx = 0;
 
   const renderWorkflow = (idx: number) => {
@@ -1057,9 +1071,14 @@ import ActionButton from "./ActionButton.astro";
       if (i === idx) el.setAttribute("aria-current", "step");
       else el.removeAttribute("aria-current");
     });
-    if (workflowDesc) workflowDesc.textContent = workflowCopy[idx];
+    if (workflowDesc) {
+      const isId = document.documentElement.lang === "id";
+      workflowDesc.setAttribute("data-en", workflowCopy.en[idx]);
+      workflowDesc.setAttribute("data-id", workflowCopy.id[idx]);
+      workflowDesc.textContent = isId ? workflowCopy.id[idx] : workflowCopy.en[idx];
+    }
     if (workflowNext) {
-      const isLast = idx === workflowCopy.length - 1;
+      const isLast = idx === workflowCopy.en.length - 1;
       workflowNext.dataset.mode = isLast ? "replay" : "next";
       workflowNext.setAttribute(
         "aria-label",
@@ -1073,7 +1092,7 @@ import ActionButton from "./ActionButton.astro";
   );
   workflowNext?.addEventListener("click", () => {
     renderWorkflow(
-      workflowIdx === workflowCopy.length - 1 ? 0 : workflowIdx + 1,
+      workflowIdx === workflowCopy.en.length - 1 ? 0 : workflowIdx + 1,
     );
   });
 
@@ -1088,8 +1107,6 @@ import ActionButton from "./ActionButton.astro";
   const maxDepth = 1000;
   const focalLength = 200;
   const starfieldSpeed = 1.0;
-  const selectorSpeed = 0.75;
-  let selectorScrollPos = 0;
   let stageWidth = 0;
   let stageHeight = 0;
   let rafId: number | null = null;
@@ -1131,7 +1148,6 @@ import ActionButton from "./ActionButton.astro";
       starfieldCanvas.height = stageHeight * dpr;
       if (ctx) ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     }
-    measureSelectorCols();
   };
 
   window.addEventListener("resize", resizeStageAndCols, { passive: true });
@@ -1207,24 +1223,6 @@ import ActionButton from "./ActionButton.astro";
       return;
     }
 
-    if (
-      selectorCols.length > 0 &&
-      !framePanelSelector?.classList.contains("hidden")
-    ) {
-      if (singleSetHeight === 0) measureSelectorCols();
-      if (singleSetHeight > 0) {
-        selectorScrollPos += selectorSpeed;
-        if (selectorScrollPos >= singleSetHeight) {
-          selectorScrollPos -= singleSetHeight;
-        }
-        for (let i = 0; i < selectorCols.length; i++) {
-          const delta = selectorScrollPos * (i % 2 === 0 ? 1 : -1);
-          selectorCols[i].style.transform =
-            `translate3d(0, ${colBaseMiddles[i] + delta}px, 0)`;
-        }
-      }
-    }
-
     drawStarfieldFrame(true);
     rafId = requestAnimationFrame(tickShowcase);
   };
@@ -1246,8 +1244,9 @@ import ActionButton from "./ActionButton.astro";
     }
   };
 
+  let visibilityObserver: IntersectionObserver | null = null;
   if (showcase && "IntersectionObserver" in window) {
-    const visibilityObserver = new IntersectionObserver(
+    visibilityObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           isShowcaseVisible = entry.isIntersecting;
@@ -1275,13 +1274,26 @@ import ActionButton from "./ActionButton.astro";
     }
   });
 
+  let themeObserver: MutationObserver | null = null;
   if (reduceMotion && "MutationObserver" in window) {
-    const themeObserver = new MutationObserver(() => drawStarfieldFrame(false));
+    themeObserver = new MutationObserver(() => drawStarfieldFrame(false));
     themeObserver.observe(document.documentElement, {
       attributes: true,
       attributeFilter: ["class"],
     });
   }
+
+  document.addEventListener(
+    "astro:before-swap",
+    () => {
+      stopShowcaseLoop();
+      stopBoothCycle();
+      visibilityObserver?.disconnect();
+      themeObserver?.disconnect();
+      window.removeEventListener("resize", resizeStageAndCols);
+    },
+    { once: true },
+  );
 
   startShowcaseLoop();
 </script>
@@ -1306,5 +1318,40 @@ import ActionButton from "./ActionButton.astro";
       #000 85%,
       transparent 100%
     );
+  }
+
+  @keyframes marquee-down {
+    0% {
+      transform: translate3d(0, -50%, 0);
+    }
+    100% {
+      transform: translate3d(0, 0, 0);
+    }
+  }
+
+  @keyframes marquee-up {
+    0% {
+      transform: translate3d(0, 0, 0);
+    }
+    100% {
+      transform: translate3d(0, -50%, 0);
+    }
+  }
+
+  .marquee-col-down {
+    animation: marquee-down 18s linear infinite;
+    will-change: transform;
+  }
+
+  .marquee-col-up {
+    animation: marquee-up 18s linear infinite;
+    will-change: transform;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .marquee-col-down,
+    .marquee-col-up {
+      animation: none !important;
+    }
   }
 </style>

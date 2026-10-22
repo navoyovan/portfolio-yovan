@@ -21,72 +21,60 @@ const { base } = Astro.props;
   class="scroll-mt-24 pt-16 space-y-10 relative z-30"
 >
   <!-- Section 02 Sliced Numeral Header Bar -->
-  <div class="flex items-stretch gap-0 pb-1">
-    <!-- Big Section Numeral "2" (Sliced vertically in half by container boundary) -->
+  <div class="relative w-screen left-1/2 -translate-x-1/2 px-6 sm:px-12 flex flex-col min-w-0 pb-1 gap-2">
+    <!-- Eyebrow Row: Bold Number + Eyebrow Label + Right Link -->
     <div
-      id="projects-numeral-crop"
-      class="relative overflow-hidden flex items-start justify-end select-none shrink-0 w-[60px] sm:w-[85px]"
-      style="contain: paint;"
+      class="relative flex items-center justify-between pb-1.5 border-b border-neutral-200 dark:border-neutral-800 w-full"
     >
-      <span
-        id="projects-numeral"
-        class="relative font-sans font-black leading-none text-neutral-950/40 dark:text-white/40 tracking-[0.5px] shrink-0 select-none"
-        aria-hidden="true"
-        style="font-size: 92px; left: 9px; top: -6px; display: inline-block;"
-      >
-        2
-      </span>
-    </div>
+      <!-- Outer Rail Crosshair Greebles -->
+      <span aria-hidden="true" class="absolute -bottom-[5.5px] left-0 font-mono text-[10px] leading-none text-neutral-400/70 dark:text-neutral-600 select-none pointer-events-none">+</span>
+      <span aria-hidden="true" class="absolute -bottom-[5.5px] right-0 font-mono text-[10px] leading-none text-neutral-400/70 dark:text-neutral-600 select-none pointer-events-none">+</span>
 
-    <!-- Vertical Divider Line (Exact Slice Axis) -->
-    <div
-      class="w-px bg-neutral-300 dark:bg-neutral-800 shrink-0 self-stretch my-0.5"
-      aria-hidden="true"
-    >
-    </div>
-
-    <!-- Right Side: Section label with horizontal rule and index link + Headline -->
-    <div
-      class="flex-1 flex flex-col justify-center min-w-0 pl-2.5 sm:pl-4 lg:pl-5 py-0.5 gap-1.5"
-    >
-      <!-- Top: Category label with horizontal rule -->
-      <div
-        class="flex items-center justify-between pb-1 border-b border-neutral-200 dark:border-neutral-800 w-full"
-      >
+      <div class="flex items-center gap-2.5">
+        <span aria-hidden="true" class="inline-flex flex-col w-[3px] h-3.5 shrink-0 select-none">
+          <span class="w-full h-1/2 bg-[var(--color-accent,#BCFF1C)]"></span>
+          <span class="w-full h-1/2 bg-[var(--color-accent-complementary,#F2003C)]"></span>
+        </span>
+        <span
+          class="font-sans font-black leading-none text-neutral-950 dark:text-white tracking-normal select-none text-[15px] sm:text-[16px]"
+        >
+          2
+        </span>
         <span
           class="font-sans font-medium text-[10.5px] sm:text-xs uppercase tracking-[0.5px] text-neutral-500 dark:text-neutral-400"
         >
           FEATURED WORK
         </span>
-        <a
-          href={`${base}/portfolio-index`}
-          class="group/action inline-flex items-center gap-1 font-mono text-[10.5px] sm:text-xs uppercase tracking-wider text-neutral-500 dark:text-neutral-400 hover:text-[var(--color-accent,#52FF1A)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent,#52FF1A)] rounded px-1"
-        >
-          <span
-            class="group-hover/action:underline underline-offset-4 decoration-[var(--color-accent,#52FF1A)]"
-            data-en="View Full Index"
-            data-id="Lihat Semua Proyek"
-          >
-            View Full Index
-          </span>
-          <span
-            class="inline-block opacity-40 transition-all duration-200 group-hover/action:opacity-100 group-hover/action:translate-x-0.5"
-          >
-            →
-          </span>
-        </a>
       </div>
-
-      <!-- Section Headline & Subdeck -->
-      <div class="space-y-1.5 pt-0.5">
-        <h2
-          id="heading-projects"
-          data-en="Things I've built"
-          data-id="Beberapa karya yang aku bikin"
-          class="text-[25px] sm:text-3xl md:text-4xl lg:text-5xl font-medium tracking-[0.5px] text-neutral-950 dark:text-white leading-[1.08] font-montreal w-full m-0"
+      <a
+        href={`${base}/portfolio-index`}
+        class="group/action inline-flex items-center gap-1 font-mono text-[10.5px] sm:text-xs uppercase tracking-wider text-neutral-500 dark:text-neutral-400 hover:text-[var(--color-accent,#BCFF1C)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent,#BCFF1C)] rounded px-1"
+      >
+        <span
+          class="group-hover/action:underline underline-offset-4 decoration-[var(--color-accent,#BCFF1C)]"
+          data-en="View Full Index"
+          data-id="Lihat Semua Proyek"
         >
-          Things I've built
-        </h2>
+          View Full Index
+        </span>
+        <span
+          class="inline-block opacity-40 transition-all duration-200 group-hover/action:opacity-100 group-hover/action:translate-x-0.5"
+        >
+          →
+        </span>
+      </a>
+    </div>
+
+    <!-- Section Headline & Subdeck -->
+    <div class="space-y-1.5 pt-0.5">
+      <h2
+        id="heading-projects"
+        data-en="Things I've built"
+        data-id="Beberapa karya yang aku bikin"
+        class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-medium tracking-[0.5px] text-neutral-950 dark:text-white leading-[1.08] font-montreal w-full m-0"
+      >
+        Things I've built
+      </h2>
         <p
           data-en="A collection of projects and products where I tried to solve a problem, learn something new, or just casually build a SaaS multi-tenant B2B ecosystem."
           data-id="Kumpulan proyek dan produk tempat aku mencoba menyelesaikan masalah, belajar hal baru, atau sekedar membangun ekosistem SaaS multi-tenant B2B."
@@ -98,7 +86,6 @@ const { base } = Astro.props;
         </p>
       </div>
     </div>
-  </div>
 
   <!-- Featured Spotlight: Hypebox Interactive Product Showcase (Full-Bleed) -->
   <div class="relative w-screen left-1/2 -translate-x-1/2">
@@ -107,18 +94,29 @@ const { base } = Astro.props;
 
   <!-- Additional Featured Work Grid (Full-Bleed Horizontal Carousel) -->
   <div class="pt-8 space-y-4">
-    <div class="flex items-center justify-between">
-      <h3
-        class="text-xl sm:text-2xl font-semibold tracking-tight text-neutral-950 dark:text-white font-sans"
-      >
-        <EggLink
-          easter="first-landing"
-          en="Engineering"
-          id="Engineering"
-          ariaEn="Unlock First Landing Page Cool Stuff"
-          ariaId="Buka Cool Stuff Landing Page Pertama"
-        />
-      </h3>
+    <div class="flex items-center justify-between border-b border-neutral-200/60 dark:border-neutral-800/60 pb-2.5">
+      <div class="flex items-center gap-2.5">
+        <span aria-hidden="true" class="w-1.5 h-4 bg-[var(--color-accent-complementary,#F2003C)]"></span>
+        <h3
+          class="text-xl sm:text-2xl font-semibold tracking-tight text-neutral-950 dark:text-white font-sans m-0"
+        >
+          <EggLink
+            easter="first-landing"
+            en="Engineering"
+            id="Engineering"
+            ariaEn="Unlock First Landing Page Cool Stuff"
+            ariaId="Buka Cool Stuff Landing Page Pertama"
+          />
+        </h3>
+      </div>
+      <!-- Halftone Registration Strip Greeble -->
+      <div aria-hidden="true" class="flex items-center gap-1 select-none pointer-events-none">
+        <span class="w-1.5 h-1.5 bg-[var(--color-accent,#BCFF1C)]"></span>
+        <span class="w-1.5 h-1.5 bg-[var(--color-accent,#BCFF1C)]/50"></span>
+        <span class="w-1.5 h-1.5 bg-[var(--color-accent-complementary,#F2003C)]"></span>
+        <span class="w-1.5 h-1.5 bg-[var(--color-accent-complementary,#F2003C)]/50"></span>
+        <span class="font-mono text-[10px] text-neutral-400 dark:text-neutral-600 pl-1">01—04</span>
+      </div>
     </div>
 
     <!-- Full-bleed seamless horizontal container -->

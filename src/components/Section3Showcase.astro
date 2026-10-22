@@ -1,0 +1,2121 @@
+---
+// Section3Showcase.astro — Dedicated Workbench & Sandbox for Section 03 ("What I Can Build") Rework
+import ActionButton from "./ActionButton.astro";
+import EggLink from "./EggLink.astro";
+import EasterEggs from "./EasterEggs.astro";
+
+const rawBase = import.meta.env.BASE_URL;
+const base = rawBase.endsWith("/") ? rawBase.slice(0, -1) : rawBase;
+
+// Baseline capabilities data
+const capabilities = [
+  {
+    num: "01",
+    icon: "ti-browser",
+    shortTitle: "Web Presences",
+    shortTitleId: "Presensi Web",
+    category: "Presences & Landing Experiences",
+    categoryId: "Presensi & Halaman Utama",
+    categoryCode: "DOMAIN_01",
+    title: "Websites & Web Presences",
+    titleId: "Website & Presensi Web",
+    description:
+      "Fast, accessible, and search-optimized web presences built with clean semantic markup.",
+    descriptionId:
+      "Website cepat, aksesibel, dan ramah SEO dengan markup semantik rapi.",
+    tags: ["Astro", "Tailwind", "SEO", "Accessibility (a11y)"],
+    stats: [
+      {
+        value: "Astro",
+        label: "Static & island architecture",
+        labelId: "Arsitektur statis & island",
+      },
+      {
+        value: "a11y",
+        label: "Semantic markup & keyboard navigation",
+        labelId: "Markup semantik & navigasi keyboard",
+      },
+      {
+        value: "SEO",
+        label: "Structured metadata & fast load times",
+        labelId: "Metadata terstruktur & muat cepat",
+      },
+    ],
+    deliverables: [
+      "Zero-runtime JS architecture with Astro Islands",
+      "Semantic HTML5 & WCAG 2.1 AA accessibility compliance",
+      "100/100 Core Web Vitals (LCP < 0.8s, CLS 0)",
+      "Dynamic OpenGraph & JSON-LD structured schemas"
+    ],
+    stack: [
+      { name: "Astro", role: "Static & SSR Engine" },
+      { name: "Tailwind CSS v4", role: "Design Token Utility" },
+      { name: "TypeScript", role: "Type Safety" },
+      { name: "Cloudflare Pages", role: "Edge Delivery" }
+    ]
+  },
+  {
+    num: "02",
+    icon: "ti-apps",
+    shortTitle: "Web Apps",
+    shortTitleId: "Aplikasi Web",
+    category: "Full-Stack Web Applications",
+    categoryId: "Aplikasi Web Full-Stack",
+    categoryCode: "DOMAIN_02",
+    title: "Web Applications",
+    titleId: "Aplikasi Web",
+    description:
+      "Full-stack platforms, dashboards, internal tools, and SaaS products with structured auth and robust APIs.",
+    descriptionId:
+      "Platform full-stack, dashboard, internal tools, dan produk SaaS dengan autentikasi rapi dan API tangguh.",
+    tags: ["React / Vue", "Laravel", "REST APIs", "Auth & RBAC"],
+    stats: [
+      {
+        value: "RBAC",
+        label: "Structured authentication & role permissions",
+        labelId: "Autentikasi rapi & izin berbasis peran",
+      },
+      {
+        value: "REST",
+        label: "Typed API contracts & backend services",
+        labelId: "Kontrak API terukur & layanan backend",
+      },
+      {
+        value: "SQL",
+        label: "Relational data models & automated migrations",
+        labelId: "Model data relasional & migrasi otomatis",
+      },
+    ],
+    deliverables: [
+      "Role-Based Access Control (RBAC) & OAuth/JWT auth flow",
+      "State-machine driven frontend workflows",
+      "Normalized SQL schemas & automated migration pipelines",
+      "RESTful and RPC service layers with typed schemas"
+    ],
+    stack: [
+      { name: "Laravel / Node.js", role: "API & Backend Services" },
+      { name: "React / Vue", role: "Stateful Application Shell" },
+      { name: "PostgreSQL / MySQL", role: "Relational Persistence" },
+      { name: "Redis", role: "Session & Cache Layer" }
+    ]
+  },
+  {
+    num: "03",
+    icon: "ti-hand-click",
+    shortTitle: "Interactive UI",
+    shortTitleId: "UI Interaktif",
+    category: "Human-Machine & Interactive UI",
+    categoryId: "Antarmuka Manusia-Mesin & Interaktif",
+    categoryCode: "DOMAIN_03",
+    title: "Interactive Interfaces",
+    titleId: "Antarmuka Interaktif",
+    description:
+      "High-fidelity user experiences across screens, from responsive mobile web to custom touchscreen kiosk interfaces.",
+    descriptionId:
+      "Pengalaman pengguna lintas layar, dari web mobile responsif hingga antarmuka kiosk layar sentuh.",
+    tags: ["Touchscreen Kiosks", "Mobile UI", "Interactive UX"],
+    stats: [
+      {
+        value: "Kiosk",
+        label: "Touch-first public & self-service interfaces",
+        labelId: "Antarmuka publik & mandiri berbasis sentuh",
+      },
+      {
+        value: "60fps",
+        label: "Responsive layouts & fluid micro-interactions",
+        labelId: "Tata letak responsif & interaksi mulus",
+      },
+      {
+        value: "State",
+        label: "Deterministic session flows across screens",
+        labelId: "Alur sesi terukur di berbagai layar",
+      },
+    ],
+    deliverables: [
+      "Touch-first ergonomic interfaces with zero accidental multi-taps",
+      "Self-recovering state machines for unattended public devices",
+      "Fluid micro-animations tuned for 60fps low-power displays",
+      "Adaptive dark/light & high-contrast accessibility modes"
+    ],
+    stack: [
+      { name: "Electron / Chromium", role: "Native Kiosk Shell" },
+      { name: "React + Tailwind", role: "Responsive UI Architecture" },
+      { name: "CSS Transitions", role: "Hardware-accelerated FX" },
+      { name: "Touch Engine", role: "Multi-gesture Handling" }
+    ]
+  },
+  {
+    num: "04",
+    icon: "ti-plug-connected",
+    shortTitle: "Connected I/O",
+    shortTitleId: "Sistem I/O",
+    category: "IoT, Serial Bridges & Hardware",
+    categoryId: "IoT, Jembatan Serial & Hardware",
+    categoryCode: "DOMAIN_04",
+    title: "Connected Systems",
+    titleId: "Sistem Terhubung",
+    description:
+      "Hardware I/O, local serial/IPC bridges, payment gateway integrations, WebSockets, and cloud pipelines.",
+    descriptionId:
+      "Hardware I/O, jembatan serial/IPC, integrasi payment gateway, WebSockets, dan pipeline cloud.",
+    tags: ["Serial / IPC", "Payment Gateways", "WebSockets", "IoT"],
+    stats: [
+      {
+        value: "IPC",
+        label: "Local serial & native hardware bridges",
+        labelId: "Jembatan serial lokal & hardware native",
+      },
+      {
+        value: "QRIS",
+        label: "Payment gateway webhooks & settlement",
+        labelId: "Webhook payment gateway & rekonsiliasi",
+      },
+      {
+        value: "Live",
+        label: "Real-time WebSocket & device telemetry",
+        labelId: "WebSocket waktu nyata & telemetri perangkat",
+      },
+    ],
+    deliverables: [
+      "Asynchronous local IPC bridges between frontend and native OS",
+      "ESC/POS thermal printer driver integration & status polling",
+      "QRIS / Midtrans webhook settlement listeners",
+      "Persistent WebSocket telemetry & remote heartbeat pings"
+    ],
+    stack: [
+      { name: "Node.js Native Addons", role: "Serial & USB Transport" },
+      { name: "WebSocket / Socket.io", role: "Real-time Telemetry" },
+      { name: "Payment Webhooks", role: "Automated Reconciliation" },
+      { name: "IPC Protocol", role: "Secure Process Isolation" }
+    ]
+  },
+];
+---
+
+<div class="relative w-full pb-20 select-none">
+  <EasterEggs />
+
+  <!-- Workbench Controls Bar (Floating Neutral Chrome) -->
+  <header
+    id="sandbox-workbench-bar"
+    class="sticky top-0 z-40 w-full border-b border-neutral-300 dark:border-neutral-800 bg-[#fcfbf9]/95 dark:bg-[#090909]/95 backdrop-blur-md px-4 sm:px-6 py-2.5 flex flex-wrap items-center justify-between gap-3 text-xs font-mono"
+  >
+    <!-- Left: Section ID & Path -->
+    <div class="flex items-center gap-2.5">
+      <span class="inline-flex items-center justify-center w-2 h-2 rounded-full bg-[var(--color-accent,#52FF1A)] animate-pulse" aria-hidden="true"></span>
+      <span class="font-bold text-neutral-900 dark:text-white uppercase tracking-wider">
+        Section 03 Rework Workbench
+      </span>
+      <span class="hidden sm:inline text-neutral-400 dark:text-neutral-600">/</span>
+      <span class="hidden sm:inline text-neutral-500 dark:text-neutral-400">#capabilities</span>
+    </div>
+
+    <!-- Center: Viewport Emulation Modes (Anti-containerslop: Resizes stage directly) -->
+    <div class="flex items-center gap-1 bg-neutral-200/80 dark:bg-neutral-800/80 p-0.5 rounded-md border border-neutral-300/60 dark:border-neutral-700/60">
+      <span class="px-2 py-0.5 text-[10px] text-neutral-500 dark:text-neutral-400 uppercase select-none font-medium">Stage:</span>
+      <button
+        type="button"
+        data-viewport="full"
+        class="viewport-btn active px-2.5 py-1 text-[11px] font-semibold rounded bg-white dark:bg-neutral-950 text-neutral-950 dark:text-white shadow-xs transition-colors cursor-pointer"
+        title="Full Container Width (Default)"
+      >
+        Full
+      </button>
+      <button
+        type="button"
+        data-viewport="1280px"
+        class="viewport-btn px-2.5 py-1 text-[11px] font-medium rounded text-neutral-600 dark:text-neutral-400 hover:text-neutral-950 dark:hover:text-white transition-colors cursor-pointer"
+        title="Desktop Viewport (1280px)"
+      >
+        1280px
+      </button>
+      <button
+        type="button"
+        data-viewport="768px"
+        class="viewport-btn px-2.5 py-1 text-[11px] font-medium rounded text-neutral-600 dark:text-neutral-400 hover:text-neutral-950 dark:hover:text-white transition-colors cursor-pointer"
+        title="Tablet Viewport (768px)"
+      >
+        768px
+      </button>
+      <button
+        type="button"
+        data-viewport="390px"
+        class="viewport-btn px-2.5 py-1 text-[11px] font-medium rounded text-neutral-600 dark:text-neutral-400 hover:text-neutral-950 dark:hover:text-white transition-colors cursor-pointer"
+        title="Mobile Viewport (390px)"
+      >
+        390px
+      </button>
+    </div>
+
+    <!-- Right: Variant Switcher & Controls -->
+    <div class="flex items-center gap-2">
+      <!-- Variant Switcher -->
+      <div class="flex items-center gap-1 bg-neutral-200/80 dark:bg-neutral-800/80 p-0.5 rounded-md border border-neutral-300/60 dark:border-neutral-700/60">
+        <button
+          type="button"
+          data-variant="slidesD"
+          class="variant-btn active px-2.5 py-1 text-[11px] font-semibold rounded bg-white dark:bg-neutral-950 text-neutral-950 dark:text-white shadow-xs transition-colors cursor-pointer"
+        >
+          Slides (Concept D)
+        </button>
+        <button
+          type="button"
+          data-variant="slides"
+          class="variant-btn px-2.5 py-1 text-[11px] font-medium rounded text-neutral-600 dark:text-neutral-400 hover:text-neutral-950 dark:hover:text-white transition-colors cursor-pointer"
+        >
+          Slides (Concept C)
+        </button>
+        <button
+          type="button"
+          data-variant="baseline"
+          class="variant-btn px-2.5 py-1 text-[11px] font-medium rounded text-neutral-600 dark:text-neutral-400 hover:text-neutral-950 dark:hover:text-white transition-colors cursor-pointer"
+        >
+          Baseline
+        </button>
+        <button
+          type="button"
+          data-variant="matrix"
+          class="variant-btn px-2.5 py-1 text-[11px] font-medium rounded text-neutral-600 dark:text-neutral-400 hover:text-neutral-950 dark:hover:text-white transition-colors cursor-pointer"
+        >
+          Matrix (Concept A)
+        </button>
+        <button
+          type="button"
+          data-variant="grid"
+          class="variant-btn px-2.5 py-1 text-[11px] font-medium rounded text-neutral-600 dark:text-neutral-400 hover:text-neutral-950 dark:hover:text-white transition-colors cursor-pointer"
+        >
+          Grid (Concept B)
+        </button>
+      </div>
+
+      <!-- Language Toggle (Live EN/ID preview) -->
+      <button
+        type="button"
+        id="sandbox-lang-toggle"
+        class="px-2.5 py-1 rounded border border-neutral-300 dark:border-neutral-700 text-neutral-700 dark:text-neutral-300 hover:border-neutral-950 dark:hover:border-white transition-colors cursor-pointer text-[11px] font-medium"
+        title="Toggle English / Indonesian translations"
+      >
+        Lang: <span id="sandbox-lang-label" class="font-bold">EN</span>
+      </button>
+
+      <!-- Alignment Guides -->
+      <button
+        type="button"
+        id="toggle-guides-btn"
+        class="px-2.5 py-1 rounded border border-neutral-300 dark:border-neutral-700 text-neutral-700 dark:text-neutral-300 hover:border-neutral-950 dark:hover:border-white transition-colors cursor-pointer text-[11px] font-medium"
+        title="Toggle Sliced Numeral Axis Guides"
+      >
+        Guides
+      </button>
+
+      <!-- Return link -->
+      <a
+        href={`${base}/#capabilities`}
+        class="text-neutral-500 hover:text-neutral-950 dark:hover:text-white transition-colors text-[11px] px-1.5 py-1"
+        title="View in production page"
+      >
+        Exit ↗
+      </a>
+    </div>
+  </header>
+
+  <!-- Alignment Axis Guide Line Overlay (Toggled via button) -->
+  <div
+    id="sandbox-guides-overlay"
+    class="pointer-events-none fixed inset-0 z-30 hidden"
+    aria-hidden="true"
+  >
+    <div class="h-full w-full mx-auto relative max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="absolute inset-y-0 left-1/2 w-px bg-red-500/20 border-r border-dashed border-red-500/40"></div>
+    </div>
+  </div>
+
+  <!-- Primary Specimen Stage (Directly resized by viewport controls, 0 containerslop) -->
+  <main
+    id="sandbox-primary-stage"
+    class="relative z-10 w-full mx-auto transition-[max-width,width] duration-300 ease-out pt-10"
+  >
+    <!-- ========================================================================= -->
+    <!-- VARIANT D: EXACT SANITY 3x3 STAGGERED HORIZONTAL CAROUSEL (CONCEPT D)     -->
+    <!-- ========================================================================= -->
+    <div id="specimen-slides-d" class="specimen-container block space-y-8">
+      <div class="w-[92%] sm:w-[86%] lg:w-[80%] mx-auto flex items-center justify-between pb-2 border-b border-neutral-200 dark:border-neutral-800">
+        <span class="font-mono text-[11px] font-semibold text-neutral-500 dark:text-neutral-400 uppercase tracking-wider">
+          Specimen 00D // Concept D: True Sanity 3×3 Staggered Horizontal Carousel
+        </span>
+        <span class="font-mono text-[10px] text-neutral-400">Wordmark inline left • 3×3 staggered cells • Edge-clipped neighbours</span>
+      </div>
+
+      <section
+        id="capabilities-slides-d"
+        aria-labelledby="heading-capabilities-slides-d"
+        class="scroll-mt-24 pt-6 sm:pt-10 w-full"
+      >
+        <!-- Top Row: Eyebrow with Bold Number + Headline -->
+        <div class="w-[92%] sm:w-[86%] lg:w-[80%] mx-auto flex flex-col min-w-0 pb-1 gap-1">
+          <!-- Eyebrow Row: Bold Number + Eyebrow Label -->
+          <div class="flex items-center gap-2.5 pb-1 border-b border-neutral-200 dark:border-neutral-800 w-full">
+            <!-- Bold Section Number (from the original graphic, without the slicer) -->
+            <span class="font-sans font-black leading-none text-neutral-950/60 dark:text-white/60 tracking-normal select-none text-[15px] sm:text-[16px]">
+              3
+            </span>
+
+            <!-- Eyebrow Section Label -->
+            <span class="font-sans font-medium text-[10.5px] sm:text-xs uppercase tracking-[0.5px] text-neutral-500 dark:text-neutral-400">
+              WHAT I CAN BUILD
+            </span>
+          </div>
+
+          <!-- Section Headline -->
+          <div class="pt-0">
+            <h2
+              id="heading-capabilities-slides-d"
+              data-en="From simple pages to systems that do stuff."
+              data-id="Dari halaman sederhana sampai sistem yang beneran kerja."
+              class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-medium tracking-[0.5px] text-neutral-950 dark:text-white leading-[1.08] font-montreal w-full m-0"
+            >
+              From simple pages to systems that do stuff.
+            </h2>
+          </div>
+
+          <!-- Under Header, Right: Pager (01 02 03 04) with SLIDING active fill box -->
+          <div class="flex justify-end pt-2 sm:pt-3">
+            <div
+              id="cd-pager-container"
+              role="tablist"
+              aria-label="Capabilities slides Concept D"
+              class="relative flex items-center gap-1.5 shrink-0 select-none"
+            >
+              <!-- Physical Sliding Fill Box (Strictly sharp geometry - no border radius) -->
+              <div
+                id="cd-pager-sliding-indicator"
+                class="absolute top-0 left-0 pointer-events-none z-0 transition-[transform,width] duration-300 ease-in-out"
+                style="width: 36px; transform: translateX(0px);"
+                aria-hidden="true"
+              >
+                <div class="w-full h-[26px] bg-neutral-950 dark:bg-white rounded-none" />
+              </div>
+
+              {
+                capabilities.map((item, idx) => (
+                  <button
+                    type="button"
+                    role="tab"
+                    aria-selected={idx === 0 ? "true" : "false"}
+                    data-cd-pager-target={idx}
+                    class:list={[
+                      "cd-pager-btn relative z-10 flex items-center justify-center cursor-pointer select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 dark:focus-visible:ring-white w-9 sm:w-10 bg-transparent border-0 p-0",
+                      idx === 0 ? "is-active" : "",
+                    ]}
+                  >
+                    <!-- Active: Satoshi font-bold | Inactive: Neue Machina font-light (strictly NEVER bold) -->
+                    <span
+                      class:list={[
+                        "cd-pager-chip inline-flex items-center justify-center w-full h-[26px] text-xs tracking-tight transition-colors duration-200 select-none",
+                        idx === 0
+                          ? "font-machina font-light text-white dark:text-neutral-950"
+                          : "font-machina font-light text-neutral-400 dark:text-neutral-500 hover:text-neutral-950 dark:hover:text-white",
+                      ]}
+                    >
+                      {item.num}
+                    </span>
+                  </button>
+                ))
+              }
+            </div>
+          </div>
+        </div>
+
+        <!-- Center Stage: Full-Width 100vw Horizontal Carousel with Exact 3x3 Sanity Geometry -->
+        <div
+          id="cd-carousel-stage"
+          class="cd-stage overflow-hidden pt-20 sm:pt-28 md:pt-32 pb-20 sm:pb-28 md:pb-32"
+        >
+          <div id="cd-slides-track" class="cd-track will-change-transform">
+            {
+              capabilities.map((item, idx) => (
+                <div
+                  role="group"
+                  aria-roledescription="slide"
+                  aria-label={`${item.num} of 04: ${item.title}`}
+                  data-cd-cell={idx}
+                  class:list={[
+                    "cd-slide select-none transition-opacity duration-300",
+                    idx === 0 ? "is-active" : "is-neighbour",
+                  ]}
+                >
+                  <div class="cd-slide-grid">
+                    <!-- ROW 1, COL 1: Capability Wordmark (Inline left of Box 1, right-aligned like GAGA / TECOVAS / COMPLEX) -->
+                    <div class="cd-cell-wordmark">
+                      <span
+                        data-en={item.shortTitle}
+                        data-id={item.shortTitleId || item.shortTitle}
+                        class="font-sans font-bold text-2xl sm:text-[28px] text-neutral-950 dark:text-white tracking-tight whitespace-nowrap leading-none"
+                      >
+                        {item.shortTitle}
+                      </span>
+                    </div>
+
+                    <!-- ROW 1, COL 2: Stat Box 1 (Strictly NO background) -->
+                    <div class="cd-cell-box border border-neutral-300 dark:border-neutral-800 bg-transparent">
+                      <span class="font-machina font-light text-2xl sm:text-3xl text-neutral-950 dark:text-white tracking-tight leading-none">
+                        {item.stats[0].value}
+                      </span>
+                    </div>
+
+                    <!-- ROW 1, COL 3: Stat Label 1 (Right of Box 1) -->
+                    <div class="cd-cell-label-right">
+                      <span
+                        data-en={item.stats[0].label}
+                        data-id={item.stats[0].labelId}
+                        class="font-sans text-xs text-neutral-600 dark:text-neutral-400 leading-snug"
+                      >
+                        {item.stats[0].label}
+                      </span>
+                    </div>
+
+                    <!-- ROW 2, COL 1: Empty space below Wordmark -->
+                    <div class="cd-cell-empty" aria-hidden="true"></div>
+
+                    <!-- ROW 2, COL 2: Stat Label 2 (Left of Box 2, aligned under Box 1) -->
+                    <div class="cd-cell-label-left">
+                      <span
+                        data-en={item.stats[1].label}
+                        data-id={item.stats[1].labelId}
+                        class="font-sans text-xs text-neutral-600 dark:text-neutral-400 leading-snug"
+                      >
+                        {item.stats[1].label}
+                      </span>
+                    </div>
+
+                    <!-- ROW 2, COL 3: Stat Box 2 (Staggered right into Col 3, strictly NO background) -->
+                    <div class="cd-cell-box border border-neutral-300 dark:border-neutral-800 bg-transparent">
+                      <span class="font-machina font-light text-2xl sm:text-3xl text-neutral-950 dark:text-white tracking-tight leading-none">
+                        {item.stats[1].value}
+                      </span>
+                    </div>
+
+                    <!-- ROW 3, COL 1: Empty space below Wordmark -->
+                    <div class="cd-cell-empty" aria-hidden="true"></div>
+
+                    <!-- ROW 3, COL 2: Stat Box 3 (Aligned vertically under Box 1 in Col 2, strictly NO background) -->
+                    <div class="cd-cell-box border border-neutral-300 dark:border-neutral-800 bg-transparent">
+                      <span class="font-machina font-light text-2xl sm:text-3xl text-neutral-950 dark:text-white tracking-tight leading-none">
+                        {item.stats[2].value}
+                      </span>
+                    </div>
+
+                    <!-- ROW 3, COL 3: Stat Label 3 (Right of Box 3) -->
+                    <div class="cd-cell-label-right">
+                      <span
+                        data-en={item.stats[2].label}
+                        data-id={item.stats[2].labelId}
+                        class="font-sans text-xs text-neutral-600 dark:text-neutral-400 leading-snug"
+                      >
+                        {item.stats[2].label}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+
+        <!-- Pinned Bottom Row: Left-Ruled Quote & Attribution + ActionButton (Matches home left/right margin) -->
+        <div id="cd-pinned-bottom" class="w-[92%] sm:w-[86%] lg:w-[80%] mx-auto flex flex-col sm:flex-row sm:items-end justify-between gap-8 pt-4 sm:pt-6 pb-2 sm:pb-4">
+          <div class="border-l border-neutral-300 dark:border-neutral-700 pl-5 sm:pl-6 max-w-xl">
+            {
+              capabilities.map((item, idx) => (
+                <div
+                  data-cd-quote={idx}
+                  class:list={[
+                    "cd-quote-block",
+                    idx === 0 ? "block" : "hidden",
+                  ]}
+                  aria-hidden={idx === 0 ? "false" : "true"}
+                >
+                  {item.num === "02" ? (
+                    <p class="font-sans text-base sm:text-lg leading-relaxed text-neutral-800 dark:text-neutral-200 font-normal m-0 mb-4 sm:mb-5">
+                      <span data-en="Full-stack platforms, dashboards, internal tools, and SaaS products with " data-id="Platform full-stack, dashboard, internal tools, dan produk SaaS dengan ">Full-stack platforms, dashboards, internal tools, and SaaS products with </span><EggLink
+                        easter="pertemuan7"
+                        en="structured auth"
+                        id="autentikasi rapi"
+                        ariaEn="Unlock Pertemuan 7 Form Login Cool Stuff"
+                        ariaId="Buka Cool Stuff Form Login Pertemuan 7"
+                      /><span data-en=" and robust APIs." data-id=" dan API tangguh."> and robust APIs.</span>
+                    </p>
+                  ) : (
+                    <p class="font-sans text-base sm:text-lg leading-relaxed text-neutral-800 dark:text-neutral-200 font-normal m-0 mb-4 sm:mb-5">
+                      <span
+                        data-en={item.description}
+                        data-id={item.descriptionId || item.description}
+                      >{item.description}</span>
+                    </p>
+                  )}
+
+                  <div class="space-y-1 text-xs sm:text-[13px] font-sans">
+                    <div
+                      data-en={item.category}
+                      data-id={item.categoryId || item.category}
+                      class="font-semibold text-neutral-900 dark:text-neutral-100"
+                    >
+                      {item.category}
+                    </div>
+                    <div class="flex flex-wrap items-center gap-x-2 gap-y-1 text-neutral-500 dark:text-neutral-400">
+                      {item.tags.map((tag, tIdx) => (
+                        <>
+                          <span>{tag}</span>
+                          {tIdx < item.tags.length - 1 && (
+                            <span class="text-neutral-300 dark:text-neutral-700">·</span>
+                          )}
+                        </>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              ))
+            }
+          </div>
+
+          <ActionButton
+            href={`${base}/#projects`}
+            variant="secondary"
+            borderStyle="solid"
+            size="sm"
+            font="sans"
+            uppercase={false}
+            rounded="rounded-full"
+            class="group/btn overflow-hidden self-start sm:self-end shrink-0 text-[13px] text-neutral-900 dark:text-neutral-100"
+            ariaLabel="See Projects"
+            data-aria-en="See Projects"
+            data-aria-id="Lihat Proyek"
+          >
+            <div class="inline-flex items-center translate-x-[10px] group-hover/btn:translate-x-0 transition-transform duration-200 ease-out">
+              <span data-en="See Projects" data-id="Lihat Proyek">See Projects</span>
+              <span
+                class="inline-flex items-center justify-center w-3.5 ml-1.5 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-200 ease-out text-neutral-400 group-hover/btn:text-neutral-950 dark:group-hover/btn:text-white"
+                aria-hidden="true"
+              >
+                ↗
+              </span>
+            </div>
+          </ActionButton>
+        </div>
+      </section>
+    </div>
+
+    <!-- ========================================================================= -->
+    <!-- VARIANT 0: SANITY-STYLE SLIDE SHOWCASE (CONCEPT C)                        -->
+    <!-- ========================================================================= -->
+    <div id="specimen-slides" class="specimen-container hidden space-y-8">
+      <div class="flex items-center justify-between pb-2 border-b border-neutral-200 dark:border-neutral-800">
+        <span class="font-mono text-[11px] font-semibold text-neutral-500 dark:text-neutral-400 uppercase tracking-wider">
+          Specimen 00 // Concept C: Staggered Slide Showcase
+        </span>
+        <span class="font-mono text-[10px] text-neutral-400">Sanity-inspired layout • Editorial hairlines (no dot fill)</span>
+      </div>
+
+      <section
+        id="capabilities-slides"
+        aria-labelledby="heading-capabilities-slides"
+        class="scroll-mt-24 pt-4 space-y-10 sm:space-y-14"
+      >
+        <!-- Top Row: Section 03 Sliced Numeral Header Bar + 01-04 Pager on the right -->
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+          <div class="flex items-stretch gap-0 pb-1 flex-1 min-w-0">
+            <!-- Big Section Numeral "3" (Sliced vertically in half by container boundary) -->
+            <div
+              class="relative overflow-hidden flex items-start justify-end select-none shrink-0 w-[60px] sm:w-[85px]"
+              style="contain: paint;"
+            >
+              <span
+                class="relative font-sans font-black leading-none text-neutral-950/40 dark:text-white/40 tracking-[0.5px] shrink-0 select-none"
+                aria-hidden="true"
+                style="font-size: 92px; left: 9px; top: -6px; display: inline-block;"
+              >
+                3
+              </span>
+            </div>
+
+            <!-- Vertical Divider Line (Exact Slice Axis) -->
+            <div class="w-px bg-neutral-300 dark:bg-neutral-800 shrink-0 self-stretch my-0.5" aria-hidden="true"></div>
+
+            <!-- Right Side: Section label with horizontal rule + Headline -->
+            <div class="flex-1 flex flex-col justify-center min-w-0 pl-2.5 sm:pl-4 lg:pl-5 py-0.5 gap-1.5">
+              <div class="flex items-center justify-between pb-1 border-b border-neutral-200 dark:border-neutral-800 w-full">
+                <span class="font-sans font-medium text-[10.5px] sm:text-xs uppercase tracking-[0.5px] text-neutral-500 dark:text-neutral-400">
+                  WHAT I CAN BUILD
+                </span>
+              </div>
+
+              <div class="pt-0.5">
+                <h2
+                  id="heading-capabilities-slides"
+                  data-en="From simple pages to systems that do stuff."
+                  data-id="Dari halaman sederhana sampai sistem yang beneran kerja."
+                  class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-medium tracking-[0.5px] text-neutral-950 dark:text-white leading-[1.08] font-montreal w-full m-0"
+                >
+                  From simple pages to systems that do stuff.
+                </h2>
+              </div>
+            </div>
+          </div>
+
+          <!-- Top-Right Pager (01 02 03 04) with SLIDING active indicator (fill + thin line & trail) -->
+          <div
+            id="cap-pager-container"
+            role="tablist"
+            aria-label="Capabilities slides"
+            class="relative flex items-center gap-1.5 self-end md:self-auto shrink-0 pb-1 select-none"
+          >
+            <!-- Physical Sliding Indicator (Fill Box only - no trail, no progress bar) -->
+            <div
+              id="cap-pager-sliding-indicator"
+              class="absolute top-0 left-0 pointer-events-none z-0 transition-[transform,width] duration-300 ease-in-out"
+              style="width: 36px; transform: translateX(0px);"
+              aria-hidden="true"
+            >
+              <!-- Sliding Fill Box (Strictly sharp geometry - no border radius) -->
+              <div class="w-full h-[26px] bg-neutral-950 dark:bg-white rounded-none" />
+            </div>
+
+            {
+              capabilities.map((item, idx) => (
+                <button
+                  type="button"
+                  role="tab"
+                  aria-selected={idx === 0 ? "true" : "false"}
+                  aria-controls={`cap-slide-panel-${idx}`}
+                  data-slide-target={idx}
+                  class:list={[
+                    "cap-slide-pager-btn relative z-10 flex items-center justify-center cursor-pointer select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 dark:focus-visible:ring-white w-9 sm:w-10 bg-transparent border-0 p-0",
+                    idx === 0 ? "is-active" : "",
+                  ]}
+                >
+                  <!-- Number label: Active uses Satoshi font-bold, Inactive uses Neue Machina (font-light / 300 - strictly NEVER BOLD) -->
+                  <span
+                    class:list={[
+                      "pager-chip inline-flex items-center justify-center w-full h-[26px] text-xs tracking-tight transition-colors duration-200 select-none",
+                      idx === 0
+                        ? "font-sans font-bold text-white dark:text-neutral-950"
+                        : "font-machina font-light text-neutral-400 dark:text-neutral-500 hover:text-neutral-950 dark:hover:text-white",
+                    ]}
+                  >
+                    {item.num}
+                  </span>
+                </button>
+              ))
+            }
+          </div>
+        </div>
+
+        <!-- Center Stage: Full-Width Continuous Horizontal Track with Real Neighbour Slides Bleeding Off Edges -->
+        <div id="cap-carousel-stage" class="relative overflow-hidden border-t border-b border-neutral-200/80 dark:border-neutral-800/80 py-10 sm:py-14 w-full">
+          <!-- Horizontal Track: Flex row translating smoothly, neighbours bleed off the edges -->
+          <div
+            id="cap-slides-track"
+            class="flex items-center gap-8 sm:gap-14 lg:gap-20 will-change-transform"
+            style="transform: translate3d(0, 0, 0);"
+          >
+            {
+              capabilities.map((item, idx) => (
+                <div
+                  role="group"
+                  aria-roledescription="slide"
+                  aria-label={`${item.num} of 04: ${item.title}`}
+                  data-carousel-cell={idx}
+                  class:list={[
+                    "cap-carousel-cell w-[84vw] sm:w-[500px] lg:w-[540px] shrink-0 transition-opacity duration-300 select-none",
+                    idx === 0 ? "opacity-100 cursor-default" : "opacity-30 hover:opacity-75 cursor-pointer",
+                  ]}
+                >
+                  <div class="space-y-4">
+                    <!-- Capability Display Wordmark (Satoshi Bold + Icon) -->
+                    <div class="flex items-center gap-3 pb-1">
+                      <span
+                        class="text-2xl sm:text-3xl text-neutral-400 dark:text-neutral-500 shrink-0 flex items-center justify-center"
+                        aria-hidden="true"
+                      >
+                        <i class={`ti ${item.icon}`} />
+                      </span>
+                      <h3
+                        data-en={item.title}
+                        data-id={item.titleId || item.title}
+                        class="font-sans font-bold text-2xl sm:text-3xl md:text-4xl text-neutral-950 dark:text-white tracking-tight leading-none m-0"
+                      >
+                        {item.title}
+                      </h3>
+                    </div>
+
+                    <!-- Staggered 3-Row Architecture Facts (Strictly NO background) -->
+                    <div class="space-y-3">
+                      <!-- Row 1: Box Left / Label Right -->
+                      <div class="grid grid-cols-12 gap-3 sm:gap-4 items-center">
+                        <div class="col-span-6 sm:col-span-5 border border-neutral-200 dark:border-neutral-800 bg-transparent px-4 py-3 sm:px-5 sm:py-3.5 flex items-center">
+                          <span class="font-sans font-bold text-2xl sm:text-3xl text-neutral-950 dark:text-white tracking-tight leading-none">
+                            {item.stats[0].value}
+                          </span>
+                        </div>
+                        <div class="col-span-6 sm:col-span-7 flex items-center">
+                          <span
+                            data-en={item.stats[0].label}
+                            data-id={item.stats[0].labelId}
+                            class="font-sans text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-snug"
+                          >
+                            {item.stats[0].label}
+                          </span>
+                        </div>
+                      </div>
+
+                      <!-- Row 2: Label Left / Box Right (Staggered) -->
+                      <div class="grid grid-cols-12 gap-3 sm:gap-4 items-center">
+                        <div class="col-span-6 sm:col-span-5 flex items-center justify-end text-right pr-1">
+                          <span
+                            data-en={item.stats[1].label}
+                            data-id={item.stats[1].labelId}
+                            class="font-sans text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-snug"
+                          >
+                            {item.stats[1].label}
+                          </span>
+                        </div>
+                        <div class="col-span-6 sm:col-span-7 border border-neutral-200 dark:border-neutral-800 bg-transparent px-4 py-3 sm:px-5 sm:py-3.5 flex items-center">
+                          <span class="font-sans font-bold text-2xl sm:text-3xl text-neutral-950 dark:text-white tracking-tight leading-none">
+                            {item.stats[1].value}
+                          </span>
+                        </div>
+                      </div>
+
+                      <!-- Row 3: Box Left / Label Right -->
+                      <div class="grid grid-cols-12 gap-3 sm:gap-4 items-center">
+                        <div class="col-span-6 sm:col-span-6 border border-neutral-200 dark:border-neutral-800 bg-transparent px-4 py-3 sm:px-5 sm:py-3.5 flex items-center">
+                          <span class="font-sans font-bold text-2xl sm:text-3xl text-neutral-950 dark:text-white tracking-tight leading-none">
+                            {item.stats[2].value}
+                          </span>
+                        </div>
+                        <div class="col-span-6 sm:col-span-6 flex items-center">
+                          <span
+                            data-en={item.stats[2].label}
+                            data-id={item.stats[2].labelId}
+                            class="font-sans text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-snug"
+                          >
+                            {item.stats[2].label}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+
+        <!-- Pinned Bottom Row: Fixed Left-Ruled Quote & Attribution + ActionButton (Does not travel with carousel) -->
+        <div id="cap-pinned-bottom" class="max-w-4xl mx-auto pt-6 sm:pt-8 flex flex-col sm:flex-row sm:items-end justify-between gap-6">
+          <!-- Left: Hairline Rule + Crossfading Quote & Domain Tags -->
+          <div class="border-l-2 border-neutral-300 dark:border-neutral-700 pl-5 sm:pl-6 max-w-xl relative min-h-[90px]">
+            {
+              capabilities.map((item, idx) => (
+                <div
+                  id={`cap-quote-panel-${idx}`}
+                  data-quote-panel={idx}
+                  class:list={[
+                    "cap-quote-block transition-opacity duration-300 ease-out",
+                    idx === 0 ? "opacity-100 relative pointer-events-auto" : "opacity-0 absolute inset-0 pointer-events-none hidden",
+                  ]}
+                >
+                  {item.num === "02" ? (
+                    <p class="font-sans text-base sm:text-lg leading-relaxed text-neutral-800 dark:text-neutral-200 font-normal m-0 mb-4 sm:mb-5">
+                      <span data-en="“Full-stack platforms, dashboards, internal tools, and SaaS products with " data-id="“Platform full-stack, dashboard, internal tools, dan produk SaaS dengan ">“Full-stack platforms, dashboards, internal tools, and SaaS products with </span><EggLink
+                        easter="pertemuan7"
+                        en="structured auth"
+                        id="autentikasi rapi"
+                        ariaEn="Unlock Pertemuan 7 Form Login Cool Stuff"
+                        ariaId="Buka Cool Stuff Form Login Pertemuan 7"
+                      /><span data-en=" and robust APIs.”" data-id=" dan API tangguh.”"> and robust APIs.”</span>
+                    </p>
+                  ) : (
+                    <p class="font-sans text-base sm:text-lg leading-relaxed text-neutral-800 dark:text-neutral-200 font-normal m-0 mb-4 sm:mb-5">
+                      <span
+                        data-en={`“${item.description}”`}
+                        data-id={item.descriptionId ? `“${item.descriptionId}”` : `“${item.description}”`}
+                      >{`“${item.description}”`}</span>
+                    </p>
+                  )}
+
+                  <div class="space-y-1 text-xs sm:text-[13px] font-sans">
+                    <div
+                      data-en={item.category}
+                      data-id={item.categoryId || item.category}
+                      class="font-semibold text-neutral-900 dark:text-neutral-100"
+                    >
+                      {item.category}
+                    </div>
+                    <div class="flex flex-wrap items-center gap-x-2 gap-y-1 text-neutral-500 dark:text-neutral-400">
+                      {item.tags.map((tag, tIdx) => (
+                        <>
+                          <span>{tag}</span>
+                          {tIdx < item.tags.length - 1 && (
+                            <span class="text-neutral-300 dark:text-neutral-700">·</span>
+                          )}
+                        </>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              ))
+            }
+          </div>
+
+          <!-- Right: Standardized ActionButton with kinetic reveal arrow -->
+          <ActionButton
+            href={`${base}/#projects`}
+            variant="secondary"
+            borderStyle="solid"
+            size="sm"
+            font="sans"
+            uppercase={false}
+            rounded="rounded-full"
+            class="group/btn overflow-hidden self-start sm:self-end shrink-0 text-[13px] text-neutral-900 dark:text-neutral-100"
+            ariaLabel="See Projects"
+            data-aria-en="See Projects"
+            data-aria-id="Lihat Proyek"
+          >
+            <div class="inline-flex items-center translate-x-[10px] group-hover/btn:translate-x-0 transition-transform duration-200 ease-out">
+              <span data-en="See Projects" data-id="Lihat Proyek">See Projects</span>
+              <span
+                class="inline-flex items-center justify-center w-3.5 ml-1.5 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-200 ease-out text-neutral-400 group-hover/btn:text-neutral-950 dark:group-hover/btn:text-white"
+                aria-hidden="true"
+              >
+                ↗
+              </span>
+            </div>
+          </ActionButton>
+        </div>
+      </section>
+    </div>
+
+    <!-- ========================================================================= -->
+    <!-- VARIANT 1: PRODUCTION BASELINE                                            -->
+    <!-- ========================================================================= -->
+    <div id="specimen-baseline" class="specimen-container hidden space-y-8">
+      <div class="flex items-center justify-between pb-2 border-b border-neutral-200 dark:border-neutral-800">
+        <span class="font-mono text-[11px] font-semibold text-neutral-500 dark:text-neutral-400 uppercase tracking-wider">
+          Specimen 01 // Current Production Baseline
+        </span>
+        <span class="font-mono text-[10px] text-neutral-400">Exact layout in index.astro</span>
+      </div>
+
+      <section
+        id="capabilities-baseline"
+        aria-labelledby="heading-capabilities-baseline"
+        class="scroll-mt-24 pt-4 space-y-8"
+      >
+        <!-- Section 03 Sliced Numeral Header Bar -->
+        <div class="flex items-stretch gap-0 pb-1">
+          <!-- Big Section Numeral "3" (Sliced vertically in half by container boundary) -->
+          <div
+            id="capabilities-numeral-crop"
+            class="relative overflow-hidden flex items-start justify-end select-none shrink-0 w-[60px] sm:w-[85px]"
+            style="contain: paint;"
+          >
+            <span
+              id="capabilities-numeral"
+              class="relative font-sans font-black leading-none text-neutral-950/40 dark:text-white/40 tracking-[0.5px] shrink-0 select-none"
+              aria-hidden="true"
+              style="font-size: 92px; left: 9px; top: -6px; display: inline-block;"
+            >
+              3
+            </span>
+          </div>
+
+          <!-- Vertical Divider Line (Exact Slice Axis) -->
+          <div class="w-px bg-neutral-300 dark:bg-neutral-800 shrink-0 self-stretch my-0.5" aria-hidden="true"></div>
+
+          <!-- Right Side: Section label with horizontal rule + Headline -->
+          <div class="flex-1 flex flex-col justify-center min-w-0 pl-2.5 sm:pl-4 lg:pl-5 py-0.5 gap-1.5">
+            <!-- Top: Category label with horizontal rule -->
+            <div class="flex items-center justify-between pb-1 border-b border-neutral-200 dark:border-neutral-800 w-full">
+              <span class="font-sans font-medium text-[10.5px] sm:text-xs uppercase tracking-[0.5px] text-neutral-500 dark:text-neutral-400">
+                WHAT I CAN BUILD
+              </span>
+            </div>
+
+            <!-- Section Headline -->
+            <div class="pt-0.5">
+              <h2
+                id="heading-capabilities-baseline"
+                data-en="From simple pages to systems that do stuff."
+                data-id="Dari halaman sederhana sampai sistem yang beneran kerja."
+                class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-medium tracking-[0.5px] text-neutral-950 dark:text-white leading-[1.08] font-montreal w-full m-0"
+              >
+                From simple pages to systems that do stuff.
+              </h2>
+            </div>
+          </div>
+        </div>
+
+        <!-- Unboxed Editorial Capabilities Index -->
+        <div class="divide-y divide-neutral-200/80 dark:divide-neutral-800/80 border-t border-b border-neutral-200/80 dark:border-neutral-800/80">
+          {
+            capabilities.map((item) => (
+              <div class="group py-6 sm:py-7 lg:py-8 transition-colors duration-200">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 lg:gap-8 items-start">
+                  <!-- Left: Sequence number + Icon + Title -->
+                  <div class="lg:col-span-5 flex items-start gap-4 sm:gap-5">
+                    <span class="font-mono text-xs font-semibold text-neutral-400 dark:text-neutral-500 pt-1 shrink-0 select-none">
+                      {item.num}
+                    </span>
+                    <div
+                      class="text-2xl sm:text-3xl text-neutral-400 dark:text-neutral-500 shrink-0 flex items-center justify-center group-hover:text-neutral-950 dark:group-hover:text-white transition-colors duration-200"
+                      aria-hidden="true"
+                    >
+                      <i class={`ti ${item.icon}`} />
+                    </div>
+                    <div class="space-y-1">
+                      <h3
+                        data-en={item.title}
+                        data-id={item.titleId || item.title}
+                        class="text-lg sm:text-xl font-sans font-medium text-neutral-950 dark:text-white tracking-tight m-0"
+                      >
+                        {item.title}
+                      </h3>
+                      <!-- Mobile metadata inline -->
+                      <div class="lg:hidden flex flex-wrap items-center gap-x-2 gap-y-1 pt-1 font-mono text-[11px] text-neutral-400 dark:text-neutral-500">
+                        {item.tags.map((tag, idx) => (
+                          <>
+                            <span>{tag}</span>
+                            {idx < item.tags.length - 1 && <span class="text-neutral-300 dark:text-neutral-700">·</span>}
+                          </>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Middle: Crisp 1-line description -->
+                  <div class="lg:col-span-4 pl-8 sm:pl-9 lg:pl-0">
+                    {item.num === "02" ? (
+                      <p class="font-sans text-sm sm:text-[14.5px] leading-relaxed text-neutral-700 dark:text-neutral-300 font-normal m-0">
+                        <span data-en="Full-stack platforms, dashboards, internal tools, and SaaS products with " data-id="Platform full-stack, dashboard, internal tools, dan produk SaaS dengan ">Full-stack platforms, dashboards, internal tools, and SaaS products with </span><EggLink
+                          easter="pertemuan7"
+                          en="structured auth"
+                          id="autentikasi rapi"
+                          ariaEn="Unlock Pertemuan 7 Form Login Cool Stuff"
+                          ariaId="Buka Cool Stuff Form Login Pertemuan 7"
+                        /><span data-en=" and robust APIs." data-id=" dan API tangguh."> and robust APIs.</span>
+                      </p>
+                    ) : (
+                      <p class="font-sans text-sm sm:text-[14.5px] leading-relaxed text-neutral-700 dark:text-neutral-300 font-normal m-0">
+                        <span
+                          data-en={item.description}
+                          data-id={item.descriptionId || item.description}
+                        >{item.description}</span>
+                      </p>
+                    )}
+                  </div>
+
+                  <!-- Right: Desktop typography metadata tags -->
+                  <div class="hidden lg:flex lg:col-span-3 justify-end items-start pt-0.5">
+                    <div class="flex flex-wrap justify-end gap-x-2 gap-y-1 font-mono text-[11px] text-neutral-400 dark:text-neutral-500 text-right">
+                      {item.tags.map((tag, idx) => (
+                        <>
+                          <span>{tag}</span>
+                          {idx < item.tags.length - 1 && <span class="text-neutral-300 dark:text-neutral-700">·</span>}
+                        </>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </section>
+    </div>
+
+    <!-- ========================================================================= -->
+    <!-- VARIANT 2: TECHNICAL EDITORIAL MATRIX (CONCEPT A)                        -->
+    <!-- ========================================================================= -->
+    <div id="specimen-matrix" class="specimen-container hidden space-y-8">
+      <div class="flex items-center justify-between pb-2 border-b border-neutral-200 dark:border-neutral-800">
+        <span class="font-mono text-[11px] font-semibold text-neutral-500 dark:text-neutral-400 uppercase tracking-wider">
+          Specimen 02 // Concept A: Technical Editorial Matrix
+        </span>
+        <span class="font-mono text-[10px] text-neutral-400">Interactive expandable capability breakdown</span>
+      </div>
+
+      <section
+        id="capabilities-matrix"
+        aria-labelledby="heading-capabilities-matrix"
+        class="scroll-mt-24 pt-4 space-y-8"
+      >
+        <!-- Sliced Numeral Header Bar -->
+        <div class="flex items-stretch gap-0 pb-1">
+          <div
+            class="relative overflow-hidden flex items-start justify-end select-none shrink-0 w-[60px] sm:w-[85px]"
+            style="contain: paint;"
+          >
+            <span
+              class="relative font-sans font-black leading-none text-neutral-950/40 dark:text-white/40 tracking-[0.5px] shrink-0 select-none"
+              aria-hidden="true"
+              style="font-size: 92px; left: 9px; top: -6px; display: inline-block;"
+            >
+              3
+            </span>
+          </div>
+
+          <div class="w-px bg-neutral-300 dark:bg-neutral-800 shrink-0 self-stretch my-0.5" aria-hidden="true"></div>
+
+          <div class="flex-1 flex flex-col justify-center min-w-0 pl-2.5 sm:pl-4 lg:pl-5 py-0.5 gap-1.5">
+            <div class="flex items-center justify-between pb-1 border-b border-neutral-200 dark:border-neutral-800 w-full">
+              <span class="font-sans font-medium text-[10.5px] sm:text-xs uppercase tracking-[0.5px] text-neutral-500 dark:text-neutral-400">
+                WHAT I CAN BUILD
+              </span>
+              <span class="font-mono text-[10.5px] text-neutral-400 dark:text-neutral-500">
+                4 CORE DOMAINS
+              </span>
+            </div>
+
+            <div class="pt-0.5">
+              <h2
+                id="heading-capabilities-matrix"
+                data-en="From simple pages to systems that do stuff."
+                data-id="Dari halaman sederhana sampai sistem yang beneran kerja."
+                class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-medium tracking-[0.5px] text-neutral-950 dark:text-white leading-[1.08] font-montreal w-full m-0"
+              >
+                From simple pages to systems that do stuff.
+              </h2>
+            </div>
+          </div>
+        </div>
+
+        <!-- Matrix Rows with Expanding Architecture Disclosure -->
+        <div class="divide-y divide-neutral-200/80 dark:divide-neutral-800/80 border-t border-b border-neutral-200/80 dark:border-neutral-800/80">
+          {
+            capabilities.map((item, idx) => (
+              <div class="capability-matrix-row group py-5 sm:py-6 transition-colors duration-200" data-row-index={idx}>
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 lg:gap-8 items-start">
+                  <!-- Col 1: Num + Icon + Title + Category -->
+                  <div class="lg:col-span-5 flex items-start gap-4 sm:gap-5">
+                    <span class="font-mono text-xs font-semibold text-neutral-400 dark:text-neutral-500 pt-1 shrink-0 select-none">
+                      {item.num}
+                    </span>
+                    <div
+                      class="text-2xl sm:text-3xl text-neutral-400 dark:text-neutral-500 shrink-0 flex items-center justify-center group-hover:text-neutral-950 dark:group-hover:text-white transition-colors duration-200"
+                      aria-hidden="true"
+                    >
+                      <i class={`ti ${item.icon}`} />
+                    </div>
+                    <div class="space-y-1">
+                      <span class="font-mono text-[10px] tracking-wider uppercase text-neutral-400 dark:text-neutral-500 block">
+                        {item.category}
+                      </span>
+                      <h3
+                        data-en={item.title}
+                        data-id={item.titleId || item.title}
+                        class="text-lg sm:text-xl font-sans font-medium text-neutral-950 dark:text-white tracking-tight m-0"
+                      >
+                        {item.title}
+                      </h3>
+                    </div>
+                  </div>
+
+                  <!-- Col 2: Description + Easter Egg Link -->
+                  <div class="lg:col-span-5 pl-8 sm:pl-9 lg:pl-0">
+                    {item.num === "02" ? (
+                      <p class="font-sans text-sm sm:text-[14.5px] leading-relaxed text-neutral-700 dark:text-neutral-300 font-normal m-0">
+                        <span data-en="Full-stack platforms, dashboards, internal tools, and SaaS products with " data-id="Platform full-stack, dashboard, internal tools, dan produk SaaS dengan ">Full-stack platforms, dashboards, internal tools, and SaaS products with </span><EggLink
+                          easter="pertemuan7"
+                          en="structured auth"
+                          id="autentikasi rapi"
+                          ariaEn="Unlock Pertemuan 7 Form Login Cool Stuff"
+                          ariaId="Buka Cool Stuff Form Login Pertemuan 7"
+                        /><span data-en=" and robust APIs." data-id=" dan API tangguh."> and robust APIs.</span>
+                      </p>
+                    ) : (
+                      <p class="font-sans text-sm sm:text-[14.5px] leading-relaxed text-neutral-700 dark:text-neutral-300 font-normal m-0">
+                        <span
+                          data-en={item.description}
+                          data-id={item.descriptionId || item.description}
+                        >{item.description}</span>
+                      </p>
+                    )}
+                  </div>
+
+                  <!-- Col 3: Interactive Drawer Trigger -->
+                  <div class="lg:col-span-2 flex items-center justify-between lg:justify-end pt-1">
+                    <button
+                      type="button"
+                      class="matrix-expand-trigger inline-flex items-center gap-1.5 font-mono text-xs text-neutral-500 hover:text-neutral-950 dark:hover:text-white transition-colors cursor-pointer select-none"
+                      aria-expanded="false"
+                      data-target={`matrix-drawer-${idx}`}
+                    >
+                      <span class="trigger-label">Details</span>
+                      <span class="trigger-icon transition-transform duration-200">↓</span>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Expandable Technical Details Drawer (Anti-containerslop: Flat quiet hairlines) -->
+                <div
+                  id={`matrix-drawer-${idx}`}
+                  class="matrix-drawer hidden pt-5 mt-5 border-t border-dashed border-neutral-200 dark:border-neutral-800 grid grid-cols-1 md:grid-cols-2 gap-6 text-xs font-sans"
+                >
+                  <!-- Left: Architecture & Deliverables -->
+                  <div class="space-y-2">
+                    <span class="font-mono text-[10.5px] font-semibold text-neutral-400 dark:text-neutral-500 uppercase tracking-wider block">
+                      Architectural Standards
+                    </span>
+                    <ul class="space-y-1.5 text-neutral-600 dark:text-neutral-400">
+                      {item.deliverables.map((deliv) => (
+                        <li class="flex items-start gap-2">
+                          <span class="text-neutral-400 select-none">›</span>
+                          <span>{deliv}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <!-- Right: Stack & System Roles -->
+                  <div class="space-y-2">
+                    <span class="font-mono text-[10.5px] font-semibold text-neutral-400 dark:text-neutral-500 uppercase tracking-wider block">
+                      Core Tooling & Runtime
+                    </span>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                      {item.stack.map((stk) => (
+                        <div class="flex flex-col py-1 border-b border-neutral-200/60 dark:border-neutral-800/60">
+                          <span class="font-medium text-neutral-900 dark:text-neutral-200">{stk.name}</span>
+                          <span class="font-mono text-[10px] text-neutral-500 dark:text-neutral-400">{stk.role}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </section>
+    </div>
+
+    <!-- ========================================================================= -->
+    <!-- VARIANT 3: MODULAR DOMAIN GRID (CONCEPT B)                               -->
+    <!-- ========================================================================= -->
+    <div id="specimen-grid" class="specimen-container hidden space-y-8">
+      <div class="flex items-center justify-between pb-2 border-b border-neutral-200 dark:border-neutral-800">
+        <span class="font-mono text-[11px] font-semibold text-neutral-500 dark:text-neutral-400 uppercase tracking-wider">
+          Specimen 03 // Concept B: Modular Domain Grid
+        </span>
+        <span class="font-mono text-[10px] text-neutral-400">2x2 clean architectural spread</span>
+      </div>
+
+      <section
+        id="capabilities-grid"
+        aria-labelledby="heading-capabilities-grid"
+        class="scroll-mt-24 pt-4 space-y-8"
+      >
+        <!-- Sliced Numeral Header Bar -->
+        <div class="flex items-stretch gap-0 pb-1">
+          <div
+            class="relative overflow-hidden flex items-start justify-end select-none shrink-0 w-[60px] sm:w-[85px]"
+            style="contain: paint;"
+          >
+            <span
+              class="relative font-sans font-black leading-none text-neutral-950/40 dark:text-white/40 tracking-[0.5px] shrink-0 select-none"
+              aria-hidden="true"
+              style="font-size: 92px; left: 9px; top: -6px; display: inline-block;"
+            >
+              3
+            </span>
+          </div>
+
+          <div class="w-px bg-neutral-300 dark:bg-neutral-800 shrink-0 self-stretch my-0.5" aria-hidden="true"></div>
+
+          <div class="flex-1 flex flex-col justify-center min-w-0 pl-2.5 sm:pl-4 lg:pl-5 py-0.5 gap-1.5">
+            <div class="flex items-center justify-between pb-1 border-b border-neutral-200 dark:border-neutral-800 w-full">
+              <span class="font-sans font-medium text-[10.5px] sm:text-xs uppercase tracking-[0.5px] text-neutral-500 dark:text-neutral-400">
+                WHAT I CAN BUILD
+              </span>
+              <span class="font-mono text-[10.5px] text-neutral-400 dark:text-neutral-500">
+                SYSTEM DISCIPLINES
+              </span>
+            </div>
+
+            <div class="pt-0.5">
+              <h2
+                id="heading-capabilities-grid"
+                data-en="From simple pages to systems that do stuff."
+                data-id="Dari halaman sederhana sampai sistem yang beneran kerja."
+                class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-medium tracking-[0.5px] text-neutral-950 dark:text-white leading-[1.08] font-montreal w-full m-0"
+              >
+                From simple pages to systems that do stuff.
+              </h2>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2x2 Grid with hairline perimeter dividers (Zero containerslop) -->
+        <div class="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-neutral-200 dark:divide-neutral-800 border-t border-b border-neutral-200 dark:border-neutral-800">
+          <!-- Col A: Item 01 & Item 02 -->
+          <div class="divide-y divide-neutral-200 dark:divide-neutral-800">
+            {
+              capabilities.slice(0, 2).map((item) => (
+                <div class="py-6 sm:py-8 pr-0 md:pr-8 space-y-4 group">
+                  <div class="flex items-center justify-between">
+                    <span class="font-mono text-xs font-semibold text-neutral-400 dark:text-neutral-500">
+                      {item.num} / {item.categoryCode}
+                    </span>
+                    <i class={`ti ${item.icon} text-2xl text-neutral-400 group-hover:text-neutral-950 dark:group-hover:text-white transition-colors`} />
+                  </div>
+
+                  <h3
+                    data-en={item.title}
+                    data-id={item.titleId || item.title}
+                    class="text-xl sm:text-2xl font-sans font-medium text-neutral-950 dark:text-white tracking-tight m-0"
+                  >
+                    {item.title}
+                  </h3>
+
+                  {item.num === "02" ? (
+                    <p class="font-sans text-sm leading-relaxed text-neutral-700 dark:text-neutral-300 font-normal m-0">
+                      <span data-en="Full-stack platforms, dashboards, internal tools, and SaaS products with " data-id="Platform full-stack, dashboard, internal tools, dan produk SaaS dengan ">Full-stack platforms, dashboards, internal tools, and SaaS products with </span><EggLink
+                        easter="pertemuan7"
+                        en="structured auth"
+                        id="autentikasi rapi"
+                        ariaEn="Unlock Pertemuan 7 Form Login Cool Stuff"
+                        ariaId="Buka Cool Stuff Form Login Pertemuan 7"
+                      /><span data-en=" and robust APIs." data-id=" dan API tangguh."> and robust APIs.</span>
+                    </p>
+                  ) : (
+                    <p class="font-sans text-sm leading-relaxed text-neutral-700 dark:text-neutral-300 font-normal m-0">
+                      <span
+                        data-en={item.description}
+                        data-id={item.descriptionId || item.description}
+                      >{item.description}</span>
+                    </p>
+                  )}
+
+                  <div class="flex flex-wrap gap-1.5 pt-2">
+                    {item.tags.map((tag) => (
+                      <span class="font-mono text-[11px] px-2 py-0.5 rounded bg-neutral-100 dark:bg-neutral-800/60 text-neutral-600 dark:text-neutral-400">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              ))
+            }
+          </div>
+
+          <!-- Col B: Item 03 & Item 04 -->
+          <div class="divide-y divide-neutral-200 dark:divide-neutral-800">
+            {
+              capabilities.slice(2, 4).map((item) => (
+                <div class="py-6 sm:py-8 pl-0 md:pl-8 space-y-4 group">
+                  <div class="flex items-center justify-between">
+                    <span class="font-mono text-xs font-semibold text-neutral-400 dark:text-neutral-500">
+                      {item.num} / {item.categoryCode}
+                    </span>
+                    <i class={`ti ${item.icon} text-2xl text-neutral-400 group-hover:text-neutral-950 dark:group-hover:text-white transition-colors`} />
+                  </div>
+
+                  <h3
+                    data-en={item.title}
+                    data-id={item.titleId || item.title}
+                    class="text-xl sm:text-2xl font-sans font-medium text-neutral-950 dark:text-white tracking-tight m-0"
+                  >
+                    {item.title}
+                  </h3>
+
+                  <p class="font-sans text-sm leading-relaxed text-neutral-700 dark:text-neutral-300 font-normal m-0">
+                    <span
+                      data-en={item.description}
+                      data-id={item.descriptionId || item.description}
+                    >{item.description}</span>
+                  </p>
+
+                  <div class="flex flex-wrap gap-1.5 pt-2">
+                    {item.tags.map((tag) => (
+                      <span class="font-mono text-[11px] px-2 py-0.5 rounded bg-neutral-100 dark:bg-neutral-800/60 text-neutral-600 dark:text-neutral-400">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+</div>
+
+<script is:inline>
+  (function () {
+    // Viewport Emulation Engine (Direct container resize, anti-containerslop)
+    const sandboxStage = document.getElementById("sandbox-primary-stage");
+    const viewportBtns = document.querySelectorAll(".viewport-btn");
+
+    viewportBtns.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        viewportBtns.forEach((b) => {
+          b.classList.remove("active", "bg-white", "dark:bg-neutral-950", "text-neutral-950", "dark:text-white", "shadow-xs");
+          b.classList.add("text-neutral-600", "dark:text-neutral-400");
+        });
+        btn.classList.add("active", "bg-white", "dark:bg-neutral-950", "text-neutral-950", "dark:text-white", "shadow-xs");
+        btn.classList.remove("text-neutral-600", "dark:text-neutral-400");
+
+        const vp = btn.getAttribute("data-viewport");
+        if (vp === "full") {
+          sandboxStage.style.maxWidth = "100%";
+          sandboxStage.style.width = "";
+        } else {
+          sandboxStage.style.maxWidth = vp;
+          sandboxStage.style.width = "100%";
+        }
+      });
+    });
+
+    // Variant Switcher Engine
+    const variantBtns = document.querySelectorAll(".variant-btn");
+    const specimens = {
+      slidesD: document.getElementById("specimen-slides-d"),
+      slides: document.getElementById("specimen-slides"),
+      baseline: document.getElementById("specimen-baseline"),
+      matrix: document.getElementById("specimen-matrix"),
+      grid: document.getElementById("specimen-grid"),
+    };
+
+    variantBtns.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        variantBtns.forEach((b) => {
+          b.classList.remove("active", "bg-white", "dark:bg-neutral-950", "text-neutral-950", "dark:text-white", "shadow-xs");
+          b.classList.add("text-neutral-600", "dark:text-neutral-400");
+        });
+        btn.classList.add("active", "bg-white", "dark:bg-neutral-950", "text-neutral-950", "dark:text-white", "shadow-xs");
+        btn.classList.remove("text-neutral-600", "dark:text-neutral-400");
+
+        const targetVariant = btn.getAttribute("data-variant");
+        Object.entries(specimens).forEach(([key, el]) => {
+          if (el) {
+            if (key === targetVariant) {
+              el.classList.remove("hidden");
+              el.classList.add("block");
+            } else {
+              el.classList.add("hidden");
+              el.classList.remove("block");
+            }
+          }
+        });
+
+        if (targetVariant === "slidesD") {
+          startCdCycle();
+          positionCdTrack(cdCellIndex, false);
+          updateCdIndicator(cdActiveIdx);
+        } else {
+          stopCdCycle();
+        }
+
+        if (targetVariant === "slides") {
+          startCycle();
+          positionTrack(currentCellIndex, false);
+        } else {
+          stopCycle();
+        }
+      });
+    });
+
+    // =========================================================================
+    // CONCEPT D CONTROLLER (True Sanity 3x3 Staggered Horizontal Carousel)
+    // =========================================================================
+    const cdPagerBtns = document.querySelectorAll(".cd-pager-btn");
+    const cdStage = document.getElementById("cd-carousel-stage");
+    const cdTrack = document.getElementById("cd-slides-track");
+    const cdQuotes = document.querySelectorAll(".cd-quote-block");
+
+    const cdTotal = 4;
+    let cdActiveIdx = 0;
+    let cdCellIndex = 4; // Main Set B starts at 4 (0..3 = Set A, 4..7 = Set B, 8..11 = Set C)
+    const cdCycleMs = 4800;
+    let cdTimer = null;
+    let cdReady = false;
+
+    function updateCdGap() {
+      if (!cdStage || !cdTrack) return;
+      const firstCell = cdTrack.children[0];
+      if (!firstCell) return;
+      const stageW = cdStage.offsetWidth;
+      const slideW = firstCell.offsetWidth || 553;
+      const sideSpace = (stageW - slideW) / 2;
+      // 234px peek reveals:
+      // Left edge: 45px of prev Col 2 (Box 1 & 3 clipped) + 14px gap + 175px of prev Col 3 (Box 2 sticking out)
+      // Right edge: 175px of next Col 1 (Wordmark) + 14px gap + 45px of next Col 2 (Box 1 & 3 clipped)
+      const targetPeek = 234;
+      const gapPx = stageW >= 900 ? Math.max(28, Math.round(sideSpace - targetPeek)) : 32;
+      cdTrack.style.gap = `${gapPx}px`;
+    }
+
+    function setupCdCarousel() {
+      if (!cdTrack || !cdStage || cdReady) return;
+      const baseCells = Array.from(cdTrack.querySelectorAll("[data-cd-cell]"));
+      if (baseCells.length !== cdTotal) return;
+
+      const clonesBefore = baseCells.map((c) => {
+        const clone = c.cloneNode(true);
+        clone.removeAttribute("data-cd-cell");
+        clone.setAttribute("data-cd-copy", "prev");
+        clone.setAttribute("aria-hidden", "true");
+        return clone;
+      });
+
+      const clonesAfter = baseCells.map((c) => {
+        const clone = c.cloneNode(true);
+        clone.removeAttribute("data-cd-cell");
+        clone.setAttribute("data-cd-copy", "next");
+        clone.setAttribute("aria-hidden", "true");
+        return clone;
+      });
+
+      clonesBefore.forEach((clone) => cdTrack.insertBefore(clone, baseCells[0]));
+      clonesAfter.forEach((clone) => cdTrack.appendChild(clone));
+
+      Array.from(cdTrack.children).forEach((cell, idx) => {
+        cell.addEventListener("click", () => {
+          if (idx !== cdCellIndex) {
+            goToCdSlide(idx % cdTotal, idx);
+          }
+        });
+      });
+
+      // Seamless snap on loop boundary
+      cdTrack.addEventListener("transitionend", (e) => {
+        if (e.target !== cdTrack) return;
+        if (e.propertyName && e.propertyName !== "transform") return;
+        snapCdBoundary();
+      });
+
+      cdReady = true;
+      updateCdGap();
+      normalizeCdIndex();
+      positionCdTrack(cdCellIndex, false);
+      updateCdCellState();
+    }
+
+    function snapCdBoundary() {
+      if (!cdTrack) return;
+      if (cdCellIndex >= cdTotal * 2) {
+        cdCellIndex -= cdTotal;
+        positionCdTrack(cdCellIndex, false);
+        updateCdCellState();
+      } else if (cdCellIndex < cdTotal) {
+        cdCellIndex += cdTotal;
+        positionCdTrack(cdCellIndex, false);
+        updateCdCellState();
+      }
+    }
+
+    function normalizeCdIndex() {
+      if (!cdTrack) return;
+      if (cdCellIndex >= cdTotal * 2) {
+        cdCellIndex -= cdTotal;
+      } else if (cdCellIndex < cdTotal) {
+        cdCellIndex += cdTotal;
+      }
+    }
+
+    function updateCdCellState() {
+      if (!cdTrack) return;
+      Array.from(cdTrack.children).forEach((cell, idx) => {
+        const isActive = idx === cdCellIndex;
+        cell.classList.toggle("is-active", isActive);
+        cell.classList.toggle("is-neighbour", !isActive);
+        cell.setAttribute("aria-hidden", isActive ? "false" : "true");
+      });
+    }
+
+    function positionCdTrack(cellIdx, smooth = true) {
+      if (!cdTrack || !cdStage) return;
+      updateCdGap();
+      const cell = cdTrack.children[cellIdx];
+      if (!cell) return;
+
+      const stageW = cdStage.offsetWidth;
+      const cellCenter = cell.offsetLeft + cell.offsetWidth / 2;
+      const tx = Math.round(stageW / 2 - cellCenter);
+
+      const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (smooth && !reduced) {
+        cdTrack.style.transition = "transform 700ms cubic-bezier(0.22, 1, 0.36, 1)";
+      } else {
+        cdTrack.style.transition = "none";
+      }
+      cdTrack.style.transform = `translate3d(${tx}px, 0, 0)`;
+    }
+
+    function updateCdIndicator(targetIdx) {
+      const ind = document.getElementById("cd-pager-sliding-indicator");
+      const btn = cdPagerBtns[targetIdx];
+      if (ind && btn) {
+        ind.style.transform = `translateX(${btn.offsetLeft}px)`;
+        ind.style.width = `${btn.offsetWidth}px`;
+      }
+    }
+
+    function stopCdCycle() {
+      if (cdTimer) {
+        clearTimeout(cdTimer);
+        cdTimer = null;
+      }
+    }
+
+    function startCdCycle() {
+      stopCdCycle();
+      const container = document.getElementById("specimen-slides-d");
+      if (!container || container.classList.contains("hidden")) return;
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+      cdTimer = setTimeout(() => {
+        goToCdSlide((cdActiveIdx + 1) % cdTotal, cdCellIndex + 1);
+      }, cdCycleMs);
+    }
+
+    function goToCdSlide(targetSlideIdx, explicitCellIdx) {
+      if (!cdTrack || !cdStage) return;
+      setupCdCarousel();
+
+      // Foolproof boundary check BEFORE transitioning:
+      // If currently sitting at an outer clone, silently normalize to Set B first
+      if (cdCellIndex >= cdTotal * 2 || cdCellIndex < cdTotal) {
+        snapCdBoundary();
+        // Force reflow so transition starts from the normalized coordinate
+        void cdTrack.offsetHeight;
+      }
+
+      if (explicitCellIdx !== undefined) {
+        cdCellIndex = explicitCellIdx;
+        cdActiveIdx = ((cdCellIndex % cdTotal) + cdTotal) % cdTotal;
+      } else {
+        let diff = targetSlideIdx - (cdCellIndex % cdTotal);
+        if (diff > 2) diff -= cdTotal;
+        if (diff < -2) diff += cdTotal;
+        cdCellIndex += diff;
+        cdActiveIdx = targetSlideIdx;
+      }
+
+      // Smooth horizontal animation
+      positionCdTrack(cdCellIndex, true);
+
+      // Instantly update active/neighbour states
+      updateCdCellState();
+
+      // Update pager indicator
+      updateCdIndicator(cdActiveIdx);
+
+      // Update pager tab chips
+      cdPagerBtns.forEach((btn, idx) => {
+        const isCurrent = idx === cdActiveIdx;
+        btn.setAttribute("aria-selected", isCurrent ? "true" : "false");
+        btn.classList.toggle("is-active", isCurrent);
+
+        const chip = btn.querySelector(".cd-pager-chip");
+        if (chip) {
+          if (isCurrent) {
+            chip.className = "cd-pager-chip inline-flex items-center justify-center w-full h-[26px] text-xs tracking-tight transition-colors duration-200 select-none font-machina font-light text-white dark:text-neutral-950";
+          } else {
+            chip.className = "cd-pager-chip inline-flex items-center justify-center w-full h-[26px] text-xs tracking-tight transition-colors duration-200 select-none font-machina font-light text-neutral-400 dark:text-neutral-500 hover:text-neutral-950 dark:hover:text-white";
+          }
+        }
+      });
+
+      // Show ONLY the active quote, hide all inactive ones completely
+      cdQuotes.forEach((panel, qIdx) => {
+        const isCurrent = qIdx === cdActiveIdx;
+        panel.classList.toggle("hidden", !isCurrent);
+        panel.classList.toggle("block", isCurrent);
+        panel.setAttribute("aria-hidden", isCurrent ? "false" : "true");
+      });
+
+      startCdCycle();
+    }
+
+    // Visibility-change recovery (foolproof against browser background throttling)
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) {
+        stopCdCycle();
+      } else {
+        snapCdBoundary();
+        updateCdIndicator(cdActiveIdx);
+        startCdCycle();
+      }
+    });
+
+    if (typeof ResizeObserver !== "undefined" && cdStage) {
+      const ro = new ResizeObserver(() => {
+        positionCdTrack(cdCellIndex, false);
+        updateCdIndicator(cdActiveIdx);
+      });
+      ro.observe(cdStage);
+    }
+
+    window.addEventListener("resize", () => {
+      positionCdTrack(cdCellIndex, false);
+      updateCdIndicator(cdActiveIdx);
+    });
+
+    function initCdShowcase() {
+      setupCdCarousel();
+      goToCdSlide(0, 4);
+      setTimeout(() => {
+        positionCdTrack(cdCellIndex, false);
+        updateCdIndicator(cdActiveIdx);
+      }, 60);
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(() => {
+          positionCdTrack(cdCellIndex, false);
+          updateCdIndicator(cdActiveIdx);
+        });
+      }
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", initCdShowcase);
+    } else {
+      initCdShowcase();
+    }
+    document.addEventListener("astro:page-load", initCdShowcase);
+
+    cdPagerBtns.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const idx = parseInt(btn.getAttribute("data-cd-pager-target") || "0", 10);
+        goToCdSlide(idx);
+      });
+      btn.addEventListener("keydown", (e) => {
+        if (e.key === "ArrowRight") {
+          e.preventDefault();
+          const next = (cdActiveIdx + 1) % cdPagerBtns.length;
+          goToCdSlide(next);
+          cdPagerBtns[next]?.focus();
+        } else if (e.key === "ArrowLeft") {
+          e.preventDefault();
+          const prev = (cdActiveIdx - 1 + cdPagerBtns.length) % cdPagerBtns.length;
+          goToCdSlide(prev);
+          cdPagerBtns[prev]?.focus();
+        }
+      });
+    });
+
+    // Slide Showcase Controller (Concept C: Full-Width Continuous Horizontal Carousel)
+    const pagerBtns = document.querySelectorAll(".cap-slide-pager-btn");
+    const carouselStage = document.getElementById("cap-carousel-stage");
+    const track = document.getElementById("cap-slides-track");
+    const quotePanels = document.querySelectorAll(".cap-quote-block");
+
+    const totalCapabilities = 4;
+    let activeSlideIdx = 0;
+    let currentCellIndex = 4; // Main Set B starts at index 4 (0..3 is Set A, 4..7 is Set B, 8..11 is Set C)
+    const cycleDuration = 4800; // ms per slide
+    let cycleTimer = null;
+    let isInitialized = false;
+
+    function setupInfiniteCarousel() {
+      if (!track || !carouselStage || isInitialized) return;
+      const initialCells = Array.from(track.querySelectorAll("[data-carousel-cell]"));
+      if (initialCells.length !== totalCapabilities) return;
+
+      // Set A (prepend clone of all 4 slides for smooth backward wrap)
+      const setAClones = initialCells.map((cell, idx) => {
+        const clone = cell.cloneNode(true);
+        clone.removeAttribute("id");
+        clone.removeAttribute("data-carousel-cell");
+        clone.setAttribute("data-cell-copy", "set-a");
+        clone.setAttribute("aria-hidden", "true");
+        clone.querySelectorAll("button, a").forEach((el) => el.setAttribute("tabindex", "-1"));
+        return clone;
+      });
+
+      // Set C (append clone of all 4 slides for smooth forward wrap)
+      const setCClones = initialCells.map((cell, idx) => {
+        const clone = cell.cloneNode(true);
+        clone.removeAttribute("id");
+        clone.removeAttribute("data-carousel-cell");
+        clone.setAttribute("data-cell-copy", "set-c");
+        clone.setAttribute("aria-hidden", "true");
+        clone.querySelectorAll("button, a").forEach((el) => el.setAttribute("tabindex", "-1"));
+        return clone;
+      });
+
+      setAClones.forEach((clone) => track.insertBefore(clone, initialCells[0]));
+      setCClones.forEach((clone) => track.appendChild(clone));
+
+      // Enable click on any slide cell (clicking adjacent cell jumps directly to it)
+      Array.from(track.children).forEach((cell, idx) => {
+        cell.addEventListener("click", () => {
+          if (idx !== currentCellIndex) {
+            goToSlide(idx % totalCapabilities, idx);
+          }
+        });
+      });
+
+      // Seamless snap on loop boundary
+      track.addEventListener("transitionend", (e) => {
+        if (e.target !== track) return;
+        if (currentCellIndex >= totalCapabilities * 2) {
+          // Reached Set C -> snap silently back to Set B
+          currentCellIndex -= totalCapabilities;
+          positionTrack(currentCellIndex, false);
+        } else if (currentCellIndex < totalCapabilities) {
+          // Reached Set A -> snap silently into Set B
+          currentCellIndex += totalCapabilities;
+          positionTrack(currentCellIndex, false);
+        }
+      });
+
+      isInitialized = true;
+      positionTrack(currentCellIndex, false);
+    }
+
+    function positionTrack(cellIdx, smooth = true) {
+      if (!track || !carouselStage) return;
+      const cell = track.children[cellIdx];
+      if (!cell) return;
+
+      const stageWidth = carouselStage.offsetWidth;
+      const cellCenter = cell.offsetLeft + (cell.offsetWidth / 2);
+      const targetX = (stageWidth / 2) - cellCenter;
+
+      const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (smooth && !prefersReduced) {
+        track.style.transition = "transform 700ms cubic-bezier(0.22, 1, 0.36, 1)";
+      } else {
+        track.style.transition = "none";
+      }
+      track.style.transform = `translate3d(${targetX}px, 0, 0)`;
+    }
+
+    function updateSlidingIndicator(targetIdx) {
+      const indicator = document.getElementById("cap-pager-sliding-indicator");
+      const activeBtn = pagerBtns[targetIdx];
+      if (indicator && activeBtn) {
+        indicator.style.transform = `translateX(${activeBtn.offsetLeft}px)`;
+        indicator.style.width = `${activeBtn.offsetWidth}px`;
+      }
+    }
+
+    function stopCycle() {
+      if (cycleTimer) {
+        clearTimeout(cycleTimer);
+        cycleTimer = null;
+      }
+    }
+
+    function startCycle() {
+      stopCycle();
+      const slidesContainer = document.getElementById("specimen-slides");
+      if (!slidesContainer || slidesContainer.classList.contains("hidden")) return;
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+      cycleTimer = setTimeout(() => {
+        goToSlide((activeSlideIdx + 1) % totalCapabilities, currentCellIndex + 1);
+      }, cycleDuration);
+    }
+
+    function goToSlide(targetSlideIdx, explicitCellIdx) {
+      if (!track || !carouselStage) return;
+      setupInfiniteCarousel();
+
+      if (explicitCellIdx !== undefined) {
+        currentCellIndex = explicitCellIdx;
+        activeSlideIdx = ((currentCellIndex % totalCapabilities) + totalCapabilities) % totalCapabilities;
+      } else {
+        // Calculate shortest path on circular track
+        let diff = targetSlideIdx - (currentCellIndex % totalCapabilities);
+        if (diff > 2) diff -= totalCapabilities;
+        if (diff < -2) diff += totalCapabilities;
+        currentCellIndex += diff;
+        activeSlideIdx = targetSlideIdx;
+      }
+
+      // Smoothly animate the horizontal carousel track so neighbours glide into/out of view
+      positionTrack(currentCellIndex, true);
+
+      // Update cell dimming (active cell 100%, neighbours sticking out at 30% with pointer cursor)
+      Array.from(track.children).forEach((cell, idx) => {
+        const isCenter = idx === currentCellIndex;
+        if (isCenter) {
+          cell.classList.remove("opacity-30", "cursor-pointer");
+          cell.classList.add("opacity-100", "cursor-default");
+        } else {
+          cell.classList.remove("opacity-100", "cursor-default");
+          cell.classList.add("opacity-30", "cursor-pointer");
+        }
+      });
+
+      // Physically slide the active indicator on pager
+      updateSlidingIndicator(activeSlideIdx);
+
+      // Update pager tab typography: Active = Satoshi Bold, Inactive = Neue Machina Light (strictly NEVER BOLD)
+      pagerBtns.forEach((btn, idx) => {
+        const isCurrent = idx === activeSlideIdx;
+        btn.setAttribute("aria-selected", isCurrent ? "true" : "false");
+        btn.classList.toggle("is-active", isCurrent);
+
+        const chip = btn.querySelector(".pager-chip");
+        if (chip) {
+          if (isCurrent) {
+            chip.className = "pager-chip inline-flex items-center justify-center w-full h-[26px] text-xs tracking-tight transition-colors duration-200 select-none font-sans font-bold text-white dark:text-neutral-950";
+          } else {
+            chip.className = "pager-chip inline-flex items-center justify-center w-full h-[26px] text-xs tracking-tight transition-colors duration-200 select-none font-machina font-light text-neutral-400 dark:text-neutral-500 hover:text-neutral-950 dark:hover:text-white";
+          }
+        }
+      });
+
+      // Crossfade pinned bottom quote & attribution
+      quotePanels.forEach((panel, qIdx) => {
+        if (qIdx === activeSlideIdx) {
+          panel.classList.remove("hidden");
+          requestAnimationFrame(() => {
+            panel.classList.remove("opacity-0", "pointer-events-none");
+            panel.classList.add("opacity-100", "relative", "pointer-events-auto");
+          });
+        } else {
+          panel.classList.remove("opacity-100", "relative", "pointer-events-auto");
+          panel.classList.add("opacity-0", "pointer-events-none");
+          setTimeout(() => {
+            if (qIdx !== activeSlideIdx) {
+              panel.classList.add("hidden");
+            }
+          }, 300);
+        }
+      });
+
+      // Restart auto-cycle
+      startCycle();
+    }
+
+    // Keep carousel centered and indicator aligned on container resize
+    window.addEventListener("resize", () => {
+      positionTrack(currentCellIndex, false);
+      updateSlidingIndicator(activeSlideIdx);
+    });
+
+    // Initial setup on load
+    function initSlideShowcase() {
+      setupInfiniteCarousel();
+      goToSlide(0, 4);
+      setTimeout(() => positionTrack(currentCellIndex, false), 60);
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(() => positionTrack(currentCellIndex, false));
+      }
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", initSlideShowcase);
+    } else {
+      initSlideShowcase();
+    }
+    document.addEventListener("astro:page-load", initSlideShowcase);
+
+    pagerBtns.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const idx = parseInt(btn.getAttribute("data-slide-target") || "0", 10);
+        goToSlide(idx);
+      });
+      btn.addEventListener("keydown", (e) => {
+        if (e.key === "ArrowRight") {
+          e.preventDefault();
+          const next = (activeSlideIdx + 1) % pagerBtns.length;
+          goToSlide(next);
+          pagerBtns[next]?.focus();
+        } else if (e.key === "ArrowLeft") {
+          e.preventDefault();
+          const prev = (activeSlideIdx - 1 + pagerBtns.length) % pagerBtns.length;
+          goToSlide(prev);
+          pagerBtns[prev]?.focus();
+        }
+      });
+    });
+
+    // Expandable Matrix Details Drawer
+    const matrixTriggers = document.querySelectorAll(".matrix-expand-trigger");
+    matrixTriggers.forEach((trigger) => {
+      trigger.addEventListener("click", () => {
+        const targetId = trigger.getAttribute("data-target");
+        const drawer = document.getElementById(targetId);
+        const icon = trigger.querySelector(".trigger-icon");
+        const label = trigger.querySelector(".trigger-label");
+        const isExpanded = trigger.getAttribute("aria-expanded") === "true";
+
+        if (drawer) {
+          if (isExpanded) {
+            drawer.classList.add("hidden");
+            trigger.setAttribute("aria-expanded", "false");
+            if (icon) icon.style.transform = "rotate(0deg)";
+            if (label) label.textContent = "Details";
+          } else {
+            drawer.classList.remove("hidden");
+            trigger.setAttribute("aria-expanded", "true");
+            if (icon) icon.style.transform = "rotate(180deg)";
+            if (label) label.textContent = "Close";
+          }
+        }
+      });
+    });
+
+    // Language Toggle
+    const langBtn = document.getElementById("sandbox-lang-toggle");
+    const langLbl = document.getElementById("sandbox-lang-label");
+    let currentLang = document.documentElement.lang || "en";
+    if (langLbl) langLbl.textContent = currentLang.toUpperCase();
+
+    if (langBtn) {
+      langBtn.addEventListener("click", () => {
+        currentLang = currentLang === "en" ? "id" : "en";
+        if (langLbl) langLbl.textContent = currentLang.toUpperCase();
+
+        const elements = document.querySelectorAll("[data-en]");
+        elements.forEach((el) => {
+          const val = currentLang === "id" ? el.getAttribute("data-id") : el.getAttribute("data-en");
+          if (val) el.textContent = val;
+        });
+
+        goToCdSlide(cdActiveIdx, cdCellIndex);
+        goToSlide(activeSlideIdx, currentCellIndex);
+      });
+    }
+
+    // Guides Overlay Toggle
+    const guidesBtn = document.getElementById("toggle-guides-btn");
+    const guidesOverlay = document.getElementById("sandbox-guides-overlay");
+    if (guidesBtn && guidesOverlay) {
+      guidesBtn.addEventListener("click", () => {
+        const isHidden = guidesOverlay.classList.contains("hidden");
+        if (isHidden) {
+          guidesOverlay.classList.remove("hidden");
+          guidesBtn.classList.add("border-neutral-950", "dark:border-white", "font-bold");
+        } else {
+          guidesOverlay.classList.add("hidden");
+          guidesBtn.classList.remove("border-neutral-950", "dark:border-white", "font-bold");
+        }
+      });
+    }
+  })();
+</script>
+
+<style>
+  /* Deterministic 3x3 Staggered Sanity Carousel Architecture (Concept D) */
+  .cd-stage {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .cd-track {
+    display: flex;
+    align-items: center;
+    gap: 80px;
+    width: max-content;
+    will-change: transform;
+  }
+
+  .cd-slide {
+    flex-shrink: 0;
+    width: 553px;
+  }
+
+  .cd-slide.is-active {
+    opacity: 1;
+    cursor: default;
+  }
+
+  .cd-slide.is-neighbour {
+    opacity: 0.35;
+    cursor: pointer;
+  }
+
+  .cd-slide.is-neighbour:hover {
+    opacity: 0.75;
+  }
+
+  /* 3 Columns x 3 Rows Matrix:
+     Col 1 (175px): Row 1 Wordmark (right-aligned), Row 2 Empty, Row 3 Empty
+     Col 2 (175px): Row 1 Box 1, Row 2 Label 2, Row 3 Box 3
+     Col 3 (175px): Row 1 Label 1, Row 2 Box 2, Row 3 Label 3
+     Total width: 175 + 14 + 175 + 14 + 175 = 553px */
+  .cd-slide-grid {
+    display: grid;
+    grid-template-columns: 175px 175px 175px;
+    grid-template-rows: 56px 56px 56px;
+    column-gap: 14px;
+    row-gap: 14px;
+    align-items: center;
+    width: 553px;
+  }
+
+  .cd-cell-wordmark {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    text-align: right;
+    padding-right: 6px;
+    height: 100%;
+    min-width: 0;
+  }
+
+  .cd-cell-box {
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    width: 100%;
+    height: 100%;
+    background: transparent !important;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    box-sizing: border-box;
+  }
+
+  .cd-cell-label-right {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    text-align: left;
+    padding-left: 2px;
+    height: 100%;
+  }
+
+  .cd-cell-label-left {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    text-align: left;
+    padding-right: 4px;
+    height: 100%;
+  }
+
+  .cd-cell-empty {
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+
+  @media (max-width: 640px) {
+    .cd-slide,
+    .cd-slide-grid {
+      width: 320px;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto repeat(3, 50px);
+    }
+
+    .cd-cell-wordmark {
+      grid-column: 1 / -1;
+      justify-content: flex-start;
+      text-align: left;
+      padding-bottom: 4px;
+    }
+
+    .cd-cell-empty {
+      display: none;
+    }
+  }
+</style>
