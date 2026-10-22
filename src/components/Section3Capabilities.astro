@@ -472,13 +472,15 @@ const capabilities = [
 </section>
 
 <script>
-  (() => {
-    const cdPagerBtns = document.querySelectorAll(".cd-pager-btn");
+  function initCdCarouselSystem() {
     const cdStage = document.getElementById("cd-carousel-stage");
     const cdTrack = document.getElementById("cd-slides-track");
-    const cdQuotes = document.querySelectorAll(".cd-quote-block");
+    const cdPagerBtns = Array.from(document.querySelectorAll<HTMLElement>(".cd-pager-btn"));
+    const cdQuotes = Array.from(document.querySelectorAll<HTMLElement>(".cd-quote-block"));
 
     if (!cdStage || !cdTrack || cdPagerBtns.length === 0) return;
+    if ((cdStage as any).__cdCarouselActive) return;
+    (cdStage as any).__cdCarouselActive = true;
 
     const cdTotal = 4;
     let cdActiveIdx = 0;
@@ -557,7 +559,6 @@ const capabilities = [
         cdTrack.classList.add("is-snapping");
         positionCdTrack(cdCellIndex, false);
         updateCdCellState();
-        void cdTrack.offsetHeight;
         cdTrack.classList.remove("is-snapping");
       } else if (cdCellIndex < cdTotal) {
         cdCellIndex += cdTotal;
@@ -565,7 +566,6 @@ const capabilities = [
         cdTrack.classList.add("is-snapping");
         positionCdTrack(cdCellIndex, false);
         updateCdCellState();
-        void cdTrack.offsetHeight;
         cdTrack.classList.remove("is-snapping");
       }
     }
@@ -583,7 +583,6 @@ const capabilities = [
       if (!cdTrack) return;
       const activeModulo = ((cdCellIndex % cdTotal) + cdTotal) % cdTotal;
       Array.from(cdTrack.children).forEach((cell, idx) => {
-        // Keep both the current slide and its mirrored clone in sync so boundary wrap never triggers an opacity fade
         const isActive = idx === cdCellIndex || (idx % cdTotal === activeModulo);
         cell.classList.toggle("is-active", isActive);
         cell.classList.toggle("is-neighbour", !isActive);
@@ -616,7 +615,6 @@ const capabilities = [
         const targetPeek = 234;
         const gapPx = stageW >= 900 ? Math.max(28, Math.round(sideSpace - targetPeek)) : 32;
         const stepDist = (slideW + gapPx) * 0.18;
-        // Direction: moves in the same direction as carousel (negative translateX as index increases)
         const bgTx = Math.round(-bgStepIndex * stepDist);
         if (smooth && !reduced) {
           cdStrip.style.transition = "transform 850ms cubic-bezier(0.65, 0, 0.35, 1)";
@@ -658,7 +656,6 @@ const capabilities = [
 
       if (cdCellIndex >= cdTotal * 2 || cdCellIndex < cdTotal) {
         snapCdBoundary();
-        void cdTrack.offsetHeight;
       }
 
       const prevCellIdx = cdCellIndex;
@@ -686,15 +683,13 @@ const capabilities = [
 
         const chip = btn.querySelector(".cd-pager-chip");
         if (chip) {
-          if (isCurrent) {
-            chip.className = "cd-pager-chip inline-flex items-center justify-center w-full h-[26px] text-xs tracking-tight transition-colors duration-200 select-none font-machina font-light text-white dark:text-neutral-950";
-          } else {
-            chip.className = "cd-pager-chip inline-flex items-center justify-center w-full h-[26px] text-xs tracking-tight transition-colors duration-200 select-none font-machina font-light text-neutral-400 dark:text-neutral-500 hover:text-neutral-950 dark:hover:text-white";
-          }
+          chip.classList.toggle("text-white", isCurrent);
+          chip.classList.toggle("dark:text-neutral-950", isCurrent);
+          chip.classList.toggle("text-neutral-400", !isCurrent);
+          chip.classList.toggle("dark:text-neutral-500", !isCurrent);
         }
       });
 
-      // Show ONLY the active quote, hide all inactive ones completely
       cdQuotes.forEach((panel, qIdx) => {
         const isCurrent = qIdx === cdActiveIdx;
         panel.classList.toggle("hidden", !isCurrent);
@@ -705,7 +700,7 @@ const capabilities = [
       startCdCycle();
     }
 
-    document.addEventListener("visibilitychange", () => {
+    const onVisibilityChange = () => {
       if (document.hidden) {
         stopCdCycle();
       } else {
@@ -713,48 +708,124 @@ const capabilities = [
         updateCdIndicator(cdActiveIdx);
         startCdCycle();
       }
-    });
+    };
+    document.addEventListener("visibilitychange", onVisibilityChange);
 
-    if (typeof ResizeObserver !== "undefined" && cdStage) {
-      const ro = new ResizeObserver(() => {
+    let ro: ResizeObserver | null = null;
+    if (typeof ResizeObserver !== "undefined") {
+      ro = new ResizeObserver(() => {
         positionCdTrack(cdCellIndex, false);
         updateCdIndicator(cdActiveIdx);
       });
       ro.observe(cdStage);
     }
 
-    window.addEventListener("resize", () => {
+    const onResize = () => {
       positionCdTrack(cdCellIndex, false);
       updateCdIndicator(cdActiveIdx);
-    });
+    };
+    window.addEventListener("resize", onResize);
 
     cdPagerBtns.forEach((btn, idx) => {
       btn.addEventListener("click", () => {
         goToCdSlide(idx);
       });
+
+      btn.addEventListener("keydown", (e: KeyboardEvent) => {
+        let target = -1;
+        if (e.key === "ArrowRight" || e.key === "ArrowDown") target = (idx + 1) % cdTotal;
+        if (e.key === "ArrowLeft" || e.key === "ArrowUp") target = (idx - 1 + cdTotal) % cdTotal;
+        if (e.key === "Home") target = 0;
+        if (e.key === "End") target = cdTotal - 1;
+        if (target >= 0) {
+          e.preventDefault();
+          (cdPagerBtns[target] as HTMLElement).focus();
+          goToCdSlide(target);
+        }
+      });
     });
 
-    function initCdCarousel() {
-      setupCdCarousel();
-      goToCdSlide(0, 4);
-      setTimeout(() => {
+    // ── Passive Mobile Touch / Swipe Handling ──
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let touchDeltaX = 0;
+    let isSwiping = false;
+
+    const onTouchStart = (e: TouchEvent) => {
+      if (e.touches.length !== 1) return;
+      touchStartX = e.touches[0].clientX;
+      touchStartY = e.touches[0].clientY;
+      touchDeltaX = 0;
+      isSwiping = true;
+      stopCdCycle();
+    };
+
+    const onTouchMove = (e: TouchEvent) => {
+      if (!isSwiping || e.touches.length !== 1) return;
+      const dx = e.touches[0].clientX - touchStartX;
+      const dy = e.touches[0].clientY - touchStartY;
+      if (Math.abs(dy) > Math.abs(dx) && Math.abs(dx) < 15) {
+        isSwiping = false;
+        return;
+      }
+      touchDeltaX = dx;
+    };
+
+    const onTouchEnd = () => {
+      if (!isSwiping) return;
+      isSwiping = false;
+      const SWIPE_THRESHOLD = 45;
+      if (touchDeltaX < -SWIPE_THRESHOLD) {
+        goToCdSlide((cdActiveIdx + 1) % cdTotal, cdCellIndex + 1);
+      } else if (touchDeltaX > SWIPE_THRESHOLD) {
+        goToCdSlide((cdActiveIdx - 1 + cdTotal) % cdTotal, cdCellIndex - 1);
+      } else {
+        startCdCycle();
+      }
+      touchDeltaX = 0;
+    };
+
+    cdStage.addEventListener("touchstart", onTouchStart, { passive: true });
+    cdStage.addEventListener("touchmove", onTouchMove, { passive: true });
+    cdStage.addEventListener("touchend", onTouchEnd, { passive: true });
+    cdStage.addEventListener("touchcancel", onTouchEnd, { passive: true });
+
+    document.addEventListener(
+      "astro:before-swap",
+      () => {
+        stopCdCycle();
+        ro?.disconnect();
+        document.removeEventListener("visibilitychange", onVisibilityChange);
+        window.removeEventListener("resize", onResize);
+        cdStage.removeEventListener("touchstart", onTouchStart);
+        cdStage.removeEventListener("touchmove", onTouchMove);
+        cdStage.removeEventListener("touchend", onTouchEnd);
+        cdStage.removeEventListener("touchcancel", onTouchEnd);
+        delete (cdStage as any).__cdCarouselActive;
+      },
+      { once: true }
+    );
+
+    setupCdCarousel();
+    goToCdSlide(0, 4);
+    setTimeout(() => {
+      positionCdTrack(cdCellIndex, false);
+      updateCdIndicator(0);
+    }, 60);
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(() => {
         positionCdTrack(cdCellIndex, false);
         updateCdIndicator(0);
-      }, 60);
-      if (document.fonts && document.fonts.ready) {
-        document.fonts.ready.then(() => {
-          positionCdTrack(cdCellIndex, false);
-          updateCdIndicator(0);
-        });
-      }
+      });
     }
+  }
 
-    if (document.readyState === "loading") {
-      document.addEventListener("DOMContentLoaded", initCdCarousel);
-    } else {
-      initCdCarousel();
-    }
-  })();
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initCdCarouselSystem);
+  } else {
+    initCdCarouselSystem();
+  }
+  document.addEventListener("astro:page-load", initCdCarouselSystem);
 </script>
 
 <style>
