@@ -51,7 +51,7 @@ import ActionButton from "./ActionButton.astro";
   <!-- Upper Wireframe Preview Stage (Extends down behind the 4 containers with smooth bottom fade) -->
   <div
     id="wireframe-window-stage"
-    class="relative z-10 w-[92%] sm:w-[86%] lg:w-[80%] mx-auto min-h-[540px] sm:min-h-[620px] pb-44 sm:pb-56 border border-neutral-900/[0.14] dark:border-white/[0.15] border-b-0 bg-white/[0.35] dark:bg-black/[0.14] backdrop-blur-[1px] px-5 sm:px-10 lg:px-14 pt-5 flex flex-col overflow-hidden [mask-image:linear-gradient(to_bottom,black_0%,black_65%,transparent_100%)] [-webkit-mask-image:linear-gradient(to_bottom,black_0%,black_65%,transparent_100%)]"
+    class="relative z-10 w-[92%] sm:w-[86%] lg:w-[80%] mx-auto min-h-[540px] sm:min-h-[620px] pb-44 sm:pb-56 border border-neutral-900/[0.14] dark:border-white/[0.15] border-b-0 bg-white/[0.35] dark:bg-black/[0.14] backdrop-blur-[1px] px-3.5 sm:px-10 lg:px-14 pt-5 flex flex-col overflow-hidden [mask-image:linear-gradient(to_bottom,black_0%,black_65%,transparent_100%)] [-webkit-mask-image:linear-gradient(to_bottom,black_0%,black_65%,transparent_100%)]"
   >
     <!-- 3D Wireframe Photostrip Starfield Canvas (Clipped to Window Bounds) -->
     <canvas
@@ -61,7 +61,7 @@ import ActionButton from "./ActionButton.astro";
 
     <!-- Wireframe Top Bar -->
     <div
-      class="relative z-10 flex items-center justify-between text-[10px] font-mono tracking-[0.14em] uppercase text-neutral-700 dark:text-white/70"
+      class="relative z-10 flex items-center justify-between text-[9px] sm:text-[10px] font-mono tracking-[0.08em] sm:tracking-[0.14em] uppercase text-neutral-700 dark:text-white/70"
     >
       <div class="flex items-center gap-4 text-neutral-800 dark:text-white/75">
         <span>CAMERA [READY]</span>
@@ -77,11 +77,11 @@ import ActionButton from "./ActionButton.astro";
     <!-- Optical Middle: HYPE-BOX Logotype Display (Vertically balanced + margined) -->
     <div
       id="stage-title-wrap"
-      class="relative z-10 flex flex-col items-center justify-center pt-36 sm:pt-48 pb-10 px-6 sm:px-12 w-full my-3"
+      class="relative z-10 flex flex-col items-center justify-center pt-32 sm:pt-48 pb-10 px-2 sm:px-12 w-full max-w-full my-3"
     >
       <h3
         id="heading-hypebox"
-        class="font-heading font-black text-[clamp(2.15rem,7vw,5.75rem)] tracking-tight text-neutral-950 dark:text-white uppercase select-none leading-none text-center whitespace-nowrap mx-auto px-4 drop-shadow-[0_10px_28px_color-mix(in_srgb,var(--color-accent,#52FF1A)_18%,transparent)] dark:drop-shadow-[0_10px_35px_rgba(0,0,0,0.8)] m-0"
+        class="font-heading font-black text-[clamp(1.25rem,6.8vw,5.75rem)] tracking-tight text-neutral-950 dark:text-white uppercase select-none leading-none text-center whitespace-nowrap mx-auto px-1 sm:px-4 drop-shadow-[0_10px_28px_color-mix(in_srgb,var(--color-accent,#52FF1A)_18%,transparent)] dark:drop-shadow-[0_10px_35px_rgba(0,0,0,0.8)] m-0 max-w-full"
       >
         HYPE-BOX
       </h3>

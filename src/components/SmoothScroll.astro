@@ -51,6 +51,7 @@
             const targetEl = document.querySelector(url.hash);
             if (targetEl && lenisInstance) {
               e.preventDefault();
+              anchor.blur();
               lenisInstance.scrollTo(targetEl as HTMLElement, {
                 offset: -64,
                 duration: 0.9,

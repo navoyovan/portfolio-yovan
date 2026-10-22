@@ -136,7 +136,7 @@ const librariesTechniques = [
       <div
         id="hero-halved-bio"
         data-revealed="false"
-        class="max-w-2xl opacity-0 translate-y-3 pointer-events-none transition-[opacity,transform] duration-300 ease-out pt-2 flex flex-col gap-3.5 sm:gap-4 data-[revealed=true]:opacity-100 data-[revealed=true]:translate-y-0 data-[revealed=true]:pointer-events-auto focus-within:opacity-100 focus-within:translate-y-0 focus-within:pointer-events-auto"
+        class="max-w-2xl opacity-0 translate-y-3 pointer-events-none transition-[opacity,transform] duration-300 ease-out pt-2 flex flex-col gap-3.5 sm:gap-4 data-[revealed=true]:opacity-100 data-[revealed=true]:translate-y-0 data-[revealed=true]:pointer-events-auto"
       >
         <p
           data-en="Software Engineer & systems builder turning ideas into working products; from landing pages and web apps to touchscreen kiosks and the hardware behind them."
@@ -794,6 +794,9 @@ const librariesTechniques = [
           const isRevealed = progress > 0.35;
           if (bioEl.dataset.revealed !== String(isRevealed)) {
             bioEl.dataset.revealed = String(isRevealed);
+            if (!isRevealed && bioEl.contains(document.activeElement)) {
+              (document.activeElement as HTMLElement)?.blur();
+            }
             window.dispatchEvent(
               new CustomEvent('portfolio:bio-reveal-change', {
                 detail: { revealed: isRevealed },
