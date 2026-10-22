@@ -509,9 +509,17 @@ const scrimPresets = [
   .leaflet-control-attribution {
     display: none !important;
   }
+  .krl-rail-trail {
+    stroke: #059669;
+    pointer-events: none;
+  }
+  html.dark .krl-rail-trail {
+    stroke: var(--color-accent, #BCFF1C);
+  }
 </style>
 
 <script>
+  import heroTracks from '../data/hero-tracks.json';
   const initLeafletMap = () => {
     const mapEl = document.getElementById('hero-leaflet-map');
     if (!mapEl) return;
@@ -798,6 +806,84 @@ const scrimPresets = [
       updateMapLabels();
       window.removeEventListener('portfolio:lang-change', updateMapLabels);
       window.addEventListener('portfolio:lang-change', updateMapLabels);
+
+      // Live Road & Transit Tracks (Triggered on scroll with bio section)
+      const activePolyline = L.polyline([], {
+        className: 'krl-rail-trail',
+        weight: 1.5,
+        opacity: 0.85,
+        interactive: false,
+      }).addTo(map);
+
+      const trailContainer = document.getElementById('hero-ruler-trail');
+      const trailNameEl = document.getElementById('hero-ruler-trail-name');
+      let lastRandomIdx = -1;
+
+      const showRandomTrail = () => {
+        let randIdx = Math.floor(Math.random() * heroTracks.length);
+        if (randIdx === lastRandomIdx && heroTracks.length > 1) {
+          randIdx = (randIdx + 1) % heroTracks.length;
+        }
+        lastRandomIdx = randIdx;
+        const track = heroTracks[randIdx];
+
+        activePolyline.setLatLngs(track.coords as any);
+        if (trailNameEl) trailNameEl.textContent = `${track.name} [${track.tag}]`;
+
+        if (trailContainer) {
+          trailContainer.classList.remove('opacity-0', 'translate-y-1', 'pointer-events-none');
+          trailContainer.classList.add('opacity-100', 'translate-y-0');
+        }
+
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const isDesktop = window.innerWidth >= 768;
+        const bounds = activePolyline.getBounds();
+
+        if (isDesktop) {
+          const leftPad = Math.round(window.innerWidth * 0.44);
+          const rightPad = Math.round(window.innerWidth * 0.08);
+          map.fitBounds(bounds, {
+            paddingTopLeft: [leftPad, 60],
+            paddingBottomRight: [rightPad, 90],
+            maxZoom: 14,
+            animate: !prefersReducedMotion,
+            duration: prefersReducedMotion ? 0 : 1.2
+          });
+        } else {
+          map.fitBounds(bounds, {
+            padding: [40, 40],
+            maxZoom: 14,
+            animate: !prefersReducedMotion,
+            duration: prefersReducedMotion ? 0 : 1.2
+          });
+        }
+      };
+
+      const resetToStandardView = () => {
+        if (trailContainer) {
+          trailContainer.classList.remove('opacity-100', 'translate-y-0');
+          trailContainer.classList.add('opacity-0', 'translate-y-1', 'pointer-events-none');
+        }
+
+        activePolyline.setLatLngs([]);
+
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const target = isJabodetabek ? getJabodetabekTarget() : getBogorTarget();
+        if (prefersReducedMotion) {
+          map.setView(target.center, target.zoom);
+        } else {
+          map.flyTo(target.center, target.zoom, { duration: 1.2 });
+        }
+      };
+
+      window.addEventListener('portfolio:bio-reveal-change', (e: any) => {
+        const isRevealed = Boolean(e.detail?.revealed);
+        if (isRevealed) {
+          showRandomTrail();
+        } else {
+          resetToStandardView();
+        }
+      });
 
       if (cityBtn && badgeBox) {
         cityBtn.addEventListener('click', (e) => {
