@@ -189,9 +189,9 @@ for (let w = 0; w < availableWeeks; w++) {
 <style is:global>
   #github-contrib-grid {
     --gcd-empty: #ebedf0;
-    --gcd-l1: rgba(242, 0, 60, 0.35);
-    --gcd-l2: rgba(242, 0, 60, 0.75);
-    --gcd-l3: rgba(166, 230, 21, 0.85);
+    --gcd-l1: color-mix(in srgb, var(--color-accent-complementary, #F2003C) 35%, transparent);
+    --gcd-l2: color-mix(in srgb, var(--color-accent-complementary, #F2003C) 75%, transparent);
+    --gcd-l3: color-mix(in srgb, var(--color-accent, #BCFF1C) 75%, transparent);
     --gcd-l4: var(--color-accent, #BCFF1C);
     --gcd-glow-l4: none;
   }
@@ -199,11 +199,11 @@ for (let w = 0; w < availableWeeks; w++) {
   .dark #github-contrib-grid,
   :root.dark #github-contrib-grid {
     --gcd-empty: #141414;
-    --gcd-l1: rgba(242, 0, 60, 0.45);
-    --gcd-l2: rgba(242, 0, 60, 0.85);
-    --gcd-l3: rgba(188, 255, 28, 0.65);
+    --gcd-l1: color-mix(in srgb, var(--color-accent-complementary, #F2003C) 45%, transparent);
+    --gcd-l2: color-mix(in srgb, var(--color-accent-complementary, #F2003C) 85%, transparent);
+    --gcd-l3: color-mix(in srgb, var(--color-accent, #BCFF1C) 65%, transparent);
     --gcd-l4: var(--color-accent, #BCFF1C);
-    --gcd-glow-l4: 0 0 8px rgba(188, 255, 28, 0.45);
+    --gcd-glow-l4: 0 0 8px color-mix(in srgb, var(--color-accent, #BCFF1C) 45%, transparent);
   }
 
   #github-contrib-grid .gcd-col {

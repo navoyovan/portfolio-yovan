@@ -280,7 +280,7 @@ const capabilities = [
       </div>
     </div>
 
-    <div id="cd-slides-track" class="relative z-10 cd-track">
+    <div id="cd-slides-track" class="relative z-10 flex items-center w-max will-change-transform [transform:translateZ(0)]">
       {
         capabilities.map((item, idx) => (
           <div
@@ -289,13 +289,15 @@ const capabilities = [
             aria-label={`${item.num} of 04: ${item.title}`}
             data-cd-cell={idx}
             class:list={[
-              "cd-slide select-none",
-              idx === 0 ? "is-active" : "is-neighbour",
+              "cd-slide shrink-0 select-none w-[320px] sm:w-[553px] will-change-opacity transition-opacity duration-700 ease-in-out",
+              idx === 0
+                ? "is-active opacity-100 cursor-default"
+                : "is-neighbour opacity-35 hover:opacity-75 cursor-pointer",
             ]}
           >
-            <div class="cd-slide-grid">
+            <div class="grid grid-cols-2 sm:grid-cols-[175px_175px_175px] grid-rows-[auto_repeat(3,50px)] sm:grid-rows-[repeat(3,56px)] gap-3.5 items-center w-[320px] sm:w-[553px]">
               <!-- ROW 1, COL 1: Capability Wordmark -->
-              <div class="cd-cell-wordmark">
+              <div class="col-span-2 sm:col-span-1 flex items-center sm:justify-end text-left sm:text-right sm:pr-1.5 h-full min-w-0 pb-1 sm:pb-0">
                 <span
                   data-en={item.shortTitle}
                   data-id={item.shortTitleId || item.shortTitle}
@@ -305,8 +307,8 @@ const capabilities = [
                 </span>
               </div>
 
-              <!-- ROW 1, COL 2: Stat Box 1 (Strictly NO tint, light blur) -->
-              <div class="relative cd-cell-box border border-neutral-300 dark:border-neutral-800 bg-transparent backdrop-blur-sm">
+              <!-- ROW 1, COL 2: Stat Box 1 -->
+              <div class="relative flex items-center px-4 w-full h-full border border-neutral-300 dark:border-neutral-800/80 transition-colors duration-700 ease-in-out">
                 <span aria-hidden="true" class="absolute -top-[1px] -left-[1px] w-2.5 h-[2px] bg-[var(--color-accent,#BCFF1C)] pointer-events-none"></span>
                 <span aria-hidden="true" class="absolute -top-[1px] -left-[1px] w-[2px] h-2.5 bg-[var(--color-accent,#BCFF1C)] pointer-events-none"></span>
                 <span class="font-machina font-light text-2xl sm:text-3xl text-neutral-950 dark:text-white tracking-tight leading-none">
@@ -315,7 +317,7 @@ const capabilities = [
               </div>
 
               <!-- ROW 1, COL 3: Stat Label 1 -->
-              <div class="cd-cell-label-right">
+              <div class="flex items-center justify-start text-left pl-0.5 h-full">
                 <span
                   data-en={item.stats[0].label}
                   data-id={item.stats[0].labelId}
@@ -326,12 +328,12 @@ const capabilities = [
               </div>
 
               <!-- ROW 2, COL 1: Empty space below Wordmark -->
-              <div class="cd-cell-empty relative flex items-center justify-center" aria-hidden="true">
+              <div class="hidden sm:flex relative items-center justify-center w-full h-full pointer-events-none" aria-hidden="true">
                 <span class="font-mono text-[10px] text-neutral-300 dark:text-neutral-800 select-none">+</span>
               </div>
 
               <!-- ROW 2, COL 2: Stat Label 2 -->
-              <div class="cd-cell-label-left">
+              <div class="flex items-center justify-start text-left pr-1 h-full">
                 <span
                   data-en={item.stats[1].label}
                   data-id={item.stats[1].labelId}
@@ -341,8 +343,8 @@ const capabilities = [
                 </span>
               </div>
 
-              <!-- ROW 2, COL 3: Stat Box 2 (Strictly NO tint, light blur) -->
-              <div class="relative cd-cell-box border border-neutral-300 dark:border-neutral-800 bg-transparent backdrop-blur-sm">
+              <!-- ROW 2, COL 3: Stat Box 2 -->
+              <div class="relative flex items-center px-4 w-full h-full border border-neutral-300 dark:border-neutral-800/80 transition-colors duration-700 ease-in-out">
                 <span aria-hidden="true" class="absolute -top-[1px] -right-[1px] w-2.5 h-[2px] bg-[var(--color-accent-complementary,#F2003C)] pointer-events-none"></span>
                 <span aria-hidden="true" class="absolute -top-[1px] -right-[1px] w-[2px] h-2.5 bg-[var(--color-accent-complementary,#F2003C)] pointer-events-none"></span>
                 <span class="font-machina font-light text-2xl sm:text-3xl text-neutral-950 dark:text-white tracking-tight leading-none">
@@ -351,15 +353,15 @@ const capabilities = [
               </div>
 
               <!-- ROW 3, COL 1: Empty space below Wordmark -->
-              <div class="cd-cell-empty relative flex items-end justify-start p-1.5" aria-hidden="true">
+              <div class="hidden sm:flex relative items-end justify-start p-1.5 w-full h-full pointer-events-none" aria-hidden="true">
                 <span class="inline-flex items-center gap-0.5 opacity-60">
                   <span class="w-1 h-1 bg-[var(--color-accent,#BCFF1C)]"></span>
                   <span class="w-1 h-1 bg-[var(--color-accent-complementary,#F2003C)]"></span>
                 </span>
               </div>
 
-              <!-- ROW 3, COL 2: Stat Box 3 (Strictly NO tint, light blur) -->
-              <div class="relative cd-cell-box border border-neutral-300 dark:border-neutral-800 bg-transparent backdrop-blur-sm">
+              <!-- ROW 3, COL 2: Stat Box 3 -->
+              <div class="relative flex items-center px-4 w-full h-full border border-neutral-300 dark:border-neutral-800/80 transition-colors duration-700 ease-in-out">
                 <span aria-hidden="true" class="absolute -bottom-[1px] -left-[1px] w-2.5 h-[2px] bg-[var(--color-accent,#BCFF1C)] pointer-events-none"></span>
                 <span aria-hidden="true" class="absolute -bottom-[1px] -left-[1px] w-[2px] h-2.5 bg-[var(--color-accent,#BCFF1C)] pointer-events-none"></span>
                 <span class="font-machina font-light text-2xl sm:text-3xl text-neutral-950 dark:text-white tracking-tight leading-none">
@@ -368,7 +370,7 @@ const capabilities = [
               </div>
 
               <!-- ROW 3, COL 3: Stat Label 3 -->
-              <div class="cd-cell-label-right">
+              <div class="flex items-center justify-start text-left pl-0.5 h-full">
                 <span
                   data-en={item.stats[2].label}
                   data-id={item.stats[2].labelId}
@@ -472,6 +474,8 @@ const capabilities = [
 </section>
 
 <script>
+  import { animate } from "motion";
+
   function initCdCarouselSystem() {
     const cdStage = document.getElementById("cd-carousel-stage");
     const cdTrack = document.getElementById("cd-slides-track");
@@ -490,19 +494,28 @@ const capabilities = [
     let cdTimer: ReturnType<typeof setTimeout> | null = null;
     let cdReady = false;
 
+    let stageW = 0;
+    let slideW = 553;
+    let gapPx = 32;
+    let stepDist = 100;
+
+    let trackAnim: any = null;
+    let stripAnim: any = null;
+    let indicatorAnim: any = null;
+
     function updateCdGap() {
       if (!cdStage || !cdTrack) return;
+      stageW = cdStage.offsetWidth;
       const firstCell = cdTrack.children[0] as HTMLElement | undefined;
-      if (!firstCell) return;
-      const stageW = cdStage.offsetWidth;
-      const slideW = firstCell.offsetWidth || 553;
+      slideW = firstCell?.offsetWidth || (window.innerWidth < 640 ? 320 : 553);
       const sideSpace = (stageW - slideW) / 2;
       const targetPeek = 234;
-      const gapPx = stageW >= 900 ? Math.max(28, Math.round(sideSpace - targetPeek)) : 32;
+      gapPx = stageW >= 900 ? Math.max(28, Math.round(sideSpace - targetPeek)) : (window.innerWidth < 640 ? 16 : 32);
       cdTrack.style.gap = `${gapPx}px`;
 
+      stepDist = (slideW + gapPx) * 0.18;
       // Each repeating backdrop tile corresponds exactly to 1 full 4-slide cycle
-      const tileW = Math.round(cdTotal * (slideW + gapPx) * 0.18);
+      const tileW = Math.round(cdTotal * stepDist);
       cdStage.style.setProperty("--tile-w", `${tileW}px`);
     }
 
@@ -556,17 +569,13 @@ const capabilities = [
       if (cdCellIndex >= cdTotal * 2) {
         cdCellIndex -= cdTotal;
         bgStepIndex -= cdTotal;
-        cdTrack.classList.add("is-snapping");
         positionCdTrack(cdCellIndex, false);
         updateCdCellState();
-        cdTrack.classList.remove("is-snapping");
       } else if (cdCellIndex < cdTotal) {
         cdCellIndex += cdTotal;
         bgStepIndex += cdTotal;
-        cdTrack.classList.add("is-snapping");
         positionCdTrack(cdCellIndex, false);
         updateCdCellState();
-        cdTrack.classList.remove("is-snapping");
       }
     }
 
@@ -585,43 +594,52 @@ const capabilities = [
       Array.from(cdTrack.children).forEach((cell, idx) => {
         const isActive = idx === cdCellIndex || (idx % cdTotal === activeModulo);
         cell.classList.toggle("is-active", isActive);
+        cell.classList.toggle("opacity-100", isActive);
+        cell.classList.toggle("cursor-default", isActive);
+
         cell.classList.toggle("is-neighbour", !isActive);
+        cell.classList.toggle("opacity-35", !isActive);
+        cell.classList.toggle("cursor-pointer", !isActive);
         cell.setAttribute("aria-hidden", idx === cdCellIndex ? "false" : "true");
       });
     }
 
     function positionCdTrack(cellIdx: number, smooth = true) {
       if (!cdTrack || !cdStage) return;
-      updateCdGap();
-      const cell = cdTrack.children[cellIdx] as HTMLElement | undefined;
-      if (!cell) return;
 
-      const stageW = cdStage.offsetWidth;
-      const cellCenter = cell.offsetLeft + cell.offsetWidth / 2;
+      const cellCenter = cellIdx * (slideW + gapPx) + slideW / 2;
       const tx = Math.round(stageW / 2 - cellCenter);
 
       const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      if (trackAnim) trackAnim.stop();
+
       if (smooth && !reduced) {
-        cdTrack.style.transition = "transform 850ms cubic-bezier(0.65, 0, 0.35, 1)";
+        trackAnim = animate(
+          cdTrack,
+          { transform: `translate3d(${tx}px, 0, 0)` },
+          { duration: 0.85, ease: "easeInOut" }
+        );
+        trackAnim.then(() => {
+          snapCdBoundary();
+        });
       } else {
-        cdTrack.style.transition = "none";
+        cdTrack.style.transform = `translate3d(${tx}px, 0, 0)`;
       }
-      cdTrack.style.transform = `translateX(${tx}px)`;
 
       const cdStrip = document.getElementById("cd-parallax-strip");
       if (cdStrip) {
-        const slideW = cell.offsetWidth || 553;
-        const sideSpace = (stageW - slideW) / 2;
-        const targetPeek = 234;
-        const gapPx = stageW >= 900 ? Math.max(28, Math.round(sideSpace - targetPeek)) : 32;
-        const stepDist = (slideW + gapPx) * 0.18;
         const bgTx = Math.round(-bgStepIndex * stepDist);
+        if (stripAnim) stripAnim.stop();
         if (smooth && !reduced) {
-          cdStrip.style.transition = "transform 850ms cubic-bezier(0.65, 0, 0.35, 1)";
+          stripAnim = animate(
+            cdStrip,
+            { transform: `translate3d(${bgTx}px, 0, 0)` },
+            { duration: 0.85, ease: "easeInOut" }
+          );
         } else {
-          cdStrip.style.transition = "none";
+          cdStrip.style.transform = `translate3d(${bgTx}px, 0, 0)`;
         }
-        cdStrip.style.transform = `translateX(${bgTx}px)`;
       }
     }
 
@@ -683,10 +701,11 @@ const capabilities = [
 
         const chip = btn.querySelector(".cd-pager-chip");
         if (chip) {
-          chip.classList.toggle("text-white", isCurrent);
-          chip.classList.toggle("dark:text-neutral-950", isCurrent);
-          chip.classList.toggle("text-neutral-400", !isCurrent);
-          chip.classList.toggle("dark:text-neutral-500", !isCurrent);
+          if (isCurrent) {
+            chip.className = "cd-pager-chip inline-flex items-center justify-center w-full h-[26px] text-xs tracking-tight transition-colors duration-200 select-none font-machina font-light text-white dark:text-neutral-950";
+          } else {
+            chip.className = "cd-pager-chip inline-flex items-center justify-center w-full h-[26px] text-xs tracking-tight transition-colors duration-200 select-none font-machina font-light text-neutral-400 dark:text-neutral-500 hover:text-neutral-950 dark:hover:text-white";
+          }
         }
       });
 
@@ -714,6 +733,7 @@ const capabilities = [
     let ro: ResizeObserver | null = null;
     if (typeof ResizeObserver !== "undefined") {
       ro = new ResizeObserver(() => {
+        updateCdGap();
         positionCdTrack(cdCellIndex, false);
         updateCdIndicator(cdActiveIdx);
       });
@@ -721,6 +741,7 @@ const capabilities = [
     }
 
     const onResize = () => {
+      updateCdGap();
       positionCdTrack(cdCellIndex, false);
       updateCdIndicator(cdActiveIdx);
     };
@@ -794,6 +815,9 @@ const capabilities = [
       "astro:before-swap",
       () => {
         stopCdCycle();
+        trackAnim?.stop();
+        stripAnim?.stop();
+        indicatorAnim?.stop();
         ro?.disconnect();
         document.removeEventListener("visibilitychange", onVisibilityChange);
         window.removeEventListener("resize", onResize);
@@ -827,172 +851,3 @@ const capabilities = [
   }
   document.addEventListener("astro:page-load", initCdCarouselSystem);
 </script>
-
-<style>
-  .cd-stage {
-    width: 100vw;
-    overflow: hidden;
-    position: relative;
-  }
-
-  .cd-track {
-    display: flex;
-    align-items: center;
-    gap: 80px;
-    width: max-content;
-  }
-
-  .cd-track.is-snapping,
-  .cd-track.is-snapping * {
-    transition: none !important;
-  }
-
-  .cd-slide {
-    flex-shrink: 0;
-    width: 553px;
-  }
-
-  .cd-slide.is-active {
-    cursor: default;
-  }
-
-  .cd-slide.is-neighbour {
-    cursor: pointer;
-  }
-
-  /* Fade contents instead of .cd-slide itself so .cd-slide keeps opacity: 1 at all times.
-     This prevents offscreen compositing buffers from destroying backdrop-filter blur during transforms. */
-  .cd-slide .cd-cell-wordmark,
-  .cd-slide .cd-cell-label-right,
-  .cd-slide .cd-cell-label-left,
-  .cd-slide .cd-cell-empty,
-  .cd-slide .cd-cell-box > span {
-    transition: opacity 850ms cubic-bezier(0.65, 0, 0.35, 1);
-  }
-
-  .cd-slide .cd-cell-box {
-    transition: border-color 850ms cubic-bezier(0.65, 0, 0.35, 1);
-  }
-
-  .cd-slide.is-neighbour .cd-cell-wordmark,
-  .cd-slide.is-neighbour .cd-cell-label-right,
-  .cd-slide.is-neighbour .cd-cell-label-left,
-  .cd-slide.is-neighbour .cd-cell-empty,
-  .cd-slide.is-neighbour .cd-cell-box > span {
-    opacity: 0.35;
-  }
-
-  .cd-slide.is-neighbour:hover .cd-cell-wordmark,
-  .cd-slide.is-neighbour:hover .cd-cell-label-right,
-  .cd-slide.is-neighbour:hover .cd-cell-label-left,
-  .cd-slide.is-neighbour:hover .cd-cell-empty,
-  .cd-slide.is-neighbour:hover .cd-cell-box > span {
-    opacity: 0.75;
-  }
-
-  .cd-slide.is-active .cd-cell-wordmark,
-  .cd-slide.is-active .cd-cell-label-right,
-  .cd-slide.is-active .cd-cell-label-left,
-  .cd-slide.is-active .cd-cell-empty,
-  .cd-slide.is-active .cd-cell-box > span {
-    opacity: 1;
-  }
-
-  .cd-slide.is-neighbour .cd-cell-box {
-    border-color: rgba(163, 163, 163, 0.35);
-  }
-
-  :global(.dark) .cd-slide.is-neighbour .cd-cell-box {
-    border-color: rgba(64, 64, 64, 0.4);
-  }
-
-  .cd-slide.is-active .cd-cell-box {
-    border-color: rgb(212, 212, 212);
-  }
-
-  :global(.dark) .cd-slide.is-active .cd-cell-box {
-    border-color: rgb(38, 38, 38);
-  }
-
-  /* 3 Columns x 3 Rows Matrix:
-     Col 1 (175px): Row 1 Wordmark (right-aligned), Row 2 Empty, Row 3 Empty
-     Col 2 (175px): Row 1 Box 1, Row 2 Label 2, Row 3 Box 3
-     Col 3 (175px): Row 1 Label 1, Row 2 Box 2, Row 3 Label 3
-     Total width: 175 + 14 + 175 + 14 + 175 = 553px */
-  .cd-slide-grid {
-    display: grid;
-    grid-template-columns: 175px 175px 175px;
-    grid-template-rows: 56px 56px 56px;
-    column-gap: 14px;
-    row-gap: 14px;
-    align-items: center;
-    width: 553px;
-  }
-
-  .cd-cell-wordmark {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    text-align: right;
-    padding-right: 6px;
-    height: 100%;
-    min-width: 0;
-  }
-
-  .cd-cell-box {
-    display: flex;
-    align-items: center;
-    padding: 0 16px;
-    width: 100%;
-    height: 100%;
-    background: transparent !important;
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
-    box-sizing: border-box;
-    transform: translateZ(0);
-  }
-
-  .cd-cell-label-right {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    text-align: left;
-    padding-left: 2px;
-    height: 100%;
-  }
-
-  .cd-cell-label-left {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    text-align: left;
-    padding-right: 4px;
-    height: 100%;
-  }
-
-  .cd-cell-empty {
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-  }
-
-  @media (max-width: 640px) {
-    .cd-slide,
-    .cd-slide-grid {
-      width: 320px;
-      grid-template-columns: 1fr 1fr;
-      grid-template-rows: auto repeat(3, 50px);
-    }
-
-    .cd-cell-wordmark {
-      grid-column: 1 / -1;
-      justify-content: flex-start;
-      text-align: left;
-      padding-bottom: 4px;
-    }
-
-    .cd-cell-empty {
-      display: none;
-    }
-  }
-</style>
