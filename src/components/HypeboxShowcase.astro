@@ -175,10 +175,12 @@ import ActionButton from "./ActionButton.astro";
         <h4
           id="demo-session-title"
           class="text-xs font-medium text-neutral-950 dark:text-white m-0"
+          data-en="Photo Session"
+          data-id="Sesi Foto"
         >
           Photo Session
         </h4>
-        <span class="text-[10px] text-neutral-500">Simulated</span>
+        <span class="text-[10px] text-neutral-500" data-en="Simulated" data-id="Simulasi">Simulated</span>
       </header>
 
       <button
@@ -285,10 +287,12 @@ import ActionButton from "./ActionButton.astro";
         <h4
           id="demo-frame-title"
           class="text-xs font-medium text-neutral-950 dark:text-white m-0"
+          data-en="Frame Studio"
+          data-id="Studio Frame"
         >
           Frame Studio
         </h4>
-        <span class="text-[10px] text-neutral-500">Simulated</span>
+        <span class="text-[10px] text-neutral-500" data-en="Simulated" data-id="Simulasi">Simulated</span>
       </header>
 
       <!-- Infinite Scroll Frame Studio (Aesthetic Showcase) -->
@@ -516,10 +520,12 @@ import ActionButton from "./ActionButton.astro";
         <h4
           id="demo-booths-title"
           class="text-xs font-medium text-neutral-950 dark:text-white m-0"
+          data-en="Booth Operations"
+          data-id="Operasional Booth"
         >
           Booth Operations
         </h4>
-        <span class="text-[10px] text-neutral-500">Demo data</span>
+        <span class="text-[10px] text-neutral-500" data-en="Demo data" data-id="Data demo">Demo data</span>
       </header>
 
       <div
@@ -645,10 +651,12 @@ import ActionButton from "./ActionButton.astro";
         <h4
           id="demo-workflow-title"
           class="text-xs font-medium text-neutral-950 dark:text-white m-0"
+          data-en="Connected Workflow"
+          data-id="Alur Kerja Terhubung"
         >
           Connected Workflow
         </h4>
-        <span class="text-[10px] text-neutral-500">Simulated</span>
+        <span class="text-[10px] text-neutral-500" data-en="Simulated" data-id="Simulasi">Simulated</span>
       </header>
 
       <ol id="workflow-steps" class="px-3 pt-3 space-y-0.5 list-none m-0">
@@ -665,6 +673,8 @@ import ActionButton from "./ActionButton.astro";
               >1</span
             >
             <span
+              data-en="Capture"
+              data-id="Tangkap"
               class="text-xs text-neutral-500 dark:text-neutral-400 group-data-[state=active]:text-neutral-950 dark:group-data-[state=active]:text-white group-data-[state=active]:font-medium group-data-[state=done]:text-neutral-700 dark:group-data-[state=done]:text-neutral-300 transition-colors duration-200 ease-out"
               >Capture</span
             >
@@ -682,6 +692,8 @@ import ActionButton from "./ActionButton.astro";
               >2</span
             >
             <span
+              data-en="Compose"
+              data-id="Susun"
               class="text-xs text-neutral-500 dark:text-neutral-400 group-data-[state=active]:text-neutral-950 dark:group-data-[state=active]:text-white group-data-[state=active]:font-medium group-data-[state=done]:text-neutral-700 dark:group-data-[state=done]:text-neutral-300 transition-colors duration-200 ease-out"
               >Compose</span
             >
@@ -699,6 +711,8 @@ import ActionButton from "./ActionButton.astro";
               >3</span
             >
             <span
+              data-en="Telemetry"
+              data-id="Telemetri"
               class="text-xs text-neutral-500 dark:text-neutral-400 group-data-[state=active]:text-neutral-950 dark:group-data-[state=active]:text-white group-data-[state=active]:font-medium group-data-[state=done]:text-neutral-700 dark:group-data-[state=done]:text-neutral-300 transition-colors duration-200 ease-out"
               >Telemetry</span
             >
@@ -716,6 +730,8 @@ import ActionButton from "./ActionButton.astro";
               >4</span
             >
             <span
+              data-en="Dispatch"
+              data-id="Kirim"
               class="text-xs text-neutral-500 dark:text-neutral-400 group-data-[state=active]:text-neutral-950 dark:group-data-[state=active]:text-white group-data-[state=active]:font-medium group-data-[state=done]:text-neutral-700 dark:group-data-[state=done]:text-neutral-300 transition-colors duration-200 ease-out"
               >Dispatch</span
             >
@@ -903,30 +919,18 @@ import ActionButton from "./ActionButton.astro";
   }
 
   // ───────────────────────── Demo 2: Frame Studio ─────────────────────────
-  const framePanelSelector = document.getElementById("frame-panel-selector");
   const selectorCols = Array.from(
     document.querySelectorAll<HTMLElement>(".selector-col"),
   );
-  let singleSetHeight = 0;
-  let colBaseMiddles: number[] = [];
-
-  const measureSelectorCols = () => {
-    const firstCol = selectorCols[0];
-    if (!firstCol || firstCol.scrollHeight === 0) return;
-    singleSetHeight = firstCol.scrollHeight / 4;
-    colBaseMiddles = selectorCols.map((col) => -(col.scrollHeight / 2));
-  };
 
   if (selectorCols.length > 0) {
-    selectorCols.forEach((col) => {
+    selectorCols.forEach((col, idx) => {
       if (col.dataset.cloned === "true") return;
       col.dataset.cloned = "true";
-      const baseMarkup = col.innerHTML;
-      col.innerHTML = baseMarkup.repeat(4);
-    });
-    measureSelectorCols();
-    selectorCols.forEach((col, i) => {
-      col.style.transform = `translate3d(0, ${colBaseMiddles[i] || 0}px, 0)`;
+      col.innerHTML = col.innerHTML + col.innerHTML;
+      if (!reduceMotion) {
+        col.classList.add(idx % 2 === 0 ? "marquee-col-down" : "marquee-col-up");
+      }
     });
   }
 
@@ -1044,12 +1048,20 @@ import ActionButton from "./ActionButton.astro";
   );
   const workflowDesc = document.getElementById("workflow-desc");
   const workflowNext = document.getElementById("workflow-next");
-  const workflowCopy = [
-    "Tethered camera sequence captures timed exposures with hardware flash synchronization.",
-    "WebGL compositor stitches high-res exposures into the selected template canvas in real-time.",
-    "Queued prints and analytics stream to the fleet management portal.",
-    "High-speed dye-sub printer outputs the physical cut strip while generating a private guest QR.",
-  ];
+  const workflowCopy = {
+    en: [
+      "Tethered camera sequence captures timed exposures with hardware flash synchronization.",
+      "WebGL compositor stitches high-res exposures into the selected template canvas in real-time.",
+      "Queued prints and analytics stream to the fleet management portal.",
+      "High-speed dye-sub printer outputs the physical cut strip while generating a private guest QR.",
+    ],
+    id: [
+      "Rangkaian kamera tertambat menangkap eksposur berjangka dengan sinkronisasi lampu kilat perangkat keras.",
+      "Kompositor WebGL merender eksposur resolusi tinggi ke kanvas template secara langsung.",
+      "Antrean cetak dan analitik dialirkan ke portal manajemen armada.",
+      "Printer dye-sub berkecepatan tinggi mencetak potongan strip fisik sembari membuat QR pribadi untuk tamu.",
+    ],
+  };
   let workflowIdx = 0;
 
   const renderWorkflow = (idx: number) => {
@@ -1059,9 +1071,14 @@ import ActionButton from "./ActionButton.astro";
       if (i === idx) el.setAttribute("aria-current", "step");
       else el.removeAttribute("aria-current");
     });
-    if (workflowDesc) workflowDesc.textContent = workflowCopy[idx];
+    if (workflowDesc) {
+      const isId = document.documentElement.lang === "id";
+      workflowDesc.setAttribute("data-en", workflowCopy.en[idx]);
+      workflowDesc.setAttribute("data-id", workflowCopy.id[idx]);
+      workflowDesc.textContent = isId ? workflowCopy.id[idx] : workflowCopy.en[idx];
+    }
     if (workflowNext) {
-      const isLast = idx === workflowCopy.length - 1;
+      const isLast = idx === workflowCopy.en.length - 1;
       workflowNext.dataset.mode = isLast ? "replay" : "next";
       workflowNext.setAttribute(
         "aria-label",
@@ -1075,7 +1092,7 @@ import ActionButton from "./ActionButton.astro";
   );
   workflowNext?.addEventListener("click", () => {
     renderWorkflow(
-      workflowIdx === workflowCopy.length - 1 ? 0 : workflowIdx + 1,
+      workflowIdx === workflowCopy.en.length - 1 ? 0 : workflowIdx + 1,
     );
   });
 
@@ -1090,8 +1107,6 @@ import ActionButton from "./ActionButton.astro";
   const maxDepth = 1000;
   const focalLength = 200;
   const starfieldSpeed = 1.0;
-  const selectorSpeed = 0.75;
-  let selectorScrollPos = 0;
   let stageWidth = 0;
   let stageHeight = 0;
   let rafId: number | null = null;
@@ -1133,7 +1148,6 @@ import ActionButton from "./ActionButton.astro";
       starfieldCanvas.height = stageHeight * dpr;
       if (ctx) ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     }
-    measureSelectorCols();
   };
 
   window.addEventListener("resize", resizeStageAndCols, { passive: true });
@@ -1209,24 +1223,6 @@ import ActionButton from "./ActionButton.astro";
       return;
     }
 
-    if (
-      selectorCols.length > 0 &&
-      !framePanelSelector?.classList.contains("hidden")
-    ) {
-      if (singleSetHeight === 0) measureSelectorCols();
-      if (singleSetHeight > 0) {
-        selectorScrollPos += selectorSpeed;
-        if (selectorScrollPos >= singleSetHeight) {
-          selectorScrollPos -= singleSetHeight;
-        }
-        for (let i = 0; i < selectorCols.length; i++) {
-          const delta = selectorScrollPos * (i % 2 === 0 ? 1 : -1);
-          selectorCols[i].style.transform =
-            `translate3d(0, ${colBaseMiddles[i] + delta}px, 0)`;
-        }
-      }
-    }
-
     drawStarfieldFrame(true);
     rafId = requestAnimationFrame(tickShowcase);
   };
@@ -1248,8 +1244,9 @@ import ActionButton from "./ActionButton.astro";
     }
   };
 
+  let visibilityObserver: IntersectionObserver | null = null;
   if (showcase && "IntersectionObserver" in window) {
-    const visibilityObserver = new IntersectionObserver(
+    visibilityObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           isShowcaseVisible = entry.isIntersecting;
@@ -1277,13 +1274,26 @@ import ActionButton from "./ActionButton.astro";
     }
   });
 
+  let themeObserver: MutationObserver | null = null;
   if (reduceMotion && "MutationObserver" in window) {
-    const themeObserver = new MutationObserver(() => drawStarfieldFrame(false));
+    themeObserver = new MutationObserver(() => drawStarfieldFrame(false));
     themeObserver.observe(document.documentElement, {
       attributes: true,
       attributeFilter: ["class"],
     });
   }
+
+  document.addEventListener(
+    "astro:before-swap",
+    () => {
+      stopShowcaseLoop();
+      stopBoothCycle();
+      visibilityObserver?.disconnect();
+      themeObserver?.disconnect();
+      window.removeEventListener("resize", resizeStageAndCols);
+    },
+    { once: true },
+  );
 
   startShowcaseLoop();
 </script>
@@ -1308,5 +1318,40 @@ import ActionButton from "./ActionButton.astro";
       #000 85%,
       transparent 100%
     );
+  }
+
+  @keyframes marquee-down {
+    0% {
+      transform: translate3d(0, -50%, 0);
+    }
+    100% {
+      transform: translate3d(0, 0, 0);
+    }
+  }
+
+  @keyframes marquee-up {
+    0% {
+      transform: translate3d(0, 0, 0);
+    }
+    100% {
+      transform: translate3d(0, -50%, 0);
+    }
+  }
+
+  .marquee-col-down {
+    animation: marquee-down 18s linear infinite;
+    will-change: transform;
+  }
+
+  .marquee-col-up {
+    animation: marquee-up 18s linear infinite;
+    will-change: transform;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .marquee-col-down,
+    .marquee-col-up {
+      animation: none !important;
+    }
   }
 </style>
