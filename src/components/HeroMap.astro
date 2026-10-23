@@ -12,7 +12,7 @@ interface Props {
 const {
   lat = -6.5983,
   lng = 106.7994,
-  zoom = 13,
+  zoom = 14,
   interactive = false,
 } = Astro.props;
 
@@ -509,12 +509,28 @@ const scrimPresets = [
   .leaflet-control-attribution {
     display: none !important;
   }
-  .krl-rail-trail {
+  .krl-rail-trail,
+  .krl-rail-trail-core {
     stroke: #059669;
+    stroke-linecap: round;
+    stroke-linejoin: round;
     pointer-events: none;
   }
-  html.dark .krl-rail-trail {
+  html.dark .krl-rail-trail,
+  html.dark .krl-rail-trail-core {
     stroke: var(--color-accent, #BCFF1C);
+    filter: drop-shadow(0 0 3px rgba(188, 255, 28, 0.35));
+  }
+  .krl-rail-trail-branch {
+    stroke: #059669;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-opacity: 0.45;
+    pointer-events: none;
+  }
+  html.dark .krl-rail-trail-branch {
+    stroke: var(--color-accent, #BCFF1C);
+    stroke-opacity: 0.45;
   }
 </style>
 
@@ -594,7 +610,7 @@ const scrimPresets = [
       };
 
       const getBogorTarget = (customZoom?: number) => {
-        const zoom = customZoom ?? 13;
+        const zoom = customZoom ?? 14;
         const rawCoords: [number, number] = [-6.5983, 106.7994];
         const center = calculateMapCenterForTarget(rawCoords, zoom);
         return {
@@ -617,7 +633,7 @@ const scrimPresets = [
 
       const map = L.map(mapEl, {
         center: [-6.5983, 106.7994],
-        zoom: 13,
+        zoom: 14,
         zoomControl: false,
         attributionControl: false,
         dragging: isInteractive,
@@ -811,11 +827,13 @@ const scrimPresets = [
       // const sessionTrack = heroTracks[Math.floor(Math.random() * heroTracks.length)];
       const sessionTrack = heroTracks.find((t) => t.id === 'kebun-raya') || heroTracks[0];
       const activePolyline = L.polyline([], {
-        className: 'krl-rail-trail',
-        weight: 1.5,
-        opacity: 0.85,
+        className: 'krl-rail-trail-core',
+        weight: 2.2,
+        opacity: 0.95,
         interactive: false,
       }).addTo(map);
+
+      const branchGroup = L.featureGroup([]).addTo(map);
 
       const trailContainer = document.getElementById('hero-ruler-trail');
       const trailNameEl = document.getElementById('hero-ruler-trail-name');
@@ -823,34 +841,40 @@ const scrimPresets = [
       const showRandomTrail = () => {
         if (!sessionTrack) return;
         activePolyline.setLatLngs(sessionTrack.coords as any);
-        if (trailNameEl) trailNameEl.textContent = `${sessionTrack.name} [${sessionTrack.tag}]`;
+
+        branchGroup.clearLayers();
+        if ((sessionTrack as any).branches) {
+          (sessionTrack as any).branches.forEach((b: any) => {
+            L.polyline(b.coords, {
+              className: 'krl-rail-trail-branch',
+              weight: 1.2,
+              opacity: 0.45,
+              interactive: false,
+            }).addTo(branchGroup);
+          });
+        }
+
+        if (trailNameEl) {
+          trailNameEl.textContent = 'BOGOR BOTANICAL NETWORK [ARTERIAL CORRIDORS]';
+        }
 
         if (trailContainer) {
           trailContainer.classList.remove('opacity-0', 'translate-y-1', 'pointer-events-none');
           trailContainer.classList.add('opacity-100', 'translate-y-0');
         }
 
-        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        const isDesktop = window.innerWidth >= 768;
-        const bounds = activePolyline.getBounds();
-
-        if (isDesktop) {
-          const leftPad = Math.round(window.innerWidth * 0.44);
-          const rightPad = Math.round(window.innerWidth * 0.08);
-          map.fitBounds(bounds, {
-            paddingTopLeft: [leftPad, 60],
-            paddingBottomRight: [rightPad, 90],
-            maxZoom: 14,
-            animate: !prefersReducedMotion,
-            duration: prefersReducedMotion ? 0 : 1.2
-          });
-        } else {
-          map.fitBounds(bounds, {
-            padding: [40, 40],
-            maxZoom: 14,
-            animate: !prefersReducedMotion,
-            duration: prefersReducedMotion ? 0 : 1.2
-          });
+        // Trail shares the exact same camera & anchoring as the initial hero state (zero motion/resource overhead)
+        if (isJabodetabek) {
+          isJabodetabek = false;
+          if (badgeBox) badgeBox.setAttribute('data-view', 'bogor');
+          if (locationTitle) locationTitle.textContent = 'BOGOR';
+          const target = getBogorTarget();
+          const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+          if (prefersReducedMotion) {
+            map.setView(target.center, target.zoom);
+          } else {
+            map.flyTo(target.center, target.zoom, { duration: 1.2 });
+          }
         }
       };
 
@@ -861,14 +885,7 @@ const scrimPresets = [
         }
 
         activePolyline.setLatLngs([]);
-
-        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        const target = isJabodetabek ? getJabodetabekTarget() : getBogorTarget();
-        if (prefersReducedMotion) {
-          map.setView(target.center, target.zoom);
-        } else {
-          map.flyTo(target.center, target.zoom, { duration: 1.2 });
-        }
+        branchGroup.clearLayers();
       };
 
       window.addEventListener('portfolio:bio-reveal-change', (e: any) => {
