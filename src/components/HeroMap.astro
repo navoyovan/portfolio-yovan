@@ -807,7 +807,9 @@ const scrimPresets = [
       window.removeEventListener('portfolio:lang-change', updateMapLabels);
       window.addEventListener('portfolio:lang-change', updateMapLabels);
 
-      // Live Road & Transit Tracks (Triggered on scroll with bio section)
+      // Live Road & Transit Tracks (Locked to Bogor Botanical Ring; randomized multi-track code preserved below)
+      // const sessionTrack = heroTracks[Math.floor(Math.random() * heroTracks.length)];
+      const sessionTrack = heroTracks.find((t) => t.id === 'kebun-raya') || heroTracks[0];
       const activePolyline = L.polyline([], {
         className: 'krl-rail-trail',
         weight: 1.5,
@@ -817,18 +819,11 @@ const scrimPresets = [
 
       const trailContainer = document.getElementById('hero-ruler-trail');
       const trailNameEl = document.getElementById('hero-ruler-trail-name');
-      let lastRandomIdx = -1;
 
       const showRandomTrail = () => {
-        let randIdx = Math.floor(Math.random() * heroTracks.length);
-        if (randIdx === lastRandomIdx && heroTracks.length > 1) {
-          randIdx = (randIdx + 1) % heroTracks.length;
-        }
-        lastRandomIdx = randIdx;
-        const track = heroTracks[randIdx];
-
-        activePolyline.setLatLngs(track.coords as any);
-        if (trailNameEl) trailNameEl.textContent = `${track.name} [${track.tag}]`;
+        if (!sessionTrack) return;
+        activePolyline.setLatLngs(sessionTrack.coords as any);
+        if (trailNameEl) trailNameEl.textContent = `${sessionTrack.name} [${sessionTrack.tag}]`;
 
         if (trailContainer) {
           trailContainer.classList.remove('opacity-0', 'translate-y-1', 'pointer-events-none');
