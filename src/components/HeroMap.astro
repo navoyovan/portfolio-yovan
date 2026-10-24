@@ -560,32 +560,11 @@ const scrimPresets = [
     const lng = parseFloat(widget.dataset.lng || '106.7640');
     const zoom = parseInt(widget.dataset.zoom || '14', 10);
 
-    const loadScript = (src: string): Promise<void> => {
-      return new Promise((resolve, reject) => {
-        if (document.querySelector(`script[src="${src}"]`)) {
-          resolve();
-          return;
-        }
-        const s = document.createElement('script');
-        s.src = src;
-        s.onload = () => resolve();
-        s.onerror = reject;
-        document.head.appendChild(s);
-      });
-    };
-
-    const loadCSS = (href: string) => {
-      if (document.querySelector(`link[href="${href}"]`)) return;
-      const link = document.createElement('link');
-      link.rel = 'stylesheet';
-      link.href = href;
-      document.head.appendChild(link);
-    };
-
-    loadCSS('https://unpkg.com/leaflet@1.9.4/dist/leaflet.css');
-
-    loadScript('https://unpkg.com/leaflet@1.9.4/dist/leaflet.js').then(() => {
-      const L = (window as any).L;
+    Promise.all([
+      import('../vendor/leaflet/leaflet.esm.js'),
+      import('../vendor/leaflet/leaflet.css'),
+    ]).then(([L]) => {
+      (window as any).L = L;
       if (!L) return;
 
       if ((mapEl as any)._leaflet_map) {
