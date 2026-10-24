@@ -67,7 +67,7 @@ const scrimPresets = [
   <div
     id="hero-leaflet-map"
     aria-hidden={interactive ? "false" : "true"}
-    class="w-full h-full bg-[#fcfbf9] dark:bg-[#090909] opacity-90 dark:opacity-80"
+    class="w-full h-full bg-[#fcfbf9] dark:bg-transparent"
     style="contain: paint; backface-visibility: hidden;"
   ></div>
 
@@ -130,6 +130,19 @@ const scrimPresets = [
 
 
 
+
+  <!-- Tuned Road Suppressor Filter: gently compresses road contrast while keeping natural land visibility -->
+  <svg class="sr-only" aria-hidden="true" focusable="false" style="position: absolute; width: 0; height: 0; pointer-events: none;">
+    <defs>
+      <filter id="suppress-road-lines" color-interpolation-filters="sRGB">
+        <feComponentTransfer id="suppress-component-transfer">
+          <feFuncR id="suppress-func-r" type="linear" slope="0.45" intercept="0.03" />
+          <feFuncG id="suppress-func-g" type="linear" slope="0.45" intercept="0.03" />
+          <feFuncB id="suppress-func-b" type="linear" slope="0.45" intercept="0.03" />
+        </feComponentTransfer>
+      </filter>
+    </defs>
+  </svg>
 
   <!-- Dynamic Gradient Scrim Overlays -->
   <div id="hero-map-scrim-container" aria-hidden="true" class="pointer-events-none select-none z-[1]">
@@ -493,8 +506,8 @@ const scrimPresets = [
 <style is:global>
   /* Clean Leaflet Overrides */
   html.dark #hero-leaflet-map .leaflet-tile-pane {
-    filter: brightness(0.48) contrast(0.92);
-    opacity: 0.85;
+    filter: brightness(0.58) contrast(0.96);
+    opacity: 0.6;
   }
 
 
