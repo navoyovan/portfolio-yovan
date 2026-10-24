@@ -1,30 +1,29 @@
 ---
-// src/components/EndSkyBackground.astro
-// Minecraft End Sky: Authentic end_sky.png tiling with live Zoom & Alpha controls and parallax
+// src/components/AmbientTextureBackground.astro
+// Ambient WebGL Texture Shader: Pure vertical scroll parallax (zero side sway, zero idle overhead)
 const rawBase = import.meta.env.BASE_URL;
 const base = rawBase.endsWith('/') ? rawBase.slice(0, -1) : rawBase;
-const textureUrl = `${base}/end_sky.png`;
+const textureUrl = `${base}/ambient-texture.png`;
 ---
 
-<div id="end-sky-container" data-texture-url={textureUrl}>
+<div id="ambient-texture-container" data-texture-url={textureUrl}>
   <canvas
-    id="end-sky-canvas"
+    id="ambient-texture-canvas"
     class="fixed inset-0 w-full h-full pointer-events-none z-0 mix-blend-screen transition-opacity duration-300 opacity-0 dark:opacity-100 select-none"
     aria-hidden="true"
   ></canvas>
 </div>
 
 <script>
-  function initEndSkyShader() {
-    const container = document.getElementById('end-sky-container');
-    const canvas = document.getElementById('end-sky-canvas') as HTMLCanvasElement | null;
+  function initAmbientTextureShader() {
+    const container = document.getElementById('ambient-texture-container');
+    const canvas = document.getElementById('ambient-texture-canvas') as HTMLCanvasElement | null;
 
     if (!canvas || !container) return;
-    if ((canvas as any).__skyInitialized) return;
-    (canvas as any).__skyInitialized = true;
+    if ((canvas as any).__ambientShaderInitialized) return;
+    (canvas as any).__ambientShaderInitialized = true;
 
-    const textureUrl = container.getAttribute('data-texture-url') || '/portfolio-yovan/end_sky.png';
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const textureUrl = container.getAttribute('data-texture-url') || '/portfolio-yovan/ambient-texture.png';
 
     const gl = canvas.getContext('webgl', {
       alpha: true,
@@ -47,7 +46,6 @@ const textureUrl = `${base}/end_sky.png`;
     const fsSource = `
       precision mediump float;
       uniform vec2 u_resolution;
-      uniform float u_time;
       uniform float u_scroll;
       uniform float u_zoom;
       uniform float u_alpha;
@@ -58,8 +56,8 @@ const textureUrl = `${base}/end_sky.png`;
         vec2 aspect = vec2(u_resolution.x / u_resolution.y, 1.0);
         vec2 p = uv * aspect;
 
-        float t = u_time * 0.015;
-        vec2 drift = vec2(t * 0.2, -u_scroll * 0.0006);
+        // Direct vertical parallax: zero horizontal sway, responsive noticeable depth
+        vec2 drift = vec2(0.0, -u_scroll * 0.0022);
         vec2 texCoord = fract(p * (4.0 * u_zoom) + drift);
         vec4 tex = texture2D(u_texture, texCoord);
 
@@ -110,7 +108,6 @@ const textureUrl = `${base}/end_sky.png`;
     gl.vertexAttribPointer(positionLocation, 2, gl.FLOAT, false, 0, 0);
 
     const resolutionLocation = gl.getUniformLocation(program, 'u_resolution');
-    const timeLocation = gl.getUniformLocation(program, 'u_time');
     const scrollLocation = gl.getUniformLocation(program, 'u_scroll');
     const zoomLocation = gl.getUniformLocation(program, 'u_zoom');
     const alphaLocation = gl.getUniformLocation(program, 'u_alpha');
@@ -143,21 +140,40 @@ const textureUrl = `${base}/end_sky.png`;
       gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.REPEAT);
       gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
       gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+      requestRender();
     };
 
-    // ── Locked-in defaults: Zoom = 0.80, Alpha = 0.05 (Headless / Controls Removed) ──
+    // ── Locked-in defaults: Zoom = 0.80, Alpha = 0.05 ──
     const currentZoom = 0.80;
     const currentAlpha = 0.05;
 
-    let animationFrameId: number | null = null;
-    let startTime = performance.now();
     let isDark = document.documentElement.classList.contains('dark');
     let isPaused = !isDark;
-    let currentScroll = window.scrollY || window.pageYOffset || 0;
-    let targetScroll = currentScroll;
+    let renderRequested = false;
+
+    function render() {
+      renderRequested = false;
+      if (!gl || isPaused) return;
+
+      const currentScroll = window.scrollY || window.pageYOffset || 0;
+
+      gl.uniform2f(resolutionLocation, canvas!.width, canvas!.height);
+      gl.uniform1f(scrollLocation, currentScroll);
+      gl.uniform1f(zoomLocation, currentZoom);
+      gl.uniform1f(alphaLocation, currentAlpha);
+      gl.uniform1i(textureLocation, 0);
+
+      gl.drawArrays(gl.TRIANGLES, 0, 6);
+    }
+
+    function requestRender() {
+      if (renderRequested || isPaused || !gl) return;
+      renderRequested = true;
+      requestAnimationFrame(render);
+    }
 
     function onScroll() {
-      targetScroll = window.scrollY || window.pageYOffset || 0;
+      requestRender();
     }
     window.addEventListener('scroll', onScroll, { passive: true });
 
@@ -172,33 +188,15 @@ const textureUrl = `${base}/end_sky.png`;
         canvas.height = height;
         gl.viewport(0, 0, width, height);
       }
+      requestRender();
     }
 
     resize();
     window.addEventListener('resize', resize, { passive: true });
 
-    function render(currentTime: number) {
-      if (!gl || isPaused) return;
-
-      const elapsed = prefersReducedMotion ? 0 : (currentTime - startTime) * 0.001;
-      currentScroll += (targetScroll - currentScroll) * 0.12;
-
-      gl.uniform2f(resolutionLocation, canvas!.width, canvas!.height);
-      gl.uniform1f(timeLocation, elapsed);
-      gl.uniform1f(scrollLocation, currentScroll);
-      gl.uniform1f(zoomLocation, currentZoom);
-      gl.uniform1f(alphaLocation, currentAlpha);
-      gl.uniform1i(textureLocation, 0);
-
-      gl.drawArrays(gl.TRIANGLES, 0, 6);
-
-      if (!prefersReducedMotion && !isPaused) {
-        animationFrameId = requestAnimationFrame(render);
-      }
-    }
-
-    if (isDark && !prefersReducedMotion) {
-      animationFrameId = requestAnimationFrame(render);
+    // Initial render if in dark mode
+    if (isDark) {
+      requestRender();
     }
 
     const themeObserver = new MutationObserver(() => {
@@ -207,15 +205,9 @@ const textureUrl = `${base}/end_sky.png`;
         isDark = newDark;
         if (isDark && !document.hidden) {
           isPaused = false;
-          if (!prefersReducedMotion && animationFrameId === null) {
-            animationFrameId = requestAnimationFrame(render);
-          }
+          requestRender();
         } else {
           isPaused = true;
-          if (animationFrameId !== null) {
-            cancelAnimationFrame(animationFrameId);
-            animationFrameId = null;
-          }
         }
       }
     });
@@ -224,15 +216,9 @@ const textureUrl = `${base}/end_sky.png`;
     function onVisibilityChange() {
       if (document.hidden || !isDark) {
         isPaused = true;
-        if (animationFrameId !== null) {
-          cancelAnimationFrame(animationFrameId);
-          animationFrameId = null;
-        }
       } else {
         isPaused = false;
-        if (!prefersReducedMotion && animationFrameId === null) {
-          animationFrameId = requestAnimationFrame(render);
-        }
+        requestRender();
       }
     }
 
@@ -241,10 +227,6 @@ const textureUrl = `${base}/end_sky.png`;
     document.addEventListener(
       'astro:before-swap',
       () => {
-        if (animationFrameId !== null) {
-          cancelAnimationFrame(animationFrameId);
-          animationFrameId = null;
-        }
         themeObserver.disconnect();
         window.removeEventListener('scroll', onScroll);
         window.removeEventListener('resize', resize);
@@ -264,9 +246,9 @@ const textureUrl = `${base}/end_sky.png`;
   }
 
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initEndSkyShader);
+    document.addEventListener('DOMContentLoaded', initAmbientTextureShader);
   } else {
-    initEndSkyShader();
+    initAmbientTextureShader();
   }
-  document.addEventListener('astro:page-load', initEndSkyShader);
+  document.addEventListener('astro:page-load', initAmbientTextureShader);
 </script>
