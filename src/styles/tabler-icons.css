@@ -1,0 +1,68 @@
+/* Tabler Icons Subset (47 icons - 100% official vector glyphs) */
+@font-face {
+  font-family: 'tabler-icons';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('./fonts/tabler-icons.woff2') format('woff2');
+}
+
+.ti {
+  font-family: 'tabler-icons' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.ti-accessible:before { content: "\eba9"; }
+.ti-api:before { content: "\effd"; }
+.ti-app-window:before { content: "\efe6"; }
+.ti-apps:before { content: "\ebb6"; }
+.ti-arrows-exchange:before { content: "\f1f4"; }
+.ti-atom-2:before { content: "\ebdf"; }
+.ti-brand-astro:before { content: "\fdb9"; }
+.ti-brand-c-sharp:before { content: "\f003"; }
+.ti-brand-css3:before { content: "\ed6b"; }
+.ti-brand-docker:before { content: "\edca"; }
+.ti-brand-framer-motion:before { content: "\f78c"; }
+.ti-brand-git:before { content: "\ef6f"; }
+.ti-brand-github:before { content: "\ec1c"; }
+.ti-brand-javascript:before { content: "\ef0c"; }
+.ti-brand-laravel:before { content: "\f34b"; }
+.ti-brand-linkedin:before { content: "\ec8c"; }
+.ti-brand-mysql:before { content: "\f614"; }
+.ti-brand-nodejs:before { content: "\fae0"; }
+.ti-brand-php:before { content: "\ef72"; }
+.ti-brand-react:before { content: "\f34c"; }
+.ti-brand-tailwind:before { content: "\eca1"; }
+.ti-brand-threejs:before { content: "\f5f0"; }
+.ti-brand-typescript:before { content: "\f5f1"; }
+.ti-brand-vite:before { content: "\f5f2"; }
+.ti-broadcast:before { content: "\f1e9"; }
+.ti-browser:before { content: "\ebb7"; }
+.ti-chart-line:before { content: "\ea5c"; }
+.ti-cloud:before { content: "\ea76"; }
+.ti-cloud-upload:before { content: "\ea75"; }
+.ti-cpu:before { content: "\ef8e"; }
+.ti-credit-card:before { content: "\ea84"; }
+.ti-cube:before { content: "\fa97"; }
+.ti-database:before { content: "\ea88"; }
+.ti-database-cog:before { content: "\fa10"; }
+.ti-download:before { content: "\ea96"; }
+.ti-file-text:before { content: "\eaa2"; }
+.ti-hand-click:before { content: "\ef4f"; }
+.ti-keyframes:before { content: "\f585"; }
+.ti-layout-dashboard:before { content: "\f02c"; }
+.ti-mail:before { content: "\eae5"; }
+.ti-map-2:before { content: "\eae7"; }
+.ti-plug-connected:before { content: "\f00a"; }
+.ti-search:before { content: "\eb1c"; }
+.ti-select:before { content: "\ec9e"; }
+.ti-shield-check:before { content: "\eb22"; }
+.ti-sparkles:before { content: "\f6d7"; }
+.ti-track:before { content: "\ef00"; }
