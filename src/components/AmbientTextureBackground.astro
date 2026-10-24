@@ -46,7 +46,7 @@ const textureUrl = `${base}/ambient-texture.png`;
     const fsSource = `
       precision mediump float;
       uniform vec2 u_resolution;
-      uniform float u_scroll;
+      uniform vec2 u_scroll;
       uniform float u_zoom;
       uniform float u_alpha;
       uniform sampler2D u_texture;
@@ -56,8 +56,8 @@ const textureUrl = `${base}/ambient-texture.png`;
         vec2 aspect = vec2(u_resolution.x / u_resolution.y, 1.0);
         vec2 p = uv * aspect;
 
-        // Direct vertical parallax: zero horizontal sway, responsive noticeable depth
-        vec2 drift = vec2(0.0, -u_scroll * 0.0022);
+        // Dual-axis parallax: inverted sign and gentler speed for horizontal card carousel
+        vec2 drift = vec2(u_scroll.x * 0.0007, -u_scroll.y * 0.0022);
         vec2 texCoord = fract(p * (4.0 * u_zoom) + drift);
         vec4 tex = texture2D(u_texture, texCoord);
 
@@ -151,14 +151,20 @@ const textureUrl = `${base}/ambient-texture.png`;
     let isPaused = !isDark;
     let renderRequested = false;
 
+    function getHorizontalScroll(): number {
+      const el = document.getElementById('others-scroll-container');
+      return el ? el.scrollLeft : 0;
+    }
+
     function render() {
       renderRequested = false;
       if (!gl || isPaused) return;
 
-      const currentScroll = window.scrollY || window.pageYOffset || 0;
+      const currentScrollY = window.scrollY || window.pageYOffset || 0;
+      const currentScrollX = getHorizontalScroll();
 
       gl.uniform2f(resolutionLocation, canvas!.width, canvas!.height);
-      gl.uniform1f(scrollLocation, currentScroll);
+      gl.uniform2f(scrollLocation, currentScrollX, currentScrollY);
       gl.uniform1f(zoomLocation, currentZoom);
       gl.uniform1f(alphaLocation, currentAlpha);
       gl.uniform1i(textureLocation, 0);
@@ -175,7 +181,17 @@ const textureUrl = `${base}/ambient-texture.png`;
     function onScroll() {
       requestRender();
     }
-    window.addEventListener('scroll', onScroll, { passive: true });
+    // Capture phase ensures scroll events on internal horizontal containers also trigger redraw
+    window.addEventListener('scroll', onScroll, { passive: true, capture: true });
+
+    const bindHorizontal = () => {
+      const el = document.getElementById('others-scroll-container');
+      if (el) {
+        el.addEventListener('scroll', requestRender, { passive: true });
+      }
+    };
+    bindHorizontal();
+    document.addEventListener('astro:page-load', bindHorizontal);
 
     function resize() {
       if (!canvas || !gl) return;
@@ -228,7 +244,8 @@ const textureUrl = `${base}/ambient-texture.png`;
       'astro:before-swap',
       () => {
         themeObserver.disconnect();
-        window.removeEventListener('scroll', onScroll);
+        window.removeEventListener('scroll', onScroll, { capture: true } as any);
+        document.removeEventListener('astro:page-load', bindHorizontal);
         window.removeEventListener('resize', resize);
         document.removeEventListener('visibilitychange', onVisibilityChange);
 
